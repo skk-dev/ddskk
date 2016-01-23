@@ -34,7 +34,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 16.0.52
-@set UPDATED Date: 2015/02/26 20:46:00
+@set UPDATED Date: 2016/1/23 18:12:27
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -363,6 +363,7 @@ DDSKK の主な特徴は、次のとおりです。
 @item DDSKK 本体 (Emacs Lisp) と辞書ファイルのみで動作可能。つまり、辞書サーバは必須ではなく、辞書サーバがダウンしていても使用できる。
 @item 辞書サーバを使うことで、使用メモリの削減が可能。
 @item ディスク容量に応じて選べる辞書ファイル。
+@item 辞書ファイルの一括ダウンロード機能。
 @item Emacs のオリジナル操作と同様に行える日本語インクリメンタル・サーチ。
 @item Emacs Lisp で書かれたプログラムが返す値を変換候補に挙げることができる。
 @item 入力モードの自動切り替え @file{context-skk.el}
@@ -674,14 +675,50 @@ edict 辞書(英和辞書)
 
 @url{http://openlab.jp/skk/skk/dic/READMEs/committers.txt}
 
+@kindex M-x skk-get
+@defun {コマンド} skk-get
+
+Emacs の使用中に @kbd{M-x skk-get} と実行すると、辞書ファイルを一括ダウン
+ロードすることができます。
+
+@end defun
+
+@defun skk-get &optional DIRECTORY
+
+@code{skk-get} を関数として使用することで、ユーザプログラムの中からでも辞
+書ファイルを一括ダウンロードすることができます
+
+@lisp
+@group
+(skk-get "~/jisyofiles")
+@end group
+@end lisp
+
+@end defun
+
 @node 辞書を DDSKK と同時にインストールする
 @section 辞書を DDSKK と同時にインストールする
 
 DDSKK のソースを展開すると、中に @file{dic} というディレクトリが存在しま
 す。@file{SKK-JISYO.L} などをこのディレクトリにコピーしてから @command{make install} を
 実行すると、辞書ファイルがチュートリアル (@file{SKK.tut}) と同じディ
-レクトリ (@file{/usr/share/skk} や @file{c:/emacs-24.2/etc/skk} など) に
+レクトリ (@file{/usr/share/skk} や @file{c:/emacs-24.5/etc/skk} など) に
 インストールされます。
+
+@file{dic} ディレクトリに辞書ファイルを置くためには @command{make get} と
+実行するのが簡単です@footnote{Microsoft Windows 環境では @command{makeit.bat get} と
+実行します。}。
+
+@file{dic} ディレクトリに辞書ファイルが置かれている場合、@command{make what-where} 実
+行時に辞書ファイルのインストール先も表示します。
+
+@example
+@group
+@print{}SKK dictionaries:
+@print{}  SKK-JISYO.lisp, SKK-JISYO.zipcode, SKK-JISYO.office.zipcode, @dots{}
+@print{}  -> c:/emacs-24.5/share/emacs/24.5/etc/skk
+@end group
+@end example
 
 @c さらに、@file{SKK-JISYO.L} を DDSKK ソースの @file{dic} ディレクトリにコ
 @c ピーしてから @command{make cdb} を実行すると、CDB 形式辞書ファイル @file{SKK-JISYO.L.cdb} が
@@ -1039,7 +1076,7 @@ Window System 下で対応する Emacs を使用している場合。
 
 @example
 -------------------- Echo Area --------------------
-Daredevil SKK/16.0.50 (Futamata)
+Daredevil SKK/@value{SKK-VERSION} (CODENAME)
 -------------------- Echo Area --------------------
 @end example
 
@@ -2076,6 +2113,11 @@ DDSKK で応用機能を提供するプログラムのほとんどは @file{skk.
 イズしたい場合などには、このファイルを見ると参考になるかもしれません。
 
 @table @file
+
+@item ccc.el
+
+@item cdb.el
+
 @item context-skk.el
 @cindex @file{context-skk.el}
 
@@ -2083,6 +2125,8 @@ DDSKK で応用機能を提供するプログラムのほとんどは @file{skk.
 更する機能を提供します。
 
 @xref{文脈に応じた自動モード切り替え}.
+
+@item ddskk-pkg.el
 
 @item skk-abbrev.el
 @cindex @file{skk-abbrev.el}
@@ -2117,7 +2161,7 @@ dvorak 配列での拡張ローマ字入力 "ACT" を SKK で使うための設�
 @item skk-autoloads.el
 @cindex @file{skk-autoloads.el}
 
-オートロードの設定を記述したファイル。@code{register-input-method} も行う。
+make 時に自動生成されるファイル。オートロードの設定のほか、@code{register-input-method} も行う。
 
 @xref{はじめの設定}.
 
@@ -2175,7 +2219,13 @@ skk-comp による補完を自動的に実行して見出し語入力を支援�
 @item skk-develop.el
 @cindex @file{skk-develop.el}
 
-バグレポートのメールバッファを用意するプログラムファイル。
+おもに開発者向けのプログラムを集めたファイル。
+
+@kbd{M-x skk-submit-bug-report} バグレポートのメールバッファを用意する
+
+@kbd{M-x skk-get} 辞書ファイルを一括ダウンロードする
+
+font-lock 関係
 
 @item skk-emacs.el
 @cindex @file{skk-emacs.el}
@@ -2290,6 +2340,12 @@ Lookup で検索できる辞書を使って単語の候補を出力するプロ�
 
 @xref{数値変換}.
 
+@item skk-search-web.el
+
+Google CGI API for Japanese Input
+
+Google サジェスト
+
 @item skk-server-completion.el
 @cindex @file{skk-server-completion.el}
 
@@ -2354,6 +2410,8 @@ SKK で TUT-code 入力を実現します。
 
 @xref{TUT-code}.
 
+@item skk-vars.el
+
 @item skk-version.el
 @cindex @file{skk-version.el}
 
@@ -2371,6 +2429,9 @@ VIPER インターフェイスプログラムを集めたファイル。
 
 XEmacs の拡張機能を利用するプログラムを集めたファイル。
 インジケータのカラー化や画像表示、ツールティップ利用など。
+
+@item tar-util.el
+
 @end table
 
 @node ユーザオプションの設定方法
@@ -11231,4 +11292,5 @@ Emacs 上以外でも SKK みたいな操作性を実現するソフトウェア
 @c Local Variables:
 @c fill-column: 72
 @c skk-kutouten-type: jp
+@c write-contents-hooks: (lambda () (let ((d (split-string (date) " "))) (goto-char (point-min)) (search-forward "@set UPDATED Date: ") (delete-region (point) (progn (end-of-line) (point))) (insert (nth 0 d) 32 (nth 2 d)) nil))
 @c End:
