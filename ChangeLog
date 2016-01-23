@@ -1,3 +1,14 @@
+2016-01-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Makefile (get): Load tar-util.el.
+	* make1.bat (get): Ditto.
+	* skk-develop.el (skk-get-expand-tar): Use function `tar-salvage-file'
+	instead of tar command.
+
+2016-01-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* tar-util.el: Add new file.
+
 2016-01-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-use-search-web): New variable.

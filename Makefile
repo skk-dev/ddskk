@@ -63,7 +63,7 @@ uninstall:
 	$(EMACS) $(FLAGS) -f SKK-MK-uninstall
 
 get:
-	$(EMACS) -batch -q -no-site-file -l skk-develop.el --eval='(skk-get "./dic")'
+	$(EMACS) -batch -q -no-site-file -l tar-util.el -l skk-develop.el --eval='(skk-get "./dic")'
 
 TAGS:
 	$(ETAGS) `find . -name '*.el'`

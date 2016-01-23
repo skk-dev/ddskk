@@ -71,7 +71,7 @@ goto end
 goto end
 
 :get
-%EMACS% -batch -q -no-site-file -l skk-develop.el -eval "(skk-get \"./dic\")"
+%EMACS% -batch -q -no-site-file -l tar-util.el -l skk-develop.el -eval "(skk-get \"./dic\")"
 goto end
 
 rem --- This file should not be executed by itself. Use makeit.bat.
