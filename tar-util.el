@@ -27,10 +27,18 @@
 ;; o (tar-list-files "~/temp/foo.tar")
 ;;   アーカイブ foo.tar の中のファイル郡をリストで返します。
 
+;;; shut up compiler warning.
+(eval-when-compile
+  (declare-function tar--extract "tar-mode")
+  (declare-function tar-header-block-tokenize "tar-mode")
+  (declare-function tar-header-data-end "tar-mode")
+  (declare-function tar-header-name "tar-mode"))
+
 ;;; Code:
 
 (require 'tar-mode)
 
+;;;###autoload
 (defun tar-make-descriptor (buffer)
   "BUFFER is made by function `tar-raw-buffer'.
 Return list like `tar-parse-info', See `tar-mode'.
@@ -53,6 +61,7 @@ this function is based on `tar-summarize-buffer'."
 	(setq pos (tar-header-data-end descriptor)))) ; END while
     (nreverse result)))
 
+;;;###autoload
 (defun tar-file-descriptor (buffer file)
   "Return descriptor Structure for match FILE in BUFFER.
 BUFFER is made by function `tar-raw-buffer'."
@@ -66,6 +75,7 @@ BUFFER is made by function `tar-raw-buffer'."
 	(when (string-match file (tar-header-name d))
 	  (throw 'match d))))))
 
+;;;###autoload
 (defun tar-raw-buffer (archive)
   "ARCHIVE is path to tar archive.
 Return buffer object."
@@ -78,6 +88,7 @@ Return buffer object."
     (insert-file-contents-literally path))
   (current-buffer))
 
+;;;###autoload
 (defun tar-list-files (archive)
   "ARCHIVE is path to tar archive."
   (let* ((buffer (tar-raw-buffer archive))

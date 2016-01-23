@@ -1,6 +1,9 @@
 2016-01-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* tar-util.el (tar-salvage-file): Add autoload cookie.
+	* tar-util.el (tar-salvage-file, tar-make-descriptor, tar-file-descriptor):
+	(tar-raw-buffer, tar-list-files): Add autoload cookie.
+	declare some functions for shut up compiler warning.
+
 	* skk-develop.el: require tar-util when compile.
 	(skk-get): Return nil.
 	* SKK-MK (SKK_MODULES): Add tar-util.
