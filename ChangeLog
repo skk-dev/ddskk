@@ -1,5 +1,12 @@
 2016-01-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* tar-util.el (tar-salvage-file): Add autoload cookie.
+	* skk-develop.el: require tar-util when compile.
+	(skk-get): Return nil.
+	* SKK-MK (SKK_MODULES): Add tar-util.
+
+2016-01-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* Makefile (get): Load tar-util.el.
 	* make1.bat (get): Ditto.
 	* skk-develop.el (skk-get-expand-tar): Use function `tar-salvage-file'

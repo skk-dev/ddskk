@@ -86,6 +86,7 @@ Return buffer object."
     (mapcar #'tar-header-name
 	    descriptor)))
 
+;;;###autoload
 (defun tar-salvage-file (archive salvagefile savefile)
   "Salvage SALVAGEFILE in ARCHIVE, and save to SAVEFILE."
   (let* ((tar-data-buffer (tar-raw-buffer archive))

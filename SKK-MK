@@ -231,32 +231,30 @@ This version of SKK requires MULE features"))
 		skk-inline
 		skk-isearch
 		skk-jisx0201
-		;; skk-jisx0213
 		skk-jisyo-edit-mode
 		skk-kakasi
 		skk-kcode
 		skk-leim
 		skk-look
-		;; skk-lookup
 		skk-macs
 		skk-num
-		;; skk-obsolete
 		skk-search-web
 		skk-server-completion
 		skk-server
 		skk-show-mode
 		skk-sticky
+		skk-study
 		skk-tankan
 		skk-tut
 		skk-vars
 		skk-version
 		skk
+		tar-util
 		;; EXPERIMENTAL
 		skk-correct
 		skk-exsearch
 		skk-exserv
 		skk-rdbms
-		skk-study
 		skk-tutcdef
 		skk-tutcode
 		skk-w3m

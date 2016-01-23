@@ -30,6 +30,7 @@
 (eval-when-compile
   (require 'skk-macs)
   (require 'skk-vars)
+  (require 'tar-util)
   (require 'url))
 
 (eval-when-compile
@@ -221,7 +222,8 @@ mail-user-agent $B$r@_Dj$9$k$3$H$K$h$j9%$_$N%a!<%k%$%s%?!<%U%'%$%9$r;HMQ$9$k$3$
     (skk-get-generate-gzip-d jisyo-dir)
     (skk-get-expand-gzip jisyo-dir)
     (skk-get-expand-tar jisyo-dir))
-  (message "skk-get...done"))
+  (message "skk-get...done")
+  nil)
 
 ;;;###autoload
 (add-hook
