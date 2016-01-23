@@ -446,6 +446,8 @@ skk-num.el, skk-kcode.el, skk-isearch.el, skk-cursor.el,
 
 * Tsuyoshi Kitamoto
 
+** github への移行
+
 ** elisp 著作・アイデア
 
 *** 単漢字の総画数による検索
@@ -459,6 +461,8 @@ skk-num.el, skk-kcode.el, skk-isearch.el, skk-cursor.el,
 *** skk-show-mode.el (モード切り替えの表示)
 
 *** skk-get (辞書ファイルのダウンロード)
+
+*** tar-util
 
 *** 以下のプログラムへの改変
 
