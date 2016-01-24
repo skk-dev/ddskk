@@ -34,7 +34,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 16.0.53
-@set UPDATED Date: 2016/01/23 19:08:21
+@set UPDATED Date: 2016/01/24 14:58:16
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -289,6 +289,7 @@ GNU Emacs 21 のユーザは DDSKK 14.4 をお使いください。
 @itemize @bullet
 @item JIS X 0213 対応には Mule-UCS の導入が必要です。
 @item X Window System 上でのメニューバーの日本語表示は GTK 対応版のみです。
+@item @file{skk-search-web.el} を利用するには @file{json.el} が必要です。
 @end itemize
 
 @item GNU Emacs 23.3
@@ -2345,6 +2346,8 @@ Lookup で検索できる辞書を使って単語の候補を出力するプロ�
 Google CGI API for Japanese Input
 
 Google サジェスト
+
+GNU Emacs 22 を使用している場合は @file{json.el} が必要です。
 
 @item skk-server-completion.el
 @cindex @file{skk-server-completion.el}
@@ -10180,13 +10183,39 @@ DDSKK はローマ字式ではない、いわゆるかな入力方式をサポ�
 @node Google CGI API for Japanese Input を利用したかな漢字変換
 @section Google CGI API for Japanese Input を利用したかな漢字変換
 
-@file{experimental/skk-search-web.el} をインストールすると、
-Google CGI API for Japanese Input を利用したかな漢字変換（連文節変換）が
-可能となります。
+かな漢字変換に Google CGI API for Japanese Input を利用することができます。
+連文節変換も可能となります。
 
-Google CGI API for Japanese Input については次の URL を参照してください。
+Google CGI API for Japanese Input については、次の URL を参照してください。
 
 @url{http://www.google.co.jp/ime/cgiapi.html}
+
+@file{~/.skk} にて、リスト @code{skk-search-prog-list} の要素として、
+関数 @code{skk-search-web} を追加します。
+
+@lisp
+@group
+(add-to-list 'skk-search-prog-list
+             '(skk-search-web 'skk-google-cgi-api-for-japanese-input)
+             t)
+@end group
+@end lisp
+
+同じく @file{~/.skk} にて、変数 @code{skk-use-search-web} を @code{non-nil} に
+設定します。skk-mode を起動した際に @file{skk-search-web.el} を require するよ
+うになります。
+
+そのほか、変数 @code{skk-read-from-minibuffer-function} を以下のように設定する
+ことで、辞書登録モードへの突入時の初期値に Google サジェストを利用することもで
+きます。
+
+@lisp
+@group
+(setq skk-read-from-minibuffer-function
+      (lambda ()
+         (car (skk-google-suggest skk-henkan-key))))
+@end group
+@end lisp
 
 @node SKKに関する情報
 @chapter SKKに関する情報

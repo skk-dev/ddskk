@@ -631,11 +631,16 @@
 ;; 「↓辞書登録中↓」に適用するフェイス
 ;; skk-jisyo-registration-badge-face 
 
-;; experimental/skk-search-web.el をインストールすると、
-;;   辞書登録モードに移ったときの初期値に Google サジェストを利用できます
-;;     (setq skk-read-from-minibuffer-function
-;;           (lambda ()
-;;             (car (skk-google-suggest skk-henkan-key))))
+;; @@ skk-search-web.el
+;; (setq skk-use-search-web t)
+;; (add-to-list 'skk-search-prog-list
+;; 	     '(skk-search-web 'skk-google-cgi-api-for-japanese-input)
+;; 	     t)
+
+;; 辞書登録モードに移ったときの初期値に Google サジェストを利用する
+;; (setq skk-read-from-minibuffer-function
+;;       (lambda ()
+;; 	(car (skk-google-suggest skk-henkan-key))))
 
 ;; @@ SKK abbrev mode
 ;; 見出し語の補完において Lisp シンボルも補完する

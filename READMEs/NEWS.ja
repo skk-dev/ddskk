@@ -25,6 +25,10 @@ Emacs 起動中も M-x skk-get が可能です。
 
 help-make-usage() が help--make-usage() へ変更されたことに伴う wrap マクロ
 
+** skk-search-web.el
+
+skk-search-web.el を experimental からトップディレクトリへ移しました。
+
 ** 開発環境など
 
 *** DDSKK の開発ツールを cvs から git へ変更しました

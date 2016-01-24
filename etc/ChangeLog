@@ -1,3 +1,7 @@
+2016-01-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* dot.skk: Add skk-search-web.el.
+
 2015-06-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* "org-mode の表中での return" を削除.
