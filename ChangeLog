@@ -1,3 +1,7 @@
+2016-01-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* tar-util.el (tar-salvage-file): fix `kill- buffer' for emacs 22.
+
 2016-01-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi, Makefile, skk-version.el, ddskk-pkg.el:

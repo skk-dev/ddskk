@@ -107,7 +107,7 @@ Return buffer object."
     (set-buffer-file-coding-system last-coding-system-used t)
     (setq buffer-file-name (expand-file-name savefile))
     (basic-save-buffer)
-    (kill-buffer)
+    (kill-buffer nil)
     ))
 
 (provide 'tar-util)
