@@ -1,3 +1,7 @@
+2016-01-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* tar-util.el (tar-raw-buffer): Use `zlib-decompress-region'.
+
 2016-01-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* tar-util.el (tar-salvage-file): fix `kill- buffer' for emacs 22.

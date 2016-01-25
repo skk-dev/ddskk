@@ -85,7 +85,11 @@ Return buffer object."
       (kill-buffer buffer))
     (set-buffer (get-buffer-create buffer))
     (set-buffer-multibyte nil)
-    (insert-file-contents-literally path))
+    (insert-file-contents-literally path)
+    (when (fboundp 'zlib-decompress-region)
+      (zlib-decompress-region (point-min)   ; GNU Emacs 24 以降であれば
+			      (point-max))) ; 直接 tar.gz いける (事前の gzip -d 不要)
+     )
   (current-buffer))
 
 ;;;###autoload
