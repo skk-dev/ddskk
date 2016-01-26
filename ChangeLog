@@ -1,3 +1,7 @@
+2016-01-26  Yuh Ohmura <yutopia@y6.dion.ne.jp>
+
+	* .travis.yml: add test for emacs-snapshot and xemacs21(commented).
+	
 2016-01-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* tar-util.el (tar-raw-buffer): Use `zlib-decompress-region'.
