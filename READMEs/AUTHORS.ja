@@ -288,6 +288,8 @@ skk-vars.el, skk-leim.el, skk-kakasi.el, skk-rdms.el, skk-jisx0201.el
 
 *** makeit.bat
 
+*** MELPA 対応
+
 ** ドキュメント整備
 
 ** elisp メンテナンス
@@ -553,6 +555,19 @@ skk-server.el, skk.el, skk-study.el, bayesian/bskk
 ** SKK 辞書の拡張、維持
 
 *** SKK-JISYO.lisp
+
+* Yuhei Maeda
+
+** インストール環境の整備
+
+*** MELPA 対応
+
+* Takenari Shinohara
+
+** インストール環境の整備
+
+*** MELPA 対応
+
 
 
 Local variables:
