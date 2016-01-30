@@ -1,7 +1,12 @@
+2016-01-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-cursor-default-color): Add type.
+	emacs commit c3a2ed.
+
 2016-01-26  Yuh Ohmura <yutopia@y6.dion.ne.jp>
 
 	* .travis.yml: add test for emacs-snapshot and xemacs21(commented).
-	
+
 2016-01-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* tar-util.el (tar-raw-buffer): Use `zlib-decompress-region'.
