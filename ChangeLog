@@ -1,3 +1,7 @@
+2016-01-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-CFG: meadow に関する記述を削除.
+
 2015-12-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-henkan): fix comment, indent.
