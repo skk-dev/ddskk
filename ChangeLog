@@ -2,6 +2,9 @@
 
 	* SKK-CFG: meadow に関する記述を削除.
 
+	* skk-vars.el (skk-cursor-default-color): Add type.
+	emacs commit c3a2ed.
+
 2015-12-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-henkan): fix comment, indent.

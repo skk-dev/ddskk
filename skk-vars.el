@@ -3474,6 +3474,7 @@ server completion が実装されておらず、かつ無反応な辞書サーバ対策。")
     (cdr (assq 'cursor-color (frame-parameters (selected-frame))))))
   "*SKK モードのオフを示すカーソル色。
 `skk-use-color-cursor' が non-nil のときに使用される。"
+  :type 'string
   :group 'skk-cursor)
 
 (defcustom skk-cursor-hiragana-color (if (eq skk-background-mode 'light)
