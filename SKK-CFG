@@ -33,7 +33,7 @@
 ;; なお、Emacs の実行形式ファイル名だけはこのファイルでは設定できず、特に指定
 ;; したい場合はコマンドラインから指定する必要があります。
 ;;
-;; (例 1)% make install EMACS=c:/meadow/bin/Meadow.exe
+;; (例 1)% make install EMACS=c:/emacs-24.5/bin/emacs.exe
 ;;
 ;; (例 2)% make install EMACS=/Applications/Emacs.app/Contents/MacOS/Emacs
 ;;
@@ -103,12 +103,6 @@
 
 ;;; XEmacs 21 の設定例:
 ;; (setq PACKAGEDIR "/usr/share/xemacs/site-packages")
-
-;;; Meadow 2.10 または 3.00-dev の設定例:
-;; (setq SKK_DATADIR "c:/meadow/etc/skk")
-;; (setq SKK_INFODIR "c:/meadow/info")
-;; (setq SKK_LISPDIR "c:/meadow/site-lisp/skk")
-;; (setq SKK_SET_JISYO t)
 
 ;;; NTEmacs の設定例:
 ;; (setq SKK_DATADIR "c:/emacs/22.1/etc/skk")

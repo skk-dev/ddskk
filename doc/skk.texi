@@ -296,6 +296,7 @@ GNU Emacs 21 のユーザは DDSKK 14.4 をお使いください。
 
 @itemize @bullet
 @item X Window System 上でのメニューバーの日本語表示は GTK 対応版のみです。
+@item MELPA を利用してインストールするには、先に @file{package.el} をインストールする必要があります。
 @end itemize
 
 @item GNU Emacs 24.3
@@ -10341,128 +10342,11 @@ SKK 辞書に関するツールには、Perl, C, Ruby の各言語により書�
 @section SKKの作者
 
 SKK の原作者は、現京都大学名誉教授の
-@uref{http://www.sato.kuis.kyoto-u.ac.jp/~masahiko/masahiko-j.html,
+@uref{http://www.ist.i.kyoto-u.ac.jp/organization/ex-professor.html#Sato,
 佐藤雅彦氏}です。
 
-現在の DDSKK は、大勢のボランティアの貢献により成立しています。以下は確
-認されている貢献者名です。ここに入っていない貢献者がおられる場合、email
-address が変更になり credit をこれに合わせたい場合には、追加、修正いたし
-ますので、ご遠慮なく @email{skk-owner@@ring.gr.jp, SKK Openlab の管理人} ま
-でご一報ください。
-
-@itemize @minus
-@item @email{hisashi@@rst.fujixerox.co.jp, 中津山 恒}
-@item @email{kose@@emailizard.tamra.co.jp, 小関 吉則}
-@item @email{takao@@hirata.nuee.nagoya-u.ac.jp, 小野 孝男}
-@item @email{mat@@nuis.ac.jp, 松井孝雄/MATUI Takao}
-@item @email{shindo@@super.ees.saitama-u.ac.jp, 進藤裕志}
-@item @email{jshen@@cas.org, 沈志勇}
-@item @email{ma-tsuge@@kdd.co.jp, 柘植 正大}
-@item @email{amotoki@@dd.iij4u.or.jp, Akihiro Motoki}
-@item @email{unbound@@papaya.juice.or.jp, Chikanobu Toyofuku}
-@item @email{ueno@@unixuser.org, Daiki Ueno}
-@item @email{eguchi@@kyoto-wu.ac.jp, EGUCHI Satoshi}
-@item @email{obata@@suzuki.kuee.kyoto-u.ac.jp, Eiji Obata}
-@item @email{fukano-m@@alp.cs.uec.ac.jp, FUKANO Masaaki}
-@item @email{SFUKAYA@@oracle.co.jp, Fukaya Shigeru}
-@item @email{machida@@users.sourceforge.jp, Fumihiko MACHIDA}
-@item @email{furue@@kke.co.jp, FURUE Hideyuki}
-@item @email{gunji@@sils.shoin.ac.jp, GUNJI Takao}
-@item @email{grothendieck@@max.hi-ho.ne.jp, G. Yoshida}
-@item @email{mizu@@cs3.cs.oki.co.jp, Haru Mizuno}
-@item @email{hal@@sics.se, Haru'yasu Ueda}
-@item @email{sakurada@@kuis.kyoto-u.ac.jp, Hideki Sakurada}
-@item @email{lapis-lazuli@@pop06.odn.ne.jp, Hiroya Murata}
-@item @email{noir@@st.rim.or.jp, Hiroyuki KUROSAKI }
-@item @email{kuroda@@msi.co.jp, Hisao Kuroda}
-@item @email{iida@@ring.gr.jp, IIDA Yosiaki}
-@item @email{irie@@t.email.ne.jp, IRIE Tetsuya}
-@item @email{ml@@be.to, ISHIKAWA Naoya}
-@item @email{nakamura@@pluto.ai.kyutech.ac.jp, Jun-ichi Nakamura}
-@item @email{tomioka@@culle.l.chiba-u.ac.jp, Katuya Tomioka}
-@item @email{hirokawa@@rics.co.jp, Kazuo Hirokawa}
-@item @email{kazushi@@kubota.co.jp, Kazushi Marukawa}
-@item @email{kxn30@@po.cwru.edu, Keisuke Nishida}
-@item @email{okada@@opaopa.org, Kenichi OKADA}
-@item @email{kenji@@reseau.toyonaka.osaka.jp, Kenji Rikitake}
-@item @email{kenji@@cs.titech.ac.jp, Kenji Yamashita}
-@item @email{fukuchi@@users.sourceforge.net, Kentaro Fukuchi}
-@item @email{deton@@m1.interq.or.jp, KIHARA Hideto}
-@item @email{kimura@@oa1.kb.nec.co.jp, Kimura Chikahiro}
-@item @email{fuyuki@@hadaly.org, Kimura Fuyuki}
-@item @email{tsuyoshi.kitamoto@@gmail.com, Kitamoto Tsuyoshi}
-@item @email{kmori@@onsei2.rilp.m.u-tokyo.ac.jp, Koichi MORI}
-@item @email{hide@@koie.org, KOIE Hidetaka (鯉江英隆)}
-@item @email{uchida@@cfd.tytlabs.co.jp, Koji Uchida}
-@item @email{kenichi_kurihara@@nifty.com, KURIHARA Kenichi}
-@item @email{matusita@@ics.es.osaka-u.ac.jp, Makoto MATSUSHITA}
-@item @email{kaw@@lp.nm.fujitsu.co.jp, Manabu Kawashima}
-@item @email{martin@@xemacs.org, Martin Buchholz}
-@item @email{suzmasa@@sm.sony.co.jp, Masahiko Suzuki}
-@item @email{xdote@@rp.open.cs.fujitsu.co.jp, Masahiro Doteguchi}
-@item @email{masaka-t@@ascii.co.jp, Masakazu Takahashi}
-@item @email{masata-y@@is.aist-nara.ac.jp, Masatake YAMATO}
-@item @email{minakaji@@osaka.email.ne.jp, NAKAJIMA Mikio}
-@item @email{minoura@@uni.zool.s.u-tokyo.ac.jp, MINOURA Itsushi}
-@item @email{clefs@@mail.goo.ne.jp, MITA Yuusuke}
-@item @email{minkov@@fuzzy.or.jp, MIYOSHI Tsutomu}
-@item @email{mouri@@jaist.ac.jp, Motohiko Mouri}
-@item @email{mrt@@notwork.org, Murata Shuuichirou}
-@item @email{nao@@mimo.jaist-east.ac.jp, Naoki HAMADA}
-@item @email{naoki-w@@ht-net21.ne.jp, Naoki Wakamatsu}
-@item @email{tnemoto@@mvi.biglobe.ne.jp, NEMOTO Takashi}
-@item @email{knishida@@nn.iij4u.or.jp, NISHIDA Keisuke}
-@item @email{nmaeda@@dd.iij4u.or.jp, Norio Maeda }
-@item @email{onoto@@ma.nma.ne.jp, ONODA Arata }
-@item @email{furukawa@@tcp-ip.or.jp, Rei FURUKAWA}
-@item @email{gnu@@ipri.go.jp, Ryoichi Hashimoto}
-@item @email{ksakai@@kso.netwk.ntt-at.co.jp, SAKAI Kiyotaka}
-@item @email{satoshi@@sys.sdl.melco.co.jp, Satoshi Harauchi}
-@item @email{sn@@asahi-net.email.ne.jp, Seiichi NAMBA}
-@item @email{sekita@@mri.co.jp, Sekita Daigo}
-@item @email{shigeru@@okunet.gr.jp, Shigeru OKUMURA}
-@item @email{shuhei@@aqua.ocn.ne.jp, Shuhei KOBAYASHI}
-@item @email{ashizawa@@zuken.co.jp, Shuji Ashizawa}
-@item @email{simo@@festa.or.jp, SIMOYAMA Takasi}
-@item @email{steve@@altair.xemacs.org, SL Baur}
-@item @email{sphere@@pop12.odn.ne.jp, sphere}
-@item @email{turnbull@@sk.tsukuba.ac.jp, Stephen Turnbull}
-@item @email{sigh@@kuzirabekon.econ.nagasaki-u.ac.jp, SUZUKI Hitoshi}
-@item @email{kaoru@@kaisei.org, TAKAHASHI Kaoru}
-@item @email{kawamura@@ike.tottori-u.ac.jp, Takao KAWAMURA}
-@item @email{ohtani@@iias.flab.fujitsu.co.jp, Takeshi OHTANI}
-@item @email{tats@@vega.ocn.ne.jp, Tatsuya Kinoshita}
-@item @email{teika@@lavabit.com, Teika Kazura }
-@item @email{Thierry.Emery@@nmu.alcatel.fr, Thierry Emery}
-@item @email{tokuya@@crab.fuji-ric.co.jp, TOKUYA Junichi}
-@item @email{cooper@@saitama.fujimic.fujisankei-g.co.jp, Tomotaka SUWA}
-@item @email{hiro@@momo.it.okayama-u.ac.jp, Tomoyuki Hiro}
-@item @email{toru@@maid.ne.jp, Toru YANO}
-@item @email{toyono-y@@is.aist-nara.ac.jp, Toyonobu Yoshida}
-@item @email{enami@@ptgd.sony.co.jp, Tsugutomo Enami}
-@item @email{czkmt@@remus.dti.ne.jp, Tsukamoto Tetsuo}
-@item @email{tsumura@@kuis.kyoto-u.ac.jp, TSUMURA Tomoaki}
-@item @email{akiho@@sky.email.ne.jp, Tsuyoshi AKIHO}
-@item @email{matsui@@atr-rd.atr.co.jp, Wataru Matsui}
-@item @email{matsui@@gf.hm.rd.sanyo.co.jp, Wataru Matsui}
-@item @email{ynyaaa@@ybb.ne.jp, YAGI Tatsuya}
-@item @email{ysjj@@unixuser.org, YAMASHITA Junji}
-@item @email{yano@@moon.email.ne.jp, Yano Keisuke}
-@item @email{toyono-y@@is.aist-nara.ac.jp, Yoshida Toyonobu}
-@item @email{ynakai@@redhat.com, Yukihiro Nakai}
-@item @email{yoshiki@@xemacs.org, Yoshiki Hayashi}
-@item @email{manbou@@ceres.dti.ne.jp, YOSHIZAWA Masahiro}
-@item @email{yutopia@@y6.dion.ne.jp, Yuh Ohmura}
-@item @email{yu-ji@@hoso.net, Yu-ji Hosokawa}
-@item @email{kameyama@@kuis.kyoto-u.ac.jp, Yukiyoshi Kameyama}
-@item @email{yusuke@@example.com, Yusuke Shinyama}
-@item @email{kiyoka@@sumibi.org, Kiyoka Nishiyama.}
-@item @email{aaa707b@@gmail.com, Yuichi Higashi}
-@item @email{takenari.shinohara@@gmail.com, Takenari Shinohara}
-@item @email{yasushi.abe@@gmail.com, Yasushi Abe}
-@item @email{yuhei.maeda@@gmail.com, Yuhei Maeda}
-@c @item @email{}
-@end itemize
+現在の DDSKK は、大勢のボランティアの貢献により成立しています。
+ファイル @file{READMEs/Contributors} に貢献者名の一覧がありますので、ご覧ください。
 
 @node SKKの歴史
 @section SKKの歴史
