@@ -7,7 +7,7 @@ Thanks to Yuhei Maeda and Takenari Shinohara.
 
 詳細は READMEs/INSTALL.MELPA.md をご覧ください。
 
-M-x skk-version の評価結果に MELPA の情報を加えました。
+なお、M-x skk-version の評価結果に MELPA の情報を加えました。
 
 ** 辞書ファイルのダウンロード
 
@@ -60,6 +60,8 @@ https://github.com/skk-dev/skktools
 
 接頭辞 ccc- を付すなど見直しを実施しました。
 
+READMEs/README.ccc.org もご覧ください。
+
 ** queue-m.el の利用を廃止
 
 利用範囲が限定的であったため、cons() などでリスト操作することとし、
@@ -74,6 +76,12 @@ queue-m.el の利用を廃止しました。
 ** NICOLA
 
 Add keyboard type nicola-colemak and omelet-colemak.
+
+** SKK-JISYO.lisp
+
+ddskk 本体に関する変更点ではありませんが、L 辞書に含まれていた
+S 式を候補とするエントリーを SKK-JISYO.lisp としてまとめました。
+Thanks to nathancorvussolis@gmail.com
 
 * 15.2
 

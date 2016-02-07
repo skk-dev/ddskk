@@ -568,6 +568,12 @@ skk-server.el, skk.el, skk-study.el, bayesian/bskk
 
 *** MELPA 対応
 
+** elisp 著作・アイデア
+
+*** 以下のプログラムへの改変
+
+**** skk.el
+
 * Takenari Shinohara
 
 ** インストール環境の整備
