@@ -1,5 +1,7 @@
 2016-02-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* .cvsignore: Remove file.
+
 	* ChangeLog.1.daredevil: Remove file.
 	ChangeLog.2.daredevil と同内容.
 
