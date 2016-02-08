@@ -1,5 +1,7 @@
 2016-02-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk.ex: add exclude files.
+
 	* Makefile (tar): Rename target `snapshot' to `tar'.
 	(release): Add new target.
 

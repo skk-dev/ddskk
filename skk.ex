@@ -1,4 +1,7 @@
 .git
+.gitattributes
+.gitignore
+.travis.yml
 RCS
 CVS
 not_used
