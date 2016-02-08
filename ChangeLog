@@ -1,3 +1,8 @@
+2016-02-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Makefile (tar): Rename target `snapshot' to `tar'.
+	(release): Add new target.
+
 2016-02-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* Makefile (tar): use command `git archive'.

@@ -74,15 +74,15 @@ clean:
 	auto-autoloads.el custom-load.el ert.el \
 	./doc/skk.info* `find . -name '*~'` `find . -name '.*~'` `find . -name '.#*'`
 
-tar: clean
+release: clean
 	$(RM) ../ddskk-$(VERSION).tar.gz ../ddskk-$(VERSION).tar.bz2 ;\
 	$(GIT) archive --format=tar.gz --prefix=ddskk-$(VERSION)/ HEAD > ../ddskk-$(VERSION).tar.gz ;\
 	$(GIT) archive --format=tar --prefix=ddskk-$(VERSION)/ HEAD | $(BZIP2) -c > ../ddskk-$(VERSION).tar.bz2 ;\
 	$(MD5) ../ddskk-$(VERSION).tar.bz2 > ../ddskk-$(VERSION).tar.bz2.md5 ;\
 	$(MD5) ../ddskk-$(VERSION).tar.gz > ../ddskk-$(VERSION).tar.gz.md5
 
-snapshot: clean
-	$(RM) ../ddskk-11.{1,2,3} ../ddskk-$(VERSION) ../ddskk-snapshot $(SNAPBASE).tar.gz ../$(SNAPBASE).tar.bz2 ;\
+tar: clean
+	$(RM) ../ddskk-$(VERSION) ../ddskk-snapshot $(SNAPBASE).tar.gz ../$(SNAPBASE).tar.bz2 ;\
 	$(RM) ../$(SNAPBASE) ;\
 	ln -sf `$(PWD)` ../$(SNAPBASE) ;\
 	cd .. ;\
