@@ -10,6 +10,7 @@ DATE	  = date
 EMACS	  = emacs
 ETAGS	  = etags
 FLAGS     = -batch -q -no-site-file -l SKK-MK
+GIT       = git
 GZIP      = gzip -9
 MD5	  = md5
 RM	  = /bin/rm -f
@@ -74,16 +75,11 @@ clean:
 	./doc/skk.info* `find . -name '*~'` `find . -name '.*~'` `find . -name '.#*'`
 
 tar: clean
-	$(RM) ../ddskk-11.{1,2,3} ../ddskk-$(VERSION) ../ddskk-snapshot ../ddskk$(VERSION).tar.gz ../ddskk$(VERSION).tar.bz2 ../ddskk-$(VERSION).tar.gz ../ddskk-$(VERSION).tar.bz2 ;\
-	ln -sf `$(PWD)`  ../ddskk-$(VERSION) ;\
-	cd .. ;\
-	$(TAR) -cvpf ddskk-$(VERSION).tar --exclude-from=ddskk-$(VERSION)/skk.ex --dereference ddskk-$(VERSION) ;\
-	$(BZIP2) -cf ddskk-$(VERSION).tar > ddskk-$(VERSION).tar.bz2 ;\
-	$(GZIP) -cf ddskk-$(VERSION).tar > ddskk-$(VERSION).tar.gz ;\
-	$(RM) ddskk-$(VERSION).tar ;\
-	$(RM) ddskk-$(VERSION) ;\
-	$(MD5) ddskk-$(VERSION).tar.bz2 >ddskk-$(VERSION).tar.bz2.md5 ;\
-	$(MD5) ddskk-$(VERSION).tar.gz >ddskk-$(VERSION).tar.gz.md5
+	$(RM) ../ddskk-$(VERSION).tar.gz ../ddskk-$(VERSION).tar.bz2 ;\
+	$(GIT) archive --format=tar.gz --prefix=ddskk-$(VERSION)/ HEAD > ../ddskk-$(VERSION).tar.gz ;\
+	$(GIT) archive --format=tar --prefix=ddskk-$(VERSION)/ HEAD | $(BZIP2) -c > ../ddskk-$(VERSION).tar.bz2 ;\
+	$(MD5) ../ddskk-$(VERSION).tar.bz2 > ../ddskk-$(VERSION).tar.bz2.md5 ;\
+	$(MD5) ../ddskk-$(VERSION).tar.gz > ../ddskk-$(VERSION).tar.gz.md5
 
 snapshot: clean
 	$(RM) ../ddskk-11.{1,2,3} ../ddskk-$(VERSION) ../ddskk-snapshot $(SNAPBASE).tar.gz ../$(SNAPBASE).tar.bz2 ;\

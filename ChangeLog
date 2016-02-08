@@ -1,5 +1,7 @@
 2016-02-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* Makefile (tar): use command `git archive'.
+
 	* .gitattributes: New file.
 
 	* doc/.cvsignore, experimental/.cvsignore, nicola/.cvsignore: Remove file.
