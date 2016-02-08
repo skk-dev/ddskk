@@ -2,6 +2,8 @@
 
 	* .gitattributes: New file.
 
+	* doc/.cvsignore, experimental/.cvsignore, nicola/.cvsignore: Remove file.
+
 2016-02-08  Yuh Ohmura <yutopia@y6.dion.ne.jp>
 
         * .travis.yml: remove test for Emacs 22.
