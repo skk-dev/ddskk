@@ -34,7 +34,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 16.1.50
-@set UPDATED Date: 2016/01/30 18:41:39
+@set UPDATED Date: 2016/03/15 23:06:27
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -407,12 +407,12 @@ APEL は次のサイトから入手できます。
 
 ここでは、UNIX 上で @command{make} コマンドが利用できる環境を想定します
 @footnote{Microsoft Windows 環境では、@command{makeit.bat} を使用することで
-同様の操作でインストールできます。@url{https://github.com/skk-dev/ddskk/READMEs/README.w32.ja}
+同様の操作でインストールできます。@url{https://github.com/skk-dev/ddskk/blob/master/READMEs/README.w32.ja.org}
 
 cygwin 環境をインストールされている方は @command{make} コマンドが使用できる
 ので、本文の解説がそのまま当てはまります。
 
-Apple OS X 環境の方は @url{https://github.com/skk-dev/ddskk/READMEs/README.MacOSX.ja} を参照してください。
+Apple OS X 環境の方は @url{https://github.com/skk-dev/ddskk/blob/master/READMEs/README.MacOSX.ja} を参照してください。
 }。
 
 まず、DDSKK のアーカイブ @file{ddskk-VERSION.tar.gz} を @command{tar} コ
@@ -2182,7 +2182,7 @@ XEmacs で DDSKK をパッケージとしてインストールした場合
 
 SKK の学習機能のひとつで、ユーザの過去の入力から変換候補を予測します。
 
-@url{https://github.com/skk-dev/ddskk/bayesian/README.ja}
+@url{https://github.com/skk-dev/ddskk/tree/master/bayesian}
 
 @item skk-cdb.el
 @cindex @file{skk-cdb.el}
@@ -10069,7 +10069,7 @@ DDSKK はローマ字式ではない、いわゆるかな入力方式をサポ�
 ストールする必要があります。SKK ソースディレクトリの @file{nicola} ディ
 レクトリに移動し、ドキュメントに従ってインストールしてください。
 
-@url{https://github.com/skk-dev/ddskk/nicola/README.ja}
+@url{https://github.com/skk-dev/ddskk/blob/master/nicola/README.ja}
 
 続いて設定をします。
 
@@ -10255,14 +10255,14 @@ SKK の開発は、 GitHub を利用して行われています。
 してください。
 
 @display
-@url{https://github.com/skk-dev/ddskk/READMEs/NEWS.ja}
+@url{https://github.com/skk-dev/ddskk/blob/master/READMEs/NEWS.ja}
 @end display
 
 また、将来のバージョンにおける拡張アイディアについては、TODO としてまと
 められています。
 
 @display
-@url{https://github.com/skk-dev/ddskk/READMEs/TODO.ja}
+@url{https://github.com/skk-dev/ddskk/blob/master/READMEs/TODO.ja}
 @end display
 
 SKK Openlab では、開発者、文章の整備にご協力いただける方、テスター、よろ
@@ -10474,7 +10474,7 @@ SKK がサポートしている Emacs がその OS で動いているなら、SK
 
 Apple OS X 版 Emacs に特化した情報については、以下のファイルを参照してください。
 @display
-@url{https://github.com/skk-dev/ddskk/READMEs/README.MacOSX.ja}
+@url{https://github.com/skk-dev/ddskk/blob/master/READMEs/README.MacOSX.ja}
 @end display
 
 @node Q1-5 APEL って何? 必要ですか?
