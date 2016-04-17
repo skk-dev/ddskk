@@ -362,6 +362,19 @@ SKK ディストリビューションは、Windows のバッチファイルを�
 改行コードの変換設定（Configuring the line ending conversions）は、
 [Checkout as-is, commit as-is] にチェッックを入れてください。
 
+https://sourceforge.net/projects/msys2/ よりダウンロードした
+MSYS2環境を使用している場合、 mingw64_shell.bat から起動される mintty.exe 上で
+以下のコマンドを実行することで git がインストールされます。
+
+:        $ pacman -S git
+
+その後、以下のコマンドを実行することで git が改行コードを CRLF に変換することを抑制できるようになります。
+
+:        $ git config --global core.autoCRLF false
+
+もしくは、$HOME/.gitrc の [core] に autoCRLF = false を追加して下さい。
+
+
 なお、Windows 環境では cvs と同様に cygwin を利用することも可能です。
 
 cygwin を使用した場合と、上記の Git for Windows を利用する場合では、
