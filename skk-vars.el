@@ -5380,7 +5380,7 @@ then filename of the English version will be \"SKK.tut.E\".")
   :group 'skk-visual)
 
 ;;; skk-get related.
-(defvar skk-get-jisyo-direcroty "~/.emacs.d/skk-get-jisyo"
+(defvar skk-get-jisyo-directory "~/.emacs.d/skk-get-jisyo"
   ;; (expand-file-name "../../../skk" data-directory)
   "`skk-get'の保存先")
 

@@ -1,3 +1,7 @@
+2016-08-20  Masaya TANIGUCHI <ta2gch@gmail.com>
+
+	* skk-develop.el (skk-get): Change the default behavior.
+
 2016-02-25  Syohei YOSHIDA <syohex@gmail.com>
 
 	* skk.el (skk-search-and-replace): Don't overwrite match data.
