@@ -4874,15 +4874,16 @@ SKK 辞書の候補として正しい形に整形する。"
        (setq end (set-marker (make-marker) end))
        (goto-char start)
        (while (re-search-forward regexp end 'noerror)
-	 (setq matched (buffer-substring-no-properties
-			(match-beginning 0) (match-end 0))
-	       replace (funcall func matched))
-	 (goto-char (match-beginning 0))
-	 ;; firstly insert a new string, secondly delete an old string to save
-	 ;; the cursor position.
-	 (insert-and-inherit replace)
-	 (delete-region (+ (match-beginning 0) (length replace))
-			(+ (match-end 0) (length replace))))
+	 (let ((beg0 (match-beginning 0))
+	       (end0 (match-end 0)))
+	   (setq matched (buffer-substring-no-properties beg0 end0)
+		 replace (funcall func matched))
+	   (goto-char beg0)
+	   ;; firstly insert a new string, secondly delete an old string to save
+	   ;; the cursor position.
+	   (insert-and-inherit replace)
+	   (delete-region (+ beg0 (length replace))
+			  (+ end0 (length replace)))))
        (set-marker end nil)))))
 
 (defun skk-jisx0208-to-ascii (string)

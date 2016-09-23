@@ -1,3 +1,7 @@
+2016-02-25  Syohei YOSHIDA <syohex@gmail.com>
+
+	* skk.el (skk-search-and-replace): Don't overwrite match data.
+
 2016-02-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* .cvsignore: Remove file.
