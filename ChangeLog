@@ -1,3 +1,8 @@
+2016-09-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi, Makefile, skk-version.el, ddskk-pkg.el:
+	Bump SKK version to 16.1.
+
 2016-02-25  Syohei YOSHIDA <syohex@gmail.com>
 
 	* skk.el (skk-search-and-replace): Don't overwrite match data.

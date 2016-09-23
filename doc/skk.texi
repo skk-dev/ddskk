@@ -33,8 +33,8 @@
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
 @c  Keywords: japanese
 @c
-@set SKK-VERSION 16.0.52
-@set UPDATED Date: 2015/02/26 20:46:00
+@set SKK-VERSION 16.1
+@set UPDATED Date: 2016/09/23 00:00:00
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -259,6 +259,7 @@ DDSKK @value{SKK-VERSION} が動作すると思われる Emacsen のバージョ
 @item GNU Emacs 22.1 以降 (推奨)
 @item GNU Emacs 23.1 以降 (推奨)
 @item GNU Emacs 24.1 以降 (推奨)
+@item GNU Emacs 25.1 以降 (推奨)
 @item Mule 機能付きでコンパイルされた XEmacs 21.4 の最新版
 @item Mule 機能付きでコンパイルされた XEmacs 21.5 の最新版
 @end itemize
