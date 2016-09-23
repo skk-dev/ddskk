@@ -69,7 +69,7 @@ format, follow these steps.
 3. After you read the following installation instructions, do `make
    install'.  This will copy both SKK-JISYO.L and SKK-JISYO.L.cdb to
    the same place as SKK.tut, e.g. /usr/share/skk or
-   c:/emacs-24.2/etc/skk.
+   c:/emacs-25.1/etc/skk.
    
 4. Set skk-cdb-large-jisyo in your ~/.skk as the following.
 
@@ -102,13 +102,13 @@ Before actual installation, you can find out installation paths with
 If your editor is not just named emacs, you can specify the name as
 the following.
 
-    % make what-where EMACS=/usr/bin/emacs-24.3
+    % make what-where EMACS=/usr/bin/emacs-25.1
 
 If installation paths seem all right, proceed to installation with
 
     % make install
 or
-    % make install EMACS=/usr/bin/emacs-24.3
+    % make install EMACS=/usr/bin/emacs-25.1
 
 ** Installation for XEmacs
 
