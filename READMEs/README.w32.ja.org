@@ -6,7 +6,7 @@
 #+OPTIONS: H:4 toc:nil
 #+AUTHOR: Yuh Ohmura <yutopia@y6.dion.ne.jp>, NAKAJIMA Mikio/中島幹夫 <minakaji@osaka.email.ne.jp>
 
-Windows Vista, 7, 8.1 の各オペレーティングシステムの上で動く Emacs に DDSKK をインストールする方法を解説します。
+Windows Vista, 7, 8, 10 の各オペレーティングシステムの上で動く Emacs に DDSKK をインストールする方法を解説します。
 
 同梱の INSTALL 及び README.md も必ずご覧下さい。
 
@@ -88,9 +88,9 @@ UnxUtils.zip をダウンロード・展開して、例えば
 SKK ディストリビューションを上記の tar.exe を用いて展開します。
 #+BEGIN_SRC
      % cd c:/tmp
-     % gunzip ddskk-15.2.tar.gz
-     % tar xvf ddskk-15.2.tar
-     % cd ddskk-15.2
+     % gunzip ddskk-16.1.tar.gz
+     % tar xvf ddskk-16.1.tar
+     % cd ddskk-16.1
 #+END_SRC
 
 **** SKK 辞書の取得
