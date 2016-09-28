@@ -315,6 +315,10 @@ GNU Emacs 24.3 のユーザは DDSKK 15 をお使いください。
 @item NTEmacs は 24.3 と比べてディレクトリ構成が異なります@footnote{Emacs News: Changes in Emacs 24.4 on Non-Free Operating Systems}。DDSKK 15.2 で対策済みです。
 @end itemize
 
+@item GNU Emacs 25.1
+
+DDSKK 15.2 以降をお使いください（DDSKK 16 を推奨します）。
+
 @item XEmacs 21.4
 
 @itemize @bullet
@@ -8540,6 +8544,8 @@ JIS コード/区点コード入力プロンプトの表示に対して単に @k
 @node 文字コード一覧
 @subsection 文字コード一覧
 @kindex M-x skk-list-chars
+@kindex M-x list-charset-chars
+@kindex C-x 8 RET
 @vindex skk-kcode-charset
 
 @kbd{M-x skk-list-chars} と実行すると、変数 @code{skk-kcode-charset} が指
@@ -8608,7 +8614,7 @@ skk-list-chars を抜ける。
 
 @end table
 
-ほか、Emacs のコマンド @kbd{M-x list-charset-chars} も有用でしょう。
+ほか、Emacs のコマンド @kbd{M-x list-charset-chars} や @kbd{C-x 8 RET} も有用でしょう。
 
 @defvr {ユーザ変数} skk-list-chars-table-header-face
 コード一覧の枠線などに適用するフェイスです。
