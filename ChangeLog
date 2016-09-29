@@ -1,3 +1,7 @@
+2016-09-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (noninteractive): Add message.
+
 2016-09-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi, Makefile, skk-version.el, ddskk-pkg.el:

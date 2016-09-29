@@ -1100,20 +1100,29 @@ SKK tutorials:
 
 load-path の設定
 ----------------
-次のとおり 変数 load-path を設定してください。既にパスが通っているならば不要です。
+次のとおり 変数 load-path を設定してください。既にパスが通っているならば
+不要です。
   (setq load-path (cons \"" SKK_LISPDIR "\" load-path))
 
 info ディレクトリの設定
 -----------------------
-次のとおり 変数 Info-default-directory-list を設定してください。既にパスが通っているならば不要です。
+次のとおり 変数 Info-default-directory-list を設定してください。既にパス
+が通っているならば不要です。
   (setq Info-default-directory-list
         (cons \"" SKK_INFODIR "\" Info-default-directory-list))
 
 ディレクトリファイル " SKK_INFO_DIR_FILE " へのノード追加は完了しています。
 
-以上で終了です。
+Emacs の設定
+------------
+上記の設定内容を ~/.emacs に記載して Emacs を再起動すれば DDSKK を使用す
+ることができるはずです。
+もし DDSKK が起動しないようであれば ~/.emacs に
+  (require 'skk-autoloads)
+と記載して、あらためて Emacs を再起動してください。
 
-Emacs を再起動すると DDSKK を使用することができます。
+DDSKK の設定
+------------
 etc/dot.emacs と etc/dot.skk に設定例が挙げられていますので参考にしてください。
 Info もお読みください。
 "))
