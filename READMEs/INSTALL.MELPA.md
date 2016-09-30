@@ -69,6 +69,9 @@ MELPA を利用してインストールした場合、make による通常のイ
 (global-set-key (kbd "C-x C-j") 'skk-mode)
 ```
 
+必要に応じて、`skk-setup.el` を参考にしてインクリメンタル・サーチに関する設定も
+記載してください。
+
 skk-mode を起動すると設定ファイル `~/.skk` (skk-init-file) が読み込まれますので、
 辞書などの諸設定は skk-init-file で定義してください。
 
