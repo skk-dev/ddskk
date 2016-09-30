@@ -593,7 +593,7 @@ drwxr-xr-x 1 user user  99999 2011-00-00 00:00 bayesian
 @vindex package-archives
 @findex package-initialize
 
-2014年12月、MELPA@footnote{@uref{http://melpa.org/, Milkypostman's Emacs Lisp Package Archive}}
+2014年12月、MELPA@footnote{@uref{https://melpa.org/, Milkypostman's Emacs Lisp Package Archive}}
 に DDSKK が登録されたことにより GNU Emacs でも @file{package.el} 
 @footnote{GNU Emacs 24 以降で標準で搭載されています。GNU Emacs 23 以前では手動でインストール必要があります。@*
 @url{http://wikemacs.org/wiki/Package.el}}

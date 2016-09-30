@@ -3,7 +3,7 @@
 On Decenmber 2014, DDSKK joined to MELPA repository and DDSKK is possible to be installed
 on GNU Emacs with `package.el`.
 
- * MELPA: Milkypostman's Emacs Lisp Package Archive (http://melpa.org/)
+ * MELPA: Milkypostman's Emacs Lisp Package Archive (https://melpa.org/)
 
  * package.el is bundled with Emacs 24 or later, but it’s not bound to Emacs 23 and paclage.el is an external package;
  see http://wikemacs.org/wiki/Package.el
@@ -15,7 +15,7 @@ To use MELPA add following lines to your `~/.emacs.d/init.el`
 ```
 (when (require 'package nil t)
   (add-to-list 'package-archives
-    '("melpa" . "http://melpa.org/packages/") t))
+    '("melpa" . "https://melpa.org/packages/") t))
 ```
 
 If you use Emacs 23, add following line.
