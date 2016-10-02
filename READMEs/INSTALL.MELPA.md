@@ -2,7 +2,7 @@
 
 2014 年 12 月、MELPA に DDSKK が登録されたことにより、 GNU Emacs で `package.el` を利用して DDSKK をインストールすることができるようになりました。
 
- * MELPA: Milkypostman's Emacs Lisp Package Archive (http://melpa.org/)
+ * MELPA: Milkypostman's Emacs Lisp Package Archive (https://melpa.org/)
 
  * package.el: GNU Emacs 24 からは標準で搭載されています。GNU Emacs 23 以前では手動でインストール必要があります。
 http://wikemacs.org/wiki/Package.el
@@ -16,7 +16,7 @@ http://wikemacs.org/wiki/Package.el
 ```
 (when (require 'package nil t)
   (add-to-list 'package-archives
-    '("melpa" . "http://melpa.org/packages/") t))
+    '("melpa" . "https://melpa.org/packages/") t))
 ```
 
 Emacs 23 を使用している場合は、さらに次の行を追加してください。
@@ -68,6 +68,9 @@ MELPA を利用してインストールした場合、make による通常のイ
 ```
 (global-set-key (kbd "C-x C-j") 'skk-mode)
 ```
+
+必要に応じて、`skk-setup.el` を参考にしてインクリメンタル・サーチに関する設定も
+記載してください。
 
 skk-mode を起動すると設定ファイル `~/.skk` (skk-init-file) が読み込まれますので、
 辞書などの諸設定は skk-init-file で定義してください。

@@ -1,3 +1,11 @@
+2016-10-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* experimental/.cvsignore: Remove file.
+
+2016-09-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (noninteractive): Add message.
+
 2016-08-20  Masaya TANIGUCHI <ta2gch@gmail.com>
 
 	* skk-develop.el (skk-get): Change the default behavior.
@@ -23,7 +31,7 @@
 
 2016-02-08  Yuh Ohmura <yutopia@y6.dion.ne.jp>
 
-        * .travis.yml: remove test for Emacs 22.
+	* .travis.yml: remove test for Emacs 22.
 
 2016-02-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -414,7 +422,7 @@
 
 	* doc/skk.texi: correct typo
 
-2014-12-17  Kitamoto Tsuyoshi  <tsuyoshi.kitamoto@gmail.com>
+2014-12-17  Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 
 	* README.md: Create README.md.
 

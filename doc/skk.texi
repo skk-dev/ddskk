@@ -34,7 +34,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 16.1.50
-@set UPDATED Date: 2016/03/15 23:06:27
+@set UPDATED Date: 2016/10/02 09:41:46
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -259,6 +259,7 @@ DDSKK @value{SKK-VERSION} が動作すると思われる Emacsen のバージョ
 @item GNU Emacs 22.1 以降 (推奨)
 @item GNU Emacs 23.1 以降 (推奨)
 @item GNU Emacs 24.1 以降 (推奨)
+@item GNU Emacs 25.1 以降 (推奨)
 @item Mule 機能付きでコンパイルされた XEmacs 21.4 の最新版
 @item Mule 機能付きでコンパイルされた XEmacs 21.5 の最新版
 @end itemize
@@ -314,6 +315,10 @@ GNU Emacs 24.3 のユーザは DDSKK 15 をお使いください。
 @item coding tag を明示していないファイルは utf-8 と取り扱われます@footnote{@code{2013-06-11 international/mule-conf.el (file-coding-system-alist)}}。DDSKK 15.2 で対策済みです。
 @item NTEmacs は 24.3 と比べてディレクトリ構成が異なります@footnote{Emacs News: Changes in Emacs 24.4 on Non-Free Operating Systems}。DDSKK 15.2 で対策済みです。
 @end itemize
+
+@item GNU Emacs 25.1
+
+DDSKK 15.2 以降をお使いください（DDSKK 16 を推奨します）。
 
 @item XEmacs 21.4
 
@@ -590,7 +595,7 @@ drwxr-xr-x 1 user user  99999 2011-00-00 00:00 bayesian
 @vindex package-archives
 @findex package-initialize
 
-2014年12月、MELPA@footnote{@uref{http://melpa.org/, Milkypostman's Emacs Lisp Package Archive}}
+2014年12月、MELPA@footnote{@uref{https://melpa.org/, Milkypostman's Emacs Lisp Package Archive}}
 に DDSKK が登録されたことにより GNU Emacs でも @file{package.el} 
 @footnote{GNU Emacs 24 以降で標準で搭載されています。GNU Emacs 23 以前では手動でインストール必要があります。@*
 @url{http://wikemacs.org/wiki/Package.el}}
@@ -8603,6 +8608,8 @@ JIS コード/区点コード入力プロンプトの表示に対して単に @k
 @node 文字コード一覧
 @subsection 文字コード一覧
 @kindex M-x skk-list-chars
+@kindex M-x list-charset-chars
+@kindex C-x 8 RET
 @vindex skk-kcode-charset
 
 @kbd{M-x skk-list-chars} と実行すると、変数 @code{skk-kcode-charset} が指
@@ -8671,7 +8678,7 @@ skk-list-chars を抜ける。
 
 @end table
 
-ほか、Emacs のコマンド @kbd{M-x list-charset-chars} も有用でしょう。
+ほか、Emacs のコマンド @kbd{M-x list-charset-chars} や @kbd{C-x 8 RET} も有用でしょう。
 
 @defvr {ユーザ変数} skk-list-chars-table-header-face
 コード一覧の枠線などに適用するフェイスです。

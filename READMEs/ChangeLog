@@ -1,10 +1,23 @@
+2016-10-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* PROPOSAL.ja: Update.
+
+	* INSTALL.MELPA.md, INSTALL.MELPA.en.md: Fix URL.
+
+2016-10-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* INSTALL.MELPA.md: インクリメンタル・サーチについて記載.
+
 2016-09-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* Contributors: Add Masaya TANIGUCHI.
+	* Contributors: Add Syohei YOSHIDA, Keisuke Kawahara
+	and Masaya TANIGUCHI.
+
+	* AUTHORS.ja, README.w32.ja.org: Update.
 
 2016-09-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* INSTALL: fix.
+	* INSTALL: update.
 
 2016-04-17  Yuh Ohmura <yutopia@y6.dion.ne.jp>
 
