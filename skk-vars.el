@@ -45,9 +45,8 @@
 
 (defun skk-find-window-system ()
   (cond
-   ((eval-when-compile (and (featurep 'emacs)
-			    (>= emacs-major-version 23)))
-    ;; GNU Emacs 23 or later
+   ((eval-when-compile (featurep 'emacs))
+    ;; GNU Emacs
     (let ((frames (frame-list))
 	  val)
       (while (and (not val) frames)
@@ -59,7 +58,7 @@
 	      frames (cdr frames)))
       val))
    (t
-    ;; Emacs 22 and XEmacs
+    ;; XEmacs
     window-system)))
 
 ;;;###autoload
@@ -2988,8 +2987,7 @@ Apple OS X では標準の「辞書」を利用できる。"
 (defvar skkannot-py-buffer nil)
 
 (defvar skkannot-url-installed-p
-  (if (and (featurep 'emacs)
-	   (>= emacs-major-version 22))
+  (if (featurep 'emacs)
       t
     'untested))
 
