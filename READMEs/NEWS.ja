@@ -4,6 +4,22 @@
 
 GNU Emacs 22 をお使いの方は DDSKK 16.1 を利用してください。
 
+** Makefile のターゲットを変更しました
+
+*** ターゲット `snapshot' は廃止しました
+
+*** ターゲット `tar' の動作を変更しました
+
+アーカイブ ddskk-yyyymmdd.tar.gz が生成されます。
+
+*** ターゲット `release' を追加しました
+
+アーカイブ ddskk-VERSION.tar.gz が生成されます。
+
+** その他バグ修正など
+
+*** skk-search-and-replace() [7b27bc]
+
 * 16.1
 
 ** MELPA によるインストール

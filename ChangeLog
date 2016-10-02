@@ -1,6 +1,5 @@
 2016-10-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-
 	* skk.el (skk-mode-invoke): Remove code for GNU Emacs 22.
 	* skk-kcode.el (skk-display-code): Ditto.
 	* skk-tankan.el (skk-tankan-get-char-data)
