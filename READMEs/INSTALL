@@ -24,8 +24,8 @@ Describes how to install SKK for Emacs on Microsoft Windows.
 
 ** APEL
 
-In DDSKK 16.1, installation of APEL (A Portable Emacs Library) is no
-longer required under GNU Emacs 22 or later.  For XEmacs,
+In DDSKK 16.2, installation of APEL (A Portable Emacs Library) is no
+longer required under GNU Emacs 23 or later.  For XEmacs,
 make sure you have APEL 10.7 or later installed.  It is highly
 recommended that you install the latest release.  APEL is available
 at:
@@ -159,6 +159,7 @@ Since the web manual is for the latest Daredevil SKK, it might not be
 compatible with the version you installed.
 
 PDF manuals for old version are available. see the following files.
+    http://openlab.jp/skk/skk-manual/skk-16.1.pdf
     http://openlab.jp/skk/skk-manual/skk-15.2.pdf
     http://openlab.jp/skk/skk-manual/skk-15.1.pdf
     http://openlab.jp/skk/skk-manual/skk-14.4.pdf

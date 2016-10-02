@@ -36,6 +36,11 @@
 
 * Emacs のバージョン
 
+** Daredevil SKK 16.2 が動作する Emacs のバージョンは?
+
+GNU Emacs 22 のサポートを終了しました。GNU Emacs 22 をお使いの方は
+DDSKK 16.1 をインストールしてください。
+
 ** Daredevil SKK 15.1 が動作する Emacs のバージョンは?
 
 GNU Emacs 21 のサポートを終了しました。GNU Emacs 21 をお使いの方は
