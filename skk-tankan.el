@@ -1714,9 +1714,8 @@
   ;;   => (24 7 9)
   ;; (aref skk-tankan-radical-vector 24)
   ;;   => "十"
-  (let* ((charset (if (eval-when-compile (and (featurep 'emacs)
-					      (>= emacs-major-version 23)))
-		      ;; GNU Emacs 23.1 or later
+  (let* ((charset (if (eval-when-compile (featurep 'emacs))
+		      ;; GNU Emacs
 		      (char-charset char skk-charset-list)
 		    (char-charset char))) ; => 'japanese-jisx0208
 					  ;    or 'japanese-jisx0213-2
@@ -1796,8 +1795,7 @@ METHOD が 2 であれば数値 NUM は総画数として検索を実行する。
   ;; ↑の 2nd byte + skk-tankan-stroke-for-radical-vector が総画数。
   ;; index から char へは skk-tankan-encode-0213-1 を逆算すれば可能。
 
-  (if (or (and (featurep 'emacs)
-	       (>= emacs-major-version 23))
+  (if (or (featurep 'emacs)
 	  (featurep 'jisx0213))		; Mule-UCS
       ;; JIS X 0213
       (append
