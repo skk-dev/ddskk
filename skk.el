@@ -339,8 +339,7 @@ dependent."
 	 (skk-kanagaki-initialize)))
   (when (eval-when-compile (featurep 'emacs))
     (skk-emacs-prepare-menu))
-  (when (eval-when-compile (and (featurep 'emacs)
-				(>= emacs-major-version 23)))
+  (when (eval-when-compile (featurep 'emacs))
     (skk-setup-charset-list))
   (skk-setup-delete-selection-mode)
   (when skk-annotation-lookup-DictionaryServices

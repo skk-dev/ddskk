@@ -105,9 +105,9 @@
 ;; (setq PACKAGEDIR "/usr/share/xemacs/site-packages")
 
 ;;; NTEmacs の設定例:
-;; (setq SKK_DATADIR "c:/emacs/22.1/etc/skk")
-;; (setq SKK_INFODIR "c:/emacs/22.1/info")
-;; (setq SKK_LISPDIR "c:/emacs/22.1/site-lisp/skk")
+;; (setq SKK_DATADIR "C:/usr/emacs-25.1/share/emacs/25.1/etc")
+;; (setq SKK_INFODIR "C:/usr/emacs-25.1/share/info")
+;; (setq SKK_LISPDIR "C:/usr/emacs-25.1/share/emacs/site-lisp/skk")
 ;; (setq SKK_SET_JISYO t)
 ;;
 ;; *[注] Microsoft Windows 用の Emacs はバージョンやビルド、ディストリビューション

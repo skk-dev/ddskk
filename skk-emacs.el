@@ -726,11 +726,6 @@ TEXT には `skk-tooltip-face' が適用される。"
 		      (<= ch (cdr skkdic-jisx0208-hiragana-block))
 		      (setq code (encode-char ch 'japanese-jisx0208)))
 		 (aset vec i (- (logand code #xFF) 32)))
-		((and (eval-when-compile (= emacs-major-version 22))
-		      (setq code (split-char ch))
-		      (eq (car code) 'japanese-jisx0208)
-		      (= (nth 1 code) skkdic-jisx0208-hiragana-block))
-		 (aset vec i (- (nth 2 code) 32)))
 		(t
 		 (aset vec i 128))))
 	(setq i (1+ i)))

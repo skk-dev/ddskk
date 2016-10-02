@@ -1041,10 +1041,7 @@ information etc.  If PROC is non-nil, check the buffer for that process."
 	(font-lock-mode 0)
 	(set-buffer-multibyte t)
 	(skk-process-kill-without-query (get-buffer-process (current-buffer)))
-	(set-buffer-file-coding-system
-	 (if (eval-when-compile (<= emacs-major-version 22))
-	     'emacs-mule
-	   'utf-8-emacs))
+	(set-buffer-file-coding-system 'utf-8-emacs)
 	(set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix)
 	;;
 	(skkannot-py-send-command "import DictionaryServices")
@@ -1830,8 +1827,9 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
        word)))))
 
 (defun skkannot-url-installed-p ()
+  ;; skkannot-url-installed-p の初期値は skk-vars.el を参照
   (when (eq skkannot-url-installed-p 'untested)
-    ;; GNU Emacs 22 以降以外で URL パッケージをテストする
+    ;; GNU Emacs 以外で URL パッケージをテストする
     (cond
      ((and (featurep 'xemacs)
 	   (= emacs-major-version 21)
@@ -1839,8 +1837,9 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 	   (not (featurep 'un-define)))
       ;; XEmacs 21.4 で Mule-UCS もない場合
       (setq skkannot-url-installed-p nil))
+
      (t
-      ;; Emacs 21 と XEmacs
+      ;; 上記以外
       (defadvice url-hexify-string (around multibyte-char activate)
 	(setq ad-return-value
 	      (mapconcat (lambda (byte)
