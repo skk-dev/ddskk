@@ -34,7 +34,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 16.1.50
-@set UPDATED Date: 2016/10/03 21:23:39
+@set UPDATED Date: 2016/10/04 06:04:06
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -154,7 +154,6 @@ approved by the author.
 
 インストール
 
-* APEL のインストール::
 * DDSKK のインストール::
 * 辞書について::
 * 辞書の入手::
@@ -380,28 +379,12 @@ DDSKK の主な特徴は、次のとおりです。
 @cindex インストール
 
 @menu
-* APEL のインストール::
 * DDSKK のインストール::
 * 辞書について::
 * 辞書の入手::
 * 辞書を DDSKK と同時にインストールする::
 * 辞書サーバの入手::
 @end menu
-
-@node APEL のインストール
-@section APEL のインストール
-@cindex APEL
-
-DDSKK 14.2 からは、GNU Emacs 22 以上を利用する場合
-においては APEL を別途インストールする必要がなくなりました。APEL に依存し
-ている他の elisp プログラムを使用していなければ、インストール済の APEL は
-削除することが可能です。
-
-XEmacs をお使いの場合は、 DDSKK をインストールする前に
-APEL (APEL 10.8 以上を推奨) をインストールして下さい。
-APEL は次のサイトから入手できます。
-
-@uref{http://git.chise.org/elisp/apel/, APEL}
 
 @node DDSKK のインストール
 @section DDSKK のインストール
@@ -506,6 +489,12 @@ $ su
 
 @node XEmacs へのインストール
 @subsection XEmacs へのインストール
+@cindex APEL
+
+XEmacs をお使いの場合は、 DDSKK をインストールする前に APEL (APEL 10.8 以
+上を推奨) をインストールして下さい。APEL は次のサイトから入手できます。
+
+@uref{http://git.chise.org/elisp/apel/, APEL}
 
 XEmacs でパッケージとしてインストールする場合は、
 まず、@option{what-where-package} を引数に @command{make} コマンドを実行
@@ -10515,7 +10504,7 @@ SKK 本体と SKK 辞書が必要です。オプションで辞書サーバを�
 XEmacs では事前に APEL をインストールしてください。
 
 @display
-@xref{APEL のインストール}.
+@xref{XEmacs へのインストール}.
 @end display
 
 SKK 本体は以下から入手できます。
