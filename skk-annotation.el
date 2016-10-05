@@ -1827,15 +1827,17 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
        word)))))
 
 (defun skkannot-url-installed-p ()
-  ;; skkannot-url-installed-p の初期値は skk-vars.el を参照
+  ;; skkannot-url-installed-p の初期値は skk-vars.el で定義
+  ;;  - featurep 'emacs なら t
+  ;;  - 以外は 'untested
   (when (eq skkannot-url-installed-p 'untested)
     ;; GNU Emacs 以外で URL パッケージをテストする
     (cond
      ((and (featurep 'xemacs)
 	   (= emacs-major-version 21)
 	   (= emacs-minor-version 4)
-	   (not (featurep 'un-define)))
-      ;; XEmacs 21.4 で Mule-UCS もない場合
+	   (not (featurep 'un-define)))	; Mule-UCS
+      ;; XEmacs 21.4 かつ Mule-UCS 未インストールの場合
       (setq skkannot-url-installed-p nil))
 
      (t

@@ -1,5 +1,7 @@
 2016-10-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-annotation.el (skkannot-url-installed-p): Update comment.
+
 	* skk-vars.el (skk-jisyo-code): docstring 中の Emacs 22 に関する記載を削除.
 	* skk-macs.el (skk-find-coding-system): Ditto.
 
