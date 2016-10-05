@@ -32,7 +32,7 @@
   (require 'skk-macs)
   (require 'skk-vars))
 (unless (find-coding-system 'euc-jisx0213)
-  (require 'jisx0213))
+  (require 'jisx0213))			; Mule-UCS
 ;;(require 'un-define)
 
 ;;;###autoload

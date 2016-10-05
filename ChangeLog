@@ -1,3 +1,10 @@
+2016-10-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-jisyo-code): docstring 中の Emacs 22 に関する記載を削除.
+	* skk-macs.el (skk-find-coding-system): Ditto.
+
+	* SKK-MK, skk-jisx0213.el, skk-tut.el: Add comment `Mule-UCS'.
+
 2016-10-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-mode-invoke): Remove code for GNU Emacs 22.

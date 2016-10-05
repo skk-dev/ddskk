@@ -986,7 +986,7 @@ BUFFER defaults to the current buffer."
 (defun skk-find-coding-system (code)
   "CODE が、Emacs が解釈する coding-system シンボル表現であればそのまま返し、
 文字列であれば連想リスト `skk-coding-system-alist' を用いてシンボル表現へ変換する。
-これら以外（nil を含む）であればシンボル euc-jis-2004 (GNU Emacs 22 まではシンボル euc-jisx0213) を返す。"
+これら以外（nil を含む）であればシンボル euc-jis-2004 を返す。"
   (cond ((and code
 	      (or (and (fboundp 'coding-system-p) ; GNU Emacs
 		       (coding-system-p code))

@@ -34,7 +34,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 16.1.50
-@set UPDATED Date: 2016/10/04 06:04:06
+@set UPDATED Date: 2016/10/05 20:23:45
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2264,11 +2264,7 @@ JIS X 0201 カナ@footnote{いわゆる半角カナ。以下、このマニュ�
 @item skk-jisx0213.el
 @cindex @file{skk-jisx0213.el}
 
-JIS X 0213 文字集合を扱うプログラムです。この機能は Emacs 23 では標準で
-利用できます。それ未満のバージョンの Emacs においては、Mule-UCS を導入す
-るなどの対策が必要です。Mule-UCS については 
-@uref{http://tats.haun.org/mule-ucs/, Mule-UCS Unofficial Site} を参照
-してください。
+JIS X 0213 文字集合を扱うプログラムです。
 
 @item skk-jisyo-edit-mode.el
 @cindex @file{skk-jisyo-edit-mode.el}
@@ -7895,7 +7891,6 @@ XEmacs の場合、シンボルは coding system そのものでは
 @end itemize
 
 デフォルトは @code{nil} です。この場合、シンボル @code{euc-jis-2004} が使われます
-@footnote{GNU Emacs 22 まではシンボル @code{euc-jisx0213} が使われます。}
 @footnote{関数 @code{skk-find-coding-system} を参照のこと。}
 。
 

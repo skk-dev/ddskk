@@ -295,7 +295,7 @@
     (skk-show-tooltip . nil)
     (skk-show-inline . nil)
     (skk-show-annotation . nil)
-    (skk-kcode-charset . (if (featurep 'jisx0213)
+    (skk-kcode-charset . (if (featurep 'jisx0213) ; Mule-UCS
 			     (quote japanese-jisx0208)
 			   skk-kcode-charset))
     (skk-kcode-method . (if (featurep 'emacs)

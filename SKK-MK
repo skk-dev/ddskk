@@ -267,28 +267,29 @@ This version of SKK requires MULE features"))
 		;; VIP 3.7
 		;; vip
 		)))
-    (cond
-     ((featurep 'xemacs)
-      ;; XEmacs
-      (when (or (featurep 'gdbm)
-		(featurep 'dbm)
-		(featurep 'berkdb)
-		(featurep 'berkeley-db))
-	(add-to-list 'list 'skk-dbm))
-      (add-to-list 'list 'skk-xemacs))
-     (running-gnu-emacs
-      ;; FSFmacs
-      (add-to-list 'list 'ccc)
-      (add-to-list 'list 'skk-emacs)))
+
+    (cond ((featurep 'xemacs)		; XEmacs
+	   (when (or (featurep 'gdbm)
+		     (featurep 'dbm)
+		     (featurep 'berkdb)
+		     (featurep 'berkeley-db))
+	     (add-to-list 'list 'skk-dbm))
+	   (add-to-list 'list 'skk-xemacs))
+
+	  (running-gnu-emacs		; FSFmacs
+	   (add-to-list 'list 'ccc)
+	   (add-to-list 'list 'skk-emacs)))
+
     ;; skk-jisx0213.el
     (when (or (coding-system-p 'euc-jisx0213)
 	      (and (fboundp 'find-coding-system)
 		   (find-coding-system 'euc-jisx0213))
 	      (condition-case nil
-		  (and (require 'jisx0213)
-		       (require 'un-define))
+		  (and (require 'jisx0213) ; Mule-UCS
+		       (require 'un-define)) ; Mule-UCS
 		(error)))
       (add-to-list 'list 'skk-jisx0213))
+
     ;; skk-lookup.el
     (when (condition-case nil
 	      ;; you might have to add lookup installed directory
@@ -297,6 +298,7 @@ This version of SKK requires MULE features"))
 		(require 'lookup))
 	    (error))
       (add-to-list 'list 'skk-lookup))
+
     ;; skk-w3m.el
     ;;(when (condition-case nil
     ;;          (require 'w3m-search)
