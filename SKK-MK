@@ -244,7 +244,6 @@ This version of SKK requires MULE features"))
 		skk-look
 		skk-macs
 		skk-num
-		skk-search-web
 		skk-server-completion
 		skk-server
 		skk-show-mode
@@ -278,7 +277,8 @@ This version of SKK requires MULE features"))
 
 	  (running-gnu-emacs		; FSFmacs
 	   (add-to-list 'list 'ccc)
-	   (add-to-list 'list 'skk-emacs)))
+	   (add-to-list 'list 'skk-emacs)
+	   (add-to-list 'list 'skk-search-web)))
 
     ;; skk-jisx0213.el
     (when (or (coding-system-p 'euc-jisx0213)

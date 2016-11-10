@@ -34,7 +34,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 16.1.50
-@set UPDATED Date: 2016/10/05 20:23:45
+@set UPDATED Date: 2016/11/10 22:40:19
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -324,6 +324,7 @@ DDSKK 15.2 以降をお使いください（DDSKK 16 を推奨します）。
 @item ツールティップ表示が機能しません。
 @item 日本語メニュー表示は X リソースによる方法のみテストされています。
 @item GNU Emacs 標準添付辞書 ja-dic は利用できません。
+@item skk-search-web は利用できません。
 @end itemize
 
 @item XEmacs 21.5 (beta)
@@ -334,6 +335,7 @@ DDSKK 15.2 以降をお使いください（DDSKK 16 を推奨します）。
 @item 動的補完における複数候補表示は機能しません。
 @item 日本語メニュー表示は X リソースによる方法のみテストされています。
 @item GNU Emacs 標準添付辞書 ja-dic は利用できません。
+@item skk-search-web は利用できません。
 @end itemize
 
 @end table

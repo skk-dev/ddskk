@@ -16,6 +16,11 @@ GNU Emacs 22 をお使いの方は DDSKK 16.1 を利用してください。
 
 アーカイブ ddskk-VERSION.tar.gz が生成されます。
 
+** XEmacs 関連
+
+XEmacs によるインストール（make install-package）時は、
+skk-search-web.el を対象外としました。
+
 ** その他バグ修正など
 
 *** skk-search-and-replace() [7b27bc]
