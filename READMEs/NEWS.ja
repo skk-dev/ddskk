@@ -16,25 +16,10 @@ GNU Emacs 22 をお使いの方は DDSKK 16.1 を利用してください。
 
 アーカイブ ddskk-VERSION.tar.gz が生成されます。
 
-** XEmacs 関連
+** skk-search-web.el
 
-XEmacs によるインストール（make install-package）時は、
-skk-search-web.el を対象外としました。
-
-** その他バグ修正など
-
-*** skk-search-and-replace() [7b27bc]
-
-* 16.1
-
-** MELPA によるインストール
-
-MELPA を利用した package.el によるインストールが可能となりました。
-Thanks to Yuhei Maeda and Takenari Shinohara.
-
-詳細は READMEs/INSTALL.MELPA.md をご覧ください。
-
-なお、M-x skk-version の評価結果に MELPA の情報を加えました。
+skk-search-web.el を experimental からトップディレクトリへ移しました。
+なお、XEmacs ではインストール対象外です。
 
 ** 辞書ファイルのダウンロード
 
@@ -46,15 +31,22 @@ Thanks to Yuhei Maeda and Takenari Shinohara.
 
 Emacs 起動中も M-x skk-get が可能です。
 
+* 16.1 (2016-10-01)
+
+** MELPA によるインストール
+
+MELPA を利用した package.el によるインストールが可能となりました。
+Thanks to Yuhei Maeda and Takenari Shinohara.
+
+詳細は READMEs/INSTALL.MELPA.md をご覧ください。
+
+なお、M-x skk-version の評価結果に MELPA の情報を加えました。
+
 ** GNU Emacs 25 対応を進めました
 
 *** skk-help-make-usage
 
 help-make-usage() が help--make-usage() へ変更されたことに伴う wrap マクロ
-
-** skk-search-web.el
-
-skk-search-web.el を experimental からトップディレクトリへ移しました。
 
 ** 開発環境など
 
@@ -103,6 +95,10 @@ queue-m.el の利用を廃止しました。
 ** NICOLA
 
 Add keyboard type nicola-colemak and omelet-colemak.
+
+** その他バグ修正など
+
+*** skk-search-and-replace() [7b27bc]
 
 ** SKK-JISYO.lisp
 
