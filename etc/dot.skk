@@ -368,8 +368,29 @@
 ;; *候補*バッファ の fringe を消す
 ;; (setq skk-candidate-buffer-display-fringes nil)
 
-;; *候補*バッファ以外の window を残す (popwin.el や shackle.el 向け)
-;; (setq skk-candidate-buffer-delete-other-windows nil)
+;; @@ window 管理
+
+;; Popup Window Manager for Emacs (https://github.com/m2ym/popwin-el)
+;; 注) GNU Emacs 23 でも動く
+(when (featurep 'popwin)
+  (let ((target '(("*候補*"           :position bottom :height 10 :noselect t)
+		  ("*SKK annotation*" :position bottom :height 10 :noselect t))))
+    (dolist (e target)
+      (setq popwin:special-display-config
+	    (cons e popwin:special-display-config)))))
+
+;; Enforce rules for popup windows (https://github.com/wasamasa/shackle)
+;; 注) GNU Emacs 23 では動かない
+(when (featurep 'shackle)
+  (let ((target '(("*候補*"           :align below :ratio 0.3)
+		  ("*SKK annotation*" :align below :ratio 0.3))))
+    (dolist (e target)
+      (setq shackle-rules
+	    (cons e shackle-rules)))))
+
+(when (or (featurep 'popwin)
+	  (featurep 'shackle))
+  (setq skk-candidate-buffer-delete-other-windows nil))
 
 ;; @@ 候補表示の装飾（フェイス）に関する高度な設定
 

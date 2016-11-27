@@ -1,6 +1,6 @@
 2016-11-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* dot.skk: Add skk-candidate-buffer-delete-other-windows.
+	* dot.skk: Add "window 管理".
 
 2016-01-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
