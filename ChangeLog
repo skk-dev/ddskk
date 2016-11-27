@@ -1,5 +1,8 @@
 2016-11-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-annotation.el (skk-annotation-show-buffer):
+	Remove function split-window-vertically().
+
 	* skk-vars.el (skk-candidate-buffer-delete-other-windows): New variable.
 	* skk.el (skk-henkan-show-candidates-buffer): Use it.
 

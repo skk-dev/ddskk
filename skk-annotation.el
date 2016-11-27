@@ -394,14 +394,12 @@
 	(let ((minibuf-p (skk-in-minibuffer-p))
 	      event window)
 	  (skk-annotation-insert annotation)
-	  (cond (minibuf-p
-		 (if (setq window (get-buffer-window (skk-minibuffer-origin)))
-		     (select-window window)
-		   (other-window 1))
-		 (unless (eq (next-window) (selected-window))
-		   (delete-other-windows)))
-		(t
-		 (split-window-vertically)))
+	  (when minibuf-p
+	    (if (setq window (get-buffer-window (skk-minibuffer-origin)))
+		(select-window window)
+	      (other-window 1))
+	    (unless (eq (next-window) (selected-window))
+	      (delete-other-windows)))
 	  ;;
 	  (skk-fit-window (display-buffer skk-annotation-buffer))
 	  (when minibuf-p
