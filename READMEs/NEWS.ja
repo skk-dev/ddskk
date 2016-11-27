@@ -16,6 +16,15 @@ GNU Emacs 22 をお使いの方は DDSKK 16.1 を利用してください。
 
 アーカイブ ddskk-VERSION.tar.gz が生成されます。
 
+** skk-candidate-buffer-delete-other-windows
+
+skk-henkan-show-candidates-buffer() では *候補*バッファを表示す
+る際に、*候補*バッファを目立たせるためとして他の window を一時的
+に非表示としている。
+popwin.el や shackle.el を利用して window 配置を管理している場合、
+skk-candidate-buffer-delete-other-windows を nil とすることで、
+標準の動作を無効化できる。
+
 ** skk-search-web.el
 
 skk-search-web.el を experimental からトップディレクトリへ移しました。

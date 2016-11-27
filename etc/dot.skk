@@ -368,6 +368,9 @@
 ;; *候補*バッファ の fringe を消す
 ;; (setq skk-candidate-buffer-display-fringes nil)
 
+;; *候補*バッファ以外の window を残す (popwin.el や shackle.el 向け)
+;; (setq skk-candidate-buffer-delete-other-windows nil)
+
 ;; @@ 候補表示の装飾（フェイス）に関する高度な設定
 
 ;; 注1) skk-emacs-*-face は GNU Emacs に限って定義される face です。

@@ -1,3 +1,8 @@
+2016-11-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-candidate-buffer-delete-other-windows): New variable.
+	* skk.el (skk-henkan-show-candidates-buffer): Use it.
+
 2016-11-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* SKK-MK (SKK_MODULES): XEmacs は skk-search-web は対象外.

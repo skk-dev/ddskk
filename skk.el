@@ -2314,7 +2314,8 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
       (unless (eq (next-window) (selected-window))
 	;; *候補* バッファを見易くする。
 	;; `save-window-excursion' の中なので大丈夫なはず。
-	(delete-other-windows))
+	(and skk-candidate-buffer-delete-other-windows
+	     (delete-other-windows)))
       (save-selected-window
 	(pop-to-buffer buff)
 	(let ((lines (count-lines (point-min) (point-max))))

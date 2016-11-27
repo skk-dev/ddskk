@@ -34,7 +34,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 16.1.50
-@set UPDATED Date: 2016/11/10 22:40:19
+@set UPDATED Date: 2016/11/27 15:08:10
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -9381,6 +9381,10 @@ skk abbrev モードであることを示すカーソル色。標準は、royalb
 
 @defvr {ユーザ変数} skk-candidate-buffer-background-color-odd
  *候補*バッファの背景色（奇数ライン）を指定します。
+@end defvr
+
+@defvr {ユーザ変数} skk-candidate-buffer-delete-other-windows
+ nil であれば、*候補*バッファ表示に際して window 配置を変更しない。
 @end defvr
 
 @end cartouche
