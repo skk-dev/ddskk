@@ -64,6 +64,8 @@ https://github.com/skk-dev/ddskk で "fork" します。
 
 すると 自分のアカウントのページに fork したリポジトリができます。
 
+# fork は不要かもしれません。（確認中）
+# Cf. https://seleck.cc/635
 --------------
 
 ** 手元のコンピュータにリポジトリを設置
