@@ -435,14 +435,20 @@ but the contents viewed as characters do change.
 	 (x-display-color-p)))))
 
 (defun skk-char-to-unibyte-string (char)
+  ;; Warning: `string-make-unibyte' is an obsolete function (as of 26.1).
+  ;;          use `encode-coding-string'.
+
   (ignore-errors
     (cond
-     ((eval-when-compile (featurep 'emacs))
-      ;; GNU Emacs
-      (string-make-unibyte (char-to-string char)))
      ;; XEmacs
+     ((eval-when-compile (featurep 'xemacs))
+      (char-to-string char))
+     ;; GNU Emacs 26 から
+     ((eval-when-compile (>= emacs-major-version 26))
+      (encode-coding-string (char-to-string char) 'us-ascii))
+     ;;  GNU Emacs 25 まで
      (t
-      (char-to-string char)))))
+      (string-make-unibyte (char-to-string char))))))
 
 (defun skk-ascii-char-p (char)
   (cond
