@@ -1849,7 +1849,7 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 	       (skk-henkan-list-filter)
 	       (setq new-word (skk-get-current-candidate))))
 	   (when (and new-word
-		      (> (skk-henkan-count) 3))
+		      (> (skk-henkan-count) (- skk-show-candidates-nth-henkan-char 2) ))
 	     ;; show candidates in minibuffer
 	     (setq new-word (skk-henkan-show-candidates)))))
     new-word))
@@ -1931,6 +1931,7 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 	       (push (cons (nth i skk-henkan-show-candidates-keys)
 			   i)
 		     alist))))
+	  (nth-henkan (- skk-show-candidates-nth-henkan-char 1))
 	  (loop 0)
 	  inhibit-quit
 	  (echo-keystrokes 0)
@@ -1948,9 +1949,10 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
        (cond
 	(reverse
 	 (setq loop (1- loop)
-	       henkan-list (nthcdr (+ 4 (* loop max-candidates))
+	       henkan-list (nthcdr (+ nth-henkan (* loop max-candidates))
 				   skk-henkan-list)
 	       reverse nil))
+
 	((skk-exit-show-candidates)
 	 ;; 候補が尽きてしまって、skk-henkan-show-candidates ->
 	 ;; skk-henkan-in-minibuff -> skk-henkan
@@ -1959,11 +1961,12 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 	 (setq henkan-list (nthcdr (skk-henkan-count) skk-henkan-list)
 	       loop (car (skk-exit-show-candidates)))
 	 (skk-set-exit-show-candidates nil))
+
 	(t
 	 ;; skk-henkan-show-candidates-keys の最終のキーに対応する候補
 	 ;; が出てくるまでサーチを続ける。
 	 (while (and skk-current-search-prog-list
-		     (null (nthcdr (+ 4 max-candidates (* loop max-candidates))
+		     (null (nthcdr (+ nth-henkan max-candidates (* loop max-candidates))
 				   skk-henkan-list)))
 	   ;; 新規に候補が得られた時のみ skk-henkan-list-filter を呼ぶ。
 	   ;; skk-look や skk-server-completion-search を利用した郵便番号からの
@@ -1974,7 +1977,7 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 		     (skk-nunion skk-henkan-list
 				 cands))
 	       (skk-henkan-list-filter))))
-	 (setq henkan-list (nthcdr (+ 4 (* loop max-candidates))
+	 (setq henkan-list (nthcdr (+ nth-henkan (* loop max-candidates))
 				   skk-henkan-list))))
        (save-window-excursion
 	 (setq n (skk-henkan-show-candidate-subr candidate-keys henkan-list))
@@ -2001,10 +2004,11 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 					      key-num-alist)))))
 		   (cond
 		    (num
-		     (skk-set-henkan-count (+ 4 (* loop max-candidates) num))
+		     (skk-set-henkan-count (+ nth-henkan (* loop max-candidates) num))
 		     (setq new-one (nth num henkan-list)
 			   skk-kakutei-flag t
 			   loop nil))
+
 		    ((or (eq char skk-start-henkan-char) ; SPC
 			 (skk-key-binding-member key
 						 '(skk-nicola-self-insert-rshift)
@@ -2014,7 +2018,7 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 			     (nthcdr max-candidates henkan-list))
 			 (setq loop (1+ loop))
 		       ;; 候補が尽きた。この関数から抜ける。
-		       (let ((last-showed-index (+ 4 (* loop max-candidates))))
+		       (let ((last-showed-index (+ nth-henkan (* loop max-candidates))))
 			 (skk-set-exit-show-candidates
 			  ;; cdr 部は、辞書登録に入る前に最後に表示し
 			  ;; た候補群の中で最初の候補を指すインデクス
@@ -2024,17 +2028,20 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 			 ;; --- nil)を指す。
 			 (skk-set-henkan-count (+ last-showed-index n))
 			 (setq loop nil))))
+
 		    ((eq char skk-force-registration-mode-char)
-		     (let ((last-showed-index (+ 4 (* loop max-candidates))))
+		     (let ((last-showed-index (+ nth-henkan (* loop max-candidates))))
 		       (skk-set-exit-show-candidates
 			;; cdr 部は、辞書登録に入る前に最後に表示し
 			;; た候補群の中で最初の候補を指すインデクス
 			(cons loop last-showed-index))
 		       (skk-set-henkan-count last-showed-index)
 		       (setq loop nil)))
+
 		    ((eq char skk-show-candidates-toggle-display-place-char)
 		     (setq skk-show-candidates-always-pop-to-buffer
 			   (not skk-show-candidates-always-pop-to-buffer)))
+
 		    ((skk-key-binding-member key
 					     '(skk-previous-candidate
 					       skk-delete-backward-char
@@ -2044,16 +2051,19 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 		       (0
 			;; skk-henkan-show-candidates を呼ぶ前の
 			;; 状態に戻す。
-			(skk-escape-from-show-candidates 4))
+			(skk-escape-from-show-candidates nth-henkan))
 		       (t
 			;; 一つ前の候補群をエコーエリアに表示する。
 			(setq reverse t))))
+
 		    ((eq char skk-annotation-toggle-display-char)
 		     (skk-annotation-toggle-display-p))
+
 		    ((skk-key-binding-member key skk-quit-commands
 					     skk-j-mode-map)
 		     ;;
 		     (signal 'quit nil))
+
 		    (t
 		     (skk-message "`%s' は無効なキーです！"
 				  "`%s' is not valid here!"

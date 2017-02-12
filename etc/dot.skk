@@ -114,6 +114,9 @@
 
 ;; @@ 基本的なユーザ・インターフェース
 
+;; 候補一覧を表示するまでの `skk-start-henkan-char' を打鍵する回数
+;; (setq skk-show-candidates-nth-henkan-char 5) ; 2 以上の整数である必要
+
 ;; 前候補/前候補群に戻る操作
 ;; (setq skk-previous-candidate-keys (list "x" "\C-p"))
 

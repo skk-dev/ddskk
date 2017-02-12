@@ -1272,6 +1272,12 @@ ASCII 数字の直後であれば、長音(ー)は `-' へ、句点(。
   :type 'character
   :group 'skk-henkan)
 
+(defcustom skk-show-candidates-nth-henkan-char 5
+  "*`skk-henkan-show-candidates' $Bを呼び出すまでの `skk-start-henkan-char' を打鍵する回数。
+2 以上の整数である必要。"
+  :type 'integer
+  :group 'skk-henkan)
+
 (defcustom skk-previous-candidate-keys (list "x" "\C-p")
   "*`skk-previous-candidate' を割当てるキー。
 この変数にはキーを表すオブジェクトのリストを指定する。
