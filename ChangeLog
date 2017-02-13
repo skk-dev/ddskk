@@ -1,3 +1,8 @@
+2017-02-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-show-candidates-nth-henkan-char): New variable.
+	* skk.el (skk-henkan-1, skk-henkan-show-candidates): Use it.
+
 2017-02-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* bayesian/README.ja.md: Rename from README.ja.

@@ -1,6 +1,10 @@
+2017-02-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.texi: Add skk-show-candidates-nth-henkan-char.
+
 2016-11-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.texi (): Add skk-candidate-buffer-delete-other-windows.
+	* skk.texi: Add skk-candidate-buffer-delete-other-windows.
 
 2016-11-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

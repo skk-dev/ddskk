@@ -34,7 +34,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 16.1.50
-@set UPDATED Date: 2016/11/27 15:08:10
+@set UPDATED Date: 2017/02/13 20:09:48
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1552,8 +1552,10 @@ SKK モードは、文字種類による４種類の@b{「入力モード」}と
 @end example
 
 @noindent
-というエントリを含むときに @kbd{K y o} の後に @key{SPC} を５回続けて
-タイプすれば
+というエントリを含むときに @kbd{K y o} の後に @key{SPC} を５回
+@footnote{skk-show-candidates-nth-henkan-char}
+続けてタイプすれば
+
 
 @example
 @group
@@ -1594,6 +1596,11 @@ A:嘘  S:拒  D:拠  F:虚  J:挙  K:許  L:渠  [残り 2]
 
 @defvr {ユーザ変数} skk-search-excluding-word-pattern-function
 詳しくは docstring を参照のこと。
+@end defvr
+
+@defvr {ユーザ変数} skk-show-candidates-nth-henkan-char
+候補一覧を表示する関数 @code{skk-henkan-show-candidates} を呼び出すまで
+の @code{skk-start-henkan-char} を打鍵する回数。2 以上の整数である必要。
 @end defvr
 
 @node 送り仮名が有る場合
@@ -6385,7 +6392,7 @@ t} の場合の送り仮名チェックの対象は、@samp{ち} です。個人
 
 @noindent
 こうして、送り仮名がマッチする候補が @samp{立ち上}、@samp{建}、@samp{断}、
-@samp{経}、@samp{立} の 5 つに絞られます。これらは文字列の長さ順に昇順に
+@samp{経}、@samp{立} の５つに絞られます。これらは文字列の長さ順に昇順に
 ソートされ
 @footnote{長さ順にソートするのは、変換された部分がより長い候補を先順位
 として出力するためです。}、それぞれの候補と該当の見出し語から切り捨てら
@@ -6393,7 +6400,7 @@ t} の場合の送り仮名チェックの対象は、@samp{ち} です。個人
 @footnote{@samp{該当の見出し語から切り捨てられた文字列} を送り仮名とみな
 して処理しています。}を、送り仮名の自動処理の最終候補として返します。上
 記の例は、@samp{立ち上げる}、@samp{建ちあげる}、@samp{断ちあげる}、
-@samp{経ちあげる}、@samp{立ちあげる} の 5 つが最終候補になります。
+@samp{経ちあげる}、@samp{立ちあげる} の５つが最終候補になります。
 
 自動送り機能は、個人辞書のみを検索します。
 
@@ -6706,7 +6713,7 @@ skk の初期設定では、変換で確定された単語は、次の変換時�
 と変換されます。何故なら @w{@samp{ふr}} の関連語を探す際、
 @code{skk-study-search-times} @footnote{デフォルト値は 5 です。} に
 指定された回数分だけ遡って、以前に確定した語の中に関連語がないか探すの
-です。従って、この場合だと、2 つ前の確定情報を探した際に @samp{雨}
+です。従って、この場合だと、２つ前の確定情報を探した際に @samp{雨}
 @w{(@samp{あめ})} 見つけ、これを関連語として、@w{@samp{ふr}} の値を
 決めようとするのです。
 
@@ -7483,7 +7490,7 @@ L:おおさかいちりつだいがく
 @footnote{あるかな文字をローマ字表現したときの 1 文字目を@b{「ローマ字プ
 レフィックス」}と呼びます。}で表現されています。
 この 1 エントリで @samp{持た}、@samp{持ち}、@samp{持つ}、@samp{持て}、
-@samp{持と} の 5 つの候補に対応します。その 5 つの候補の送り仮名をローマ
+@samp{持と} の５つの候補に対応します。その５つの候補の送り仮名をローマ
 字プレフィックスで表現すれば、いずれも @samp{t} になります。
 
 @node 送りありエントリのブロック形式
@@ -7503,7 +7510,7 @@ L:おおさかいちりつだいがく
 
 この例で見ると、見出し語 @samp{たとe} の場合は @samp{え} を送り仮名とす
 る 1 つのブロックから構成されています。見出し語 @samp{ふくm} の場合は、
-@samp{ま}、@samp{み}、@samp{む}、@samp{め}、@samp{も} を送り仮名とする 5
+@samp{ま}、@samp{み}、@samp{む}、@samp{め}、@samp{も} を送り仮名とする５
 ブロックに分けられています。
 
 @vindex skk-auto-okuri-process
@@ -8404,7 +8411,7 @@ Lookup.el, OS X 辞書サービス、または Wikipedia/Wiktionary アノテー
 (Max OS X では @kbd{M-4 M-i}) とプレフィックス付でコマンドを実行してみて
 ください。@footnote{@code{skk-annotation-other-sources} の標準の値は環境
 によって異なります。@file{lookup.el} と @file{skk-lookup.el} の設定が有
-効になっている場合は @code{en.wiktionary} は 4 番目 (Apple OS X では 5 番
+効になっている場合は @code{en.wiktionary} は 4 番目 (Apple OS X では５番
 目) になります。}
 
 @example
