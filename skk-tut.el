@@ -280,7 +280,8 @@
      . '(?A ?B ?C ?D ?E ?F ?G ?H ?I ?J ?K ?M ?N ?O ?P ?R ?S ?T ?U ?V ?W ?Y ?Z))
     (skk-share-private-jisyo . nil)
     (skk-special-midashi-char-list . '(?> ?< ??))
-    (skk-start-henkan-key . " ")
+    (skk-start-henkan-char . ?\040)
+    (skk-show-candidates-nth-henkan-char. 5)
     (skk-try-completion-char . ?\011)
     (skk-update-jisyo-function . 'skktut-update-jisyo)
     (skk-use-color-cursor . (and window-system
