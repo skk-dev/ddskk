@@ -189,10 +189,10 @@
 	(incf i))
       (when (or invisible
 		(and bottom
-		     (> (1+ (* 7 skk-henkan-show-candidates-rows))
+		     (> (1+ skk-henkan-number-to-display-candidates)
 			(- (skk-window-body-height)
 			   (count-screen-lines (window-start) (point))))))
-	(recenter (- (1+ (* 7 skk-henkan-show-candidates-rows))))))))
+	(recenter (- (1+ skk-henkan-number-to-display-candidates)))))))
 
 (provide 'skk-inline)
 

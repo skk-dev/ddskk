@@ -99,7 +99,7 @@
     (skk-henkan-okuri-strictly . nil)
     (skk-henkan-overlay-priority . 600)
     (skk-henkan-show-candidates-keys . '(?a ?s ?d ?f ?j ?k ?l))
-    (skk-henkan-show-candidates-rows . 1)
+    (skk-henkan-number-to-display-candidates . 7)
     (skk-show-candidates-always-pop-to-buffer . nil)
     (skk-henkan-strict-okuri-precedence . nil)
     (skk-previous-candidate-keys

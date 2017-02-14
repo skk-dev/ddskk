@@ -1910,7 +1910,7 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 (defun skk-henkan-show-candidates ()
   "変換した候補群をエコーエリアに表示する。"
   (skk-save-point
-   (let* ((max-candidates (* 7 skk-henkan-show-candidates-rows))
+   (let* ((max-candidates skk-henkan-number-to-display-candidates)
 	  (candidate-keys ; 表示用のキーリスト
 	   (mapcar (lambda (c)
 		     (when (or (memq c '(?\C-g skk-start-henkan-char))
@@ -2082,7 +2082,7 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
 満たなかったらそこで打ち切る) の文字列を作り、インライン、ツールティップ、
 エコーエリア又は候補バッファに表示する。"
-  (let* ((max-candidates (* 7 skk-henkan-show-candidates-rows))
+  (let* ((max-candidates skk-henkan-number-to-display-candidates)
 	 (workinglst (skk-henkan-candidate-list candidates max-candidates))
 	 str tooltip-str message-log-max)
     (when workinglst
@@ -2093,11 +2093,11 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
 	      (key (concat (propertize (nth i keys) 'face
 				       'skk-henkan-show-candidates-keys-face)
 			   ":")))
-	  (when (and (zerop (% i 7))	; 各列の最初の候補
+	  (when (and (zerop (% i skk-henkan-number-to-display-candidates)) ; 各列の最初の候補
 		     (not (zerop i)))
 	    (setq str (concat str "\n")))
 	  (setq str (concat str
-			    (if (zerop (% i 7))	"" "  ")
+			    (if (zerop (% i skk-henkan-number-to-display-candidates)) "" "  ")
 			    key cand)
 		tooltip-str (concat tooltip-str key cand "\n"))))
       (setq str (concat str (propertize

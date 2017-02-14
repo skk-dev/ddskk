@@ -1448,8 +1448,12 @@ nil であれば、送り仮名を含めた見出し語をそのまま残して▽モードに入る。
   :type 'boolean
   :group 'skk-henkan)
 
-(defcustom skk-henkan-show-candidates-rows 1
-  "*変換候補群の表示行数。"
+(make-obsolete-variable 'skk-henkan-show-candidates-rows
+			'skk-henkan-number-to-display-candidates
+			"DDSKK 16.2")
+
+(defcustom skk-henkan-number-to-display-candidates 7
+  "*変換候補を表示する個数。"
   :type 'integer
   :group 'skk-henkan)
 
