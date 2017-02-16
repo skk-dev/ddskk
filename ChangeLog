@@ -1,5 +1,17 @@
 2017-02-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-vars.el (skk-henkan-show-candidates-rows):
+	obsolete variable `skk-henkan-show-candidates-rows' and
+	new variable `skk-henkan-number-to-display-candidates'.
+
+	* skk.el (skk-henkan-show-candidates, skk-henkan-show-candidate-subr):
+	* skk-tut.el (skktut-init-variables-alist):
+	* skk-inline.el (skk-inline-show-vertically):
+	Use `skk-henkan-number-to-display-candidates' instead of
+	`skk-henkan-show-candidates-rows'.
+
+2017-02-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* skk-tut.el (skktut-init-variables-alist):
 	`skk-start-henkan-key' を `skk-start-henkan-char' へ訂正。ChangeLog.0:275.
 	`skk-show-candidates-nth-henkan-char' の初期化.
