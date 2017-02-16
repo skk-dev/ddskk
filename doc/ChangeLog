@@ -1,6 +1,7 @@
 2017-02-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.texi: Add skk-henkan-number-to-display-candidates.
+	Add skk-skk-bayesian-corpus-file.
 
 2017-02-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

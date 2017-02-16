@@ -34,7 +34,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 16.1.50
-@set UPDATED Date: 2017/02/16 19:59:30
+@set UPDATED Date: 2017/02/16 20:34:37
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -2507,6 +2507,7 @@ skk-record-file           ~/.skk-record     ~/.ddskk/record
 skk-study-file            ~/.skk-study      ~/.ddskk/study
 skk-study-backup-file     ~/.skk-study.BAK  ~/.ddskk/study.bak
 skk-bayesian-history-file ~/.skk-bayesian   ~/.ddskk/bayesian
+skk-bayesian-corpus-file  ~/.skk-corpus     ~/.ddskk/corpus
 @end group
 @end example
 

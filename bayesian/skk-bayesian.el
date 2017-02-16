@@ -100,19 +100,19 @@
 ;;; variables for skk-bayesian
 ;;;
 (defcustom skk-bayesian-prefer-server nil
-  "*non-nil ならば、`skk-bayesian-host'の`skk-bayesian-port'に接続する。
+  "*non-nil ならば、`skk-bayesian-host' の `skk-bayesian-port' に接続する。
 そうでなければ、bskk をサブプロセスとして立ち上げる。"
   :type 'boolean
   :group 'skk-bayesian)
 
 (defcustom skk-bayesian-port 51178
-  "*`skk-bayesian-host'に接続するポート番号。
-サーバに接続するには`skk-bayesian-prefer-server'が non-nil である必要がある。"
+  "*`skk-bayesian-host' に接続するポート番号。
+サーバに接続するには `skk-bayesian-prefer-server' が non-nil である必要がある。"
   :type 'integer
   :group 'skk-bayesian)
 
 (defcustom skk-bayesian-host "localhost"
-  "*`skk-bayesian-prefer-server'が non-nil の時に接続するホスト名。"
+  "*`skk-bayesian-prefer-server' が non-nil の時に接続するホスト名。"
   :type 'string
   :group 'skk-bayesian)
 
@@ -126,20 +126,20 @@
       (expand-file-name "bayesian" skk-user-directory)
     (convert-standard-filename "~/.skk-bayesian"))
   "*履歴を記録するファイル名。
-`skk-bayesian-prefer-server'が non-nil の時にのみ使用される。"
+`skk-bayesian-prefer-server' が non-nil の時にのみ使用される。"
   :type 'file
   :group 'skk-bayesian)
 
 (defcustom skk-bayesian-debug nil
-  "*non-nil ならばデバッグ用のメッセージを表示する。"
+  "*non-nil ならば、デバッグ用のメッセージを表示する。"
   :type 'boolean
   :group 'skk-bayesian)
 
 (defcustom skk-bayesian-max-commands-to-wait-for 15
   "*確定語を学習するまでに待つコマンドの数。
-確定の後に`skk-bayesian-max-commands-to-wait-for'回のコマンド
+確定の後に `skk-bayesian-max-commands-to-wait-for' 回のコマンド
 のうちに確定語(送り仮名を含む)が変更されなければ、その確定語を保存
-する。`skk-bayesian-max-commands-to-wait-for'が0以下ならば、確定後、
+する。`skk-bayesian-max-commands-to-wait-for' がゼロ以下ならば、確定後、
 直ちに履歴に保存する。"
   :type 'integer
   :group 'skk-bayesian)
@@ -209,7 +209,7 @@
     (error (concat "Error; invalid key=" (prin1-to-string 'key)))))
   
 (defsubst skk-bayesian-read-process-output (input)
-  "input を`skk-bayesian-process'に送る。その後、\\nが `skk-bayesian-process'のバッファに出力されるまで待ち、\\nが出力された時点で、バッファを評価し返す。"
+  "input を`skk-bayesian-process' に送る。その後、\\n が `skk-bayesian-process' のバッファに出力されるまで待ち、\\n が出力された時点で、バッファを評価し返す。"
   (when input
     (skk-bayesian-init)
     (with-current-buffer (process-buffer skk-bayesian-process)
@@ -227,7 +227,7 @@
                nil)))))
 
 (defun skk-bayesian-make-context (henkan-buffer)
-  ;; もし"▼"があれば、`skk-bayesian-context-len'の長さの文字列を返す。
+  ;; もし"▼"があれば、`skk-bayesian-context-len' の長さの文字列を返す。
   ;; なければ、nil。
   (let ((raw-text
          (with-current-buffer henkan-buffer
@@ -312,7 +312,7 @@
         (skk-bayesian-add-to-history))
     ;; pending 開始
     (skk-bayesian-debug-message "Update: pending... word=%s" word)
-    (setq skk-bayesian-number-of-command-after-kakutei -1);; 確定に1回かかるので-1
+    (setq skk-bayesian-number-of-command-after-kakutei -1);; 確定に 1 回かかるので -1
     (skk-bayesian-make-pending-data-alist
      word 
      okurigana
