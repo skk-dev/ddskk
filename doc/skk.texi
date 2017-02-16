@@ -34,7 +34,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 16.1.50
-@set UPDATED Date: 2017/02/13 20:09:48
+@set UPDATED Date: 2017/02/16 19:59:30
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -1542,8 +1542,9 @@ SKK モードは、文字種類による４種類の@b{「入力モード」}と
 @end group
 @end example
 
-候補が５つ以上あるときは、５番目以降の候補は７つずつまとめてエコーエリ
-アに表示されます。例えば、辞書が
+候補が５つ以上あるときは、５番目以降の候補は７つずつまとめて
+@footnote{@code{skk-henkan-number-to-display-candidates}}
+エコーエリアに表示されます。例えば、辞書が
 
 @example
 @group
@@ -1601,6 +1602,10 @@ A:嘘  S:拒  D:拠  F:虚  J:挙  K:許  L:渠  [残り 2]
 @defvr {ユーザ変数} skk-show-candidates-nth-henkan-char
 候補一覧を表示する関数 @code{skk-henkan-show-candidates} を呼び出すまで
 の @code{skk-start-henkan-char} を打鍵する回数。2 以上の整数である必要。
+@end defvr
+
+@defvr {ユーザ変数} skk-henkan-number-to-display-candidates
+いちどに表示する候補の数。
 @end defvr
 
 @node 送り仮名が有る場合

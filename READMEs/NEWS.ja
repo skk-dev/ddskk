@@ -4,6 +4,12 @@
 
 GNU Emacs 22 をお使いの方は DDSKK 16.1 を利用してください。
 
+** GNU Emacs 26 対応を進めました
+
+GNU Emacs 26.1 にて関数 string-make-unibyte が obsolete となりました。
+そのため、関数 skk-char-to-unibyte-string (skk-macs.el) では encode-coding-string
+を用いるよう変更しました。
+
 ** Makefile のターゲットを変更しました
 
 *** ターゲット `snapshot' は廃止しました
@@ -31,6 +37,10 @@ DDSKK 標準の動作を無効化できる。
 何回目の SPC `skk-start-henkan-char' 打鍵で候補一覧を表示するか指定で
 きるようになりました。なお、この変数は 2 以上である必要があります。
 （一発目の SPC 打鍵で候補一覧を表示することは未対応です）
+
+** skk-henkan-number-to-display-candidates
+
+いちどに表示する候補の数を指定できます。
 
 ** skk-search-web.el
 

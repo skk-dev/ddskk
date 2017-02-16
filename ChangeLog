@@ -1,7 +1,6 @@
 2017-02-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-vars.el (skk-henkan-show-candidates-rows):
-	obsolete variable `skk-henkan-show-candidates-rows' and
+	* skk-vars.el: obsolete variable `skk-henkan-show-candidates-rows' and
 	new variable `skk-henkan-number-to-display-candidates'.
 
 	* skk.el (skk-henkan-show-candidates, skk-henkan-show-candidate-subr):
