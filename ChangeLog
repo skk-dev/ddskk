@@ -1,3 +1,9 @@
+2017-02-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* bayesian/skk-bayesian.el (skk-bayesian-process-live-p)
+	(skk-bayesian-restart-process): Remove unnecessary whitespace.
+	Remove code for GNU Emacs 22.
+
 2017-02-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* bayesian/skk-bayesian.el: Update docstring.

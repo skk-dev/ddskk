@@ -183,7 +183,7 @@
        (message ,STRING ,@ARGS)))
 
 (defsubst skk-bayesian-process-live-p ()
-  "`skk-bayesian-process' が non-nil かつそのプロセスが実行中なら t を返す。 "
+  "`skk-bayesian-process' が non-nil かつそのプロセスが実行中なら t を返す。"
   (and skk-bayesian-process
        ;; ネットワークプロセスなら、open, 通常のサブプロセスなら、run。
        ;; これらは、排他的。
@@ -409,10 +409,10 @@
 
 (defun skk-bayesian-restart-process ()
   (if (skk-bayesian-process-live-p) (skk-bayesian-kill-process))
-  (let  ((proc-buf (get-buffer-create (if skk-bayesian-debug
-                                          "*skk-bayesian*"
-                                        " *skk-bayesian*")))
-         (proc-name "skk-bayesian"))
+  (let ((proc-buf (get-buffer-create (if skk-bayesian-debug
+					 "*skk-bayesian*"
+				       " *skk-bayesian*")))
+	(proc-name "skk-bayesian"))
     (skk-message "プロセス bskk を起動しています..."
                  "Launching a process, bskk...")
     (setq skk-bayesian-process
@@ -444,8 +444,7 @@
   (set-process-coding-system skk-bayesian-process
                              skk-bayesian-coding-system
                              skk-bayesian-coding-system)
-  (if (eval-when-compile (and (featurep 'emacs)
-				(>= emacs-major-version 22)))
+  (if (eval-when-compile (featurep 'emacs))
       (set-process-query-on-exit-flag skk-bayesian-process nil)
     (process-kill-without-query skk-bayesian-process)))
 
