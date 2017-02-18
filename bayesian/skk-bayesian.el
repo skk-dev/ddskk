@@ -132,6 +132,7 @@
 
 (defcustom skk-bayesian-debug nil
   "*non-nil ならば、デバッグ用のメッセージを表示する。"
+  ;; bskk のログ = $HOME/tmp/bskk.log
   :type 'boolean
   :group 'skk-bayesian)
 
@@ -209,7 +210,7 @@
     (error (concat "Error; invalid key=" (prin1-to-string 'key)))))
   
 (defsubst skk-bayesian-read-process-output (input)
-  "input を`skk-bayesian-process' に送る。その後、\\n が `skk-bayesian-process' のバッファに出力されるまで待ち、\\n が出力された時点で、バッファを評価し返す。"
+  "INPUT を `skk-bayesian-process' に送る。その後、\\n が `skk-bayesian-process' のバッファに出力されるまで待ち、\\n が出力された時点で、バッファを評価し返す。"
   (when input
     (skk-bayesian-init)
     (with-current-buffer (process-buffer skk-bayesian-process)
@@ -279,9 +280,9 @@
           sorted-entry)
       ;; send context to skk-bayesian-process
       (setq sorted-entry
-            (skk-bayesian-read-process-output
-             (concat skk-bayesian-command-sort entry-str
-                     "\n" context "\n")))
+            (skk-bayesian-read-process-output (concat skk-bayesian-command-sort
+						      entry-str "\n"
+						      context "\n")))
       ;; send debugging messages
       (skk-bayesian-debug-message "Search: entry-str=%s" entry-str)
       (skk-bayesian-debug-message "Search: context=%s" context)
@@ -381,10 +382,9 @@
                                               kakutei-word)))
           (skk-bayesian-debug-message "Add: context=%s" context)
           (skk-bayesian-debug-message "Add: kakutei-word=%s" kakutei-word)
-          (if (skk-bayesian-read-process-output
-               (concat skk-bayesian-command-add
-                       kakutei-word "\n"
-                       context "\n"))
+          (if (skk-bayesian-read-process-output (concat skk-bayesian-command-add
+							kakutei-word "\n"
+							context "\n"))
               (skk-bayesian-debug-message "Add: done")
             (skk-bayesian-debug-message "Add: failed"))
           (if skk-bayesian-corpus-make
@@ -429,13 +429,13 @@
               (if skk-bayesian-debug
                   (start-process proc-name
                                  proc-buf
-                                 "ruby" "-S" "bskk" "-f" 
-                                 skk-bayesian-history-file
+                                 "ruby" "-S" "bskk"
+				 "-f" skk-bayesian-history-file
                                  "-v" "-d")
                 (start-process proc-name
                                proc-buf
-                               "ruby" "-S" "bskk" "-f"
-                               skk-bayesian-history-file))))
+                               "ruby" "-S" "bskk"
+			       "-f" skk-bayesian-history-file))))
     (if skk-bayesian-process
         (skk-message "プロセス bskk を起動しています...完了"
                      "Launching a process, bskk...done")
@@ -453,14 +453,13 @@
   (interactive)
   (when skk-bayesian-process
     (let ((status (process-status skk-bayesian-process)))
-      (cond 
-       ((memq status '(open connect))
-        ;; close connection
-        (delete-process skk-bayesian-process))
-       ((eq status 'run)
-        ;; send SIGTERM=15
-        (signal-process (process-id skk-bayesian-process) 15)))
-      (setq skk-bayesian-process nil))))
+      (cond ((memq status '(open connect))
+	     ;; close connection
+	     (delete-process skk-bayesian-process))
+	    ((eq status 'run)
+	     ;; send SIGTERM=15
+	     (signal-process (process-id skk-bayesian-process) 15))))
+    (setq skk-bayesian-process nil)))
 
 (defun skk-bayesian-init ()
   "Set up skk-bayesian process."
@@ -497,12 +496,11 @@
     (skk-bayesian-corpus-init)
     (with-current-buffer skk-bayesian-corpus-buffer
       (goto-char (point-max))
-      (insert (concat (cond
-                       ((eq flag 'positive) "+")
-                       ((eq flag 'modified) "m")
-                       ((eq flag 'bad-inference) "-")
-                       (t (error (concat "Error; invalid flag=" 
-                                         (prin1-to-string flag)))))
+      (insert (concat (cond ((eq flag 'positive) "+")
+			    ((eq flag 'modified) "m")
+			    ((eq flag 'bad-inference) "-")
+			    (t (error (concat "Error; invalid flag="
+					      (prin1-to-string flag)))))
                       midasi " ["
                       okurigana "/"
                       word "/]"
