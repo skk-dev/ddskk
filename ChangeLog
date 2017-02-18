@@ -1,5 +1,13 @@
 2017-02-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* bayesian/bskk (#debug_log): Display Time#now log message.
+	(#serve): Display recieved strings from skk-bayesian-read-process-output().
+
+	* bayesian/skk-bayesian.el (skk-bayesian-restart-process):
+	Add command line option `-W2' for ruby warning level.
+
+2017-02-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* bayesian/skk-bayesian.el: Modify indent for coding style.
 
 	* bayesian/bskk: Insert some whitespace for coding style.

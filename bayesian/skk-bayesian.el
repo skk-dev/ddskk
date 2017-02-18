@@ -429,7 +429,7 @@
               (if skk-bayesian-debug
                   (start-process proc-name
                                  proc-buf
-                                 "ruby" "-S" "bskk"
+                                 "ruby" "-W2" "-S" "bskk"
 				 "-f" skk-bayesian-history-file
                                  "-v" "-d")
                 (start-process proc-name
@@ -452,13 +452,15 @@
   "Kill skk-bayesian process."
   (interactive)
   (when skk-bayesian-process
-    (let ((status (process-status skk-bayesian-process)))
+    (let ((status (process-status skk-bayesian-process))
+	  msg)
       (cond ((memq status '(open connect))
-	     ;; close connection
-	     (delete-process skk-bayesian-process))
+	     (delete-process skk-bayesian-process)
+	     (setq msg "close connection"))
 	    ((eq status 'run)
-	     ;; send SIGTERM=15
-	     (signal-process (process-id skk-bayesian-process) 15))))
+	     (signal-process (process-id skk-bayesian-process) 15)
+	     (setq msg "send SIGTERM=15")))
+      (message "Killed skk-bayesian process. %s" msg))
     (setq skk-bayesian-process nil)))
 
 (defun skk-bayesian-init ()

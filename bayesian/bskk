@@ -38,6 +38,10 @@
 ## emacs は終了の前に bskk に対して COMMAND_SAVE を送り履歴の保存をさせ
 ## なくてはいけない。
 
+### TODO:
+## /home/USER/bin/bskk:325: warning: assigned but unused variable - adr
+## /home/USER/bin/bskk:355: warning: assigned but unused variable - i
+
 ## Code:
 require 'fileutils'
 if RUBY_VERSION.to_f < 1.9
@@ -343,7 +347,7 @@ end
 def debug_log( message )
   if $debug and File.directory?( ENV["HOME"] + "/tmp" )
     f = open( ENV["HOME"] + "/tmp/bskk.log", "a" )
-    f.puts message
+    f.puts Time.now.to_s + ": " + message
     f.close
   end
 end
@@ -374,10 +378,12 @@ def serve( db, input, out, history_file, history_file_bak )
   # emacs は、最初の改行を受けとった時点で buffer を評価する。
   # 2 行目以降に評価の必要な情報を出力してはいけない。
   # また、2 行目以降はコメントアウトする必要がある。
+  debug_log( "start" )
   begin
     # mail loop
     while true
       line = input.readline.chomp
+      debug_log( "Recieve: " + line )
       case line
       when COMMAND_SORT
         entries = input.readline.chomp.split( "/" )
