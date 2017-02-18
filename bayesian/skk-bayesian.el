@@ -429,7 +429,7 @@
               (if skk-bayesian-debug
                   (start-process proc-name
                                  proc-buf
-                                 "ruby" "-W2" "-S" "bskk"
+                                 "ruby" "-S" "bskk"
 				 "-f" skk-bayesian-history-file
                                  "-v" "-d")
                 (start-process proc-name
