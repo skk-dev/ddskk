@@ -58,7 +58,7 @@ def check_type( variable, *types )
       return
     end
   }
-  raise TypeError.new("need #{type.to_s} but #{variable.class.to_s}")
+  raise TypeError.new( "need #{type.to_s} but #{variable.class.to_s}" )
 end
 
 class Distribution
@@ -72,14 +72,14 @@ class Distribution
     if obj != nil
       check_type( obj, String )
       line = obj
-      line.split("/").each{ |word_count|
+      line.split( "/" ).each{ |word_count|
         if word_count =~ word_count_regexp
           word = $1
           count = $2.to_i
           @word2count[word] = count
           @total_count += count
         else
-          STDERR.puts(";; invalid line=#{line}.")
+          STDERR.puts( ";; invalid line=#{line}." )
         end
       }
     end
@@ -149,7 +149,7 @@ class DB
         line = io.readline.chomp!
         if line =~ regexp_counts
           if index == nil or prefix_char == nil
-            STDERR.puts(";; couldn't find index and prefix.  ignore #{line}.")
+            STDERR.puts( ";; couldn't find index and prefix.  ignore #{line}." )
             next
           end
           if @i2prefix2dst.size <= index
@@ -165,7 +165,7 @@ class DB
         elsif line =~ regexp_prefix
           prefix_char = $1
         else
-          STDERR.puts(";; ignore invlid line=#{line}.")
+          STDERR.puts( ";; ignore invlid line=#{line}." )
           next
         end
       end
@@ -183,7 +183,7 @@ class DB
     @dirty = true
     word = word_str
     if prefix_list.size > @i2prefix2dst.size
-      @i2prefix2dst.fill(nil, @i2prefix2dst.size..prefix_list.size )
+      @i2prefix2dst.fill( nil, @i2prefix2dst.size..prefix_list.size )
     end
     prefix_list.each_with_index{ |prefix_str, i|
       prefix2dst = @i2prefix2dst[i]
@@ -229,7 +229,7 @@ class DB
       e2[1] <=> e1[1]
     }
     probs = Array.new( size )
-    sorted_entries.each_with_index{ |e,i|
+    sorted_entries.each_with_index{ |e, i|
       sorted_entries[i] = e[0]
       probs[i] = e[1]
     }
@@ -246,7 +246,7 @@ class DB
       return true
     end
     if File.exist?( path_to_file )
-      FileUtils.copy(path_to_file, path_to_bak)
+      FileUtils.copy( path_to_file, path_to_bak )
     end
     path_to_lock = path_to_file + ".lock"
     lock = open( path_to_lock, "w" )
@@ -313,9 +313,9 @@ class EBTCPServer
   require "socket"
   include Socket::Constants
   def initialize( port, backlog=5 )
-    @soc_waiting = Socket.new(Socket::AF_INET, Socket::SOCK_STREAM, 0)
-    @soc_waiting.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
-    @soc_waiting.bind( [Socket::AF_INET,port,127,0,0,1].pack("s n C4 x8") )
+    @soc_waiting = Socket.new( Socket::AF_INET, Socket::SOCK_STREAM, 0 )
+    @soc_waiting.setsockopt( SOL_SOCKET, SO_REUSEADDR, 1 )
+    @soc_waiting.bind( [Socket::AF_INET,port,127,0,0,1].pack( "s n C4 x8" ) )
     @soc_waiting.listen( backlog )
   end
 
@@ -325,7 +325,7 @@ class EBTCPServer
       soc, adr = @soc_waiting.accept
       return soc
     else
-      raise Exception.new("already closed")
+      raise Exception.new( "already closed" )
     end
   end
 
@@ -352,7 +352,7 @@ def try_lock( file, lock_mode=File::LOCK_EX, timeout=2, try_interval=0.1 )
   check_type( file, File )
   check_type( timeout, Numeric )
   check_type( try_interval, Numeric )
-  for i in 0..(timeout.to_f/try_interval.to_f).to_i
+  for i in 0..( timeout.to_f/try_interval.to_f ).to_i
     if file.flock( lock_mode | File::LOCK_NB )
       return true
     end
@@ -380,18 +380,18 @@ def serve( db, input, out, history_file, history_file_bak )
       line = input.readline.chomp
       case line
       when COMMAND_SORT
-        entries = input.readline.chomp.split("/")
-        prefix_list = split_line(input.readline).reverse
+        entries = input.readline.chomp.split( "/" )
+        prefix_list = split_line( input.readline ).reverse
         sorted_entries, probs = db.sort( entries, prefix_list )
         out.puts "(" + sorted_entries.map!{|entry|
           entry.inspect
-        }.join(" ") + ")"
+        }.join( " " ) + ")"
         # out.puts ";;(\"#{probs.join("\" \"")}\")" # ruby 1.6.8 で、不具合
-        out.puts ";;(\""+ probs.join("\" \"") + "\")"
+        out.puts ";;(\""+ probs.join( "\" \"" ) + "\")"
         out.puts ";;OK."
       when COMMAND_ADD
         kakutei_word = input.readline.chomp
-        prefix_list = split_line(input.readline).reverse
+        prefix_list = split_line( input.readline ).reverse
         if prefix_list != nil
           db.add_history( kakutei_word, prefix_list )
         end
@@ -434,18 +434,18 @@ def mode_serve( history_file, server, port )
         db = DB.new( f )
       end
     rescue DBHistoryFileSyntaxException => e
-      STDERR.puts(e.message)
-      STDERR.puts("#{history_file} is invalid.")
+      STDERR.puts( e.message )
+      STDERR.puts( "#{history_file} is invalid." )
       if File.exist?( history_file_bak )
-        STDERR.puts("use #{history_file_bak} instead of #{history_file}.")
+        STDERR.puts( "use #{history_file_bak} instead of #{history_file}." )
         f2 = open( history_file_bak )
         begin
           if try_lock( f2, File::LOCK_SH )
             db = DB.new( f2 )
           end
         rescue DBHistoryFileSyntaxException => e2
-          STDERR.puts(e2.message)
-          STDERR.puts("#{history_file_bak} is also invalid.")
+          STDERR.puts( e2.message )
+          STDERR.puts( "#{history_file_bak} is also invalid." )
         ensure
           f2.close
         end

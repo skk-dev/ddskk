@@ -1,3 +1,7 @@
+2017-02-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* bayesian/bskk: Insert some whitespace for coding style.
+
 2017-02-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* bayesian/skk-bayesian.el (skk-bayesian-process-live-p)
