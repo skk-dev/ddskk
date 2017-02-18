@@ -34,7 +34,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 16.1.50
-@set UPDATED Date: 2017/02/16 20:34:37
+@set UPDATED Date: 2017/02/18 13:12:05
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -6820,8 +6820,55 @@ skk の初期設定では、変換、選択された候補は、次回の変換�
 @node ベイズ統計を用いた学習
 @subsection ベイズ統計を用いた学習
 
-@c 記載内容を充実すること
-ベイズ統計を用いた学習のプログラム @file{bayesian/skk-bayesian.el} もあります。(@w{@pxref{ファイル構成}})
+skk-study との併用は機能が重なるので、お勧めできません。
+
+ruby@footnote{@url{http://www.ruby-lang.org}} がインストールれていることを確認し
+てください。
+
+DDSKK をインストールする前に @file{bayesian/skk-bayesian.el} をトップディレクト
+リへコピーしておきます。
+
+@example
+% cp bayesian/skk-bayesian.el .
+@end example
+
+@file{~/.skk} で以下のように設定します。
+
+@lisp
+(require 'skk-autoloads)
+@end lisp
+
+@defvr {ユーザ変数} skk-bayesian-debug
+@c *Messages* バッファ
+@c bskk を -d オプション => $HOME/tmp/bskk.log
+@end defvr
+
+@defvr {ユーザ変数} skk-bayesian-prefer-server
+@c bskk をサーバとして使用するなら t
+@end defvr
+
+@defvr {ユーザ変数} skk-bayesian-host
+@c サーバ名
+@end defvr
+
+@defvr {ユーザ変数} skk-bayesian-port
+@c サーバのポート
+@end defvr
+
+@defvr {ユーザ変数} skk-bayesian-history-file
+@c ~/.skk-bayesian or ~/.ddskk/bayesian
+@end defvr
+
+@defvr {ユーザ変数} skk-bayesian-corpus-make
+@end defvr
+
+@defvr {ユーザ変数} skk-bayesian-corpus-file
+@c ~/.skk-corpus or ~/.ddskk/corpus
+@end defvr
+
+@kindex M-x skk-bayesian-kill-process
+@defun {コマンド} skk-bayesian-kill-process
+@end defun
 
 @node 辞書関連
 @section 辞書関連
@@ -11219,5 +11266,4 @@ Emacs 上以外でも SKK みたいな操作性を実現するソフトウェア
 @c Local Variables:
 @c fill-column: 72
 @c skk-kutouten-type: jp
-@c write-contents-hooks: (lambda () (let ((d (split-string (format-time-string "%Y/%m/%d %T" (current-time))))) (goto-char (point-min)) (search-forward "@set UPDATED Date: ") (delete-region (point) (progn (end-of-line) (point))) (insert (nth 0 d) 32 (nth 1 d)) nil))
 @c End:
