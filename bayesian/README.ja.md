@@ -4,42 +4,52 @@ skk-bayesian.el
 `skk-bayesian.el` は、直前の履歴のみ使用する `skk-study.el` に比べて、より拡張さ
 れた学習機能です。文脈から変換候補が選択される確率を計算して候補順をソートします。
 
-## 1. bskk のインストール
-
-bskk は ruby スクリプトです。事前に ruby (http://www.ruby-lang.org/ja/) をインス
-トールしてください。 bskk はサブプロセス、またはサーバとして使用します。
-
-### (a) サブプロセスとして使用する場合
-
-bskk を 環境変数 `PATH` の通った場所に置いてください。
-
-### (b) サーバとして使用する場合
-
-Emacs が `skk-bayesian.el` を読み込む前に、以下のように bskk をあらかじめ起動し
-ておいてください。
-
-    % bskk -f ~/.skk-bayesian -s
-
-サーバを終了させるときは以下のようにします。
-
-    % kill -TERM {bskk の PID}
-       
-変数 `skk-bayesian-prefer-server` を `Non-nil` と指定します。`~/.skk` への記述方
-法は後述します。
-
-## 2. skk-bayesian.el のインストール
+## 1. skk-bayesian.el のインストール
 
 以下のいずれかの方法で `skk-bayesian.el` をインストールしてください。
 
 (a) SKK ソースのトップディレクトリ（このディレクトリのひとつ上）
 に `skk-bayesian.el` をコピーしてから SKK をインストールしてください。
 
+    % pwd
+    /home/USER/ddskk-20170218/bayesian
+    % mv skk-bayesian.el ..
+    % cd ..
     % make install
 
 (b) `skk-bayesian.el` のみを手動で変数 `load-path` の通った場所にコピーして利用
 することもできます。
 
     % cp skk-bayesian.el ~/site-lisp
+
+## 2. bskk のインストール
+
+bskk は ruby スクリプトです。事前に ruby (http://www.ruby-lang.org/ja/) をインス
+トールしてください。 bskk は Emacs のサブプロセスとして、または単独のサーバとし
+て使用します。
+
+### (a) Emacs のサブプロセスとして使用する場合
+
+bskk を 環境変数 `PATH` の通った場所に置いてください。
+Emacs が `skk-bayesian.el` を require 処理する過程で bskk が起動します。
+
+### (b) サーバとして使用する場合
+
+Emacs が `skk-bayesian.el` を require する前に、以下のように bskk をあらかじめ起
+動しておいてください。
+
+    % bskk -f ~/.skk-bayesian -s
+
+`f` オプションで history ファイルのパスを指定します。
+`s` オプションはサーバ起動を指示するものです。
+
+サーバを終了させるときは以下のようにします。
+
+    % kill -TERM {bskk の PID}
+       
+bskk サーバが起動したのち `skk-bayesian.el` を require します。
+このとき、変数 `skk-bayesian-prefer-server` を `Non-nil` と指定します。
+`~/.skk` への記述方法は後述します。
 
 ## 3. `~/.skk` の設定
 
