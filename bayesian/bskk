@@ -87,11 +87,11 @@ class Distribution
         end
       }
     end
-    # decrement
+    decrement
   end
   
   def to_s
-    # decrement
+    decrement
     line = ""
     @word2count.each{ |word, count|
       line += "#{word.to_s}##{count}/"
@@ -110,23 +110,35 @@ class Distribution
     @total_count += 1
   end
 
-  # private
-  # ## @total_count が Bignum なら、Fixnum に収まるようにする
-  # def decrement
-  #   while @total_count.is_a?( Bignum )
-  #     temp = Hash.new
-  #     total = 0
-  #     @word2count.each{ |word, count|
-  #       new_count = (count / 10).to_i
-  #       if new_count > 0
-  #         temp[word] = new_count
-  #         total += new_count
-  #       end
-  #     }
-  #     @word2count = temp
-  #     @total_count = total
-  #   end
-  # end
+  private
+  ## @total_count が Bignum なら、Fixnum に収まるようにする
+  def decrement
+    # = NEWS for Ruby 2.4.0
+    # == Changes since the 2.3.0 release
+    # === Core classes updates (outstanding ones only)
+    # * Integer
+    #   * Fixnum and Bignum are unified into Integer  [Feature #12005]
+
+    # /home/USER/bin/bskk:116: warning: constant ::Bignum is deprecated #
+    # Bignum と Fixnum の区別がないので、なにも処理しないでよいのでは。
+    if 2.3 < RUBY_VERSION.to_f
+      return
+    end
+
+    while @total_count.is_a?( Bignum )
+      temp = Hash.new
+      total = 0
+      @word2count.each{ |word, count|
+        new_count = (count / 10).to_i
+        if new_count > 0
+          temp[word] = new_count
+          total += new_count
+        end
+      }
+      @word2count = temp
+      @total_count = total
+    end
+  end
 end
 
 class DBHistoryFileSyntaxException < Exception
