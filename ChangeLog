@@ -1,3 +1,7 @@
+2017-02-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-tut.el (skktut-init-variables-alist): Bug fix fb3c01.
+
 2017-02-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* bayesian/README.ja.md: Update.

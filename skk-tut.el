@@ -281,7 +281,7 @@
     (skk-share-private-jisyo . nil)
     (skk-special-midashi-char-list . '(?> ?< ??))
     (skk-start-henkan-char . ?\040)
-    (skk-show-candidates-nth-henkan-char. 5)
+    (skk-show-candidates-nth-henkan-char . 5)
     (skk-try-completion-char . ?\011)
     (skk-update-jisyo-function . 'skktut-update-jisyo)
     (skk-use-color-cursor . (and window-system
