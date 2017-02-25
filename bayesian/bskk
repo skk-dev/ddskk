@@ -113,6 +113,18 @@ class Distribution
   private
   ## @total_count が Bignum なら、Fixnum に収まるようにする
   def decrement
+    # = NEWS for Ruby 2.4.0
+    # == Changes since the 2.3.0 release
+    # === Core classes updates (outstanding ones only)
+    # * Integer
+    #   * Fixnum and Bignum are unified into Integer  [Feature #12005]
+
+    # /home/USER/bin/bskk:116: warning: constant ::Bignum is deprecated #
+    # Bignum と Fixnum の区別がないので、なにも処理しないでよいのでは。
+    if 2.3 < RUBY_VERSION.to_f
+      return
+    end
+
     while @total_count.is_a?( Bignum )
       temp = Hash.new
       total = 0

@@ -4,6 +4,8 @@
 
 2017-02-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* bayesian/bskk (Distribution#decrement): Ruby 2.4 対応.
+
 	* bayesian/README.ja.md: Update.
 
 2017-02-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
