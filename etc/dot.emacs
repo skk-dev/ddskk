@@ -13,6 +13,8 @@
 ;;; Code:
 
 ;; @@ 基本の設定
+(unless window-system
+  frame-background-mode 'dark)		; or 'light
 
 ;; 「カタカナ/ひらがな」キーで SKK を起動する
 (global-set-key [hiragana-katakana] 'skk-mode)

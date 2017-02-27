@@ -10,6 +10,10 @@ GNU Emacs 26.1 にて関数 string-make-unibyte が obsolete となりました�
 そのため、関数 skk-char-to-unibyte-string (skk-macs.el) では encode-coding-string
 を用いるよう変更しました。
 
+** ** Ruby 2.4 対応
+
+bayesian/bskk について Ruby 2.4 に対応しました。
+
 ** Makefile のターゲットを変更しました
 
 *** ターゲット `snapshot' は廃止しました

@@ -2186,7 +2186,7 @@ XEmacs で DDSKK をパッケージとしてインストールした場合
 
 SKK の学習機能のひとつで、ユーザの過去の入力から変換候補を予測します。
 
-@url{https://github.com/skk-dev/ddskk/tree/master/bayesian}
+@xref{ベイズ統計を用いた学習}.
 
 @item skk-cdb.el
 @cindex @file{skk-cdb.el}
@@ -6822,8 +6822,8 @@ skk の初期設定では、変換、選択された候補は、次回の変換�
 
 @file{skk-bayesian.el} は、直前の履歴のみ使用する @file{skk-study.el} に比べて、
 更に拡張された学習機能です。ベイズ統計を用いて文脈から変換候補が選択される確率を
-計算して候補順をソートします。@file{skk-study.el} との併用は、機能が重なるのでお
-勧めできません。
+計算して候補順をソートします。なお、機能が重なることから @file{skk-study.el} と
+の併用はお勧めできません。
 
 動作の枠組みは emacs lisp の @file{skk-bayesian.el} と ruby@footnote{@url{http://www.ruby-lang.org}} スクリプト
 の @file{bskk} が連携することで実現しています。
@@ -6831,17 +6831,26 @@ skk の初期設定では、変換、選択された候補は、次回の変換�
 @file{skk-bayesian.el} のインストールについては @file{bayesian/README.ja.md} を
 参照してください。
 
+@cartouche
+
+Ruby 2.4 以降を使用する場合は、DDSKK 16.2 以降に付属する @file{bayesian/bskk} を
+使用してください。
+
+@end cartouche
 
 @defvr {ユーザ変数} skk-bayesian-debug
 
 @code{non-nil} ならば、以下のとおりデバッグ用のメッセージを表示します。
 
-@file{skk-bayesian.el} が吐き出すメッセージを *Messages* バッファに表示します。
+@itemize @bullet
 
-@file{bskk} サブプロセスを -d オプションで起動させます。@file{bskk} は
-@file{$HOME/tmp/bskk.log} にメッセージを吐き出します。
+@item @file{skk-bayesian.el} が吐き出すメッセージを *Messages* バッファに表示します。
 
-普段は非表示である *skk-bayesian* バッファを表示するようにします。
+@item @file{bskk} サブプロセスを @code{-d} オプションで起動させます。@file{bskk} は @file{$HOME/tmp/bskk.log} にメッセージを吐き出します。
+
+@item 普段は非表示である *skk-bayesian* バッファを表示するようにします。このバッファには @file{bskk} の出力が表示されます。
+
+@end itemize
 
 @end defvr
 
@@ -6849,31 +6858,39 @@ skk の初期設定では、変換、選択された候補は、次回の変換�
 
 @code{non-nil} ならば @code{skk-bayesian-host} の @code{skk-bayesian-port} に接
 続します。
-@code{nil} であれば bskk を emacs のサブプロセスとして立ち上げます。
+@code{nil} であれば @file{bskk} を emacs のサブプロセスとして起動します。
 
 @end defvr
 
 @defvr {ユーザ変数} skk-bayesian-host
-bskk サーバが稼動しているホスト名
+
+@file{bskk} サーバが稼動しているホスト名
+
 @end defvr
 
 @defvr {ユーザ変数} skk-bayesian-port
-bskk サーバのポート番号
+
+@file{bskk} サーバのポート番号
+
 @end defvr
 
 @defvr {ユーザ変数} skk-bayesian-history-file
 @c ~/.skk-bayesian or ~/.ddskk/bayesian
+not documented
 @end defvr
 
 @defvr {ユーザ変数} skk-bayesian-corpus-make
+not documented
 @end defvr
 
 @defvr {ユーザ変数} skk-bayesian-corpus-file
 @c ~/.skk-corpus or ~/.ddskk/corpus
+not documented
 @end defvr
 
 @kindex M-x skk-bayesian-kill-process
 @defun {コマンド} skk-bayesian-kill-process
+not documented
 @end defun
 
 @node 辞書関連

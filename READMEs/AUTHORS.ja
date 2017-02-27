@@ -296,7 +296,7 @@ skk-vars.el, skk-leim.el, skk-kakasi.el, skk-rdms.el, skk-jisx0201.el
 
 *** 以下のプログラムへの改変
 
-**** skk.el
+**** skk.el, .travis.yml
 
 
 * Eiji Obata
@@ -448,8 +448,6 @@ skk-num.el, skk-kcode.el, skk-isearch.el, skk-cursor.el,
 
 * Tsuyoshi Kitamoto
 
-** github への移行
-
 ** elisp 著作・アイデア
 
 *** 単漢字の総画数による検索
@@ -471,7 +469,8 @@ skk-num.el, skk-kcode.el, skk-isearch.el, skk-cursor.el,
 **** context-skk.el, skk-annotation.el, skk-gadget.el, skk-hint.el, skk-inline.el,
 skk-jisyo-edit-mode.el, skk-kakasi.el, skk-kcode.el, skk-lookup.el,
 skk-macs.el, skk-num.el, skk-obsolete.el, skk-search-web.el, skk-tankan.el,
-skk-tut.el, skk-vars.el, skk.el
+skk-tut.el, skk-vars.el, skk.el, bskk, skk-bayesian.el, skk-develop.el,
+ddskk-pkg.el, makeit.bat, make1.bat, Makefile
 
 ** skk.texi などドキュメント執筆・整備
 
@@ -582,6 +581,18 @@ skk-server.el, skk.el, skk-study.el, bayesian/bskk
 ** インストール環境の整備
 
 *** MELPA 対応
+
+*** 以下のプログラムへの改変
+
+**** cdb.el
+
+* Yasushi Abe
+
+** elisp 著作・アイデア
+
+*** 以下のプログラムへの改変
+
+**** skk.el, .travis.yml
 
 
 
