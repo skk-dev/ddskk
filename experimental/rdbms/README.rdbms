@@ -1,100 +1,100 @@
 -*- text -*-
-                    skk-rdbms.el $B$K$D$$$F(B
+                    skk-rdbms.el について
 
-             $Date: 1999/11/07 03:09:16 $ $BCfEg44IW(B <minakaji@osaka.email.ne.jp>
+             $Date: 1999/11/07 03:09:16 $ 中島幹夫 <minakaji@osaka.email.ne.jp>
 	     $Id: README.rdbms,v 1.1 1999/11/07 03:09:16 minakaji Exp $
 
 1. What's this?
 
-Emacs $B$N%P%C%U%!$NCf$G(B PostgreSQL $B$N%7%'%k$G$"$k(B psql $B$rAv$i$;$k$3$H$K(B
-$B$h$j!"(BPostgreSQL $B$N%G!<%?%Y!<%95!G=$rMxMQ$7$?JQ49$r<B8=$7$?$b$N$G$9!#(B
+Emacs のバッファの中で PostgreSQL のシェルである psql を走らせることに
+より、PostgreSQL のデータベース機能を利用した変換を実現したものです。
 
-  $B!JCm(B) ORDER BY $B$G;XDj$7$?Ns$r(B SELECT $B$G$b;XDj$7$J$1$l$P$J$i$J$$!"$H(B
-        $B$$$&@)8B$,$"$k$?$a!"(BPostgreSQL 6.3.2 $B$G$O;H$($^$;$s!#(B6.4 $B$r$*(B
-        $B;H$$2<$5$$!#(B
+  （注) ORDER BY で指定した列を SELECT でも指定しなければならない、と
+        いう制限があるため、PostgreSQL 6.3.2 では使えません。6.4 をお
+        使い下さい。
 
-$B$3$N%H%i%$$NL\E*$O!"3FC18l$KB0@-$r;}$?$;!"$=$NB0@-$rMxMQ$7$?JQ498zN($N(B
-$B%"%C%W$d!"<-=q%a%s%F%J%s%9$N8~>e!"3HD%JQ49(B ($B0UL#$r=PNO$7$?$j(B) $B$r9T$J$&(B
-$B$3$H$G$9!#(B
+このトライの目的は、各単語に属性を持たせ、その属性を利用した変換効率の
+アップや、辞書メンテナンスの向上、拡張変換 (意味を出力したり) を行なう
+ことです。
 
-$B8=:_$N$H$3$m!"It<sJQ49!"2h?tJQ49!"%5JQJd=uJQ49(B ($B2<5-(B 2. Install &
-notice $B$N(B (8), (9) $B;2>H!#(B) $B$J$I$,%5%]!<%H$5$l$F$$$^$9!#<jA0L#A9$G$9$,!"(B
-$BI,MW$J%F!<%V%k$r:n$j!"BP1~$9$k(B SQL $B%3%^%s%I$r=q$1$P!"9T$J$$$?$$JQ49$,(B
-($B0JA0$HHf3S$7$F(B) $B<j7Z$K<B8=$G$-$^$9$N$G!"Hs>o$K<j7Z(B && $B=@Fp$J3HD%$,2D(B
-$BG=$G$9!#(B
+現在のところ、部首変換、画数変換、サ変補助変換 (下記 2. Install &
+notice の (8), (9) 参照。) などがサポートされています。手前味噌ですが、
+必要なテーブルを作り、対応する SQL コマンドを書けば、行ないたい変換が
+(以前と比較して) 手軽に実現できますので、非常に手軽 && 柔軟な拡張が可
+能です。
 
-$B;d$O!"(BPentium 90 MHz + 32M Memory $B$H$$$&>/!98E$$%^%7%s$G3+H/!"<B83$7$F(B
-$B$*$j$^$9$,!"$3$N%l%Y%k$N%^%7%s$G$O!"7h$7$F<BMQ@-$rB;$J$C$F$O$$$J$$$b$N(B
-$B$N!";DG0$J$,$i(B SKK $B$N7Z2w$J%l%9%]%s%9$r!V<c43!WB;$J$C$F$$$k!"$H8@$o$6(B
-$B$k$rF@$J$$>u67$G$9!#(B
+私は、Pentium 90 MHz + 32M Memory という少々古いマシンで開発、実験して
+おりますが、このレベルのマシンでは、決して実用性を損なってはいないもの
+の、残念ながら SKK の軽快なレスポンスを「若干」損なっている、と言わざ
+るを得ない状況です。
 
-$B8D?ME*$K$O!"(B
+個人的には、
 
-(1)psql $B$H$N%W%m%;%9DL?.$N$?$a$K!"(Baccept-process-output $B$r2?EY$b;HMQ$9(B
-   $B$k$J$I7k9=$b$?$b$?$7$F$$$k$N$r@0M}$7$?$$(B ($B8=>u$G$O$=$&$7$J$$$H$&$^(B
-   $B$/F0$+$J$$$N$G!"$7$g$&$,$J$$$1$l$I(B)$B!#(B
+(1)psql とのプロセス通信のために、accept-process-output を何度も使用す
+   るなど結構もたもたしているのを整理したい (現状ではそうしないとうま
+   く動かないので、しょうがないけれど)。
 
-(2)$B%9%?%s%I%"%m%s$N%^%7!<%s$G!"%m!<%+%k%[%9%H$G(B postmaster $B$rF0$+$7$F(B
-   $B$$$k!"$H$$$&Hf3SE*7C$^$l$?4D6-$G$NJQ49B.EY$O7h$C$7$F0-$/$O$J$$$b$N(B
-   $B$N!"JL%[%9%H$G(B postmaster $B$,F0$$$F$$$k$N$G$"$l$P!"(B($B%M%C%H%o!<%/$N:.(B
-   $B$_6q9g$K$b$h$k$N$G$"$m$&$,(B) $BB.EYE*$K$OITMx$K$J$k$G$"$m$&$3$H(B ($BBN46(B
-   $B$7$?$3$H$,$J$$$N$G!"J,$jFq$$$,(B)$B!#(B
+(2)スタンドアロンのマシーンで、ローカルホストで postmaster を動かして
+   いる、という比較的恵まれた環境での変換速度は決っして悪くはないもの
+   の、別ホストで postmaster が動いているのであれば、(ネットワークの混
+   み具合にもよるのであろうが) 速度的には不利になるであろうこと (体感
+   したことがないので、分り難いが)。
 
-(3)SKK + PostgreSQL $B$K$h$k8D?M<-=q%F!<%V%k$NJQ49$K$D$$$F!"$I$&$7$F$bB.(B
-    $BEYE*$K%f!<%6!<$,%G%a%j%C%H$r46$8$k$N$G$"$l$P!"(B~/.skk-jisyo $B$H$NJ;(B
-    $BMQ$,$G$-$k$h$&$K$9$k$+!#(B
+(3)SKK + PostgreSQL による個人辞書テーブルの変換について、どうしても速
+    度的にユーザーがデメリットを感じるのであれば、~/.skk-jisyo との併
+    用ができるようにするか。
 
-(4)$B99$J$kJQ498zN($N%"%C%W$r?^$C$F$f$/$?$a$K$O$I$&$7$?$iNI$$$+!#(B
+(4)更なる変換効率のアップを図ってゆくためにはどうしたら良いか。
 
-$B$J$I$,EvLL$NLdBj$G$"$k$H9M$($F$$$^$9!#(BEmacs Lisp $B$O$H$b$+$/!"(BSQL $B$O$+(B
-$B$J$j$N=i?4<T$J$N$G!"%"%I%P%$%9$r$I$7$I$7$*4s$;2<$5$$!#(B
+などが当面の問題であると考えています。Emacs Lisp はともかく、SQL はか
+なりの初心者なので、アドバイスをどしどしお寄せ下さい。
 
 2. Install & notice
 
-(1)PostgreSQL $B$O(B 6.4 $B$G%F%9%H$7$F$$$^$9!#(BMakefile $B$N@hF,ItJ,$H(B
-   createtbl.sql $B%U%!%$%k$r%U%!%$%kCf$N%3%a%s%H$r;29M$KJT=8$7$^$9!#(B
+(1)PostgreSQL は 6.4 でテストしています。Makefile の先頭部分と
+   createtbl.sql ファイルをファイル中のコメントを参考に編集します。
 
-   $B2<5-(B (8) $B$NIt<sJQ49!"2h?tJQ49$rMxMQ$9$k$?$a$K!"(Bskk10.x.tar.gz $B$r(B
-   get $B$7$?%Z!<%8$+$i(B kanjidic.tar.gz $B$r(B get $B$7$F(B $SKK/kanjidic $B0J2<$K(B
-   $BE83+$7$F$*$/I,MW$,$"$j$^$9!#(B
+   下記 (8) の部首変換、画数変換を利用するために、skk10.x.tar.gz を
+   get したページから kanjidic.tar.gz を get して $SKK/kanjidic 以下に
+   展開しておく必要があります。
 
-   $B$^$?!"2<5-(B (9) $B$N%5JQJd=uJQ49$rMxMQ$9$k$?$a$K!"F1%Z!<%8$+$i(B
-   pubdic+.tar.gz $B$r(B get $B$7$F!"(B$SKK/pubdic+ $B0J2<$KE83+$7$F$*$/I,MW$,$"(B
-   $B$j$^$9!#(B
+   また、下記 (9) のサ変補助変換を利用するために、同ページから
+   pubdic+.tar.gz を get して、$SKK/pubdic+ 以下に展開しておく必要があ
+   ります。
 
-   $B$=$N8e!"(B
+   その後、
 
      % make -k
 
-   $B$G%f!<%6!<$N(B skk $B%G!<%?%Y!<%9$K(B
+   でユーザーの skk データベースに
    YOUR-USER-LOGIN-NAME_private_jisyo, large_jisyo, jis2_jisyo,
-   busyu_base, busyu_data, kcode, stroke, hinsi_base, hinsi_data $B%F!<(B
-   $B%V%k$r:n$j$^$9!#(B
+   busyu_base, busyu_data, kcode, stroke, hinsi_base, hinsi_data テー
+   ブルを作ります。
 
-   $B$J$*!"(Bpsql $B$,JV$9CM$,$^$A$^$A$J$N$+(B ($BB8:_$7$J$$%F!<%V%k$KBP$7!"G0$N(B
-   $B$?$a(B DROP $B%3%^%s%I$r;H$C$F$$$k$+$i$+!)(B)$B!"=hM}$,@5>o$K:Q$s$G$$$F$b!"(B
-   $B$H$-$I$-(B make $B$,%(%i!<$@$H4*0c$$$7$FA4$F$N%F!<%V%k$r:n$i$:$K%9%H%C(B
-   $B%W$9$k>l9g$,$"$j$^$9$N$G!"(B-k $B%*%W%7%g%s$r;XDj$7$F$$$^$9!#(B
+   なお、psql が返す値がまちまちなのか (存在しないテーブルに対し、念の
+   ため DROP コマンドを使っているからか？)、処理が正常に済んでいても、
+   ときどき make がエラーだと勘違いして全てのテーブルを作らずにストッ
+   プする場合がありますので、-k オプションを指定しています。
 
-(2)make $B$r<B9T$9$k%f!<%6!<$,(B createdb $B%3%^%s%I$G%G!<%?%Y!<%9$r:n$l$k8"(B
-   $B8B$,$J$1$l$P$J$j$^$;$s!#(B
+(2)make を実行するユーザーが createdb コマンドでデータベースを作れる権
+   限がなければなりません。
 
-(3)$B<B:]$K;HMQ$9$k$K$O!"(B~/.emacs $B$K(B
+(3)実際に使用するには、~/.emacs に
 
       (setq skk-use-rdbms t)
 
-   $B$H=q$1$PNI$$$G$7$g$&!#(B
+   と書けば良いでしょう。
 
-(4)UPDATE $B$d(B DELETE $B%3%^%s%I$G99?7$9$k%F!<%V%k$O!"(B
-   YOUR-USRE-LOGIN-NAME_private_jisyo $B$@$1$G$9!#%l%3!<%I?t$,5pBg$K$J$k(B
-   $B$H!"(BVACUUM $B$9$k;~4V$,GO</$K$J$i$J$$$N$G!"(BC-x C-c $B$J$I$G(B Emacs $B$r=*(B
-   $BN;$9$k$H$-$K$O!"$3$N%F!<%V%k$N$_(B VACUUM $B$7$^$9!#B>$N%F!<%V%k$OI,MW(B
-   $B$K1~$8!"(Bcron $B$J$I$G(B VACUUM $B$r$+$1$F2<$5$$(B ($B8D?M<-=q%F!<%V%k0J30$O99(B
-   $B?7$7$J$$$s$@$1$I!"$=$NI,MW$,$"$k$N$+$7$i$s!)(B)$B!#(B
+(4)UPDATE や DELETE コマンドで更新するテーブルは、
+   YOUR-USRE-LOGIN-NAME_private_jisyo だけです。レコード数が巨大になる
+   と、VACUUM する時間が馬鹿にならないので、C-x C-c などで Emacs を終
+   了するときには、このテーブルのみ VACUUM します。他のテーブルは必要
+   に応じ、cron などで VACUUM をかけて下さい (個人辞書テーブル以外は更
+   新しないんだけど、その必要があるのかしらん？)。
 
-(5)skk-auto.el $B$G%5%]!<%H$5$l$k<+F0Aw$j=hM}5!G=$b%G!<%?%Y!<%98!:w$KCV(B
-   $B$-49$($F%5%]!<%H$5$l$F$$$^$9$,!"%*!<%P!<%X%C%I$,7k9=Bg$-$$$N$G!"(B
-   skk-search-prog-list $BCf!"(B(skk-okuri-search) $B$rCV$/0LCV$O!"(B
+(5)skk-auto.el でサポートされる自動送り処理機能もデータベース検索に置
+   き換えてサポートされていますが、オーバーヘッドが結構大きいので、
+   skk-search-prog-list 中、(skk-okuri-search) を置く位置は、
 
      (setq skk-search-prog-list
            '((skk-rdbms-search-jisyo-table skk-rdbms-private-jisyo-table)
@@ -103,91 +103,91 @@ notice $B$N(B (8), (9) $B;2>H!#(B) $B$J$I$,%5%]!<%H$5$l$F$$$^$9!#<jA0L#A9$G
 	     (skk-okuri-search)
 	     (skk-rdbms-search-jisyo-table skk-rdbms-jis2-jisyo-table) ))
 
-   $B$N$h$&$K$9$k$N$,NI$$$+$b$7$l$^$;$s!#(B
+   のようにするのが良いかもしれません。
 
-(6)skk-kakutei-jisyo, skk-initial-search-jisyo $B$N5!G=$r%5%]!<%H$7$F$$(B
-   $B$^$9$,!"$3$l$i$N(B 2 $B$D$N<-=q%U%!%$%k$r%F!<%V%k$KJQ49$9$k:]!"(B
-   dicconv.awk $B$,M>7W$JF|;~%G!<%?$rF~$l9~$^$J$$$h$&$K(B 2 $B$D$N<-=q%U%!%$(B
-   $B%k$N@hF,$K!"$=$l$>$l(B
+(6)skk-kakutei-jisyo, skk-initial-search-jisyo の機能をサポートしてい
+   ますが、これらの 2 つの辞書ファイルをテーブルに変換する際、
+   dicconv.awk が余計な日時データを入れ込まないように 2 つの辞書ファイ
+   ルの先頭に、それぞれ
 
    ;; Kakutei dictionary for SKK system
 
    ;; Initial search dictionary for SKK system
 
-   $B$H$$$&%3%a%s%H9T$rDI2C$7$F!"%F!<%V%k$r(B make $B$7$F2<$5$$!#$J$*!"%G%#(B
-   $B%U%)%k%H$G$O$3$N(B 2 $B$D$N%F!<%V%k$O:n$i$J$$$h$&$K$J$C$F$$$k$N$G!"(B
-   Makefile $B$H(B createtbl.sql $B$NJT=8$,I,MW$G$9!#(B
+   というコメント行を追加して、テーブルを make して下さい。なお、ディ
+   フォルトではこの 2 つのテーブルは作らないようになっているので、
+   Makefile と createtbl.sql の編集が必要です。
 
-(7)James William Breen $B$K$h$k(B KANJIDIC $B$rMxMQ$7$F!"$H$j$"$($:It<sJQ49(B
-   $B$H86;OE*$J2h?tJQ49$r%5%]!<%H$7$^$7$?!#(B
+(7)James William Breen による KANJIDIC を利用して、とりあえず部首変換
+   と原始的な画数変換をサポートしました。
 
-   $BIt<sJQ49$O!"(B
+   部首変換は、
 
-      $B"&$N$.$X$s(B
+      ▽のぎへん
 
-   $B$N$h$&$KDL>o$NJQ49$HF1$8$h$&$K$7$FIt<sL>$r=q$-!"$=$3$G!"(B
+   のように通常の変換と同じようにして部首名を書き、そこで、
 
       M-x skk-rdbms-busyu-henkan
 
-   $B$H$7$F2<$5$$!#(B
+   として下さい。
 
-   $B2h?tJQ49$O!"(B
+   画数変換は、
 
-       $B"&(B15
+       ▽15
 
-    ($B$3$N>uBV$r:n$k$K$O!"(B`/ 1 5' $B$H%?%$%W$9$k(B) $B$N$h$&$K2h?t$r;XDj$7!"(B
+    (この状態を作るには、`/ 1 5' とタイプする) のように画数を指定し、
 
       M-x skk-rdbms-stroke-henkan
 
-   $B$H$7$F2<$5$$(B ($BJQ49ESCf$K(B M-x $B$G%3%^%s%I$rF~NO$9$k$N$,LLE]$J$i$P!"2?(B
-   $B$+E,Ev$J%-!<$K$3$l$i$N%3%^%s%I$r%P%$%s%I$9$l$PNI$$$G$7$g$&(B)$B!#(B
+   として下さい (変換途中に M-x でコマンドを入力するのが面倒ならば、何
+   か適当なキーにこれらのコマンドをバインドすれば良いでしょう)。
 
-   $B$^$?!"4A;z$N2h?t$rCN$j$?$$>l9g$O!"(B
+   また、漢字の画数を知りたい場合は、
 
       M-x skk-rdbms-stroke
 
-   $B$H$7$F%_%K%P%C%U%!$K3:Ev$N4A;z$rF~NO$9$l$P!"2h?t$,%(%3!<%(%j%"$KI=(B
-   $B<($5$l$^$9!#(B
+   としてミニバッファに該当の漢字を入力すれば、画数がエコーエリアに表
+   示されます。
 
-   $B$$$:$l$NJQ497k2L$b8D?M<-=q%F!<%V%k$K$O<h$j9~$^$l$^$;$s!#(B 
+   いずれの変換結果も個人辞書テーブルには取り込まれません。 
 
-   busyu_base $B%F!<%V%k$G$O!"!V$7$s$K$g$&!W$J$I!"It<sC1BN$H$7$F$O!"%3%s(B
-   $B%T%e!<%?!<>e!"I85-IT2DG=$JIt<s$O4^$^$l$F$$$J$$$N$,5$$K$J$C$F$$$^$9!#(B
-   $B$=$&$$$&It<s$O!"(Bkanji $B%+%i%`$O(B null $BJ8;z$K$7$F!"(BbusyuID $B$HFI$_$r=q(B
-   $B$$$F$*$1$PNI$5$=$&$J$b$N$G$9$,!"(Bkanjidic $B$K4^$^$l$J$$(B busyuID $B$K$D(B
-   $B$$$F$O!"2?HV$rIU$1$l$PNI$$$+J,$+$i$J$$$7!"2<5-$NLdBj$G>/!9G:$s$G$$(B
-   $B$^$9!#(B
+   busyu_base テーブルでは、「しんにょう」など、部首単体としては、コン
+   ピューター上、標記不可能な部首は含まれていないのが気になっています。
+   そういう部首は、kanji カラムは null 文字にして、busyuID と読みを書
+   いておけば良さそうなものですが、kanjidic に含まれない busyuID につ
+   いては、何番を付ければ良いか分からないし、下記の問題で少々悩んでい
+   ます。
 
-   $B$^$?!"(Bkanjidic $BCf$K=P$F$/$k(B B[0-9]+ $B$NHV9f$O!"(Bkanjidic.doc $B$K$h$l$P!"(B
-   the Nelson New Japanese-English Character Dictionary $B$K=P$F$/$k(B the
-   radical (Bushu) number $B$@$=$&$G$9$,!"$H$-$I$-=EJ#$7$F$$$k$N$,5$$K$J$C(B
-   $B$F$$$^$9(B (13, 34, 47, 66 $B$H(B 71$B!#K\Mh(B unique $B$JHV9f$N$O$:(B)$B!#$3$N?t;z(B
-   $B$r(B busyuID $B$H$7$F(B busyu_base $B%F!<%V%k$K<h$j9~$s$G$$$^$9$,!"$A$g$C$H(B
-   $BIT0B(B...$B!#(B
+   また、kanjidic 中に出てくる B[0-9]+ の番号は、kanjidic.doc によれば、
+   the Nelson New Japanese-English Character Dictionary に出てくる the
+   radical (Bushu) number だそうですが、ときどき重複しているのが気になっ
+   ています (13, 34, 47, 66 と 71。本来 unique な番号のはず)。この数字
+   を busyuID として busyu_base テーブルに取り込んでいますが、ちょっと
+   不安...。
 
-(8)the Pubdic+ Project $B$K$h$k(B pubdic.p $B$+$i(B Wnn $B$G;H$o$l$kIJ;l%G!<%?$r(B
-   $BMxMQ$7$?%5JQJd=uJQ49$r%5%]!<%H$7$^$7$?!#Nc$($P!V"&$3$&$3$&$9$k!W$d(B
-   $B!V"&$3$&$3$&(B*$B$9!W$GJQ49$7$?>l9g$G!"!V$3$&$3$&(Bs$B!W$N8+=P$78l$,8+$D$+(B
-   $B$i$J$+$C$?$H$-$G$b!"(Bhinsi_data $B%F!<%V%k$+$i!V8e96!W!V9'9T!W!V9R9T!W(B
-   $B$J$I!"%5JQF0;l$K$J$jF@$k$b$N$@$1$rJQ497k2L$H$7$F=PNO$7(B ($B!V8}9P!W!"(B
-   $B!V9b9;!W$J$I$NL5BL$J4A;z$r=PNO$7$^$;$s!#$b$A$m$s(B
-   skk-search-prog-list $B$G@h=g0L$K$"$kJQ49$G=PNO$5$l$?JQ497k2L$OM%@h$5(B
-   $B$l$^$9$,(B)$B!#(B 
+(8)the Pubdic+ Project による pubdic.p から Wnn で使われる品詞データを
+   利用したサ変補助変換をサポートしました。例えば「▽こうこうする」や
+   「▽こうこう*す」で変換した場合で、「こうこうs」の見出し語が見つか
+   らなかったときでも、hinsi_data テーブルから「後攻」「孝行」「航行」
+   など、サ変動詞になり得るものだけを変換結果として出力し (「口腔」、
+   「高校」などの無駄な漢字を出力しません。もちろん
+   skk-search-prog-list で先順位にある変換で出力された変換結果は優先さ
+   れますが)。 
 
 
-   $B<B:]$KMxMQ$9$k$K$O!"(B1.(6) $B$K5-:\$N$h$&$K!"(Bskk-search-prog-list $B$K(B
+   実際に利用するには、1.(6) に記載のように、skk-search-prog-list に
 
       (skk-rdbms-sahen-search)
 
-   $B$rF~$l$^$9!#(B
+   を入れます。
 
-   $B:#$N$H$3$m$A$g$C$HCY$$$N$,FqE@$G$9(B...($B%$%s%G%C%/%9$,;H$($J$$(B OR $B1i(B
-   $B;;;R$rO"H/$7$F$$$k$+$i$G$7$g$&$+(B)$B!#(B
+   今のところちょっと遅いのが難点です...(インデックスが使えない OR 演
+   算子を連発しているからでしょうか)。
 
 
-(9)skk-rdbms.el $B$r;HMQ$9$k$H!"(B~/.skk-jisyo $B$O;H$o$l$J$/$J$k$N$G!"EvA3(B
-   $B$G$9$,!"(B~/.skk-jisyo $B%U%!%$%k$O%"%C%W%G!<%H$5$l$J$/$J$j$^$9!#$4Cm0U(B
-   $B2<$5$$!#(B
+(9)skk-rdbms.el を使用すると、~/.skk-jisyo は使われなくなるので、当然
+   ですが、~/.skk-jisyo ファイルはアップデートされなくなります。ご注意
+   下さい。
 
-$BCfEg44IW(B <minakaji@osaka.email.ne.jp>
+中島幹夫 <minakaji@osaka.email.ne.jp>
 http://www.asahi-net.or.jp/~gy2m-nkjm/

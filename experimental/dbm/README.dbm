@@ -1,79 +1,79 @@
 -*- text -*-
-                    skk-dbm.el $B$K$D$$$F(B
+                    skk-dbm.el について
 
-             $Date: 1999/11/07 03:08:21 $ $BCfEg44IW(B <minakaji@osaka.email.ne.jp>
+             $Date: 1999/11/07 03:08:21 $ 中島幹夫 <minakaji@osaka.email.ne.jp>
 	     $Id: README.dbm,v 1.1 1999/11/07 03:08:21 minakaji Exp $
 
-o skk-dbm.el $B$H$O!"(Bskkserv $B$r2p$9$k%5!<%A$NBeBX$N<-=q%"%/%;%9J}K!$rDs6!(B
-  $B$7$^$9!#%5!<%P!<$r2p$5$:$K(B XEmacs $B$N5!G=$r;HMQ$7!"D>@\(B dbm
-  (berkeley-db, gdbm or ndbm) $B%G!<%?%Y!<%9%U%!%$%k$r%*!<%W%s$7$F8!:w$7$^(B
-  $B$9!#(B
+o skk-dbm.el とは、skkserv を介するサーチの代替の辞書アクセス方法を提供
+  します。サーバーを介さずに XEmacs の機能を使用し、直接 dbm
+  (berkeley-db, gdbm or ndbm) データベースファイルをオープンして検索しま
+  す。
 
-o XEmacs-21.2-b8 $B$GF0:n3NG'$7$F$$$^$9!#(Bversion $B$N>\:Y$OCN$i$J$$$N$G$9$,!"(B
-  database $B5!G=$r;}$C$F$$$k(B XEmacs $B$G$J$$$HF0$-$^$;$s!#(BOther Emacsen $B$r(B
-  $B$4;HMQ$NJ}$O$"$-$i$a$F2<$5$$!#(B
+o XEmacs-21.2-b8 で動作確認しています。version の詳細は知らないのですが、
+  database 機能を持っている XEmacs でないと動きません。Other Emacsen を
+  ご使用の方はあきらめて下さい。
 
-o --with-database $B%*%W%7%g%s$rIU$1$F(B configure $B$r<B9T$7$F(B XEmacs $B$r:n$C(B
-  $B$F2<$5$$!#8=:_$N(B XEmacs $B$G$O!"(Bgnudbm $B$H(B dbm $B$OGSB>E*$K%5%]!<%H$5$l$F$$(B
-  $B$^$9!#(Bberkeley-db $B$H(B gnudbm ($B$b$7$/$O(B dbm) $B$OF1;~;XDj$,$G$-$^$9!#(B
+o --with-database オプションを付けて configure を実行して XEmacs を作っ
+  て下さい。現在の XEmacs では、gnudbm と dbm は排他的にサポートされてい
+  ます。berkeley-db と gnudbm (もしくは dbm) は同時指定ができます。
 
-  $B;d$O!"8e=R$N(B gdbm $BBP1~%Q%C%A$rEv$F$?8e!"(B
+  私は、後述の gdbm 対応パッチを当てた後、
 
     ./configure --with-database=gnudbm,berkdb
  
-  $B$N$h$&$K$7$F;XDj$7$F(B configure $B$rAv$i$;$F$$$^$9!#(B
+  のようにして指定して configure を走らせています。
 
-o $B%G!<%?%Y!<%9%i%$%V%i%j$H$7$F(B gdbm $B$r;H$&>l9g$G!"%G!<%?%Y!<%9$r(B gdbm $B7A(B
-  $B<0$H$7$?$$$H$-$O!"(BXEmacs 21.2b8 $B$,(B gdbm $B%U%!%$%k$KD>@\%"%/%;%9$G$-$J$$(B
-  (libgdbm $B$r%j%s%/$7$F$$$J$,$i(B libndbm $B8_494X?t$7$+;HMQ$7$J$$$N$G(B
-  .dir, .pag $B$r3HD%;R$H$9$k%U%!%$%k$7$+3+$1$J$$(B) $B$3$H$+$i!"E:IU$N(B
-  diff-to-xemacs-21.2.8 $B$rEv$F$F:F%3%s%Q%$%k$9$kI,MW$,$"$j$^$9(B ($B$^$!!"2?(B
-  $B$HLLE]$J(B...$B$-$C$HC/$b;H$o$J$$(B...)$B!#(B
+o データベースライブラリとして gdbm を使う場合で、データベースを gdbm 形
+  式としたいときは、XEmacs 21.2b8 が gdbm ファイルに直接アクセスできない
+  (libgdbm をリンクしていながら libndbm 互換関数しか使用しないので
+  .dir, .pag を拡張子とするファイルしか開けない) ことから、添付の
+  diff-to-xemacs-21.2.8 を当てて再コンパイルする必要があります (まぁ、何
+  と面倒な...きっと誰も使わない...)。
 
-  ** berkeley-db $B%U%!%$%k$@$1$G$"$l$P%Q%C%A$rEv$F$kI,MW$O$"$j$^$;$s!#(B**
+  ** berkeley-db ファイルだけであればパッチを当てる必要はありません。**
 
-o ndbm $B$G;H$($k$+$I$&$+$OL$3NG'$G$9!#(B
+o ndbm で使えるかどうかは未確認です。
 
-o $B2?8N$+!"(Bmakedbmdic (pskkserv $BE:IU$N<-=q(B make tool) $B$G:n$C$?(B gdbm/db
-  $B<-=q$OFI$a$^$;$s(B ($B62$i$/(B coding-system $B7O$NLdBj$G$7$g$&(B)$B!#(Bskk-dbm.el
-  $BFb$K$"$k(B skk-dbm-make-jisyo $B4X?t$r;H$C$F<-=q$r:n$k$H0l1~@5>o$K8!:w$O$G(B
-  $B$-$F$$$k$h$&$G$9!#(B
+o 何故か、makedbmdic (pskkserv 添付の辞書 make tool) で作った gdbm/db
+  辞書は読めません (恐らく coding-system 系の問題でしょう)。skk-dbm.el
+  内にある skk-dbm-make-jisyo 関数を使って辞書を作ると一応正常に検索はで
+  きているようです。
 
-  $B>e5-$NMWNN$G:n$C$?(B XEmacs $B$G(B
+  上記の要領で作った XEmacs で
 
    (skk-dbm-make-jisyo "/usr/local/share/skk/SKK-JISYO.L"
                        "SKK-JISYO.L.db" 'berkeley-db 'hash )
 
-  $B$N$h$&$K$7$F!"(BSKK-JISYO.L.db ($B$"$k$$$O(B skk-dbm-make-jisyo $B$N%*%W%7%g%s(B
-  $B$rJQ99$7$F(B SKK-JISYO.gdbm or SKK-JISYO.L.dir (& SKK-JISYO.L.pag) $B$r:n$C(B
-  $B$F2<$5$$!#%^%7%s$NB.$5$H<-=q$NBg$-$5$K$b$h$j$^$9$,!"(BMMX Pentium
-  166MHz $B$N%^%7%s$G(B 3,200KB $B$[$I$N<-=q$r(B gdbm $B2C9)$9$k$N$KLs(B 1 $B;~4V(B
-  (!) $B$+$+$j$^$7$?!#(Bberkeley-db $B$@$H@53N$K7W$C$F$$$^$;$s$,!"2?8N$+(B 20 $B?t(B
-  $BJ,$G:n@.$G$-$?$h$&$K;W$$$^$9!#(B
+  のようにして、SKK-JISYO.L.db (あるいは skk-dbm-make-jisyo のオプション
+  を変更して SKK-JISYO.gdbm or SKK-JISYO.L.dir (& SKK-JISYO.L.pag) を作っ
+  て下さい。マシンの速さと辞書の大きさにもよりますが、MMX Pentium
+  166MHz のマシンで 3,200KB ほどの辞書を gdbm 加工するのに約 1 時間
+  (!) かかりました。berkeley-db だと正確に計っていませんが、何故か 20 数
+  分で作成できたように思います。
 
-  $B$A$J$_$K(B skk-dbm.el $B$O%P%$%H%3%s%Q%$%k$7$?$b$N$r%m!<%I$7$F(B
-  skk-dbm-make-jisyo $B$r<B9T$7$?J}$,>/$7$G$bM>7W$J;~4V$r?)$o$:$K:Q$_$^$9!#(B
+  ちなみに skk-dbm.el はバイトコンパイルしたものをロードして
+  skk-dbm-make-jisyo を実行した方が少しでも余計な時間を食わずに済みます。
 
-o $B<B:]$KMxMQ$9$k$K$O!"(B
+o 実際に利用するには、
 
    (setq skk-dbm-large-jisyo "/your/path/to/SKK-JISYO.L.db")
    (setq skk-search-prog-list
 	 '((skk-search-jisyo-file skk-jisyo 0 t)
 	   (skk-dbm-search-jisyo-database skk-dbm-large-jisyo 'nomsg) ))
 
-  $B$J$I$H!"(B.emacs $B$+(B .skk $B$K=q$$$F(B SKK $B$r5/F0$9$k$HNI$$$G$7$g$&(B (ndbm $B%U%!(B
-  $B%$%k$N>l9g$O!"(Bdir $B$d(B pag $B$H$$$C$?3HD%;R$O>J$$$F;XDj$9$l$PNI$$$O$:$G$9(B)$B!#(B
+  などと、.emacs か .skk に書いて SKK を起動すると良いでしょう (ndbm ファ
+  イルの場合は、dir や pag といった拡張子は省いて指定すれば良いはずです)。
 
-  $B$^$?!"2<5-$N$h$&$K@_Dj$9$k$H!"8D?M<-=q$b%G!<%?%Y!<%92=$7$F(B ($B8D?M<-=q$N(B
-  $B%G!<%?%Y!<%92=$O<+F02=$5$l$F$$$^$9(B) $B8!:w$r9T$J$&$3$H$,$G$-$^$9!#(B
+  また、下記のように設定すると、個人辞書もデータベース化して (個人辞書の
+  データベース化は自動化されています) 検索を行なうことができます。
 
     (setq skk-search-prog-list
          '((skk-dbm-search-jisyo-database skk-dbm-jisyo)
            (skk-dbm-search-jisyo-database skk-dbm-large-jisyo 'nomsg) ))
   
-o diff-to-xemacs-21.2.8	$B$K$D$$$F$O!"(Bxemacs-beta@xemacs.org $B$G5DO@$5$l!"(B
-  $B$^$?!"0l1~6cL#$5$l$?>e$G(B xemacs-patches@xemacs.org $B$KEj9F$7$F$"$j$^$9(B
-  $B$,!"(BXEmacs $B$K<h$j9~$^$l$k$+$I$&$+$OITL@$G$9!#(B
+o diff-to-xemacs-21.2.8	については、xemacs-beta@xemacs.org で議論され、
+  また、一応吟味された上で xemacs-patches@xemacs.org に投稿してあります
+  が、XEmacs に取り込まれるかどうかは不明です。
 
-$BCfEg44IW(B <minakaji@osaka.email.ne.jp>
+中島幹夫 <minakaji@osaka.email.ne.jp>
 http://www.asahi-net.or.jp/~gy2m-nkjm/
