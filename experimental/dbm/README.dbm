@@ -1,8 +1,7 @@
 -*- text -*-
                     skk-dbm.el について
 
-             $Date: 1999/11/07 03:08:21 $ 中島幹夫 <minakaji@osaka.email.ne.jp>
-	     $Id: README.dbm,v 1.1 1999/11/07 03:08:21 minakaji Exp $
+             Date: 1999/11/07 03:08:21 中島幹夫 <minakaji@osaka.email.ne.jp>
 
 o skk-dbm.el とは、skkserv を介するサーチの代替の辞書アクセス方法を提供
   します。サーバーを介さずに XEmacs の機能を使用し、直接 dbm

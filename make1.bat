@@ -4,9 +4,7 @@ rem Copyright (C) 1999 Yuh Ohmura, mailto:yutopia@y6.dion.ne.jp
 rem
 rem Author: Yuh Ohmura, mailto:yutopia@y6.dion.ne.jp
 rem Maintainer: SKK Development Team mailto:skk@ring.gr.jp
-rem Version: $Id: make1.bat,v 1.8 2010/07/04 02:27:43 skk-cvs Exp $
 rem Created: March 23, 1999
-rem Last Modified: $Date: 2010/07/04 02:27:43 $
 
 rem --- check calling from makeit.bat
 if not "%SUBMAKEOK%"=="OK" goto prnusage

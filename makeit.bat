@@ -5,8 +5,6 @@ rem ---  1999/07/07, Masaki YATSU mailto:yatsu@aurora.dti.ne.jp
 rem ---              cmail ML member
 rem ---  modified 1999/12/01, Yuh Ohmura, mailto:yutopia@y6.dion.ne.jp
 rem ---  modified 2000/12/26, Takeshi Morishima mailto:tm@interaccess.com
-rem ---  date $Date: 2013/01/13 09:30:21 $
-rem ---  latest cvs version $Id: makeit.bat,v 1.5 2013/01/13 09:30:21 skk-cvs Exp $
 
 set ELISPMK_APP=skk
 

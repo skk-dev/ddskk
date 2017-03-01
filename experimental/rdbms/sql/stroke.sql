@@ -4,8 +4,6 @@
 --
 -- Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 -- Created: Sep 1, 1998
--- Last Modified: $Date: 2001/02/03 00:23:00 $
--- Version: $Id: stroke.sql,v 1.2 2001/02/03 00:23:00 minakaji Exp $
 --
 -- This file is not part of SKK yet.
 --

@@ -4,8 +4,6 @@
 #
 # Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 # Created: Sep 1, 1998
-# Last Modified: $Date: 2001/02/03 00:22:59 $
-# Version: $Id: busyu_base.awk,v 1.2 2001/02/03 00:22:59 minakaji Exp $
 #
 # This file is not part of SKK yet.
 #

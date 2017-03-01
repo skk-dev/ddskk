@@ -3,9 +3,7 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Maintainer: NAKAJIMA Mikio <minakaji@namazu.org>
-;; Version: $Id: skk-rdbms.el,v 1.14 2012/01/05 12:06:11 skk-cvs Exp $
 ;; Keywords: japanese, rdbms
-;; Last Modified: $Date: 2012/01/05 12:06:11 $
 
 ;; This file is not part of Daredevil SKK yet.
 

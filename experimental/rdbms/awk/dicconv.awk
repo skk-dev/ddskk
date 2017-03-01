@@ -4,8 +4,6 @@
 #
 # Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 # Created: Apr 18, 1998
-# Last Modified: $Date: 2001/02/03 00:22:59 $
-# Version: $Id: dicconv.awk,v 1.2 2001/02/03 00:22:59 minakaji Exp $
 # This file is not part of SKK yet.
 
 # SKK is free software; you can redistribute it and/or modify

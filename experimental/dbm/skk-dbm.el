@@ -3,10 +3,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Maintainer: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-dbm.el,v 1.9 2010/08/02 15:21:06 skk-cvs Exp $
 ;; Keywords: japanese, dbm, gdbm
 ;; Created: Jan. 1, 1999
-;; Last Modified: $Date: 2010/08/02 15:21:06 $
 
 ;; This file is not part of Daredevil SKK yet.
 

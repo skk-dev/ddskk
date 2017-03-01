@@ -1,3 +1,18 @@
+2017-03-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* experimental/GUIDELINE, experimental/dbm/README.dbm:
+	* experimental/dbm/skk-dbm.el, experimental/rdbms/README.rdbms:
+	* experimental/rdbms/awk/busyu_base.awk, experimental/rdbms/awk/busyu_data.awk:
+	* experimental/rdbms/awk/dicconv.awk, experimental/rdbms/awk/kcode.awk:
+	* experimental/rdbms/awk/stroke.awk, experimental/rdbms/skk-rdbms.el:
+	* experimental/rdbms/sql/busyu.sql, experimental/rdbms/sql/createtbl.sql:
+	* experimental/rdbms/sql/hinsi.sql, experimental/rdbms/sql/kcode.sql:
+	* experimental/rdbms/sql/stroke.sql:
+	* make1.bat, makeit.bat:
+	* tut-code/README.tut:
+ 	delete lines that contains RCS KEYWORD `Version: $Id$: ' or
+	`Last Modified: $Date$: '.
+
 2017-02-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* experimental/rdbms/README.rdbms: convert to utf-8.

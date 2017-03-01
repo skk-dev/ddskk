@@ -4,8 +4,6 @@
 --
 -- Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 -- Created: Sep 6, 1998
--- Last Modified: $Date: 2001/02/03 00:23:00 $
--- Version: $Id: hinsi.sql,v 1.2 2001/02/03 00:23:00 minakaji Exp $
 --
 -- This file is not part of SKK yet.
 --
