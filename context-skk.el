@@ -125,6 +125,10 @@
   :type 'hook
   :group 'context-skk)
 
+(make-obsolete-variable 'context-skk-custumize-functions
+			'context-skk-customize-functions
+			"DDSKK 16.2")
+
 ;;;###autoload
 (defcustom context-skk-customize-functions
   '(context-skk-customize-kutouten)

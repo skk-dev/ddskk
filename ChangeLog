@@ -1,3 +1,11 @@
+2017-03-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* context-skk.el (context-skk-custumize-functions): Obsolete.
+
+2017-03-03  Masatake YAMATO <yamato@redhat.com>
+
+	* context-skk.el: fix typos (s/custumize/customize/g).
+
 2017-03-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* experimental/GUIDELINE, experimental/dbm/README.dbm:
