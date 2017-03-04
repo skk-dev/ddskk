@@ -221,7 +221,8 @@ mail-user-agent $B$r@_Dj$9$k$3$H$K$h$j9%$_$N%a!<%k%$%s%?!<%U%'%$%9$r;HMQ$9$k$3$
     (skk-get-download jisyo-dir)
     (skk-get-generate-gzip-d jisyo-dir)
     (skk-get-expand-gzip jisyo-dir)
-    (skk-get-expand-tar jisyo-dir))
+    (when (fboundp 'tar--extract)	; GNU Emacs 24.4 $B$+$i(B
+      (skk-get-expand-tar jisyo-dir)))
   (message "skk-get...done")
   nil)
 

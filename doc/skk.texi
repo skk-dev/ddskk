@@ -298,11 +298,14 @@ GNU Emacs 22 のユーザは DDSKK 16.1 をお使いください。
 @item GNU Emacs 24.3
 
 GNU Emacs 24.3 と DDSKK 14 の組み合わせで isearch 使用時の不具合が発見されています。
-GNU Emacs 24.3 のユーザは DDSKK 15 をお使いください。
+GNU Emacs 24.3 のユーザは DDSKK 15 以上をお使いください。
 
 @url{http://mail.ring.gr.jp/skk/201211/msg00000.html}
 
 @url{http://mail.ring.gr.jp/skk/201212/msg00000.html}
+
+辞書のダウンロード機能である @kbd{M-x skk-get} と @command{make get} について、
+tar 展開は非対応です。
 
 @item GNU Emacs 24.4
 
@@ -674,6 +677,9 @@ edict 辞書(英和辞書)
 
 Emacs の使用中に @kbd{M-x skk-get} と実行すると、辞書ファイルを一括ダウン
 ロードすることができます。
+
+なお、GNU Emacs 24.3 以下では tar 展開に対応していないため
+@file{SKK-JISYO.edict.tar.gz} と @file{zipcode.tar.gz} は処理されません。
 
 @end defun
 

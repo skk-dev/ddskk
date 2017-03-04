@@ -1,3 +1,8 @@
+2017-03-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-develop.el (skk-get): GNU Emacs 24.3 以下は tar 非対応.
+	関数 tar--extract() は 24.4 から.
+
 2017-03-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* context-skk.el (context-skk-custumize-functions): Obsolete.
