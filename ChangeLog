@@ -1,5 +1,9 @@
 2017-03-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* Makefile, ddskk-pkg.el, skk-version.el: Bump SKK version to 16.2.50.
+
+2017-03-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* Version 16.2 Warabitai Released.
 
 	* Makefile, ddskk-pkg.el, skk-version.el: Bump SKK version to 16.2.

@@ -31,7 +31,7 @@
 
 (put 'skk-version 'product-name "Daredevil SKK")
 (put 'skk-version 'version-string
-     (let ((ver "16.2")
+     (let ((ver "16.2.50")
 	   (mepla "mepla")
 	   (path (catch 'exit
 		   (dolist (p load-path)
@@ -42,8 +42,8 @@
 	   (format "%s/%s-%s" ver mepla
 			(car (cdr (split-string path "ddskk-"))))
 	 ver)))
-(put 'skk-version 'codename "Warabitai") ; See also `READMEs/CODENAME.ja'
-(put 'skk-version 'codename-ja "蕨岱")
+(put 'skk-version 'codename "Kuromatsunai") ; See also `READMEs/CODENAME.ja'
+(put 'skk-version 'codename-ja "黒松内")
 
 ;;;###autoload
 (defun skk-version (&optional without-codename)
