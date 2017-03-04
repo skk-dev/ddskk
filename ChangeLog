@@ -1,5 +1,11 @@
 2017-03-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* Version 16.2 Warabitai Released.
+
+	* Makefile, ddskk-pkg.el, skk-version.el: Bump SKK version to 16.2.
+
+2017-03-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* skk-develop.el (skk-get): GNU Emacs 24.3 以下は tar 非対応.
 	関数 tar--extract() は 24.4 から.
 
