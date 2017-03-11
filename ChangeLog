@@ -1,5 +1,8 @@
 2017-03-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-search-web.el (skk-comp-google-candidates): New internal variable.
+	(skk-comp-google, skk-comp-google-make-candidates): New functions.
+
 	* experimental/skk-pre-henkan.el (skk-pre-henkan-make-candidates):
 	let*() から let() へ変更.
 

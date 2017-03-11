@@ -52,16 +52,14 @@
 ;;           (lambda ()
 ;;             (car (skk-google-cgi-api-for-japanese-input skk-henkan-key))))
 
-;;; Requre
-;; json.el を必要とします。json.el は Emacs 23.1 からは標準です。
-;; Emacs 22 を利用している方は、
-;;   http://edward.oconnor.cx/elisp/json.el
-;; から json.el を取得してください。
+;; SKK Dynamic Completion と併用することも可能です。
+;; (add-to-list 'skk-completion-prog-list '(skk-comp-google) t)
 
-;; Test
+;;; Test:
+
 ;; (let ((skk-henkan-key "emacs"))
 ;;   (skk-search-web 'skk-google-suggest))
-;; ("emacs" "emacs コマンド" "emacs windows" "emacs 使い方" "emacs 文字コード" ...)
+;; => ("emacs" "emacs コマンド" "emacs windows" "emacs 使い方" "emacs 文字コード" ...)
 
 ;;; 謝辞
 ;;    もともとのオリジナルは HAMANO Kiyoto <khiker.mail@gmail.com> さんが
@@ -158,6 +156,22 @@ http://www.google.co.jp/ime/cgiapi.html
 (defun skk-search-web (function)
   (funcall function skk-henkan-key))
 
+;; skk-comp, skk-dcomp,
+(defvar skk-comp-google-candidates nil)
+
+(defun skk-comp-google ()
+  ;; Howto use
+  ;; (add-to-list 'skk-completion-prog-list '(skk-comp-google) t)
+  (unless (string= skk-comp-key "")
+    (when skk-comp-first
+      (setq skk-comp-google-candidates (skk-comp-google-make-candidates)))
+     (prog1
+	 (car skk-comp-google-candidates)
+       (setq skk-comp-google-candidates (cdr skk-comp-google-candidates)))))
+
+(defun skk-comp-google-make-candidates ()
+  (let ((key (car (split-string skk-comp-key "*" t))))
+    (skk-google-suggest key)))
 
 (provide 'skk-search-web)
 
