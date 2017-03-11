@@ -56,10 +56,10 @@
 
 (defun skk-pre-henkan-make-candidates ()
   "Skk-comp-key をキー（先頭一致）として、候補のリストを返す."
-  (let* ((list-jisyo '(skk-jisyo skk-large-jisyo))
-	 ;; skk-comp-key は buffer-local なので with-current-buffer() 内では nil になる。
-	 (key (car (split-string skk-comp-key "*" t)))
-	 candidates)
+  (let ((list-jisyo '(skk-jisyo skk-large-jisyo))
+	;; skk-comp-key は buffer-local なので with-current-buffer() 内では nil になる。
+	(key (car (split-string skk-comp-key "*" t)))
+	candidates)
     (dolist (jisyo list-jisyo)
       (with-current-buffer (skk-get-jisyo-buffer (symbol-value jisyo) 'nomsg)
 	(goto-char skk-okuri-nasi-min)

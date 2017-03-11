@@ -1,3 +1,8 @@
+2017-03-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* experimental/skk-pre-henkan.el (skk-pre-henkan-make-candidates):
+	let*() から let() へ変更.
+
 2017-03-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* experimental/skk-pre-henkan.el: Add new file.
