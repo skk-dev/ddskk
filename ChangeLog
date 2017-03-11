@@ -1,3 +1,8 @@
+2017-03-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-treat-strip-note-from-word): 引数が nil の場合にエラーと
+	なることを防ぐ.
+
 2017-03-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* Makefile, ddskk-pkg.el, skk-version.el: Bump SKK version to 16.2.50.
