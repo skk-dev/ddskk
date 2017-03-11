@@ -1,5 +1,10 @@
 2017-03-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-dcomp.el (skk-dcomp-multiple-get-candidates): コメントを追加.
+
+	* skk-comp.el (skk-comp-do): インデントを修正.
+	(skk-comp-get-candidate): コメントを追加.
+
 	* skk.el (skk-treat-strip-note-from-word): 引数が nil の場合にエラーと
 	なることを防ぐ.
 

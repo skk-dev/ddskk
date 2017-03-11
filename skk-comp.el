@@ -96,8 +96,7 @@
       ;; prefix に対応する「かな」etc. があれば non-t
       ;; 副作用を伴なうルールが指定されているかもしれないので、
       ;; データがあるかどうかのチェックのみに使う。
-      (setq data
-	    (skk-kana-cleanup 'force))
+      (setq data (skk-kana-cleanup 'force))
       (when (or skk-abbrev-mode
 		(memq skk-comp-use-prefix '(nil kakutei-first)))
 	(setq skk-comp-key (buffer-substring-no-properties
@@ -190,7 +189,7 @@
     (while (and (null cand)
 		skk-current-completion-prog-list)
       (setq prog (car skk-current-completion-prog-list))
-      (setq cand (eval prog)
+      (setq cand (eval prog)		; `skk-comp-key' をキーとして、文字列ひとつが戻る
 	    skk-comp-first nil)
       (unless cand
 	(setq skk-current-completion-prog-list

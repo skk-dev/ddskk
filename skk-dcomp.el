@@ -243,72 +243,78 @@
 (declare-function skk-comp-get-candidate "skk-comp")
 (defun skk-dcomp-multiple-get-candidates (&optional same-key)
   (let (candidates)
-    (cond ( ;; 新規検索
-	   (not same-key)
-	   (setq skk-dcomp-multiple-select-index
-		 ;; skk-comp の C-u TAB を考慮する
-		 (if (and current-prefix-arg (listp current-prefix-arg)) 0 -1))
-	   (setq skk-dcomp-multiple-key
-		 ;; skk-comp の C-u TAB を考慮する
-		 (if (and current-prefix-arg (listp current-prefix-arg))
-		     skk-comp-key
-		   (let ((key (buffer-substring-no-properties
-			       skk-henkan-start-point (point))))
-		     (if skk-katakana
-			 (skk-katakana-to-hiragana key)
-		       key))))
-	   (setq skk-dcomp-multiple-prefix skk-prefix)
-	   (setq skk-dcomp-multiple-search-done nil)
-	   (let ( ;; `skk-comp-get-candidate' に必要なデータを束縛
-		 (skk-comp-key skk-dcomp-multiple-key)
-		 (skk-comp-prefix skk-dcomp-multiple-prefix)
-		 ;; `skk-comp-get-candidate' で値が変わってしまうため束縛
-		 (skk-current-completion-prog-list
-		  skk-current-completion-prog-list)
-		 (skk-server-completion-words skk-server-completion-words)
-		 (skk-look-completion-words skk-look-completion-words)
-		 (i 0)
-		 cand)
-	     (when (or skk-comp-use-prefix
-		       ;; skk-comp-use-prefix が nil の場合、▽n などは
-		       ;; 補完候補を検索しない
-		       (not (skk-get-kana skk-current-rule-tree)))
-	       (skk-dcomp-save-point-in-jisyo-buffer
-		(while (and (< i skk-dcomp-multiple-rows)
-			    (setq cand (skk-comp-get-candidate (zerop i))))
-		  (unless (member cand candidates)
-		    (push cand candidates)
-		    (incf i)))))
-	     (setq candidates (nreverse candidates))
-	     (when (< i skk-dcomp-multiple-rows)
-	       (setq skk-dcomp-multiple-search-done t))
-	     (setq skk-dcomp-multiple-candidates candidates)))
-	  ;; 全て検索済
-	  (skk-dcomp-multiple-search-done
-	   (setq candidates (skk-dcomp-multiple-extract-candidates
-			     skk-dcomp-multiple-candidates
-			     skk-dcomp-multiple-select-index)))
-	  ;; 全検索する
-	  ((and same-key
-		(< (1- (length skk-dcomp-multiple-candidates))
-		   skk-dcomp-multiple-select-index))
-	   (skk-dcomp-save-point-in-jisyo-buffer
-	    (let ( ;; `skk-comp-get-all-candidates' で空になってしまうため束縛
-		  (skk-comp-kakutei-midasi-list skk-comp-kakutei-midasi-list)
-		  (skk-server-completion-words skk-server-completion-words)
-		  (skk-look-completion-words skk-look-completion-words))
-	      (setq skk-dcomp-multiple-candidates
-		    (skk-comp-get-all-candidates skk-dcomp-multiple-key
-						 skk-dcomp-multiple-prefix
-						 skk-completion-prog-list))))
-	   (setq skk-dcomp-multiple-search-done t)
-	   (setq skk-dcomp-multiple-select-index
-		 (min skk-dcomp-multiple-select-index
-		      (1- (length skk-dcomp-multiple-candidates))))
-	   (setq candidates (skk-dcomp-multiple-extract-candidates
-			     skk-dcomp-multiple-candidates
-			     skk-dcomp-multiple-select-index)))
-	  (t (setq candidates skk-dcomp-multiple-candidates)))
+    (cond
+     ;; (1) 新規検索
+     ((not same-key)
+      (setq skk-dcomp-multiple-select-index
+	    ;; skk-comp の C-u TAB を考慮する
+	    (if (and current-prefix-arg (listp current-prefix-arg)) 0 -1))
+      (setq skk-dcomp-multiple-key
+	    ;; skk-comp の C-u TAB を考慮する
+	    (if (and current-prefix-arg (listp current-prefix-arg))
+		skk-comp-key
+	      (let ((key (buffer-substring-no-properties
+			  skk-henkan-start-point (point))))
+		(if skk-katakana
+		    (skk-katakana-to-hiragana key)
+		  key))))
+      (setq skk-dcomp-multiple-prefix skk-prefix)
+      (setq skk-dcomp-multiple-search-done nil)
+      (let ( ;; `skk-comp-get-candidate' に必要なデータを束縛
+	    (skk-comp-key skk-dcomp-multiple-key)
+	    (skk-comp-prefix skk-dcomp-multiple-prefix)
+	    ;; `skk-comp-get-candidate' で値が変わってしまうため束縛
+	    (skk-current-completion-prog-list
+	     skk-current-completion-prog-list)
+	    (skk-server-completion-words skk-server-completion-words)
+	    (skk-look-completion-words skk-look-completion-words)
+	    (i 0)
+	    cand)
+	(when (or skk-comp-use-prefix
+		  ;; skk-comp-use-prefix が nil の場合、▽n などは
+		  ;; 補完候補を検索しない
+		  (not (skk-get-kana skk-current-rule-tree)))
+	  (skk-dcomp-save-point-in-jisyo-buffer
+	   (while (and (< i skk-dcomp-multiple-rows)
+		       (setq cand (skk-comp-get-candidate (zerop i))))
+	     (unless (member cand candidates)
+	       (push cand candidates)
+	       (incf i)))))
+	(setq candidates (nreverse candidates))
+	(when (< i skk-dcomp-multiple-rows)
+	  (setq skk-dcomp-multiple-search-done t))
+	(setq skk-dcomp-multiple-candidates candidates)))
+
+     ;; (2) 全て検索済
+     (skk-dcomp-multiple-search-done
+      (setq candidates (skk-dcomp-multiple-extract-candidates
+			skk-dcomp-multiple-candidates
+			skk-dcomp-multiple-select-index)))
+
+     ;; (3) 全検索する (TAB 連打で繰り越したとき)
+     ((and same-key
+	   (< (1- (length skk-dcomp-multiple-candidates))
+	      skk-dcomp-multiple-select-index))
+      (skk-dcomp-save-point-in-jisyo-buffer
+       (let ( ;; `skk-comp-get-all-candidates' で空になってしまうため束縛
+	     (skk-comp-kakutei-midasi-list skk-comp-kakutei-midasi-list)
+	     (skk-server-completion-words skk-server-completion-words)
+	     (skk-look-completion-words skk-look-completion-words))
+	 (setq skk-dcomp-multiple-candidates
+	       (skk-comp-get-all-candidates skk-dcomp-multiple-key
+					    skk-dcomp-multiple-prefix
+					    skk-completion-prog-list))))
+      (setq skk-dcomp-multiple-search-done t)
+      (setq skk-dcomp-multiple-select-index
+	    (min skk-dcomp-multiple-select-index
+		 (1- (length skk-dcomp-multiple-candidates))))
+      (setq candidates (skk-dcomp-multiple-extract-candidates
+			skk-dcomp-multiple-candidates
+			skk-dcomp-multiple-select-index)))
+
+     ;; (4) 単なる TAB 打鍵
+     (t
+      (setq candidates skk-dcomp-multiple-candidates)))
     (when candidates
       (append candidates
 	      (list (format " [ %s / %s ]"
