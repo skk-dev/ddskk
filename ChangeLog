@@ -1,5 +1,7 @@
 2017-03-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* experimental/skk-pre-henkan.el: Add new file.
+
 	* skk-dcomp.el (skk-dcomp-multiple-get-candidates): コメントを追加.
 
 	* skk-comp.el (skk-comp-do): インデントを修正.

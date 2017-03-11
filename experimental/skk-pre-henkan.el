@@ -1,0 +1,77 @@
+;;; skk-pre-henkan.el --- SKK 見出し語の代わりに候補を表示 -*- coding: iso-2022-jp -*-
+
+;; Copyright (C) 2017 Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+;; Author: Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Keywords: japanese, mule, input method
+
+;; This file is part of Daredevil SKK.
+
+;; Daredevil SKK is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License as
+;; published by the Free Software Foundation; either version 2, or
+;; (at your option) any later version.
+
+;; Daredevil SKK is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with Daredevil SKK, see the file COPYING.  If not, write to
+;; the Free Software Foundation Inc., 51 Franklin Street, Fifth Floor,
+;; Boston, MA 02110-1301, USA.
+
+;;; Commentary:
+;;    skk-dcomp-multiple-get-candidates()
+;;      => skk-comp-get-candidate(first)
+;;        => when first setq skk-comp-first t
+;;           eval skk-completion-prog-list
+;;           setq skk-comp-first nil
+
+;; (defcustom skk-completion-prog-list '((skk-comp-by-history)
+;;                                       (skk-comp-from-jisyo skk-jisyo)
+;;                                       (skk-look-completion))
+
+;;; How to use:
+;;    (require skk-pre-henkan)
+
+;;; Code:
+
+(setq skk-completion-prog-list '((skk-pre-henkan)))
+
+(defvar skk-pre-henkan-candidates nil)
+
+(defun skk-pre-henkan ()
+  "."
+  ;; skk-pre-henkan-candidates の先頭の car を返す。skk-pre-henkan-candidates は縮む。
+  ;; skk-comp-first が t なら、新たな skk-pre-henkan-candidates を作る。
+  (unless (string= skk-comp-key "")
+    (when skk-comp-first
+      (setq skk-pre-henkan-candidates (skk-pre-henkan-make-candidates)))
+    (prog1
+	(car (skk-treat-strip-note-from-word (car skk-pre-henkan-candidates)))
+      (setq skk-pre-henkan-candidates (cdr skk-pre-henkan-candidates)))))
+
+(defun skk-pre-henkan-make-candidates ()
+  "Skk-comp-key をキー（先頭一致）として、候補のリストを返す."
+  (let* ((list-jisyo '(skk-jisyo skk-large-jisyo))
+	 ;; skk-comp-key は buffer-local なので with-current-buffer() 内では nil になる。
+	 (key (car (split-string skk-comp-key "*" t)))
+	 candidates)
+    (dolist (jisyo list-jisyo)
+      (with-current-buffer (skk-get-jisyo-buffer (symbol-value jisyo) 'nomsg)
+	(goto-char skk-okuri-nasi-min)
+	(message "* %s" key)
+	(while (re-search-forward (format "^%s.* /" key) nil t)
+	  (setq candidates (concat candidates
+				   (buffer-substring-no-properties (point)
+								   (progn (end-of-line)
+									  (point))))))))
+    (when candidates
+      (split-string candidates "/" t))))
+
+(provide 'skk-pre-henkan)
+
+;;; skk-pre-henkan.el ends here
