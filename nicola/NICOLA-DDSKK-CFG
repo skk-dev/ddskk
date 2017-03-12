@@ -49,7 +49,11 @@
   (cond	((eq system-type 'windows-nt)
 	 ;; Meadow, NTEmacs
 	 (setq emacs-self-contained t)
-	 (expand-file-name ".." exec-directory))
+	 (if (string-match "libexec" exec-directory)
+	     (expand-file-name "share/emacs"
+			       (expand-file-name "../../../../" exec-directory))
+	   (expand-file-name ".." exec-directory)) )
+
 	((eq system-type 'darwin)
 	 ;; Carbon Emacs or Cocoa Emacs (or system-default Emacs)
 	 (let ((dir (expand-file-name ".." data-directory)))
@@ -58,8 +62,10 @@
 		 (setq emacs-self-contained t)
 		 dir)
 	     (expand-file-name "../../.." dir))))
+
 	((featurep 'xemacs)
 	 (expand-file-name "../../.." exec-directory))
+
 	(t
 	 (expand-file-name "../../../.." data-directory))))
 

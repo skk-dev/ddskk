@@ -1,3 +1,9 @@
+2017-03-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* makeit.bat, make1.bat: New file for NTEmacs.
+
+	* NICOLA-DDSKK-CFG (install-prefix): Modify for NTEmacs.
+
 2016-10-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* .cvsignore: Remove file.
