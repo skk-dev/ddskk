@@ -464,6 +464,8 @@ skk-num.el, skk-kcode.el, skk-isearch.el, skk-cursor.el,
 
 *** tar-util
 
+*** experimental/skk-pre-henkan.el
+
 *** 以下のプログラムへの改変
 
 **** context-skk.el, skk-annotation.el, skk-gadget.el, skk-hint.el, skk-inline.el,
