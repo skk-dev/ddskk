@@ -5,6 +5,7 @@
 
 	* experimental/skk-pre-henkan.el (skk-pre-henkan-make-candidates):
 	let*() から let() へ変更.
+	skk-dcomp-activate を nil へ.
 
 2017-03-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

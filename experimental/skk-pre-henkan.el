@@ -35,10 +35,11 @@
 ;;                                       (skk-look-completion))
 
 ;;; How to use:
-;;    (require skk-pre-henkan)
+;;    (require 'skk-pre-henkan)
 
 ;;; Code:
 
+(setq skk-dcomp-activate nil)
 (setq skk-completion-prog-list '((skk-pre-henkan)))
 
 (defvar skk-pre-henkan-candidates nil)
