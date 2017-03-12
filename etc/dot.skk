@@ -663,17 +663,22 @@
 
 ;; @@ skk-search-web.el
 ;; (setq skk-use-search-web t)
-;; (add-to-list 'skk-search-prog-list
-;; 	     '(skk-search-web 'skk-google-cgi-api-for-japanese-input)
-;; 	     t)
 
-;; 辞書登録モードに移ったときの初期値に Google サジェストを利用する
-;; (setq skk-read-from-minibuffer-function
-;;       (lambda ()
-;; 	(car (skk-google-suggest skk-henkan-key))))
+(when skk-use-search-web
+  ;; ;; 辞書変換が尽きたら Google CGI API for Japanese Input による変換を実行
+  ;; ;; https://www.google.co.jp/ime/cgiapi.html
+  ;; (add-to-list 'skk-search-prog-list
+  ;; 	       '(skk-search-web 'skk-google-cgi-api-for-japanese-input)
+  ;; 	       t)
 
-;; 動的補完 (Dynamic Completion) に Google サジェストを表示
-;; (add-to-list 'skk-completion-prog-list '(skk-comp-google) t)
+  ;; ;; 辞書登録モードに移ったときの初期値に Google サジェストを利用する
+  ;; (setq skk-read-from-minibuffer-function
+  ;; 	(lambda ()
+  ;; 	  (car (skk-google-suggest skk-henkan-key))))
+
+  ;; ;; 動的補完 (Dynamic Completion) に Google サジェストを表示
+  ;; (add-to-list 'skk-completion-prog-list '(skk-comp-google) t)
+  )
 
 ;; @@ SKK abbrev mode
 ;; 見出し語の補完において Lisp シンボルも補完する
