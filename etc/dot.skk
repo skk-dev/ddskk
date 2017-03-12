@@ -184,6 +184,12 @@
 ;; (setq skk-dcomp-multiple-activate t
 ;;       skk-dcomp-multiple-rows 10)
 
+;; 動的補完では、「見出し語を補完する」のではなく、
+;; 「先頭一致する見出し語に対応する候補」を複数表示する
+(when skk-dcomp-multiple-activate
+  (require 'skk-pre-henkan)		; experimental/skk-pre-henkan.el
+  )
+
 ;;; ▽ほ*んとう-!-
 ;;;   ほ んとう
 ;;;   ほ かん
