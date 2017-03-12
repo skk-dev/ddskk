@@ -64,7 +64,6 @@
     (dolist (jisyo list-jisyo)
       (with-current-buffer (skk-get-jisyo-buffer (symbol-value jisyo) 'nomsg)
 	(goto-char skk-okuri-nasi-min)
-	(message "* %s" key)
 	(while (re-search-forward (format "^%s.* /" key) nil t)
 	  (setq candidates (concat candidates
 				   (buffer-substring-no-properties (point)
