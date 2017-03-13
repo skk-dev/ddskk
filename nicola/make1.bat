@@ -6,6 +6,8 @@ rem Author: Yuh Ohmura, mailto:yutopia@y6.dion.ne.jp
 rem Maintainer: SKK Development Team mailto:skk@ring.gr.jp
 rem Created: March 23, 1999
 
+rem ---  modified 2017/03/12, Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 rem --- check calling from makeit.bat
 if not "%SUBMAKEOK%"=="OK" goto prnusage
 set SUBMAKEOK=
