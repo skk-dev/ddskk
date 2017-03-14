@@ -1,3 +1,7 @@
+2017-03-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* experimental/skk-pre-henkan.el (skk-pre-henkan-make-candidates): modify.
+
 2017-03-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* experimental/skk-pre-henkan.el (skk-pre-henkan-make-candidates):
