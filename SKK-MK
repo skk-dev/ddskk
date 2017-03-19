@@ -259,6 +259,7 @@ This version of SKK requires MULE features"))
 		skk-correct
 		skk-exsearch
 		skk-exserv
+		skk-pre-henkan
 		skk-rdbms
 		skk-tutcdef
 		skk-tutcode

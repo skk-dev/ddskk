@@ -1,3 +1,10 @@
+2017-03-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-dcomp.el (defadvice skk-kana-input): skk-pre-henkan 対応.
+	候補の確定操作を不要とする.
+
+	* SKK-MK (SKK_MODULES): Add skk-pre-henkan.
+
 2017-03-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* experimental/skk-pre-henkan.el (skk-pre-henkan-make-candidates): modify.

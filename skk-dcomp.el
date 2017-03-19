@@ -476,11 +476,17 @@
     ad-do-it)
    (t
     (cond
-     ((or (eq skk-henkan-mode 'active)
+     ((or (eq skk-henkan-mode 'active) ; ▼モード
 	  (skk-get-prefix skk-current-rule-tree)
 	  (not skk-comp-stack))
       (skk-set-marker skk-dcomp-start-point nil)
       (skk-set-marker skk-dcomp-end-point nil))
+
+     ;; experimental/skk-pre-henkan.el
+     ((and (featurep 'skk-pre-henkan)
+	   (eq last-command 'skk-comp-do))
+      (skk-kakutei))
+
      ((skk-dcomp-marked-p)
       (skk-dcomp-face-off)
       (unless (member (this-command-keys)
