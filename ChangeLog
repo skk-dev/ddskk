@@ -1,3 +1,9 @@
+2017-03-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-previous-candidate-char): Remove obsolete variable.
+
+	* skk.el (skk-setup-j-mode-map-options): Remove `skk-previous-candidate-char'.
+
 2017-03-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-dcomp.el (defadvice skk-kana-input): skk-pre-henkan 対応.

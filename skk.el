@@ -490,10 +490,6 @@ dependent."
       (define-key skk-j-mode-map skk-previous-completion-backtab-key
 	#'skk-previous-comp-maybe))
     ;;
-    (when (characterp (symbol-value 'skk-previous-candidate-char))
-      (add-to-list 'skk-previous-candidate-keys
-		   (skk-char-to-unibyte-string
-		    (symbol-value 'skk-previous-candidate-char))))
     (unless (featurep 'skk-kanagaki)
       (dolist (key skk-previous-candidate-keys)
 	(define-key skk-j-mode-map key #'skk-previous-candidate)))

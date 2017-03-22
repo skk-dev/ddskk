@@ -1287,8 +1287,6 @@ ASCII $B?t;z$ND>8e$G$"$l$P!"D92;(B($B!<(B)$B$O(B `-' $B$X!"6gE@(B($B!#
 	  '(repeat sexp))
   :group 'skk-henkan)
 
-(defvar skk-previous-candidate-char nil)
-
 (make-obsolete-variable 'skk-previous-candidate-char
 			'skk-previous-candidate-keys
 			"DDSKK 14.2")
