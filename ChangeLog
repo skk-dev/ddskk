@@ -1,3 +1,10 @@
+2017-05-31  Tetsuo Tsukamoto  <tt.tetsuo.tsukamoto@gmail.com>
+
+	* skk-annotation.el (skkannot-py-check-comint-prompt)
+	(skk-annotation-start-python, skk-annotation-start-python): Update
+	for GNU Emacs 25.
+	* skk-vars.el (skk-annotation-python-program): Default to "python”.
+
 2017-03-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-previous-candidate-char): Remove obsolete variable.

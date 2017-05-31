@@ -2889,8 +2889,7 @@ Max OS X 以外の環境では機能しない。
 		(const :tag "利用しない" nil))
   :group 'skk-annotation)
 
-(defcustom skk-annotation-python-program (or (executable-find "python2.6")
-					     (executable-find "python"))
+(defcustom skk-annotation-python-program (executable-find "python")
   "*DictionaryServices のために起動する python のファイル名。"
   :type '(radio (file)
 		(const nil))

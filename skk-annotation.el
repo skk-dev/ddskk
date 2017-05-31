@@ -985,7 +985,7 @@ If there isn't, it's probably not appropriate to send input to return Eldoc
 information etc.  If PROC is non-nil, check the buffer for that process."
   (cond
    ((eval-when-compile (skkannot-emacs-24_3-or-later))
-    (with-current-buffer (process-buffer (or proc (python-proc)))
+    (with-current-buffer (process-buffer (or proc (python-shell-internal-get-or-create-process)))
       (save-excursion
 	(save-match-data
 	  (re-search-backward (concat python-shell-prompt-regexp " *\\=")
@@ -1017,7 +1017,7 @@ information etc.  If PROC is non-nil, check the buffer for that process."
    (t
     ;; python + readline で UTF-8 の入力をするために LANG の設定が必要。
     (let* ((env (getenv "LANG"))
-	   python-buffer orig-py-buffer)
+	   orig-py-buffer)
       (unless (eval-when-compile (skkannot-emacs-24_3-or-later))
 	;; Emacs 24.2 or earlier
 	(setq orig-py-buffer (default-value 'python-buffer)))
@@ -1027,7 +1027,7 @@ information etc.  If PROC is non-nil, check the buffer for that process."
 	(run-python skk-annotation-python-program t t))
       (when (eval-when-compile (skkannot-emacs-24_3-or-later))
 	;; Emacs 24.3 or later
-	(setq python-buffer (get-buffer (format "*%s*" python-shell-buffer-name))
+	(setq python-buffer (get-buffer (format "*%s*" (python-shell-get-process-name t)))
 	      orig-py-buffer (default-value 'python-buffer)))
       (setenv "LANG" env)
       (with-current-buffer python-buffer
