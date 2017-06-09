@@ -1,3 +1,8 @@
+2017-06-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-search-ja-dic-maybe): Add argument.
+	(skk-mode): Call skk-search-ja-dic-maybe() with argument.
+
 2017-05-31  Tetsuo Tsukamoto  <tt.tetsuo.tsukamoto@gmail.com>
 
 	* skk-annotation.el (skkannot-py-check-comint-prompt)

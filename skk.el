@@ -194,6 +194,7 @@ dependent."
     (when (eval-when-compile (featurep 'xemacs))
       (make-local-hook 'post-command-hook))
     (add-hook 'post-command-hook 'skk-after-point-move nil 'local)
+    (skk-search-ja-dic-maybe t)
     (skk-j-mode-on)
     (run-hooks 'skk-mode-hook)))
 
@@ -4796,7 +4797,9 @@ SKK 辞書の候補として正しい形に整形する。"
 				 0
 				 (1- (length skk-henkan-key))))))
 
-(defun skk-search-ja-dic-maybe ()
+(defun skk-search-ja-dic-maybe (&optional check)
+  ;; `skk-search-prog-list' の一要素として作用するほか、
+  ;; skk-mode に入るたび check で評価される。
   (when (eval-when-compile (featurep 'emacs))
     (unless (or (and (stringp skk-large-jisyo)
 		     (file-readable-p skk-large-jisyo))
@@ -4806,7 +4809,10 @@ SKK 辞書の候補として正しい形に整形する。"
 		     (file-readable-p skk-cdb-large-jisyo))
 		skk-server-host
 		skk-inhibit-ja-dic-search)
-      (skk-search-ja-dic))))
+      (if check
+	  (skk-message "辞書として leim/ja-dic を使います"
+		       "Use leim/ja-dic as dictionary")
+	(skk-search-ja-dic)))))
 
 (defun skk-search-with-suffix ()
   (unless (or skk-henkan-okurigana
