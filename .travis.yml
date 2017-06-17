@@ -3,7 +3,7 @@ sudo: false
 env:
   - EVM_EMACS=emacs-23.4-travis EMACS=emacs23
   - EVM_EMACS=emacs-24.5-travis EMACS=emacs24
-  - EVM_EMACS=emacs-25.1-travis EMACS=emacs25
+  - EVM_EMACS=emacs-25.2-travis EMACS=emacs25
   - EVM_EMACS=emacs-git-snapshot-travis EMACS=emacs-snapshot
 before_install:
   - curl -fsSkL https://raw.github.com/rejeep/evm/master/go | bash
