@@ -1,0 +1,31 @@
+h5 {
+    font-size: medium;
+}
+
+p {
+    line-height: 1.5em;
+}
+
+li {
+    line-height: 1.5em;
+}
+
+code {
+    font-weight: bold;
+    background: Gainsboro;
+    padding: 0 0.2em 0 0.2em;
+}
+
+span.KEY, span.key {
+    padding: 0.1em 0.2em 0.1em 0.2em;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+a.footref {
+    text-decoration: none;
+    padding: 0 0.2em 0 0.2em;
+    border: 1px dashed red;
+    border-radius: 3px;
+}
+

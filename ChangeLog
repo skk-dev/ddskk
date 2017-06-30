@@ -1,6 +1,13 @@
 2017-07-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* SKK-MK (SKK-MK-export-to-html): `RET' と `SPC' を class (span.key) とした.
+
 	* .gitignore: Add `skk.html'.
+
+2017-06-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Makefile, SKK-MK: 新たなターゲット texi, html を追加.
+	skk.texi から skk.org への移行.
 
 2017-06-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

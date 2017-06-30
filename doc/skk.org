@@ -13,6 +13,7 @@
 # - 編集の際は M-x visible-mode が分かりやすいと思われます。
 
 #+HTML_DOCTYPE: html5
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="skk.css" />
 
 #+TEXINFO_DIR_CATEGORY: Emacs
 #+TEXINFO_DIR_TITLE: SKK: (skk)
@@ -2167,7 +2168,7 @@ Customize group: (default emacs) *
 実行するのも同様です。
 
 あるいは、モードラインの SKK インジケータをマウスの右ボタン（第３ボタン）
-でクリックすると表示されるメニューから ~SKK をカスタマイズ~ を選んでも同
+でクリックすると表示されるメニューから「SKK をカスタマイズ」を選んでも同
 じ画面となります。
 
 カスタマイズの使い方は Info ([[info:emacs#Easy Customization][Easy Customization in GNU Emacs Manual]].) を参照してください。
@@ -2185,7 +2186,7 @@ skk で設定できる変数の中には、まだこのマニュアルで解説�
   のだけ抜粋して設定できるようにしたものです。
 
   これは、モードラインの SKK インジケータをマウスの右ボタン（第３ボタン）
-  でクリックして表示されるメニューから ~SKK をカスタマイズ（簡易版）~ を選
+  でクリックして表示されるメニューから「SKK をカスタマイズ（簡易版）」を選
   んで呼び出すこともできます。
 
 ** カタカナ、英字入力の便法

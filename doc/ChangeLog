@@ -1,8 +1,10 @@
+2017-07-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.css: Add new file.
+
 2017-06-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* README.org: skk.texi から skk.org への移行
-
-	* Makefile, SKK-MK: 新たなターゲット texi, html を追加.
+	* README.org: skk.texi から skk.org への移行.
 
 	* skk.texi: skk.org から自動生成.
 
