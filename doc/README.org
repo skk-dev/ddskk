@@ -1,0 +1,185 @@
+#+STARTUP: showeverything
+
+* SKK Manual の texinfo 形式から org 形式への移行
+
+** きっかけ
+
+SKK Manual は、長らく texinfo 形式 (ファイル名 skk.texi) で保守されてき
+たところです。 skk.texi から html 版を生成するためには texi2html や texi2any な
+どといったアプリケーションを利用する必要があり、実行プラットフォームやバ
+ージョンによって生成される html が異なる場合が生じるなど、運用が難しくなっ
+てききました。
+
+そこで、 skk.texi を org 形式 (ファイル名 skk.org) へ全面移行することとし、
+2017.6.30 に git push しました。
+
+** doc/ ディレクトリ
+
+- ChangeLog
+  org 移行前から存在します。
+
+- README.org
+  このファイルです。
+
+- ox-texinfo+.el
+  org 標準の ox-texinfo.el を機能拡張するものです。
+  https://github.com/tarsius/ox-texinfo-plus
+
+- dash.el
+  ox-texinfo+.el が必要とします。
+  https://github.com/magnars/dash.el
+
+- htmlize.el (v1.43)
+  http://orgmode.org/cgit.cgi/org-mode.git/tree/contrib/lisp/htmlize.el
+
+- makepdf.bat
+  org 移行前から存在します。
+
+- makepdf.sh
+  org 移行前から存在します。
+
+- obsolete-skk.texi
+  従前から保守していた skk.texi です。今後は保守しません。
+
+- skk.org
+  従前の skk.texi を全面的に書き換えたものです。
+
+- skk.texi
+  skk.org を基に自動生成されるものです。
+
+- txi-ja.tex
+  org 移行前から存在します。
+
+** skk.org の運用方法
+
+*** 外観
+
+#+BEGIN_EXAMPLE
+  ---------
+   obsolete-skk.texi  ※ 旧 skk.texi です。
+  ---------
+
+  =========      Emacs のバージョンと同梱版 org-mode のバージョン
+   skk.org         e23.      ?.?
+  =========        e24.5     o8.2.10
+   │   │         e25.2     o8.2.10
+   │   │         e26.0.50  o8.2.10
+   │   │
+   │   │make html ( org-html-export-to-html [C-c C-e h h] )
+   │   │ o 索引を生成することはできない？
+   │   │
+   │  =↓=======
+   │   skk.html  ---> www 公開など
+   │  ==========
+   │
+   │make texi ( SKK-MK-export-to-texinfo )
+   │ * org export の拡張 ox-texinfo+.el を利用 [ https://github.com/tarsius/ox-texinfo-plus ]
+   │ * ox-texinfo+.el は dash.el 必須          [ https://github.com/magnars/dash.el         ]
+   │
+   │ なお、 C-c C-e i t はサポートしない。必ず make texi であること。
+   │
+  =↓=============
+     skk.texi
+  ================
+   │            │
+   │            │make info ( SKK-MK-compile-info )
+   │            │           注) M-x org-texinfo-export-to-info で org から info へ変換する
+   │            │               こともできるが、内部で /usr/bin/makeinfo コマンドを呼び出す
+   │           =↓=======        ため window では実行できない。
+   │            skk.info         なお、make info ( SKK-MK-compile-info() ) は emacs-lisp で
+   │           ==========        完結している。
+   │
+   │makepdf.bat
+   │ 注) org-latex-export-to-pdf [C-c C-e l p] はサポートしない。
+  =↓======
+   skk.pdf
+  =========
+#+END_EXAMPLE
+
+*** info
+
+#+BEGIN_SRC shell-script
+  ddskk-src]$ make info
+  ddskk-src]$ su
+  ddskk-src]# make install-info
+#+END_SRC
+
+*** html
+
+#+BEGIN_SRC shell-script
+  ddskk-src]$ make html
+#+END_SRC
+
+*** pdf
+
+#+BEGIN_SRC shell-script
+  ddskk-src]$ make texi
+  ddskk-src]$ cd doc
+  ddskk-src/doc]$ makepdf
+#+END_SRC
+
+*** git リポジトリの運用
+
+ファイル skk.org は当然に git リポジトリに含めます。
+
+パッケージインストール melpa で ~skk.texi~ が必要となるため ~skk.org~ か
+ら生成される ~skk.texi~ も git リポジトリに含める必要があります。すなわち、
+~skk.org~ を編集したら ~make texi~ を実行して (~skk.texi~ を再生成して)
+git push してください。
+
+なお、 ~skk.info~ や ~skk.html~ は、ユーザがローカルで生成するものですので
+git リポジトリに含めてはいけません。
+
+** texi から org への移行作業で判明したこと
+
+- インライン形式の footnote は使わないこと
+
+  github 上のレンダリングで脚注にならないので読みづらい。
+
+- #+BEGIN_VERSE ... #+END_VERSE は使わないこと
+
+  github 上でレンダリングされない。
+
+- ~.~ は @code{.} に変換されるのに、 ~,~ は @code{,} に変換されず ~,~ の
+  まま出力されてしまう。
+
+- org 上の下線 _STRING_ は、texinfo への export で全欠落する。
+
+- 「footnote の中での箇条書きリスト」を export した texi は、ptex でエラーとなる。
+
+  You can't use `@vadjust' in internal vertical mode.
+
+- org のマクロ展開が分からない。
+
+  本文中の {{{version}}} は上手く展開されているが、
+  - #+SUBTITLE: の中の {{{version}}}   ;; org-mode 8.3 では展開される様子
+  - 等幅 = ... = の中の {{{version}}}
+  は展開されない。
+
+  なお、GNU Emacs 26.0.50 でも Org-mode は 8.2.10 である。
+
+- #+TEXINFO_DIR_CATEGORY: はひとつしか効かない？
+
+  オリジナル skk.texi にはふたつの @dircategory がある。
+  - @dircategory Emacs
+  - @dircategory GNU Emacs Lisp
+
+  skk.org にふたつの #+TEXINFO_DIR_CATEGORY: を記載しても、
+  org-texinfo-export-to-texinfo で生成される skk.texi にはひとつしか出力
+  されない。
+
+** 将来
+
+今回は org 形式を選択しましたが、更なる将来には他の形式への移行も考えられ
+ます。
+
+- markdown 形式
+
+  github の標準形式として採用されているなど、今後も広い普及が見込まれます。
+
+- reStructuredText 形式
+
+  reStructuredText 形式で作成しておけば、 [[http://www.sphinx-doc.org][Sphinx]] を利用して多様な形式へ
+  変換できます。
+
+[EOF]

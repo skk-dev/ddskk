@@ -1,3 +1,17 @@
+2017-06-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* README.org: skk.texi から skk.org への移行
+
+	* Makefile, SKK-MK: 新たなターゲット texi, html を追加.
+
+	* skk.texi: skk.org から自動生成.
+
+	* obsolete-skk.texi: 旧 skk.texi をリネームしたもの。今後は保守しない.
+
+	* dash.el, htmlize.el, ox-texinfo+.el: org export.
+
+	* skk.org: 今後保守するマニュアル.
+
 2017-03-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.texi: Bump SKK version to 16.2.

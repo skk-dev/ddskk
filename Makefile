@@ -39,7 +39,13 @@ downloads :
 package:
 	$(XEMACS) $(FLAGS) -f SKK-MK-compile-package
 
-info:
+html:
+	$(EMACS) $(FLAGS) -f SKK-MK-export-to-html
+
+texi:
+	$(EMACS) $(FLAGS) -f SKK-MK-export-to-texinfo
+
+info: texi
 	$(EMACS) $(FLAGS) -f SKK-MK-compile-info
 
 install:
@@ -72,7 +78,8 @@ TAGS:
 clean:
 	-$(RM) leim-list.el skk-autoloads.el skk-setup.el *.elc experimental/*.elc \
 	auto-autoloads.el custom-load.el ert.el \
-	./doc/skk.info* `find . -name '*~'` `find . -name '.*~'` `find . -name '.#*'`
+	./doc/skk.info* ./doc/skk.html* \
+	`find . -name '*~'` `find . -name '.*~'` `find . -name '.#*'`
 
 release: clean
 	$(RM) ../ddskk-$(VERSION).tar.gz ../ddskk-$(VERSION).tar.bz2 ;\

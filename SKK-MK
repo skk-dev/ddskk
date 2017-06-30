@@ -196,6 +196,7 @@ This version of SKK requires MULE features"))
 (defvar SKK_INFO "skk.info")
 (defvar SKK_INFO_DIR_FILE nil) 
 (defvar SKK_TEXIS '("skk.texi"))
+(defvar SKK_ORG "skk.org")
 (defvar SKK_TUTORIALS '("SKK.tut" "SKK.tut.E" "NICOLA-SKK.tut" "skk.xpm"))
 (defvar SKK_DICTIONARIES
   '("SKK-JISYO.L" "SKK-JISYO.ML" "SKK-JISYO.M" "SKK-JISYO.S" "SKK-JISYO.JIS2"
@@ -448,6 +449,53 @@ This version of SKK requires MULE features"))
     (require 'skk (expand-file-name "skk.el"))
     (compile-elisp-modules SKK_MODULES
 			   (expand-file-name "."))))
+
+(defun SKK-MK-export-to-html ()
+  (when (and SKK_ORG
+	     (file-exists-p (expand-file-name SKK_ORG DOCDIR)))
+    (require 'htmlize (expand-file-name "htmlize.el" DOCDIR))
+    (let ((make-backup-files nil))
+      (with-current-buffer
+	  (find-file (expand-file-name SKK_ORG DOCDIR))
+	(org-html-export-to-html)))))
+
+(defun SKK-MK-export-to-texinfo ()
+  (when (and SKK_ORG
+	     (file-exists-p (expand-file-name SKK_ORG DOCDIR)))
+    ;; https://github.com/magnars/dash.el
+    (require 'dash (expand-file-name "dash.el" DOCDIR))
+    ;; https://github.com/tarsius/ox-texinfo-plus
+    (require 'ox-texinfo+ (expand-file-name "ox-texinfo+.el" DOCDIR))
+
+    (let ((org-texinfo-classes '(("info+"
+				  "@documentencoding AUTO\n@documentlanguage AUTO"
+				  ("@chapter %s" . "@chapter %s")
+				  ("@section %s" . "@section %s")
+				  ("@subsection %s" . "@subsection %s")
+				  ("@subsubsection %s" . "@unnumberedsubsubsec %s")
+				  ("@subsubsection %s" . "@unnumberedsubsubsec %s")
+                                  )))
+	  (make-backup-files nil))
+      (with-current-buffer
+	  (find-file (expand-file-name SKK_ORG DOCDIR))
+	(org-texinfo-export-to-texinfo))	; skk.texi が保存される (強制上書き)
+
+      (with-current-buffer
+	  (find-file (expand-file-name "skk.texi" DOCDIR))
+	(dolist (e '(("@@ifinfo" . "@ifinfo")
+		     ("@@end ifinfo" . "@end ifinfo")
+		     ("@@ignore" . "@ignore")
+		     ("@@end ignore" . "@end ignore")
+                     ("@dircategory Emacs" . "@dircategory GNU Emacs Lisp\n@dircategory Emacs")
+		     ("@menu" . "\n@menu")
+		     ("@c -*- texinfo -*-" . "@c -*- mode: texinfo; coding: utf-8 -*-\n\n@c ** This file was generated automatically by SKK-MK **\n")
+                     ("n '" . "@code{n '}")
+                     ("~,~" . "@code{,}")
+		     ))
+	  (goto-char (point-min))
+	  (while (search-forward (car e) nil t)
+	    (replace-match (cdr e))))
+	(basic-save-buffer)))))
 
 (defun SKK-MK-compile-info ()
   (when (and SKK_INFO
@@ -811,6 +859,7 @@ This version of SKK requires MULE features"))
 (defun SKK-MK-texinfo-format (targets)
   (let (;; Emacs20.2's default is 'raw-text-unix.
 	(coding-system-for-write SKK-MK-texinfo-coding-system)
+	(make-backup-files nil)
 	x obuf beg standard-output)
     (require 'ptexinfmt (expand-file-name "ptexinfmt.el"))
     (while targets
