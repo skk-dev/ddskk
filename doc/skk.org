@@ -728,21 +728,20 @@ DDSKK 14.1 以降は辞書サーバを経由せずとも CDB 形式 [fn:cdb] の
 
 ** DDSKK を Emacs の Input Method とする
 
-#+CINDEX: LEIM
-#+CINDEX: input method
 #+CINDEX: skk-leim.el
 #+KINDEX: C-\
-#+KINDEX: M-x list-input-methods
-#+KINDEX: M-x set-input-method
 #+KINDEX: M-x toggle-input-method
-#+VINDEX: default-input-method
 Emacs の標準キーバインドでは ~C-\~ を打鍵すると、関数 ~toggle-input-method~ を
 実行します。この関数は、変数 ~default-input-method~ が指す input method を
 トグル切り替えします。
 
+#+VINDEX: default-input-method
+#+CINDEX: LEIM
 変数 ~default-input-method~ の値はおそらく "~Japanese~" であり、結果として ~C-\~ の
 打鍵で LEIM (Library of Emacs Input Method) を on / off します。
 
+#+KINDEX: M-x list-input-methods
+#+KINDEX: M-x set-input-method
 #+KINDEX: C-x RET C-\
 使用可能な input method は ~M-x list-input-methods~ で確認することができ、
 コマンド ~M-x set-input-method~ 又は ~C-x RET C-\~ を実行することで input method を
@@ -754,6 +753,7 @@ Emacs の標準キーバインドでは ~C-\~ を打鍵すると、関数 ~toggl
   1. "~japanese-skk~" ... 内容は ~(skk-mode 1)~ です。
   2. "~japanese-skk-auto-fill~" ... 内容は ~(skk-auto-fill-mode 1)~ です。
 
+#+CINDEX: input method
 - User Option: default-input-method
 
   Emacs 起動時の input method を DDSKK とするには、 ~~/.emacs.d/init.el~ に
@@ -7059,7 +7059,7 @@ A:　  S:￣  D:〜  F:｝  G:＝  H:¢  Q:◆  W:　  E:∩  R:　  T:≡  Y:�
 をコードの順に 16 文字毎に１文字抽出し、ミニバッファに一度に 12 文字ずつ
 表示しています（上記の例では、JIS コード 2121（全角スペース）、2131、2141、
 2151... の文字がそれぞれ表示されています）。ここで ~SPC~ を打鍵すると次の
-候補群を表示します（文字コードの値を ~16*12 = 192~ ずつ増やします）。
+候補群を表示します（文字コードの値を 16 * 12 = 192 ずつ増やします）。
 キー ~x~ を打鍵するとひとつ前の候補群に戻ります。
 
 キー ~a~, ~s~, ~d~, ~f~, ~g~, ~h~, ~q~, ~w~, ~e~, ~r~, ~t~, ~y~ のいずれ

@@ -168,6 +168,12 @@ git リポジトリに含めてはいけません。
   org-texinfo-export-to-texinfo で生成される skk.texi にはひとつしか出力
   されない。
 
+- url エンコードがそのまま export されない
+
+  skk.org に記載した url は  http://openlab.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1
+  export すると              http://openlab.jp/skk/wiki/wiki.cgi?page=SKK%C2%BC%C2%AD%C2%BD%C3%B1
+  と変換されてしまう。
+
 ** 将来
 
 今回は org 形式を選択しましたが、更なる将来には他の形式への移行も考えられ

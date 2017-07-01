@@ -1,5 +1,9 @@
 /* -*- mode: css; coding: utf-8 -*- */
 
+html {
+    scroll-behavior: smooth;  /* Firefox は効く */
+}
+
 #table-of-contents {
     position: fixed;
     right: 0em;
@@ -21,7 +25,30 @@
     display: block;
 }
 
+h2, h3, h4, h5 {
+    padding: 0.2em;
+    color: white;
+}
+
+h2 {
+    background-color: #00b300;
+}
+
+#table-of-contents h2 {
+    color: black;
+    background-color: #F2F2F2;
+}
+
+h3 {
+    background-color: #009900;
+}
+
+h4 {
+    background-color: #008000;
+}
+
 h5 {
+    background-color: #006600;
     font-size: medium;
 }
 
@@ -33,13 +60,21 @@ li {
     line-height: 1.5em;
 }
 
+pre {
+    background: #EEE;
+}
+
 code {
     font-weight: bold;
     background: Gainsboro;
     padding: 0 0.2em 0 0.2em;
 }
 
-span.KEY, span.key {
+code.symbol {
+    background: none;
+}
+
+.KEY, .key {
     padding: 0.1em 0.2em 0.1em 0.2em;
     border: 1px solid black;
     border-radius: 5px;
