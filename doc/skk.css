@@ -1,3 +1,26 @@
+/* -*- mode: css; coding: utf-8 -*- */
+
+#table-of-contents {
+    position: fixed;
+    right: 0em;
+    top: 0em;
+    font-size: small;
+    background: #F2F2F2;
+    border-radius: 1em;
+    padding: 0 0.5em 0 0.5em;
+    max-height: 80%;
+    overflow: auto; 
+    z-index: 200;
+}
+
+#table-of-contents #text-table-of-contents {
+    display: none;
+}
+
+#table-of-contents:hover #text-table-of-contents {
+    display: block;
+}
+
 h5 {
     font-size: medium;
 }
@@ -27,5 +50,13 @@ a.footref {
     padding: 0 0.2em 0 0.2em;
     border: 1px dashed red;
     border-radius: 3px;
+}
+
+a {
+    transition: background-color 0.2s;
+}
+
+a:hover {
+    background-color: salmon;
 }
 
