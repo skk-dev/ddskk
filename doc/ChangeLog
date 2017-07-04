@@ -1,3 +1,7 @@
+2017-07-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* makepdf.bat, makepdf.sh: Add comment.
+
 2017-07-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.css: Add new file.

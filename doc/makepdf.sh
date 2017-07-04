@@ -1,4 +1,13 @@
 #!/bin/sh
+
+# このスクリプトは Texinfo マニュアルの
+#   19. Formatting and Printing Hardcopy
+#     19.3 Format with tex/texindex
+# に記載された手順を実行するものです。
+#   skk.texi --(ptex)--> skk.dvi --(dvipdfmx)--> skk.pdf
+# サイズの小さい (約 824 Kbyte) PDF が完成しますが、
+# その pdf は参照 ( リファレンス, @ref{} ) が clickable ではありません。
+
 set -e
 
 ptex skk.texi
