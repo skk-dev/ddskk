@@ -20,7 +20,7 @@
 #+TEXINFO_DIR_DESC: Simple Kana to Kanji conversion program.
 
 #+MACRO: version 16.2.50
-#+SUBTITLE: This edition is for SKK version 16.2.50
+#+SUBTITLE: This edition is for SKK version {{{version}}}
 #+SUBTITLE: Date 2017.06.30
 
 # ### Use ox-texinfo+.el ###
@@ -28,10 +28,6 @@
 #+TEXINFO_CLASS: info+
 #+OPTIONS: H:5 num:4 toc:2
 
-# ##### しおり付き PDF #####
-#+TEXINFO_HEADER: @iftex
-#+TEXINFO_HEADER: @usedvipdfmx
-#+TEXINFO_HEADER: @end iftex
 #+TEXINFO_HEADER: @paragraphindent 1
 
 #+TEXINFO_POST_HEADER: @synindex pg cp
@@ -2015,8 +2011,8 @@ DDSKK のカスタマイズは、 ~~/.emacs.d/init.el~ あるいは ~~/.skk~ に
     より加工されます。
 
     ~~/.skk~ のファイル名は変数 ~skk-init-file~ で変更することができます。
-    また、DDSKK にはこのファイルを自動的にバイトコンパイルする機能 [fn:bcomp] が
-    あります。
+    また、DDSKK にはこのファイルを自動的にバイトコンパイルする機能があり
+    ます。
 
 - Variable: skk-user-directory
 
@@ -2050,12 +2046,7 @@ DDSKK のカスタマイズは、 ~~/.emacs.d/init.el~ あるいは ~~/.skk~ に
   なお、 ~skk-user-directory~ を設定した場合でも、各変数を個別に設定してい
   る場合はその個別の設定が優先されます。
 
-[fn:bcomp] [[skk-init-file の自動コンパイル][skk-init-file の自動コンパイル]].
-
-**** skk-init-file の自動コンパイル
-:PROPERTIES:
-:TEXINFO-NODE: t
-:END:
+*** skk-init-file の自動コンパイル
 
 - Variable: skk-byte-compile-init-file
 
@@ -3973,7 +3964,7 @@ n' → ん
 
 # #+BEGIN_EXAMPLE だと @ が消失する
 #+BEGIN_SRC emacs-lisp
-z  → □ （ z SPC → 全角スペース）
+z SPC → 全角スペース
 z* → ※
 z, → ‥
 z- → 〜
@@ -7147,7 +7138,6 @@ variable skk-kcode-charset's value is `japanese-jisx0208'.
 　 2140 ＼　〜　‖　｜　…　‥　‘　’　“　”　（　）　〔　〕　［　］
 　 2150 ｛　｝　〈　〉　《　》　「　」　『　』　【　】　＋　−　±　×
 　 2160 ÷　＝　≠　＜　＞　≦　≧　∞　∴　♂　♀　°　′　″　℃　￥
-　 2170 ＄　¢　£　％　＃　＆　＊　＠　§　☆　★　○　●　◎　◇
 -------------------- *skk-list-chars* --------------------
 #+END_EXAMPLE
 

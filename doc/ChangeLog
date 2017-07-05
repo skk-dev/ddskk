@@ -1,3 +1,13 @@
+2017-07-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* obsolete-doc/makepdf.bat, obsolete-doc/makepdf.sh:
+	* obsolete-doc/obsolete-skk.texi, obsolete-doc/txi-ja.tex: Renamed. old files.
+
+	* texinfo-ja.tex, texinfo.tex, txi-ja.tex: New file from
+	http://www.trueroad.jp/2016/05/14-01.html .
+
+	* README.org, skk.org, skk.texi: Modify.
+
 2017-07-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* makepdf.bat, makepdf.sh: Add comment.

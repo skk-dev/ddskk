@@ -1,4 +1,4 @@
-\input texinfo    @c -*- mode: texinfo; coding: utf-8 -*-
+\input texinfo-ja    @c -*- mode: texinfo; coding: utf-8 -*-
 
 @c ** This file was generated automatically by SKK-MK **
 
@@ -7,9 +7,6 @@
 @settitle SKK Manual
 @documentencoding UTF-8
 @documentlanguage ja
-@iftex
-@usedvipdfmx
-@end iftex
 @paragraphindent 1
 @c %**end of header
 
@@ -19,9 +16,7 @@
 @afourpaper
 @end iftex
 @copying
-
 @sp 10
-
 
 @ifinfo
 Permission is granted to make and distribute verbatim copies of
@@ -29,7 +24,7 @@ this manual provided the copyright notice and this permission notice
 are preserved on all copies.
 
 @ignore
-Permission is granted to process this file through @TeX{} and print the
+Permission is granted to process this file through TeX and print the
 results, provided the printed document carries a copying permission
 notice identical to this one except for the removal of this paragraph
 (this paragraph not being relevant to the printed manual).
@@ -79,8 +74,7 @@ approved by the author.
 @finalout
 @titlepage
 @title SKK Manual
-@subtitle This edition is for SKK version 16.2.50
-@subtitle Date 2017.06.30
+@subtitle This edition is for SKK version 16.2.50 Date 2017.06.30
 @page
 @vskip 0pt plus 1filll
 @insertcopying
@@ -91,7 +85,6 @@ approved by the author.
 @ifnottex
 @node Top
 @top SKK Manual
-@insertcopying
 @end ifnottex
 
 
@@ -118,6 +111,8 @@ approved by the author.
 * このバージョンの SKK について::
 * SKK とはなにか::
 
+
+
 インストール
 
 * APEL のインストール::
@@ -127,18 +122,22 @@ approved by the author.
 * 辞書を DDSKK と同時にインストールする::
 * 辞書サーバの入手::
 
+
 DDSKK のインストール
 
 * GNU Emacs へのインストール::
 * XEmacs へのインストール::
 * 対話的なインストール::
 * MELPA によるインストール::
+
 はじめの設定
 
 * 最も基本的な設定::
 * インクリメント検索の設定::
 * 辞書サーバを使いたいときの設定::
 * DDSKK を Emacs の Input Method とする::
+
+
 
 基本的な使い方
 
@@ -153,10 +152,12 @@ DDSKK のインストール
 * SKK オートフィルモード::
 * 辞書の保存::
 
+
 入力モード
 
 * 入力モードの説明::
 * 入力モードを切り替えるキー::
+
 
 変換モード
 
@@ -165,10 +166,12 @@ DDSKK のインストール
 * ▼モード::
 * 辞書登録モード::
 
+
 インクリメンタル・サーチ
 
 * skk-isearchの操作性::
 * skk-isearch と入力モード::
+
 便利な応用機能
 
 * ファイル構成::
@@ -190,12 +193,15 @@ DDSKK のインストール
 * VIP/VIPERとの併用::
 * picture-modeとの併用::
 
+
 ユーザオプションの設定方法
 
 * 設定ファイル::
+* skk-init-file の自動コンパイル::
 * フック::
 * Customize による設定変更::
 * skk-customize による設定変更::
+
 
 カタカナ、英字入力の便法
 
@@ -205,11 +211,13 @@ DDSKK のインストール
 * カタカナの見出し語::
 * 文脈に応じた自動モード切り替え::
 
+
 補完
 
 * 読みの補完::
 * 補完しながら変換::
 * 動的補完::
+
 
 便利な変換、その他の変換
 
@@ -226,6 +234,7 @@ DDSKK のインストール
 * 異体字へ変換する::
 * ファンクションキーの使い方::
 
+
 キー設定
 
 * かなモード／カナモードのキー設定::
@@ -240,6 +249,7 @@ DDSKK のインストール
 * 変換位置の指定方法::
 * １回の取り消し操作 (undo) の対象::
 
+
 変換、確定の前後
 
 * ポイントを戻して▽モードへ::
@@ -249,6 +259,7 @@ DDSKK のインストール
 * 積極的な確定::
 * 確定辞書::
 
+
 送り仮名関連
 
 * 送り仮名の厳密なマッチ::
@@ -256,11 +267,13 @@ DDSKK のインストール
 * 送り仮名の自動処理::
 * 送りあり変換の変換開始のタイミング::
 
+
 候補の順序
 
 * 変換の学習::
 * 候補の順序の固定::
 * ベイズ統計を用いた学習::
+
 
 辞書関連
 
@@ -280,6 +293,7 @@ DDSKK のインストール
 * 辞書バッファの文字コードの設定::
 * 辞書バッファの buffer-file-name::
 
+
 注釈（アノテーション）
 
 * アノテーションの基礎::
@@ -291,6 +305,7 @@ DDSKK のインストール
 * 外部コマンドからアノテーションを取得する::
 * 各種アノテーション機能を SKK の枠をこえて活用する::
 
+
 文字コード関連
 
 * 文字コードまたはメニューによる文字入力::
@@ -298,12 +313,14 @@ DDSKK のインストール
 * 文字コード一覧::
 * 文字コードを知る方法::
 
+
 DDSKK 以外のツールを用いた辞書変換
 
 * skk-lookup::
 * skk-look::
 * Lisp シンボル名の補完検索変換::
 * Google CGI API for Japanese Input を利用したかな漢字変換::
+
 
 飾りつけ
 
@@ -315,15 +332,18 @@ DDSKK 以外のツールを用いた辞書変換
 * 変換候補の更なる装飾::
 * モードラインの装飾::
 
+
 ユーザガイダンス関連
 
 * エラーなどの日本語表示::
 * 冗長な案内メッセージの表示::
 
+
 I-search 関連
 
 * 起動時の入力モードの指定::
 * 間に空白等を含む文字列の検索::
+
 ローマ字入力以外の入力方式
 
 * AZIK::
@@ -331,9 +351,12 @@ I-search 関連
 * TUT-code::
 * かな入力と親指シフト::
 
+
+
 そのほかの拡張機能
 
 * 交ぜ書き変換::
+
 
 SKK に関する情報
 
@@ -346,6 +369,8 @@ SKK に関する情報
 * SKKの歴史::
 * このマニュアルについて::
 * 謝辞::
+
+
 
 よくある質問とその回答 (FAQ)
 
@@ -363,11 +388,13 @@ Introduction
 * Q1-4 DDSKK はどんなオペレーティングシステムで使えますか?::
 * Q1-5 APEL って何? 必要ですか?::
 
+
 Installation
 
 * Q2-1 SKK を使うのに何が必要ですか?::
 * Q2-2 SKK 辞書はどこにありますか?::
 * Q2-3 SKK サーバはどこにありますか?::
+
 
 Customization
 
@@ -379,12 +406,14 @@ Customization
 * Q3-6 チュートリアルが起動できません。::
 * Q3-7 C-x C-j で dired が起動してしまいます。::
 
+
 Dictionaries
 
 * Q4-1 SKK には郵便番号辞書がありますか?::
 * Q4-2 SKK の辞書には、品詞情報がないんですね。::
 * Q4-3 複数の SKK 辞書を結合できますか?::
 * Q4-4 SKK 形式の英和辞書があると聞いたのですが。::
+
 
 Miscellaneous
 
@@ -393,8 +422,6 @@ Miscellaneous
 * Q5-3 他の FEP を使用中にも SHIFT を押してしまいます。::
 @end detailmenu
 @end menu
-
-
 
 @node はじめに
 @chapter はじめに
@@ -564,7 +591,7 @@ Simple Kana to Kanji conversion program にちなんで名付けられ、その�
 は Combinatory Logic での有名な等式 @math{SKK = I} に
 も由来 @footnote{@math{SKK = I} について詳しくは @uref{http://openlab.jp/skk/SKK.html} をご参照下さい。} しています。
 
-Daredevil SKK は、SKK の更なる拡張版です @footnote{Daredevil の名の由来は @ref{Q1-1 Daredevil SKK って SKK とは違うのですか?,Q1-1 Daredevil SKK って SKK とは違うのですか?}.} 。
+Daredevil SKK は、SKK の更なる拡張版です @footnote{Daredevil の名の由来は @ref{Q1-1 Daredevil SKK って SKK とは違うのですか?}.} 。
 
 ただし、SKK モード、SKK 辞書、SKK サーバ といった歴史的な用語は引き続き使
 用しており、DDSKK と呼ばない場合もあります。また、SKK 方式の入力方法を採
@@ -662,7 +689,7 @@ XEmacs をお使いの場合は、 DDSKK をインストールする前に APEL 
 
 @itemize
 @item
-@uref{http://git.chise.org/elisp/apel/,APEL}
+@uref{http://git.chise.org/elisp/apel/, APEL}
 @end itemize
 
 @node DDSKK のインストール
@@ -690,6 +717,7 @@ Apple macOS 環境の方は @code{READMEs/README.MacOSX.ja} を参照してく�
 @example
 % cd ddskk-VERSION
 @end example
+
 
 @menu
 * GNU Emacs へのインストール::
@@ -842,7 +870,7 @@ drwxr-xr-x 1 user user  99999 2011-00-00 00:00 bayesian
 @cindex package.el
 @vindex package-archives
 @findex package-initialize
-2014年12月、MELPA @footnote{@uref{http://melpa.org/,Milkypostman's Emacs Lisp Package Archive}} に DDSKK が登録されたことにより、 GNU Emacs で
+2014年12月、MELPA @footnote{@uref{http://melpa.org/, Milkypostman's Emacs Lisp Package Archive}} に DDSKK が登録されたことにより、 GNU Emacs で
 も @code{package.el} @footnote{GNU Emacs 24 以降で標準で搭載されています。GNU Emacs 23 以
 前では手動でインストール必要があります。 @uref{http://wikemacs.org/wiki/Package.el}} によるインストールが可能となりました。
 
@@ -876,7 +904,7 @@ DDSKK 14.2 からは、 GNU Emacs 同梱の辞書データ @code{ja-dic} を利�
 
 次のサイトには、様々な辞書が用意されています。
 
-@uref{http://openlab.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1,SKK 各辞書の解説とダウンロード}
+@uref{http://openlab.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1, SKK 各辞書の解説とダウンロード}
 
 以下は、その一例です。
 
@@ -944,7 +972,7 @@ edict 辞書（英和辞書）
 候補に Emacs Lisp 関数を含むエントリーを集めた辞書。見出し語を変換する
 過程で Emacs Lisp 関数を評価し、その値を候補として表示します。
 
-@ref{プログラム実行変換,プログラム実行変換}.
+@ref{プログラム実行変換}.
 
 
 @item
@@ -1011,7 +1039,7 @@ DDSKK は特定の辞書サーバの実装に依存していませんので、�
 
 @itemize
 @item
-@uref{http://openlab.jp/skk/skkserv-ja.html,辞書サーバの説明とリンク}
+@uref{http://openlab.jp/skk/skkserv-ja.html, 辞書サーバの説明とリンク}
 @end itemize
 
 @node はじめの設定
@@ -1033,6 +1061,7 @@ DDSKK は特定の辞書サーバの実装に依存していませんので、�
 義、変数 @code{skk-tut-file} の定義及びインクリメンタル・サーチの定義を行って
 います。} 。この自動設定によらずに手動で設
 定したい場合は、以下の説明を参照してください。
+
 
 @menu
 * 最も基本的な設定::
@@ -1082,7 +1111,7 @@ DDSKK 14.1 以降は辞書サーバを経由せずとも CDB 形式 @footnote{co
 @end lisp
 
 変数 @code{skk-large-jisyo} と 変数 @code{skk-cdb-large-jisyo} を同時に指定した場合
-は、標準では CDB 形式辞書ファイルの方が先に検索 @footnote{@ref{辞書検索の設定の具体例,辞書検索の設定の具体例}.} されます。
+は、標準では CDB 形式辞書ファイルの方が先に検索 @footnote{@ref{辞書検索の設定の具体例}.} されます。
 
 @node インクリメント検索の設定
 @section インクリメント検索の設定
@@ -1186,31 +1215,30 @@ setenv SKK_JISYO /your/path/to/SKK-JISYO.L
 
 @itemize
 @item
-@ref{辞書サーバの入手,辞書サーバの入手}.
+@ref{辞書サーバの入手}.
 
 
 @item
-@ref{サーバ関連,サーバ関連}.
+@ref{サーバ関連}.
 @end itemize
 
 @node DDSKK を Emacs の Input Method とする
 @section DDSKK を Emacs の Input Method とする
 
-@cindex LEIM
-@cindex input method
 @cindex skk-leim.el
 @kindex C-\
-@kindex M-x list-input-methods
-@kindex M-x set-input-method
 @kindex M-x toggle-input-method
-@vindex default-input-method
 Emacs の標準キーバインドでは @code{C-\} を打鍵すると、関数 @code{toggle-input-method} を
 実行します。この関数は、変数 @code{default-input-method} が指す input method を
 トグル切り替えします。
 
+@vindex default-input-method
+@cindex LEIM
 変数 @code{default-input-method} の値はおそらく "@code{Japanese}" であり、結果として @code{C-\} の
 打鍵で LEIM (Library of Emacs Input Method) を on / off します。
 
+@kindex M-x list-input-methods
+@kindex M-x set-input-method
 @kindex C-x RET C-\
 使用可能な input method は @code{M-x list-input-methods} で確認することができ、
 コマンド @code{M-x set-input-method} 又は @code{C-x RET C-\} を実行することで input method を
@@ -1225,9 +1253,9 @@ Emacs の標準キーバインドでは @code{C-\} を打鍵すると、関数 @
 
 @item
 "@code{japanese-skk-auto-fill}" @dots{} 内容は @code{(skk-auto-fill-mode 1)} です。
-
 @end itemize
 
+@cindex input method
 @defopt default-input-method
 
 Emacs 起動時の input method を DDSKK とするには、 @code{~/.emacs.d/init.el} に
@@ -1245,11 +1273,12 @@ Emacs 起動時の input method を DDSKK とするには、 @code{~/.emacs.d/in
 本章では、DDSKK の基本的な使用方法を説明します。これを読めば、とりあえず
 DDSKK を使ってみるには充分です。
 
-DDSKK を使った入力方法に慣れるには、付属のチュートリアル @footnote{@ref{チュートリアル,チュートリアル}.} が
+DDSKK を使った入力方法に慣れるには、付属のチュートリアル @footnote{@ref{チュートリアル}.} が
 最適なので、お試しください。
 
-なお、次章の「便利な応用機能」 @footnote{@ref{便利な応用機能,便利な応用機能}.} は、興味のある個所のみをピックア
+なお、次章の「便利な応用機能」 @footnote{@ref{便利な応用機能}.} は、興味のある個所のみをピックア
 ップしてお読みになるのがいいでしょう。
+
 
 @menu
 * 起動と終了::
@@ -1267,7 +1296,7 @@ SKK モードに入るには @code{C-x C-j} もしくは @code{C-x j} とキー�
 また、カーソルの色が変化 @footnote{カラーディスプレイを使用し、カラー表示をサポートしている Window System 下
 で対応する Emacs を使用している場合。
 
-@ref{入力モードを示すカーソル色に関する設定,入力モードを示すカーソル色に関する設定}.} します。
+@ref{入力モードを示すカーソル色に関する設定}.} します。
 
 @example
 --かな:MULE/7bit----- Buffer-name (Major-mode)---
@@ -1277,7 +1306,7 @@ SKK モードに入るには @code{C-x C-j} もしくは @code{C-x j} とキー�
 のモードに戻り @footnote{ただし、「アスキーモード」を利用すれば SKK モードから抜ける必要
 はほとんどありません。
 
-@ref{入力モード,アスキーモード}.} 、カーソル色も元に戻ります。
+@ref{入力モード, , アスキーモード}.} 、カーソル色も元に戻ります。
 
 @defopt skk-status-indicator
 
@@ -1313,7 +1342,7 @@ SKK モードに入るには @code{C-x C-j} もしくは @code{C-x j} とキー�
 @cindex skk-version
 @item @kbd{M-x skk-version} @tie{}@tie{}@tie{}@tie{}(@code{skk-version})
 
-@code{M-x skk-version} と実行するとエコーエリアに SKK のバージョンを表示 @footnote{@ref{エラーなどの日本語表示,エラーなどの日本語表示}.} しま
+@code{M-x skk-version} と実行するとエコーエリアに SKK のバージョンを表示 @footnote{@ref{エラーなどの日本語表示}.} しま
 す。
 
 @example
@@ -1322,6 +1351,7 @@ Daredevil SKK/16.2.50 (CODENAME)
 -------------------- Echo Area --------------------
 @end example
 @end table
+
 
 @menu
 * SKK オートフィルモード::
@@ -1357,7 +1387,7 @@ Daredevil SKK/16.2.50 (CODENAME)
 @vindex skk-backup-jisyo
 @vindex skk-jisyo
 Emacs を終了するときは、保存前の個人辞書を @code{~/.skk-jisyo.BAK} に退避して
-から、個人辞書 @footnote{@ref{辞書の種類,個人辞書}.} の内容を @code{~/.skk-jisyo} に保存 @footnote{@ref{個人辞書の保存動作,個人辞書の保存動作}.} し
+から、個人辞書 @footnote{@ref{辞書の種類, , 個人辞書}.} の内容を @code{~/.skk-jisyo} に保存 @footnote{@ref{個人辞書の保存動作}.} し
 ます。
 
 @code{~/.skk-jisyo} や @code{~/.skk-jisyo.BAK} のファイル名を変更したければ、それぞ
@@ -1375,8 +1405,9 @@ Emacs を終了するときは、保存前の個人辞書を @code{~/.skk-jisyo.
 @node 入力モード
 @section 入力モード
 
-SKK モードは、文字種類による４種類の @strong{入力モード} @footnote{@ref{入力モードを示すカーソル色に関する設定,入力モードを示すカーソル色に関する設定}.} と、辞書を
+SKK モードは、文字種類による４種類の @strong{入力モード} @footnote{@ref{入力モードを示すカーソル色に関する設定}.} と、辞書を
 用いた変換の状態により３つの @strong{変換モード} を持ちます。
+
 
 @menu
 * 入力モードの説明::
@@ -1492,14 +1523,12 @@ SKK モードは、文字種類による４種類の @strong{入力モード} @f
 
 @itemize
 @item
-@ref{かなモードからカタカナを入力,かなモードからカタカナを入力}.
+@ref{かなモードからカタカナを入力}.
 
 
 @item
-@ref{全英文字の入力,全英文字の入力}.
-
+@ref{全英文字の入力}.
 @end itemize
-
 @defopt skk-show-mode-show
 
 現在の入力モードは、モードラインに表示されています。この変数を @code{Non-nil} と
@@ -1557,6 +1586,7 @@ SKK モードは、文字種類による４種類の @strong{入力モード} @f
 また、▽モードの変種として @strong{SKK abbrev モード} があり、▼モードのサブモード
 として @strong{辞書登録モード} があります。
 
+
 @menu
 * ■モード::
 * ▽モード::
@@ -1605,7 +1635,7 @@ SKK モードは、文字種類による４種類の @strong{入力モード} @f
 @subsection ▽モード
 
 @strong{▽モード} では、辞書変換の対象となる文字列を入力します。かなモードもしく
-はカナモードで @footnote{@ref{入力モード,入力モード}.} 、かつ■モードであるときに、キー入力を @strong{大文字で開始} する
+はカナモードで @footnote{@ref{入力モード}.} 、かつ■モードであるときに、キー入力を @strong{大文字で開始} する
 ことで▽モードに入ります。
 
 @example
@@ -1620,6 +1650,7 @@ K a n j i
 なる文字列「見出し語」を入力します。▽マークは「▽モードである」という表
 示ですが、見出し語の開始点を示す表示でもあります。
 
+
 @menu
 * 後から▽モードに入る方法::
 * ▽モードを抜ける方法::
@@ -1627,7 +1658,6 @@ K a n j i
 
 @node 後から▽モードに入る方法
 @subsubsection 後から▽モードに入る方法
-
 
 @kindex Q
 辞書変換の対象としたい文字列であったにも関わらず、先頭の文字を大文字で入
@@ -1670,7 +1700,6 @@ C-e
 
 @node ▽モードを抜ける方法
 @subsubsection ▽モードを抜ける方法
-
 
 @kindex C-j
 @kindex C-g
@@ -1717,6 +1746,7 @@ C-g
 し語として確定され、 ▽マークは▼マークで置き換えられ、この見出し語が辞書
 の中で検索されます。
 
+
 @menu
 * 送り仮名が無い場合::
 * 次候補・前候補::
@@ -1725,7 +1755,6 @@ C-g
 
 @node 送り仮名が無い場合
 @subsubsection 送り仮名が無い場合
-
 
 仮に、辞書に
 
@@ -1737,7 +1766,7 @@ C-g
 というエントリ @footnote{本マニュアルでは、見出し語と候補群を合わせた一行を「エントリ」
 と呼びます。
 
-@ref{送りありエントリと送りなしエントリ,送りありエントリと送りなしエントリ}.} を含むとして、例を示します。
+@ref{送りありエントリと送りなしエントリ}.} を含むとして、例を示します。
 
 @example
 K a n j i
@@ -1766,13 +1795,12 @@ SPC
 
 @cindex 暗黙の確定
 また、 @code{C-j} を打鍵せずに新たな確定入力を続けるか又は新たな変換を開始する
-と、直前の変換は自動的に確定されます。これを @strong{暗黙の確定} @footnote{@ref{暗黙の確定のタイミング,暗黙の確定のタイミング}.} と呼んでいます。
+と、直前の変換は自動的に確定されます。これを @strong{暗黙の確定} @footnote{@ref{暗黙の確定のタイミング}.} と呼んでいます。
 打鍵することによる副作用として暗黙の確定を伴うキーは、印字可能な文字全て
 と @code{RET} です。
 
 @node 次候補・前候補
 @subsubsection 次候補・前候補
-
 
 求める語がすぐに表示されなければ、更に続けて @code{SPC} を打鍵することで次候補
 を検索します。
@@ -1816,13 +1844,13 @@ A:嘘  S:拒  D:拠  F:虚  J:挙  K:許  L:渠  [残り 2]
 
 @code{A} , @code{S} , @code{D} , @code{F} , @code{J} , @code{K} , @code{L} の各文字は、押し易さを考慮してキ
 ーボードのホームポジションから横方向に一直線に配置されているキーが選ばれ
-ています。また、候補の選択のために押すキー @footnote{@ref{候補の選択に用いるキー,候補の選択に用いるキー}.} は、大文字、小文字
+ています。また、候補の選択のために押すキー @footnote{@ref{候補の選択に用いるキー}.} は、大文字、小文字
 のいずれでも構いません。
 
 @code{SPC} を連打してしまって求める候補を誤って通過してしまったときは @code{x} を打
 鍵 @footnote{@code{x} は小文字で入力する必要があります。} すれば前候補／前候補群に戻ることができます。
 
-次々と候補を探しても求める語がなければ、自動的に辞書登録モード @footnote{@ref{辞書登録モード,辞書登録モード}.} に
+次々と候補を探しても求める語がなければ、自動的に辞書登録モード @footnote{@ref{辞書登録モード}.} に
 なります（辞書登録モードは▼モードのサブモードです）。
 
 @defvar skk-previous-candidate-keys
@@ -1852,7 +1880,6 @@ event vector が指定できます。
 
 @node 送り仮名が有る場合
 @subsubsection 送り仮名が有る場合
-
 
 次に送り仮名のある単語について説明します。
 
@@ -1885,14 +1912,15 @@ u
   ------ Buffer: foo ------
   ▼動く*
   ------ Buffer: foo ------
+
 @end example
 
-このように、DDSKK では送り仮名の開始地点をユーザが明示的に入力 @footnote{@ref{送り仮名の自動処理,送り仮名の自動処理}.} す
+このように、DDSKK では送り仮名の開始地点をユーザが明示的に入力 @footnote{@ref{送り仮名の自動処理}.} す
 るので、システム側で送り仮名を分解する必要がありません。これにより、高速
 でヒット効率が高い変換が可能になります。
 
-ただし、サ変動詞の変換 @footnote{@ref{サ変動詞の辞書登録に関する注意,サ変動詞の入力}.} では、サ変動詞の語幹となる名詞
-を @strong{送りなし変換} @footnote{詳細は @ref{送り仮名が無い場合,送り仮名が無い場合}.} として変換し、その後「する」を■モードで
+ただし、サ変動詞の変換 @footnote{@ref{サ変動詞の辞書登録に関する注意, , サ変動詞の入力}.} では、サ変動詞の語幹となる名詞
+を @strong{送りなし変換} @footnote{詳細は @ref{送り仮名が無い場合}.} として変換し、その後「する」を■モードで
 入力した方が効率が良くなります。
 
 @node 辞書登録モード
@@ -1929,14 +1957,12 @@ DDSKK には独立した辞書登録モードはありません。その代わ�
 
 @itemize
 @item
-@ref{誤った登録の削除,誤った登録の削除}.
+@ref{誤った登録の削除}.
 
 
 @item
-@ref{個人辞書ファイルの編集,個人辞書ファイルの編集}.
-
+@ref{個人辞書ファイルの編集}.
 @end itemize
-
 @defvar skk-read-from-minibuffer-function
 
 この変数に「文字列を返す関数」を収めると、その文字列を辞書登録モードに
@@ -1956,6 +1982,7 @@ DDSKK には独立した辞書登録モードはありません。その代わ�
 します。この「↓辞書登録中↓」に適用するフェイスです。
 @end defvar
 
+
 @menu
 * 送り仮名が無い場合の辞書登録::
 * 送り仮名が有る場合の辞書登録::
@@ -1966,7 +1993,6 @@ DDSKK には独立した辞書登録モードはありません。その代わ�
 
 @node 送り仮名が無い場合の辞書登録
 @subsubsection 送り仮名が無い場合の辞書登録
-
 
 辞書登録モードでは、キー入力はミニバッファに対して行われます。仮に辞書に
 
@@ -1988,11 +2014,11 @@ H e n k a n SPC T y u u SPC
 @end example
 
 @cindex 暗黙の確定
-ここで @code{RET} を打鍵すれば「変換中」が個人辞書に登録され @footnote{@ref{辞書の種類,辞書の種類}.} 、
+ここで @code{RET} を打鍵すれば「変換中」が個人辞書に登録され @footnote{@ref{辞書の種類}.} 、
 辞書登録モードは終了します @footnote{ここでは「暗黙の確定」が行われるので @code{C-j} を打鍵する必要はあり
 ません。
 
-@ref{▼モードでの RET,▼モードでの RET}.} 。同時に、変換を行っているカレン
+@ref{▼モードでの RET}.} 。同時に、変換を行っているカレン
 トバッファには「変換中」が挿入され確定されます。
 
 辞書登録モードを抜けたいときは @code{C-g} を打鍵するか、または何も登録せず @code{RET} を
@@ -2000,7 +2026,6 @@ H e n k a n SPC T y u u SPC
 
 @node 送り仮名が有る場合の辞書登録
 @subsubsection 送り仮名が有る場合の辞書登録
-
 
 送り仮名のある単語の登録では、ミニバッファで作る候補に送り仮名そのものを
 登録しないように注意しなければいけません。仮に辞書に
@@ -2057,23 +2082,21 @@ RET
 @node サ変動詞の辞書登録に関する注意
 @subsubsection サ変動詞の辞書登録に関する注意
 
-
 サ変動詞（名詞の後に「する」を付けた形で構成される動詞）については「する」
-を送り仮名とした送りあり変換 @footnote{@ref{送り仮名が有る場合,送り仮名が有る場合}.} をしないで、
+を送り仮名とした送りあり変換 @footnote{@ref{送り仮名が有る場合}.} をしないで、
 「運動」と「する」とに分けて入力することを前提としています @footnote{@code{SKK-JISYO.L} など共有辞書のメンテナンス上、原則としてサ変動詞
 を送りありエントリに追加していません。そのため、「する」を送り仮名とした
 送りあり変換では、辞書に候補がなく辞書登録モードに入ってしまうので、名詞
 として分解して入力することが一般的です。ただし、DDSKK 13 以降では暫定的に
 サ変動詞の送りあり変換を可能にする機能を用意しました。
 
-@ref{サ変動詞変換,サ変動詞変換}.} 。
+@ref{サ変動詞変換}.} 。
 
 例えば「運動する」は @code{U n d o u SPC s u r u} とキー入力することにより入力
 できます。名詞から作られる形容詞等も同様です。
 
 @node 再帰的辞書登録
 @subsubsection 再帰的辞書登録
-
 
 ミニバッファを再帰的に使って辞書登録を再帰的に行うことができます。
 
@@ -2149,7 +2172,6 @@ RET
 @node 改行文字を含む辞書登録
 @subsubsection 改行文字を含む辞書登録
 
-
 @kindex C-q C-j
 改行文字を含む文字列を辞書に登録するには、辞書登録モードで改行文字を @code{C-q C-j} に
 より入力します。例えば、
@@ -2182,6 +2204,7 @@ C-q C-j
 DDSKK では、専用のインクリメンタル・サーチプログラムを Emacs 添付の
 @code{isearch.el} のラッパーとして実装しているため、日本語文字列のインクリメン
 タル・サーチをアスキー文字と同様の操作で行うことができます。
+
 
 @menu
 * skk-isearchの操作性::
@@ -2240,9 +2263,7 @@ Emacs オリジナルのインクリメンタル・サーチのコマンド @foo
 @code{I-search: [--]} @dots{} インクリメンタル・サーチモードで @code{C-x C-j} など
 を打鍵して DDSKK を終了した場合は、このプロンプ
 トが表示されます。
-
 @end itemize
-
 @defvar skk-isearch-mode-string-alist
 
 プロンプトとして表示される文字列
@@ -2339,7 +2360,7 @@ constant database (cdb) reader for Emacs Lisp
 編集の文脈に応じて自動的に skk のモードを切り替えたり、SKK の各種設定を
 変更する機能を提供します。
 
-@ref{文脈に応じた自動モード切り替え,文脈に応じた自動モード切り替え}.
+@ref{文脈に応じた自動モード切り替え}.
 
 
 @item
@@ -2353,7 +2374,7 @@ constant database (cdb) reader for Emacs Lisp
 
 SKK abbrev モードの機能を提供するプログラムを集めたファイル。
 
-@ref{アスキー文字を見出し語とした変換,アスキー文字を見出し語とした変換}.
+@ref{アスキー文字を見出し語とした変換}.
 
 
 @item
@@ -2362,7 +2383,7 @@ SKK abbrev モードの機能を提供するプログラムを集めたファイ
 dvorak 配列での拡張ローマ字入力 ACT を SKK で使うための設定を提供しま
 す。
 
-@ref{ACT,ACT}.
+@ref{ACT}.
 
 
 @item
@@ -2371,7 +2392,7 @@ dvorak 配列での拡張ローマ字入力 ACT を SKK で使うための設定
 個人辞書に付けたアノテーション（注釈）を活用するプログラムを集めたファ
 イル。
 
-@ref{注釈（アノテーション）,注釈（アノテーション）}.
+@ref{注釈（アノテーション）}.
 
 
 @item
@@ -2379,7 +2400,7 @@ dvorak 配列での拡張ローマ字入力 ACT を SKK で使うための設定
 
 送り仮名の自動処理を行うプログラムを集めたファイル。
 
-@ref{送り仮名の自動処理,送り仮名の自動処理}.
+@ref{送り仮名の自動処理}.
 
 
 @item
@@ -2395,7 +2416,7 @@ dvorak 配列での拡張ローマ字入力 ACT を SKK で使うための設定
 
 拡張ローマ字入力 AZIK の設定を提供します。
 
-@ref{AZIK,AZIK}.
+@ref{AZIK}.
 
 
 @item
@@ -2403,7 +2424,7 @@ dvorak 配列での拡張ローマ字入力 ACT を SKK で使うための設定
 
 SKK の学習機能のひとつで、ユーザの過去の入力から変換候補を予測します。
 
-@ref{ベイズ統計を用いた学習,ベイズ統計を用いた学習}.
+@ref{ベイズ統計を用いた学習}.
 
 
 @item
@@ -2417,7 +2438,7 @@ CDB 形式辞書ファイルを辞書サーバなしに直接利用できるプ�
 
 見出し語の補完を行うプログラムを集めたファイル。
 
-@ref{補完,補完}.
+@ref{補完}.
 
 
 @item
@@ -2425,7 +2446,7 @@ CDB 形式辞書ファイルを辞書サーバなしに直接利用できるプ�
 
 カーソルの色を制御するプログラムを集めたファイル。
 
-@ref{入力モードを示すカーソル色に関する設定,入力モードを示すカーソル色に関する設定}.
+@ref{入力モードを示すカーソル色に関する設定}.
 
 
 @item
@@ -2433,7 +2454,7 @@ CDB 形式辞書ファイルを辞書サーバなしに直接利用できるプ�
 
 @code{M-x customize-group} による対話的な設定変更機能の簡易版を提供します。
 
-@ref{Customize による設定変更,Customize による設定変更}.
+@ref{Customize による設定変更}.
 
 
 @item
@@ -2441,7 +2462,7 @@ CDB 形式辞書ファイルを辞書サーバなしに直接利用できるプ�
 
 skk-comp による補完を自動的に実行して見出し語入力を支援します。
 
-@ref{動的補完,動的補完}.
+@ref{動的補完}.
 
 
 @item
@@ -2476,7 +2497,7 @@ GNU Emacs の拡張機能を利用するプログラムを集めたファイル�
 
 プログラム実行変換を行うプログラムを集めたファイル。
 
-@ref{プログラム実行変換,プログラム実行変換}.
+@ref{プログラム実行変換}.
 
 
 @item
@@ -2484,7 +2505,7 @@ GNU Emacs の拡張機能を利用するプログラムを集めたファイル�
 
 SKK の変換候補が多いときにヒントを与えて絞りこむ機能を提供します。
 
-@ref{候補の絞り込み,候補の絞り込み}.
+@ref{候補の絞り込み}.
 
 
 @item
@@ -2492,7 +2513,7 @@ SKK の変換候補が多いときにヒントを与えて絞りこむ機能を�
 
 変換候補のインライン表示機能を集めたファイル。
 
-@ref{変換候補一覧の表示方法,変換候補一覧の表示方法}.
+@ref{変換候補一覧の表示方法}.
 
 
 @item
@@ -2500,7 +2521,7 @@ SKK の変換候補が多いときにヒントを与えて絞りこむ機能を�
 
 DDSKK を併用したインクリメンタル・サーチ機能を提供します。
 
-@ref{I-search 関連,I-search 関連}.
+@ref{I-search 関連}.
 
 
 @item
@@ -2526,7 +2547,7 @@ SKK 辞書を編集するためのメジャーモードを提供します。
 
 KAKASI インターフェイスプログラムを集めたファイル。
 
-@ref{領域の操作,領域の操作}.
+@ref{領域の操作}.
 
 
 @item
@@ -2535,7 +2556,7 @@ KAKASI インターフェイスプログラムを集めたファイル。
 キーボードのかな配列などに対応する枠組みを提供します。現段階では旧 JIS 配
 列のかなキーボード及び NICOLA 規格の親指シフト配列に対応しています。
 
-@ref{かな入力と親指シフト,かな入力と親指シフト}.
+@ref{かな入力と親指シフト}.
 
 
 @item
@@ -2543,7 +2564,7 @@ KAKASI インターフェイスプログラムを集めたファイル。
 
 文字コードまたはメニューによる文字入力を行うプログラムを集めたファイル。
 
-@ref{文字コードまたはメニューによる文字入力,文字コードまたはメニューによる文字入力}.
+@ref{文字コードまたはメニューによる文字入力}.
 
 
 @item
@@ -2552,7 +2573,7 @@ KAKASI インターフェイスプログラムを集めたファイル。
 LEIM 関連プログラムファイル。DDSKK を Emacs の input method として利用
 できるようにします。
 
-@ref{DDSKK を Emacs の Input Method とする,DDSKK を Emacs の Input Method とする}.
+@ref{DDSKK を Emacs の Input Method とする}.
 
 
 @item
@@ -2560,7 +2581,7 @@ LEIM 関連プログラムファイル。DDSKK を Emacs の input method とし
 
 @code{look} コマンドとのインターフェイスプログラムを集めたファイル。
 
-@ref{skk-look,skk-look}.
+@ref{skk-look}.
 
 
 @item
@@ -2568,7 +2589,7 @@ LEIM 関連プログラムファイル。DDSKK を Emacs の input method とし
 
 Lookup で検索できる辞書を使って単語の候補を出力するプログラム。
 
-@ref{skk-lookup,skk-lookup}.
+@ref{skk-lookup}.
 
 
 @item
@@ -2582,7 +2603,7 @@ Lookup で検索できる辞書を使って単語の候補を出力するプロ�
 
 数値変換を行うプログラムを集めたファイル。
 
-@ref{数値変換,数値変換}.
+@ref{数値変換}.
 
 
 @item
@@ -2591,7 +2612,7 @@ Lookup で検索できる辞書を使って単語の候補を出力するプロ�
 Google CGI API for Japanese Input を利用したかな漢字変換。辞書登録モー
 ドに Google サジェストを初期表示する。
 
-@ref{Google CGI API for Japanese Input を利用したかな漢字変換,Google CGI API for Japanese Input を利用したかな漢字変換}.
+@ref{Google CGI API for Japanese Input を利用したかな漢字変換}.
 
 
 @item
@@ -2599,7 +2620,7 @@ Google CGI API for Japanese Input を利用したかな漢字変換。辞書登�
 
 拡張された辞書サーバによる見出し語補完機能を利用できます。
 
-@ref{サーバコンプリージョン,サーバコンプリージョン}.
+@ref{サーバコンプリージョン}.
 
 
 @item
@@ -2607,7 +2628,7 @@ Google CGI API for Japanese Input を利用したかな漢字変換。辞書登�
 
 辞書サーバと通信して変換する機能を提供します。
 
-@ref{サーバ関連,サーバ関連}.
+@ref{サーバ関連}.
 
 
 @item
@@ -2627,7 +2648,7 @@ Google CGI API for Japanese Input を利用したかな漢字変換。辞書登�
 
 変換開始位置及び送り開始位置の指定方法を変更可能にする。
 
-@ref{変換位置の指定方法,変換位置の指定方法}.
+@ref{変換位置の指定方法}.
 
 
 @item
@@ -2636,7 +2657,7 @@ Google CGI API for Japanese Input を利用したかな漢字変換。辞書登�
 直前に確定したいくつかの語との関連性を確認し、候補順を操作する学習効果
 を提供するプログラム。
 
-@ref{変換の学習,変換の学習}.
+@ref{変換の学習}.
 
 
 @item
@@ -2644,7 +2665,7 @@ Google CGI API for Japanese Input を利用したかな漢字変換。辞書登�
 
 SKK を使って単漢字変換を行うプログラムです。
 
-@ref{単漢字変換,単漢字変換}.
+@ref{単漢字変換}.
 
 
 @item
@@ -2652,7 +2673,7 @@ SKK を使って単漢字変換を行うプログラムです。
 
 SKK チュートリアルプログラム。
 
-@ref{チュートリアル,チュートリアル}.
+@ref{チュートリアル}.
 
 
 @item
@@ -2660,7 +2681,7 @@ SKK チュートリアルプログラム。
 
 SKK で TUT-code 入力を実現します。
 
-@ref{TUT-code,TUT-code}.
+@ref{TUT-code}.
 
 
 @item
@@ -2680,7 +2701,7 @@ DDSKK のバージョン情報を提供するプログラムファイル。
 
 VIPER インターフェイスプログラムを集めたファイル。
 
-@ref{VIP/VIPERとの併用,VIP/VIPERとの併用}.
+@ref{VIP/VIPERとの併用}.
 
 
 @item
@@ -2706,8 +2727,10 @@ DDSKK のカスタマイズは、 @code{~/.emacs.d/init.el} あるいは @code{~
 ます。また、各ファイルの提供するフックも利用します。上記のファイルやフッ
 クを利用した設定がいつ有効になるのか、という点についてここで説明します。
 
+
 @menu
 * 設定ファイル::
+* skk-init-file の自動コンパイル::
 * フック::
 * Customize による設定変更::
 * skk-customize による設定変更::
@@ -2737,11 +2760,9 @@ DDSKK を起動した最初の一度だけ読み込まれます。ファイル�
 より加工されます。
 
 @code{~/.skk} のファイル名は変数 @code{skk-init-file} で変更することができます。
-また、DDSKK にはこのファイルを自動的にバイトコンパイルする機能 @footnote{@ref{skk-init-file の自動コンパイル,skk-init-file の自動コンパイル}.} が
-あります。
-
+また、DDSKK にはこのファイルを自動的にバイトコンパイルする機能があり
+ます。
 @end itemize
-
 @defvar skk-user-directory
 
 DDSKK は @code{~/.skk} や @code{~/.skk-jisyo} といった複数のファイルを使用します。
@@ -2775,13 +2796,8 @@ skk-bayesian-corpus-file   ~/.skk-corpus     ~/.ddskk/corpus
 る場合はその個別の設定が優先されます。
 @end defvar
 
-@menu
-* skk-init-file の自動コンパイル::
-@end menu
-
 @node skk-init-file の自動コンパイル
-@subsubsection skk-init-file の自動コンパイル
-
+@subsection skk-init-file の自動コンパイル
 
 @defvar skk-byte-compile-init-file
 
@@ -2913,7 +2929,7 @@ Customize group: (default emacs) *
 実行するのも同様です。
 
 あるいは、モードラインの SKK インジケータをマウスの右ボタン（第３ボタン）
-でクリックすると表示されるメニューから @code{SKK をカスタマイズ} を選んでも同
+でクリックすると表示されるメニューから「SKK をカスタマイズ」を選んでも同
 じ画面となります。
 
 カスタマイズの使い方は Info (@ref{Easy Customization,Easy Customization in GNU Emacs Manual,,emacs,}.) を参照してください。
@@ -2935,7 +2951,7 @@ skk で設定できる変数の中には、まだこのマニュアルで解説�
 のだけ抜粋して設定できるようにしたものです。
 
 これは、モードラインの SKK インジケータをマウスの右ボタン（第３ボタン）
-でクリックして表示されるメニューから @code{SKK をカスタマイズ（簡易版）} を選
+でクリックして表示されるメニューから「SKK をカスタマイズ（簡易版）」を選
 んで呼び出すこともできます。
 @end table
 
@@ -2943,7 +2959,8 @@ skk で設定できる変数の中には、まだこのマニュアルで解説�
 @section カタカナ、英字入力の便法
 
 この節では、カタカナや全英文字を入力するための、便利な方法を説明します。
-単純に各モードを用いる方法については前述 (@ref{入力モード,入力モード}.) しました。
+単純に各モードを用いる方法については前述 (@ref{入力モード}.) しました。
+
 
 @menu
 * かなモードからカタカナを入力::
@@ -3006,7 +3023,7 @@ q
 ではありません。かなモード／カナモードにおいて、既に入力された全英文字、
 アスキー文字に対してトグル変換をするような設計になっています。} 。
 
-領域を対象としたコマンド (@ref{領域の操作,領域の操作}.) でも「かな←→カナ」のトグル
+領域を対象としたコマンド (@ref{領域の操作}.) でも「かな←→カナ」のトグル
 変換を行うことができます。
 
 @node 全英文字の入力
@@ -3017,12 +3034,12 @@ q
 に入ってしまいますので、 SKK abbrev モードからアスキー文字を入力するのは、
 一語のみの場合以外は不便です。
 
-@ref{アスキー文字を見出し語とした変換,アスキー文字を見出し語とした変換}.} に
+@ref{アスキー文字を見出し語とした変換}.} に
 入りますのでアルファベット（アスキー文字）を入力します。アルファベットの
 入力後に @code{C-q} を打鍵する @footnote{@code{C-q} は @code{skk-abbrev-mode-map} にて特別な動作をするように定義さ
 れています。
 
-@ref{アスキー文字を見出し語とした変換,アスキー文字を見出し語とした変換}.} ことで▽マークから @code{C-q} を打鍵した位
+@ref{アスキー文字を見出し語とした変換}.} ことで▽マークから @code{C-q} を打鍵した位
 置までの間にあるアルファベットが全角アルファベットに変換されて確定されま
 す。
 
@@ -3087,7 +3104,7 @@ file /ｆｉｌｅ/
 @end table
 
 @cindex 逆引き
-以下に紹介する「漢字から読みを求めるコマンド」は、外部プログラム @code{KAKASI} @footnote{@uref{http://kakasi.namazu.org/,KAKASI - 漢字→かな（ローマ字）変換プログラム}}が
+以下に紹介する「漢字から読みを求めるコマンド」は、外部プログラム @code{KAKASI} @footnote{@uref{http://kakasi.namazu.org/, KAKASI - 漢字→かな（ローマ字）変換プログラム}}が
 必要です。 @code{KAKASI} がインストールされていなければ使用することができません。
 
 
@@ -3297,7 +3314,8 @@ context-skk が「プログラミングモード」と見做すメジャーモ�
 よく使う長い語を効率良く入力するには、アルファベットの略語を登録する方法
 もあります。
 
-@ref{アスキー文字を見出し語とした変換,アスキー文字を見出し語とした変換}.
+@ref{アスキー文字を見出し語とした変換}.
+
 
 @menu
 * 読みの補完::
@@ -3365,7 +3383,7 @@ C-j
 ら」となります。例えば「斉藤」、「佐藤」の順で変換した後、「さ」をキーに
 して見出し語の補完を行うと、最初に「さとう」が、その次に「さいとう」が補
 完されます。これは、個人辞書では、最近使われたエントリほど上位に来るよう
-になっている (@ref{辞書の書式,辞書の書式}.) ためです。
+になっている (@ref{辞書の書式}.) ためです。
 
 いったん @code{SPC} を入力して▼モードに入ると、以後は見出し語補完は行われませ
 ん。
@@ -3619,7 +3637,7 @@ BS
 @end example
 
 候補の選択には @code{TAB} 又は @code{SHIFT + TAB} を押します。
-また、普通の補完 (@ref{読みの補完,読みの補完}.) と同様に @code{.} （ピリオド）と @code{,} （コンマ）も
+また、普通の補完 (@ref{読みの補完}.) と同様に @code{.} （ピリオド）と @code{,} （コンマ）も
 利用できます。
 @end defopt
 
@@ -3741,6 +3759,7 @@ SPC
 
 以上のとおり、総画数の昇順でソートされた候補が次々に表示されます。
 
+
 @menu
 * 検索キーの設定::
 * 辞書の設定::
@@ -3751,7 +3770,6 @@ SPC
 
 @node 検索キーの設定
 @subsubsection 検索キーの設定
-
 
 標準設定の検索キーは @code{@@} です。DDSKK の標準設定ではキー @code{@@} は
 関数 @code{skk-today} の実行に割り当てられていますが、DDSKK 14.2 からは特段の
@@ -3768,7 +3786,6 @@ SPC
 
 @node 辞書の設定
 @subsubsection 辞書の設定
-
 
 DDSKK 14.2 からは標準で変数 @code{skk-search-prog-list} に @code{skk-tankan-search} が
 含まれています。DDSKK 14.1 を利用の方、ご自身で @code{skk-search-prog-list} を
@@ -3806,11 +3823,10 @@ DDSKK 14.2 からは標準で変数 @code{skk-search-prog-list} に @code{skk-ta
                                  skk-large-jisyo 10000))
 @end lisp
 
-@ref{辞書の検索方法の設定,辞書の検索方法の設定}.
+@ref{辞書の検索方法の設定}.
 
 @node 総画数による単漢字変換
 @subsubsection 総画数による単漢字変換
-
 
 @kindex C-u 総画数 M-x skk-tankan
 ▽モードで総画数を入力して最後に @code{@@} を付してから変換を開始します。
@@ -3839,7 +3855,6 @@ SPC
 
 @node 部首による単漢字変換
 @subsubsection 部首による単漢字変換
-
 
 ▽モードで @code{@@} を２つ重ねて変換を開始すると、部首による単漢字変換が
 できます。 @code{M-x skk-tankan} でも可能です。
@@ -3898,7 +3913,6 @@ TAB
 
 @node 部首の読みによる単漢字変換
 @subsubsection 部首の読みによる単漢字変換
-
 
 直前の小々節「部首による単漢字変換」にて、部首番号を入力するプロンプトで
 単に @code{RET} を打鍵すると、部首の読みを入力するプロンプトに替わります。
@@ -4243,7 +4257,7 @@ Q 1 0 0 2 0 0 3 0 0 4 0 0 5 0 0 SPC
 というエントリがあるときに @code{/ 2 m 2 5 d SPC} と入力 @footnote{@code{m} や @code{d} などアスキー文字を見出し語として入力する場合は @code{/} キー
 を最初に入力して SKK abbrev モードに入ってから入力する必要があります。
 
-@ref{アスキー文字を見出し語とした変換,アスキー文字を見出し語とした変換}.} すれ
+@ref{アスキー文字を見出し語とした変換}.} すれ
 ば「2月25日」と変換されます。
 
 辞書に
@@ -4374,9 +4388,9 @@ SKK abbrve モードで使われる辞書は、普通のかな漢字変換と同
 上記の例において @code{SPC} の代わりに @code{C-q} を打鍵することで、入力したアスキー
 文字をそのまま全角アルファベットに変換することもできます。
 
-@ref{全英文字の入力,全英文字の入力}.
+@ref{全英文字の入力}.
 
-なお、SKK abbrev モードにおいても @code{TAB} による「見出し語の補完」 (@ref{補完,補完}.) を
+なお、SKK abbrev モードにおいても @code{TAB} による「見出し語の補完」 (@ref{補完}.) を
 行うことができます。
 
 @node 今日の日付の入力
@@ -4472,12 +4486,12 @@ Sun Jul 21 06:40:34 1996
 その位置に改行を挿入するような実行変換プログラムに変換して辞書に書き込ん
 でいるからです。
 
-@ref{辞書の種類,辞書の種類}.
+@ref{辞書の種類}.
 
 しかし、実行変換されるプログラムを辞書登録する際にはこの
 機能を利用できないため、改行を含むことができません。} があります。
 
-今日の日付の入力 @footnote{@ref{今日の日付の入力,今日の日付の入力}.} で説明した @code{today} の辞書エントリは、実際は下
+今日の日付の入力 @footnote{@ref{今日の日付の入力}.} で説明した @code{today} の辞書エントリは、実際は下
 記のようなプログラムを候補にもっています。
 
 @lisp
@@ -4504,7 +4518,7 @@ today /(let ((skk-date-ad) (skk-number-style t)) (skk-today))/.../
 @end lisp
 
 この関数を実際にプログラム実行変換で利用するには、辞書に以下のようなエ
-ントリを追加します @footnote{@ref{数値変換,数値変換}.} 。
+ントリを追加します @footnote{@ref{数値変換}.} 。
 
 @example
 #*# /(skk-calc '*)/
@@ -4651,7 +4665,7 @@ SPC
 
 
 @item
-▽モードで @code{q} によりカタカナへ変換する @footnote{@ref{かなモードからカタカナを入力,かなモードからカタカナを入力}.}
+▽モードで @code{q} によりカタカナへ変換する @footnote{@ref{かなモードからカタカナを入力}.}
 @end itemize
 のどちらかです。これらの方法は手軽ですが、個人辞書に登録されないため見
 出し語の補完候補にも現れず、何度でも入力しなければなりません。
@@ -4685,7 +4699,7 @@ SPC
 えないのですが、個人辞書が育たない（サ変動詞と名詞の区別ができない）と
 いう弱点もあります。
 
-@ref{サ変動詞の辞書登録に関する注意,サ変動詞の辞書登録に関する注意}.
+@ref{サ変動詞の辞書登録に関する注意}.
 
 しかし、ここに紹介する方法では任意の送りなし候補を利用してサ行の送りプ
 レフィックスに限定して送りあり変換が可能になり、個人辞書を育てることが
@@ -4714,7 +4728,7 @@ SPC
 容詞・動詞の変換のみならず、あらゆるひらがな開始点の指定に拡張すること
 ができます。
 
-このサ変動詞送りあり変換機能は、カタカナ変換機能 (@ref{カタカナ変換,カタカナ変換}.) と
+このサ変動詞送りあり変換機能は、カタカナ変換機能 (@ref{カタカナ変換}.) と
 組み合わせるとさらに有効です。
 @end defvar
 
@@ -4783,7 +4797,7 @@ not documented.
 的に割り当てられます。これらの割り当てはユーザオプション @code{skk-verbose} を
 設定するとエコーエリアに表示されるようになります。
 
-@ref{冗長な案内メッセージの表示,冗長な案内メッセージの表示}.
+@ref{冗長な案内メッセージの表示}.
 
 @itemize
 @item
@@ -4839,7 +4853,6 @@ not documented.
 
 @node ローマ字のルールの設定
 @subsubsection ローマ字のルールの設定
-
 
 @itemize
 @item
@@ -4901,7 +4914,7 @@ n' → ん
 ています。
 
 @lisp
-z  → □ （ z SPC → 全角スペース）
+z SPC → 全角スペース
 z* → ※
 z, → ‥
 z- → 〜
@@ -4924,7 +4937,6 @@ zL → ⇒
 
 @node ローマ字ルールの変更例
 @subsubsection ローマ字ルールの変更例
-
 
 @code{skk-rom-kana-base-rule-list} の規則に従うと
 
@@ -4980,11 +4992,10 @@ skK → SKK
 することもできます。TUT-code による入力についてはソースアーカイブの @code{tut-code} デ
 ィレクトリに収録されている各ファイルを参照してください。
 
-@ref{ローマ字入力以外の入力方式,ローマ字入力以外の入力方式}.
+@ref{ローマ字入力以外の入力方式}.
 
 @node ■モードに関連するその他の変数
 @subsubsection ■モードに関連するその他の変数
-
 
 @defvar skk-kana-input-search-function
 
@@ -5078,7 +5089,6 @@ ohhira → おおひら
 @node 数字や記号文字の入力
 @subsubsection 数字や記号文字の入力
 
-
 かなモード／カナモードにおける次のキーは、関数 @code{skk-insert} にバインドされています。
 
 @example
@@ -5147,13 +5157,13 @@ C-u 2 !
  "ｘ" "ｙ" "ｚ" "｛" "｜" "｝" "〜" nil]
 @end lisp
 
-挿入される文字を変更したい場合: @ref{数字や記号文字の入力,数字や記号文字の入力}.
+挿入される文字を変更したい場合: @ref{数字や記号文字の入力}.
 
 関数 @code{skk-jisx0208-latin-insert} も Emacs オリジナルの関数 @code{self-insert-command} を
 エミュレートしています。つまり、関数 @code{skk-insert} における動作と同じく、
 引数を渡すことにより同じ文字を複数、一度に挿入することができます。
 
-@ref{数字や記号文字の入力,数字や記号文字の入力}.
+@ref{数字や記号文字の入力}.
 
 @node 閉じ括弧の自動入力
 @subsection 閉じ括弧の自動入力
@@ -5313,14 +5323,14 @@ C-u 2 [
 この変数の値は、明示的な確定動作を行うキーを指定します。標準設定では @code{C-j} と
 なっています。
 
-@ref{暗黙の確定のタイミング,暗黙の確定のタイミング}.
+@ref{暗黙の確定のタイミング}.
 @end defvar
 
 @node 候補の選択に用いるキー
 @subsection 候補の選択に用いるキー
 
 変換において、候補が５つ以上あるときは、５番目以降の候補は７つずつまとめ
-てエコーエリアに下記のように表示されます @footnote{@ref{▼モード,▼モード}.} 。
+てエコーエリアに下記のように表示されます @footnote{@ref{▼モード}.} 。
 
 @example
 -------------------- Echo Area --------------------
@@ -5385,7 +5395,7 @@ RET
 
 この変数の値を @code{non-nil} にすると、▼モードで @code{RET} を入力したときに確
 定のみ行い、改行はしません。従って、辞書登録モードにおいて▼モードであ
-るときの @code{RET} 打鍵時の挙動も変化 @footnote{辞書登録モードの標準の確定、登録の動作は @ref{辞書登録モード,辞書登録モード}.} します。
+るときの @code{RET} 打鍵時の挙動も変化 @footnote{辞書登録モードの標準の確定、登録の動作は @ref{辞書登録モード}.} します。
 
 @example
 K a k u t e i SPC
@@ -5532,7 +5542,7 @@ sticky-shift そのものではありません。したがって、アスキー�
 と設定すると @code{;} キーで @footnote{@code{skk-hint.el} を併用する場合は @code{skk-hint-start-char} の標準
 設定も @code{;} であるため、どちらかを別のキーに割り当てる必要があります。
 
-@ref{候補の絞り込み,候補の絞り込み}.} 漢字変換位置が指定できるようになりま
+@ref{候補の絞り込み}.} 漢字変換位置が指定できるようになりま
 す。
 
 例えば「有る」という単語を入力するには
@@ -5544,7 +5554,7 @@ sticky-shift そのものではありません。したがって、アスキー�
 @noindent
 というキー入力で可能となり、シフトキーを押す必要がなくなります。
 
-操作上は通常の sticky-shift @footnote{@ref{Q3-4 左手の小指を SHIFT で酷使したくありません。,Q3-4 左手の小指を SHIFT で酷使したくありません。}.} と変わりませんが、画面表示は
+操作上は通常の sticky-shift @footnote{@ref{Q3-4 左手の小指を SHIFT で酷使したくありません。}.} と変わりませんが、画面表示は
 
 @example
 打鍵  通常の sticky  skk-sticky
@@ -5665,12 +5675,13 @@ C-_
 
 @itemize
 @item
-@ref{送りあり変換の変換開始のタイミング,送りあり変換の変換開始のタイミング}.
+@ref{送りあり変換の変換開始のタイミング}.
 
 
 @item
-@ref{変換位置の指定方法,変換位置の指定方法}.
+@ref{変換位置の指定方法}.
 @end itemize
+
 
 @menu
 * ポイントを戻して▽モードへ::
@@ -5684,7 +5695,7 @@ C-_
 @node ポイントを戻して▽モードへ
 @subsection ポイントを戻して▽モードへ
 
-▽モードに入り忘れた場合に、手動で▽マークを付ける方法 (@ref{後から▽モードに入る方法,後から▽モードに入る方法}.) に
+▽モードに入り忘れた場合に、手動で▽マークを付ける方法 (@ref{後から▽モードに入る方法}.) に
 ついては、前述しました。
 
 ここで述べる方法では、遡って▽マークを付ける位置を自動的に選び、しかもポ
@@ -5815,7 +5826,7 @@ w o
 
 @defopt skk-auto-okuri-process
 
-この変数を @code{non-nil} に設定して送り仮名の自動処理 @footnote{@ref{送り仮名の自動処理,送り仮名の自動処理}.} を行ってい
+この変数を @code{non-nil} に設定して送り仮名の自動処理 @footnote{@ref{送り仮名の自動処理}.} を行ってい
 る場合は、以下のような変換も可能です。ただし、個人辞書に
 
 @example
@@ -5969,7 +5980,7 @@ u r u
 のため、 @code{skk-search-prog-list} の内容によってはレスポンスが悪くなる可
 能性があります。
 
-@ref{辞書の検索方法の設定,辞書の検索方法の設定}.
+@ref{辞書の検索方法の設定}.
 @end defopt
 
 @defvar skk-kakutei-search-prog-limit
@@ -6042,13 +6053,13 @@ x
 イズが小さければ適当な配置で直線的検索（リニアサーチ）を行うことをお勧め
 します。次も参照してください。
 
-@ref{辞書検索のための関数,辞書検索のための関数}.
+@ref{辞書検索のための関数}.
 
-@ref{エントリの配列,エントリの配列}.} を指定します。 @code{nil} であれ
+@ref{エントリの配列}.} を指定します。 @code{nil} であれ
 ば、確定変換は行われません。この辞書は、標準の配布パッケージには含まれ
 ていないので、使用するのであればユーザ側で用意する必要があります。 
 
-@ref{辞書の書式,辞書の書式}.
+@ref{辞書の書式}.
 @end defvar
 
 @node 送り仮名関連
@@ -6056,6 +6067,7 @@ x
 
 SKK の送り仮名の処理は、好みが分かれるところです。色々な対策が用意されて
 いますので、試してみて下さい。
+
 
 @menu
 * 送り仮名の厳密なマッチ::
@@ -6090,7 +6102,7 @@ SKK の送り仮名の処理は、好みが分かれるところです。色々�
 せん @footnote{この機能は、変数 @code{skk-process-okuri-early} の値を
 @code{non-nil} に設定した状態と共存できません。
 
-@ref{送りあり変換の変換開始のタイミング,送りあり変換の変換開始のタイミング}.} 。
+@ref{送りあり変換の変換開始のタイミング}.} 。
 
 個人辞書の送りありエントリが充実していれば、標準の設定よりも候補が絞り
 込まれるので変換効率がアップしますが、さもなければ、すぐに辞書登録モー
@@ -6131,7 +6143,7 @@ SKK の送り仮名の処理は、好みが分かれるところです。色々�
 「送り仮名の厳密なマッチ」では、見出し語と送り仮名が一致した場合のみ候
 補を表示します。
 
-@ref{送り仮名の厳密なマッチ,送り仮名の厳密なマッチ}.
+@ref{送り仮名の厳密なマッチ}.
 
 ここでは、その条件を緩めて優先的に表示する方法を紹介します @footnote{「大く」などの候補は鬱陶しいが、すぐに単語登録に入っ
 てしまうのも嫌な人におすすめです。} 。
@@ -6157,7 +6169,7 @@ SKK の送り仮名の処理は、好みが分かれるところです。色々�
 「多く」を出力し、次に「大く」を出力します。
 
 この変数の値が @code{non-nil} の時は、変数 @code{skk-process-okuri-early} の値は @code{nil} で
-なければなりません @footnote{@ref{送りあり変換の変換開始のタイミング,送りあり変換の変換開始のタイミング}.} 。
+なければなりません @footnote{@ref{送りあり変換の変換開始のタイミング}.} 。
 また、変数 @code{skk-henkan-okuri-strictly} が @code{non-nil} のときは、この変数
 は無視されます。
 @end defopt
@@ -6168,6 +6180,7 @@ SKK の送り仮名の処理は、好みが分かれるところです。色々�
 この節では、「あげる」と入力してから @code{SPC} を押しても「上げる」と変換する
 機能を紹介します。
 
+
 @menu
 * どのように変換されるか::
 * 辞書登録の際に注意すべきこと::
@@ -6175,7 +6188,6 @@ SKK の送り仮名の処理は、好みが分かれるところです。色々�
 
 @node どのように変換されるか
 @subsubsection どのように変換されるか
-
 
 @defopt skk-auto-okuri-process
 
@@ -6224,7 +6236,7 @@ SKK の送り仮名の処理は、好みが分かれるところです。色々�
 
 次に、マッチしたエントリの各候補に対し、切り捨てられた先頭の文字を送り仮
 名として取るかどうかをチェックします。この判断には、個人辞書の送り仮名ブ
-ロック部分 @footnote{@ref{送りありエントリのブロック形式,送りありエントリのブロック形式}.} を利用します。
+ロック部分 @footnote{@ref{送りありエントリのブロック形式}.} を利用します。
 
 「たちあg」の場合の送り仮名チェックの対象は、切り捨てられた最初の文字の
 「げ」です。個人辞書に
@@ -6288,11 +6300,10 @@ SKK の送り仮名の処理は、好みが分かれるところです。色々�
  @code{(skk-okuri-search)} を @code{skk-search-prog-list} の最後に設定するという方
 法もあります。
 
-@ref{辞書の検索方法の設定,辞書の検索方法の設定}.} 。
+@ref{辞書の検索方法の設定}.} 。
 
 @node 辞書登録の際に注意すべきこと
 @subsubsection 辞書登録の際に注意すべきこと
-
 
 送り仮名の自動処理を行っている場合 @footnote{変数 @code{skk-auto-okuri-process} の値を @code{non-nil} に設定している。} には、辞書登録の際に注
 意すべきことがあります。
@@ -6449,7 +6460,7 @@ U g o K
 @end example
 
 のようなエントリが既に個人辞書にある場合、それを破壊することはありませ
-ん @footnote{@ref{辞書の書式,辞書の書式}.} 。
+ん @footnote{@ref{辞書の書式}.} 。
 
 このユーザオプションを @code{non-nil} に設定して SKK モードを起動すると、両
 立できないオプションである下記オプションは自動的に @code{nil} に設定されます。
@@ -6470,15 +6481,15 @@ U g o K
 
 @itemize
 @item
-@ref{暗黙の確定のタイミング,暗黙の確定のタイミング}.
+@ref{暗黙の確定のタイミング}.
 
 
 @item
-@ref{送り仮名の自動処理,送り仮名の自動処理}.
+@ref{送り仮名の自動処理}.
 
 
 @item
-@ref{送り仮名の厳密なマッチ,送り仮名の厳密なマッチ}.
+@ref{送り仮名の厳密なマッチ}.
 @end itemize
 @end defopt
 
@@ -6490,7 +6501,8 @@ skk の初期設定では、変換で確定された単語は、次の変換時�
 
 ここで解説するほか、確定辞書を用いた変換も、候補の順序に影響を与えます。
 
-@ref{確定辞書,確定辞書}.
+@ref{確定辞書}.
+
 
 @menu
 * 変換の学習::
@@ -6587,7 +6599,7 @@ A m e SPC g a T a i r y o u SPC n i H u R u
 学習結果を保存するファイル名です。この変数の標準設定値は @code{~/.skk-study} です。
 変数 @code{skk-user-directory} からも設定ができます。
 
-@ref{設定ファイル,設定ファイル}.
+@ref{設定ファイル}.
 @end defvar
 
 @defvar skk-study-backup-file
@@ -6655,13 +6667,13 @@ skk の初期設定では、変換、選択された候補は、次回の変換�
 これは、個人辞書のエントリの中の各候補の順序を変更しないことで実現されて
 いますので、 @code{skk-study.el} による変換の学習と併用できます。
 
-@ref{変換の学習,変換の学習}.
+@ref{変換の学習}.
 
 @code{skk-jisyo-fix-order} が @code{non-nil} の時、個人辞書の候補を手軽に並べ替える
 方法は、現時点ではありません。個人辞書ファイルを直接編集する
 コマンド @code{M-x skk-edit-private-jisyo} を実行して下さい。
 
-@ref{個人辞書ファイルの編集,個人辞書ファイルの編集}.
+@ref{個人辞書ファイルの編集}.
 
 直前に変換したばかりの単語は、個人辞書の送りあり／なしエントリの一番上に
 ありますので、すぐに見つけることができます。
@@ -6746,6 +6758,7 @@ not documented
 本節では、辞書の種別と形式、設定方法、その他辞書にまつわる動作や設定を説明しま
 す。
 
+
 @menu
 * 辞書の種類::
 * 辞書ファイルの指定::
@@ -6814,13 +6827,13 @@ not documented
 この節では、辞書ファイルを指定する変数を説明します。個人辞書とバックアッ
 プのディレクトリは、変数 @code{skk-user-directory} でも変更できます。
 
-@ref{設定ファイル,設定ファイル}.
+@ref{設定ファイル}.
 
 @defvar skk-kakutei-jisyo
 
 確定変換のための辞書です。
 
-@ref{確定辞書,確定辞書}.
+@ref{確定辞書}.
 
 一番最初に参照されます。確定変換をしない時は、初期設定の @code{nil} のままで
 良いです。
@@ -6898,7 +6911,7 @@ DDSKK 14.2 以降では追加の辞書を簡単に設定する方法を提供し
 数 @code{skk-search-extra-jisyo-files} が、 @code{skk-extra-jisyo-file-list} の
 各要素を逐次処理します。} 。
 
-ただし、変数 @code{skk-jisyo-code} @footnote{@ref{辞書バッファの文字コードの設定,辞書バッファの文字コードの設定}.} とは異なる文字コードのファイルに
+ただし、変数 @code{skk-jisyo-code} @footnote{@ref{辞書バッファの文字コードの設定}.} とは異なる文字コードのファイルに
 ついては、上記の例中の @code{SKK-JISYO.JIS3_4} のように「ファイル名と文字コー
 ドのペア」を記述します。
 @end defvar
@@ -6906,13 +6919,14 @@ DDSKK 14.2 以降では追加の辞書を簡単に設定する方法を提供し
 これらの変数の意味するところは初期設定でのものですが、 @code{skk-search-prog-list} の
 設定で変更することもできます。
 
-@ref{辞書検索のための関数,辞書検索のための関数}.
+@ref{辞書検索のための関数}.
 
 @node 辞書の検索方法の設定
 @subsection 辞書の検索方法の設定
 
 辞書の検索方法の指定は、変数 @code{skk-search-prog-list} で行われます。特に必
 要が無ければ、読み飛ばして下さい。
+
 
 @menu
 * 辞書検索の設定の具体例::
@@ -6921,7 +6935,6 @@ DDSKK 14.2 以降では追加の辞書を簡単に設定する方法を提供し
 
 @node 辞書検索の設定の具体例
 @subsubsection 辞書検索の設定の具体例
-
 
 この節では @code{skk-search-prog-list} の初期設定を示し、大体の流れを説明しま
 す。
@@ -6949,7 +6962,7 @@ DDSKK では、複数の辞書を扱うことが可能です。複数の辞書�
 
 @itemize
 @item
-@code{skk-kakutei-jisyo} （@ref{確定辞書,確定辞書}.）
+@code{skk-kakutei-jisyo} （@ref{確定辞書}.）
 
 @item
 @code{skk-initial-search-jisyo}
@@ -6963,7 +6976,7 @@ DDSKK では、複数の辞書を扱うことが可能です。複数の辞書�
 
 @itemize
 @item
-送り仮名の自動処理 （@ref{送り仮名の自動処理,送り仮名の自動処理}.）
+送り仮名の自動処理 （@ref{送り仮名の自動処理}.）
 @end itemize
 
 @noindent
@@ -6982,7 +6995,7 @@ DDSKK では、複数の辞書を扱うことが可能です。複数の辞書�
 検索を順に行い、最後に @code{skk-aux-large-jisyo} に辞書サーバ経由でアクセスし
 ています。
 
-これらの辞書の意味について: @ref{辞書ファイルの指定,辞書ファイルの指定}.
+これらの辞書の意味について: @ref{辞書ファイルの指定}.
 
 もし確定辞書で候補が見つかったらそのまま自動的に確定されます。１回 @code{SPC} を
 押す動作に対し、プログラム側では新たな候補を見つけるまで上記の動作を進め
@@ -7005,7 +7018,6 @@ DDSKK では、複数の辞書を扱うことが可能です。複数の辞書�
 
 @node 辞書検索のための関数
 @subsubsection 辞書検索のための関数
-
 
 前節で見たとおり、変数 @code{skk-search-prog-list} を適切に定義することによっ
 て辞書の検索方法を指定します。そこで使われる辞書検索のための関数を使いこ
@@ -7060,7 +7072,7 @@ not documented
 ときだけ機能します。個人辞書の送りありエントリを検索対象としているので、
 個人辞書のバッファを流用します。そのため、専用の辞書バッファは作りません。
 
-@ref{送り仮名の自動処理,送り仮名の自動処理}.
+@ref{送り仮名の自動処理}.
 @end defun
 
 @defun skk-search-server FILE LIMIT &optional NOMSG
@@ -7074,11 +7086,11 @@ not documented
 
 @itemize
 @item
-@ref{辞書サーバを使いたいときの設定,辞書サーバを使いたいときの設定}.
+@ref{辞書サーバを使いたいときの設定}.
 
 
 @item
-@ref{サーバ関連,サーバ関連}.
+@ref{サーバ関連}.
 @end itemize
 をご覧下さい。
 @end defun
@@ -7114,7 +7126,7 @@ DDSKK 14.2 から追加された「ja-dic.el 検索機能」(@code{skk-search-ja
 ただし、 @code{SKK-JISYO.L} を利用する場合と比べて英数変換や数値変換などができ
 ません。可能な限り @code{SKK-JISYO.L} などの辞書を利用することを推奨します。
 
-@ref{辞書の入手,辞書の入手}.
+@ref{辞書の入手}.
 
 @defopt skk-inhibit-ja-dic-search
 
@@ -7134,7 +7146,7 @@ GNU Emacs に付属するかな漢字変換辞書 @code{ja-dic.el} を用いて�
 @node サーバ関連
 @subsection サーバ関連
 
-辞書サーバの基本的な設定: @ref{辞書サーバを使いたいときの設定,辞書サーバを使いたいときの設定}.
+辞書サーバの基本的な設定: @ref{辞書サーバを使いたいときの設定}.
 
 @defvar skk-servers-list
 
@@ -7291,7 +7303,6 @@ SPC
 @node 送りありエントリと送りなしエントリ
 @subsubsection 送りありエントリと送りなしエントリ
 
-
 以下は個人辞書の一例です。
 
 @cindex ;; okuri-ari entries.
@@ -7354,7 +7365,7 @@ SPC
 評価すると改行を該当個所に挿入するような Lisp プログラムに変換して辞書に
 収めています。
 
-@ref{プログラム実行変換,プログラム実行変換}.
+@ref{プログラム実行変換}.
 
 @cindex ローマ字プレフィックス
 送りありエントリは、基本的には @code{もt /持/} のようになっています。送り仮名
@@ -7366,7 +7377,6 @@ SPC
 
 @node 送りありエントリのブロック形式
 @subsubsection 送りありエントリのブロック形式
-
 
 個人辞書の送りありエントリには @code{[} と @code{]} に囲まれたブロックがあります。
 これは、そのブロックの先頭にある平仮名を送り仮名に取る候補群です。
@@ -7394,11 +7404,11 @@ SPC
 
 @noindent
 というエントリがあるとします。同じ見出し語「おおk」であっても、送り仮名が
-「き」であれば、候補は「大」のみで「多」は無視されます @footnote{@ref{送り仮名の自動処理,送り仮名の自動処理}.
+「き」であれば、候補は「大」のみで「多」は無視されます @footnote{@ref{送り仮名の自動処理}.
 
-@ref{送り仮名の厳密なマッチ,送り仮名の厳密なマッチ}.
+@ref{送り仮名の厳密なマッチ}.
 
-@ref{送り仮名の優先的なマッチ,送り仮名の優先的なマッチ}.} 。
+@ref{送り仮名の優先的なマッチ}.} 。
 
 @vindex skk-process-okuri-early
 @uref{http://openlab.jp/skk/dic.html} で配布されている共有辞書では、 @code{[} と @code{]} を
@@ -7410,7 +7420,6 @@ SPC
 
 @node エントリの配列
 @subsubsection エントリの配列
-
 
 @cindex 辞書のソート方法
 共有辞書は、送りありエントリは @code{;; okuri-ari entries.} から順に下方向に見
@@ -7607,7 +7616,7 @@ Sun Jul 28 09:38:59 1996  登録:   4  確定:  285  確定率:  98%  語数:  3
 
 統計情報を保存するファイル名を指定します。
 
-@ref{設定ファイル,設定ファイル}.
+@ref{設定ファイル}.
 @end defvar
 
 @defvar skk-keep-record
@@ -7750,6 +7759,7 @@ DDSKK では、このような事態を避けるため、辞書バッファに�
 かな漢字変換の際に、候補に注釈（アノテーション）が登録されていれば、それ
 を表示することができます。
 
+
 @menu
 * アノテーションの基礎::
 * アノテーションの使用::
@@ -7799,9 +7809,8 @@ DDSKK では、このような事態を避けるため、辞書バッファに�
 
 @defvar skk-show-annotation
 
-この変数の値を @code{non-nil} に設定するとアノテーションを表示します @footnote{ちなみに、VIP 3.5 の作者は、SKK の原作者でもある佐藤雅彦氏（京
-都大学名誉教授）です。VIP 3.5 の発展版である VIPER は現在もメンテナンスさ
-れています。GNU Emacs 19, 20 には、VIP 、VIPER とも標準添付します。} 。
+この変数の値を @code{non-nil} に設定するとアノテーションを表示します @footnote{Viper 対策はまだ行われていません。 @code{~/.viper} に次のように書い
+て下さい。 @code{(viper-harness-minor-mode "skk-annotation")}} 。
 
 @itemize
 @item
@@ -7962,12 +7971,12 @@ DDSKK では、このような事態を避けるため、辞書バッファに�
 
 @code{skk-lookup.el} に含まれる関数 @code{skk-lookup-get-content} を活用することに
 より、EPWING 辞書から得た内容をアノテーション表示することが可能です。辞書
-検索ツールの Lookup @footnote{@code{skk-lookup-search-agents} にセットして検索するようにしていま
-す。Lookup とは異なる設定をする場合、この変数の設定を変更すれば可能です。} が正常にインストールされていることが前提
+検索ツールの Lookup @footnote{@uref{http://openlab.jp/edict/lookup/}} が正常にインストールされていることが前提
 です。Lookup を新規にインストールした場合は、SKK をインストールし直す必要
 があります。
 
 EPWING 辞書の内容をアノテーション表示するには、２つの方法があります。
+
 
 @menu
 * skk-treat-candidate-appearance-function を設定する方法::
@@ -7976,7 +7985,6 @@ EPWING 辞書の内容をアノテーション表示するには、２つの方�
 
 @node skk-treat-candidate-appearance-function を設定する方法
 @subsubsection skk-treat-candidate-appearance-function を設定する方法
-
 
 候補の表示を装飾する関数を指定する変数 @code{skk-treat-candidate-appearance-function} を
 設定する場合は、 @code{etc/dot.skk} に示されている設定例を以下のように変更して
@@ -8019,7 +8027,6 @@ DDSKK の起動後に変数 @code{skk-lookup-get-content-nth-dic} の数値を�
 
 @node skk-annotation-lookup-lookup を設定する方法
 @subsubsection skk-annotation-lookup-lookup を設定する方法
-
 
 次に変数 @code{skk-annotation-lookup-lookup} について説明します。この変数は EPWING 経
 由アノテーションの設定を簡単にします。
@@ -8102,11 +8109,11 @@ Apple macOS (OS X) の「辞書」アプリ (@code{Dictionary.app}) を起動し
 
 @itemize
 @item
-@uref{http://ja.wiktionay.org/,Wiktionary}
+@uref{http://ja.wiktionay.org/, Wiktionary}
 
 
 @item
-@uref{http://ja.wikipedia.org/,Wikipedia}
+@uref{http://ja.wikipedia.org/, Wikipedia}
 @end itemize
 
 による解説を表示することができます。他のアノテーションが変換時に自動的に
@@ -8293,7 +8300,6 @@ UNICODE (U+00nn), または [RET] (文字一覧): *
 @code{RET} キーを入力します。するとミニバッファに以下のような表示が現れま
 す。
 
-
 @example
 ---------------------------- Minibuffer -----------------------------
 A:　  S:￣  D:〜  F:｝  G:＝  H:¢  Q:◆  W:　  E:∩  R:　  T:≡  Y:　
@@ -8304,14 +8310,14 @@ A:　  S:￣  D:〜  F:｝  G:＝  H:¢  Q:◆  W:　  E:∩  R:　  T:≡  Y:�
 をコードの順に 16 文字毎に１文字抽出し、ミニバッファに一度に 12 文字ずつ
 表示しています（上記の例では、JIS コード 2121（全角スペース）、2131、2141、
 2151@dots{} の文字がそれぞれ表示されています）。ここで @code{SPC} を打鍵すると次の
-候補群を表示します（文字コードの値を @code{16*12 = 192} ずつ増やします）。
+候補群を表示します（文字コードの値を 16 * 12 = 192 ずつ増やします）。
 キー @code{x} を打鍵するとひとつ前の候補群に戻ります。
 
 キー @code{a}, @code{s}, @code{d}, @code{f}, @code{g}, @code{h}, @code{q}, @code{w}, @code{e}, @code{r}, @code{t}, @code{y} のいずれ
 かを打鍵する @footnote{大文字でも小文字でも構いません。なお、第１段階・第２段階とも
 に、メニューのキーを変更することができます。
 
-@ref{候補の選択に用いるキー,候補の選択に用いるキー}.} と、そのキーに対応する文字から始まる 16 個の文字
+@ref{候補の選択に用いるキー}.} と、そのキーに対応する文字から始まる 16 個の文字
 が文字コード順に表示されます。これを @strong{第２段階のメニュー} と呼びます。例
 えば、第１段階のメニューが上記の状態のときに @code{d} を打鍵すると 第２段階の
 メニューは以下のようになります。
@@ -8401,7 +8407,6 @@ variable skk-kcode-charset's value is `japanese-jisx0208'.
 　 2140 ＼　〜　‖　｜　…　‥　‘　’　“　”　（　）　〔　〕　［　］
 　 2150 ｛　｝　〈　〉　《　》　「　」　『　』　【　】　＋　−　±　×
 　 2160 ÷　＝　≠　＜　＞　≦　≧　∞　∴　♂　♀　°　′　″　℃　￥
-　 2170 ＄　¢　£　％　＃　＆　＊　＠　§　☆　★　○　●　◎　◇
 -------------------- *skk-list-chars* --------------------
 @end example
 
@@ -8584,7 +8589,7 @@ skk-list-chars を抜ける
 @vindex skk-lookup-search-agents
 @findex skk-lookup-search
 
-@code{skk-lookup.el} を使用すると、辞書検索ツールの @uref{http://openlab.jp/edict/lookup/,Lookup} で
+@code{skk-lookup.el} を使用すると、辞書検索ツールの @uref{http://openlab.jp/edict/lookup/, Lookup} で
 検索できる辞書を用いて単語の候補を出すことができるようになります。
 
 DDSKK のインストール過程で @code{(require 'lookup)} が成功する場合は @code{skk-lookup.el} も
@@ -8596,7 +8601,7 @@ Lookup がインストールされているにも関わらず、うまく @code{
 いるパスを @code{ADDITIONAL_LISPDIR} に設定し、再度 DDSKK をインストールして下
 さい @footnote{関数 @code{skk-lookup-search} が @code{skk-autoloads.el} に追加されます。
 
-@ref{辞書検索のための関数,辞書検索のための関数}.} 。
+@ref{辞書検索のための関数}.} 。
 
 @code{~/.skk} に以下のように設定します。
 
@@ -8612,13 +8617,13 @@ Lookup がインストールされているにも関わらず、うまく @code{
 の検索 (@code{skk-search-server}) よりも後方に置くよう設定します。
 
 Lookup の agent で利用するのは、 @code{lookup-search-agents} から @code{ndkks},
-@code{ndcookie} 及び @code{ndnmz} を取り去ったものです @footnote{@code{skk-lookup-search-agents} にセットして検索するようにしていま
-す。Lookup とは異なる設定をする場合、この変数の設定を変更すれば可能です。} 。
+@code{ndcookie} 及び @code{ndnmz} を取り去ったものです @footnote{@uref{http://openlab.jp/edict/lookup/}} 。
 
 @node skk-look
 @subsection skk-look
 
 @code{skk-look.el} は、 @code{look} コマンドを使って３つの機能を提供します。
+
 
 @menu
 * 英単語の補完::
@@ -8628,7 +8633,6 @@ Lookup の agent で利用するのは、 @code{lookup-search-agents} から @co
 
 @node 英単語の補完
 @subsubsection 英単語の補完
-
 
 @defvar skk-use-look
 
@@ -8661,12 +8665,11 @@ TAB
 と補完してくれます。通常の補完と同様に @code{.} （ピリオド）で次の補完候補
 に、 @code{,} （コンマ）でひとつ前の補完候補に移動できます。
 
-SKK 形式の英和辞書 edict @footnote{@ref{辞書の入手,辞書の入手}.} があれば、ここから @code{SPC} を押して英和
+SKK 形式の英和辞書 edict @footnote{@ref{辞書の入手}.} があれば、ここから @code{SPC} を押して英和
 変換ができます。
 
 @node 英単語をあいまいに変換して取り出す
 @subsubsection 英単語をあいまいに変換して取り出す
-
 
 見出し語にアスタリスク @code{*} を入れて @code{SPC} を押すと、英単語をあいまいにし
 て変換できます。
@@ -8705,7 +8708,6 @@ SPC
 
 @node 英単語をあいまいに変換して取り出した後、更に再帰的な英和変換を行う
 @subsubsection 英単語をあいまいに変換して取り出した後、更に再帰的な英和変換を行う
-
 
 SKK 辞書に
 
@@ -8856,7 +8858,7 @@ A~ /チルド付きA(LATIN CAPITAL LETTER A WITH TILDE)/
 
 @cindex Google CGI API for Japanese Input
 
-かな漢字変換に @uref{http://www.google.co.jp/ime/cgiapi.html,Google CGI API for Japanese Input} を利用することができます。
+かな漢字変換に @uref{http://www.google.co.jp/ime/cgiapi.html, Google CGI API for Japanese Input} を利用することができます。
 連文節変換も可能となります。
 
 まず、 @code{~/.skk} にて、変数 @code{skk-use-search-web} を @code{non-nil} に設定します。
@@ -8907,7 +8909,7 @@ A~ /チルド付きA(LATIN CAPITAL LETTER A WITH TILDE)/
 この変数の値は、仮名文字のローマ字プレフィックスのエコーの有無を制御し
 ます。
 
-@ref{送りありエントリと送りなしエントリ,送りありエントリと送りなしエントリ}.
+@ref{送りありエントリと送りなしエントリ}.
 @end defvar
 
 変数 @code{skk-echo} の値が @code{non-nil} であれば、仮名文字のローマ字プレフィック
@@ -9054,6 +9056,7 @@ SKK abbrev モードであることを示すカーソル色。標準は、royalb
 エコーエリアに表示する
 @end itemize
 
+
 @menu
 * 現在のウィンドウにインライン表示する::
 * ツールティップで表示する::
@@ -9063,7 +9066,6 @@ SKK abbrev モードであることを示すカーソル色。標準は、royalb
 
 @node 現在のウィンドウにインライン表示する
 @subsubsection 現在のウィンドウにインライン表示する
-
 
 @strong{XEmacs ではインライン表示はサポートされません。}
 
@@ -9103,7 +9105,6 @@ SKK abbrev モードであることを示すカーソル色。標準は、royalb
 @node ツールティップで表示する
 @subsubsection ツールティップで表示する
 
-
 @defvar skk-show-tooltip
 
 この変数の値が @code{non-nil} であれば、候補一覧をツールティップで表示します。
@@ -9112,11 +9113,11 @@ SKK abbrev モードであることを示すカーソル色。標準は、royalb
 
 @itemize
 @item
-@ref{注釈（アノテーション）,注釈（アノテーション）}.
+@ref{注釈（アノテーション）}.
 
 
 @item
-@ref{文字コードまたはメニューによる文字入力,文字コードまたはメニューによる文字入力}.
+@ref{文字コードまたはメニューによる文字入力}.
 @end itemize
 @end defvar
 
@@ -9199,7 +9200,6 @@ SKK abbrev モードであることを示すカーソル色。標準は、royalb
 @node 現在のウィンドウの隣に別なウィンドウを開いて表示する（ポップアップ）
 @subsubsection 現在のウィンドウの隣に別なウィンドウを開いて表示する（ポップアップ）
 
-
 @defvar skk-show-candidates-always-pop-to-buffer
 
 この値が @code{non-nil} であれば、画面を上下に分割したうえで、候補一覧を専用
@@ -9233,17 +9233,16 @@ window 配置を popwin や shackle にまかせている場合は @code{nil} �
 
 @itemize
 @item
-@uref{https://github.com/m2ym/popwin-el,Popup Window Manager for Emacs}
+@uref{https://github.com/m2ym/popwin-el, Popup Window Manager for Emacs}
 
 
 @item
-@uref{https://github.com/wasamasa/shackle,Enforce rules for popup windows}
+@uref{https://github.com/wasamasa/shackle, Enforce rules for popup windows}
 @end itemize
 @end defvar
 
 @node エコーエリアに表示する
 @subsubsection エコーエリアに表示する
-
 
 標準設定では３つの変数
 
@@ -9393,6 +9392,7 @@ white/darkolivegreen を用います。
 
 XEmacs 及び GNU Emacs 21 以降では、以下の機能が使用できます。
 
+
 @menu
 * インジケータ::
 * アイコン::
@@ -9401,17 +9401,16 @@ XEmacs 及び GNU Emacs 21 以降では、以下の機能が使用できます�
 @node インジケータ
 @subsubsection インジケータ
 
-
 @defvar skk-indicator-use-cursor-color
 
 DDSKK のインジケータをモードラインの左 @footnote{標準設定では左です。
 
-@ref{起動と終了,起動と終了}.} に表示している場合、
+@ref{起動と終了}.} に表示している場合、
 インジケータの色がカーソルの色と同期します。インジケータに色を付けたく
 ない場合は、この変数を @code{nil} にします。
 @end defvar
 
-@ref{入力モードを示すカーソル色に関する設定,入力モードを示すカーソル色に関する設定}.
+@ref{入力モードを示すカーソル色に関する設定}.
 
 インジケータに独自色を使いたい場合は、以下のフェイス @footnote{変数 @code{window-system} が @code{nil} の場合は、これらフェイスは未定義となります。} を設定し
 ます。この場合カーソルの色は参照されません。
@@ -9478,7 +9477,6 @@ XEmacs の場合
 
 @node アイコン
 @subsubsection アイコン
-
 
 @defvar skk-show-icon
 
@@ -9764,9 +9762,8 @@ VIPER については Info を参照してください。
 @ref{Top,VIPER Manual,,viper,}.
 
 また、VIPER の前身である VIP にも対応します。ただし、正式に対応しているバ
-ージョンは 3.5 のみです。これは Mule 2.3 に標準添付します @footnote{ちなみに、VIP 3.5 の作者は、SKK の原作者でもある佐藤雅彦氏（京
-都大学名誉教授）です。VIP 3.5 の発展版である VIPER は現在もメンテナンスさ
-れています。GNU Emacs 19, 20 には、VIP 、VIPER とも標準添付します。} 。
+ージョンは 3.5 のみです。これは Mule 2.3 に標準添付します @footnote{Viper 対策はまだ行われていません。 @code{~/.viper} に次のように書い
+て下さい。 @code{(viper-harness-minor-mode "skk-annotation")}} 。
 
 @defvar skk-use-viper
 
@@ -9808,6 +9805,7 @@ SKK モードで全角文字を入力した場合に、 @code{BS} で全角文�
 DDSKK は、SKK 旧来のローマ字式かな入力（訓令式、ヘボン式）方式のほか、各
 種キー配列と入力方式に対応しています。
 
+
 @menu
 * AZIK::
 * ACT::
@@ -9823,7 +9821,7 @@ DDSKK は、SKK 旧来のローマ字式かな入力（訓令式、ヘボン式�
 AZIK （エイズィック）は QWERTY 配列をベースとした拡張ローマ字入力です。
 一般のローマ字入力がそのまま使える上での拡張であることが特徴です。
 
-@uref{http://hp.vector.co.jp/authors/VA002116/azik/azikindx.htm,拡張ローマ字入力『ＡＺＩＫ』・『ＡＣＴ』で快適な日本語入力を！}
+@uref{http://hp.vector.co.jp/authors/VA002116/azik/azikindx.htm, 拡張ローマ字入力『ＡＺＩＫ』・『ＡＣＴ』で快適な日本語入力を！}
 
 @defvar skk-use-azik
 
@@ -9949,7 +9947,7 @@ skk では、▼モードでの @code{X} は 関数 @code{skk-purge-from-jisyo} 
 が、AZIK では @code{X} は「シャ行」の入力に使われます。そのため、 @code{skk-azik.el} で
 の「誤った登録の削除」は、▼モードで @code{M-x skk-purge-from-jisyo} を実行してください。
 
-@ref{誤った登録の削除,誤った登録の削除}.
+@ref{誤った登録の削除}.
 @end itemize
 
 @node ACT
@@ -9958,7 +9956,7 @@ skk では、▼モードでの @code{X} は 関数 @code{skk-purge-from-jisyo} 
 ACT は AZIK の考え方を Dvorak 配列に適用し、Dvorak 配列でかなを快適にタイ
 プできるように考案された方式です。
 
-@uref{http://www1.vecceed.ne.jp/~bemu/act/act_index.html,ACT (AZIK on Dvorak)}
+@uref{http://www1.vecceed.ne.jp/~bemu/act/act_index.html, ACT (AZIK on Dvorak)}
 
 @defvar skk-use-act
 
@@ -9976,14 +9974,14 @@ ACT は AZIK の考え方を Dvorak 配列に適用し、Dvorak 配列でかな�
 
 TUT-code は、２ストローク系の日本語直接入力方式の一つです。
 
-@uref{http://plone.crew.sfc.keio.ac.jp/groups/tut-code,TUT-code}
+@uref{http://plone.crew.sfc.keio.ac.jp/groups/tut-code, TUT-code}
 
 使用するには、SKK のインストール時にいくつかのファイルをインストールする
 必要があります。SKK ソースの @code{tut-code} ディレクトリにある @code{skk-tutcdef.el} と @code{skk-tutcode.el} を
 SKK ソースのトップディレクトリにコピーしてから、あらためて SKK をインスト
 ールします。
 
-@ref{DDSKK のインストール,DDSKK のインストール}.
+@ref{DDSKK のインストール}.
 
 その後、 @code{~/.skk} に
 
@@ -10119,13 +10117,14 @@ DDSKK はローマ字式ではない、いわゆるかな入力方式をサポ�
 
 なお、親指シフト方式については次の url が参考になります。
 
-@uref{http://nicola.sunicom.co.jp/,NICOLA 日本語入力コンソーシアム}
+@uref{http://nicola.sunicom.co.jp/, NICOLA 日本語入力コンソーシアム}
 
 @node そのほかの拡張機能
 @chapter そのほかの拡張機能
 
 十分にテストされていない等の理由がありますが、便利・有益と思われる拡張機
 能を紹介します。
+
 
 @menu
 * 交ぜ書き変換::
@@ -10254,7 +10253,7 @@ SKK 関連ソフトウェアに関しては、次の URL にリンクをまと�
 
 @itemize
 @item
-@uref{http://openlab.jp/skk/wiki/wiki.cgi?page=%A5%EA%A5%F3%A5%AF%BD%B8,SKK 辞書 Wiki におけるリンク集}
+@uref{http://openlab.jp/skk/wiki/wiki.cgi?page=%A5%EA%A5%F3%A5%AF%BD%B8, SKK 辞書 Wiki におけるリンク集}
 @end itemize
 
 @node SKK 辞書について
@@ -10277,7 +10276,7 @@ SKK 辞書に関するツールには、Perl, C, Ruby の各言語により書�
 
 @itemize
 @item
-@uref{http://openlab.jp/skk/wiki/wiki.cgi?page=%BC%AD%BD%F1%A5%E1%A5%F3%A5%C6%A5%CA%A5%F3%A5%B9%A5%C4%A1%BC%A5%EB,辞書メンテナンスツール}
+@uref{http://openlab.jp/skk/wiki/wiki.cgi?page=%BC%AD%BD%F1%A5%E1%A5%F3%A5%C6%A5%CA%A5%F3%A5%B9%A5%C4%A1%BC%A5%EB, 辞書メンテナンスツール}
 @end itemize
 
 @node SKK の作者
@@ -10300,19 +10299,19 @@ SKK の成り立ちと歴史に関しては以下の URL を参照してくだ�
 
 @itemize
 @item
-@uref{http://openlab.jp/skk/born-ja.html,SKK の誕生秘話}
+@uref{http://openlab.jp/skk/born-ja.html, SKK の誕生秘話}
 
 
 @item
-@uref{http://openlab.jp/skk/SKK.html,@math{SKK = I}}
+@uref{http://openlab.jp/skk/SKK.html, @math{SKK = I}}
 
 
 @item
-@uref{http://openlab.jp/skk/history-ja.html,SKK の歴史（付 Emacs の歴史の一部）}
+@uref{http://openlab.jp/skk/history-ja.html, SKK の歴史（付 Emacs の歴史の一部）}
 
 
 @item
-@uref{http://mail.ring.gr.jp/skk/201212/msg00007.html,SKK の 25年}
+@uref{http://mail.ring.gr.jp/skk/201212/msg00007.html, SKK の 25年}
 @end itemize
 
 @node このマニュアルについて
@@ -10324,7 +10323,7 @@ SKK の成り立ちと歴史に関しては以下の URL を参照してくだ�
 @node 謝辞
 @section 謝辞
 
-DDSKK の開発は、@uref{http://openlab.jp,Ring Server Open Laboratory} （オープンラボラトリ）に SKK Openlab と
+DDSKK の開発は、@uref{http://openlab.jp, Ring Server Open Laboratory} （オープンラボラトリ）に SKK Openlab と
 して参加する形で行われています。SKK Openlab は Ring から共有ディスク、CVS 及
 び ML の提供を受けています。オープンラボラトリの運営は、完全にボランティ
 アにより行われております。Ring 並びにオープンラボラトリにかかわる皆さんに
@@ -10352,6 +10351,7 @@ SKK 辞書第 6, 7 版作成にあたり協力してくださった高橋裕信�
 @chapter よくある質問とその回答 (FAQ)
 
 これは SKK に対するよくある質問と、それに対する回答集です。
+
 
 @menu
 * Introduction::
@@ -10406,7 +10406,7 @@ SKK が Simple Kana to Kanji conversion program の略であるとおり、か�
 基本的には、GNU Emacs と Mule 機能付きの XEmacs で使えます。対応する Emacs の
 バージョンについては以下をご覧ください。
 
-@ref{このバージョンの SKK について,このバージョンの SKK について}.
+@ref{このバージョンの SKK について}.
 
 @node Q1-4 DDSKK はどんなオペレーティングシステムで使えますか?
 @subsection Q1-4 DDSKK はどんなオペレーティングシステムで使えますか?
@@ -10457,12 +10457,12 @@ GNU Emacs 22 以上では APEL は不要となりました。この変更は 201
 SKK 本体と SKK 辞書が必要です。オプションで辞書サーバを用意することができ
 ます。XEmacs では事前に APEL をインストールしてください。
 
-@ref{XEmacs へのインストール,XEmacs へのインストール}.
+@ref{XEmacs へのインストール}.
 
 @node Q2-2 SKK 辞書はどこにありますか?
 @subsection Q2-2 SKK 辞書はどこにありますか?
 
-@ref{SKK 辞書について,SKK 辞書について}.
+@ref{SKK 辞書について}.
 
 @node Q2-3 SKK サーバはどこにありますか?
 @subsection Q2-3 SKK サーバはどこにありますか?
@@ -10701,7 +10701,7 @@ X Window System 上では、 @code{xmodmap} というプログラムを使って
 @item
 @code{skk-sticky.el} を使う。
 
-@ref{変換位置の指定方法,変換位置の指定方法}.
+@ref{変換位置の指定方法}.
 @end itemize
 
 @cindex 親指シフト入力
@@ -10716,7 +10716,7 @@ X Window System 上では、 @code{xmodmap} というプログラムを使って
 入力を捨てて、富士通のワープロ OASYS のような親指シフト入力 @footnote{親指シフト入力の詳細については、ここでは述べません。興味がある
 場合は、Web サイトを訪れてください。
 
-@uref{http://nicola.sunicom.co.jp/,日本語入力コンソーシアム}} を
+@uref{http://nicola.sunicom.co.jp/, 日本語入力コンソーシアム}} を
 修得します 。
 
 DDSKK には NICOLA-DDSKK というプログラムが付属しており、これをインストー
@@ -10851,7 +10851,7 @@ TODO としては、辞書に品詞情報を持たせることで更なる入力
 
 @itemize
 @item
-@uref{http://openlab.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1,SKK-JISYO.notes}
+@uref{http://openlab.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1, SKK-JISYO.notes}
 @end itemize
 
 @node Q4-3 複数の SKK 辞書を結合できますか?
@@ -10860,7 +10860,7 @@ TODO としては、辞書に品詞情報を持たせることで更なる入力
 SKK 本体のパッケージには同封されていませんが、 @code{skk-tools} という別パッケー
 ジがあります。
 
-@ref{辞書ツール,辞書ツール}.
+@ref{辞書ツール}.
 
 @node Q4-4 SKK 形式の英和辞書があると聞いたのですが。
 @subsection Q4-4 SKK 形式の英和辞書があると聞いたのですが。
@@ -11045,7 +11045,7 @@ Lookup については、@uref{http://openlab.jp/edict/lookup/} をご参照下�
 
 Emacs 上以外でも SKK みたいな操作性を実現するソフトウェアがあります。
 
-@ref{SKK 関連ソフトウェア,SKK 関連ソフトウェア}.
+@ref{SKK 関連ソフトウェア}.
 
 @node 事項索引
 @chapter 事項索引
@@ -11067,5 +11067,4 @@ Emacs 上以外でも SKK みたいな操作性を実現するソフトウェア
 
 @printindex ky
 
-@c Emacs 26.0.50 (Org mode 8.2.10)
 @bye

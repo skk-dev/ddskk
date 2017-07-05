@@ -39,14 +39,33 @@ downloads :
 package:
 	$(XEMACS) $(FLAGS) -f SKK-MK-compile-package
 
-html:
+.SUFFIXES: .org .texi .info .html .pdf
+
+.org.html:
 	$(EMACS) $(FLAGS) -f SKK-MK-export-to-html
 
-texi:
+html: doc/skk.org doc/skk.html
+
+texi: doc/skk.org doc/skk.texi
+
+# skk.org -> skk.texi -> skk.info
+.org.texi:
 	$(EMACS) $(FLAGS) -f SKK-MK-export-to-texinfo
 
-info: texi
+.texi.info:
 	$(EMACS) $(FLAGS) -f SKK-MK-compile-info
+
+info: doc/skk.info doc/skk.texi doc/skk.org
+
+# skk.org -> skk.texi -> skk.pdf
+#   based on http://www.trueroad.jp/2016/05/14-01.html
+pdf: doc/skk.pdf doc/skk.texi doc/skk.org
+
+.texi.pdf:
+	$(EMACS) $(FLAGS) -f SKK-MK-edit-texi
+	cd doc;                                           \
+	PDFTEX=luatex texi2pdf --output=skk.pdf tmp.texi; \
+	$(RM) tmp.texi
 
 install:
 	$(EMACS) $(FLAGS) -f SKK-MK-install
@@ -78,7 +97,8 @@ TAGS:
 clean:
 	-$(RM) leim-list.el skk-autoloads.el skk-setup.el *.elc experimental/*.elc \
 	auto-autoloads.el custom-load.el ert.el \
-	./doc/skk.info* ./doc/skk.html* \
+	./doc/skk.info* ./doc/skk.html* ./doc/skk.pdf \
+	./doc/*.aux ./doc/*.cp* ./doc/*.fn* ./doc/*.ky* ./doc/*.log ./doc/*.toc ./doc/*.vr* \
 	`find . -name '*~'` `find . -name '.*~'` `find . -name '.#*'`
 
 release: clean

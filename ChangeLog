@@ -1,3 +1,11 @@
+2017-07-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Makefile: ターゲット `pdf' を追加. PDF の生成方法を texi2pdf へ変更.
+
+	* SKK-MK (SKK-MK-edit-texi): New functionfor pdf.
+
+	* .gitignore: 無視する拡張子を追加.
+
 2017-07-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* SKK-MK (SKK-MK-export-to-html): `RET' と `SPC' を class (span.key) とした.

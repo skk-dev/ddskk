@@ -21,6 +21,20 @@ SKK Manual は、長らく texinfo 形式 (ファイル名 skk.texi) で保守�
 - README.org
   このファイルです。
 
+- obsolete-doc/
+
+  + makepdf.bat
+    ファイル中のコメント参照のこと
+
+  + makepdf.sh
+    ファイル中のコメント参照のこと
+
+  + txi-ja.tex
+    makepdf.{bat|sh} で「しおり付きPDF」を生成するためのもの
+
+  + obsolete-skk.texi
+    従前から保守していた skk.texi です。今後は保守しません。
+
 - ox-texinfo+.el
   org 標準の ox-texinfo.el を機能拡張するものです。
   https://github.com/tarsius/ox-texinfo-plus
@@ -30,25 +44,31 @@ SKK Manual は、長らく texinfo 形式 (ファイル名 skk.texi) で保守�
   https://github.com/magnars/dash.el
 
 - htmlize.el (v1.43)
-  http://orgmode.org/cgit.cgi/org-mode.git/tree/contrib/lisp/htmlize.el
+  `make html' 実行時に org が必要とします。
+  http://orgmode.org/cgit.cgi/org-mode.git/tree/contrib/lisp/htmlize.el から取得しました。
 
-- makepdf.bat
-  org 移行前から存在します。
-
-- makepdf.sh
-  org 移行前から存在します。
-
-- obsolete-skk.texi
-  従前から保守していた skk.texi です。今後は保守しません。
+- skk.css
+  生成された skk.html を装飾するものです。
 
 - skk.org
-  従前の skk.texi を全面的に書き換えたものです。
+  従前の skk.texi を全面的に書き換えたものであり、今後保守するマニュアルです。
 
 - skk.texi
-  skk.org を基に自動生成されるものです。
+  skk.org を基に `make texi', `make info' 又は `make pdf' の過程で自動生成されるものです。
+  Melpa インストール時には必須であるため、git リポジトリに含める必要があります。
+  そのため、skk.org 編集後は必ず `make texi' を実行してから git push すること。
+
+- texinfo-ja.tex
+  `make pdf' 時に texi2pdf が読み込みます。
+  http://www.trueroad.jp/2016/05/14-01.html から取得しました。
+
+- texinfo.tex
+  `make pdf' 時に texi2pdf が読み込みます。
+  http://www.trueroad.jp/2016/05/14-01.html から取得しました。
 
 - txi-ja.tex
-  org 移行前から存在します。
+  `make pdf' 時に texi2pdf が読み込みます。
+  http://www.trueroad.jp/2016/05/14-01.html から取得しました。
 
 ** skk.org の運用方法
 
@@ -63,9 +83,9 @@ SKK Manual は、長らく texinfo 形式 (ファイル名 skk.texi) で保守�
    skk.org         e23.      ?.?
   =========        e24.5     o8.2.10
    │   │         e25.2     o8.2.10
-   │   │         e26.0.50  o8.2.10
+   │   │         e26.0.50  o9.0.9
    │   │
-   │   │make html ( org-html-export-to-html [C-c C-e h h] )
+   │   │make html ( SKK-MK-export-to-html )
    │   │ o 索引を生成することはできない？
    │   │
    │  =↓=======
@@ -89,8 +109,13 @@ SKK Manual は、長らく texinfo 形式 (ファイル名 skk.texi) で保守�
    │            skk.info         なお、make info ( SKK-MK-compile-info() ) は emacs-lisp で
    │           ==========        完結している。
    │
-   │makepdf.bat
-   │ 注) org-latex-export-to-pdf [C-c C-e l p] はサポートしない。
+   │make pdf ( texi2pdf, luatex )
+   │ * texinfo-ja.tex [ http://www.trueroad.jp/2016/05/14-01.html ]
+   │ * texinfo.tex    [ http://www.trueroad.jp/2016/05/14-01.html ]
+   │ * txi-ja.tex     [ http://www.trueroad.jp/2016/05/14-01.html ]
+   │
+   │ なお、 org-latex-export-to-pdf [C-c C-e l p] はサポートしない。
+   │
   =↓======
    skk.pdf
   =========
@@ -113,22 +138,20 @@ SKK Manual は、長らく texinfo 形式 (ファイル名 skk.texi) で保守�
 *** pdf
 
 #+BEGIN_SRC shell-script
-  ddskk-src]$ make texi
-  ddskk-src]$ cd doc
-  ddskk-src/doc]$ makepdf
+  ddskk-src]$ make pdf
 #+END_SRC
 
 *** git リポジトリの運用
 
-ファイル skk.org は当然に git リポジトリに含めます。
+ファイル skk.org は正式マニュアルであり、当然に git リポジトリに含めます。
 
 パッケージインストール melpa で ~skk.texi~ が必要となるため ~skk.org~ か
 ら生成される ~skk.texi~ も git リポジトリに含める必要があります。すなわち、
 ~skk.org~ を編集したら ~make texi~ を実行して (~skk.texi~ を再生成して)
 git push してください。
 
-なお、 ~skk.info~ や ~skk.html~ は、ユーザがローカルで生成するものですので
-git リポジトリに含めてはいけません。
+なお、 ~skk.info~ 、 ~skk.html~ 及び ~skk.pdf~ は、ユーザがローカルで生成
+するものですので *git リポジトリに含めてはいけません* 。
 
 ** texi から org への移行作業で判明したこと
 
@@ -151,12 +174,9 @@ git リポジトリに含めてはいけません。
 
 - org のマクロ展開が分からない。
 
-  本文中の {{{version}}} は上手く展開されているが、
-  - #+SUBTITLE: の中の {{{version}}}   ;; org-mode 8.3 では展開される様子
-  - 等幅 = ... = の中の {{{version}}}
-  は展開されない。
-
-  なお、GNU Emacs 26.0.50 でも Org-mode は 8.2.10 である。
+  export の際、本文中の {{{version}}} は上手く展開されているが、
+  + 等幅 = ... = の中の {{{version}}}
+  は展開されない [fn:version] 。
 
 - #+TEXINFO_DIR_CATEGORY: はひとつしか効かない？
 
@@ -188,4 +208,7 @@ git リポジトリに含めてはいけません。
   reStructuredText 形式で作成しておけば、 [[http://www.sphinx-doc.org][Sphinx]] を利用して多様な形式へ
   変換できます。
 
-[EOF]
+* Footnotes
+
+[fn:version] GNU Emacs 26 未満で標準同梱の Org mode 8.2.10 では #+SUBTITLE: の中の {{{version}}}
+も展開されない。GNU Emacs 26 以降で標準同梱の Org mode 9 では展開される。
