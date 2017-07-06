@@ -4,70 +4,92 @@
 
 ** きっかけ
 
-SKK Manual は、長らく texinfo 形式 (ファイル名 skk.texi) で保守されてき
-たところです。 skk.texi から html 版を生成するためには texi2html や texi2any な
+SKK Manual は、長らく texinfo 形式 (ファイル名 ~skk.texi~) で保守されてき
+たところです。 ~skk.texi~ から html 版を生成するためには ~texi2html~ や ~texi2any~ な
 どといったアプリケーションを利用する必要があり、実行プラットフォームやバ
 ージョンによって生成される html が異なる場合が生じるなど、運用が難しくなっ
 てききました。
 
-そこで、 skk.texi を org 形式 (ファイル名 skk.org) へ全面移行することとし、
+そこで、 ~skk.texi~ を org 形式 (ファイル名 ~skk.org~) へ全面移行することとし、
 2017.6.30 に git push しました。
 
 ** doc/ ディレクトリ
 
-- ChangeLog
+- ~ChangeLog~
+
   org 移行前から存在します。
 
-- README.org
+- ~README.org~
+
   このファイルです。
 
-- obsolete-doc/
+- ~obsolete-doc/~
 
-  + makepdf.bat
+  + ~makepdf.bat~
+
     ファイル中のコメント参照のこと
 
-  + makepdf.sh
+  + ~makepdf.sh~
+
     ファイル中のコメント参照のこと
 
-  + txi-ja.tex
-    makepdf.{bat|sh} で「しおり付きPDF」を生成するためのもの
+  + ~txi-ja.tex~
 
-  + obsolete-skk.texi
+    ~makepdf.{bat|sh}~ で「しおり付きPDF」を生成するためのもの
+
+  + ~obsolete-skk.texi~
+
     従前から保守していた skk.texi です。今後は保守しません。
 
-- ox-texinfo+.el
+- ~ox-texinfo+.el~
+
   org 標準の ox-texinfo.el を機能拡張するものです。
+
   https://github.com/tarsius/ox-texinfo-plus
 
-- dash.el
-  ox-texinfo+.el が必要とします。
+- ~dash.el~
+
+  ~ox-texinfo+.el~ が必要とします。
+
   https://github.com/magnars/dash.el
 
-- htmlize.el (v1.43)
+- ~htmlize.el~ (v1.43)
+
   `make html' 実行時に org が必要とします。
+
   http://orgmode.org/cgit.cgi/org-mode.git/tree/contrib/lisp/htmlize.el から取得しました。
 
-- skk.css
-  生成された skk.html を装飾するものです。
+- ~skk.css~
 
-- skk.org
-  従前の skk.texi を全面的に書き換えたものであり、今後保守するマニュアルです。
+  生成された ~skk.html~ を装飾するものです。
 
-- skk.texi
-  skk.org を基に `make texi', `make info' 又は `make pdf' の過程で自動生成されるものです。
-  Melpa インストール時には必須であるため、git リポジトリに含める必要があります。
-  そのため、skk.org 編集後は必ず `make texi' を実行してから git push すること。
+- ~skk.org~
 
-- texinfo-ja.tex
+  従前の ~skk.texi~ を全面的に書き換えたものであり、今後保守するマニュアルです。
+
+- ~skk.texi~
+
+  ~skk.org~ を基に `make texi', `make info' 又は `make pdf' の過程で自動
+  生成されるものです。 Melpa インストール時には必須であるため、git リポジ
+  トリに含める必要があります。そのため、 ~skk.org~ 編集後は必ず `make texi' を
+  実行してから ~git push~ すること。
+
+- ~texinfo-ja.tex~
+
   `make pdf' 時に texi2pdf が読み込みます。
+
   http://www.trueroad.jp/2016/05/14-01.html から取得しました。
 
-- texinfo.tex
+- ~texinfo.tex~
+
   `make pdf' 時に texi2pdf が読み込みます。
+
   http://www.trueroad.jp/2016/05/14-01.html から取得しました。
 
-- txi-ja.tex
-  `make pdf' 時に texi2pdf が読み込みます。
+- ~txi-ja.tex~
+
+  `make pdf' 時に ~texi2pdf~ が読み込みます。
+
   http://www.trueroad.jp/2016/05/14-01.html から取得しました。
 
 ** skk.org の運用方法
@@ -143,7 +165,7 @@ SKK Manual は、長らく texinfo 形式 (ファイル名 skk.texi) で保守�
 
 *** git リポジトリの運用
 
-ファイル skk.org は正式マニュアルであり、当然に git リポジトリに含めます。
+ファイル ~skk.org~ は正式マニュアルであり、当然に git リポジトリに含めます。
 
 パッケージインストール melpa で ~skk.texi~ が必要となるため ~skk.org~ か
 ら生成される ~skk.texi~ も git リポジトリに含める必要があります。すなわち、
@@ -159,7 +181,7 @@ git push してください。
 
   github 上のレンダリングで脚注にならないので読みづらい。
 
-- #+BEGIN_VERSE ... #+END_VERSE は使わないこと
+- ~#+BEGIN_VERSE ... #+END_VERSE~ は使わないこと
 
   github 上でレンダリングされない。
 
@@ -168,9 +190,7 @@ git push してください。
 
 - org 上の下線 _STRING_ は、texinfo への export で全欠落する。
 
-- 「footnote の中での箇条書きリスト」を export した texi は、ptex でエラーとなる。
-
-  You can't use `@vadjust' in internal vertical mode.
+- 「footnote の中での箇条書きリスト」を export した texi は、tex でエラーとなる。
 
 - org のマクロ展開が分からない。
 
@@ -180,19 +200,56 @@ git push してください。
 
 - #+TEXINFO_DIR_CATEGORY: はひとつしか効かない？
 
-  オリジナル skk.texi にはふたつの @dircategory がある。
-  - @dircategory Emacs
-  - @dircategory GNU Emacs Lisp
+  オリジナル ~skk.texi~ にはふたつの ~@dircategory~ がある。
+  - ~@dircategory Emacs~
+  - ~@dircategory GNU Emacs Lisp~
 
-  skk.org にふたつの #+TEXINFO_DIR_CATEGORY: を記載しても、
-  org-texinfo-export-to-texinfo で生成される skk.texi にはひとつしか出力
+  ~skk.org~ にふたつの ~#+TEXINFO_DIR_CATEGORY:~ を記載しても、
+  ~org-texinfo-export-to-texinfo~ で生成される ~skk.texi~ にはひとつしか出力
   されない。
 
 - url エンコードがそのまま export されない
 
-  skk.org に記載した url は  http://openlab.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1
-  export すると              http://openlab.jp/skk/wiki/wiki.cgi?page=SKK%C2%BC%C2%AD%C2%BD%C3%B1
+  ~skk.org~ に記載した url は  http://openlab.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1
+  export すると                http://openlab.jp/skk/wiki/wiki.cgi?page=SKK%C2%BC%C2%AD%C2%BD%C3%B1
   と変換されてしまう。
+
+- リンク
+
+  生成される種類 (html, info, pdf) によって見栄えが異なる。
+
+  + http リンク
+
+    日本語文脈の間に挿入しても不自然ではない。
+
+    | org  | [[http://git.chise.org/elisp/apel/][APEL]]          |
+    | html | <a href="http://git.chise.org/elisp/apel/">APEL</a> |
+    | texi | @uref{http://git.chise.org/elisp/apel/, APEL}       |
+    | info | APEL (http://git.chise.org/elisp/apel/)             |
+    | pdf  | APEL (http://git.chise.org/elisp/apel/)             |
+
+  + 内部リンク
+
+    info と pdf の見栄えを考慮すると、日本語文脈の間に挿入してしまっては不自然であるため、
+    footnote 化が望ましいか。
+
+    | org  | [[チュートリアル][チュートリアル]]  | 付属の チュートリアル が                      |
+    | html | チュートリアル                      | 付属の チュートリアル が                      |
+    | texi | @ref{チュートリアル}                |                                               |
+    | info | see チュートリアル                  | 付属の see チュートリアル が                  |
+    | pdf  | Section 4.5 [チュートリアル], p. 22 | 付属の Section 4.5 [チュートリアル], p. 22 が |
+
+  + Info リンク
+
+    内部リンクと同様に footnote 化が望ましいか。
+    PDF は、それが info であると見た目分かりづらい。しかもクリッカブル。
+
+    | org  | [[info:emacs#Auto Fill][Auto Fill Mode in GNU Emacs Manual]]                       |
+    | html | <a href="http://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Auto-Fill"> |
+    |      | Auto Fill Mode in GNU Emacs Manual</a>                                             |
+    | texi | @ref{Auto Fill,Auto Fill Mode in GNU Emacs Manual,,emacs,}                         |
+    | info | see Auto Fill Mode in GNU Emacs Manual(emacs)                                      |
+    | pdf  | Section “Auto Fill” in emacs                                                     |
 
 ** 将来
 
@@ -205,10 +262,15 @@ git push してください。
 
 - reStructuredText 形式
 
-  reStructuredText 形式で作成しておけば、 [[http://www.sphinx-doc.org][Sphinx]] を利用して多様な形式へ
-  変換できます。
+  reStructuredText 形式で作成すれば、 [[http://www.sphinx-doc.org][Sphinx]] を
+  利用して多様な形式へ変換できる。
 
 * Footnotes
 
-[fn:version] GNU Emacs 26 未満で標準同梱の Org mode 8.2.10 では #+SUBTITLE: の中の {{{version}}}
-も展開されない。GNU Emacs 26 以降で標準同梱の Org mode 9 では展開される。
+[fn:version] GNU Emacs 26 未満で標準同梱の Org mode 8.2.10 では #+SUBTITLE: の
+中の {{{version}}} も展開されない。GNU Emacs 26 以降で標準同梱の Org mode 9 で
+は展開される。
+
+# Local Variables:
+#   buffer-invisibility-spec: nil
+# End:
