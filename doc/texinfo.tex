@@ -3,7 +3,7 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2017-06-04.19}
+\def\texinfoversion{2017-07-06.22}
 %
 % Copyright 1985, 1986, 1988, 1990, 1991, 1992, 1993, 1994, 1995,
 % 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006,
@@ -8999,7 +8999,7 @@ end
       ,\space
       %
       % output the `page 3'.
-      \turnoffactive \putwordpage\tie\refx{#1-pg}{}%
+      \turnoffactive \refx{#1-pg}\putwordpage{}%
       % Add a , if xref followed by a space
       \if\space\noexpand\tokenafterxref ,%
       \else\ifx\	\tokenafterxref ,% @TAB
@@ -9045,7 +9045,7 @@ end
 % since square brackets don't work well in some documents.  Particularly
 % one that Bob is working on :).
 %
-\def\xrefprintnodename#1{[#1]}
+\def\xrefprintnodename#1{「#1」}
 
 % Things referred to by \setref.
 %

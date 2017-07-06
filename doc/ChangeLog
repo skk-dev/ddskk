@@ -1,3 +1,10 @@
+2017-07-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* txi-ja.tex (\gdef\putwordpage): `p.' を `ページ' に変更.
+
+	* texinfo.tex (\def\xrefX): \refx と \putwordpage の位置を入れ替え.
+	(\def\xrefprintnodename): `[ノード名]' を `「ノード名」' に変更.
+
 2017-07-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* README.org: Update.
