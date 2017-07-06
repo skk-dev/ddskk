@@ -14,6 +14,7 @@ GIT       = git
 GZIP      = gzip -9
 MD5	  = md5
 RM	  = /bin/rm -f
+TEXI2PDF  = /usr/bin/texi2pdf
 SNAPBASE  = ddskk-`$(DATE) '+%Y%m%d'`
 TAR	  = gtar
 XEMACS	  = xemacs
@@ -64,7 +65,7 @@ pdf: doc/skk.pdf doc/skk.texi doc/skk.org
 .texi.pdf:
 	$(EMACS) $(FLAGS) -f SKK-MK-edit-texi
 	cd doc;                                           \
-	PDFTEX=luatex texi2pdf --output=skk.pdf tmp.texi; \
+	PDFTEX=luatex $(TEXI2PDF) --output=skk.pdf tmp.texi; \
 	$(RM) tmp.texi
 
 install:

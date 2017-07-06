@@ -1,3 +1,7 @@
+2017-07-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Makefile (PDFTEX): Use macro TEXI2PDF.
+
 2017-07-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* Makefile: ターゲット `pdf' を追加. PDF の生成方法を texi2pdf へ変更.
