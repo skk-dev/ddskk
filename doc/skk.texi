@@ -74,7 +74,7 @@ approved by the author.
 @finalout
 @titlepage
 @title SKK Manual
-@subtitle This edition is for SKK version 16.2.50 Date 2017.06.30
+@subtitle This edition is for SKK version 16.2.50 Date 2017.07.07 21:11:51
 @page
 @vskip 0pt plus 1filll
 @insertcopying
@@ -738,7 +738,7 @@ Apple macOS 環境の方は @code{READMEs/README.MacOSX.ja} を参照してく�
 -| Loading /home/USER/temp/ddskk-VERSION/SKK-CFG...
 
 -| Running in:
--|   GNU Emacs 26.0.50 (build1, x86_64-pc-linux-gnu, GTK+ Version 3.22.15) ...
+-|   GNU Emacs 26.0.50 (build1, x86_64-pc-linux-gnu, GTK+ Version ...
 
 -| SKK modules:
 -|   skk-cursor, skk-viper, ...
@@ -801,7 +801,8 @@ XEmacs でパッケージとしてインストールする場合は、まず @co
 
 @example
 $ make what-where-package XEMACS=/usr/bin/xemacs
--| /usr/bin/xemacs -batch -q -no-site-file -l SKK-MK -f SKK-MK-what-where-package
+-| /usr/bin/xemacs -batch -q -no-site-file -l SKK-MK \
+-| -f SKK-MK-what-where-package
 -|   Loading /home/user/temp/ddskk-SKK-VERSION/SKK-CFG...
 
 -| Running in:
@@ -5100,7 +5101,7 @@ ohhira → おおひら
 
 =  >  ?  "  (  )  [
 
-]  {  }  ^  _  `  |
+]  @{  @}  ^  _  `  |
 
 ~
 @end example
@@ -7678,18 +7679,17 @@ M-x skk-count-jisyo-candidates
 @cindex 辞書バッファの名付け規則
 
 辞書検索プログラムを実行すると、必要ならば辞書が Emacs のバッファに読み込
-まれます。このバッファを @strong{辞書バッファ} と呼びます。
-
-辞書バッファの名前は、
+まれます。このバッファを @strong{辞書バッファ} と呼びます。辞書バッファの命名規
+則は、
 
 @example
 空白 + * + 辞書ファイル名（ディレクトリ抜き） + *
 @end example
 
 @noindent
-という規則に基づいて付けられます。例えば、変数 @code{skk-large-jisyo} の値
-が @code{/usr/local/share/skk/SKK-JISYO.L} であるとき、これに対する辞書バッフ
-ァ名は "@code{_*SKK-JISYO.L*}" （アンダーバーは SPACE の意）となります。
+です。例えば、変数 @code{skk-large-jisyo} の値が @code{/usr/local/share/skk/SKK-JISYO.L} で
+あるとき、これに対する辞書バッファ名は "@code{_*SKK-JISYO.L*}" （アンダーバーは SPACE の
+意）となります。
 
 このバッファのメジャーモードは @code{fundamental-mode} です。しかし、諸般の事
 情により、変数 @code{major-mode} の値をシンボル @code{skk-jisyo-mode} と、
@@ -7962,8 +7962,8 @@ DDSKK では、このような事態を避けるため、辞書バッファに�
 @cindex skk-annotation-remove
 @item @kbd{M-x skk-annotation-remove} @tie{}@tie{}@tie{}@tie{}(@code{skk-annotation-remove})
 
-最後に確定した候補からアノテーションを取り去りたいとき
-は @code{M-x skk-annotation-remove} と実行します。
+特定の語からアノテーションを取り去りたいときは、まず、かな漢字変換で当該
+語を確定し、続けて @code{M-x skk-annotation-remove} と実行します。
 @end table
 
 @node アノテーションとして EPWING 辞書を表示する
@@ -8278,7 +8278,7 @@ UNICODE (U+00nn), または [RET] (文字一覧): *
 というプロンプトが表示され、文字コード（JIS コード、EUC コードまたは区点
 番号）またはメニューによる文字入力が促されます。
 
-上記例示の○○部分は変数 @code{skk-kcode-charset} の値であり、その初期値
+プロンプト中の○○部分は、変数 @code{skk-kcode-charset} の値であり、その初期値
 は @code{japanese-jisx0208} 又は @code{japanese-jisx0213-1} です。初期値は環境によ
 って自動的に設定されます。キー @code{\} の代わりに @code{C-u \} と入力すると、異な
 る文字集合 (charset) を指定する事ができます。
@@ -8540,7 +8540,8 @@ skk-list-chars を抜ける
 
 @example
 -------------------- Echo Area --------------------
-`А',KUTEN:07-01, JIS:#x2721, EUC:#xa7a1, SJIS:#x8440, UNICODE:U+0410, キリール大文字A,CYRILLIC CAPITAL LETTER A
+`А',KUTEN:07-01, JIS:#x2721, EUC:#xa7a1, SJIS:#x8440, UNICODE:U+0410,
+キリール大文字A,CYRILLIC CAPITAL LETTER A
 -------------------- Echo Area --------------------
 @end example
 
@@ -9594,7 +9595,7 @@ Wikipedia アノテーション機能の使い方をメッセージで案内し�
 
 @example
 -------------------- Echo Area --------------------
-{アノテーション}[C-w]コピー [C-o]URLブラウズ [C-i]標準設定のソースを参照
+@{アノテーション@}[C-w]コピー [C-o]URLブラウズ [C-i]標準設定のソースを参照
 -------------------- Echo Area --------------------
 @end example
 

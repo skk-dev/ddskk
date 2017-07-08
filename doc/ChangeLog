@@ -1,3 +1,7 @@
+2017-07-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.org: Underfull や Overfull 生じないよう微調整.
+
 2017-07-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* txi-ja.tex (\gdef\putwordpage): `p.' を `ページ' に変更.
