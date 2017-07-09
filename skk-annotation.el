@@ -705,7 +705,14 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 キー入力の内容によってアノテーションのコピー、情報源 URL のブラウズ、または
 別の情報源からの意味取得を行う。"
   (let* ((copy-command (key-binding skk-annotation-copy-key))
-	 (browse-command (key-binding skk-annotation-browse-key))
+;;;	 (browse-command (key-binding skk-annotation-browse-key))
+         ;; * skk-kakutei-key が 標準 C-j であれば、browse-command は C-o の open-line() となる。
+         ;; * skk-kakutei-key が skk-annotation-browse-key と衝突する C-o であれば、
+         ;;   browse-command は skk-insert() となる。 SPC も skk-insert() であるため、
+         ;;   結果として SPC の打鍵で browse-command となってしまう。
+         ;; * skk-kakutei-key が skk-insert() なのは skk-compile-rule-list() 参照のこと。
+         (it (key-binding skk-annotation-browse-key))     ; Fix #58
+         (browse-command (if (eq 'skk-insert it) nil it)) ; Fix #58
 	 (list (list copy-command browse-command))
 	 event key command urls note cache char digit exit)
     (while (and (not exit)

@@ -1,6 +1,7 @@
 2017-07-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-annotation.el (skk-annotation-wait-for-input): Fix indent.
+	(skk-annotation-wait-for-input): Fix #58.
 
 	* skk.el (skk-compile-rule-list): Fix indent.
 
