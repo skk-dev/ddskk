@@ -15,6 +15,11 @@
 @iftex
 @afourpaper
 @end iftex
+@tex
+\global\def\linkcolor{0 0 1}
+\global\def\urlcolor{0 0 1}
+@end tex
+
 @copying
 @sp 10
 
