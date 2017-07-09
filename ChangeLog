@@ -1,5 +1,11 @@
 2017-07-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-annotation.el (skk-annotation-wait-for-input): Fix indent.
+
+	* skk.el (skk-compile-rule-list): Fix indent.
+
+2017-07-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* SKK-MK (SKK-MK-export-to-texinfo): `{' と `}' に 接頭辞 `@' を追加.
 
 	* Makefile: ターゲット `mobi' を追加.

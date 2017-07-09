@@ -710,9 +710,8 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 	 event key command urls note cache char digit exit)
     (while (and (not exit)
 		list
-		(or (memq this-command
-			  '(skk-annotation-wikipedia-region-or-at-point
-			    skk-annotation-lookup-region-or-at-point))
+		(or (memq this-command '(skk-annotation-wikipedia-region-or-at-point
+			                 skk-annotation-lookup-region-or-at-point))
 		    (eq skk-henkan-mode 'active))
 		(if digit
 		    t
@@ -724,17 +723,14 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 		    (progn
 		      (setq event (next-command-event)
 			    key (skk-event-key event)
-			    command (key-binding
-				     (if (featurep 'xemacs) event key)))
+			    command (key-binding (if (featurep 'xemacs) event key)))
 		      ;; Return value of the following expression is important.
 		      (or (memq command list)
 			  (eq command 'digit-argument)
-			  (memq command
-				'(skk-annotation-wikipedia-region-or-at-point
-				  skk-annotation-lookup-region-or-at-point))
+			  (memq command '(skk-annotation-wikipedia-region-or-at-point
+				          skk-annotation-lookup-region-or-at-point))
 			  (equal (key-description key)
-				 (key-description
-				  skk-annotation-wikipedia-key))))
+				 (key-description skk-annotation-wikipedia-key))))
 		  (quit
 		   (when (eval-when-compile (and (featurep 'xemacs)
 						 (= emacs-major-version 21)
@@ -767,46 +763,43 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 		 (when url
 		   (setq urls (cons url urls)))))
 	     (unless (equal annotation "")
-	       (cond
-		(urls
-		 (dolist (url urls)
-		   (cond ((consp url)
-			  (setq exit t)
-			  (apply (car url) (cdr url)))
-			 (t
-			  (browse-url url))))
-		 (skk-message "注釈のソースをブラウズしています..."
-			      "Browsing originals for the current notes..."))
-		(t
-		 (skk-message "注釈のソースが見つかりません"
-			      "No originals found for the current notes")))
+	       (cond (urls
+		      (dolist (url urls)
+		        (cond ((consp url)
+			       (setq exit t)
+			       (apply (car url) (cdr url)))
+			      (t
+			       (browse-url url))))
+		      (skk-message "注釈のソースをブラウズしています..."
+			           "Browsing originals for the current notes..."))
+		     (t
+		      (skk-message "注釈のソースが見つかりません"
+			           "No originals found for the current notes")))
 	       (setq event nil
 		     digit nil
 		     char  nil)
 	       (unless exit
 		 (skk-annotation-show-2 annotation))))
 	    ((eq command 'digit-argument)
-	     (setq char  (cond ((featurep 'xemacs)
-				key)
-			       ((integerp event)
-				event)
-			       (t
-				(get event 'ascii-character)))
+	     (setq char (cond ((featurep 'xemacs)
+			       key)
+			      ((integerp event)
+			       event)
+			      (t
+			       (get event 'ascii-character)))
 		   digit (- (logand char ?\177) ?0)
 		   event nil))
 	    ((or (equal (key-description key)
 			(key-description skk-annotation-wikipedia-key))
-		 (memq command
-		       '(skk-annotation-wikipedia-region-or-at-point
-			 skk-annotation-lookup-region-or-at-point)))
-	     (setq sources
-		   (if (and digit
-			    (> digit 0)
-			    (<= digit
-				(length skk-annotation-other-sources)))
-		       (list (nth (1- digit)
-				  skk-annotation-other-sources))
-		     skk-annotation-other-sources))
+		 (memq command '(skk-annotation-wikipedia-region-or-at-point
+			         skk-annotation-lookup-region-or-at-point)))
+	     (setq sources (if (and digit
+			            (> digit 0)
+			            (<= digit
+				        (length skk-annotation-other-sources)))
+		               (list (nth (1- digit)
+				          skk-annotation-other-sources))
+		             skk-annotation-other-sources))
 	     (setq event nil
 		   digit nil
 		   char  nil)
