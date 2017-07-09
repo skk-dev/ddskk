@@ -15,6 +15,9 @@ GZIP      = gzip -9
 MD5	  = md5
 RM	  = /bin/rm -f
 TEXI2PDF  = /usr/bin/texi2pdf
+MAKEINFO  = /usr/bin/makeinfo
+DBTOEPUB  = /usr/bin/dbtoepub
+KINDLEGEN = $(HOME)/bin/kindlegen
 SNAPBASE  = ddskk-`$(DATE) '+%Y%m%d'`
 TAR	  = gtar
 XEMACS	  = xemacs
@@ -68,6 +71,20 @@ pdf: doc/skk.pdf doc/skk.texi doc/skk.org
 	PDFTEX=luatex $(TEXI2PDF) --output=skk.pdf tmp.texi; \
 	$(RM) tmp.texi
 
+# skk.org -> skk.texi -> skk.xml -> skk.epub -> skk.mobi
+.SUFFIXES: .xml .epub .mobi
+
+mobi: doc/skk.mobi doc/skk.epub doc/skk.xml doc/skk.texi doc/skk.org
+
+.texi.xml:
+	$(MAKEINFO) --docbook doc/skk.texi -o doc/
+
+.xml.epub:
+	$(DBTOEPUB) -s doc/mobi.xsl doc/skk.xml -o doc/skk.epub
+
+.epub.mobi:
+	- $(KINDLEGEN) doc/skk.epub -verbose -locale ja -o skk.mobi
+
 install:
 	$(EMACS) $(FLAGS) -f SKK-MK-install
 
@@ -99,6 +116,7 @@ clean:
 	-$(RM) leim-list.el skk-autoloads.el skk-setup.el *.elc experimental/*.elc \
 	auto-autoloads.el custom-load.el ert.el \
 	./doc/skk.info* ./doc/skk.html* ./doc/skk.pdf \
+	./doc/skk.xml ./doc/skk.epub ./doc/skk.mobi \
 	./doc/*.aux ./doc/*.cp* ./doc/*.fn* ./doc/*.ky* ./doc/*.log ./doc/*.toc ./doc/*.vr* \
 	`find . -name '*~'` `find . -name '.*~'` `find . -name '.#*'`
 

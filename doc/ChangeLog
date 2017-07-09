@@ -1,3 +1,9 @@
+2017-07-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* mobi.xsl: New file for `make mobi'.
+
+	* README.org: mobi に関する記述を追加.
+
 2017-07-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.org: Underfull や Overfull 生じないよう微調整.

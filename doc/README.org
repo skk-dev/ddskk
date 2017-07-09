@@ -45,19 +45,20 @@ SKK Manual は、長らく texinfo 形式 (ファイル名 ~skk.texi~) で保守
 
   org 標準の ox-texinfo.el を機能拡張するものです。
 
-  https://github.com/tarsius/ox-texinfo-plus
+  https://github.com/tarsius/ox-texinfo-plus  (GNU GPL v3)
 
 - ~dash.el~
 
   ~ox-texinfo+.el~ が必要とします。
 
-  https://github.com/magnars/dash.el
+  https://github.com/magnars/dash.el  (GNU GPL v3)
 
 - ~htmlize.el~ (v1.43)
 
   `make html' 実行時に org が必要とします。
 
   http://orgmode.org/cgit.cgi/org-mode.git/tree/contrib/lisp/htmlize.el から取得しました。
+  (GNU GPL v2)
 
 - ~skk.css~
 
@@ -76,21 +77,29 @@ SKK Manual は、長らく texinfo 形式 (ファイル名 ~skk.texi~) で保守
 
 - ~texinfo-ja.tex~
 
-  `make pdf' 時に texi2pdf が読み込みます。
+  `make pdf' 実行時に texi2pdf が読み込みます。
 
-  http://www.trueroad.jp/2016/05/14-01.html から取得しました。
+  http://www.trueroad.jp/2016/05/14-01.html から取得しました。  (GNU GPL v3)
 
 - ~texinfo.tex~
 
-  `make pdf' 時に texi2pdf が読み込みます。
+  `make pdf' 実行時に texi2pdf が読み込みます。
 
-  http://www.trueroad.jp/2016/05/14-01.html から取得しました。
+  http://www.trueroad.jp/2016/05/14-01.html から取得しました。  (GNU GPL v3)
 
 - ~txi-ja.tex~
 
-  `make pdf' 時に ~texi2pdf~ が読み込みます。
+  `make pdf' 実行時に ~texi2pdf~ が読み込みます。
 
-  http://www.trueroad.jp/2016/05/14-01.html から取得しました。
+  http://www.trueroad.jp/2016/05/14-01.html から取得しました。  (GNU GPL v3)
+
+- ~mobi.xsl~
+
+  `make mobi' 実行時に ~dbtoepub~ が読み込みます。
+
+  https://kanru.info/blog/archives/2010/11/18/convert-texinfo-to-mobi/ から取得しました。
+
+  ファイル冒頭にライセンスが記載されており、再配布可能なようですので含めました。
 
 ** skk.org の運用方法
 
@@ -123,24 +132,31 @@ SKK Manual は、長らく texinfo 形式 (ファイル名 ~skk.texi~) で保守
   =↓=============
      skk.texi
   ================
-   │            │
-   │            │make info ( SKK-MK-compile-info )
-   │            │           注) M-x org-texinfo-export-to-info で org から info へ変換する
-   │            │               こともできるが、内部で /usr/bin/makeinfo コマンドを呼び出す
-   │           =↓=======        ため window では実行できない。
-   │            skk.info         なお、make info ( SKK-MK-compile-info() ) は emacs-lisp で
-   │           ==========        完結している。
+   │    │      │
+   │    │      │make info ( SKK-MK-compile-info )
+   │    │      │           注) M-x org-texinfo-export-to-info で org から info へ変換する
+   │    │      │               こともできるが、内部で /usr/bin/makeinfo コマンドを呼び出す
+   │    │     =↓=======        ため window では実行できない。
+   │    │      skk.info         なお、make info ( SKK-MK-compile-info() ) は emacs-lisp で
+   │    │     ==========        完結している。
+   │    │
+   │    │make pdf ( texi2pdf, luatex )
+   │    │ * texinfo-ja.tex [ http://www.trueroad.jp/2016/05/14-01.html ]
+   │    │ * texinfo.tex    [ http://www.trueroad.jp/2016/05/14-01.html ]
+   │    │ * txi-ja.tex     [ http://www.trueroad.jp/2016/05/14-01.html ]
+   │    │
+   │    │ なお、 org-latex-export-to-pdf [C-c C-e l p] はサポートしない。
+   │    │
+   │   =↓======
+   │    skk.pdf
+   │   =========
    │
-   │make pdf ( texi2pdf, luatex )
-   │ * texinfo-ja.tex [ http://www.trueroad.jp/2016/05/14-01.html ]
-   │ * texinfo.tex    [ http://www.trueroad.jp/2016/05/14-01.html ]
-   │ * txi-ja.tex     [ http://www.trueroad.jp/2016/05/14-01.html ]
-   │
-   │ なお、 org-latex-export-to-pdf [C-c C-e l p] はサポートしない。
-   │
-  =↓======
-   skk.pdf
-  =========
+   │make mobi ( makeinfo, dbtoepub, kindlegen )
+   │ * mobi.xsl  [ https://kanru.info/blog/archives/2010/11/18/convert-texinfo-to-mobi/ ]
+   │ * kindlegen [ https://www.amazon.com/gp/feature.html?docId=1000765211 ]
+  =↓=======
+   skk.mobi
+  ==========
 #+END_EXAMPLE
 
 *** info
@@ -161,6 +177,12 @@ SKK Manual は、長らく texinfo 形式 (ファイル名 ~skk.texi~) で保守
 
 #+BEGIN_SRC shell-script
   ddskk-src]$ make pdf
+#+END_SRC
+
+*** mobi (for Amazon Kindle 端末)
+
+#+BEGIN_SRC shell-script
+  ddskk-src]$ make mobi
 #+END_SRC
 
 *** git リポジトリの運用
@@ -233,23 +255,22 @@ git push してください。
     info と pdf の見栄えを考慮すると、日本語文脈の間に挿入してしまっては不自然であるため、
     footnote 化が望ましいか。
 
-    | org  | [[チュートリアル][チュートリアル]]  | 付属の チュートリアル が                      |
-    | html | チュートリアル                      | 付属の チュートリアル が                      |
-    | texi | @ref{チュートリアル}                |                                               |
-    | info | see チュートリアル                  | 付属の see チュートリアル が                  |
-    | pdf  | Section 4.5 [チュートリアル], p. 22 | 付属の Section 4.5 [チュートリアル], p. 22 が |
+    | org  | [[チュートリアル][チュートリアル]]  | 付属の チュートリアル が                          |
+    | html | チュートリアル                      | 付属の チュートリアル が                          |
+    | texi | @ref{チュートリアル}                |                                                   |
+    | info | see チュートリアル                  | 付属の see チュートリアル が                      |
+    | pdf  | Section 4.5 [チュートリアル], p. 22 | 付属の Section 4.5 [チュートリアル], 22ページ が  |
 
   + Info リンク
 
     内部リンクと同様に footnote 化が望ましいか。
     PDF は、それが info であると見た目分かりづらい。しかもクリッカブル。
 
-    | org  | [[info:emacs#Auto Fill][Auto Fill Mode in GNU Emacs Manual]]                       |
-    | html | <a href="http://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Auto-Fill"> |
-    |      | Auto Fill Mode in GNU Emacs Manual</a>                                             |
-    | texi | @ref{Auto Fill,Auto Fill Mode in GNU Emacs Manual,,emacs,}                         |
-    | info | see Auto Fill Mode in GNU Emacs Manual(emacs)                                      |
-    | pdf  | Section “Auto Fill” in emacs                                                     |
+    | org  | [[info:emacs#Auto Fill][Auto Fill Mode in GNU Emacs Manual]]                                                             |
+    | html | <a href="http://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Auto-Fill">Auto Fill Mode in GNU Emacs Manual</a> |
+    | texi | @ref{Auto Fill,Auto Fill Mode in GNU Emacs Manual,,emacs,}                                                               |
+    | info | see Auto Fill Mode in GNU Emacs Manual(emacs)                                                                            |
+    | pdf  | Section “Auto Fill” in emacs                                                                                           |
 
 ** 将来
 
