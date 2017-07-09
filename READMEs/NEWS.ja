@@ -1,8 +1,27 @@
 * 16.3
 
-** NICOLA
+** ドキュメント
+
+*** Org 形式へ移行
+
+skk.texi から skk.org へ移行しました。
+これまでの skk.texi は obsolete-doc ディレクトリへ移しました。
+
+*** html, PDF, mobi
+
+それぞれ make html, mahe pdf, make mobi で生成できます。
+
+** 新機能
+
+*** experimental/skk-pre-henkan.el
+
+*** NICOLA installer for NTEmacs
 
 NTEmacs 向けのインストーラ (makeit.bat) を用意しました。
+
+** その他バグ修正など
+
+*** Fix #58 ... conflict key bind
 
 * 16.2 (2017-03-04)
 
