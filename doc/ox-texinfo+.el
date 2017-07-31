@@ -95,7 +95,7 @@
 
 (eval-and-compile
   (require 'cl)
-  (require 'dash)
+  (require 'dash (expand-file-name "dash"))
   (require 'ox-texinfo))
 
 (setq org-texinfo-info-process '("makeinfo --no-split %f"))

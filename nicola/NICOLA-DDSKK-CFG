@@ -39,7 +39,10 @@
 (if (boundp 'VERSION_SPECIFIC_LISPDIR)
     (add-to-list 'load-path VERSION_SPECIFIC_LISPDIR))
 
-(require 'install (expand-file-name "install.el" ".."))
+(require 'install
+	 (expand-file-name
+	  (convert-standard-filename "maint/install.el")
+	  (file-name-directory (directory-file-name default-directory))))
 
 (defvar emacs-self-contained nil)
 
