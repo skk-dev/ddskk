@@ -89,7 +89,8 @@ This version of SKK requires MULE features"))
     (when (file-directory-p dir)
       (add-to-list 'load-path dir))))
 
-(require 'install (expand-file-name "install.el"))
+(require 'install (expand-file-name
+		   (convert-standard-filename "maint/install.el")))
 
 (setq install-prefix
   (cond	((eq system-type 'windows-nt)
@@ -742,7 +743,8 @@ This version of SKK requires MULE features"))
   "Updates info/dir entries."
   (when SKK_INFO
     ;; updates info/dir entries.
-    (require 'install-info (expand-file-name "install-info.el"))
+    (require 'install (expand-file-name
+		       (convert-standard-filename "maint/install.el")))
     (let ((info-file (expand-file-name SKK_INFO
 				       SKK_INFODIR))
 	  (dir-file (cond
@@ -915,7 +917,8 @@ This version of SKK requires MULE features"))
 	(coding-system-for-write SKK-MK-texinfo-coding-system)
 	(make-backup-files nil)
 	x obuf beg standard-output)
-    (require 'ptexinfmt (expand-file-name "ptexinfmt.el"))
+    (require 'ptexinfmt (expand-file-name
+			 (convert-standard-filename "maint/ptexinfmt.el")))
     (while targets
       (setq x (expand-file-name (car targets) DOCDIR))
       (find-file x)

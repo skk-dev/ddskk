@@ -1,0 +1,2 @@
+This file keeps the containing directory of the `load-path'
+See `normal-top-level-add-subdirs-to-load-path's doc-string.
