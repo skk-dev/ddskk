@@ -1037,13 +1037,17 @@ information etc.  If PROC is non-nil, check the buffer for that process."
 	(setq-default python-buffer orig-py-buffer)
 	(setq python-buffer orig-py-buffer)
 	(setq skkannot-py-buffer (current-buffer))
-	;;
+
 	(font-lock-mode 0)
 	(set-buffer-multibyte t)
 	(skk-process-kill-without-query (get-buffer-process (current-buffer)))
 	(set-buffer-file-coding-system 'utf-8-emacs)
-	(set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix)
-	;;
+
+        ;; Jan 15 2018, lisp/international/mule.el
+        ;; *  (set-buffer-process-coding-system): Mark as interactive-only.
+        ;; *  in Lisp code use 'set-process-coding-system' instead.
+	(set-process-coding-system 'utf-8-unix 'utf-8-unix)
+
 	(skkannot-py-send-command "import DictionaryServices")
 	(cond ((and wait (skkannot-sit-for 1.0))
 	       (setq skkannot-remaining-delay
@@ -1052,7 +1056,6 @@ information etc.  If PROC is non-nil, check the buffer for that process."
 	       (throw '辞書 nil))
 	      (t
 	       nil))
-	;;
 	skkannot-py-buffer)))))
 
 (defun skkannot-DictServ-cache (word truncate)
