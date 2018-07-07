@@ -1,3 +1,7 @@
+2018-07-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (SKK-MK-install-info-1): Fix install-info.
+
 2017-07-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* SKK-MK (SKK-MK-export-to-texinfo): Use linkcolor and urlcolor.
