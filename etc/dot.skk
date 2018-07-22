@@ -744,4 +744,11 @@
 ;; 日本語と英語の間に空白を自動挿入する
 ;;   http://hins11.jugem.jp/?eid=47
 
+;;; orgtbl-mode
+;;; http://mail.ring.gr.jp/skk/201807/msg00001.html
+;; (skk-wrap-newline-command orgtbl-ret)
+;; (defadvice org-delete-backward-char (around skk-ad activate)
+;;   (skk-delete-backward-char N)
+;;   ad-do-it)
+
 ;;; dot.skk ends here
