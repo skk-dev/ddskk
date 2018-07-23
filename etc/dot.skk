@@ -746,9 +746,13 @@
 
 ;;; orgtbl-mode
 ;;; http://mail.ring.gr.jp/skk/201807/msg00001.html
-;; (skk-wrap-newline-command orgtbl-ret)
-;; (defadvice org-delete-backward-char (around skk-ad activate)
-;;   (skk-delete-backward-char N)
-;;   ad-do-it)
+(skk-wrap-newline-command orgtbl-ret)
+(defadvice org-delete-backward-char (around skk-ad activate)
+  (skk-delete-backward-char N)
+  ad-do-it)
+
+;;; markdown-mode
+(skk-wrap-newline-command markdown-enter-key)
+
 
 ;;; dot.skk ends here

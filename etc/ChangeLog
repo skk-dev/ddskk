@@ -1,6 +1,10 @@
+2018-07-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* dot.skk: Update for markdown-mode.
+
 2018-07-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* dot.skk: Update (orgtbl-mode).
+	* dot.skk: Update for orgtbl-mode.
 
 2017-03-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
