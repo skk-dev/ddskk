@@ -25,7 +25,7 @@
 ;;   ~/bar.el として保存します。
 ;;
 ;; o (tar-list-files "~/temp/foo.tar")
-;;   アーカイブ foo.tar の中のファイル郡をリストで返します。
+;;   アーカイブ foo.tar の中のファイル群をリストで返します。
 
 ;;; shut up compiler warning.
 (eval-when-compile
