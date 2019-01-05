@@ -435,17 +435,27 @@ but the contents viewed as characters do change.
 	 (x-display-color-p)))))
 
 (defun skk-char-to-unibyte-string (char)
-  ;; Warning: `string-make-unibyte' is an obsolete function (as of 26.1).
-  ;;          use `encode-coding-string'.
-
   (ignore-errors
     (cond
      ;; XEmacs
      ((eval-when-compile (featurep 'xemacs))
       (char-to-string char))
-     ;; GNU Emacs 26 から
+
+     ;; Warning: `string-make-unibyte' is an obsolete function (as of 26.1).
+     ;;          use `encode-coding-string'.
+
+     ;; skk-start-henkan-with-completion-char
+     ;;   => 160
+     ;; (string-make-unibyte (char-to-string skk-start-henkan-with-completion-char))
+     ;;   => "\240"
+     ;; (encode-coding-string (char-to-string skk-start-henkan-with-completion-char) 'us-ascii)
+     ;;   => "?"
+
      ((eval-when-compile (>= emacs-major-version 26))
-      (encode-coding-string (char-to-string char) 'us-ascii))
+      ;; (encode-coding-string (char-to-string char) 'us-ascii) ; これではダメなので
+      (string-make-unibyte (char-to-string char))               ; ひとまず安直に元に戻す
+      )
+
      ;;  GNU Emacs 25 まで
      (t
       (string-make-unibyte (char-to-string char))))))

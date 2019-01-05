@@ -1,3 +1,8 @@
+2019-01-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-macs.el (skk-char-to-unibyte-string): 2017-02-11 の変更が間違いであるため
+	元に戻す.
+
 2018-12-20  Takeshi Abe  <tabe@fixedpoint.jp>
 
 	* doc/skk.org, doc/skk.texi, tar-util.el: Fix typo.
