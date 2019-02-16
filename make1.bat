@@ -33,7 +33,7 @@ echo   uninstall    : uninstall
 echo   what-where   : print where to install
 echo   clean        : cleaning garbage file
 echo   test         : load test/all-tests.el and execute ert-run-tests-batch-and-exit
-echo   get          : download jisyo files from openlab.jp
+echo   get          : download jisyo files from skk-dev.github.io/dict/
 goto pauseend
 
 :compile

@@ -1,3 +1,9 @@
+2019-02-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-develop.el (skk-get-download): Change URL skk-dev.github.io/dict/.
+
+	* make1.bat: Ditto.
+
 2019-01-09  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
 
 	* skk-macs.el (skk-char-to-unibyte-string): Bug Fix.
