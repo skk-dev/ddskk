@@ -265,7 +265,7 @@ ruby が使用できるならば、 rskkserv が使用できます。
 
 CorvusSKK works as Text Input Processor (TIP) on Text Services Framework (TSF). 
 
-     http://code.google.com/p/corvus-skk/
+     https://nathancorvussolis.github.io/
 
 ---------
 
