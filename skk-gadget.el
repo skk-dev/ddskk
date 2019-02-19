@@ -169,11 +169,12 @@ AND-TIME は時刻も表示するかどうか \(boolean\)。"
   (multiple-value-bind (year month day day-of-week hour minute second v)
       date-information
     (when gengo
-      (setq v (skk-ad-to-gengo-1 (string-to-number year))))
+      (setq v (skk-ad-to-gengo-1 (string-to-number year) t)))
     (setq year (if gengo
 		   (concat (if gengo-index
 			       (nth gengo-index (car v))
 			     (caar v))
+			   ;; 正しくは元年対応が必要
 			   (skk-num-exp (number-to-string (cdr v))
 					num-type))
 		 (skk-num-exp year num-type)))
@@ -364,15 +365,23 @@ interactive に起動する他、\"clock /(skk-clock)/\" などのエントリを S
   (cons (cond ((>= 1911 ad)
 	       (setq ad (- ad 1867))
 	       (cdr (assq 'meiji skk-gengo-alist)))
+
 	      ((>= 1925 ad)
 	       (setq ad (- ad 1911))
 	       (cdr (assq 'taisho skk-gengo-alist)))
+
 	      ((>= 1988 ad)
 	       (setq ad (- ad 1925))
 	       (cdr (assq 'showa skk-gengo-alist)))
-	      (t
+
+	      ((>= 2018 ad)
 	       (setq ad (- ad 1988))
-	       (cdr (assq 'heisei skk-gengo-alist))))
+	       (cdr (assq 'heisei skk-gengo-alist)))
+
+	      (t
+	       (setq ad (- ad 2018))
+	       (cdr (assq 'dummy skk-gengo-alist))))
+
 	(cond (not-gannen ad)
 	      ((= ad 1) "元")
 	      (t ad))))
@@ -404,23 +413,34 @@ interactive に起動する他、\"clock /(skk-clock)/\" などのエントリを S
       ((eq number 0)
        (skk-error "0 年はあり得ない"
 		  "Cannot convert 0 year"))
+
+      ((member gengo '("だみー" "※※"))
+       2018)
+
       ((member gengo '("へいせい" "平成"))
-       1988)
+       (if (> 31 number)           ; 厳密には異なる
+           1988
+         (skk-error "平成は 30 年までです"
+		    "The last year of Heisei is 30")))
+
       ((member gengo '("しょうわ" "昭和"))
        (if (> 64 number)
 	   1925
 	 (skk-error "昭和は 63 年までです"
 		    "The last year of Showa is 63")))
+
       ((member gengo '("たいしょう" "大正"))
        (if (> 15 number)
 	   1911
 	 (skk-error "大正は 14 年までです"
 		    "The last year of Taisyo is 14")))
+
       ((member gengo '("めいじ" "明治"))
        (if (> 45 number)
 	   1867
 	 (skk-error "明治は 44 年までです"
 		    "The last year of Meiji is 44")))
+
       (t
        (skk-error "判別不能な元号です！"
 		  "Unknown Gengo!")))))

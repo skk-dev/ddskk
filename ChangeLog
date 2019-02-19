@@ -1,3 +1,10 @@
+2019-02-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-gengo-alist): 新元号への仮対応.
+
+	* skk-gadget.el (skk-default-current-date, skk-ad-to-gengo-1)
+	(skk-gengo-to-ad-1): Ditto.
+
 2019-02-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-develop.el (skk-get-download): Change URL skk-dev.github.io/dict/.
