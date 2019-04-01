@@ -3658,7 +3658,7 @@ server completion が実装されておらず、かつ無反応な辞書サーバ対策。")
 
 ;;; skk-gadget.el related.
 (defcustom skk-gengo-alist
-  '((dummy "※※" "D")
+  '((reiwa "令和" "R")
     (heisei "平成" "H")
     (showa "昭和" "S")
     (taisho "大正" "T")

@@ -380,7 +380,7 @@ interactive に起動する他、\"clock /(skk-clock)/\" などのエントリを S
 
 	      (t
 	       (setq ad (- ad 2018))
-	       (cdr (assq 'dummy skk-gengo-alist))))
+	       (cdr (assq 'reiwa skk-gengo-alist))))
 
 	(cond (not-gannen ad)
 	      ((= ad 1) "元")
@@ -414,7 +414,7 @@ interactive に起動する他、\"clock /(skk-clock)/\" などのエントリを S
        (skk-error "0 年はあり得ない"
 		  "Cannot convert 0 year"))
 
-      ((member gengo '("だみー" "※※"))
+      ((member gengo '("れいわ" "令和"))
        2018)
 
       ((member gengo '("へいせい" "平成"))
