@@ -396,9 +396,8 @@ interactive に起動する他、\"clock /(skk-clock)/\" などのエントリを S
   (save-match-data
     (when (string-match (car skk-num-list)
 			skk-henkan-key)
-      (let ((v (skk-gengo-to-ad-1
-		(substring skk-henkan-key 0 (match-beginning 0))
-		(string-to-number (car skk-num-list)))))
+      (let ((v (skk-gengo-to-ad-1 (substring skk-henkan-key 0 (match-beginning 0))
+				  (string-to-number (car skk-num-list)))))
 	(when v
 	  (concat head
 		  (number-to-string v)
@@ -406,8 +405,15 @@ interactive に起動する他、\"clock /(skk-clock)/\" などのエントリを S
 
 ;;;###autoload
 (defun skk-gengo-to-ad-1 (gengo number)
+  ;; called from `skk-gengo-to-ad'.
   ;; GENGO is a string and NUMBER is a number.
   ;; return a year (number) equal to GENGO-NUMBER.
+
+  ;; (skk-gengo-to-ad-1 "へいせい" 31)
+  ;;   => 2019
+  ;; (skk-gengo-to-ad-1 "へいせい" 32)
+  ;;   => skk-error()
+
   (+ number
      (cond
       ((eq number 0)
@@ -418,10 +424,10 @@ interactive に起動する他、\"clock /(skk-clock)/\" などのエントリを S
        2018)
 
       ((member gengo '("へいせい" "平成"))
-       (if (> 31 number)           ; 厳密には異なる
-           1988
-         (skk-error "平成は 30 年までです"
-		    "The last year of Heisei is 30")))
+       (if (> 32 number)		; 厳密には異なる
+	   1988
+         (skk-error "平成は 31 年までです"
+		    "The last year of Heisei is 31")))
 
       ((member gengo '("しょうわ" "昭和"))
        (if (> 64 number)
