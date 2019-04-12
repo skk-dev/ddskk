@@ -3658,8 +3658,8 @@ server completion が実装されておらず、かつ無反応な辞書サーバ対策。")
 
 ;;; skk-gadget.el related.
 (defcustom skk-gengo-alist
-  '((heisei "平成" "H") (showa "昭和" "S") (taisho "大正" "T")
-    (meiji "明治" "M"))
+  '((reiwa "令和" "R") (heisei "平成" "H") (showa "昭和" "S")
+    (taisho "大正" "T") (meiji "明治" "M"))
   "*元号を表記した文字列の alist。
 car は元号をローマ字表記した symbol。
 cdr は元号表記の string から成るリスト。"

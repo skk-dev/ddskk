@@ -169,13 +169,18 @@ AND-TIME は時刻も表示するかどうか \(boolean\)。"
   (multiple-value-bind (year month day day-of-week hour minute second v)
       date-information
     (when gengo
-      (setq v (skk-ad-to-gengo-1 (string-to-number year))))
+      (setq v (skk-ad-to-gengo-1
+	       (string-to-number year) nil
+	       (string-to-number (nth 0 (cdr (assoc month skk-month-alist))))
+	       (string-to-number day))))
     (setq year (if gengo
 		   (concat (if gengo-index
 			       (nth gengo-index (car v))
 			     (caar v))
-			   (skk-num-exp (number-to-string (cdr v))
-					num-type))
+			   (if (numberp (cdr v))
+			       (skk-num-exp (number-to-string (cdr v))
+					    num-type)
+			     (cdr v)))
 		 (skk-num-exp year num-type)))
     (when month-alist-index
       (setq month (skk-num-exp (nth month-alist-index
@@ -351,7 +356,7 @@ interactive に起動する他、\"clock /(skk-clock)/\" などのエントリを S
 	    tail)))
 
 ;;;###autoload
-(defun skk-ad-to-gengo-1 (ad &optional not-gannen)
+(defun skk-ad-to-gengo-1 (ad &optional not-gannen month day)
   ;; AD is a number and NOT-GANNEN is a boolean optional
   ;; arg.
   ;; return a cons cell of which car is a Gengo list
@@ -361,18 +366,24 @@ interactive に起動する他、\"clock /(skk-clock)/\" などのエントリを S
   ;; return a value of which cdr is "元" (string).
   (when (>= 1866 ad)
     (skk-error "分りません" "Unknown year"))
-  (cons (cond ((>= 1911 ad)
+  (cons (cond ((or (< ad 1912) (and (= ad 1912) month (< month 7))
+		   (and (= ad 1912) month (= month 7) day (< day 30)))
 	       (setq ad (- ad 1867))
 	       (cdr (assq 'meiji skk-gengo-alist)))
-	      ((>= 1925 ad)
+	      ((or (< ad 1926) (and (= ad 1926) month (< month 12))
+		   (and (= ad 1926) month (= month 12) day (< day 25)))
 	       (setq ad (- ad 1911))
 	       (cdr (assq 'taisho skk-gengo-alist)))
-	      ((>= 1988 ad)
+	      ((or (< ad 1989)
+		   (and (= ad 1989) month (= month 1) day (< day 8)))
 	       (setq ad (- ad 1925))
 	       (cdr (assq 'showa skk-gengo-alist)))
-	      (t
+	      ((or (< ad 2019) (and (= ad 2019) month (< month 5)))
 	       (setq ad (- ad 1988))
-	       (cdr (assq 'heisei skk-gengo-alist))))
+	       (cdr (assq 'heisei skk-gengo-alist)))
+	      (t
+	       (setq ad (- ad 2018))
+	       (cdr (assq 'reiwa skk-gengo-alist))))
 	(cond (not-gannen ad)
 	      ((= ad 1) "元")
 	      (t ad))))
@@ -404,23 +415,16 @@ interactive に起動する他、\"clock /(skk-clock)/\" などのエントリを S
       ((eq number 0)
        (skk-error "0 年はあり得ない"
 		  "Cannot convert 0 year"))
+      ((member gengo '("れいわ" "令和"))
+       2018)
       ((member gengo '("へいせい" "平成"))
        1988)
       ((member gengo '("しょうわ" "昭和"))
-       (if (> 64 number)
-	   1925
-	 (skk-error "昭和は 63 年までです"
-		    "The last year of Showa is 63")))
+       1925)
       ((member gengo '("たいしょう" "大正"))
-       (if (> 15 number)
-	   1911
-	 (skk-error "大正は 14 年までです"
-		    "The last year of Taisyo is 14")))
+       1911)
       ((member gengo '("めいじ" "明治"))
-       (if (> 45 number)
-	   1867
-	 (skk-error "明治は 44 年までです"
-		    "The last year of Meiji is 44")))
+       1867)
       (t
        (skk-error "判別不能な元号です！"
 		  "Unknown Gengo!")))))
