@@ -1,3 +1,12 @@
+2019-04-13  Tatsuya Kinoshita  <tats@debian.org>
+
+	* skk-gadget.el (skk-default-current-date, skk-ad-to-gengo-1)
+	(skk-gengo-to-ad-1): Support 昭和64年, 大正15年 and 明治45年.
+
+	* skk-gadget.el (skk-default-current-date, skk-ad-to-gengo-1)
+	(skk-gengo-to-ad-1): Support 令和元年(2019/5-) and 平成31年(-2019/4).
+	* skk-vars.el (skk-gengo-alist): Add Japan's new era 令和 (Reiwa).
+
 2019-02-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-develop.el (skk-get-download): Change URL skk-dev.github.io/dict/.
