@@ -1046,7 +1046,8 @@ information etc.  If PROC is non-nil, check the buffer for that process."
         ;; Jan 15 2018, lisp/international/mule.el
         ;; *  (set-buffer-process-coding-system): Mark as interactive-only.
         ;; *  in Lisp code use 'set-process-coding-system' instead.
-	(set-process-coding-system 'utf-8-unix 'utf-8-unix)
+	(set-process-coding-system (get-buffer-process (current-buffer))
+				   'utf-8-unix 'utf-8-unix)
 
 	(skkannot-py-send-command "import DictionaryServices")
 	(cond ((and wait (skkannot-sit-for 1.0))
