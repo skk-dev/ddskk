@@ -1,0 +1,284 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ja" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ja" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SKK (Simple Kana to Kanji conversion program) documentation &mdash; ddskk 0.1 ドキュメント</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="Copying" href="10_copying.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> ddskk
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="10_copying.html">Copying</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20_intro.html">はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="30_install.html">インストール</a></li>
+<li class="toctree-l1"><a class="reference internal" href="40_settings.html">はじめの設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="50_basic.html">基本的な使い方</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">ddskk</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>SKK (Simple Kana to Kanji conversion program) documentation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="skk-simple-kana-to-kanji-conversion-program-documentation">
+<h1>SKK (Simple Kana to Kanji conversion program) documentation<a class="headerlink" href="#skk-simple-kana-to-kanji-conversion-program-documentation" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Authors:</th><td class="field-body"><ul class="first last simple">
+<li>Masahiko Sato &lt;<a class="reference external" href="mailto:masahiko&#37;&#52;&#48;kuis&#46;kyoto-u&#46;ac&#46;jp">masahiko<span>&#64;</span>kuis<span>&#46;</span>kyoto-u<span>&#46;</span>ac<span>&#46;</span>jp</a>&gt;</li>
+<li>Yukiyoshi Kameyama &lt;<a class="reference external" href="mailto:kameyama&#37;&#52;&#48;kuis&#46;kyoto-u&#46;ac&#46;jp">kameyama<span>&#64;</span>kuis<span>&#46;</span>kyoto-u<span>&#46;</span>ac<span>&#46;</span>jp</a>&gt;</li>
+<li>NAKAJIMA Mikio &lt;<a class="reference external" href="mailto:minakaji&#37;&#52;&#48;namazu&#46;org">minakaji<span>&#64;</span>namazu<span>&#46;</span>org</a>&gt;</li>
+<li>IRIE Tetsuya &lt;<a class="reference external" href="mailto:irie&#37;&#52;&#48;t&#46;email&#46;ne&#46;jp">irie<span>&#64;</span>t<span>&#46;</span>email<span>&#46;</span>ne<span>&#46;</span>jp</a>&gt;</li>
+<li>Kitamoto Tsuyoshi &lt;<a class="reference external" href="mailto:tsuyoshi&#46;kitamoto&#37;&#52;&#48;gmail&#46;com">tsuyoshi<span>&#46;</span>kitamoto<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;</li>
+<li>Teika Kazura  &lt;<a class="reference external" href="mailto:teika&#37;&#52;&#48;lavabit&#46;com">teika<span>&#64;</span>lavabit<span>&#46;</span>com</a>&gt;</li>
+<li>Tsukamoto Tetsuo &lt;<a class="reference external" href="mailto:czkmt&#37;&#52;&#48;remus&#46;dti&#46;ne&#46;jp">czkmt<span>&#64;</span>remus<span>&#46;</span>dti<span>&#46;</span>ne<span>&#46;</span>jp</a>&gt;</li>
+<li>Tsuyoshi AKIHO &lt;<a class="reference external" href="mailto:akiho&#37;&#52;&#48;sky&#46;email&#46;ne&#46;jp">akiho<span>&#64;</span>sky<span>&#46;</span>email<span>&#46;</span>ne<span>&#46;</span>jp</a>&gt;</li>
+<li>SAKAI Kiyotaka &lt;<a class="reference external" href="mailto:ksakai&#37;&#52;&#48;kso&#46;netwk&#46;ntt-at&#46;co&#46;jp">ksakai<span>&#64;</span>kso<span>&#46;</span>netwk<span>&#46;</span>ntt-at<span>&#46;</span>co<span>&#46;</span>jp</a>&gt;</li>
+<li>Satoshi Harauchi &lt;<a class="reference external" href="mailto:satoshi&#37;&#52;&#48;sys&#46;sdl&#46;melco&#46;co&#46;jp">satoshi<span>&#64;</span>sys<span>&#46;</span>sdl<span>&#46;</span>melco<span>&#46;</span>co<span>&#46;</span>jp</a>&gt;</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="10_copying.html">Copying</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20_intro.html">はじめに</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="20_intro.html#skk">このバージョンの SKK について</a></li>
+<li class="toctree-l2"><a class="reference internal" href="20_intro.html#id4">SKK とはなにか</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="30_install.html">インストール</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="30_install.html#apel">APEL のインストール</a></li>
+<li class="toctree-l2"><a class="reference internal" href="30_install.html#ddskk">DDSKK のインストール</a></li>
+<li class="toctree-l2"><a class="reference internal" href="30_install.html#id7">辞書について</a></li>
+<li class="toctree-l2"><a class="reference internal" href="30_install.html#id8">辞書の入手</a></li>
+<li class="toctree-l2"><a class="reference internal" href="30_install.html#id9">辞書を DDSKK と同時にインストールする</a></li>
+<li class="toctree-l2"><a class="reference internal" href="30_install.html#id11">辞書サーバの入手</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="40_settings.html">はじめの設定</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="40_settings.html#id3">最も基本的な設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="40_settings.html#id8">インクリメント検索の設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="40_settings.html#id10">辞書サーバを使いたいときの設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="40_settings.html#ddskk-emacs-input-method">DDSKK を Emacs の Input Method とする</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="50_basic.html">基本的な使い方</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="50_basic.html#id4">起動と終了</a></li>
+<li class="toctree-l2"><a class="reference internal" href="50_basic.html#id9">入力モード</a></li>
+<li class="toctree-l2"><a class="reference internal" href="50_basic.html#id13">変換モード</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">索引</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">検索ページ</span></a></li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="10_copying.html" class="btn btn-neutral float-right" title="Copying" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 1991-2019, Masahiko Sato（佐藤雅彦）, Yukiyoshi Kameyama（亀山幸義）, NAKAJIMA Mikio（中島幹夫）, IRIE Tetsuya（入江）, Kitamoto Tsuyoshi（北本剛）, Teika Kazura（定家）, Tsukamoto Tetsuo（塚本徹雄）, Tsuyoshi AKIHO（秋保強）.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            LANGUAGE:'ja',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

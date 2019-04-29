@@ -1,0 +1,432 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ja" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ja" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>はじめの設定 &mdash; ddskk 0.1 ドキュメント</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="基本的な使い方" href="50_basic.html" />
+    <link rel="prev" title="インストール" href="30_install.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ddskk
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="10_copying.html">Copying</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20_intro.html">はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="30_install.html">インストール</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">はじめの設定</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id3">最も基本的な設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">インクリメント検索の設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">辞書サーバを使いたいときの設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ddskk-emacs-input-method">DDSKK を Emacs の Input Method とする</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="50_basic.html">基本的な使い方</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ddskk</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>はじめの設定</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/40_settings.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>はじめの設定<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p id="index-0">標準的にインストールした場合は、特段の設定なしに Emacs を起動するだけで DDSKK が
+使える状態になります。自動的に <code class="docutils literal notranslate"><span class="pre">skk-setup.el</span></code> というファイルが読み込まれ、設定
+されます <a class="footnote-reference" href="#id11" id="id2">[1]</a> 。この自動設定によらずに手動で設定したい場合は、以下の説明を参照し
+てください。</p>
+<div class="section" id="id3">
+<h2>最も基本的な設定<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p id="index-1">自動設定によらず手動で設定する場合は、次の内容を <code class="docutils literal notranslate"><span class="pre">~/.emacs.d/init.el</span></code> に書きま
+す <a class="footnote-reference" href="#id12" id="id4">[2]</a> 。</p>
+<div class="code emacs-lisp highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">require</span> <span class="s1">&#39;skk-autoloads) ; XEmacs でパッケージとしてインストールした場合は不要</span>
+<span class="p">(</span><span class="k">global</span><span class="o">-</span><span class="nb">set</span><span class="o">-</span><span class="n">key</span> <span class="s2">&quot;\C-x\C-j&quot;</span> <span class="s1">&#39;skk-mode)</span>
+<span class="p">(</span><span class="k">global</span><span class="o">-</span><span class="nb">set</span><span class="o">-</span><span class="n">key</span> <span class="s2">&quot;\C-xj&quot;</span> <span class="s1">&#39;skk-auto-fill-mode)</span>
+<span class="p">(</span><span class="k">global</span><span class="o">-</span><span class="nb">set</span><span class="o">-</span><span class="n">key</span> <span class="s2">&quot;\C-xt&quot;</span> <span class="s1">&#39;skk-tutorial)</span>
+</pre></div>
+</div>
+<p>辞書サーバを使わない場合は、辞書ファイルを指定する必要があります。</p>
+<div class="code emacs-lisp highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">setq</span> <span class="n">skk</span><span class="o">-</span><span class="n">large</span><span class="o">-</span><span class="n">jisyo</span> <span class="s2">&quot;/your/path/to/SKK-JISYO.L&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>辞書サーバを使わない場合は Emacs のバッファに <code class="docutils literal notranslate"><span class="pre">skk-large-jisyo</span></code> が指すファイル
+を取り込んで使用するためメモリ使用量が増加します。これが支障となる場合は、上記の
+<code class="docutils literal notranslate"><span class="pre">SKK-JISYO.L</span></code> を <code class="docutils literal notranslate"><span class="pre">SKK-JISYO.M</span></code> 、 <code class="docutils literal notranslate"><span class="pre">SKK-JISYO.ML</span></code> 又は <code class="docutils literal notranslate"><span class="pre">SKK-JISYO.S</span></code> に変
+更してください。</p>
+<p id="index-2">DDSKK 14.1 以降は辞書サーバを経由せずとも CDB 形式 <a class="footnote-reference" href="#id13" id="id5">[3]</a> の辞書ファイルを直接利用
+できるようになりました。CDB 形式辞書ファイル <a class="footnote-reference" href="#id14" id="id6">[4]</a> を利用する場合は、以下のように
+指定してください。</p>
+<div class="code emacs-lisp highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">setq</span> <span class="n">skk</span><span class="o">-</span><span class="n">cdb</span><span class="o">-</span><span class="n">large</span><span class="o">-</span><span class="n">jisyo</span> <span class="s2">&quot;/your/path/to/SKK-JISYO.L.cdb&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>変数 <code class="docutils literal notranslate"><span class="pre">skk-large-jisyo</span></code> と 変数 <code class="docutils literal notranslate"><span class="pre">skk-cdb-large-jisyo</span></code> を同時に指定した場合は、
+標準では CDB 形式辞書ファイルの方が先に検索 <a class="footnote-reference" href="#id15" id="id7">[5]</a> されます。</p>
+</div>
+<div class="section" id="id8">
+<h2>インクリメント検索の設定<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>基本的な設定は <code class="docutils literal notranslate"><span class="pre">skk-setup.el</span></code> が読み込まれた時点で完了しています <a class="footnote-reference" href="#id16" id="id9">[6]</a> 。</p>
+<dl class="docutils" id="index-3">
+<dt>skk-isearch-mode-enable</dt>
+<dd>この変数は <code class="docutils literal notranslate"><span class="pre">~/.emacs.d/init.el</span></code> か <code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">customize-variable</span></code> で設定してくだ
+さい。 <code class="docutils literal notranslate"><span class="pre">Non-nil</span></code> であれば、SKK が ON になっているバッファで skk-isearch を有
+効にします。標準設定は <code class="docutils literal notranslate"><span class="pre">t</span></code> です。 <code class="docutils literal notranslate"><span class="pre">nil</span></code> に設定すると skk-isearch を無効にす
+ることができます。シンボル <code class="docutils literal notranslate"><span class="pre">always</span></code> に設定すると、SKK が ON になっていないバ
+ッファでも skk-isearch を有効にします。</dd>
+</dl>
+</div>
+<div class="section" id="id10">
+<h2>辞書サーバを使いたいときの設定<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>辞書サーバを使いたいときは、 <code class="docutils literal notranslate"><span class="pre">~/.skk</span></code> で以下のように設定します。</p>
+<div class="code emacs-lisp highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">setq</span> <span class="n">skk</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">host</span> <span class="s2">&quot;example.org&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="n">setq</span> <span class="n">skk</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">portnum</span> <span class="mi">1178</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="docutils" id="index-4">
+<dt>skk-server-host</dt>
+<dd>辞書サーバが起動しているホスト名又は IP アドレス。</dd>
+</dl>
+<dl class="docutils" id="index-5">
+<dt>skk-server-portnum</dt>
+<dd>辞書サーバが使うポート番号。 <code class="docutils literal notranslate"><span class="pre">/etc/services</span></code> に <code class="docutils literal notranslate"><span class="pre">skkserv</span></code> のエントリが記述
+されていれば、この変数を指定する必要は無い。</dd>
+</dl>
+<dl class="docutils" id="index-6">
+<dt>skk-server-inhibit-startup-server</dt>
+<dd><p class="first">この変数が <code class="docutils literal notranslate"><span class="pre">nil</span></code> であれば、辞書サーバが起動していなかったときに Emacs か
+ら <code class="docutils literal notranslate"><span class="pre">skkserv</span></code> プロセスを起動することができます。</p>
+<p>Emacs から立ち上げて利用する事ができる辞書サーバは、</p>
+<div class="code console highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">skkserv</span> <span class="p">[</span><span class="o">-</span><span class="n">p</span> <span class="n">port</span><span class="p">]</span> <span class="p">[</span><span class="n">jisyo</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>のようなオプションを受け付け、 <code class="docutils literal notranslate"><span class="pre">inetd</span></code> などを経由せず直接起動するものに限られ
+ます。辞書サーバプログラムと辞書ファイルは、次のように設定します。</p>
+<div class="code console last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">setq</span> <span class="n">skk</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">prog</span> <span class="s2">&quot;/your/path/to/skkserv&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="n">setq</span> <span class="n">skk</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">jisyo</span> <span class="s2">&quot;/your/path/to/SKK-JISYO.L&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="docutils" id="index-7">
+<dt>skk-server-prog</dt>
+<dd>辞書サーバプログラムをフルパスで指定する。</dd>
+</dl>
+<dl class="docutils" id="index-8">
+<dt>skk-server-jisyo</dt>
+<dd>辞書サーバに渡す辞書をフルパスで指定する。辞書サーバによっては独自の方
+法で辞書ファイルを指定して emacs からの指定を無視するものもあります。
+詳しくは各辞書サーバの説明書を読んで下さい。</dd>
+</dl>
+<p id="index-9">これらの設定は、環境変数を利用して下記のようにすることもできます。</p>
+<ul>
+<li><p class="first">B シェルの場合（sh, bash, ksh, zsh など）</p>
+<div class="code sh highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">SKKSERVER</span><span class="o">=</span><span class="n">example</span><span class="o">.</span><span class="n">org</span>
+<span class="n">export</span> <span class="n">SKKSERV</span><span class="o">=/</span><span class="n">your</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">skkserv</span>
+<span class="n">export</span> <span class="n">SKK_JISYO</span><span class="o">=/</span><span class="n">your</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">SKK</span><span class="o">-</span><span class="n">JISYO</span><span class="o">.</span><span class="n">L</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">C シェルの場合（csh, tcsh など）</p>
+<div class="code csh highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">setenv</span> <span class="n">SKKSERVER</span> <span class="n">example</span><span class="o">.</span><span class="n">org</span>
+<span class="n">setenv</span> <span class="n">SKKSERV</span> <span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">skkserv</span>
+<span class="n">setenv</span> <span class="n">SKK_JISYO</span> <span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">SKK</span><span class="o">-</span><span class="n">JISYO</span><span class="o">.</span><span class="n">L</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>関連項目</p>
+<blockquote>
+<div><ul class="simple">
+<li>[辞書サーバの入手]</li>
+<li>[サーバ関連]</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="ddskk-emacs-input-method">
+<h2>DDSKK を Emacs の Input Method とする<a class="headerlink" href="#ddskk-emacs-input-method" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p id="index-10">Emacs の標準キーバインドでは <code class="docutils literal notranslate"><span class="pre">C-\</span></code> を打鍵すると、関数 <code class="docutils literal notranslate"><span class="pre">toggle-input-method</span></code> を
+実行します。この関数は、変数 <code class="docutils literal notranslate"><span class="pre">default-input-method</span></code> が指す input method を
+トグル切り替えします。</p>
+<p id="index-11">変数 <code class="docutils literal notranslate"><span class="pre">default-input-method</span></code> の値はおそらく &quot;Japanese&quot; であり、結果として
+<code class="docutils literal notranslate"><span class="pre">C-\</span></code> の打鍵で LEIM (Library of Emacs Input Method) を on / off します。</p>
+<p id="index-12">使用可能な input method は <code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">list-input-methods</span></code> で確認することができ、コマ
+ンド <code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">set-input-method</span></code> 又は <code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">RET</span> <span class="pre">C-\</span></code> を実行することで input method を
+切り替えることができます。</p>
+<p>ファイル <code class="docutils literal notranslate"><span class="pre">skk-leim.el</span></code> から生成されるファイル <code class="docutils literal notranslate"><span class="pre">skk-autoloads.el</span></code> で input method を
+ふたつ追加しています。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>input method</td>
+<td>内容</td>
+</tr>
+<tr class="row-even"><td>&quot;japanese-skk&quot;</td>
+<td><code class="code docutils literal notranslate"><span class="pre">(skk-mode</span> <span class="pre">1)</span></code></td>
+</tr>
+<tr class="row-odd"><td>&quot;japanese-skk-auto-fill&quot;</td>
+<td><code class="code docutils literal notranslate"><span class="pre">(skk-auto-fill-mode</span> <span class="pre">1)</span></code></td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils" id="index-13">
+<dt>default-input-method</dt>
+<dd><p class="first">Emacs 起動時の input method を DDSKK とするには、 <code class="docutils literal notranslate"><span class="pre">~/.emacs.d/init.el</span></code> に</p>
+<div class="code emacs-lisp highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">setq</span> <span class="n">default</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="n">method</span> <span class="s2">&quot;japanese-skk&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="last">と記述してください。</p>
+</dd>
+</dl>
+<p class="rubric">脚注</p>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td>Emacs が起動する過程の関数 <code class="docutils literal notranslate"><span class="pre">normal-top-level</span></code> で <code class="docutils literal notranslate"><span class="pre">SKK_LISPDIR/leim-list.el</span></code> が
+読み込まれます。 <code class="docutils literal notranslate"><span class="pre">leim-list.el</span></code> は <code class="docutils literal notranslate"><span class="pre">skk-autoloads.el</span></code> と <code class="docutils literal notranslate"><span class="pre">skk-setup.el</span></code> を
+<code class="docutils literal notranslate"><span class="pre">require</span></code> します。 <code class="docutils literal notranslate"><span class="pre">skk-autoloads.el</span></code> は DDSKK の <code class="docutils literal notranslate"><span class="pre">make</span></code> 時に自動的
+に生成されるファイルであり、各関数を自動ロード (autoload) するよう定義する
+ほか <code class="docutils literal notranslate"><span class="pre">register-input-method</span></code> も行います。 <code class="docutils literal notranslate"><span class="pre">skk-setup.el</span></code> はキーバイン
+ド（ <code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">C-j</span></code> → <code class="docutils literal notranslate"><span class="pre">skk-mode</span></code> ）の定義、変数 <code class="docutils literal notranslate"><span class="pre">skk-tut-file</span></code> の定義及
+びインクリメンタル・サーチの定義を行っています。</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[2]</a></td><td>配布物にサンプルファイル <code class="docutils literal notranslate"><span class="pre">etc/dot.emacs</span></code> と <code class="docutils literal notranslate"><span class="pre">etc/dot.skk</span></code> があります。
+参考にして下さい。</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[3]</a></td><td>constant database のこと。
+詳しくは <a class="reference external" href="http://cr.yp.to/cdb.html">http://cr.yp.to/cdb.html</a> 又は <a class="reference external" href="http://ja.wikipedia.org/wiki/Cdb">http://ja.wikipedia.org/wiki/Cdb</a> を
+参照のこと。</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[4]</a></td><td>SKK 辞書 の <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> 中の <code class="docutils literal notranslate"><span class="pre">cdb</span></code> ターゲットを実行することで
+<code class="docutils literal notranslate"><span class="pre">SKK-JISYO.L</span></code> に基づく <code class="docutils literal notranslate"><span class="pre">SKK-JISYO.L.cdb</span></code> を生成することができます。</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id15" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id7">[5]</a></td><td>[辞書検索の設定の具体例]</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id16" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id9">[6]</a></td><td><code class="docutils literal notranslate"><span class="pre">skk-setup.el</span></code> では、 <code class="docutils literal notranslate"><span class="pre">isearch-mode-hook</span></code> に <code class="docutils literal notranslate"><span class="pre">skk-isearch-setup-maybe</span></code> を、
+<code class="docutils literal notranslate"><span class="pre">isearch-mode-end-hook</span></code> に <code class="docutils literal notranslate"><span class="pre">skk-isearch-cleanup-maybe</span></code> をそれぞれ追加
+しています。 <code class="docutils literal notranslate"><span class="pre">skk-isearch-{setup|cleanup}-maybe</span></code> も <code class="docutils literal notranslate"><span class="pre">skk-setup.el</span></code> で定
+義されており、その実態は、関数 <code class="docutils literal notranslate"><span class="pre">skk-isearch-mode-{setup|cleanup}</span></code> です。</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="50_basic.html" class="btn btn-neutral float-right" title="基本的な使い方" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="30_install.html" class="btn btn-neutral" title="インストール" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 1991-2019, Masahiko Sato（佐藤雅彦）, Yukiyoshi Kameyama（亀山幸義）, NAKAJIMA Mikio（中島幹夫）, IRIE Tetsuya（入江）, Kitamoto Tsuyoshi（北本剛）, Teika Kazura（定家）, Tsukamoto Tetsuo（塚本徹雄）, Tsuyoshi AKIHO（秋保強）.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            LANGUAGE:'ja',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

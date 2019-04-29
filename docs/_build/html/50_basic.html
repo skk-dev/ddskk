@@ -1,0 +1,649 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ja" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ja" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>基本的な使い方 &mdash; ddskk 0.1 ドキュメント</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="prev" title="はじめの設定" href="40_settings.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ddskk
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="10_copying.html">Copying</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20_intro.html">はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="30_install.html">インストール</a></li>
+<li class="toctree-l1"><a class="reference internal" href="40_settings.html">はじめの設定</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">基本的な使い方</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id4">起動と終了</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#skk">SKK オートフィルモード</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">辞書の保存</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">入力モード</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id10">入力モードの説明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">入力モードを切り替えるキー</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id13">変換モード</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id14">■モード</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">▽モード</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id16">後から▽モードに入る方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">▽モードを抜ける方法</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id18">▼モード</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id19">送り仮名が無い場合</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ddskk</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>基本的な使い方</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/50_basic.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>基本的な使い方<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>本章では、DDSKK の基本的な使用方法を説明します。これを読めば、とりあえず DDSKK を
+使ってみるには充分です。</p>
+<p>DDSKK を使った入力方法に慣れるには、付属のチュートリアル <a class="footnote-reference" href="#id22" id="id2">[1]</a> が最適なので、お試
+しください。</p>
+<p>なお、次章の「便利な応用機能」 <a class="footnote-reference" href="#id23" id="id3">[2]</a> は、興味のある個所のみをピックアップしてお読
+みになるのがいいでしょう。</p>
+<div class="section" id="id4">
+<h2>起動と終了<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>SKK モードに入るには <code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">C-j</span></code> もしくは <code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">j</span></code> とキー入力します。モードライ
+ンの左端には、下記のように <code class="docutils literal notranslate"><span class="pre">--かな:</span></code> が追加されます <a class="footnote-reference" href="#id24" id="id5">[3]</a> 。また、カーソルの色が
+変化 <a class="footnote-reference" href="#id25" id="id6">[4]</a> します。</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">かな</span><span class="p">:</span><span class="n">MULE</span><span class="o">/</span><span class="mi">7</span><span class="n">bit</span><span class="o">-----</span> <span class="n">Buffer</span><span class="o">-</span><span class="n">name</span> <span class="p">(</span><span class="n">Major</span><span class="o">-</span><span class="n">mode</span><span class="p">)</span><span class="o">---</span>
+</pre></div>
+</div>
+<p>再び <code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">C-j</span></code> もしくは <code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">j</span></code> をキー入力することで、SKK モードに入る前のモ
+ードに戻り <a class="footnote-reference" href="#id26" id="id7">[5]</a> 、カーソル色も元に戻ります。</p>
+<dl class="docutils" id="index-0">
+<dt>skk-status-indicator</dt>
+<dd>標準設定はシンボル <code class="docutils literal notranslate"><span class="pre">left</span></code> です。この変数をシンボル <code class="docutils literal notranslate"><span class="pre">minor-mode</span></code> と設定すれ
+ば、インジケータはモードラインのマイナーモードの位置に表示されます。</dd>
+</dl>
+<dl class="docutils" id="index-1">
+<dt>skk-preload</dt>
+<dd><p class="first"><code class="docutils literal notranslate"><span class="pre">~/.emacs.d/init.el</span></code> にて変数 <code class="docutils literal notranslate"><span class="pre">skk-preload</span></code> を <code class="docutils literal notranslate"><span class="pre">non-nil</span></code> と設定することに
+より、DDSKK の初回起動を速くすることができます。</p>
+<div class="code emacs-lisp highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">setq</span> <span class="n">skk</span><span class="o">-</span><span class="n">preload</span> <span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="last">これは、SKK 本体プログラムの読み込みと、変数 <code class="docutils literal notranslate"><span class="pre">skk-search-prog-list</span></code> に指定さ
+れた辞書の読み込みを Emacs の起動時に済ませてしまうことにより実現しています。
+そのため、Emacs の起動そのものは遅くなりますが、DDSKK を使い始めるときのレスポ
+ンスが軽快になります。</p>
+</dd>
+</dl>
+<dl class="docutils" id="index-2">
+<dt>M-x skk-restart</dt>
+<dd><code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">skk-restart</span></code> と実行すると SKK を再起動します。 <code class="docutils literal notranslate"><span class="pre">~/.skk</span></code> は再ロードしま
+すが、 <code class="docutils literal notranslate"><span class="pre">~/.emacs.d/init.el</span></code> は再ロードしません。</dd>
+</dl>
+<dl class="docutils" id="index-3">
+<dt>skk-version</dt>
+<dd><p class="first"><code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">skk-version</span></code> と実行するとエコーエリアに SKK のバージョンを表示 [fn:ver] しま
+す。</p>
+<div class="code text last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-----------</span> <span class="n">Echo</span> <span class="n">Area</span> <span class="o">-----------</span>
+<span class="n">Daredevil</span> <span class="n">SKK</span><span class="o">/</span><span class="mf">16.2</span><span class="o">.</span><span class="mi">50</span> <span class="p">(</span><span class="n">CODENAME</span><span class="p">)</span>
+<span class="o">-----------</span> <span class="n">Echo</span> <span class="n">Area</span> <span class="o">-----------</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="section" id="skk">
+<h3>SKK オートフィルモード<a class="headerlink" href="#skk" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p id="index-4"><code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">j</span></code> とキー入力すれば、SKK モードに入ると同時にオートフィルモードをオンにし
+ます。</p>
+<p>既にオートフィルモードがオンになっているバッファで <code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">j</span></code> をキー入力すると、オ
+ートフィルモードは逆にオフになるので注意してください。</p>
+<p id="index-5">バッファの状態にかかわらず強制的にオートフィルモード付で SKK モードに入り
+たい場合は <code class="docutils literal notranslate"><span class="pre">M-1</span> <span class="pre">C-x</span> <span class="pre">j</span></code> や <code class="docutils literal notranslate"><span class="pre">C-u</span> <span class="pre">C-x</span> <span class="pre">j</span></code> などとキー入力し、このコマンドに正
+の引数を渡します。</p>
+</div>
+<div class="section" id="id8">
+<h3>辞書の保存<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p id="index-6">Emacs を終了するときは、保存前の個人辞書を <code class="docutils literal notranslate"><span class="pre">~/.skk-jisyo.BAK</span></code> に退避して
+から、個人辞書 [fn:skkjisyo] の内容を <code class="docutils literal notranslate"><span class="pre">~/.skk-jisyo</span></code> に保存 [fn:save] し
+ます。</p>
+<p><code class="docutils literal notranslate"><span class="pre">~/.skk-jisyo</span></code> や <code class="docutils literal notranslate"><span class="pre">~/.skk-jisyo.BAK</span></code> のファイル名を変更したければ、それぞ
+れ <code class="docutils literal notranslate"><span class="pre">skk-jisyo</span></code> や <code class="docutils literal notranslate"><span class="pre">skk-backup-jisyo</span></code> の値を変更して下さい。</p>
+<dl class="docutils" id="index-7">
+<dt>M-x skk-kill-emacs-without-saving-jisyo</dt>
+<dd>個人辞書を保存せずに Emacs を終了させたい場合には、このコマンドをキー入力します。</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>入力モード<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>SKK モードは、文字種類による４種類の <em>入力モード</em> [fn:color] と、辞書を
+用いた変換の状態により３つの <em>変換モード</em> を持ちます。</p>
+<div class="section" id="id10">
+<h3>入力モードの説明<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>モード名称</td>
+<td>説明</td>
+<td>マイナーモードの表示</td>
+<td>カーソル色</td>
+</tr>
+<tr class="row-even"><td>かなモード</td>
+<td>アスキー小文字をひらがなに変換するモード</td>
+<td>かな</td>
+<td>赤系</td>
+</tr>
+<tr class="row-odd"><td>カナモード</td>
+<td>アスキー小文字をカタカナに変換するモード</td>
+<td>カナ</td>
+<td>緑系</td>
+</tr>
+<tr class="row-even"><td>全英モード</td>
+<td>アスキー小文字／大文字を全角アルファベット <a class="footnote-reference" href="#id27" id="id11">[6]</a> に変換するモード</td>
+<td>全英</td>
+<td>黄系</td>
+</tr>
+<tr class="row-odd"><td>アスキーモード</td>
+<td><div class="first last line-block">
+<div class="line">文字を変換しないモード。</div>
+<div class="line">入力されたキーは <code class="docutils literal notranslate"><span class="pre">C-j</span></code> を除いて通常の Emacs のコマンドとして解釈される。</div>
+</div>
+</td>
+<td>SKK</td>
+<td>背景によりアイボリーかグレイ</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id12">
+<h3>入力モードを切り替えるキー<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Key</td>
+<td>Bind</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td>q</td>
+<td><cite>skk-toggle-kana</cite></td>
+<td>「かなモード」、「カナモード」間をトグルする</td>
+</tr>
+<tr class="row-odd"><td>l</td>
+<td><cite>skk-latin-mode</cite></td>
+<td>「かなモード」又は「カナモード」から「アスキーモード」へ</td>
+</tr>
+<tr class="row-even"><td>L</td>
+<td><cite>skk-jisx0208-latin-mode</cite></td>
+<td>「かなモード」又は「カナモード」から「全英モード」へ</td>
+</tr>
+<tr class="row-odd"><td>C-j</td>
+<td><cite>skk-kakutei</cite></td>
+<td>「アスキーモード」又は「全英モード」から「かなモード」へ</td>
+</tr>
+</tbody>
+</table>
+<p>実際にはカナモードや全英モードで長時間入力を続けることはほとんどないの
+で、かなモードのままでカナ文字や全英文字を入力する便法が用意されています。</p>
+<blockquote>
+<div><ul class="simple">
+<li>[かなモードからカタカナを入力]</li>
+<li>[全英文字の入力]</li>
+</ul>
+</div></blockquote>
+<dl class="docutils" id="index-8">
+<dt>skk-show-mode-show</dt>
+<dd>現在の入力モードは、モードラインに表示されています。この変数を <code class="docutils literal notranslate"><span class="pre">Non-nil</span></code> とす
+ると、入力モードを切り替えたときにカーソル付近にも一瞬表示するようになります。</dd>
+</dl>
+<dl class="docutils" id="index-9">
+<dt>M-x skk-show-mode</dt>
+<dd><code class="docutils literal notranslate"><span class="pre">skk-show-mode-show</span></code> の値をトグル切り替えします。</dd>
+</dl>
+<dl class="docutils" id="index-10">
+<dt>skk-show-mode-style</dt>
+<dd>標準設定は、シンボル <code class="docutils literal notranslate"><span class="pre">inline</span></code> です。シンボル <code class="docutils literal notranslate"><span class="pre">tooltip</span></code> を指定することも可能
+です。</dd>
+</dl>
+<dl class="docutils" id="index-11">
+<dt>skk-show-mode-inline-face</dt>
+<dd><code class="docutils literal notranslate"><span class="pre">inline</span></code> 利用時の face</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="id13">
+<h2>変換モード<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>変換モードは、次の３種類のいずれかです。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>モード名</td>
+<td>説明</td>
+</tr>
+<tr class="row-even"><td>■モード（確定入力モード）</td>
+<td><div class="first last line-block">
+<div class="line">あるキー入力に対応する文字列を、辞書を用いた文字変換を行わずに直接バッファ
+へ入力するモード。</div>
+<div class="line">入力モードに応じてローマ字からひらがなへ、ローマ字からカタカナへ、</div>
+<div class="line">あるいはアスキー文字から全角アルファベットへ文字を変換する。</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>▽モード</td>
+<td>辞書変換の対象となる文字列 <em>見出し語</em> を入力するモード</td>
+</tr>
+<tr class="row-even"><td>▼モード</td>
+<td>見出し語について、辞書変換を行うモード</td>
+</tr>
+</tbody>
+</table>
+<p>また、▽モードの変種として <em>SKK abbrev モード</em> があり、▼モードのサブモード
+として <em>辞書登録モード</em> があります。</p>
+<div class="section" id="id14">
+<h3>■モード<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p id="index-12">確定入力モードを <em>■モード</em> と呼びます。■モードでは、あるキー入力に対応
+した特定の文字列への変換を行うだけで、辞書変換は行いません。アスキー文字
+列から、入力モードに応じて、ひらがな、カタカナ、あるいは全角アルファベッ
+トへ文字を変換します。カレントバッファにこのモード特有のマークは表示され
+ません。</p>
+<p id="index-13">かなモード、カナモードで、かつ ■モードである場合、標準設定の入力方法は
+いわゆるローマ字入力です。訓令式、ヘボン式のどちらによっても入力すること
+ができます。主な注意点は以下のとおりです。</p>
+<blockquote>
+<div><ul class="simple">
+<li>「ん」 は <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">n</span></code> 又は n ' で入力する。直後に <code class="docutils literal notranslate"><span class="pre">n</span></code> 及び <code class="docutils literal notranslate"><span class="pre">y</span></code> 以外の子音が
+続くときは <code class="docutils literal notranslate"><span class="pre">n</span></code> だけで入力できる。</li>
+<li>促音は <code class="docutils literal notranslate"><span class="pre">c</span> <span class="pre">h</span> <span class="pre">o</span> <span class="pre">t</span> <span class="pre">t</span> <span class="pre">o</span></code> ⇒ 「ちょっと」 や <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">o</span> <span class="pre">p</span> <span class="pre">p</span> <span class="pre">a</span> <span class="pre">r</span> <span class="pre">a</span></code> ⇒ 「もっぱら」
+のように次の子音を重ねて入力する。</li>
+<li>促音や拗音（ひらがなの小文字）を単独で入力するときは <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">a</span></code> ⇒ 「ぁ」
+や <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">y</span> <span class="pre">a</span></code> ⇒ 「ゃ」 などのように <code class="docutils literal notranslate"><span class="pre">x</span></code> を用いる。</li>
+<li>長音（ー）は <code class="docutils literal notranslate"><span class="pre">-</span></code> で入力する。</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id15">
+<h3>▽モード<a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><em>▽モード</em> では、辞書変換の対象となる文字列を入力します。かなモードもしくはカナモ
+ードで、かつ■モードであるときに、キー入力を <em>大文字で開始</em> することで▽モードに
+入ります。</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span>K a n j i
+
+  ------ Buffer: foo ------
+  ▽かんじ*
+  ------ Buffer: foo ------
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">K</span> <span class="pre">a</span> <span class="pre">n</span> <span class="pre">j</span> <span class="pre">i</span></code> のように打鍵することで▽モードに入り、続けて辞書変換の対象となる文
+字列「見出し語」を入力します。▽マークは「▽モードである」という表示ですが、見出
+し語の開始点を示す表示でもあります。</p>
+<div class="section" id="id16">
+<h4>後から▽モードに入る方法<a class="headerlink" href="#id16" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p id="index-14">辞書変換の対象としたい文字列であったにも関わらず、先頭の文字を大文字で入力し忘れ
+た場合は、その位置までポイントを戻してから <code class="docutils literal notranslate"><span class="pre">Q</span></code> を打鍵することで、▽モードに入る
+ことができます。</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span>k a n j i
+
+  ------ Buffer: foo ------
+  かんじ*
+  ------ Buffer: foo ------
+
+C-u 3 C-b
+
+  ------ Buffer: foo ------
+  *かんじ
+  ------ Buffer: foo ------
+
+Q
+
+  ------ Buffer: foo ------
+  ▽*かんじ
+  ------ Buffer: foo ------
+
+C-e
+
+  ------ Buffer: foo ------
+  ▽かんじ*
+  ------ Buffer: foo ------
+</pre></div>
+</div>
+<p>「7がつ24にち」のように大文字から始めることができない文字列を見出し語としたい場合
+は、 <code class="docutils literal notranslate"><span class="pre">Q</span></code> を打鍵して▽モードにしてから「7がつ24にち」の文字列を入力します。</p>
+<p>なお、▽モードでは、文字列の間に空白を含めることはできません。これは、辞書エント
+リの見出し語に空白を含めることができない制限からきています。</p>
+</div>
+<div class="section" id="id17">
+<h4>▽モードを抜ける方法<a class="headerlink" href="#id17" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p id="index-15">誤って▽モードに入ってしまったときは <code class="docutils literal notranslate"><span class="pre">C-j</span></code> と打鍵して■モードに戻るか、 <code class="docutils literal notranslate"><span class="pre">C-g</span></code> と
+打鍵して見出し語を消去するか、どちらかの方法があります。</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span>K a n j i
+
+  ------ Buffer: foo ------
+  ▽かんじ*
+  ------ Buffer: foo ------
+
+C-j
+
+  ------ Buffer: foo ------
+  かんじ*
+  ------ Buffer: foo ------
+</pre></div>
+</div>
+<p>あるいは、</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span>K a n j i
+
+  ------ Buffer: foo ------
+  ▽かんじ*
+  ------ Buffer: foo ------
+
+C-g
+
+  ------ Buffer: foo ------
+  *
+  ------ Buffer: foo ------
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id18">
+<h3>▼モード<a class="headerlink" href="#id18" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><em>▼モード</em> では、▽モードで入力した見出し語を、辞書に従って変換する作業を行います。</p>
+<p>▽モードで見出し語を入力した後に <code class="docutils literal notranslate"><span class="pre">SPC</span></code> を打鍵することで▼モードに入ります。
+▽マークから <code class="docutils literal notranslate"><span class="pre">SPC</span></code> を打鍵したポイントまでの文字列が見出し語として確定され、検索
+されます。同時に、▽マークは▼マークで置き換えられます。</p>
+<div class="section" id="id19">
+<h4>送り仮名が無い場合<a class="headerlink" href="#id19" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>仮に、辞書に</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">かんじ</span> <span class="o">/</span><span class="n">漢字</span><span class="o">/</span><span class="n">幹事</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>というエントリ <a class="footnote-reference" href="#id28" id="id20">[7]</a> が含まれるとして、以下に例を示します。</p>
+<div class="code text highlight-default notranslate"><div class="highlight"><pre><span></span>K a n j i
+
+  ------ Buffer: foo ------
+  ▽かんじ*
+  ------ Buffer: foo ------
+
+SPC
+
+  ------ Buffer: foo ------
+  ▼漢字*
+  ------ Buffer: foo ------
+</pre></div>
+</div>
+<p id="index-16">この例では、▽モードにおける▽マークからポイントまでの間の文字列「かんじ」を辞書
+変換の対象文字列として確定し、それについて辞書内での検索を行っています。実際の変
+換動作では、候補部分がハイライト <a class="footnote-reference" href="#id29" id="id21">[8]</a> 表示されます。</p>
+<p>「漢字」が求める語であれば <code class="docutils literal notranslate"><span class="pre">C-j</span></code> を打鍵してこの変換を確定します。ハイライト表示
+も▼マークも消えます。</p>
+<p class="rubric">脚注</p>
+<table class="docutils footnote" frame="void" id="id22" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td>[チュートリアル]</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id23" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[2]</a></td><td>[便利な応用機能]</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id24" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[3]</a></td><td><code class="docutils literal notranslate"><span class="pre">skk.el</span></code> の <code class="docutils literal notranslate"><span class="pre">skk-setup-modeline</span></code> にて、 <code class="docutils literal notranslate"><span class="pre">mode-line-format</span></code> に <code class="docutils literal notranslate"><span class="pre">skk-icon</span></code> と <code class="docutils literal notranslate"><span class="pre">skk-modeline-input-mode</span></code> を追加しています。</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id25" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[4]</a></td><td>カラーディスプレイを使用し、カラー表示をサポートしている Window System 下
+で対応する Emacs を使用している場合。</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id26" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id7">[5]</a></td><td>ただし、「アスキーモード」を利用すれば SKK モードから抜ける必要はほとんど
+ありません。</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id27" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id11">[6]</a></td><td>JIS X 0208 英字のこと。このマニュアルでは「全角アルファベット」と表記する。</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id28" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id20">[7]</a></td><td>本マニュアルでは、見出し語と候補群を合わせた一行を「エントリ」と呼びます。</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id29" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id21">[8]</a></td><td>ハイライト表示は GNU Emacs の Overlays、XEmacs の extent の機能を使用して
+います。</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="40_settings.html" class="btn btn-neutral" title="はじめの設定" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 1991-2019, Masahiko Sato（佐藤雅彦）, Yukiyoshi Kameyama（亀山幸義）, NAKAJIMA Mikio（中島幹夫）, IRIE Tetsuya（入江）, Kitamoto Tsuyoshi（北本剛）, Teika Kazura（定家）, Tsukamoto Tetsuo（塚本徹雄）, Tsuyoshi AKIHO（秋保強）.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            LANGUAGE:'ja',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
