@@ -11,6 +11,7 @@ doc/*.log
 doc/*.pdf
 doc/*.toc
 doc/*.vr*
+docs/_build/*
 skk-autoloads.el
 skk-setup.el
 ert.el
