@@ -16,15 +16,15 @@ DDSKK 14.2 からは、GNU Emacs 22 以上を利用する場合においては A
 XEmacs をお使いの場合は、 DDSKK をインストールする前に APEL （APEL 10.8 以
 上を推奨）をインストールして下さい。APEL は次のサイトから入手できます。
 
-http://git.chise.org/elisp/apel/
+`APEL <http://git.chise.org/elisp/apel/>`_
 
 DDSKK のインストール
 ====================
 
-ここでは、UNIX 上で ``make`` コマンドが利用できる環境 [#]_ を想定します。
+ここでは、UNIX 上で :command:`make` コマンドが利用できる環境 [#]_ を想定します。
 
-まず、DDSKK のアーカイブ ``ddskk-VERSION.tar.gz`` を ``tar`` コマンドと
-``gzip`` コマンドを使用して展開します。
+まず、DDSKK のアーカイブ :file:`ddskk-VERSION.tar.gz` を :command:`tar` コマンド
+と :command:`gzip` コマンドを使用して展開します。
 
 .. code:: console
 
@@ -40,7 +40,7 @@ GNU Emacs へのインストール
 --------------------------
 
 まずは、DDSKK がどのディレクトリにインストールされるのか確認するため
-に ``what-where`` を引数に ``make`` コマンドを実行しましょう。
+に :samp:`what-where` を引数に :command:`make` コマンドを実行しましょう。
 
 .. code:: console
 
@@ -70,10 +70,10 @@ emacs の実体ファイルを特定することもできます。
    $ make what-where EMACS=/Applications/Emacs.app/Contents/MacOS/Emacs
 
 .. index::
-   keyword: SKK-CFG
+   pair: File; SKK-CFG
 
-また、DDSKK のインストール先ディレクトリを変更したい場合は ``SKK-CFG`` ファ
-イルを編集してください。編集後は必ず ``make what-where`` を実行して表示内容
+また、DDSKK のインストール先ディレクトリを変更したい場合は :file:`SKK-CFG` ファイ
+ルを編集してください。編集後は必ず :command:`make what-where` を実行して表示内容
 を確認してください。
 
 次にスーパーユーザになって、
@@ -92,7 +92,7 @@ emacs の実体ファイルを特定することもできます。
 
    % make install PREFIX=~/
 
-と、 ``PREFIX`` を指定して ``make`` を実行します。
+と、 :samp:`PREFIX` を指定して :command:`make` を実行します。
 
 特定の Emacs を指定する場合は、
 
@@ -105,8 +105,9 @@ emacs の実体ファイルを特定することもできます。
 XEmacs へのインストール
 -----------------------
 
-XEmacs でパッケージとしてインストールする場合は、まず ``what-where-package`` を
-引数に ``make`` コマンドを実行してパッケージのインストール先を確認しましょう。
+XEmacs でパッケージとしてインストールする場合は、まず :samp:`what-where-package`
+を引数に :command:`make` コマンドを実行してパッケージのインストール先を確認しまし
+ょう。
 
 .. code:: console
 
@@ -130,8 +131,8 @@ XEmacs でパッケージとしてインストールする場合は、まず ``w
    -|   SKK.tut, SKK.tut.E, NICOLA-SKK.tut, skk.xpm
    -|   -> /usr/share/xemacs/site-packages/etc/skk
 
-次に、スーパーユーザになって ``install-package`` を引数に ``make`` を実行す
-ると、実際にインストールされます。
+次に、スーパーユーザになって :samp:`install-package` を引数に :command:`make` を
+実行すると、実際にインストールされます。
 
 .. code:: console
 
@@ -148,9 +149,9 @@ DDSKK 14.3 では「対話的インストーラ」が追加されました。
 .. index::
    keyword: dired
 
-まず ``M-x dired`` とキー入力して ``dired`` を起動してください。このとき、ディレ
-クトリを問われますので、先に述べた「DDSKK のアーカイブを展開したディレクトリ」を
-指定してください。
+まず :kbd:`M-x dired` とキー入力して dired を起動してください。このとき、ディレク
+トリを問われますので、先に述べた「DDSKK のアーカイブを展開したディレクトリ」を指
+定してください。
 
 .. code::
 
@@ -158,8 +159,8 @@ DDSKK 14.3 では「対話的インストーラ」が追加されました。
    Dired (directory): ~/temp/ddskk-VERSION RET
    ------ Minibuffer -------
 
-次に、表示されたディレクトリ一覧の ``SKK-MK`` にカーソルをあわせて ``L`` （アルフ
-ァベットのエルの大文字）を打鍵してください。
+次に、表示されたディレクトリ一覧の :samp:`SKK-MK` にカーソルをあわせて :kbd:`L`
+（アルファベットのエルの大文字）を打鍵してください。
 
 .. code::
 
@@ -169,7 +170,7 @@ DDSKK 14.3 では「対話的インストーラ」が追加されました。
    drwxr-xr-x 1 user user  99999 2011-00-00 00:00 bayesian
    ------ Dired -------
 
-プロンプト ``Load SKK-MK?`` には ``y`` を打鍵してください。
+プロンプト :samp:`Load SKK-MK?` には :kbd:`y` を打鍵してください。
 
 以降、インストーラが表示する質問に答えながら DDSKK のインストールを進めて
 ください。なお、パーミッションは一切考慮していませんので、インストール先
@@ -200,30 +201,28 @@ DDSKK を使用するには、いわゆる辞書（主にかなと漢字の対�
 .. index::
    keyword: ja-dic
 
-DDSKK 14.2 からは、 GNU Emacs 同梱の辞書データ ``ja-dic`` を利用したかな漢
-字変換に対応しましたので、SKK 辞書ファイルを別途インストールしなくても最
-低限の使用ができます（XEmacs では ``ja-dic`` は利用できませんので、後述す
-る SKK 辞書をインストールする必要があります）。
+DDSKK 14.2 からは、 GNU Emacs 同梱の辞書データ ``ja-dic`` を利用したかな漢字変換
+に対応しましたので、SKK 辞書ファイルを別途インストールしなくても最低限の使用がで
+きます（XEmacs では ``ja-dic`` は利用できませんので、後述する SKK 辞書をインスト
+ールする必要があります）。
 
 .. index::
    keyword: LEIM
 
-しかし、 ``ja-dic`` は、 GNU Emacs の入力メソッド ``LEIM`` のために ``SKK-JISYO.L`` か
-ら変換して生成されたものであり、英数変換や数値変換などのエントリ、および
-「大丈夫」など複合語とみなし得る語が大幅に削除されています。
-そのため、 ``SKK-JISYO.L`` を利用したかな漢字変換と同等の結果は得られません。
+しかし、 ``ja-dic`` は、 GNU Emacs の入力メソッド ``LEIM`` のために
+:file:`SKK-JISYO.L` から変換して生成されたものであり、英数変換や数値変換などのエ
+ントリ、および「大丈夫」など複合語とみなし得る語が大幅に削除されています。
+そのため、 :file:`SKK-JISYO.L` を利用したかな漢字変換と同等の結果は得られません。
 
-有志の知恵を結集して作られている各種 SKK 辞書は便利ですから、是非入手して
-インストールしましょう。
+有志の知恵を結集して作られている各種 SKK 辞書は便利ですから、是非入手してインスト
+ールしましょう。
 
 辞書の入手
 ==========
 
 次のサイトには、様々な辞書が用意されています。
 
-SKK 各辞書の解説とダウンロード
-
-http://openlab.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1
+`SKK 各辞書の解説とダウンロード <http://openlab.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1>`_
 
 以下は、その一例です。
 
@@ -271,22 +270,22 @@ http://openlab.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1
   候補に Emacs Lisp 関数を含むエントリーを集めた辞書。見出し語を変換する
   過程で Emacs Lisp 関数を評価し、その値を候補として表示します。
 
-  [[プログラム実行変換][プログラム実行変換]].
+  :ref:`プログラム実行変換 <program-conversion>`
 
 - SKK-JISYO.wrong
 
   S, M, L 辞書に既に登録されていたが、間違いであったことが判明したため削
   除された単語を収録
 
-一部の辞書は、著作権が GNU GPL v2 ではありませんのでご注意下さい。詳細は、
-次の資料を参照して下さい。
+一部の辞書は、著作権が GNU GPL v2 ではありませんのでご注意下さい。詳細は、次の資
+料を参照して下さい。
 
 http://openlab.jp/skk/skk/dic/READMEs/committers.txt
 
 .. index::
    pair: Key; M-x skk-get
 
-M-x skk-get
+:kbd:`M-x skk-get`
   Emacs の使用中に ``M-x skk-get`` と実行すると、辞書ファイルを一括ダウンロ
   ードすることができます。
 
@@ -305,11 +304,12 @@ M-x skk-get
 辞書を DDSKK と同時にインストールする
 =====================================
 
-DDSKK のソースを展開すると、中に ``dic`` というディレクトリが存在します。
-``SKK-JISYO.L`` などをこのディレクトリにコピーしてから ``make install`` を
-実行すると、辞書ファイルがチュートリアル (``SKK.tut``) と同じディレクト
-リ (``/usr/share/skk`` や ``c:/emacs-24.5/etc/skk`` など) にインストールされ
-ます。具体的なインストール先は ``make what-where`` を実行すると表示されます。
+DDSKK のソースを展開すると、中に :file:`dic` というディレクトリが存在します。
+:file:`SKK-JISYO.L` などをこのディレクトリにコピーしてから :command:`make install` を
+実行すると、辞書ファイルがチュートリアル (:file:`SKK.tut`) と同じディレクト
+リ (:file:`/usr/share/skk` や :file:`c:/emacs-24.5/etc/skk` など) にインストール
+されます。具体的なインストール先は :command:`make what-where` を実行すると表示さ
+れます。
 
 .. code:: console
 
@@ -317,36 +317,37 @@ DDSKK のソースを展開すると、中に ``dic`` というディレクト�
    -|   SKK-JISYO.lisp, SKK-JISYO.zipcode, SKK-JISYO.office.zipcode, ...
    -|   -> c:/emacs-24.5/share/emacs/24.5/etc/skk
 
-``dic`` ディレクトリに辞書ファイルを置くためには ``make get`` と実行する [#]_
-のが簡単です。
+:file:`dic` ディレクトリに辞書ファイルを置くためには :command:`make get` と実行す
+る [#]_ のが簡単です。
+
+.. _get-jisyo-server:
 
 辞書サーバの入手
 ================
 
-辞書サーバはオプションです。辞書サーバが無くても DDSKK は動作しますが、特
-に辞書のサイズが大きい場合は辞書サーバを利用することで省メモリ効果を得ら
-れます。また、辞書サーバによっては複数辞書の検索、EPWING 辞書の検索ができ
-たりするものもあります。
+辞書サーバはオプションです。辞書サーバが無くても DDSKK は動作しますが、特に辞書の
+サイズが大きい場合は辞書サーバを利用することで省メモリ効果を得られます。また、辞
+書サーバによっては複数辞書の検索、EPWING 辞書の検索ができたりするものもあります。
 
-DDSKK は特定の辞書サーバの実装に依存していませんので、下記の辞書サーバの
-いずれでも動作可能です。ソースやバイナリの入手、インストールについてはそ
-れぞれのウェブサイトをご参照下さい。
+DDSKK は特定の辞書サーバの実装に依存していませんので、下記の辞書サーバのいずれで
+も動作可能です。ソースやバイナリの入手、インストールについてはそれぞれのウェブサ
+イトをご参照下さい。
 
 `辞書サーバの説明とリンク <http://openlab.jp/skk/skkserv-ja.html>`_
 
 .. rubric:: 脚注
 
-.. [#] Microsoft Windows 環境では ``makeit.bat`` を使用することで、UNIX と同様の
-   操作でインストールできます。 ``READMEs/README.w32.ja`` を参照してください。
-   cygwin 環境をインストールされている方は ``make`` コマンドが使用できるので、本
-   文の解説がそのまま当てはまります。Apple macOS 環境の方は ``READMEs/README.MacOSX.ja``
-   を参照してください。
+.. [#] Microsoft Windows 環境では :command:`makeit.bat` を使用することで、UNIX と
+       同様の操作でインストールできます。 :file:`READMEs/README.w32.ja` を参照し
+       てください。cygwin 環境をインストールされている方は :command:`make` コマン
+       ドが使用できるので、本文の解説がそのまま当てはまります。Apple macOS 環境の
+       方は :file:`READMEs/README.MacOSX.ja` を参照してください。
 
-.. [#] ``ChangeLog`` や ``Makefile`` が置かれているディレクトリです。
+.. [#] :file:`ChangeLog` や :file:`Makefile` が置かれているディレクトリです。
 
-.. [#] Milkypostman's Emacs Lisp Package Archive. http://melpa.org/
+.. [#] `Milkypostman's Emacs Lisp Package Archive. <http://melpa.org/>`_
 
 .. [#] GNU Emacs 24 以降で標準で搭載されています。GNU Emacs 23 以前では手動でイン
        ストールする必要があります。 http://wikemacs.org/wiki/Package.el
 
-.. [#] Microsoft Windows 環境では ``makeit.bat get`` と実行します。
+.. [#] Microsoft Windows 環境では :command:`makeit.bat get` と実行します。

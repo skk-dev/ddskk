@@ -20,6 +20,7 @@ SKK (Simple Kana to Kanji conversion program) documentation
 
 .. toctree::
    :maxdepth: 2
+   :numbered:
    :caption: Contents:
 
    00_copying.rst

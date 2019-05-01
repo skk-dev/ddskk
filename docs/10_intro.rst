@@ -123,6 +123,9 @@ DDSKK の主な特徴は、次のとおりです。
 .. rubric:: 脚注
 
 .. [#] 2013-06-11 international/mule-conf.el (file-coding-system-alist).
+
 .. [#] Emacs News: Changes in Emacs 24.4 on Non-Free Operating Systems.
+
 .. [#] :math:`SKK = I` について詳しくは http://openlab.jp/skk/SKK.html をご参照下さい。
-.. [#] Daredevil の名の由来は [[Q1-1 Daredevil SKK って SKK とは違うのですか?][Q1-1 Daredevil SKK って SKK とは違うのですか?]].
+
+.. [#] Daredevil の名の由来は [Q1-1 Daredevil SKK って SKK とは違うのですか?].
