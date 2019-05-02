@@ -8,13 +8,12 @@ APEL のインストール
 .. index::
    keyword: APEL
 
-DDSKK 14.2 からは、GNU Emacs 22 以上を利用する場合においては APEL を別途
-インストールする必要がなくなりました。APEL に依存している他の elisp プロ
-グラムを使用していなければ、インストール済の APEL は削除することが可能で
-す。
+DDSKK 14.2 からは、GNU Emacs 22 以上を利用する場合においては APEL を別途インスト
+ールする必要がなくなりました。APEL に依存している他の elisp プログラムを使用して
+いなければ、インストール済の APEL は削除することが可能です。
 
-XEmacs をお使いの場合は、 DDSKK をインストールする前に APEL （APEL 10.8 以
-上を推奨）をインストールして下さい。APEL は次のサイトから入手できます。
+XEmacs をお使いの場合は、 DDSKK をインストールする前に APEL （APEL 10.8 以上を推
+奨）をインストールして下さい。APEL は次のサイトから入手できます。
 
 `APEL <http://git.chise.org/elisp/apel/>`_
 
@@ -23,8 +22,8 @@ DDSKK のインストール
 
 ここでは、UNIX 上で :command:`make` コマンドが利用できる環境 [#]_ を想定します。
 
-まず、DDSKK のアーカイブ :file:`ddskk-VERSION.tar.gz` を :command:`tar` コマンド
-と :command:`gzip` コマンドを使用して展開します。
+まず、DDSKK のアーカイブ :file:`ddskk-VERSION.tar.gz` を :command:`tar` コマンドと
+:command:`gzip` コマンドを使用して展開します。
 
 .. code:: console
 
@@ -39,8 +38,8 @@ DDSKK のインストール
 GNU Emacs へのインストール
 --------------------------
 
-まずは、DDSKK がどのディレクトリにインストールされるのか確認するため
-に :samp:`what-where` を引数に :command:`make` コマンドを実行しましょう。
+まずは、DDSKK がどのディレクトリにインストールされるのか確認するために
+:samp:`what-where` を引数に :command:`make` コマンドを実行しましょう。
 
 .. code:: console
 
@@ -85,8 +84,8 @@ emacs の実体ファイルを特定することもできます。
 
 と実行すると、実際に DDSKK がインストールされます。
 
-あるいは、一般ユーザが自分の home directory を root directory として DDSKK を
-インストールするには、
+あるいは、一般ユーザが自分の home directory を root directory として DDSKK をイン
+ストールするには、
 
 .. code:: console
 
@@ -153,7 +152,7 @@ DDSKK 14.3 では「対話的インストーラ」が追加されました。
 トリを問われますので、先に述べた「DDSKK のアーカイブを展開したディレクトリ」を指
 定してください。
 
-.. code::
+.. code:: text
 
    ------ Minibuffer -------
    Dired (directory): ~/temp/ddskk-VERSION RET
@@ -162,7 +161,7 @@ DDSKK 14.3 では「対話的インストーラ」が追加されました。
 次に、表示されたディレクトリ一覧の :samp:`SKK-MK` にカーソルをあわせて :kbd:`L`
 （アルファベットのエルの大文字）を打鍵してください。
 
-.. code::
+.. code:: text
 
    ------ Dired -------
    -rw-r--r-- 1 user user  99999 2011-00-00 00:00 SKK-CFG
@@ -172,9 +171,9 @@ DDSKK 14.3 では「対話的インストーラ」が追加されました。
 
 プロンプト :samp:`Load SKK-MK?` には :kbd:`y` を打鍵してください。
 
-以降、インストーラが表示する質問に答えながら DDSKK のインストールを進めて
-ください。なお、パーミッションは一切考慮していませんので、インストール先
-は書き込み権限を有するディレクトリを指定してください。
+以降、インストーラが表示する質問に答えながら DDSKK のインストールを進めてください。
+なお、パーミッションは一切考慮していませんので、インストール先は書き込み権限を有
+するディレクトリを指定してください。
 
 MELPA によるインストール
 ------------------------
@@ -195,8 +194,8 @@ https://github.com/skk-dev/ddskk/blob/master/READMEs/INSTALL.MELPA.md
 辞書について
 ============
 
-DDSKK を使用するには、いわゆる辞書（主にかなと漢字の対応を記述したデータ）
-が必要です。
+DDSKK を使用するには、いわゆる辞書（主にかなと漢字の対応を記述したデータ）が必要
+です。
 
 .. index::
    keyword: ja-dic
@@ -226,56 +225,33 @@ DDSKK 14.2 からは、 GNU Emacs 同梱の辞書データ ``ja-dic`` を利用�
 
 以下は、その一例です。
 
-- SKK-JISYO.S
+.. list-table::
 
-  S 辞書（主に単漢字が登録。最小限必要な語を収録）
-
-- SKK-JISYO.M
-
-  M 辞書（普通に使う分には足りる程度）
-
-- SKK-JISYO.ML
-
-  M 辞書と L 辞書の中間のサイズの辞書。L 辞書収録語の内、EPWING 辞書やオ
-  ンライン辞書で正しいと判別された語をベースにして加除。
-
-- SKK-JISYO.L
-
-  L 辞書（あらゆる単語を収録）
-
-- zipcode
-
-  郵便番号辞書
-
-- SKK-JISYO.JIS2
-
-  JIS X 0208 で定められている第２水準の文字を、部首の読みを見出し語として
-  単漢字を収録した辞書
-
-- SKK-JISYO.JIS3_4
-
-  JIS 第３水準、第４水準の文字に代表される、JIS X 0208 には含まれないが
-  JIS X 0213 には含まれる文字及びそれらを含む語録を収録した辞書
-
-- SKK-JISYO.public+
-
-  public+ 辞書
-
-- SKK-JISYO.edict
-
-  edict 辞書（英和辞書）
-
-- SKK-JISYO.lisp
-
-  候補に Emacs Lisp 関数を含むエントリーを集めた辞書。見出し語を変換する
-  過程で Emacs Lisp 関数を評価し、その値を候補として表示します。
-
-  :ref:`プログラム実行変換 <program-conversion>`
-
-- SKK-JISYO.wrong
-
-  S, M, L 辞書に既に登録されていたが、間違いであったことが判明したため削
-  除された単語を収録
+   * - SKK-JISYO.S
+     - S 辞書（主に単漢字が登録。最小限必要な語を収録）
+   * - SKK-JISYO.M
+     - M 辞書（普通に使う分には足りる程度）
+   * - SKK-JISYO.ML
+     - | M 辞書と L 辞書の中間のサイズの辞書。
+       | L 辞書収録語の内、EPWING 辞書やオンライン辞書で正しいと判別された語をベースにして加除。
+   * - SKK-JISYO.L
+     - L 辞書（あらゆる単語を収録）
+   * - zipcode
+     - 郵便番号辞書
+   * - SKK-JISYO.JIS2
+     - JIS X 0208 で定められている第２水準の文字を、部首の読みを見出し語として単漢字を収録した辞書
+   * - SKK-JISYO.JIS3_4
+     - JIS 第３水準、第４水準の文字に代表される、JIS X 0208 には含まれないが JIS X 0213 には含まれる文字及びそれらを含む語録を収録した辞書
+   * - SKK-JISYO.public+
+     - public+ 辞書
+   * - SKK-JISYO.edict
+     - edict 辞書（英和辞書）
+   * - SKK-JISYO.lisp
+     - | 候補に Emacs Lisp 関数を含むエントリーを集めた辞書。
+       | 見出し語を変換する過程で Emacs Lisp 関数を評価し、その値を候補として表示します。
+       | :ref:`プログラム実行変換 <program-conversion>`
+   * - SKK-JISYO.wrong
+     - S, M, L 辞書に既に登録されていたが、間違いであったことが判明したため削除された単語を収録
 
 一部の辞書は、著作権が GNU GPL v2 ではありませんのでご注意下さい。詳細は、次の資
 料を参照して下さい。
@@ -286,20 +262,19 @@ http://openlab.jp/skk/skk/dic/READMEs/committers.txt
    pair: Key; M-x skk-get
 
 :kbd:`M-x skk-get`
-  Emacs の使用中に ``M-x skk-get`` と実行すると、辞書ファイルを一括ダウンロ
-  ードすることができます。
+  Emacs の使用中に ``M-x skk-get`` と実行すると、辞書ファイルを一括ダウンロードす
+  ることができます。
 
 .. index::
    pair: Function; skk-get
 
 (skk-get &optional DIRECTORY)
-  skk-get を関数として使用することで、ユーザプログラムの中からでも辞書フ
-  ァイルを一括ダウンロードすることができます。
+  skk-get を関数として使用することで、ユーザプログラムの中からでも辞書ファイルを
+  一括ダウンロードすることができます。
 
 .. code:: emacs-lisp
 
   (skk-get "~/jisyofiles")
-
 
 辞書を DDSKK と同時にインストールする
 =====================================

@@ -170,7 +170,7 @@ DDSKK を Emacs の Input Method とする
    pair: Key; C-\
    pair: Key; M-x toggle-input-method
 
-Emacs の標準キーバインドでは :kbd:`C-\` を打鍵すると、関数 ``toggle-input-method`` を
+Emacs の標準キーバインドでは :kbd:`C-\\` を打鍵すると、関数 ``toggle-input-method`` を
 実行します。この関数は、変数 ``default-input-method`` が指す input method を
 トグル切り替えします。
 
@@ -187,11 +187,11 @@ Emacs の標準キーバインドでは :kbd:`C-\` を打鍵すると、関数 `
    pair: Key; C-x RET C-\
 
 使用可能な input method は :kbd:`M-x list-input-methods` で確認することができ、コ
-マンド :kbd:`M-x set-input-method` 又は :kbd:`C-x RET C-\\` を実行することで input method を
-切り替えることができます。
+マンド :kbd:`M-x set-input-method` 又は :kbd:`C-x RET C-\\` を実行することで
+input method を切り替えることができます。
 
-ファイル :file:`skk-leim.el` から生成されるファイル :file:`skk-autoloads.el` で input method を
-ふたつ追加しています。
+ファイル :file:`skk-leim.el` から生成されるファイル :file:`skk-autoloads.el` で
+input method をふたつ追加しています。
 
 .. list-table::
 
@@ -217,12 +217,13 @@ default-input-method
 .. rubric:: 脚注
 
 .. [#] Emacs が起動する過程の関数 ``normal-top-level`` で :file:`SKK_LISPDIR/leim-list.el` が
-       読み込まれます。 :file:`leim-list.el` は :file:`skk-autoloads.el` と :file:`skk-setup.el` を
-       ``require`` します。 :file:`skk-autoloads.el` は DDSKK の :command:`make` 時に自動的
-       に生成されるファイルであり、各関数を自動ロード (autoload) するよう定義する
-       ほか ``register-input-method`` も行います。 :file:`skk-setup.el` はキーバイン
-       ド（ :kbd:`C-x C-j` → ``skk-mode`` ）の定義、変数 ``skk-tut-file`` の定義及
-       びインクリメンタル・サーチの定義を行っています。
+       読み込まれます。
+       :file:`leim-list.el` は :file:`skk-autoloads.el` と :file:`skk-setup.el` を require します。
+       :file:`skk-autoloads.el` は DDSKK の :command:`make` 時に自動的に生成され
+       るファイルであり、各関数を autoload するよう定義するほか ``register-input-method`` も
+       行います。
+       :file:`skk-setup.el` はキーバインド（ :kbd:`C-x C-j` → ``skk-mode`` ）の定義、
+       変数 ``skk-tut-file`` の定義及びインクリメンタル・サーチの定義を行っています。
 
 .. [#] 配布物にサンプルファイル :file:`etc/dot.emacs` と :file:`etc/dot.skk` があります。
        参考にして下さい。
@@ -238,5 +239,6 @@ default-input-method
 
 .. [#] :file:`skk-setup.el` では、 ``isearch-mode-hook`` に ``skk-isearch-setup-maybe`` を、
        ``isearch-mode-end-hook`` に ``skk-isearch-cleanup-maybe`` をそれぞれ追加
-       しています。 ``skk-isearch-{setup|cleanup}-maybe`` も :file:`skk-setup.el` で定
-       義されており、その実態は、関数 ``skk-isearch-mode-{setup|cleanup}`` です。
+       しています。
+       ``skk-isearch-{setup|cleanup}-maybe`` も :file:`skk-setup.el` で定義されて
+       おり、その実態は、関数 ``skk-isearch-mode-{setup|cleanup}`` です。

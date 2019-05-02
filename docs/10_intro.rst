@@ -5,26 +5,26 @@
 このバージョンの SKK について
 =============================
 
-Daredevil SKK （以下、このマニュアルにおいて DDSKK と呼びます。）は、動作
-が早くて効率的な日本語入力環境を提供するソフトウェアです。
+Daredevil SKK （以下、このマニュアルにおいて DDSKK と呼びます。）は、動作が早くて
+効率的な日本語入力環境を提供するソフトウェアです。
 
-GNU General Public License に基づいて配布されているフリー・ソフトウェアで
-す。DDSKK |release| が動作すると思われる Emacsen のバージョンは、次の
-とおりです。
+GNU General Public License に基づいて配布されているフリー・ソフトウェアです。
+DDSKK |release| が動作すると思われる Emacsen のバージョンは、次のとおりです。
 
 - GNU Emacs 23.1 以降
 - GNU Emacs 24.1 以降
 - GNU Emacs 25.1 以降
+- GNU Emacs 26.1 以降
 - Mule 機能付きでコンパイルされた XEmacs 21.4 の最新版
 - Mule 機能付きでコンパイルされた XEmacs 21.5 の最新版
 
-XEmacs に関しては、XEmacs 本体とは別に配布されているパッケージ群は最新版
-が要求されます。少なくとも ``xemacs-base`` パッケージが最新であることに加え
-て ``fsf-compat`` パッケージが必須です。
+XEmacs に関しては、XEmacs 本体とは別に配布されているパッケージ群は最新版が要求さ
+れます。少なくとも ``xemacs-base`` パッケージが最新であることに加えて
+``fsf-compat`` パッケージが必須です。
 
-総論として、現在は XEmacs よりも GNU Emacs での動作がよくテストされており、
-最近では XEmacs でのテストは充分行われていません。GNU Emacs 23 以上での利
-用が最も推奨されます。
+総論として、現在は XEmacs よりも GNU Emacs での動作がよくテストされており、最近で
+は XEmacs でのテストは充分行われていません。GNU Emacs 23 以上での利用が最も推奨さ
+れます。
 
 現時点で Emacs のバージョンごとに少なくとも以下の制限があります。
 
@@ -41,30 +41,26 @@ GNU Emacs 22.3
    ーザは DDSKK 16.1 をお使いください。
 
 GNU Emacs 23.3
-   X Window System 上でのメニューバーの日本語表示は GTK 対応版のみです。
-
-   MELPA を利用してインストールするには、先に ~package.el~ をインスト
-   ールする必要があります。
+   - X Window System 上でのメニューバーの日本語表示は GTK 対応版のみです。
+   - MELPA を利用してインストールするには、先に :file:`package.el` をインストール
+     する必要があります。
 
 GNU Emacs 24.3
-   GNU Emacs 24.3 と DDSKK 14 の組み合わせで isearch 使用時の不具合が発見
-   されています。GNU Emacs 24.3 のユーザは DDSKK 15 以降をお使いください。
+   GNU Emacs 24.3 と DDSKK 14 の組み合わせで isearch 使用時の不具合が発見されてい
+   ます。GNU Emacs 24.3 のユーザは DDSKK 15 以降をお使いください。
 
    - http://mail.ring.gr.jp/skk/201211/msg00000.html
    - http://mail.ring.gr.jp/skk/201212/msg00000.html
 
 GNU Emacs 24.4
-   coding tag を明示していないファイルは utf-8 と取り扱われます [#]_ 。
-   DDSKK 15.2 で対策済みです。
-
-   NTEmacs は 24.3 と比べてディレクトリ構成 が異なります [#]_ 。
-   DDSKK 15.2 で対策済みです。
+   - coding tag を明示していないファイルは utf-8 と取り扱われます [#]_ 。DDSKK 15.2 で対策済みです。
+   - NTEmacs は 24.3 と比べてディレクトリ構成 が異なります [#]_ 。DDSKK 15.2 で対策済みです。
 
 GNU Emacs 25.1
    DDSKK 15.2 以降をお使いください（DDSKK 16 を推奨します）。
 
 XEmacs 21.4
-   - ``skk-kcode.el`` の機能を含む JIS X 0213 対応が機能しません。
+   - :file:`skk-kcode.el` の機能を含む JIS X 0213 対応が機能しません。
    - インライン候補表示は機能しません。
    - 動的補完における複数候補表示は機能しません。
    - ツールティップ表示が機能しません。
@@ -72,7 +68,7 @@ XEmacs 21.4
    - GNU Emacs 標準添付辞書 ja-dic は利用できません。
 
 XEmacs 21.5 (beta)
-   - ``skk-kcode.el`` の機能を含む JIS X 0213 対応が機能しません。
+   - :file:`skk-kcode.el` の機能を含む JIS X 0213 対応が機能しません。
    - インライン候補表示は機能しません。
    - 動的補完における複数候補表示は機能しません。
    - 日本語メニュー表示は X リソースによる方法のみテストされています。
@@ -83,15 +79,14 @@ SKK とはなにか
 
 SKK は、かな漢字変換プログラムです。
 
-Simple Kana to Kanji conversion program にちなんで名付けられ、その名
-は Combinatory Logic での有名な等式 :math:`SKK = I` にも由来 [#]_ し
-ています。
+Simple Kana to Kanji conversion program にちなんで名付けられ、その名は
+Combinatory Logic での有名な等式 :math:`SKK = I` にも由来 [#]_ しています。
 
 Daredevil SKK は、SKK の更なる拡張版です [#]_ 。
 
-ただし、SKK モード、SKK 辞書、SKK サーバ といった歴史的な用語は引き続き使
-用しており、DDSKK と呼ばない場合もあります。また、SKK 方式の入力方法を採
-用したプログラムなど、広く SKK family を意味する場合も同様です。
+ただし、SKK モード、SKK 辞書、SKK サーバ といった歴史的な用語は引き続き使用してお
+り、DDSKK と呼ばない場合もあります。また、SKK 方式の入力方法を採用したプログラム
+など、広く SKK family を意味する場合も同様です。
 
 DDSKK の主な特徴は、次のとおりです。
 
@@ -109,7 +104,7 @@ DDSKK の主な特徴は、次のとおりです。
 - 辞書ファイルの一括ダウンロード機能。
 - Emacs のオリジナル操作と同様に行える日本語インクリメンタル・サーチ。
 - Emacs Lisp で書かれたプログラムが返す値を変換候補に挙げることができる。
-- 入力モードの自動切り替え ``context-skk.el``
+- 入力モードの自動切り替え :file:`context-skk.el`
 - 多彩なアノテーション表示
 
   - ユーザ・アノテーション
