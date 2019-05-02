@@ -9,7 +9,7 @@ Daredevil SKK （以下、このマニュアルにおいて DDSKK と呼びま�
 が早くて効率的な日本語入力環境を提供するソフトウェアです。
 
 GNU General Public License に基づいて配布されているフリー・ソフトウェアで
-す。DDSKK {{{version}}} が動作すると思われる Emacsen のバージョンは、次の
+す。DDSKK |release| が動作すると思われる Emacsen のバージョンは、次の
 とおりです。
 
 - GNU Emacs 23.1 以降
