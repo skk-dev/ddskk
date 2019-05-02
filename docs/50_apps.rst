@@ -33,7 +33,7 @@ SKK の基本的な機能は :file:`skk.el` に収められています。一方
    * - skk-annotation.el
      - 個人辞書に付けたアノテーション（注釈）を活用するプログラムを集めたファイル
    * - skk-auto.el
-     - 送り仮名の自動処理を行うプログラムを集めたファイル
+     - :ref:`送り仮名の自動処理 <okurigana>` を行うプログラムを集めたファイル
    * - skk-autoloads.el
      - | :command:`make` 時に自動生成されるファイル。
        | オートロードの設定のほか ``register-input-method`` も行う。
@@ -131,6 +131,8 @@ SKK の基本的な機能は :file:`skk.el` に収められています。一方
 DDSKK のカスタマイズは、 :file:`~/.emacs.d/init.el` あるいは :file:`~/.skk` に記述します。
 また、各ファイルの提供するフックも利用します。上記のファイルやフックを利用した設
 定がいつ有効になるのか、という点についてここで説明します。
+
+.. _configure-file:
 
 設定ファイル
 ------------
@@ -3182,7 +3184,7 @@ skk-kakutei-when-unique-candidate
    そのため、 ``skk-search-prog-list`` の内容によってはレスポンスが悪くなる可能性
    があります。
 
-   [辞書の検索方法の設定]
+   :ref:`辞書の検索方法の設定 <search-jisyo>`
 
 .. index::
    pair: Variable; skk-kakutei-search-prog-limit
@@ -3193,6 +3195,8 @@ skk-kakutei-search-prog-limit
    て当該数値の個数までの辞書に制限します。
 
    数値以外であれば、無制限に全ての辞書を検索対象とします。
+
+.. _kakutei-jisyo:
 
 確定辞書
 --------
@@ -3364,7 +3368,7 @@ skk-henkan-strict-okuri-precedence
    pair: Variable; skk-auto-okuri-process
 
 skk-auto-okuri-process
-   この変数の値を ``non-nil`` に設定すると、送り仮名の自動処理が行われます。
+   この変数の値を ``non-nil`` に設定すると、:ref:`送り仮名の自動処理 <okurigana>` が行われます。
 
 例えば :kbd:`T a t i a g e r u SPC` とキー入力した場合を考えます。このとき、検索
 される見出し語の変化を追うと、
@@ -3436,7 +3440,7 @@ skk-auto-okuri-process
 辞書登録の際に注意すべきこと
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-送り仮名の自動処理を行っている場合 [#]_ には、辞書登録の際に注意すべきことがあり
+:ref:`送り仮名の自動処理 <okurigana>` を行っている場合 [#]_ には、辞書登録の際に注意すべきことがあり
 ます。
 
 個人辞書に見出し語「わたs」についてのエントリが全くない場合、あるいは個人辞書のエ
@@ -3447,7 +3451,7 @@ skk-auto-okuri-process
     わたs /渡/[し/渡/]/
 
 のような送り仮名のブロックを持たない場合を考えてみます。 ここで
-:kbd:`W a t a s i t a SPC` と入力すると、送り仮名の自動処理においては送り仮名がマ
+:kbd:`W a t a s i t a SPC` と入力すると、 :ref:`送り仮名の自動処理 <okurigana>` においては送り仮名がマ
 ッチしないので、候補が見つからずに辞書登録モードに入ります。
 
 .. code:: text
@@ -3598,11 +3602,11 @@ skk-process-okuri-early
    :kbd:`C-x C-j` もしくは :kbd:`C-x j` を２回打鍵して SKK モードを起動し直す
    ことで、これらの変数間の衝突を調整します。
 
-   -  [暗黙の確定のタイミング]
+   - [暗黙の確定のタイミング]
 
-   -  [送り仮名の自動処理]
+   - :ref:`送り仮名の自動処理 <okurigana>`
 
-   -  [送り仮名の厳密なマッチ]
+   - [送り仮名の厳密なマッチ]
 
 候補の順序
 ==========
@@ -3610,16 +3614,243 @@ skk-process-okuri-early
 skk の初期設定では、変換で確定された単語は、次の変換時では最初に表示されます。
 この動作を変更して、効率良く変換する方法があります。
 
-ここで解説するほか、確定辞書を用いた変換も、候補の順序に影響を与えます。
+ここで解説するほか、 :ref:`確定辞書を用いた変換 <kakutei-jisyo>` も、候補の順序に
+影響を与えます。
+
+.. _skk-study:
 
 変換の学習
 ----------
 
+:file:`skk-study.el` は、ある語 A を確定した場合に、A 及びその見出し語 A' に対し
+て、直前に変換した語 B とその見出し語 B' を関連語として登録しておき、
+再度見出し語 A' の変換を行ったときに、B 及び B' のペアが直前の何回かに確定した語
+の中に見つかれば、A を優先して出力する単純な学習効果を提供するプログラムです。
+
+:file:`~/.skk` に :code:`(require 'skk-study)` と書いて DDSKK を起動して下さい。
+以降、 かな漢字変換の学習を始めます。
+
+例えば「梅雨には雨が降る」と変換した場合、
+
+  -  雨（あめ）の関連語 → 梅雨（つゆ）
+
+  -  降る（ふr）の関連語 → 雨（あめ）
+
+という風に「直前に確定した語」を関連語として、語と語の関連性を学習します。
+
+ここで続けて「傘を振る」と変換すると、個人辞書が更新されてしまい、見出し語「ふr」
+の第一候補は「振る」になってしまいます。
+
+しかし、更に続けて :kbd:`A m e SPC g a H u R u` とキー入力すると、
+``H u R u`` （ふr）に対して「雨」（あめ）が関連語になっているため、「ふr」と対で
+記憶されている「降る」に変換されるというわけです。
+
+では、またここで「傘を振る」と変換し、個人辞書の第一候補が「振る」に更新された状
+態で、
+
+.. code:: text
+
+    A m e SPC g a T a i r y o u SPC n i H u R u
+
+と変換すれば、「ふr」はどう変換されるでしょうか？　今度は「雨」（あめ）と「ふr」
+の間に「大量」（たいりょう）が入っています [#]_ 。
+
+実はちゃんと「雨が大量に降る」と変換されます。何故なら「ふr」の関連語を探す際、
+``skk-study-search-times`` に指定された回数分だけ遡って、以前に確定した語の中に関
+連語がないか探すのです。従って、この場合だと、２つ前の確定情報を探した際に「雨」
+（あめ）を見つけ、これを関連語として「ふr」の値を決めようとするのです。
+
+:file:`skk-study.el` に関するその他のオプションを説明します。
+
+.. index::
+   pair: Variable; skk-study-sesearch-times
+
+skk-study-sesearch-times
+   現在の変換キーに対する関連変換キーをいくつまで遡って検索するか。
+   標準設定は 5 です。
+
+.. index::
+   pair: Variable; skk-study-max-distance
+
+skk-study-max-distance
+   この変数には integer を指定します。標準設定値は 30 です。直前に確定したポイン
+   トと今回の変換ポイントがこの距離以上離れていると学習データを蓄積しないようにし
+   ます。この変数は、必ずしも文章がバッファの ``point-min`` か ら ``point-max``
+   へ流れるように書かれるものではなく、ポイントを前に戻したり後へ移動したりして書
+   かれることを想定しています。この変数に integer を 設定すると、直前の変換よりも
+   前のポイントで変換した場合に学習データを蓄積しないようにします。
+
+   この変数に ``nil`` を指定すると、直前に確定したポイントとの距離を考慮せずに学
+   習します。
+
+   なお、この変数の値にかかわらず、直前の変換バッファと現在変換を行っているバッフ
+   ァが異なる場合は学習データを蓄積しません。
+
+.. index::
+   pair: Variable; skk-study-first-candidate
+
+skk-study-first-candidate
+   この変数が ``non-nil`` であれば、第一候補で確定した際も学習します。
+   ``nil`` であれば、第一候補で確定したときのみ学習データを蓄積しません。
+   学習データをできるだけ小さくしたい場合、この変数を ``nil`` にすると効果がある
+   かもしれません。この変数の標準設定値は ``t`` です。
+
+.. index::
+   pair: Variable; skk-study-file
+
+skk-study-file
+   学習結果を保存するファイル名です。この変数の標準設定値は :file:`~/.skk-study` です。
+   変数 ``skk-user-directory`` からも設定ができます。
+
+   :ref:`設定ファイル <configure-file>`
+
+.. index::
+   pair: Variable; skk-study-backup-file
+
+skk-study-backup-file
+   :file:`~/.skk-study` のバックアップファイルです。
+   この変数の標準設定値は :file:`~/.skk-study.BAK` です。
+
+.. index::
+   pair: Variable; skk-study-sort-saving
+
+skk-study-sort-saving
+   学習データのデータ構造に関するものです。この変数の値が ``non-nil`` であれば、
+   学習結果をソートしてセーブします。この変数が影響を及ぼすのは学習データの単なる
+   見映えの問題だけです。この変数の標準設定値は ``nil`` です。
+
+.. index::
+   pair: Variable; skk-study-check-alist-format
+
+skk-study-check-alist-format
+   学習データのデータ構造に関するものです。この変数の値が ``non-nil`` であれば、
+   学習結果の読み込み時に連想リストのフォーマットをチェックします。
+   これは主に debug の目的で使います。この変数の標準設定値は ``nil`` です。
+
+.. index::
+   pair: Key; M-x skk-study-switch-current-theme
+
+M-x skk-study-switch-current-theme
+   そのバッファで利用する学習テーマを切り替えます。プロンプト
+
+   .. code:: text
+
+       ------ Minibuffer -------
+       Theme of current buffer: *
+       ------ Minibuffer -------
+
+   に対して学習テーマ名を入力してください。例えば、科学の話題を書くバッファでは
+   ``science`` と、法律の話題を書くバッファでは ``law`` などと入力してください。
+
+.. index::
+   pair: Key; M-x skk-study-remove-theme
+
+M-x skk-study-remove-theme
+   不要な学習テーマを消去します。
+
+.. index::
+   pair: Key; M-x skk-study-copy-theme
+
+M-x skk-study-copy-theme
+   学習テーマを複製します。
+
 候補の順序の固定
 ----------------
 
+skk の初期設定では、変換、選択された候補は、次回の変換では最初に表示されます。
+これに対し、毎回同じ順序で候補を表示させることができます。
+
+.. index::
+   pair: Variable;skk-jisyo-fix-order
+
+skk-jisyo-fix-order
+   ``non-nil`` であれば、確定の際に個人辞書の同音語の順序を変更せず、個人辞書に新
+   規追加する際は既出語の後に追加する。標準は ``nil`` 。
+
+これは、個人辞書のエントリの中の各候補の順序を変更しないことで実現されていますの
+で、 :file:`skk-study.el` による変換の学習と併用できます。
+
+:ref:`変換の学習 <skk-study>`
+
+``skk-jisyo-fix-order`` が ``non-nil`` の時、個人辞書の候補を手軽に並べ替える方法
+は、現時点ではありません。
+コマンド ``M-x skk-edit-private-jisyo`` を実行して :ref:`個人辞書ファイルを直接編集 <edit-jisyo>` して下さい。直前に変換したばかりの単語は、個人辞書の送りあり／なしエントリの一番上に
+ありますので、すぐに見つけることができます。
+
 ベイズ統計を用いた学習
 ----------------------
+
+:file:`skk-bayesian.el` は、直前の履歴のみ使用する :file:`skk-study.el` に比べて、
+更に拡張された学習機能です。
+ベイズ統計を用いて文脈から変換候補が選択される確率を計算して候補順をソートします。
+なお、機能が重なることから :file:`skk-study.el` と の併用はお勧めできません。
+
+動作の枠組みは
+
+- emacs lisp の :file:`skk-bayesian.el` と
+- ruby スクリプト [#]_ の :command:`bskk` [#]_
+
+が連携することで実現しています。
+
+:file:`skk-bayesian.el` のインストールについては :file:`bayesian/README.ja.md`
+を参照してください。
+
+.. index::
+   pair: Variable; skk-bayesian-debug
+
+skk-bayesian-debug
+   ``non-nil`` ならば、以下のとおりデバッグ用のメッセージを表示します。
+
+   -  :file:`skk-bayesian.el` が吐き出すメッセージを ``*Messages*`` バッファに表示します。
+
+   -  :command:`bskk` サブプロセスを ``-d`` オプションで起動させます。
+      :command:`bskk` は :file:`$HOME/tmp/bskk.log` にメッセージを吐き出します。
+
+   -  普段は非表示である ``*skk-bayesian*`` バッファを表示するようにします。
+      このバッファには :command:`bskk` の出力が表示されます。
+
+.. index::
+   pair: Variable; skk-bayesian-prefer-server
+
+skk-bayesian-prefer-server
+   ``non-nil`` ならば ``skk-bayesian-host`` の ``skk-bayesian-port`` に接続します。
+   ``nil`` であれば :command:`bskk` を emacs のサブプロセスとして起動します。
+
+.. index::
+   pair: Variable; skk-bayesian-host
+
+skk-bayesian-host
+   :command:`bskk` サーバが稼動しているホスト名
+
+.. index::
+   pair: Variable; skk-bayesian-port
+
+skk-bayesian-port
+   :command:`bskk` サーバのポート番号
+
+.. index::
+   pair: Variable; skk-bayesian-history-file
+
+skk-bayesian-history-file
+   not documented
+
+.. index::
+   pair: Variable; skk-bayesian-corpus-make
+
+skk-bayesian-corpus-make
+   not documented
+
+.. index::
+   pair: Variable; skk-bayesian-corpus-file
+
+skk-bayesian-corpus-file
+   not documented
+
+.. index::
+   pair: Key; M-x skk-bayesian-kill-process
+
+M-x skk-bayesian-kill-process
+   not documented
 
 辞書関連
 ========
@@ -3631,21 +3862,281 @@ skk の初期設定では、変換で確定された単語は、次の変換時�
 辞書の種類
 ----------
 
+- 共有辞書
+
+  ユーザの変換操作によって内容が書き替えられることはありません。
+
+  ``SKK-JISYO.S`` (S 辞書)、 ``SKK-JISYO.M`` (M 辞書)、 ``SKK-JISYO.ML`` (ML 辞書)、
+  ``SKK-JISYO.L`` (L 辞書) などがあります。通常、個人辞書よりもサイズが大きく、省
+  資源の面からユーザ間で共有して参照されます。
+
+  これら以外にも、共有辞書として使えるファイルが配布されています。それぞれの辞書
+  の詳細については http://openlab.jp/skk/dic.html をご参照下さい。
+
+- 個人辞書
+
+  変数 ``skk-jisyo`` で指定されるファイル。DDSKKを一番最初に使い始めたときにホー
+  ムディレクトリに自動的に作られます。その後の使用により日々刻々とエントリが追加
+  され、更新されていきます。なお、最初の個人辞書として S 辞書をリネームして使用す
+  るのも良いかもしれません。
+
+- ``skk-initial-search-jisyo``
+
+  これは共有辞書、個人辞書という区分のいずれにも属しません。これらは個人毎に持つ
+  ものを使用するか、ユーザ間で共有しているものを使用します。その性格から、辞書内
+  容の更新は行われず、参照のみ行われます。また使用目的から、通常は小さい辞書を使
+  用します。
+
+- ``skk-kakutei-jisyo``
+
+  同上
+
+個人辞書、 ``skk-initial-search-jisyo``, ``skk-kakutei-jisyo`` は Emacs のバッフ
+ァに読み込んで検索を行います。
+
+共有辞書は設定により Emacs のバッファに読み込んで使用するか、または辞書サーバ経由
+で使用します。
+
 辞書ファイルの指定
 ------------------
+
+この節では、辞書ファイルを指定する変数を説明します。個人辞書とバックアップのディ
+レクトリは、変数 ``skk-user-directory`` でも変更できます。
+
+:ref:`設定ファイル <configure-file>`
+
+.. index::
+   pair: Variable; skk-kakutei-jisyo
+
+skk-kakutei-jisyo
+   :ref:`確定変換 <kakutei-jisyo>` のための辞書です。一番最初に参照されます。
+   確定変換をしない時は、初期設定の ``nil`` のままで良いです。
+
+.. index::
+   pair: Variable; skk-initial-search-jisyo
+
+skk-initial-search-jisyo
+   確定辞書の後、かつ、個人辞書の前に検索を行う辞書です。この辞書を適当に指定する
+   ことにより、最初に出てくる候補を操作することができます。
+   例えば、複数の専門用語毎の辞書を用意しておいて ``skk-initial-search-jisyo``
+   の値を切り替えることにより、専門分野毎の専門用語を切り替えて入力することができ
+   ます。
+
+   この辞書は、標準の配布パッケージには含まれていないので、使用するのであればユー
+   ザ側で用意する必要があります。不要ならば、初期設定の ``nil`` のままで良いです。
+
+.. index::
+   pair: Variable; skk-jisyo
+
+skk-jisyo
+   個人辞書。DDSKK を一番最初に起動したとき、変数 ``skk-jisyo`` が指すファイルが
+   存在しなければ自動的に作られます。
+
+.. index::
+   pair: Variable; skk-backup-jisyo
+
+skk-backup-jisyo
+   個人辞書の予備（バックアップ）です。検索の対象ではなく、あくまで個人辞書のバッ
+   クアップとして指定してください。
+
+.. index::
+   pair: Variable; skk-cdb-large-jisyo
+
+skk-cdb-large-jisyo
+   共有辞書のうち :ref:`CDB 形式に変換した辞書 <cdb-format>` です。
+   指定した場合は ``skk-large-jisyo`` よりも先に検索されます。
+   DDSKK 14.1 からは辞書サーバを経由せずとも CDB 形式辞書ファイルを直接検索できる
+   ようになりました。
+
+.. index::
+   pair: Variable; skk-large-jisyo
+
+skk-large-jisyo
+   共有辞書のひとつ。バッファに読み込んで検索を行います。
+   例えば ``skk-large-jisyo`` に S 辞書 か M 辞書を指定し、
+   ``skk-aux-large-jisyo`` に L 辞書を指定する、という選択肢もあります。
+
+   また、辞書サーバ経由のアクセスも決して遅くはないので「共有辞書はバッファには読
+   み込まない」という設定も自然であり、これには ``skk-large-jisyo`` を ``nil`` に
+   設定します。
+
+.. index::
+   pair: Variable; skk-aux-large-jisyo
+
+skk-aux-large-jisyo
+   共有辞書のひとつ。辞書サーバに接続できない時にバッファに読み込んで検索を行う辞
+   書です。
+
+.. index::
+   pair: Variable; skk-extra-jisyo-file-list
+
+skk-extra-jisyo-file-list
+   SKK では個人辞書の他に、共有辞書または辞書サーバを設定して利用するのが一般的で
+   すが、郵便番号辞書 :file:`SKK-JISYO.zipcode` をはじめとした多彩な辞書もメンテ
+   ナンスされています。
+
+   これらの辞書を利用するために変数 ``skk-search-prog-list`` を手動で編集すること
+   もできますが、この変数は厳密にはユーザ変数に分類されていないため、予期しない問
+   題が起こることもあります。
+
+   DDSKK 14.2 以降では追加の辞書を簡単に設定する方法を提供します。以下の例を参考
+   に変数 ``skk-extra-jisyo-file-list`` の設定を :file:`~/.skk` に記述します。
+
+   .. code:: emacs-lisp
+
+       (setq skk-extra-jisyo-file-list
+             (list '("/usr/share/skk/SKK-JISYO.JIS3_4" . euc-jisx0213)
+                   "/usr/share/skk/SKK-JISYO.zipcode"))
+
+   このように、辞書のファイル名のリストを指定します [#]_ 。
+
+   ただし、変数 ``skk-jisyo-code`` [#]_ とは異なる文字コードのファイルについては、
+   上記の例中の :file:`SKK-JISYO.JIS3_4` のように「ファイル名と文字コードのペア」
+   を記述します。
+
+これらの変数の意味するところは初期設定でのものですが、 ``skk-search-prog-list`` の
+設定で変更することもできます。
+
+[辞書検索のための関数]
 
 .. _search-jisyo:
 
 辞書の検索方法の設定
 --------------------
 
+辞書の検索方法の指定は、変数 ``skk-search-prog-list`` で行われます。
+特に必要が無ければ、読み飛ばして下さい。
+
 .. _setting-search-jisyo:
 
 辞書検索の設定の具体例
 ^^^^^^^^^^^^^^^^^^^^^^
 
+この節では ``skk-search-prog-list`` の初期設定を示し、大体の流れを説明します。
+
+DDSKK では、複数の辞書を扱うことが可能です。複数の辞書が同時並列に検索されるので
+はなく、指定した順番に検索します。 ``skk-search-prog-list`` はリストであり、大雑
+把に言えば、確定されるまで先頭の要素から順に lisp として評価されます。
+
+.. code:: emacs-lisp
+
+    ((skk-search-kakutei-jisyo-file skk-kakutei-jisyo 10000 t)
+     (skk-search-jisyo-file skk-initial-search-jisyo 10000 t)
+     (skk-search-jisyo-file skk-jisyo 0 t)
+     (skk-okuri-search)
+     (skk-search-cdb-jisyo skk-cdb-large-jisyo)
+     (skk-search-jisyo-file skk-large-jisyo 10000)
+     (skk-search-server skk-aux-large-jisyo 10000)
+     (skk-search-ja-dic-maybe)
+     (skk-search-extra-jisyo-files)
+     (skk-search-katakana-maybe)
+     (skk-search-sagyo-henkaku-maybe))
+
+この例では、
+
+  - ``skk-kakutei-jisyo`` （確定辞書）
+  - ``skk-initial-search-jisyo``
+  - ``skk-jisyo`` （個人辞書）
+
+の順に検索を行い、次に
+
+  - :ref:`送り仮名の自動処理 <okurigana>`
+
+を行い、その後
+
+  - ``skk-cdb-large-jisyo`` と
+
+  - ``skk-large-jisyo`` の
+
+検索を順に行い、最後に ``skk-aux-large-jisyo`` に辞書サーバ経由でアクセスしています。
+
+もし確定辞書で候補が見つかったらそのまま自動的に確定されます。１回 :kbd:`SPC` を
+押す動作に対し、プログラム側では新たな候補を見つけるまで上記の動作を進めます。
+
+例えば、
+
+  - 確定辞書では候補は見つけられなかったが ``skk-initial-search-jisyo``
+    に候補がある場合、そこでいったん止まりユーザにその候補を表示します。
+
+  - 更に :kbd:`SPC` が押されると、次は個人辞書を検索します。そこで候補が見つかり、
+    しかもその候補が ``skk-initial-search-jisyo`` で見つけた候補とは異なるもので
+    あったときは、そこでまた止まりその候補をユーザに表示します。
+
+以降、共有辞書についても同様の繰り返しを行います。最後まで候補が見つからなかった
+時は、辞書登録モードに入ります。
+
 辞書検索のための関数
 ^^^^^^^^^^^^^^^^^^^^
+
+前節で見たとおり、変数 ``skk-search-prog-list`` を適切に定義することによって辞書
+の検索方法を指定します。そこで使われる辞書検索のための関数を使いこなすことで、よ
+り細かい辞書検索の方法を指定することができます。
+
+.. index::
+   pair: Function; skk-search-jisyo-file
+
+skk-search-jisyo-file FILE LIMIT &optional NOMSG
+   通常の検索を行うプログラム。変数 ``skk-henkan-key`` を見出し語（検索文字列）と
+   して、 ``FILE`` を被検索対象として変換検索を実施します。個人辞書、共有辞書又は
+   辞書サーバを使わずに検索を行いたい場合はこの関数を使用します。
+
+   第１引数 ``FILE`` は、被検索対象となる辞書ファイルを指定します。 ``nil`` を指
+   定したときは、検索を行いません。 ``FILE`` で指定した辞書ファイルは Emacs のバ
+   ッファに読み込まれます。
+
+   第２引数 ``LIMIT`` は二分検索（バイナリ・サーチ）が行なわれる領域の大きさを指
+   定します。ひとつの見出し語に対する変換動作に対し、検索対象の領域の大きさ [#]_ が
+   第２引数に指定された数値より小さくなるまでは二分検索が行われ、最後に直線的検索
+   （リニア・サーチ、 ``search-forward`` ）が １回行われます。
+
+   第２引数に 0 を指定すると、常に直線的検索のみが行われます。個人辞書 ``skk-jisyo`` は
+   ソートされておらず二分検索が不可能であるため ``LIMIT`` を 0 にして下さい。
+
+   第３引数 ``NOMSG`` が ``nil`` ならば、辞書ファイルをバッファに読み込む
+   関数 ``skk-get-jisyo-buffer`` のメッセージをエコーエリアに出力します。
+   ``non-nil`` を与えると出力しません。
+
+.. index::
+   pair: Function; skk-search-cdb-jisyo
+
+skk-search-cdb-jisyo CDB-PATH
+   not documented
+
+.. index::
+   pair: Function; skk-search-kakutei-jisyo-file
+
+skk-search-kakutei-jisyo-file FILE LIMIT &optional NOMSG
+   確定変換を行う検索プログラム。検索対象の辞書ファイルは Emacs のバッファに読み
+   込まれます。検索対象のファイルから候補を見つけると、内部変数 ``skk-kakutei-henkan-flag`` を
+   立てて、いきなり確定します。このためユーザが確定操作を行う必要はありません。
+   引数の意味はいずれも ``skk-search-jisyo-file`` の場合と同様です。
+
+.. index::
+   pair: Function; skk-okuri-search
+
+skk-okuri-search
+   自動送り処理を行うプログラム。変数 ``skk-auto-okuri-process`` の値が ``non-nil`` の
+   ときだけ機能します。個人辞書の送りありエントリを検索対象としているので、個人辞
+   書のバッファを流用します。そのため、専用の辞書バッファは作りません。
+
+   [送り仮名の自動処理]
+
+.. index::
+   pair: Function; skk-search-server
+
+skk-search-server FILE LIMIT &optional NOMSG
+   辞書サーバ経由で検索するプログラム。辞書サーバが使用不能になると辞書ファイルを
+   Emacs のバッファに読み込んで検索を行います。引数の意味はいずれも
+   ``skk-search-jisyo-file`` と同じですが、これらは辞書を Emacs のバッファに読み
+   込んだときのみ利用されます。
+
+   辞書サーバが使う辞書ファイルの設定については、
+
+     - [辞書サーバを使いたいときの設定]
+
+     - [サーバ関連]
+
+   をご覧下さい。
 
 Emacs 付属の辞書
 ----------------
@@ -3969,7 +4460,7 @@ picture-modeとの併用
 .. [#] [送りあり変換の変換開始のタイミング]
 
 .. [#] 実際には、普通の送りなし変換として最初は検索されます。個人辞書まで調べて候
-       補が見つからないときは、その後、送り仮名の自動処理の検索に移ります。
+       補が見つからないときは、その後、 :ref:`送り仮名の自動処理 <okurigana>` の検索に移ります。
 
 .. [#] [送りありエントリのブロック形式]
 
@@ -3982,8 +4473,23 @@ picture-modeとの併用
 .. [#] 専ら補完的に自動送り処理を利用するのであれば ``(skk-okuri-search)``
    を ``skk-search-prog-list`` の最後に設定するという方法もあります。
 
-   [辞書の検索方法の設定]
+   :ref:`辞書の検索方法の設定 <search-jisyo>`
 
 .. [#] 変数 ``skk-auto-okuri-process`` の値を ``non-nil`` に設定している。
 
 .. [#] [辞書の書式]
+
+.. [#] 「ふr」に対して「大量」（たいりょう）が関連語として保存されます。
+       勿論、「ふr」に対する「雨」（あめ）の学習もまだ生きています。
+
+.. [#] http://www.ruby-lang.org
+
+.. [#] Ruby 2.4 以降を使用する場合は、DDSKK 16.2 以降に付属する :file:`bayesian/bskk` を
+       使用してください。
+
+.. [#] ``skk-search-prog-list`` に登録されている関数 ``skk-search-extra-jisyo-files`` が、
+       ``skk-extra-jisyo-file-list`` の各要素を逐次処理します。
+
+.. [#] 辞書バッファの文字コードの設定
+
+.. [#] 検索領域の先頭ポイントと末尾ポイントの差

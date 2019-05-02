@@ -45,6 +45,8 @@
 :file:`SKK-JISYO.L` を :file:`SKK-JISYO.M` 、 :file:`SKK-JISYO.ML` 又は
 :file:`SKK-JISYO.S` に変更してください。
 
+.. _cdb-format:
+
 .. index::
    keyword: CDB 形式辞書ファイル
 
