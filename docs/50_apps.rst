@@ -34,7 +34,8 @@ SKK の基本的な機能は :file:`skk.el` に収められています。一方
    * - skk-act.el
      - dvorak 配列での拡張ローマ字入力 ACT を SKK で使うための設定
    * - skk-annotation.el
-     - 個人辞書に付けたアノテーション（注釈）を活用するプログラムを集めたファイル
+     - | 個人辞書に付けた :ref:`アノテーション（注釈） <annotation>` を活用する
+       | プログラムを集めたファイル
    * - skk-auto.el
      - :ref:`送り仮名の自動処理 <okurigana>` を行うプログラムを集めたファイル
    * - skk-autoloads.el
@@ -82,7 +83,7 @@ SKK の基本的な機能は :file:`skk.el` に収められています。一方
      - | キーボードのかな配列などに対応する枠組みを提供します。
        | 旧 JIS 配列のかなキーボード及び NICOLA 規格の親指シフト配列に対応
    * - skk-kcode.el
-     - 文字コードまたはメニューによる文字入力を行うプログラムを集めたファイル
+     - :ref:`文字コードまたはメニューによる文字入力 <char-code-input>` を行うプログラムを集めたファイル
    * - skk-leim.el
      - | LEIM 関連プログラムファイル
        | DDSKK を Emacs の input method として利用できるようにします
@@ -4806,6 +4807,8 @@ Emacs のコマンドには :kbd:`M-x compile` のように ``save-some-buffers`
 DDSKK では、このような事態を避けるため、辞書バッファにおける変数 ``buffer-file-name``
 の値を nil に設定しています。
 
+.. _annotation:
+
 注釈（アノテーション）
 ======================
 
@@ -4817,8 +4820,13 @@ DDSKK では、このような事態を避けるため、辞書バッファに�
 
 この節では、辞書の中でのアノテーションの取り扱いを説明します。
 
-アノテーションは、(1)ユーザが登録したもの、(2)共有辞書に元々登録されているもの、
-(3)それ以外の情報源から取得されるものの３つに大別されます。
+アノテーションは、
+
+  1. ユーザが登録したもの、
+  2. 有辞書に元々登録されているもの、
+  3. それ以外の情報源から取得されるもの
+
+の３つに大別されます。
 
 .. index::
    keyword: ユーザアノテーション
@@ -5268,6 +5276,8 @@ skk-annotation-dict-program-arguments
 文字コード関連
 ==============
 
+.. _char-code-input:
+
 文字コードまたはメニューによる文字入力
 --------------------------------------
 
@@ -5451,6 +5461,46 @@ skk-list-chars-face
 文字コードを知る方法
 --------------------
 
+かなモード／カナモードでキー :kbd:`$` を打鍵する [#]_ と、現在のポイント位置の直
+後にある文字の文字コードをエコーエリアに表示 [#]_ します。
+
+例えば、カーソルを文字 ``А`` の上に置いて :kbd:`$` を入力すると、
+
+.. code:: text
+
+    -------------------- Echo Area --------------------
+    `А',KUTEN:07-01, JIS:#x2721, EUC:#xa7a1, SJIS:#x8440, UNICODE:U+0410,
+    キリール大文字A,CYRILLIC CAPITAL LETTER A
+    -------------------- Echo Area --------------------
+
+とエコーエリアに表示され、この文字がキリル文字であることが分かります。
+
+ほか、 Emacs のコマンド :kbd:`M-x describe-char` も有用でしょう。
+
+.. index::
+   pair: Variable; skk-display-code-prompt-face
+
+skk-display-code-prompt-face
+   エコーエリアに表示されるメッセージ中 ``KUTEN:`` 、 ``JIS:`` 、
+   ``EUC:`` 、 ``SJIS:`` 及 び ``UNICODE:`` に適用するフェイスです。
+
+.. index::
+   pair: Variable; skk-display-code-char-face
+
+skk-display-code-char-face
+   エコーエリアに表示されるメッセージ中の当該文字に適用するフェイスです。
+
+.. index::
+   pair: Variable; skk-display-code-tankan-radical-face
+
+skk-display-code-tankan-radical-face
+   エコーエリアに表示されるメッセージ中の総画数表示に適用するフェイスです。
+
+.. index::
+   pair: Variable; skk-display-code-tankan-annotation-face
+
+skk-display-code-tankan-annotation-face
+   エコーエリアに表示されるメッセージ中の文字名表示に適用するフェイスです。
 
 DDSKK 以外のツールを用いた辞書変換
 ==================================
@@ -5458,15 +5508,288 @@ DDSKK 以外のツールを用いた辞書変換
 skk-lookup
 ----------
 
+:file:`skk-lookup.el` を使用すると、辞書検索ツールの
+`Lookup <http://openlab.jp/edict/lookup/>`_ で検索できる辞書を用いて単語の候補を
+出すことができるようになります。
+
+DDSKK のインストール過程で :code:`(require 'lookup)` が成功する場合は
+:file:`skk-lookup.el` も 自動的にインストールされます。
+まずは :command:`make what-where` を実行して ``SKK modules:`` 欄 に ``skk-lookup``
+が含まれていることを確認してください。
+
+Lookup がインストールされているにも関わらず、うまく :file:`skk-lookup.el` が
+インストールされない場合は、 :file:`SKK-CFG` を編集して :file:`lookup.el`
+が置かれて いるパスを ``ADDITIONAL_LISPDIR`` に設定し、再度 DDSKK をインストール
+して下さい [#]_ 。
+
+:file:`~/.skk` に以下のように設定します。
+
+.. code:: emacs-lisp
+
+   (setq skk-search-prog-list
+         (append skk-search-prog-list
+                 (list
+                  '(skk-lookup-search))))
+
+``skk-lookup-search`` は、 DDSKK が用意している検索プログラムの中で最も遅いものです。
+したがって、 ``skk-search-prog-list`` の設定にあっては辞書サーバの検索
+:func:`skk-search-server` よりも後方に置くよう設定します。
+
+Lookup の agent で利用するのは、 ``lookup-search-agents`` から
+``ndkks``, ``ndcookie`` 及び ``ndnmz`` を取り去ったものです [#]_ 。
+
 skk-look
 --------
+
+:file:`skk-look.el` は、 ``look`` コマンドを使って３つの機能を提供します。
+
+英単語の補完
+^^^^^^^^^^^^
+
+.. index::
+   pair: Variable; skk-use-look
+
+skk-use-look
+   non-nil に設定すると、 :file:`skk-look.el` が使用できるようになります。
+   例えば :file:`~/.skk` で以下のように設定します。
+
+   .. code:: emacs-lisp
+
+      (setq skk-use-look t)
+
+SKK abbrev モードが拡張されて ``look`` コマンドを使用した補完が有効になります。
+
+.. code:: text
+
+   / a b s t r
+
+     ------ Buffer: foo ------
+     ▽abstr*
+     ------ Buffer: foo ------
+
+   TAB
+
+     ------ Buffer: foo ------
+     ▽abstract*
+     ------ Buffer: foo ------
+
+と補完してくれます。通常の補完と同様に :kbd:`.` （ピリオド）で次の補完候補に、
+:kbd:`,` （コンマ）でひとつ前の補完候補に移動できます。
+
+:ref:`SKK 形式の英和辞書 edict <getting-jisyo-files>` があれば、
+ここから :kbd:`SPC` を押して英和変換ができます。
+
+英単語をあいまいに変換して取り出す
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+見出し語にアスタリスク ``*`` を入れて :kbd:`SPC` を押すと、英単語をあいまいにして
+変換できます。
+
+.. code:: text
+
+     ------ Buffer: foo ------
+     ▽abstr*
+     ------ Buffer: foo ------
+
+   SPC
+
+     ------ Buffer: foo ------
+     ▼abstract*
+     ------ Buffer: foo ------
+
+確定すると、 ``abstr*`` を見出し語と、 ``abstract`` を候補とするエントリが個人辞
+書に追加されます。このようなエントリを追加したくない場合、ユーザ変数
+``skk-search-excluding-word-pattern-function`` を適切に設定します。
+
+例えば次のような設定です。
+
+.. index::
+   pair: Variable; skk-search-excluding-word-pattern-function
+
+skk-search-excluding-word-pattern-function
+   .. code:: emacs-lisp
+
+       (add-hook 'skk-search-excluding-word-pattern-function
+                 ;; 返り値が non-nil の時、個人辞書に取り込まない。
+                 ;; KAKUTEI-WORD を引数にしてコールされるので、不要でも引数を取る
+                 ;; 必要あり
+                 (lambda (kakutei-word)
+                     (and skk-abbrev-mode
+                          (save-match-data
+                            ;; SKK-HENKAN-KEY が "*" で終わるとき
+                            (string-match "\\*$" skk-henkan-key)))))
+
+英単語をあいまいに変換して取り出した後、更に再帰的な英和変換を行う
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+SKK 辞書に
+
+.. code:: text
+
+   abstract /アブストラクト/抽象/
+   abstraction /アブストラクション/
+
+というエントリがあるとして解説します [#]_ 。
+
+.. index::
+   pair: Variable; skk-look-recursive-search
+
+skk-look-recursive-search
+   non-nil であれば、英単語 ＋ その英単語を見出し語にした候補の「セット」を変換結
+   果として出力することができます。
+
+   .. code:: text
+
+         ▽abstr*
+
+       SPC
+
+         ▼abstract
+
+       SPC
+
+         ▼アブストラクト
+
+       SPC
+
+         ▼抽象
+
+       SPC
+
+         ▼abstraction
+
+       SPC
+
+         ▼アブストラクション
+
+.. index::
+   pair: Variable; skk-look-expanded-word-only
+
+skk-look-expanded-word-only
+   この変数の値が non-nil であれば、再帰検索に成功した英単語の「セット」だけを出
+   力することができます。再帰検索で検出されなかった英単語は無視して出力しません。
 
 Lisp シンボル名の補完検索変換
 -----------------------------
 
+SKK abbrev モードにて、Lisp シンボル名を補完して検索し、検索結果を候補として返す
+ことができます。英文字の後ろに ``~`` を付加してから変換を開始してください。
+
+まずは動作例を示します。
+
+.. code:: text
+
+    / d e f i ~
+
+      ----- Buffer: foo -----
+      ▽defi~*
+      ----- Buffer: foo -----
+
+    SPC
+
+      ----- Buffer: foo -----
+      ▽defimage*
+      ----- Buffer: foo -----
+
+    SPC
+
+      ----- Buffer: foo -----
+      ▽define-abbrev*
+      ----- Buffer: foo -----
+
+    SPC
+
+      ----- Buffer: foo -----
+      ▽define-abbrev-table*
+      ----- Buffer: foo -----
+
+    SPC
+
+      ----- Buffer: foo -----
+      ▽define-abbrevs*
+      ----- Buffer: foo -----
+
+    SPC
+
+      ----- Buffer: *候補* -----
+      A:define-auto-insert
+      S:define-category
+      D:define-ccl-codepoint-translation-table
+      F:define-ccl-constant-translation-table
+      J:define-ccl-identity-translation-table
+      K:define-ccl-program
+      L:define-ccl-slide-translation-table
+      ----- Buffer: *候補* -----
+
+この機能を有効とするには、リスト ``skk-search-prog-list`` の要素に
+関数 :func:`skk-search-lisp-symbol` を加えてください。
+
+.. code:: emacs-lisp
+
+    (add-to-list 'skk-search-prog-list
+             '(skk-search-lisp-symbol) t)
+
+なお、見出し語に ``~`` を含む辞書もあります。例えば :file:`SKK-JISYO.JIS3_4`
+には
+
+.. code:: text
+
+    A~ /チルド付きA(LATIN CAPITAL LETTER A WITH TILDE)/
+
+と登録されています。したがって、
+
+.. code:: text
+
+    ▽A~ SPC
+
+と変換したときに「チルド付きA」が表示されるか、Lisp シンボル名が補完されるかは、
+リスト ``skk-search-prog-list`` 内の要素の順によります。
+
+.. index::
+   pair: Function; skk-search-lisp-symbol
+
+.. function:: skk-search-lisp-symbol &optional PREDICATE NOT-ABBREV-ONLY WITHOUT-CHAR-MAYBE
+
+   引数 ``PREDICATE`` で補完検索する範囲（関数名、変数名、コマンド名）を限定する
+   ことができます。詳細は docstring を参照してください。
+
+.. index::
+   pair: Variable; skk-completion-search-char
+
+skk-completion-search-char
+   ``skk-completion-search`` による変換機能を指示するキーキャラクタ。
+   標準設定は ``~`` です。
+
 Google CGI API for Japanese Input を利用したかな漢字変換
 --------------------------------------------------------
 
+かな漢字変換に `Google CGI API for Japanese Input <http://www.google.co.jp/ime/cgiapi.html>`_
+を利用することができます。 連文節変換も可能となります。
+
+まず、 :file:`~/.skk` にて、変数 ``skk-use-search-web`` を non-nil に設定します。
+これにより、skk-mode を起動した際に :file:`skk-search-web.el` を :func:`require`
+するようになります。
+
+同じく :file:`~/.skk` にて、リスト ``skk-search-prog-list`` の一番最後の要素として、
+関数 :func:`skk-search-web` を追加します。
+
+.. code:: emacs-lisp
+
+    (add-to-list 'skk-search-prog-list
+                 '(skk-search-web 'skk-google-cgi-api-for-japanese-input)
+                 t)
+
+以上の設定によって、通常のかな漢字変換の **候補が尽きたとき** に関数 :func:`skk-search-web` が
+実行され、Google CGI API for Japanese Input による変換結果が表示されます。
+
+そのほか、変数 ``skk-read-from-minibuffer-function`` を以下のように設定することで、
+辞書登録モードへの突入時の初期値に Google サジェストを表示することもできます。
+
+.. code:: emacs-lisp
+
+    (setq skk-read-from-minibuffer-function
+          (lambda ()
+             (car (skk-google-suggest skk-henkan-key))))
 
 飾りつけ
 ========
@@ -5474,26 +5797,477 @@ Google CGI API for Japanese Input を利用したかな漢字変換
 仮名文字のローマ字プレフィックスのエコー
 ----------------------------------------
 
+.. index::
+   pair: Variable; skk-echo
+
+skk-echo
+   この変数の値は、仮名文字の :ref:`ローマ字プレフィックス <roma-prefix>` のエコー
+   の有無を制御します。
+
+変数 ``skk-echo`` の値が non-nil であれば、仮名文字の :ref:`ローマ字プレフィックス <roma-prefix>`
+が、入力時点でいったん現在のバッファに挿入され、続く母音の入力の際に、かな文字に
+変換された時点で現在のバッファから消去されます。
+
+.. code:: text
+
+    t
+
+      ------ Buffer: foo ------
+      t*
+      ------ Buffer: foo ------
+
+    a
+
+      ------ Buffer: foo ------
+      た*
+      ------ Buffer: foo ------
+
+変数 ``skk-echo`` の値が nil であれば、仮名文字の :ref:`ローマ字プレフィックス <roma-prefix>`
+のエコーは行われません。これを上記の例で考えると、 t が現在のバッファに挿入されず、
+続く母音 a が入力された瞬間に「た」の文字が挿入されます。
+
+.. index::
+   pair: Variable; skk-prefix-hiragana-face
+
+skk-prefix-hiragana-face
+   かなモードにおける :ref:`ローマ字プレフィックス <roma-prefix>` のフェイスを指定します。
+
+.. index::
+   pair: Variable; skk-prefix-katakana-face
+
+skk-prefix-katakana-face
+   カナモードにおける :ref:`ローマ字プレフィックス <roma-prefix>` のフェイスを指定します。
+
+.. index::
+   pair: Variable; skk-prefix-jisx0201-face
+
+skk-prefix-jisx0201-face
+   JIS X 0201 モードにおける :ref:`ローマ字プレフィックス <roma-prefix>` のフェイスを指定します。
+
 入力モードを示すモードラインの文字列の変更
 ------------------------------------------
+
+.. index::
+   pair: Variable; skk-latin-mode-string
+   pair: Variable; skk-hiragana-mode-string
+   pair: Variable; skk-katakana-mode-string
+   pair: Variable; skk-jisx0208-latin-mode-string
+   pair: Variable; skk-abbrev-mode-string
+
+下記の変数の値を変更することによって、モードライン上の「入力モードを示す文字列」
+を変更することができます。 skk-show-mode の表示も連動します。
+
+.. list-table::
+
+   * - 変数
+     - モードライン
+   * - skk-latin-mode-string
+     - アスキーモードを示す文字列。標準は ``SKK``
+   * - skk-hiragana-mode-string
+     - かなモードを示す文字列。標準は ``かな``
+   * - skk-katakana-mode-string
+     - カナモードを示す文字列。標準は ``カナ``
+   * - skk-jisx0208-latin-mode-string
+     - 全英モードを示す文字列。標準は ``全英``
+   * - skk-abbrev-mode-string
+     - SKK abbrev モードを示す文字列。標準は ``aあ``
 
 .. _cursor-color-input-mode:
 
 入力モードを示すカーソル色に関する設定
 --------------------------------------
 
+.. index::
+   pair: Variable; skk-use-color-cursor
+
+skk-use-color-cursor
+   この変数が non-nil ならば、カーソルを色付けします。
+
+   標準では、ウィンドウシステムを使用して、かつ、色表示が可能な場合に限ってこの機
+   能が有効になります。
+
+この機能が有効になっているとき、以下の変数の値を変更することで、各モードにおける
+カーソルの色を変更できます。
+
+.. index::
+   pair: Variable; skk-cursor-default-color
+   pair: Variable; skk-cursor-hiragana-color
+   pair: Variable; skk-cursor-katakana-color
+   pair: Variable; skk-cursor-jisx0201-color
+   pair: Variable; skk-cursor-jisx0208-latin-color
+   pair: Variable; skk-cursor-latin-color
+   pair: Variable; skk-cursor-abbrev-color
+
+.. list-table::
+
+   * - 変数
+     - カーソルの色
+   * - skk-cursor-default-color
+     - | SKK モードがオフであることを示すカーソル色。
+       | 標準では、カーソルのある該当フレームにおける標準のカーソル色を使います。
+   * - skk-cursor-hiragana-color
+     - | かなモードであることを示すカーソル色。
+       | 標準は、背景の明暗により coral4 または pink です。
+   * - skk-cursor-katakana-color
+     - | カナモードであることを示すカーソル色。
+       | 標準は、背景の明暗により forestgreen または green です。
+   * - skk-cursor-jisx0201-color
+     - | JIS X 0201 モードであることを示すカーソル色。
+       | 標準は、背景の明暗により blueviolet または thistle です。
+   * - skk-cursor-jisx0208-latin-color
+     - | 全英モードであることを示すカーソル色。
+       | 標準は gold です。
+   * -  skk-cursor-latin-color
+     - | アスキーモードであることを示すカーソル色。
+       | 標準は、背景の明暗により ivory4 ま たは gray です。
+   * - skk-cursor-abbrev-color
+     - | SKK abbrev モードであることを示すカーソル色。
+       | 標準は royalblue です。
+
 変換候補一覧の表示方法
 ----------------------
+
+変換候補一覧の表示方法は、次の４つに大別されます。
+
+  1. 現在のウィンドウにインライン表示する
+
+  2. ツールティップで表示する
+
+  3. 現在のウィンドウの隣に別なウィンドウを開いて表示する（ポップアップ）
+
+  4. エコーエリアに表示する
+
+現在のウィンドウにインライン表示する
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**XEmacs ではインライン表示はサポートされません。**
+
+.. index::
+   pair: Variable; skk-show-inline
+
+skk-show-inline
+   この変数の値が non-nil であれば、候補一覧を現在のポイント位置でインライン表示
+   します。値がシンボル 'vertical であれば、各候補を縦方向にインライン表示します。
+
+.. index::
+   pair: Variable; skk-inline-show-face
+
+skk-inline-show-face
+   インライン表示する変換候補を装飾するフェイスを指定します。
+   標準設定は ``underline`` です。
+
+   .. code:: emacs-lisp
+
+       (setq skk-inline-show-face 'font-lock-doc-face)
+
+   ``skk-treat-candidate-appearance-function`` による装飾を優先するには nil に設
+   定して下さい。
+
+.. index::
+   pair: Variable; skk-inline-show-background-color
+
+skk-inline-show-background-color
+   インライン表示する変換候補の背景色を指定します。
+
+   ``skk-inline-show-face`` または ``skk-treat-candidate-appearance-function`` に
+   て、背景色が指定されていない文字に対してのみ作用します。
+
+.. index::
+   pair: Variable; skk-inline-show-background-color-odd
+
+skk-inline-show-background-color-odd
+   インライン表示する変換候補の背景色（奇数ライン）を指定します。
+
+ツールティップで表示する
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. index::
+   pair: Variable; skk-show-tooltip
+
+skk-show-tooltip
+   この変数の値が non-nil であれば、候補一覧をツールティップで表示します。同時に、
+
+     - :ref:`注釈（アノテーション）の表示方法 <annotation>` と
+     - :ref:`文字コードの表示方法 <char-code-input>`
+
+   も制御します。
+
+.. index::
+   pair: Variable; skk-tooltip-face
+
+skk-tooltip-face
+   ツールティップ表示する文字列に適用するフェイスのシンボルを指定する変数です。
+
+   .. code:: emacs-lisp
+
+       (setq skk-tooltip-face 'font-lock-doc-face)
+       ;; (make-face 'skk-tooltip-face) ではないことに注意
+
+   候補文字列のフェイス属性（ ``skk-treat-candidate-appearance-function`` による
+   加工など）をそのまま使いたい場合は nil に設定して下さい。
+
+.. index::
+   pair: Variable; skk-tooltip-mouse-behavior
+
+skk-tooltip-mouse-behavior
+   ツールティップを表示する位置及びマウスポインタの挙動を指定します。下記に掲げる
+   シンボル以外のシンボルを指定した場合は nil となります。
+
+   シンボル 'follow
+      マウスポインタをカーソル位置へ移動させてツールティップを表示します。
+      ツールティップの表示を終えるとマウスポインタは元の位置へ戻ります。
+
+      ただし、元のマウスポインタが Emacs フレーム外であったならばツールティップの
+      表示を終えてもマウスポインタはカーソル位置のままです。
+
+   シンボル 'banish
+      マウスポインタを Emacs フレーム右上隅へ移動させてツールティップを表示します。
+      ツールティップの表示を終えもてマウスポインタは Emacs フレーム 右上隅のままです。
+
+   シンボル 'avoid
+      マウスポインタを Emacs フレーム右上隅へ移動させてツールティップを表示します。
+      ツールティップの表示を終えるとマウスポインタは元の位置へ戻ります。
+
+      ただし、元のマウスポインタが Emacs フレーム外であったならばツールティップの
+      表示を終えてもマウスポインタは Emacs フレーム右上隅のまま です。
+
+   シンボル 'avoid-maybe
+      マウスポインタが Emacs フレーム内であれば 'avoid と同じ動作です。
+      マウスポインタが Emacs フレーム外であればマウスポインタ位置を変更せず、
+      その位置にツールティップを表示します。
+
+   nil
+      マウスポインタを一切移動せず、その位置にツールティップを表示します。
+      ツールティップのテキストとマウスポインタが重なったり、うまくツールテ
+      ィップが表示できなかったりする場合があります。
+
+.. index::
+   pair: Variable; skk-tooltip-hide-delay
+
+skk-tooltip-hide-delay
+   ツールティップを表示する秒数（標準設定は 1000 秒）。
+   この時間が経過すると、ツールティップは自動的に消える。
+
+.. index::
+   pair: Variable; skk-tooltip-parameters
+
+skk-tooltip-parameters
+   SKK 独自のフレームパラメータを設定する。
+   標準設定 nil の場合、 ``tooltip-frame-parameters`` が適用される。
+
+現在のウィンドウの隣に別なウィンドウを開いて表示する（ポップアップ）
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. index::
+   pair: Variable; skk-show-candidates-always-pop-to-buffer
+
+skk-show-candidates-always-pop-to-buffer
+   この値が non-nil であれば、画面を上下に分割したうえで、候補一覧を専用の候補バ
+   ッファで表示します。
+
+候補一覧表示中に、この値を動的に切り換える手段が用意されています。
+
+.. index::
+   pair: Variable; skk-show-candidates-toggle-display-place-char
+
+skk-show-candidates-toggle-display-place-char
+   候補一覧表示中に、候補一覧の表示位置をエコーエリアとバッファとで動的に切り換え
+   ることができます。標準設定は :kbd:`C-f` です。
+
+.. index::
+   pair: Variable; skk-candidate-buffer-background-color
+
+skk-candidate-buffer-background-color
+   候補バッファの背景色を指定します。背景色を付けたくない場合は nil を指定するこ
+   と（標準設定）。
+
+.. index::
+   pair: Variable; skk-candidate-buffer-background-color-odd
+
+skk-candidate-buffer-background-color-odd
+   候補バッファの背景色（奇数ライン）を指定します。
+
+.. index::
+   pair: Variable; skk-candidate-buffer-delete-other-windows
+
+skk-candidate-buffer-delete-other-windows
+   nil であれば、候補バッファ表示に際して window 配置を変更しない。
+   window 配置を popwin や shackle にまかせている場合は nil とすべき。
+
+   - `popwin: Popup Window Manager for Emacs <https://github.com/m2ym/popwin-el>`_
+   - `shackle: Enforce rules for popup windows <https://github.com/wasamasa/shackle>`_
+
+エコーエリアに表示する
+^^^^^^^^^^^^^^^^^^^^^^
+
+標準設定では３つの変数
+
+  - ``skk-show-inline``
+  - ``skk-show-tooltip``
+  - ``skk-show-candidates-always-pop-to-buffer``
+
+とも nil であり、この状態では候補一覧はエコーエリアに表示 [#]_ します。
+
+もしも、これら変数のうち２つ以上が non-nil の場合、優先順位は上記の解説の順です。
 
 ▼モードにおける変換候補のハイライト表示
 ----------------------------------------
 
+.. index::
+   pair: Variable; skk-use-face
+
+skk-use-face
+   この変数の値が non-nil であれば、Emacs のフェイス機能を使って変換候補をハイラ
+   イト表示します。このハイライト表示には GNU Emacs のオーバーレイ (overlay) の機
+   能を使います [#]_ 。
+
+.. index::
+   pair: Variable; skk-henkan-face
+
+skk-henkan-face
+   この変数の値はフェイスであり、このフェイスによって変換候補がハイライト表示され
+   ます。標準では、背景の明暗により black/darkseagreen2 又は white/darkolivegreen
+   を用います。
+
+   なお、この変数よりも ``skk-treat-candidate-appearance-function`` の設定が優先
+   されます。
+   
+変数 ``skk-henkan-face`` には、既存のフェイス [#]_ を指定できますが、
+新たにフェイスを作ることもできます。そのために次の関数が用意されています。
+
+.. index::
+   pair: Function; skk-make-face
+
+.. function:: skk-make-face FACE
+
+   この関数は、引数 ``FACE`` と同じ名前のフェイスを作成して、そのフェイスを返します。
+   フェイスの前景色・背景色は、引数 ``FACE`` にスラッシュ ``/`` を含めることよって、
+   例えば以下の例のように決定されます。
+
+   .. code:: emacs-lisp
+
+       (setq skk-henkan-face (skk-make-face 'DimGray/PeachPuff1))
+
+   上記の場合、前景色は DimGray に、背景色は PeachPuff1 になります。もうひとつ例
+   を挙げます。
+
+   .. code:: emacs-lisp
+
+       (setq skk-henkan-face (skk-make-face 'RosyBrown1))
+
+   上記の場合、前景色は RosyBrown1 になります。背景色が無指定の場合はバッファの背
+   景色がそのまま見えます。
+
 変換候補の更なる装飾
 --------------------
+
+変換候補についてユーザの任意の加工を施すための変数を用意してあります。
+
+.. index::
+   pair: Variable; skk-treat-candidate-appearance-function
+
+.. function:: skk-treat-candidate-appearance-function
+
+   この変数に適切な形式で関数を収めることによって、変換候補をユーザの任意に加工す
+   ることができます。「適切な形式」とは、次のとおりです。
+
+   - 引数を２つ取ること。
+
+   - 第１引数は文字列として扱うこと。これは加工前の文字列に相当する。
+
+   - 第２引数が nil の時は通常の変換時、 non-nil の時は候補一覧表示時を表すもの
+     として扱うこと。
+
+   - 返り値は次のいずれかとすること。
+
+     .. list-table::
+
+        * - 返り値
+          - 説明
+        * - 文字列
+          - 文字列は、候補と注釈を両方含みうるものとして処理される。
+        * - :code:`(候補 . 注釈)`
+          - | 候補は、もう注釈を含まないものとして処理される。
+            | 注釈は、先頭が ``;`` かどうかを調べた上で処理される。
+        * - :code:`(候補 . (セパレータ . 注釈))`
+          - | 候補は、もう注釈を含まないものとして処理される。
+            | セパレータは、通常の ``;`` の代わりに利用される。
+            | 注釈は、もうセパレータを含まないものとして処理される。
+
+ファイル :file:`etc/dot.skk` に設定例があるほか、サンプルとして関数
+:func:`skk-treat-candidate-sample1` と :func:`skk-treat-candidate-sample2`
+を用意してあります。
+
+ファイル :file:`~/.skk` に次のいずれかを書いてみて変換候補の装飾を試してください。
+
+.. code:: emacs-lisp
+
+    (setq skk-treat-candidate-appearance-function
+          'skk-treat-candidate-sample1)
+
+.. code:: emacs-lisp
+
+    (setq skk-treat-candidate-appearance-function
+          'skk-treat-candidate-sample2)
 
 モードラインの装飾
 ------------------
 
+XEmacs 及び GNU Emacs 21 以降では、以下の機能が使用できます。
+
+インジケータ
+^^^^^^^^^^^^
+
+.. index::
+   pair: Variable; skk-indicator-use-cursor-color
+
+skk-indicator-use-cursor-color
+   モードラインの左に DDSKK のインジケータを表示（標準設定）している場合、インジ
+   ケータの色がカーソルの色と同期します。インジケータに色を付けたくない場合は、こ
+   の変数を nil にします。
+
+   :ref:`入力モードを示すカーソル色に関する設定 <cursor-color-input-mode>`
+
+インジケータに独自色を使いたい場合は、以下のフェイス [#]_ を設定します。この場合
+カーソルの色は参照されません。
+
+- GNU Emacs 21 以上（変数 ``mule-version`` の値が 5.0 以上の GNU Emacs）の場合
+
+   - ``skk-emacs-hiragana-face``
+   - ``skk-emacs-katakana-face``
+   - ``skk-emacs-jisx0208-latin-face``
+   - ``skk-emacs-jisx0201-face``
+   - ``skk-emacs-abbrev-face``
+
+- XEmacs の場合
+
+   - ``skk-xemacs-hiragana-face``
+   - ``skk-xemacs-katakana-face``
+   - ``skk-xemacs-jisx0208-latin-face``
+   - ``skk-xemacs-latin-face``
+   - ``skk-xemacs-jisx0201-face``
+   - ``skk-xemacs-abbrev-face``
+
+なお、インジケータを右クリックするとポップアップメニューが表示されます。
+
+アイコン
+^^^^^^^^
+
+.. index::
+   pair: Variable; skk-show-icon
+
+skk-show-icon
+   変数 ``skk-show-icon`` の値を non-nil と設定することにより、モードラインに
+   SKK のアイコンが表示されます。
+   なお、アイコン表示は :func:`(image-type-available-p 'xpm)` が t を返す必要があ
+   るため、Emacs の種類／実行環境に依存します。
+
+.. index::
+   pair: Variable; skk-icon
+
+skk-icon
+   アイコンの画像ファイル :file:`skk.xpm` へのパス。
+   関数 :func:`skk-emacs-prepare-modeline-properties` で定義しています。
 
 ユーザガイダンス関連
 ====================
@@ -5503,10 +6277,128 @@ Google CGI API for Japanese Input を利用したかな漢字変換
 エラーなどの日本語表示
 ----------------------
 
+標準では、エラー、メッセージ及びミニバッファでのプロンプトは、英語で表示
+されます。
+
+.. index::
+   pair: Variable; skk-japanese-message-and-error
+
+skk-japanese-message-and-error
+   この変数の値を non-nil に設定すると、エラー、メッセージ及びミニバッファでのプ
+   ロンプトを日本語で表示します。標準では nil です。
+
+.. index::
+   pair: Variable; skk-show-japanese-menu
+
+skk-show-japanese-menu
+   この変数の値を non-nil に設定すると、メニューバーを日本語で表示します。
+
+.. index::
+   pair: Variable; skk-version-codename-ja
+
+skk-version-codename-ja
+   この変数の値を non-nil に設定すると、関数 :func:`skk-version` を評価したときの
+   コードネームを日本語で表示します。
+
 .. _display-verbose-message:
 
 冗長な案内メッセージの表示
 --------------------------
+
+.. index::
+   pair: Variable; skk-verbose
+
+skk-verbose
+   この変数の値を non-nil に設定すると、入力中／変換中に冗長なメッセージを表示し
+   ます。
+
+   .. code:: emacs-lisp
+
+       (setq skk-verbose t)
+
+▽モード
+   ファンクションキー :kbd:`F1` 〜 :kbd:`F10` に割り当てられている機能を表示しま
+   す。 変数 ``skk-verbose`` の設定と同時に変数 ``skk-j-mode-function-key-usage`` を
+   以下のように設定してみてください。
+
+   .. code:: emacs-lisp
+
+       (setq skk-j-mode-function-key-usage 'conversion)
+
+   ▽モードにおいてキー入力が一定時間（標準では 1.5 秒）なされなかったとき、
+   エコーエリアに以下のようなメッセージが表示されます。
+
+   .. code:: text
+
+       -------------------- Echo Area --------------------
+       [F5]単漢字 [F6]無変換 [F7]カタカナ [F8]半角カナ [F9]全角ローマ [F10]ローマ
+       -------------------- Echo Area --------------------
+
+   この案内に従ってファンクションキーを押すことで、一時的に単漢字変換やカタカナ変
+   換を行うことができます。
+
+▼モード
+   Wikipedia アノテーション機能の使い方をメッセージで案内します。
+   変数 ``skk-verbose`` の設定と同時に変数 ``skk-show-annotation`` を
+   non-nil に設定してみてください。
+
+   .. code:: emacs-lisp
+
+       (setq skk-show-annotation t)
+
+   ▼モードにおいてキー入力が一定時間 (標準では 1.5 秒) なされなかったとき、
+   エコーエリアに以下のようなメッセージが表示されます。
+
+   .. code:: text
+
+       -------------------- Echo Area --------------------
+       どれを参照?[C-1 C-i]ja.wikipedia [C-2 C-i]en.wiktionary
+       [C-3 C-i]simple.wikipedia [C-4 C-i]en.wikipedia [C-5 C-i]ja.wiktionary
+       -------------------- Echo Area --------------------
+
+   この案内に従って、例えば :kbd:`C-1 C-i` を打鍵すると、日本語 Wikipedia
+   の該当記事を調べて、あればその一部をアノテーションとして表示します。
+
+   一方、現在の変換候補に対するアノテーションが既に表示されているときは、
+   以下のメッセージが上記のものと交互に表示されます。
+
+   .. code:: text
+
+       -------------------- Echo Area --------------------
+       {アノテーション}[C-w]コピー [C-o]URLブラウズ [C-i]標準設定のソースを参照
+       -------------------- Echo Area --------------------
+
+   この案内に従って :kbd:`C-w` を打鍵すれば、アノテーションの全文を kill
+   ring に 保存して利用することができます。また、キー :kbd:`C-o`
+   を押した場合には、もし 現在のアノテーションが Wikipedia
+   アノテーションであればその出典となる Wikipedia/Wiktionary
+   のページをウェブブラウザで表示します。
+
+.. index::
+   pair: Variable; skk-verbose-wait
+
+skk-verbose-wait
+   冗長なメッセージを表示するまでの待ち時間（秒）。標準は 1.5 秒です。
+
+.. index::
+   pair: Variable; skk-verbose-message-interval
+
+skk-verbose-message-interval
+   冗長なメッセージが複数ある場合の１メッセージあたり表示時間を秒で指定す
+   る。標準は 5.0 秒です。この時間が経過したら表示を次の冗長なメッセージ
+   に切り替えます。
+
+.. index::
+   pair: Variable; skk-verbose-intention-face
+
+skk-verbose-intention-face
+   「どれを参照?」と「アノテーション」に適用するフェイスです。
+
+.. index::
+   pair: Variable; skk-verbose-kbd-face
+
+skk-verbose-kbd-face
+   ``[F5]`` や ``[C-1 C-i]`` に適用するフェイスです。
 
 I-search 関連
 =============
@@ -5514,20 +6406,131 @@ I-search 関連
 起動時の入力モードの指定
 ------------------------
 
+.. index::
+   pair: Variable; skk-isearch-start-mode
+
+skk-isearch-start-mode
+   インクリメンタル・サーチを起動したときの入力モードをこの変数で指定できます。
+   以下のいずれかのシンボルを指定できますが、変数 ``skk-isearch-use-previous-mode`` の
+   設定が優先されます。
+
+   .. list-table::
+
+      * - 指定できるシンボル
+        - インクリメンタル・サーチを起動したときの入力モード
+      * - nil
+        - | カレントバッファで SKK モードが起動されていれば、そのモードを。
+          | 起動されていなければアスキーモード。
+      * - シンボル 'hiragana
+        - かなモード
+      * - シンボル 'jisx0208-latin
+        - 全英モード
+      * - シンボル 'latin
+        - アスキーモード
+
+.. index::
+   pair: Variable; skk-isearch-use-previous-mode
+
+skk-isearch-use-previous-mode
+   この変数の値が non-nil であれば、次のインクリメンタル・サーチ起動時の入力モー
+   ドは、前回のインクリメンタル・サーチでの入力モードになります。
+   nil であれば、変数 ``skk-isearch-start-mode`` の設定が優先されます。
+
 間に空白等を含む文字列の検索
 ----------------------------
 
+「検索」という文字列をインクリメンタル・サーチにより検索する場合に、バッファが以
+下のような状態になっていることがあります。
+
+.. code:: text
+
+    -------- Buffer: foo --------
+    この行末から始まる文字列を検
+    索して下さい。
+    -------- Buffer: foo --------
+
+このような場合のために、Emacs は正規表現によるインクリメンタル・サーチを提供して
+います。DDSKK はこの正規表現によるインクリメンタル・サーチにも対応しているため、
+空白や改行を含んだ検索も可能です。
+
+.. index::
+   pair: Key; M-x isearch-forward-regexp
+
+M-x isearch-forward-regexp
+   前方への正規表現によるインクリメンタル・サーチ。:kbd:`C-u C-s` または
+   :kbd:`M-C-s` で起動します。
+
+.. index::
+   pair: Key; M-x isearch-backward-regexp
+
+M-x isearch-backward-regexp
+   後方への正規表現によるインクリメンタル・サーチ。 :kbd:`C-u C-r` または
+   :kbd:`M-C-r` で起動します。
+
+.. index::
+   pair: Variable; skk-isearch-whitespace-regexp
+
+skk-isearch-whitespace-regexp
+   この変数の値は正規表現です。この正規表現にマッチする要素は「正規表現に
+   よるインクリメンタル・サーチにおいては、単語を区切る要素ではない」と判
+   断されます。この変数の標準設定は以下のようになっています。
+
+   .. code:: text
+
+       "\\(\\s \\|[ \t\n\r\f]\\)*"
+
+   この変数の値を変更することで、正規表現によるインクリメンタル・サーチを
+   拡張することができます。例えば、電子メールの引用部分を検索する場合を考
+   えます。
+
+   .. code:: text
+
+       > 引用部分も検
+       > 索できる。
+
+   上記のうち、「検索」という語は 2
+   行に渡っている上、引用マークが挿入され ています。ここで
+
+   .. code:: emacs-lisp
+
+       (setq skk-isearch-whitespace-regexp "\\(\\s \\|[ \t\n\r\f<>|]\\)*")
+
+と設定することにより、「検索」を検索できるようになります。
 
 VIP/VIPERとの併用
 =================
 
 VIPER については Info を参照してください。
 
+`VIPER Manual <info:viper#Top>`_
+
+また、VIPER の前身である VIP にも対応します。
+
+ただし、正式に対応しているバージョンは 3.5 のみです。これは Mule 2.3 に標準添付します [#]_ 。
+
+.. index::
+   pair: Variable; skk-use-viper
+
+skk-use-viper
+   この変数の値を non-nil に設定すると、VIPER に対応します。
 
 picture-modeとの併用
 ====================
 
+SKK モードを ``picture-mode`` において使用した場合は、以下のような問題点がありま
+す。ただし、これらは ``picture-mode`` の問題なので、現在のところ DDSKK 側では対処
+していません。
 
+- SKK モードで全角文字を入力した場合に、 :kbd:`BS` で全角文字を消すことができませ
+  ん。現状では、後方にある文字を消したい場合は、その文字にポイントを合わせ、 :kbd:`C-c C-d`
+  で一文字ずつ消す必要があります。
+
+- コマンド :func:`picture-movement-up` や :func:`picture-movement-down` により上
+  下に全角文字を挿入した場合に、桁がずれる場合があります。
+
+関数 :func:`move-to-column-force` の中で使用されている関数 :func:`move-to-column` の
+引数として、全角文字を無視した桁数が与えられることがあり、そのときカーソル移動が
+できないため、これらの問題が生じます。
 
 .. rubric:: 脚注
 
@@ -5789,3 +6792,47 @@ picture-modeとの併用
        キーを変更することができます。
 
        [候補の選択に用いるキー]
+
+.. [#] リードオンリーなバッファでは :kbd:`M-x skk-display-code-for-char-at-point` を
+       実行してください。
+
+.. [#] 変数 ``skk-show-tooltip`` が ``non-nil`` であればツールティップで表示します。
+       変数 ``skk-show-candidates-always-pop-to-buffer`` が non-nil で あれば
+       other-window に表示します。 ``skk-show-tooltip`` が優先します。
+
+.. [#] 関数 :func:`skk-lookup-search` が ``skk-autoloads.el`` に追加されます。
+
+.. [#] ``skk-lookup-search-agents`` にセットして検索するようにしています。
+       Lookup とは異なる設定をする場合、この変数の設定を変更すれば可能です。
+
+.. [#] edict 辞書 :file:`SKK-JISYO.edict` があれば、例えば、
+
+   .. code:: emacs-lisp
+
+       (setq skk-search-prog-list
+             (append skk-search-prog-list
+                     (list
+                      '(skk-search-jisyo-file "/your-path/SKK-JISYO.edict" 0 t))))
+
+   のように設定することにより、 edict 辞書を使用できます。
+
+.. [#] ただし、 ``frame-width`` が不足する場合は、候補バッファに表示します。
+
+.. [#] 以前のバージョンではテキスト属性 (text property) を使用していました。
+       オーバーレイ属性はテキスト属性と異なり、テキストの一部とは見なされません。
+       そのため、テキストのコピーの際にオーバーレイ属性は保持されません。
+       その他にも、オーバーレイの移動やその属性の変更はバッファの変更とは見なされ
+       ないこと、オーバーレイの変更はバッファのアンドゥリストに記録されないこと、
+       などが特徴として挙げられます。
+
+       なお、XEmacs にはオーバーレイ機能 はありません。代わりに extent というもの
+       が用意されているのでそれを利用します。
+
+.. [#] Emacs 標準 では ``default``, ``modeline``, ``region``, ``secondary-selection``,
+       ``highlight``, ``underline``, ``bold``, ``italic``, ``bold-italic`` があります。
+
+.. [#] 変数 ``window-system`` が nil の場合は、これらフェイスは未定義となります。
+
+.. [#] ちなみに、VIP 3.5 の作者は、SKK の原作者でもある佐藤雅彦氏（京都大学名誉教
+       授）です。VIP 3.5 の発展版である VIPER は現在もメンテナンスされています。
+       GNU Emacs 19, 20 には、VIP 、VIPER とも標準添付します。
