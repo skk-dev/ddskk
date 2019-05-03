@@ -215,7 +215,7 @@ skk-show-mode-inline-face
      - 見出し語について、辞書変換を行うモード
 
 また、▽モードの変種として *SKK abbrev モード* があり、▼モードのサブモード
-として *辞書登録モード* があります。
+として :ref:`辞書登録モード <jisyo-register-mode>` があります。
 
 ■モード
 --------
@@ -463,11 +463,11 @@ skk-show-mode-inline-face
    pair: Variable; skk-previous-candidate-keys
 
 skk-previous-candidate-keys
-  前候補／前候補群に戻る関数 ``skk-previous-candidate`` を割り当てるオブジェクト
-  のリストを指定する。オブジェクトにはキーを表す文字列または event vector が指定
-  できます。
+  前候補／前候補群に戻る関数 :func:`skk-previous-candidate` を割り当てるオブジェ
+  クトのリストを指定する。オブジェクトにはキーを表す文字列または event vector が
+  指定できます。
 
-  標準設定は ``(list "x" "\C-p")`` です。
+  標準設定は :code:`(list "x" "\C-p")` です。
 
 .. index::
    pair: Variable; skk-search-excluding-word-pattern-function
@@ -479,7 +479,7 @@ skk-search-excluding-word-pattern-function
    pair: Variable; skk-show-candidates-nth-henkan-char
 
 skk-show-candidates-nth-henkan-char
-  候補一覧を表示する関数 ``skk-henkan-show-candidates`` を呼び出すまで
+  候補一覧を表示する関数 :func:`skk-henkan-show-candidates` を呼び出すまで
   の ``skk-start-henkan-char`` を打鍵する回数。２以上の整数である必要。
 
 .. index::
@@ -500,9 +500,9 @@ skk-henkan-number-to-display-candidates
 :kbd:`K` を大文字で入力します。送り仮名の :kbd:`K` を打鍵した時点で▼モードに入り
 辞書変換が行われます（ :kbd:`SPC` 打鍵は不要）。
 
-送り仮名の入力時（ローマ字プレフィックスが挿入された瞬間）にプレフィックスの直前
-に一瞬だけ ``*`` が表示されることで送り仮名の開始時点を明示します。プレフィックス
-に続くキー入力で、かな文字が完成した時点で ``*`` は消えます。
+送り仮名の入力時（ :ref:`ローマ字プレフィックス <roma-prefix>` が挿入された瞬間）
+にプレフィックスの直前に一瞬だけ ``*`` が表示されることで送り仮名の開始時点を明示
+します。プレフィックスに続くキー入力で、かな文字が完成した時点で ``*`` は消えます。
 
 キー入力を分解して追いながらもう少し詳しく説明します。
 
@@ -577,7 +577,7 @@ DDSKK には独立した辞書登録モードはありません。その代わ�
 
 skk-read-from-minibuffer-function
   この変数に「文字列を返す関数」を収めると、その文字列を辞書登録モードに入ったと
-  きのプロンプトに初期表示します。関数 ``read-from-minibuffer`` の
+  きのプロンプトに初期表示します。関数 :func:`read-from-minibuffer` の
   引数 ``INITIAL-CONTENTS`` に相当します。
 
   .. code:: emacs-lisp
@@ -710,15 +710,15 @@ skk-check-okurigana-on-touroku
 
 のようなエントリがあるとします。
 
-ここで ``S a i k i t e k i SPC`` とキー入力すると、見出し語「さいきてき」に対する
-候補を見つけられないので、ミニバッファに「さいきてき」というプロンプトを表示して
-辞書登録モードに入ります。
+ここで :kbd:`S a i k i t e k i SPC` とキー入力すると、見出し語「さいきてき」に対
+する候補を見つけられないので、ミニバッファに「さいきてき」というプロンプトを表示
+して辞書登録モードに入ります。
 
-「さいきてき」に対する辞書エントリを作るため ``S a i k i SPC`` とキー入力すると、
-更にこの候補も見つけられないので、ミニバッファに「さいき」というプロンプトを表示
-して、再帰的に「さいき」の辞書登録モードに入ります。
+「さいきてき」に対する辞書エントリを作るため :kbd:`S a i k i SPC` とキー入力する
+と、更にこの候補も見つけられないので、ミニバッファに「さいき」というプロンプトを
+表示して、再帰的に「さいき」の辞書登録モードに入ります。
 
-``S a i SPC K i SPC`` とキー入力すると、ミニバッファは、
+:kbd:`S a i SPC K i SPC` とキー入力すると、ミニバッファは、
 
 .. code:: text
 
@@ -738,7 +738,7 @@ skk-check-okurigana-on-touroku
 というエントリが登録され、ミニバッファは「さいきてき」の辞書登録モードに戻り、プ
 ロンプトは「さいきてき」となります。
 
-今度は「再帰」が変換可能なので ``S a i k i SPC T e k i SPC`` とキー入力すると、
+今度は「再帰」が変換可能なので :kbd:`S a i k i SPC T e k i SPC` とキー入力すると、
 
 .. code:: text
 
@@ -888,7 +888,7 @@ skk-tut-use-face
 
 .. rubric:: 脚注
 
-.. [#] :file:`skk.el` の ``skk-setup-modeline`` にて、 ``mode-line-format`` に ``skk-icon`` と ``skk-modeline-input-mode`` を追加しています。
+.. [#] :file:`skk.el` の :func:`skk-setup-modeline` にて、 ``mode-line-format`` に ``skk-icon`` と ``skk-modeline-input-mode`` を追加しています。
 
 .. [#] カラーディスプレイを使用し、カラー表示をサポートしている Window System 下
        で対応する Emacs を使用している場合。
@@ -933,13 +933,13 @@ skk-tut-use-face
 
 .. [#] :file:`SKK-JISYO.L` など共有辞書のメンテナンス上、原則としてサ変動詞を送り
        ありエントリに追加していません。そのため、「する」を送り仮名とした送りあり
-       変換では、辞書に候補がなく辞書登録モードに入ってしまうので、名詞として分解
-       して入力することが一般的です。
+       変換では、辞書に候補がなく :ref:`辞書登録モード <jisyo-register-mode>` に
+       入ってしまうので、名詞として分解して入力することが一般的です。
 
        ただし、DDSKK 13 以降では暫定的にサ変動詞の送りあり変換を可能にする機能を
        用意しました。 :ref:`サ変動詞変換 <sahen-dousi>`
 
-.. [#] :kbd:`M-y` の ``isearch-yank-kill`` 、 :kbd:`M-p` の ``isearch-ring-retreat`` 、
-       又は :kbd:`M-n` の ``isearch-ring-advance`` など
+.. [#] :kbd:`M-y` の :func:`isearch-yank-kill` 、 :kbd:`M-p` の :func:`isearch-ring-retreat` 、
+       又は :kbd:`M-n` の :func:`isearch-ring-advance` など
 
 .. [#] ``search-highlight`` など

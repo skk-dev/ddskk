@@ -216,6 +216,8 @@ DDSKK 14.2 からは、 GNU Emacs 同梱の辞書データ ``ja-dic`` を利用�
 有志の知恵を結集して作られている各種 SKK 辞書は便利ですから、是非入手してインスト
 ールしましょう。
 
+.. _getting-jisyo-files:
+
 辞書の入手
 ==========
 
@@ -262,15 +264,16 @@ http://openlab.jp/skk/skk/dic/READMEs/committers.txt
    pair: Key; M-x skk-get
 
 :kbd:`M-x skk-get`
-  Emacs の使用中に ``M-x skk-get`` と実行すると、辞書ファイルを一括ダウンロードす
-  ることができます。
+  Emacs の使用中に :kbd:`M-x skk-get` と実行すると、辞書ファイルを一括ダウンロー
+  ドすることができます。
 
 .. index::
    pair: Function; skk-get
 
-(skk-get &optional DIRECTORY)
-  skk-get を関数として使用することで、ユーザプログラムの中からでも辞書ファイルを
-  一括ダウンロードすることができます。
+.. function:: skk-get &optional DIRECTORY
+
+   skk-get を関数として使用することで、ユーザプログラムの中からでも辞書ファイルを
+   一括ダウンロードすることができます。
 
 .. code:: emacs-lisp
 

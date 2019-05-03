@@ -58,7 +58,7 @@ DDSKK 14.1 以降は辞書サーバを経由せずとも CDB 形式 [#]_ の辞�
 
   (setq skk-cdb-large-jisyo "/your/path/to/SKK-JISYO.L.cdb")
 
-変数 ``skk-large-jisyo`` と 変数 ``skk-cdb-large-jisyo`` を同時に指定した場合は、
+変数 ``skk-large-jisyo`` と変数 ``skk-cdb-large-jisyo`` を同時に指定した場合は、
 標準では CDB 形式辞書ファイルの方が先に検索 [#]_ されます。
 
 インクリメント検索の設定
@@ -75,6 +75,8 @@ skk-isearch-mode-enable
   有効にします。標準設定は ``t`` です。 ``nil`` に設定すると skk-isearch を無効に
   することができます。シンボル ``always`` に設定すると、SKK が ON になっていない
   バッファでも skk-isearch を有効にします。
+
+.. _setting-jisyo-server:
 
 辞書サーバを使いたいときの設定
 ==============================
@@ -172,7 +174,7 @@ DDSKK を Emacs の Input Method とする
    pair: Key; C-\
    pair: Key; M-x toggle-input-method
 
-Emacs の標準キーバインドでは :kbd:`C-\\` を打鍵すると、関数 ``toggle-input-method`` を
+Emacs の標準キーバインドでは :kbd:`C-\\` を打鍵すると、関数 :func:`toggle-input-method` を
 実行します。この関数は、変数 ``default-input-method`` が指す input method を
 トグル切り替えします。
 
@@ -218,13 +220,13 @@ default-input-method
 
 .. rubric:: 脚注
 
-.. [#] Emacs が起動する過程の関数 ``normal-top-level`` で :file:`SKK_LISPDIR/leim-list.el` が
+.. [#] Emacs が起動する過程の関数 :func:`normal-top-level` で :file:`SKK_LISPDIR/leim-list.el` が
        読み込まれます。
        :file:`leim-list.el` は :file:`skk-autoloads.el` と :file:`skk-setup.el` を require します。
        :file:`skk-autoloads.el` は DDSKK の :command:`make` 時に自動的に生成され
-       るファイルであり、各関数を autoload するよう定義するほか ``register-input-method`` も
+       るファイルであり、各関数を autoload するよう定義するほか :func:`register-input-method` も
        行います。
-       :file:`skk-setup.el` はキーバインド（ :kbd:`C-x C-j` → ``skk-mode`` ）の定義、
+       :file:`skk-setup.el` はキーバインド（ :kbd:`C-x C-j` → :func:`skk-mode` ）の定義、
        変数 ``skk-tut-file`` の定義及びインクリメンタル・サーチの定義を行っています。
 
 .. [#] 配布物にサンプルファイル :file:`etc/dot.emacs` と :file:`etc/dot.skk` があります。
@@ -243,4 +245,4 @@ default-input-method
        ``isearch-mode-end-hook`` に ``skk-isearch-cleanup-maybe`` をそれぞれ追加
        しています。
        ``skk-isearch-{setup|cleanup}-maybe`` も :file:`skk-setup.el` で定義されて
-       おり、その実態は、関数 ``skk-isearch-mode-{setup|cleanup}`` です。
+       おり、その実態は、関数 :func:`skk-isearch-mode-{setup|cleanup}` です。
