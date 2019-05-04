@@ -231,6 +231,8 @@ SKK は中断していた個所から再び ``skk-search-prog-list`` の次の�
 
 ちなみに、 :file:`SKK-JISYO.JIS2` は、最大でもリージョン間のポイント差が 8,500 程度です。
 
+.. _Q3-4:
+
 Q3-4 左手の小指を SHIFT で酷使したくありません。
 ------------------------------------------------
 
@@ -291,8 +293,7 @@ X Window System 上 であれば、おそらく
 xmodmap を使う。
 ^^^^^^^^^^^^^^^^
 
-X Window System 上では、 :command:`xmodmap` というプログラムを使ってキー配列を変
-更できます。
+X Window System 上では、 :command:`xmodmap` を使ってキー配列を変更できます。
 
 例えば、「無変換キー」をシフトキーとして使いたければ
 
@@ -306,7 +307,7 @@ X Window System 上では、 :command:`xmodmap` というプログラムを使�
 ``skk-sticky.el`` を使う。
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-[変換位置の指定方法]
+:ref:`変換位置の指定方法 <sticky>`
 
 親指シフト入力のエミュレーション機能を利用する。
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -345,12 +346,12 @@ Q3-5 全く漢字が出てきません。
 :file:`SKK-JISYO.L` というファイルがインストールされている場所を確認してください。
 普通は
 
-  - :file:`/usr/local/share/skk`
-  - :file:`/usr/share/skk`
+  - `/usr/local/share/skk`
+  - `/usr/share/skk`
 
 といった場所にインストールされています。
 
-XEmacs のパッケージならば :file:`/usr/local/lib/xemacs/mule-packages/etc/skk` な
+XEmacs のパッケージならば `/usr/local/lib/xemacs/mule-packages/etc/skk` な
 どを確認します。
 
 その後で :file:`~/.skk` に
@@ -376,12 +377,12 @@ Q3-6 チュートリアルが起動できません。
 :file:`SKK.tut` というファイルがインストールされている場所を確認してください。
 普通は
 
-  - :file:`/usr/local/share/skk`
-  - :file:`/usr/share/skk`
+  - `/usr/local/share/skk`
+  - `/usr/share/skk`
 
 といった場所にインストールされています。
 
-XEmacs のパッケージならば :file:`/usr/local/lib/xemacs/mule-packages/etc/skk` な
+XEmacs のパッケージならば `/usr/local/lib/xemacs/mule-packages/etc/skk` な
 どを確認します。
 
 その後で :file:`~/.emacs.d/init.el` に
@@ -411,7 +412,7 @@ Dictionaries
 Q4-1 SKK には郵便番号辞書がありますか?
 --------------------------------------
 
-:file:`zipcode` というディレクトリに入っています。
+`zipcode` というディレクトリに入っています。
 
   - https://skk-dev.github.io/dict/
 
@@ -488,7 +489,7 @@ Miscellaneous
 Q5-1 SKK abbrev モードでもっと英単語を利用した変換ができませんか?
 -----------------------------------------------------------------
 
-UNIX :command:`look` コマンドと :file:`skk-look.el` を利用すると、色々できますよ。
+UNIX :command:`look` と :file:`skk-look.el` を利用すると、色々できますよ。
 
 まず、 :file:`~/.skk` で ``skk-use-look`` を t にセットして Emacs/SKK を立ち上げ
 直して下さい。

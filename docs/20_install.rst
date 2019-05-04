@@ -12,18 +12,22 @@ DDSKK 14.2 からは、GNU Emacs 22 以上を利用する場合においては A
 ールする必要がなくなりました。APEL に依存している他の elisp プログラムを使用して
 いなければ、インストール済の APEL は削除することが可能です。
 
-XEmacs をお使いの場合は、 DDSKK をインストールする前に APEL （APEL 10.8 以上を推
-奨）をインストールして下さい。APEL は次のサイトから入手できます。
+.. note::
 
-`APEL <http://git.chise.org/elisp/apel/>`_
+   XEmacs をお使いの場合は、 DDSKK をインストールする前に APEL （APEL 10.8 以上を
+   推奨）をインストールして下さい。APEL は
+
+     - http://git.chise.org/elisp/apel/
+
+   から入手できます。
 
 DDSKK のインストール
 ====================
 
-ここでは、UNIX 上で :command:`make` コマンドが利用できる環境 [#]_ を想定します。
+ここでは、UNIX 上で :command:`make` が利用できる環境 [#]_ を想定します。
 
-まず、DDSKK のアーカイブ :file:`ddskk-VERSION.tar.gz` を :command:`tar` コマンドと
-:command:`gzip` コマンドを使用して展開します。
+まず、DDSKK のアーカイブ :file:`ddskk-VERSION.tar.gz` を :command:`tar` と
+:command:`gzip` を使用して展開します。
 
 .. code:: console
 
@@ -39,7 +43,7 @@ GNU Emacs へのインストール
 --------------------------
 
 まずは、DDSKK がどのディレクトリにインストールされるのか確認するために
-:samp:`what-where` を引数に :command:`make` コマンドを実行しましょう。
+:samp:`what-where` を引数に :command:`make` を実行しましょう。
 
 .. code:: console
 
@@ -71,8 +75,8 @@ emacs の実体ファイルを特定することもできます。
 .. index::
    pair: File; SKK-CFG
 
-また、DDSKK のインストール先ディレクトリを変更したい場合は :file:`SKK-CFG` ファイ
-ルを編集してください。編集後は必ず :command:`make what-where` を実行して表示内容
+また、DDSKK のインストール先ディレクトリを変更したい場合は :file:`SKK-CFG` を編集
+してください。編集後は必ず :command:`make` :samp:`what-where` を実行して表示内容
 を確認してください。
 
 次にスーパーユーザになって、
@@ -107,8 +111,7 @@ XEmacs へのインストール
 -----------------------
 
 XEmacs でパッケージとしてインストールする場合は、まず :samp:`what-where-package`
-を引数に :command:`make` コマンドを実行してパッケージのインストール先を確認しまし
-ょう。
+を引数に :command:`make` を実行してパッケージのインストール先を確認しましょう。
 
 .. code:: console
 
@@ -288,12 +291,12 @@ DDSKK 14.2 からは、 GNU Emacs 同梱の辞書データ ja-dic を利用し�
 辞書を DDSKK と同時にインストールする
 =====================================
 
-DDSKK のソースを展開すると、中に :file:`dic` というディレクトリが存在します。
-:file:`SKK-JISYO.L` などをこのディレクトリにコピーしてから :command:`make install` を
+DDSKK のソースを展開すると、中に `dic` というディレクトリが存在します。
+:file:`SKK-JISYO.L` などをこのディレクトリにコピーしてから :command:`make` :samp:`install` を
 実行すると、辞書ファイルがチュートリアル (:file:`SKK.tut`) と同じディレクトリ [#]_
 にインストールされます。
 
-具体的なインストール先は :command:`make what-where` を実行すると表示されます。
+具体的なインストール先は :command:`make` :samp:`what-where` を実行すると表示されます。
 
 .. code:: console
 
@@ -301,7 +304,7 @@ DDSKK のソースを展開すると、中に :file:`dic` というディレク�
    -|   SKK-JISYO.lisp, SKK-JISYO.zipcode, SKK-JISYO.office.zipcode, ...
    -|   -> c:/emacs-24.5/share/emacs/24.5/etc/skk
 
-:file:`dic` ディレクトリに辞書ファイルを置くためには :command:`make get` と実行す
+`dic` ディレクトリに辞書ファイルを置くためには :command:`make` :samp:`get` と実行す
 る [#]_ のが簡単です。
 
 .. _get-jisyo-server:
@@ -323,8 +326,8 @@ DDSKK は特定の辞書サーバの実装に依存していませんので、�
 
 .. [#] Microsoft Windows 環境では :command:`makeit.bat` を使用することで、UNIX と
        同様の操作でインストールできます。 :file:`READMEs/README.w32.ja` を参照し
-       てください。cygwin 環境をインストールされている方は :command:`make` コマン
-       ドが使用できるので、本文の解説がそのまま当てはまります。Apple macOS 環境の
+       てください。cygwin 環境をインストールされている方は :command:`make` 
+       が使用できるので、本文の解説がそのまま当てはまります。Apple macOS 環境の
        方は :file:`READMEs/README.MacOSX.ja` を参照してください。
 
 .. [#] :file:`ChangeLog` や :file:`Makefile` が置かれているディレクトリです。
@@ -334,6 +337,6 @@ DDSKK は特定の辞書サーバの実装に依存していませんので、�
 .. [#] GNU Emacs 24 以降で標準で搭載されています。GNU Emacs 23 以前では手動でイン
        ストールする必要があります。 http://wikemacs.org/wiki/Package.el
 
-.. [#] :file:`/usr/share/skk` や :file:`c:/emacs-24.5/etc/skk` など
+.. [#] ``/usr/share/skk`` や ``c:/emacs-24.5/etc/skk`` など
 
-.. [#] Microsoft Windows 環境では :command:`makeit.bat get` と実行します。
+.. [#] Microsoft Windows 環境では :command:`makeit.bat` :samp:`get` と実行します。

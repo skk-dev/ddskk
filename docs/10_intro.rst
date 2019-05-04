@@ -102,10 +102,10 @@ DDSKK の主な特徴は、次のとおりです。
 - 辞書サーバを使うことで、使用メモリの削減が可能。
 - ディスク容量に応じて選べる辞書ファイル。
 - 辞書ファイルの一括ダウンロード機能。
-- Emacs のオリジナル操作と同様に行える日本語インクリメンタル・サーチ。
-- Emacs Lisp で書かれたプログラムが返す値を変換候補に挙げることができる。
+- Emacs のオリジナル操作と同様に行える :ref:`日本語インクリメンタル・サーチ <isearch>` 。
+- Emacs Lisp で書かれた :ref:`プログラムが返す値を変換候補に挙げる <program-conversion>` ことができる。
 - 入力モードの自動切り替え :file:`context-skk.el`
-- 多彩なアノテーション表示
+- 多彩な :ref:`アノテーション表示 <annotation>`
 
   - ユーザ・アノテーション
   - EPWING 辞書
@@ -121,6 +121,8 @@ DDSKK の主な特徴は、次のとおりです。
 
 .. [#] Emacs News: Changes in Emacs 24.4 on Non-Free Operating Systems.
 
-.. [#] :math:`SKK = I` について詳しくは http://openlab.jp/skk/SKK.html をご参照下さい。
+.. [#] :math:`SKK = I` について詳しくは
+       https://github.com/skk-dev/ddskk/blob/master/READMEs/history.md
+       をご参照下さい。
 
 .. [#] Daredevil の名の由来は [Q1-1 Daredevil SKK って SKK とは違うのですか?].

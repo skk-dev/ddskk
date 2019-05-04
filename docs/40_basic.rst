@@ -28,14 +28,16 @@ SKK モードに入るには :kbd:`C-x C-j` もしくは :kbd:`C-x j` とキー�
 .. index::
    pair: Option; skk-status-indicator
 
-skk-status-indicator
+.. describe:: skk-status-indicator
+
   標準設定はシンボル ``left`` です。この変数をシンボル ``minor-mode`` と設定すれ
   ば、インジケータはモードラインのマイナーモードの位置に表示されます。
 
 .. index::
    pair: Option; skk-preload
 
-skk-preload
+.. describe:: skk-preload
+
   :file:`~/.emacs.d/init.el` にて変数 ``skk-preload`` を non-nil と設定するこ
   とにより、DDSKK の初回起動を速くすることができます。
 
@@ -51,14 +53,14 @@ skk-preload
 .. index::
    pair: Key; M-x skk-restart
 
-M-x skk-restart
+:kbd:`M-x skk-restart`
   :kbd:`M-x skk-restart` と実行すると SKK を再起動します。 :file:`~/.skk` は再ロ
   ードしますが、 :file:`~/.emacs.d/init.el` は再ロードしません。
 
 .. index::
    pair: Key; M-x skk-version
 
-skk-version
+:kbd:`M-x skk-version`
   :kbd:`M-x skk-version` と実行するとエコーエリアに SKK のバージョンを表示 [#]_ し
   ます。
 
@@ -99,7 +101,7 @@ SKK オートフィルモード
 Emacs を終了するときは、保存前の個人辞書を :file:`~/.skk-jisyo.BAK` に退避して
 から :ref:`個人辞書 <jisyo-variant>` の内容を :file:`~/.skk-jisyo` に保存 [#]_ します。
 
-:file:`~/.skk-jisyo` や :file:`~/.skk-jisyo.BAK` のファイル名を変更したければ、そ
+:file:`~/.skk-jisyo` や :file:`~/.skk-jisyo.BAK` の名称を変更したければ、そ
 れぞれ変数 ``skk-jisyo`` や変数 ``skk-backup-jisyo`` の値を変更して下さい。
 
 .. index::
@@ -172,7 +174,8 @@ SKK モードは、文字種類による４種類の **入力モード** [#]_ �
 .. index::
    pair: Option; skk-show-mode-show
 
-skk-show-mode-show
+.. describe:: skk-show-mode-show
+
   現在の入力モードは、モードラインに表示されています。この変数を Non-nil とす
   ると、入力モードを切り替えたときにカーソル付近にも一瞬表示するようになります。
 
@@ -185,14 +188,16 @@ skk-show-mode-show
 .. index::
    pair: Option; skk-show-mode-style
 
-skk-show-mode-style
+.. describe:: skk-show-mode-style
+
   標準設定は、シンボル ``inline`` です。シンボル ``tooltip`` を指定することも可能
   です。
 
 .. index::
    pair: Option; skk-show-mode-inline-face
 
-skk-show-mode-inline-face
+.. describe:: skk-show-mode-inline-face
+
   ``inline`` 利用時の face
 
 変換モード
@@ -471,8 +476,9 @@ skk-show-mode-inline-face
 .. index::
    pair: Variable; skk-previous-candidate-keys
 
-skk-previous-candidate-keys
-  前候補／前候補群に戻る関数 :func:`skk-previous-candidate` を割り当てるオブジェ
+.. describe:: skk-previous-candidate-keys
+
+  前候補／前候補群に戻る :func:`skk-previous-candidate` を割り当てるオブジェ
   クトのリストを指定する。オブジェクトにはキーを表す文字列または event vector が
   指定できます。
 
@@ -481,20 +487,23 @@ skk-previous-candidate-keys
 .. index::
    pair: Variable; skk-search-excluding-word-pattern-function
 
-skk-search-excluding-word-pattern-function
+.. describe:: skk-search-excluding-word-pattern-function
+
   詳しくは docstring を参照のこと。
 
 .. index::
    pair: Variable; skk-show-candidates-nth-henkan-char
 
-skk-show-candidates-nth-henkan-char
-  候補一覧を表示する関数 :func:`skk-henkan-show-candidates` を呼び出すまで
+.. describe:: skk-show-candidates-nth-henkan-char
+
+  候補一覧を表示する :func:`skk-henkan-show-candidates` を呼び出すまで
   の ``skk-start-henkan-char`` を打鍵する回数。２以上の整数である必要。
 
 .. index::
    pair: Variable; skk-henkan-number-to-display-candidates
 
-skk-henkan-number-to-display-candidates
+.. describe:: skk-henkan-number-to-display-candidates
+
   いちどに表示する候補の数。
 
 .. _word-okuri:
@@ -586,9 +595,10 @@ DDSKK には独立した辞書登録モードはありません。その代わ�
 .. index::
    pair: Variable; skk-read-from-minibuffer-function
 
-skk-read-from-minibuffer-function
+.. describe:: skk-read-from-minibuffer-function
+
   この変数に「文字列を返す関数」を収めると、その文字列を辞書登録モードに入ったと
-  きのプロンプトに初期表示します。関数 :func:`read-from-minibuffer` の
+  きのプロンプトに初期表示します。 :func:`read-from-minibuffer` の
   引数 ``INITIAL-CONTENTS`` に相当します。
 
   .. code:: emacs-lisp
@@ -599,7 +609,8 @@ skk-read-from-minibuffer-function
 .. index::
    pair: Variable; skk-jisyo-registration-badge-face
 
-skk-jisyo-registration-badge-face
+.. describe:: skk-jisyo-registration-badge-face
+
   変数 ``skk-show-inline`` が non-nil であれば、辞書登録モードに移ったことを
   明示するためにカレントバッファに「↓辞書登録中↓」とインライン表示します。この
   「↓辞書登録中↓」に適用するフェイスです。
@@ -677,7 +688,8 @@ skk-jisyo-registration-badge-face
 .. index::
    pair: Variable; skk-check-okurigana-on-touroku
 
-skk-check-okurigana-on-touroku
+.. describe:: skk-check-okurigana-on-touroku
+
   標準設定は nil です。 
 
   .. list-table::
@@ -800,6 +812,8 @@ skk-check-okurigana-on-touroku
 
 と入力します。
 
+.. _isearch:
+
 インクリメンタル・サーチ
 ========================
 
@@ -857,7 +871,8 @@ skk-isearch と入力モード
 .. index::
    pair: Variable; skk-isearch-mode-string-alist
 
-skk-isearch-mode-string-alist
+.. describe:: skk-isearch-mode-string-alist
+
   プロンプトとして表示される文字列
 
 .. _tutorial:
@@ -876,7 +891,8 @@ DDSKK には、基本的な操作方法を学習できるチュートリアル�
 .. index::
    pair: Variable; skk-tut-file
 
-skk-tut-file
+.. describe:: skk-tut-file
+
   チュートリアルファイルが標準の場所に置かれていない場合は、 :file:`~/.emacs.d/init.el` で
 
   .. code:: emacs-lisp
@@ -890,15 +906,17 @@ skk-tut-file
 .. index::
    pair: Variable; skk-tut-lang
 
-skk-tut-lang
+.. describe:: skk-tut-lang
+
   チュートリアルで用いる言語を文字列 ``Japanese`` 又は ``English`` で指定します。
   この変数よりも :kbd:`C-u M-x skk-tutorial` による言語指定が優先されます。
 
 .. index::
    pair: Variable; skk-tut-use-face
 
-skk-tut-use-face
-  ``Non-nil`` であれば、チュートリアルで face を利用して表示します。
+.. describe:: skk-tut-use-face
+
+  Non-nil であれば、チュートリアルで face を利用して表示します。
 
 .. rubric:: 脚注
 

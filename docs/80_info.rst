@@ -104,7 +104,7 @@ SKK の原作者は、現京都大学名誉教授の佐藤雅彦氏です。
 
   - http://www.ist.i.kyoto-u.ac.jp/organization/ex-professor.html#Sato
 
-現在の DDSKK は、大勢のボランティアの貢献により成立しています。 ファイル
+現在の DDSKK は、大勢のボランティアの貢献により成立しています。
 :file:`READMEs/Contributors` に貢献者名の一覧がありますので、ご覧ください。
 
 SKK の歴史

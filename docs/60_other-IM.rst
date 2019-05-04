@@ -92,7 +92,7 @@ azik と skk で仕様が重なる部分があるため、 :file:`skk-azik.el` �
    - :kbd:`xwa` → ゎ
 
 キー :kbd:`X`
-   skk では、▼モードでの :kbd:`X` は 関数 :func:`skk-purge-from-jisyo` を実行し
+   skk では、▼モードでの :kbd:`X` は  :func:`skk-purge-from-jisyo` を実行し
    ますが、AZIK では :kbd:`X` は「シャ行」の入力に使われます。
 
    そのため、 :file:`skk-azik.el` での :ref:`誤った登録の削除 <delete-wrong-register>` は、
@@ -121,7 +121,7 @@ TUT-code
 使用するには、SKK のインストール時にいくつかのファイルをインストールする必要があ
 ります。
 
-SKK ソースの :file:`tut-code` ディレクトリにある :file:`skk-tutcdef.el` と
+SKK ソースの `tut-code` ディレクトリにある :file:`skk-tutcdef.el` と
 :file:`skk-tutcode.el` を SKK ソースのトップディレクトリにコピーしてから、
 あらためて SKK をインストールします。
 
