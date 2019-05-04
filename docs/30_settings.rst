@@ -71,10 +71,16 @@ DDSKK 14.1 以降は辞書サーバを経由せずとも CDB 形式 [#]_ の辞�
 
 skk-isearch-mode-enable
   この変数は :file:`~/.emacs.d/init.el` か :kbd:`M-x customize-variable` で設定し
-  てください。 ``Non-nil`` であれば、SKK が ON になっているバッファで skk-isearch を
-  有効にします。標準設定は ``t`` です。 ``nil`` に設定すると skk-isearch を無効に
-  することができます。シンボル ``always`` に設定すると、SKK が ON になっていない
-  バッファでも skk-isearch を有効にします。
+  てください。
+
+  .. list-table::
+
+     * - Non-nil (標準設定は t )
+       - SKK が ON になっているバッファで skk-isearch を有効にします。
+     * - nil
+       - skk-isearch を無効にすることができます。
+     * - シンボル 'always
+       - SKK が ON になっていないバッファでも skk-isearch を有効にします。
 
 .. _setting-jisyo-server:
 
@@ -105,7 +111,7 @@ skk-server-portnum
    pair: Option; skk-server-inhibit-startup-server
 
 skk-server-inhibit-startup-server
-  この変数が ``nil`` であれば、辞書サーバが起動していなかったときに Emacs か
+  この変数が nil であれば、辞書サーバが起動していなかったときに Emacs か
   ら ``skkserv`` プロセスを起動することができます。
 
   Emacs から立ち上げて利用する事ができる辞書サーバは、

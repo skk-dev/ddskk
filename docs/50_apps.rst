@@ -2318,6 +2318,8 @@ skk-kana-input-search-function
 .. index::
    pair: Variable; skk-kutouten-type
 
+.. _skk-kutouten-type:
+
 skk-kutouten-type
    ■モードの標準では、キーボードの :kbd:`.` を打鍵すると「。」が、 :kbd:`,` を打
    鍵すると「、」がバッファに挿入されます。変数 ``skk-kutouten-type`` に適切なシ
@@ -4593,9 +4595,9 @@ skk-force-registration-mode-char
 個人辞書ファイルの編集
 ----------------------
 
-**構文チェックが十分ではありません。**
+.. warning::
 
-**個人辞書ファイルの編集は、自己責任のもと行ってください。**
+   構文チェックが十分ではありませんので、個人辞書ファイルの編集は、自己責任のもと行ってください。
 
 .. index::
    pair: Key; M-x skk-edit-private-jisyo
@@ -4723,7 +4725,7 @@ skk-count-private-jisyo-candidates-exactly
    せん。
 
 .. index::
-   pair: key; M-x skk-count-jisyo-candidates
+   pair: Key; M-x skk-count-jisyo-candidates
 
 M-x skk-count-jisyo-candidates
    このコマンドを使うと、辞書の候補数を数えることができます。
@@ -4892,7 +4894,7 @@ skk-annotation-delay
    アノテーションを表示するまでの遅延を秒で指定する。標準設定は 1.0 秒。
 
 .. index::
-   pair: key; C-w
+   pair: Key; C-w
 
 :kbd:`C-w`
    :kbd:`C-w` をタイプすると、現在表示されているアノテーションを kill ring
@@ -4916,7 +4918,7 @@ skk-annotation-show-as-message
    ノテーションをツールティップで表示します。
 
 .. index::
-   pair: key; ^
+   pair: Key; ^
 
 :kbd:`^`
    候補バッファで変換候補を一覧表示しているときにアノテーションの表示／非表示を動
@@ -4974,7 +4976,7 @@ skk-annotation-show-as-message
 --------------------
 
 .. index::
-   pair: key; M-x skk-annotation-add
+   pair: Key; M-x skk-annotation-add
 
 :kbd:`M-x skk-annotation-add`
    アノテーションを登録／修正するには、アノテーションを付けたい単語を確定した直後
@@ -4987,7 +4989,7 @@ skk-annotation-show-as-message
    挿入して ``*SKK annotation*`` バッファを開きます。
 
 .. index::
-   pair: key; M-x skk-annotation-kill
+   pair: Key; M-x skk-annotation-kill
 
 M-x skk-annotation-kill
    上記 :kbd:`M-x skk-annotation-add` を実行したもののアノテーションを付けずに
@@ -4995,7 +4997,7 @@ M-x skk-annotation-kill
    :kbd:`M-x skk-annotation-kill` を実行してください。
 
 .. index::
-   pair: key; M-x skk-annotation-remove
+   pair: Key; M-x skk-annotation-remove
 
 M-x skk-annotation-remove
    特定の語からアノテーションを取り去りたいときは、まず、かな漢字変換で当該語を確
@@ -5366,7 +5368,7 @@ skk-annotation-dict-program-arguments
 
 .. index::
    pair: Variable; skk-kcode-method
-   pair: key; \\
+   pair: Key; \\
    pair: Function; skk-input-by-code-or-menu
 
 skk-kcode-method
@@ -5394,7 +5396,7 @@ skk-kcode-method
 --------------
 
 .. index::
-   pair: key; M-x skk-list-chars
+   pair: Key; M-x skk-list-chars
 
 :kbd:`M-x skk-list-chars` と実行すると、変数 ``skk-kcode-charset`` が指す文字集合
 に従ってバッファ ``*skk-list-chars*`` に文字の JIS コード一覧が表示されます。
@@ -5940,7 +5942,8 @@ skk-use-color-cursor
 現在のウィンドウにインライン表示する
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**XEmacs ではインライン表示はサポートされません。**
+.. note::
+   XEmacs ではインライン表示はサポートされません。
 
 .. index::
    pair: Variable; skk-show-inline

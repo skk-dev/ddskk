@@ -5,21 +5,21 @@ SKK に関する情報
 最新情報
 ========
 
-DDSKK についての最新情報は http://openlab.jp/skk/ から得ることができます。
+DDSKK についての情報は http://openlab.jp/skk/ から得ることができます。
 
 SKK の開発は、 GitHub を利用して行われています。
 
--  https://github.com/skk-dev/ddskk
+  - https://github.com/skk-dev/ddskk
 
 最新版 DDSKK の変更内容と更に過去の変更点については以下のリソースを参照してくださ
 い。
 
--  https://github.com/skk-dev/ddskk/blob/master/READMEs/NEWS.ja
+  - https://github.com/skk-dev/ddskk/blob/master/READMEs/NEWS.ja
 
 また、将来のバージョンにおける拡張アイディアについては、TODO としてまとめられてい
 ます。
 
--  https://github.com/skk-dev/ddskk/blob/master/READMEs/TODO.ja
+  - https://github.com/skk-dev/ddskk/blob/master/READMEs/TODO.ja
 
 SKK Openlab では、開発者、文章の整備にご協力いただける方、テスター、よろずものを
 言う人などなど、常に募集しています。また要望、拡張の具体的アイディアがあれば、メ
@@ -52,6 +52,8 @@ SKK Openlab メーリングリストは、統一されたひとつの ML です�
 過去ログの閲覧
    http://mail.ring.gr.jp/skk
 
+.. _other-software:
+
 SKK 関連ソフトウェア
 ====================
 
@@ -60,6 +62,8 @@ SKK 関連ソフトウェアに関しては、次の URL にリンクをまと�
 
 `SKK 辞書 Wiki におけるリンク集 <http://openlab.jp/skk/wiki/wiki.cgi?page=%A5%EA%A5%F3%A5%AF%BD%B8>`_
 
+.. _skk-jisyo:
+
 SKK 辞書について
 ================
 
@@ -67,9 +71,22 @@ SKK 辞書は多くのユーザの方々から提供された辞書によりコ�
 大規模の辞書になっています。今後もこの方式により SKK 辞書をより充実したものにして
 いきたいと思います。
 
-http://openlab.jp/skk/registdic.cgi にて Web/cgi を利用した登録・削除希望フォーム
-を運用しています。SKK 辞書に追加したい単語、誤登録として削除したい単語がありまし
-たら、是非ご利用下さい。
+.. http://openlab.jp/skk/registdic.cgi にて Web/cgi を利用した登録・削除希望フォーム
+   を運用しています。SKK 辞書に追加したい単語、誤登録として削除したい単語がありまし
+   たら、是非ご利用下さい。
+
+.. note::
+
+   2018.12 から、SKK 辞書の更新は github のみとしました。 openlab cvs への同期は
+   行いません。
+
+SKK 辞書に追加したい単語、誤登録として削除したい単語がありましたら、
+
+  - https://github.com/skk-dev/dict
+
+あて Pull Request をお願います。
+
+.. _jisyo-tools:
 
 辞書ツール
 ==========
@@ -85,7 +102,7 @@ SKK の作者
 
 SKK の原作者は、現京都大学名誉教授の佐藤雅彦氏です。
 
-http://www.ist.i.kyoto-u.ac.jp/organization/ex-professor.html#Sato
+  - http://www.ist.i.kyoto-u.ac.jp/organization/ex-professor.html#Sato
 
 現在の DDSKK は、大勢のボランティアの貢献により成立しています。 ファイル
 :file:`READMEs/Contributors` に貢献者名の一覧がありますので、ご覧ください。
@@ -93,15 +110,14 @@ http://www.ist.i.kyoto-u.ac.jp/organization/ex-professor.html#Sato
 SKK の歴史
 ==========
 
-SKK の成り立ちと歴史に関しては以下の URL を参照してください。
+SKK の成り立ちと歴史に関しては、次の資料があります。
 
-- `SKK の誕生秘話 <http://openlab.jp/skk/born-ja.html>`_
+  - SKK の誕生秘話
+  - SKK = I
+  - SKK の 25年
+  - SKK の歴史（付 Emacs の歴史の一部）
 
-- `SKK = I <http://openlab.jp/skk/SKK.html>`_
-
-- `SKK の歴史（付 Emacs の歴史の一部） <http://openlab.jp/skk/history-ja.html>`_
-
-- `SKK の 25年 <http://mail.ring.gr.jp/skk/201212/msg00007.html>`_
+https://github.com/skk-dev/ddskk/blob/master/READMEs/history.md を参照してください。
 
 このマニュアルについて
 ======================

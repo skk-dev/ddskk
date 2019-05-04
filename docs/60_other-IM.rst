@@ -8,9 +8,9 @@ DDSKK は、SKK 旧来のローマ字式かな入力（訓令式、ヘボン式�
 AZIK
 ====
 
-`AZIK （エイズィック） <http://hp.vector.co.jp/authors/VA002116/azik/azikindx.htm>`_ は
-QWERTY 配列をベースとした拡張ローマ字入力です。一般のローマ字入力がそのまま使える
-上での拡張であることが特徴です。
+`AZIK （エイズィック） <http://hp.vector.co.jp/authors/VA002116/azik/azikindx.htm>`_
+は、QWERTY 配列をベースとした拡張ローマ字入力です。一般のローマ字入力がそのまま使
+える上での拡張であることが特徴です。
 
 .. index::
    pair: Variable; skk-use-azik
@@ -42,30 +42,32 @@ azik と skk で仕様が重なる部分があるため、 :file:`skk-azik.el` �
 応しています。
 
 キー :kbd:`q`
+   AZIK では、撥音「ん」を入力するには :kbd:`q` を使うこととされていますが、
+   skk では既に :kbd:`q` に :func:`skk-toggle-kana` を割り当てています。
 
-   AZIK では撥音「ん」を入力するには :kbd:`q` を使うこととされていますが、skk で は既に :kbd:`q` に
-   :func:`skk-toggle-kana` を割り当てています。そのため :file:`skk-azik.el` で
-   は :func:`skk-toggle-kana` の実行を
+   そのため :file:`skk-azik.el` では :func:`skk-toggle-kana` の実行を
 
-   -  日本語キーボードであれば :kbd:`@` を、
+   -  日本語キーボードであれば :kbd:`@` を
 
    -  英語キーボードであれば :kbd:`[` を
 
    それぞれ使用します。
 
 キー :kbd:`@`
-   上記のとおり、 :func:`skk-toggle-kana` の実行には :kbd:`@`
-   （日本語キーボード） や :kbd:`[` （英語キーボード）を使用しますが、skk
-   では既に :kbd:`@` には「今日の
-   日付の入力」（プログラム実行変換）を割り当てています。そのため、skk
-   本来の動作には :kbd:`x` を付けて、それぞれ :kbd:`x@` と :kbd:`x[`
-   で代用できるようにして あります。
+   上記のとおり、 :func:`skk-toggle-kana` の実行には :kbd:`@` （日本語キーボード）
+   や :kbd:`[` （英語キーボード）を使用しますが、skk では既に :kbd:`@` には「今日
+   の日付の入力」（ :ref:`プログラム実行変換 <program-conversion>` ）を割り当てて
+   います。
+
+   そのため、skk 本来の動作には :kbd:`x` を付けて、それぞれ :kbd:`x@` と :kbd:`x[`
+   で代用できるようにしてあります。
 
 キー :kbd:`l`, :kbd:`xx`
-   AZIK では単独の拗音「ゃゅょぁぃぅぇぉゎ」を入力するには :kbd:`l`
-   を前置することとされていますが、skk では既に :kbd:`l`
-   に「アスキーモードへの切り替え」 を割り当てています。そのため
-   :file:`skk-azik.el` では、拗音のうち「ぁぃぅぇぉ」 の入力については
+   AZIK では、単独の拗音「ゃゅょぁぃぅぇぉゎ」を入力するには :kbd:`l` を前置する
+   こととされていますが、skk では既に :kbd:`l` に「アスキーモードへの切り替え」
+   を割り当てています。
+
+   そのため、 :file:`skk-azik.el` では、拗音のうち「ぁぃぅぇぉ」 の入力については
    :kbd:`xx` を前置することとしています。
 
    - :kbd:`xxa` → ぁ
@@ -90,8 +92,8 @@ azik と skk で仕様が重なる部分があるため、 :file:`skk-azik.el` �
    - :kbd:`xwa` → ゎ
 
 キー :kbd:`X`
-   skk では、▼モードでの :kbd:`X` は 関数 :func:`skk-purge-from-jisyo`
-   を実行します が、AZIK では :kbd:`X` は「シャ行」の入力に使われます。
+   skk では、▼モードでの :kbd:`X` は 関数 :func:`skk-purge-from-jisyo` を実行し
+   ますが、AZIK では :kbd:`X` は「シャ行」の入力に使われます。
 
    そのため、 :file:`skk-azik.el` での :ref:`誤った登録の削除 <delete-wrong-register>` は、
    ▼モードで :kbd:`M-x skk-purge-from-jisyo` を実行してください。
@@ -163,7 +165,7 @@ skk-kanagaki-keyboard-type
       * - シンボル 'nicola-jis
         - | 日本語 106 キーボード (旧 JIS 配列) での親指シフトエミュレーションに対応します。
           | :code:`(setq skk-kanagaki-keyboard-type 'nicola-jis)`
-      * - シンボル 'nicola-us'
+      * - シンボル 'nicola-us
         - 
       * - シンボル 'nicola-dvorak
         - 
@@ -184,23 +186,22 @@ skk-kanagaki-keyboard-type
 かな入力方式使用時の■モードでは、以下のコマンドなどが役に立ちます。
 
 .. index::
-   pair: key; F1 1
+   pair: Key; F1 1
 
 :kbd:`F1 1`
    かな入力方式での特殊キー定義の一覧を表示します。
 
 .. index::
-   pair: key; F1 2
+   pair: Key; F1 2
 
 :kbd:`F1 2`
    かな入力方式でのかなキー配列を表示します。
 
 .. index::
-   pair: key; F12
+   pair: Key; F12
 
 :kbd:`F12`
    かな入力方式とローマ字入力方式とを切り換えます。
 
-なお、親指シフト方式については次の url が参考になります。
-
-`NICOLA 日本語入力コンソーシアム <http://nicola.sunicom.co.jp/>`_
+なお、親指シフト方式については `NICOLA 日本語入力コンソーシアム <http://nicola.sunicom.co.jp/>`_
+を参照してください。

@@ -101,6 +101,8 @@ emacs の実体ファイルを特定することもできます。
 
 と指定します。
 
+.. _install-xemacs:
+
 XEmacs へのインストール
 -----------------------
 
@@ -185,7 +187,7 @@ MELPA によるインストール
    pair: Function; package-initialize
 
 2014年12月、MELPA [#]_ に DDSKK が登録されたことにより、 GNU Emacs で
-も ``package.el`` [#]_ によるインストールが可能となりました。
+も package.el [#]_ によるインストールが可能となりました。
 
 詳細については、次のドキュメントを参照してください。
 
@@ -199,18 +201,20 @@ DDSKK を使用するには、いわゆる辞書（主にかなと漢字の対�
 
 .. index::
    keyword: ja-dic
-
-DDSKK 14.2 からは、 GNU Emacs 同梱の辞書データ ``ja-dic`` を利用したかな漢字変換
-に対応しましたので、SKK 辞書ファイルを別途インストールしなくても最低限の使用がで
-きます（XEmacs では ``ja-dic`` は利用できませんので、後述する SKK 辞書をインスト
-ールする必要があります）。
-
-.. index::
    keyword: LEIM
 
-しかし、 ``ja-dic`` は、 GNU Emacs の入力メソッド ``LEIM`` のために
-:file:`SKK-JISYO.L` から変換して生成されたものであり、英数変換や数値変換などのエ
-ントリ、および「大丈夫」など複合語とみなし得る語が大幅に削除されています。
+DDSKK 14.2 からは、 GNU Emacs 同梱の辞書データ ja-dic を利用したかな漢字変換に対
+応しましたので、SKK 辞書ファイルを別途インストールしなくても最低限の使用ができま
+す。
+
+.. note::
+
+   XEmacs では ja-dic は利用できませんので、後述する SKK 辞書をインストールする必
+   要があります。
+
+しかし、 ja-dic は、 GNU Emacs の入力メソッド LEIM のために :file:`SKK-JISYO.L` か
+ら変換して生成されたものであり、英数変換や数値変換などのエントリ、および「大丈夫」
+など複合語とみなし得る語が大幅に削除されています。
 そのため、 :file:`SKK-JISYO.L` を利用したかな漢字変換と同等の結果は得られません。
 
 有志の知恵を結集して作られている各種 SKK 辞書は便利ですから、是非入手してインスト
@@ -253,12 +257,14 @@ DDSKK 14.2 からは、 GNU Emacs 同梱の辞書データ ``ja-dic`` を利用�
        | 見出し語を変換する過程で Emacs Lisp 関数を評価し、その値を候補として表示します。
        | :ref:`プログラム実行変換 <program-conversion>`
    * - SKK-JISYO.wrong
-     - S, M, L 辞書に既に登録されていたが、間違いであったことが判明したため削除された単語を収録
+     - S, M, L 辞書に既に登録されていたが、間違いであったことが判明したために削除された単語を収録
 
-一部の辞書は、著作権が GNU GPL v2 ではありませんのでご注意下さい。詳細は、次の資
-料を参照して下さい。
+.. note::
 
-http://openlab.jp/skk/skk/dic/READMEs/committers.txt
+   一部の辞書は、著作権が GNU GPL v2 ではありませんのでご注意下さい。詳細は、次の
+   資料を参照して下さい。
+
+   http://openlab.jp/skk/skk/dic/READMEs/committers.txt
 
 .. index::
    pair: Key; M-x skk-get
@@ -284,10 +290,10 @@ http://openlab.jp/skk/skk/dic/READMEs/committers.txt
 
 DDSKK のソースを展開すると、中に :file:`dic` というディレクトリが存在します。
 :file:`SKK-JISYO.L` などをこのディレクトリにコピーしてから :command:`make install` を
-実行すると、辞書ファイルがチュートリアル (:file:`SKK.tut`) と同じディレクト
-リ (:file:`/usr/share/skk` や :file:`c:/emacs-24.5/etc/skk` など) にインストール
-されます。具体的なインストール先は :command:`make what-where` を実行すると表示さ
-れます。
+実行すると、辞書ファイルがチュートリアル (:file:`SKK.tut`) と同じディレクトリ [#]_
+にインストールされます。
+
+具体的なインストール先は :command:`make what-where` を実行すると表示されます。
 
 .. code:: console
 
@@ -327,5 +333,7 @@ DDSKK は特定の辞書サーバの実装に依存していませんので、�
 
 .. [#] GNU Emacs 24 以降で標準で搭載されています。GNU Emacs 23 以前では手動でイン
        ストールする必要があります。 http://wikemacs.org/wiki/Package.el
+
+.. [#] :file:`/usr/share/skk` や :file:`c:/emacs-24.5/etc/skk` など
 
 .. [#] Microsoft Windows 環境では :command:`makeit.bat get` と実行します。

@@ -12,8 +12,8 @@ Q1-1 Daredevil SKK って SKK とは違うのですか?
 
 SKK Openlab で開発、リリースされる SKK は、京大の佐藤先生が中心になって開発してい
 た SKK と区別するために、Daredevil SKK と呼ぶことにしました。
-その略称は DDSKK で、SKK Openlab で最初に Daredevil SKK としてリリースされた version は 11.1
-です（オリジナルの version を継承しました）。
+その略称は DDSKK で、SKK Openlab で最初に Daredevil SKK としてリリースされた version
+は 11.1 です（オリジナルの version を継承しました）。
 
 なお、 Daredevil の名前の採択は、開発陣の一人が講読している某ラジオ英会話講座の、
 ある日のスキット名が「Daredevil なんとか」で、その内容は「とにかくやってみよう。
@@ -38,9 +38,7 @@ Q1-3 DDSKK はどの Emacs で使えますか?
 -------------------------------------
 
 基本的には、GNU Emacs と Mule 機能付きの XEmacs で使えます。対応する Emacs のバー
-ジョンについては以下をご覧ください。
-
-[このバージョンの SKK について]
+ジョンについては :doc:`このバージョンの SKK について <10_intro>` をご覧ください。
 
 Q1-4 DDSKK はどんなオペレーティングシステムで使えますか?
 --------------------------------------------------------
@@ -48,9 +46,9 @@ Q1-4 DDSKK はどんなオペレーティングシステムで使えますか?
 SKK がサポートしている Emacs がその OS で動いているなら、SKK の基本的な機能は動く
 はずです。 Microsoft Windows でも Apple macOS でも使えます。
 
-拡張機能については、UNIX の各種コマンド（ ``look`` や ``ispell`` など）を前提とし
-ているものがいくつかあります。これらのコマンドがお使いの OS にも存在すれば該当の
-拡張機能も基本的には使えるでしょう。
+拡張機能については、UNIX の各種コマンド（ :command:`look` や :command:`ispell` など）
+を前提としているものがいくつかあります。これらのコマンドがお使いの OS にも存在す
+れば該当の拡張機能も基本的には使えるでしょう。
 
 Apple macOS 版 Emacs に特化した情報については、以下のファイルを参照してください。
 
@@ -62,11 +60,13 @@ Q1-5 APEL って何? 必要ですか?
 APEL は A Portable Emacs Library の略です。APEL の主な機能は、異なる Emacs 間の非
 互換性を吸収することです。
 
-  - XEmacs では APEL が必要です。
+XEmacs では APEL が必要です。
 
-  - GNU Emacs 22 以上では APEL は不要となりました。
-    この変更は 2010 年 9 月 に CVS に commit され、
-    2011 年 1 月に DDSKK 14.2 としてリリースされました。
+.. note::
+
+   GNU Emacs 22 以上では APEL は不要となりました。
+   この変更は 2010 年 9 月 に CVS に commit され、2011 年 1 月に DDSKK 14.2 とし
+   てリリースされました。
 
 Installation
 ============
@@ -75,23 +75,26 @@ Q2-1 SKK を使うのに何が必要ですか?
 ----------------------------------
 
 SKK 本体と SKK 辞書が必要です。オプションで辞書サーバを用意することができます。
-XEmacs では事前に APEL をインストールしてください。
 
-[XEmacs へのインストール]
+.. note::
+
+   XEmacs では事前に APEL をインストールしてください。
+
+   :ref:`XEmacs へのインストール <install-xemacs>`
 
 Q2-2 SKK 辞書はどこにありますか?
 --------------------------------
 
-[SKK 辞書について]
+:ref:`SKK 辞書について <skk-jisyo>`
 
 Q2-3 SKK サーバはどこにありますか?
 ----------------------------------
 
 DDSKK は辞書サーバの種類、バージョンには依存していません。
 
-http://openlab.jp/skk/skkserv-ja.html
+  - :ref:`辞書サーバの入手 <get-jisyo-server>`
 
-からお好きな辞書サーバを入手して下さい。
+  - http://openlab.jp/skk/skkserv-ja.html
 
 Customization
 =============
@@ -101,44 +104,48 @@ Q3-1 「．」、「，」 が入力できるようにカスタマイズした�
 
 ３通りの方法を紹介します。
 
-1. 通常 :kbd:`.` で「．」を、 :kbd:`,` で「，」を入力したい場合
+通常 :kbd:`.` で「．」を、 :kbd:`,` で「，」を入力したい場合
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-   :file:`~/.skk` に :code:`(setq skk-kutouten-type 'en)` を設定します。
+:ref:`■モードに関連するその他の変数 <skk-kutouten-type>` をごご覧ください。
 
-2. 一時的に :kbd:`.` で「．」を、 :kbd:`,` で「，」を入力したい場合
+一時的に :kbd:`.` で「．」を、 :kbd:`,` で「，」を入力したい場合
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-   :kbd:`M-x skk-toggle-kutouten` を実行すると、その場で「，」「．」に切り替え
-   ることができます。「、」「。」に戻すには、もう一度 :kbd:`M-x skk-toggle-kutouten` を
-   実行します。
+:kbd:`M-x skk-toggle-kutouten` を実行すると、その場で「，」「．」に切り替え
+ることができます。「、」「。」に戻すには、もう一度 :kbd:`M-x skk-toggle-kutouten` を
+実行します。
 
-   特定のバッファでのみ「，」「．」に切り替えたい場合は Info を参照下さい。
-  
-   `Local Variables in Files in GNU Emacs Manual <info:emacs#File Variables>`_
+特定のバッファ（例えば tex モード）でのみ「，」「．」に切り替えたい場合は、次の設
+定を tex 文書ファイルの最後に追加します。
 
-   例えば、 tex モードでのみ「，」「．」に切り替えたい場合は、次の設定を tex 文
-   書ファイルの最後に追加します。
+.. code:: text
 
-   .. code:: text
+   % Local Variables:
+   %   skk-kutouten-type: en
+   % end:
 
-      % Local Variables:
-      %   skk-kutouten-type: en
-      % end:
+常に :kbd:`.` で「．」を、 :kbd:`,` で「，」を入力したい場合
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-3. 常に :kbd:`.` で「．」を、 :kbd:`,` で「，」を入力したい場合
+``skk-rom-kana-rule-list`` を直接変更します。
 
-   ``skk-rom-kana-rule-list`` を直接変更します。なお、この設定をすると、
-   :kbd:`M-x skk-toggle-kutouten` での切り替えが効かなくなるので、注意して下さい。
-   :file:`~/.skk` に以下を追加します。
+.. warning::
 
-   .. code:: emacs-lisp
+   この設定をすると :kbd:`M-x skk-toggle-kutouten` での切り替えが効かなくなるので、
+   注意して下さい。
 
-      (setq skk-rom-kana-rule-list
-            (append '(("." nil "．") ("," nil "，"))
-                    skk-rom-kana-rule-list))
+:file:`~/.skk` に以下を追加します。
 
-   この設定方法は応用が効き、細かく制御することが可能です。「．」と「，」
-   のところをそれぞれ ``.`` と ``,`` とすることで、「かなモード」「カナモード」
-   でも ``.`` と ``,`` を直接入力することができます。
+.. code:: emacs-lisp
+
+   (setq skk-rom-kana-rule-list
+         (append '(("." nil "．") ("," nil "，"))
+                 skk-rom-kana-rule-list))
+
+この設定方法は応用が効き、細かく制御することが可能です。
+「．」と「，」のところをそれぞれ ``.`` と ``,`` とすることで、
+「かなモード」「カナモード」でも ``.`` と ``,`` を直接入力することができます。
 
 Q3-2 「ゐ」や「ヰ」 が入力できるようにカスタマイズしたいのですが。
 ------------------------------------------------------------------
@@ -152,7 +159,13 @@ Q3-2 「ゐ」や「ヰ」 が入力できるようにカスタマイズした�
           (append '(("wi" nil ("ヰ" . "ゐ")))
                   skk-rom-kana-rule-list))
 
-と書いてみましょう。一番内側の cons cell は car がカナモード、cdr がかなモードで
+と書いてみましょう。
+
+一番内側の cons cell は
+
+  - :func:`car` つまり「ヰ」が、カナモード
+  - :func:`cdr` つまり「ゐ」が、かなモードで
+
 の入力文字を表しています。
 
 一つ前の Q に対する答えのように、カナモード、かなモードともに入力する文字が変わら
@@ -224,99 +237,105 @@ Q3-4 左手の小指を SHIFT で酷使したくありません。
 SKK を標準の状態で使っている場合、変換のためにシフトキーを多用しますので小指への
 負担が大きくなります。この苦しみを回避するためにここでは４つの方法を紹介します。
 
-1. 親指の近くにあるキーを利用してシフトキーの代用とする。
+親指の近くにあるキーを利用してシフトキーの代用とする。
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-   日本語 106 キーボードのように「無変換」、「変換」などのキーがある場合は、
-   これらをシフトキーの代用とすることが可能です。こうすると、例えば
+日本語 106 キーボードのように :kbd:`無変換` 、:kbd:`変換` などのキーがある場合は、
+これらをシフトキーの代用とすることが可能です。こうすると、例えば
 
-     - SHIFT を押しながら a を押す
+- :kbd:`SHIFT` を押しながら :kbd:`a` を押す
 
-   というキー操作は
+というキー操作は
 
-     - 「無変換」を押して、その後で a を押す
+- :kbd:`無変換` を押して、その後で :kbd:`a` を押す
 
-   という操作で置き換えることができるようになります。
+という操作で置き換えることができるようになります。
 
-   それでは具体的なやり方を説明しましょう。まず、使用中の Emacs
-   が「無変換キー」を何という名前で認識しているか調べます。それには
+それでは具体的なやり方を説明しましょう。まず、使用中の Emacs が :kbd:`無変換` を
+何という名前で認識しているか調べます。それには
 
-   .. code:: text
+:kbd:`M-x describe-key`
 
-       M-x describe-key
+というコマンドを実行し、続いて :kbd:`無変換` を押してみます。
+X Window System 上 であれば、おそらく
 
-   というコマンドを実行し、続いて「無変換キー」を押してみます。X Window
-   System 上 であれば、おそらく
+.. code:: text
 
-   .. code:: text
+   muhenkan is undefined
 
-       muhenkan is undefined
+という答えが返ってくるでしょう。
 
-   という答えが返ってくるでしょう。次に、この名前を使って
-   :file:`~/.emacs.d/init.el` に設定を書きこみます。以下は「無変換キー」 =
-   ``muhenkan`` の場合の例です。
+次に、この名前を使って :file:`~/.emacs.d/init.el` に設定を書きこみます。
+以下は :kbd:`無変換` = ``muhenkan`` の場合の例です。
 
-   .. code:: emacs-lisp
+.. code:: emacs-lisp
 
-       (unless (keymapp key-translation-map)
-         (setq key-translation-map (make-sparse-keymap)))
-       (let ((i ?a))
-         (while (<= i ?z)
-           (define-key key-translation-map
-                       (vector 'muhenkan i) (vector (- i 32)))
-           (setq i (1+ i))))
+    (unless (keymapp key-translation-map)
+      (setq key-translation-map (make-sparse-keymap)))
+    (let ((i ?a))
+      (while (<= i ?z)
+        (define-key key-translation-map
+                    (vector 'muhenkan i) (vector (- i 32)))
+        (setq i (1+ i))))
 
-   この設定を終えると、 ``muhenkan-a`` で ``A``
-   が入力できるようになります。 続いて SKK を起動してみましょう。
-   ``muhenkan-a`` で
+この設定を終えると、 ``muhenkan-a`` で ``A`` が入力できるようになります。
 
-   .. code:: text
+続いて SKK を起動してみましょう。 ``muhenkan-a`` で
 
-       ▽あ*
+.. code:: text
 
-   となります。送りの開始点も、もちろん同様の操作で指定できます。
+   ▽あ*
 
-2. xmodmap を使う。
+となります。送りの開始点も、もちろん同様の操作で指定できます。
 
-   X Window System 上では、 ``xmodmap`` というプログラムを使ってキー配列を変
-   更できます。例えば、「無変換キー」をシフトキーとして使いたければ
+xmodmap を使う。
+^^^^^^^^^^^^^^^^
 
-   .. code:: text
+X Window System 上では、 :command:`xmodmap` というプログラムを使ってキー配列を変
+更できます。
 
-       % xmodmap -e 'add Shift = Muhenkan'
+例えば、「無変換キー」をシフトキーとして使いたければ
 
-   とします。これで「無変換キー」は通常のシフトキーと同じような感じで使えるよ
-   うになります。
+.. code:: text
 
-3. ``skk-sticky.el`` を使う。
+   % xmodmap -e 'add Shift = Muhenkan'
 
-   *変換位置の指定方法*.
+とします。これで「無変換キー」は通常のシフトキーと同じような感じで使えるよ
+うになります。
 
-4. 親指シフト入力のエミュレーション機能を利用する。
+``skk-sticky.el`` を使う。
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-   これは前述した方法とはかなり違ったアプローチです。SKK 本来のローマ字的入力を捨
-   てて、富士通のワープロ OASYS のような親指シフト入力 [#]_ を修得します 。
+[変換位置の指定方法]
 
-   DDSKK には NICOLA-DDSKK というプログラムが付属しており、これをインストー
-   ルすると親指シフト入力が可能になります。インストール自体は簡単で、
+親指シフト入力のエミュレーション機能を利用する。
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-   .. code:: console
+これは前述した方法とはかなり違ったアプローチです。SKK 本来のローマ字的入力を捨
+てて、富士通のワープロ OASYS のような親指シフト入力 [#]_ を修得します 。
 
-       % cd nicola
-       % make install
+DDSKK には NICOLA-DDSKK というプログラムが付属しており、これをインストー
+ルすると親指シフト入力が可能になります。インストール自体は簡単で、
 
-   とした後に、 ``~/.skk`` に
+.. code:: console
 
-   .. code:: emacs-lisp
+    % cd nicola
+    % make install
 
-       (setq skk-use-kana-keyboard t)
-       (setq skk-kanagaki-keyboard-type 'omelet-jis)
+とした後に、 :file:`~/.skk` に
 
-   と書くだけです。詳しいことは、NICOLA-DDSKK 付属のドキュメントを参照してください。
+.. code:: emacs-lisp
 
-   NICOLA 配列は、特別に日本語入力のために考えられた配列なので、慣れれば非
-   常に効率的な日本語入力ができるようになると期待されます。一方で、ローマ
-   字的入力方式に慣れてしまっている人にとっては、NICOLA
-   配列に慣れるまでか なり練習を要することは確かです。
+    (setq skk-use-kana-keyboard t)
+    (setq skk-kanagaki-keyboard-type 'omelet-jis)
+
+と書くだけです。詳しいことは、NICOLA-DDSKK 付属のドキュメントを参照してください。
+
+NICOLA 配列は、特別に日本語入力のために考えられた配列なので、慣れれば非常に効率的
+な日本語入力ができるようになると期待されます。
+
+一方で、ローマ字的入力方式に慣れてしまっている人にとっては、NICOLA 配列に慣れるま
+でか なり練習を要することは確かです。
 
 Q3-5 全く漢字が出てきません。
 -----------------------------
@@ -326,49 +345,46 @@ Q3-5 全く漢字が出てきません。
 :file:`SKK-JISYO.L` というファイルがインストールされている場所を確認してください。
 普通は
 
-.. code:: text
+  - :file:`/usr/local/share/skk`
+  - :file:`/usr/share/skk`
 
-    /usr/local/share/skk
-    /usr/share/skk
+といった場所にインストールされています。
 
-といった場所にインストールされています。XEmacs のパッケージならば
+XEmacs のパッケージならば :file:`/usr/local/lib/xemacs/mule-packages/etc/skk` な
+どを確認します。
 
-.. code:: text
-
-    /usr/local/lib/xemacs/mule-packages/etc/skk
-
-などを確認します。その後で :file:`~/.skk` に
+その後で :file:`~/.skk` に
 
 .. code:: emacs-lisp
 
     (setq skk-large-jisyo "/usr/local/share/skk/SKK-JISYO.L")
-
 
 のように設定します。
 
 なお、辞書サーバを使っている場合はこの設定は必要ありません。その場合は、辞書サー
 バの設定や、それがちゃんと起動しているかどうかを確認してください。
 
-また、どこにも辞書がインストールされていない場合は
-http://openlab.jp/skk/dic/ から取得します。
+どこにも辞書がインストールされていない場合は
+
+  - https://skk-dev.github.io/dict/
+
+から取得します。
 
 Q3-6 チュートリアルが起動できません。
 -------------------------------------
 
-``SKK.tut`` というファイルがインストールされている場所を確認してください。普通は
+:file:`SKK.tut` というファイルがインストールされている場所を確認してください。
+普通は
 
-.. code:: text
+  - :file:`/usr/local/share/skk`
+  - :file:`/usr/share/skk`
 
-    /usr/local/share/skk
-    /usr/share/skk
+といった場所にインストールされています。
 
-といった場所にインストールされています。XEmacs のパッケージならば
+XEmacs のパッケージならば :file:`/usr/local/lib/xemacs/mule-packages/etc/skk` な
+どを確認します。
 
-.. code:: text
-
-    /usr/local/lib/xemacs/mule-packages/etc/skk
-
-などを確認します。その後で :file:`~/.emacs.d/init.el` に
+その後で :file:`~/.emacs.d/init.el` に
 
 .. code:: emacs-lisp
 
@@ -395,9 +411,15 @@ Dictionaries
 Q4-1 SKK には郵便番号辞書がありますか?
 --------------------------------------
 
-CVS から辞書を取得した場合は、 :file:`zipcode` というディレクトリに入っています。
-WWW では、 http://openlab.jp/skk/dic/ より入手できます。使用方法
-は http://openlab.jp/skk/skk/dic/zipcode/README.ja を御覧下さい。
+:file:`zipcode` というディレクトリに入っています。
+
+  - https://skk-dev.github.io/dict/
+
+使用方法は
+
+  - https://github.com/skk-dev/dict/blob/master/zipcode/README.md
+
+を御覧下さい。
 
 Q4-2 SKK の辞書には、品詞情報がないんですね。
 ---------------------------------------------
@@ -406,34 +428,37 @@ SKK は漢字とかなとの区切りをユーザが指定する方式により�
 いることなく効率的入力ができます。
 
 TODO としては、辞書に品詞情報を持たせることで更なる入力の効率化ができるという提案
-がなされており、そのような辞書の作成が既に試みられています。興味のある方は次の url
-をご覧ください。
+がなされており、そのような辞書の作成が既に試みられています。
+
+興味のある方は次の url をご覧ください。
 
  `SKK-JISYO.notes <http://openlab.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1>`_
 
 Q4-3 複数の SKK 辞書を結合できますか?
 -------------------------------------
 
-SKK 本体のパッケージには同封されていませんが、 ``skk-tools`` という別パッケージがあります。
+SKK 本体のパッケージには同封されていませんが、 ``skk-tools`` という別パッケージが
+あります。
 
-[辞書ツール]
+:ref:`辞書ツール <jisyo-tools>`
 
 Q4-4 SKK 形式の英和辞書があると聞いたのですが。
 -----------------------------------------------
 
 edict は和英辞書ですが、これを SKK 辞書形式の英和辞書に変換したものを
 
-http://openlab.jp/skk/dic/SKK-JISYO.edict
+  - https://skk-dev.github.io/dict/SKK-JISYO.edict.tar.gz
 
-として置いています。これは edict を単純に機械的に変換した後、バグの修正
-や、エントリ・候補の追加が SKK Openlab で独自に行われているものです。
+として置いています。これは edict を単純に機械的に変換した後、バグの修正や、エント
+リ・候補の追加が SKK Openlab で独自に行われているものです。
 
 edict を自分で加工して上記と同等のものを作成することもできます。edict は
 
-ftp://ftp.u-aizu.ac.jp:/pub/SciEng/nihongo/ftp.cc.monash.edu.au/
+  - ftp://ftp.u-aizu.ac.jp:/pub/SciEng/nihongo/ftp.cc.monash.edu.au/
 
-などから入手できます。加工には日本語の通る ``gawk`` と ``skk-tools``
-の中のプ ログラムを使い、下記のように行います。
+などから入手できます。
+加工には日本語の通る :command:`gawk` と ``skk-tools`` の中のプログラムを使い、下
+記のように行います。
 
 .. code:: console
 
@@ -441,20 +466,20 @@ ftp://ftp.u-aizu.ac.jp:/pub/SciEng/nihongo/ftp.cc.monash.edu.au/
     % skkdic-expr temp | skkdic-sort > SKK-JISYO.E2J
     % rm temp
 
-できた ``SKK-JISYO.E2J`` の利用方法は色々ありますが、
+できた :file:`SKK-JISYO.E2J` の利用方法は色々ありますが、
 
 .. code:: console
 
     % skkdic-expr SKK-JISYO.E2J + /usr/local/share/skk/SKK-JISYO.L | \
       skkdic-sort > SKK-JISYO.L
 
-などとして、 ``SKK-JISYO.L`` とマージして使うのが手軽です。
+などとして、 :file:`SKK-JISYO.L` とマージして使うのが手軽です。
 
 なお、edict の配布条件は GNU GPL (General Public License) ではありません。
 
 http://www.csse.monash.edu.au/groups/edrdg/newlic.html
 
-をご覧下さい。 ``SKK-JISYO.edict`` のヘッダー部分にもそのダイジェスト
+をご覧下さい。 :file:`SKK-JISYO.edict` のヘッダー部分にもそのダイジェスト
 が記載されています。
 
 Miscellaneous
@@ -463,115 +488,117 @@ Miscellaneous
 Q5-1 SKK abbrev モードでもっと英単語を利用した変換ができませんか?
 -----------------------------------------------------------------
 
-UNIX ``look`` コマンドと ``skk-look.el`` を利用すると、色々できますよ。
-まず、 ``~/.skk`` で ``skk-use-look`` を t にセットして Emacs/SKK
-を立ち上げ直して下さい。
+UNIX :command:`look` コマンドと :file:`skk-look.el` を利用すると、色々できますよ。
+
+まず、 :file:`~/.skk` で ``skk-use-look`` を t にセットして Emacs/SKK を立ち上げ
+直して下さい。
+
+.. note::
+
+   ``skk-look.el`` を使った補完・変換が期待するスピードよりも遅い、補完・変換で余
+   分な候補が出る、とお感じの貴方は、 ``skk-look-use-ispell`` の値を nil にして
+   :command:`ispell` によるスペルチェック・修正をオフにしてお試し下さい。
 
 さぁ、下記のような芸当が可能になりました。
 
--  英単語の補完ができます。
+英単語の補完ができます。
+^^^^^^^^^^^^^^^^^^^^^^^^
 
-   .. code:: text
+.. code:: text
 
-         ▽abstr*
+      ▽abstr*
 
-       TAB
+    TAB
 
-         ▽abstract*
+      ▽abstract*
 
-   通常の補完機能と同様に ``.`` で次の補完候補に、 ``,``
-   でひとつ前の補完候補 に移動できます。SKK
-   形式の英和辞書があれば、ここから ``SPC`` を押して英和
-   変換ができますね。また、 ``skk-look-use-ispell`` の値が ``non-nil``
-   であれ ば、 ``look`` で検索する前に ``ispell``
-   でスペルチェック・修正をします。
+通常の補完機能と同様に :kbd:`.` で次の補完候補に、 :kbd:`,` でひとつ前の補完候補
+に移動できます。SKK 形式の英和辞書があれば、ここから :kbd:`SPC` を押して英和変換
+ができますね。
 
--  英単語をあいまいに変換して取り出す
+また、 ``skk-look-use-ispell`` の値が non-nil であれば、 :command:`look` で検索す
+る前に :command:`ispell` でスペルチェック・修正をします。
 
-   上記同様、 ``skk-look-use-ispell`` の値が ``non-nil`` であれば、
-   ``look`` で 検索する前に ``ispell`` でスペルチェック・修正をします。
+英単語をあいまいに変換して取り出す
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-   .. code:: text
+上記同様、 ``skk-look-use-ispell`` の値が non-nil であれば、
+:command:`look` で検索する前に `:command:ispell` でスペルチェック・修正をします。
 
-         ▽abstr*
+.. code:: text
 
-       SPC
+      ▽abstr*
 
-         ▼abstract*
+    SPC
 
-   見出し語に ``*`` を入れるのをお忘れなく。
+      ▼abstract*
 
--  あいまいに変換した後、更に再帰的な英和変換を行う
+見出し語に ``*`` を入れるのをお忘れなく。
 
-   まず、 ``skk-look-recursive-search`` の値を ``non-nil``
-   にセットして下さい。 Emacs / SKK
-   を再起動する必要はありません。すると、例えば、
+あいまいに変換した後、更に再帰的な英和変換を行う
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-   .. code:: text
+まず、 ``skk-look-recursive-search`` の値を non-nil にセットして下さい。
+Emacs / SKK を再起動する必要はありません。すると、例えば、
 
-         ▽abstr*
+.. code:: text
 
-       SPC
+      ▽abstr*
 
-         ▼abstract
+    SPC
 
-       SPC
+      ▼abstract
 
-         ▼アブストラクト
+    SPC
 
-       SPC
+      ▼アブストラクト
 
-         ▼抽象
+    SPC
 
-       SPC
+      ▼抽象
 
-         ▼abstraction
+    SPC
 
-       SPC
+      ▼abstraction
 
-         ▼アブストラクション
+    SPC
 
-   このように英単語＋その英単語を見出し語にした候補の「セット」を変換結果
-   として出力することができます。
+      ▼アブストラクション
 
-   この際、 ``skk-look-expanded-word-only`` の値が ``non-nil``
-   であれば、再帰
-   検索に成功した英単語の「セット」だけを出力することができます（再帰検索
-   で検出されなかった英単語は無視して出力しません）。
+このように英単語＋その英単語を見出し語にした候補の「セット」を変換結果として出力
+することができます。
 
-   もちろん、SKK 辞書に
+この際、 ``skk-look-expanded-word-only`` の値が non-nil であれば、再帰検索に成功
+した英単語の「セット」だけを出力することができます（再帰検索で検出されなかった英
+単語は無視して出力しません）。
 
-   .. code:: text
+もちろん、SKK 辞書に
 
-       abstract /アブストラクト/抽象/
-       abstraction /アブストラクション/
+.. code:: text
 
-   というエントリがあることを前提としています。edict を SKK
-   辞書形式に変換 すると良いですね。
+    abstract /アブストラクト/抽象/
+    abstraction /アブストラクション/
 
-なお、 ``skk-look.el`` を使った補完・変換が期待するスピードよりも遅い、補完・変換
-で余分な候補が出る、とお感じの貴方は、 ``skk-look-use-ispell`` の値を
-``nil`` に して ``ispell``
-によるスペルチェック・修正をオフにしてお試し下さい。
+というエントリがあることを前提としています。edict を SKK 辞書形式に変換すると良い
+ですね。
 
 Q5-2 市販の CD-ROM 辞書やネットワークの辞書サーバが利用できますか?
 ------------------------------------------------------------------
 
-Lookup が扱える辞書はほとんど使えます。Lookup がインストールされている状
-態で SKK をインストールすると、SKK と Lookup のゲートウェイプログラム
-``skk-lookup.el`` が インストールされます。
+Lookup が扱える辞書はほとんど使えます。Lookup がインストールされている状態で
+SKK をインストールすると、SKK と Lookup のゲートウェイプログラム
+:file:`skk-lookup.el` が インストールされます。
 
-インストールで注意すべきは、 ``make`` で呼び出される Emacs は
-``-q -no-site-file`` フ ラグ付きで呼ばれるので、 ``~/.emacs.d/init.el``
-や ``site-start.el`` などは読 み込まれないことです。標準設定で
-``load-path`` の通っているディレクトリに Lookup を インストールするか、
-``SKK-CFG`` の中で ``VERSION_SPECIFIC_LISPDIR`` などにデ
-ィレクトリを明示することで解決できます。
+インストールで注意すべきは、 :command:`make` で呼び出される Emacs は
+``-q -no-site-file`` フラグ付きで呼ばれるので、 :file:`~/.emacs.d/init.el`
+や :file:`site-start.el` などは読み込まれないことです。
+標準設定で ``load-path`` の通っているディレクトリに Lookup をインストールするか、
+:file:`SKK-CFG` の中で ``VERSION_SPECIFIC_LISPDIR`` などにディレクトリを明示する
+ことで解決できます。
 
-さぁ、 ``~/.skk`` で ``skk-search-prog-list`` の要素に
-``(skk-lookup-search)`` を
-追加しましょう。他の検索エンジンよりも検索は比較的遅いので、最後の方が良
-いと思います。
+さぁ、 :file:`~/.skk`` で ``skk-search-prog-list`` の要素に :code:`(skk-lookup-search)` を
+追加しましょう。他の検索エンジンよりも検索は比較的遅いので、最後の方が良いと思い
+ます。
 
 こんな感じです。
 
@@ -591,11 +618,11 @@ Q5-3 他の FEP を使用中にも SHIFT を押してしまいます。
 
 Emacs 上以外でも SKK みたいな操作性を実現するソフトウェアがあります。
 
-[SKK 関連ソフトウェア]
+:ref:`SKK 関連ソフトウェア <other-software>`
 
 .. rubric:: 脚注
 
-.. [#]  親指シフト入力の詳細については、ここでは述べません。
-        興味がある場合は、Web サイトを訪れてください。
+.. [#] 親指シフト入力の詳細については、ここでは述べません。
+       興味がある場合は、Web サイトを訪れてください。
 
-        `日本語入力コンソーシアム <http://nicola.sunicom.co.jp/>`_
+       `日本語入力コンソーシアム <http://nicola.sunicom.co.jp/>`_
