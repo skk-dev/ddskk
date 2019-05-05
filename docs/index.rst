@@ -3,8 +3,9 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+###########################################################
 SKK (Simple Kana to Kanji conversion program) documentation
-===========================================================
+###########################################################
 
 :Authors:
    - Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
@@ -34,8 +35,9 @@ SKK (Simple Kana to Kanji conversion program) documentation
    80_info.rst
    90_FAQ.rst
 
+##################
 Indices and tables
-==================
+##################
 
 * :ref:`genindex`
 * :ref:`search`

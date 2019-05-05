@@ -1,12 +1,13 @@
-==========================
+##########################
 ローマ字入力以外の入力方式
-==========================
+##########################
 
 DDSKK は、SKK 旧来のローマ字式かな入力（訓令式、ヘボン式）方式のほか、各種キー配
 列と入力方式に対応しています。
 
+****
 AZIK
-====
+****
 
 `AZIK （エイズィック） <http://hp.vector.co.jp/authors/VA002116/azik/azikindx.htm>`_
 は、QWERTY 配列をベースとした拡張ローマ字入力です。一般のローマ字入力がそのまま使
@@ -98,8 +99,9 @@ azik と skk で仕様が重なる部分があるため、 :file:`skk-azik.el` �
    そのため、 :file:`skk-azik.el` での :ref:`誤った登録の削除 <delete-wrong-register>` は、
    ▼モードで :kbd:`M-x skk-purge-from-jisyo` を実行してください。
 
+****
 ACT
-===
+****
 
 `ACT (AZIK on Dvorak) <http://www1.vecceed.ne.jp/~bemu/act/act_index.html>`_ は
 AZIK の考え方を Dvorak 配列に適用し、Dvorak 配列でかなを快適にタイプできるように
@@ -112,8 +114,9 @@ skk-use-act
    この値が non-nil であれば、 ACT 拡張が有効となります。
    :file:`~/.skk` に :code:`(setq skk-use-act t)` と書きます。
 
+********
 TUT-code
-========
+********
 
 `TUT-code <http://plone.crew.sfc.keio.ac.jp/groups/tut-code>`_ は、２ストローク系
 の日本語直接入力方式の一つです。
@@ -127,8 +130,9 @@ SKK ソースの `tut-code` ディレクトリにある :file:`skk-tutcdef.el` �
 
 その後、 :file:`~/.skk` に :code:`(require 'skk-tutcdef)` と書きます。
 
+********************
 かな入力と親指シフト
-====================
+********************
 
 DDSKK はローマ字式ではない、いわゆるかな入力方式をサポートします。具体的には
 

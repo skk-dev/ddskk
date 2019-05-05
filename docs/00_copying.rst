@@ -1,6 +1,6 @@
-=======
+#######
 Copying
-=======
+#######
 
 Permission is granted to copy and distribute modified versions of this
 manual under the conditions for verbatim copying, provided that the entire
