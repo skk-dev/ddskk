@@ -24,16 +24,16 @@ SKK (Simple Kana to Kanji conversion program) documentation
    :numbered:
    :caption: Contents:
 
-   00_copying.rst
-   10_intro.rst
-   20_install.rst
-   30_settings.rst
-   40_basic.rst
-   50_apps.rst
-   60_other-IM.rst
-   70_other-func.rst
-   80_info.rst
-   90_FAQ.rst
+   01_copying.rst
+   02_intro.rst
+   03_install.rst
+   04_settings.rst
+   05_basic.rst
+   06_apps.rst
+   07_other-IM.rst
+   08_other-func.rst
+   09_info.rst
+   10_FAQ.rst
 
 ##################
 Indices and tables
