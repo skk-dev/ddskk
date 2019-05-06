@@ -15,9 +15,13 @@ DDSKK を使った入力方法に慣れるには、付属の :ref:`チュート�
 起動と終了
 **********
 
+.. index::
+   pair: Function; skk-setup-modeline
+   pair: Variable; mode-line-format
+
 SKK モードに入るには :kbd:`C-x C-j` もしくは :kbd:`C-x j` とキー入力します。モー
 ドラインの左端には、下記のように ``--かな:`` が追加されます [#]_ 。また、カーソル
-の色が変化 [#]_ します。
+の色が変化します。
 
 .. code:: text
 
@@ -26,44 +30,37 @@ SKK モードに入るには :kbd:`C-x C-j` もしくは :kbd:`C-x j` とキー�
 再び :kbd:`C-x C-j` もしくは :kbd:`C-x j` をキー入力することで、SKK モードに入る
 前のモードに戻り [#]_ 、カーソル色も元に戻ります。
 
-.. index::
-   pair: Option; skk-status-indicator
+.. el:defvar:: skk-status-indicator
 
-.. describe:: skk-status-indicator
-
-  標準設定はシンボル ``left`` です。この変数をシンボル ``minor-mode`` と設定すれ
+  標準設定はシンボル 'left です。この変数をシンボル 'minor-mode と設定すれ
   ば、インジケータはモードラインのマイナーモードの位置に表示されます。
 
-.. index::
-   pair: Option; skk-preload
+.. el:defvar:: skk-preload
 
-.. describe:: skk-preload
+  non-nil と設定することにより、DDSKK の初回起動を速くすることができます。
 
-  :file:`~/.emacs.d/init.el` にて変数 ``skk-preload`` を non-nil と設定するこ
-  とにより、DDSKK の初回起動を速くすることができます。
-
-  .. code:: emacs-lisp
+  .. code:: elisp
 
     (setq skk-preload t)
 
-  これは、SKK 本体プログラムの読み込みと、変数 ``skk-search-prog-list`` に指定さ
+  .. note::
+
+     :file:`~/.emacs.d/init.el` にて設定すること
+
+  これは、SKK 本体プログラムの読み込みと、変数 :el:defvar:`skk-search-prog-list` に指定さ
   れた辞書の読み込みを Emacs の起動時に済ませてしまうことにより実現しています。
+
   そのため、Emacs の起動そのものは遅くなりますが、DDSKK を使い始めるときのレスポ
   ンスが軽快になります。
 
-.. index::
-   pair: Key; M-x skk-restart
+.. el:define-key:: M-x skk-restart
 
-:kbd:`M-x skk-restart`
-  :kbd:`M-x skk-restart` と実行すると SKK を再起動します。 :file:`~/.skk` は再ロ
-  ードしますが、 :file:`~/.emacs.d/init.el` は再ロードしません。
+  SKK を再起動します。
+  :file:`~/.skk` は再ロードしますが、 :file:`~/.emacs.d/init.el` は再ロードしません。
 
-.. index::
-   pair: Key; M-x skk-version
+.. el:define-key:: M-x skk-version
 
-:kbd:`M-x skk-version`
-  :kbd:`M-x skk-version` と実行するとエコーエリアに SKK のバージョンを表示 [#]_ し
-  ます。
+  と実行するとエコーエリアに SKK のバージョンを表示 [#]_ します。
 
   .. code:: text
 
@@ -99,23 +96,21 @@ SKK オートフィルモード
    pair: Variable; skk-backup-jisyo
    pair: Variable; skk-jisyo
 
-Emacs を終了するときは、保存前の個人辞書を :file:`~/.skk-jisyo.BAK` に退避して
-から :ref:`個人辞書 <jisyo-variant>` の内容を :file:`~/.skk-jisyo` に保存 [#]_ します。
+Emacs を終了するときは、保存前の個人辞書を :file:`~/.skk-jisyo.BAK` に退避してから
+:ref:`個人辞書 <jisyo-variant>` の内容を :file:`~/.skk-jisyo` に保存 [#]_ します。
 
 :file:`~/.skk-jisyo` や :file:`~/.skk-jisyo.BAK` の名称を変更したければ、そ
-れぞれ変数 ``skk-jisyo`` や変数 ``skk-backup-jisyo`` の値を変更して下さい。
+れぞれ変数 :el:defvar:`skk-jisyo` や変数 :el:defvar:`skk-backup-jisyo` の値を変更して下さい。
 
-.. index::
-   pair: Key; M-x skk-kill-emacs-without-saving-jisyo
+.. el:define-key:: M-x skk-kill-emacs-without-saving-jisyo
 
-:kbd:`M-x skk-kill-emacs-without-saving-jisyo`
   個人辞書を保存せずに Emacs を終了させたい場合には、このコマンドをキー入力します。
 
 **********
 入力モード
 **********
 
-SKK モードは、文字種類による４種類の **入力モード** [#]_ と、辞書を用いた変換の状
+SKK モードは、文字種類による４種類の **入力モード** と、辞書を用いた変換の状
 態により３つの **変換モード** を持ちます。
 
 入力モードの説明
@@ -145,6 +140,8 @@ SKK モードは、文字種類による４種類の **入力モード** [#]_ �
        - SKK
        - 背景によりアイボリーかグレイ
 
+:ref:`入力モードを示すカーソル色に関する設定 <cursor-color-input-mode>`
+
 入力モードを切り替えるキー
 ==========================
 
@@ -154,16 +151,16 @@ SKK モードは、文字種類による４種類の **入力モード** [#]_ �
      - Bind
      - 説明
    * - :kbd:`q`
-     - :func:`skk-toggle-kana`
+     - :el:defun:`skk-toggle-kana`
      - 「かなモード」と「カナモード」間をトグル切り替えする
    * - :kbd:`l`
-     - :func:`skk-latin-mode`
+     - :el:defun:`skk-latin-mode`
      - 「かなモード」又は「カナモード」から「アスキーモード」へ
    * - :kbd:`L`
-     - :func:`skk-jisx0208-latin-mode`
+     - :el:defun:`skk-jisx0208-latin-mode`
      - 「かなモード」又は「カナモード」から「全英モード」へ
    * - :kbd:`C-j`
-     - :func:`skk-kakutei`
+     - :el:defun:`skk-kakutei`
      - 「アスキーモード」又は「全英モード」から「かなモード」へ
 
 実際にはカナモードや全英モードで長時間入力を続けることはほとんどないので、かなモ
@@ -173,34 +170,23 @@ SKK モードは、文字種類による４種類の **入力モード** [#]_ �
 
   - :ref:`全英文字の入力 <input-zenei>`
 
-.. index::
-   pair: Option; skk-show-mode-show
+.. el:defvar:: skk-show-mode-show
 
-.. describe:: skk-show-mode-show
+   Non-nil であれば、入力モードを切り替えたときに、入力モードをカーソル付近にも
+   一瞬表示します。
 
-  現在の入力モードは、モードラインに表示されています。この変数を Non-nil とす
-  ると、入力モードを切り替えたときにカーソル付近にも一瞬表示するようになります。
+.. el:define-key:: M-x skk-show-mode
 
-.. index::
-   pair: Key; M-x skk-show-mode
+   :el:defvar:`skk-show-mode-show` の値をトグル切り替えします。  
 
-:kbd:`M-x skk-show-mode`
-  ``skk-show-mode-show`` の値をトグル切り替えします。  
+.. el:defvar:: skk-show-mode-style
 
-.. index::
-   pair: Option; skk-show-mode-style
+   標準設定は、シンボル 'inline です。
+   シンボル 'tooltip を指定することも可能です。
 
-.. describe:: skk-show-mode-style
+.. el:defface:: skk-show-mode-inline-face
 
-  標準設定は、シンボル ``inline`` です。シンボル ``tooltip`` を指定することも可能
-  です。
-
-.. index::
-   pair: Option; skk-show-mode-inline-face
-
-.. describe:: skk-show-mode-inline-face
-
-  ``inline`` 利用時の face
+   シンボル 'inline 利用時の face です。
 
 **********
 変換モード
@@ -216,9 +202,9 @@ SKK モードは、文字種類による４種類の **入力モード** [#]_ �
   キー文字から全角アルファベットへ文字を変換する。
 
 ▽モード
-  辞書変換の対象となる文字列 *見出し語* を入力するモード
+  辞書変換の対象となる文字列「見出し語」を入力するモード
 
-  ▽モードの変種として *SKK abbrev モード* があります。
+  ▽モードの変種として「SKK abbrev モード」があります。
 
 ▼モード
   見出し語について、辞書変換を行うモード
@@ -233,7 +219,7 @@ SKK モードは、文字種類による４種類の **入力モード** [#]_ �
    keyword: 確定入力モード
    keyword: ■モード
 
-確定入力モードを *■モード* と呼びます。
+確定入力モードを「■モード」と呼びます。
 ■モードでは、あるキー入力に対応した特定の文字列への変換を行うだけで、辞書変換は
 行いません。アスキー文字列から、入力モードに応じて、ひらがな、カタカナ、あるいは
 全角アルファベットへ文字を変換します。カレントバッファにこのモード特有のマークは
@@ -263,9 +249,9 @@ SKK モードは、文字種類による４種類の **入力モード** [#]_ �
 .. index::
    keyword: ▽モード
 
-*▽モード* では、辞書変換の対象となる文字列を入力します。
+▽モード では、辞書変換の対象となる文字列を入力します。
 かなモードもしくはカナモードで、かつ■モードであるときに、
-キー入力を *大文字で開始する* ことで▽モードに入ります。
+キー入力を **大文字で開始する** ことで▽モードに入ります。
 
 .. code:: text
 
@@ -389,7 +375,7 @@ SKK モードは、文字種類による４種類の **入力モード** [#]_ �
 
    かんじ /漢字/幹事/
 
-というエントリ [#]_ が含まれるとして、以下に例を示します。
+という :ref:`エントリ <jisyo-entry>` が含まれるとして、以下に例を示します。
 
 .. code:: text
 
@@ -412,10 +398,10 @@ SKK モードは、文字種類による４種類の **入力モード** [#]_ �
 
 この例では、▽モードにおける▽マークからポイントまでの間の文字列「かんじ」を辞書
 変換の対象文字列（見出し語）として確定し、それについて辞書内での検索を行っていま
-す。実際の変換動作では、候補部分がハイライト [#]_ 表示されます。
+す。実際の変換動作では、候補部分がハイライト表示 [#]_ されます。
 
-「漢字」が求める語であれば :kbd:`C-j` を打鍵してこの変換を確定します。ハイライト
-表示も▼マークも消えます。
+「漢字」が求める語であれば :kbd:`C-j` を打鍵してこの変換を確定します。
+ハイライト表示も▼マークも消えます。
 
 .. index::
    keyword: 暗黙の確定
@@ -443,8 +429,8 @@ SKK モードは、文字種類による４種類の **入力モード** [#]_ �
      ▼幹事*
      ------ Buffer: foo ------
 
-候補が５つ以上あるときは、５番目以降の候補は７つずつ [#]_ まとめてエコーエリアに
-表示されます。
+候補が５つ以上あるときは、５番目以降の候補は７つずつまとめてエコーエリアに表示さ
+れます。
 
 例えば、辞書が
 
@@ -452,7 +438,7 @@ SKK モードは、文字種類による４種類の **入力モード** [#]_ �
 
    きょ /距/巨/居/裾/嘘/拒/拠/虚/挙/許/渠/据/去/
 
-というエントリを含むときに ``K y o`` の後に :kbd:`SPC` を５回 [#]_ 続けて打鍵すれ
+というエントリを含むときに :kbd:`K y o` の後に :kbd:`SPC` を５回 [#]_ 続けて打鍵すれ
 ば
 
 .. code:: text
@@ -476,36 +462,24 @@ SKK モードは、文字種類による４種類の **入力モード** [#]_ �
 次々と候補を探しても求める語がなければ、自動的に :ref:`辞書登録モード <jisyo-register-mode>` に
 なります（辞書登録モードは▼モードのサブモードです）。
 
-.. index::
-   pair: Variable; skk-previous-candidate-keys
+.. el:defvar:: skk-previous-candidate-keys
 
-.. describe:: skk-previous-candidate-keys
-
-  前候補／前候補群に戻る :func:`skk-previous-candidate` を割り当てるオブジェ
+  前候補／前候補群に戻る :el:defun:`skk-previous-candidate` を割り当てるオブジェ
   クトのリストを指定する。オブジェクトにはキーを表す文字列または event vector が
   指定できます。
 
   標準設定は :code:`(list "x" "\C-p")` です。
 
-.. index::
-   pair: Variable; skk-search-excluding-word-pattern-function
-
-.. describe:: skk-search-excluding-word-pattern-function
+.. el:defvar:: skk-search-excluding-word-pattern-function
 
   詳しくは docstring を参照のこと。
 
-.. index::
-   pair: Variable; skk-show-candidates-nth-henkan-char
+.. el:defvar:: skk-show-candidates-nth-henkan-char
 
-.. describe:: skk-show-candidates-nth-henkan-char
+  候補一覧を表示する :el:defun:`skk-henkan-show-candidates` を呼び出すまで
+  の :el:defvar:`skk-start-henkan-char` を打鍵する回数。２以上の整数である必要。
 
-  候補一覧を表示する :func:`skk-henkan-show-candidates` を呼び出すまで
-  の ``skk-start-henkan-char`` を打鍵する回数。２以上の整数である必要。
-
-.. index::
-   pair: Variable; skk-henkan-number-to-display-candidates
-
-.. describe:: skk-henkan-number-to-display-candidates
+.. el:defvar:: skk-henkan-number-to-display-candidates
 
   いちどに表示する候補の数。
 
@@ -553,7 +527,7 @@ SKK モードは、文字種類による４種類の **入力モード** [#]_ �
 変換が可能になります。
 
 ただし、サ変動詞の変換 [#]_ では、サ変動詞の語幹となる名詞
-を *送りなし変換* [#]_ として変換し、その後「する」を■モードで入力した方が効率が
+を **送りなし変換** [#]_ として変換し、その後「する」を■モードで入力した方が効率が
 良くなります。
 
 .. _jisyo-register-mode:
@@ -595,26 +569,20 @@ DDSKK には独立した辞書登録モードはありません。その代わ�
      - :ref:`誤った登録の削除 <delete-wrong-register>`
      - :ref:`個人辞書ファイルの編集 <edit-jisyo>`
 
-.. index::
-   pair: Variable; skk-read-from-minibuffer-function
-
-.. describe:: skk-read-from-minibuffer-function
+.. el:defvar:: skk-read-from-minibuffer-function
 
   この変数に「文字列を返す関数」を収めると、その文字列を辞書登録モードに入ったと
-  きのプロンプトに初期表示します。 :func:`read-from-minibuffer` の
+  きのプロンプトに初期表示します。 :el:defun:`read-from-minibuffer` の
   引数 ``INITIAL-CONTENTS`` に相当します。
 
-  .. code:: emacs-lisp
+  .. code:: elisp
 
      (setq skk-read-from-minibuffer-function
            (lambda () skk-henkan-key))
 
-.. index::
-   pair: Variable; skk-jisyo-registration-badge-face
+.. el:defface:: skk-jisyo-registration-badge-face
 
-.. describe:: skk-jisyo-registration-badge-face
-
-  変数 ``skk-show-inline`` が non-nil であれば、辞書登録モードに移ったことを
+  変数 :el:defvar:`skk-show-inline` が non-nil であれば、辞書登録モードに移ったことを
   明示するためにカレントバッファに「↓辞書登録中↓」とインライン表示します。この
   「↓辞書登録中↓」に適用するフェイスです。
 
@@ -688,10 +656,7 @@ DDSKK には独立した辞書登録モードはありません。その代わ�
      動く*
      ------ Buffer: foo ------
 
-.. index::
-   pair: Variable; skk-check-okurigana-on-touroku
-
-.. describe:: skk-check-okurigana-on-touroku
+.. el:defvar:: skk-check-okurigana-on-touroku
 
   標準設定は nil です。 
 
@@ -718,6 +683,9 @@ DDSKK には独立した辞書登録モードはありません。その代わ�
 
 再帰的辞書登録
 --------------
+
+.. index::
+   keyword: 再帰的辞書登録
 
 ミニバッファを再帰的に使って辞書登録を再帰的に行うことができます。
 
@@ -754,7 +722,7 @@ DDSKK には独立した辞書登録モードはありません。その代わ�
    [[辞書登録]] さいき: 再▼帰*
    ------ Minibuffer -------
 
-となります。プロンプトが ``[ [`` 辞書登録 ``] ]`` となり ``[ ]`` がひとつ増えてい
+となります。プロンプトが ``[ [ 辞書登録 ] ]`` となり ``[ ]`` がひとつ増えてい
 ますが、この ``[ ]`` の数が再帰的な辞書登録モードの深さを表わしています。
 
 ここで :kbd:`RET` を打鍵すると、個人辞書には
@@ -872,12 +840,9 @@ skk-isearch と入力モード
        | を打鍵して DDSKK を終了した場合は、このプロンプト
        | が表示されます。
 
-.. index::
-   pair: Variable; skk-isearch-mode-string-alist
+.. el:defvar:: skk-isearch-mode-string-alist
 
-.. describe:: skk-isearch-mode-string-alist
-
-  プロンプトとして表示される文字列
+   プロンプトとして表示される文字列
 
 .. _tutorial:
 
@@ -893,14 +858,11 @@ DDSKK には、基本的な操作方法を学習できるチュートリアル�
 日本語版チュートリアルは :kbd:`M-x skk-tutorial` で、
 英語版チュートリアルは :kbd:`C-u M-x skk-tutorial RET English RET` で実行します。
 
-.. index::
-   pair: Variable; skk-tut-file
-
-.. describe:: skk-tut-file
+.. el:defvar:: skk-tut-file
 
   チュートリアルファイルが標準の場所に置かれていない場合は、 :file:`~/.emacs.d/init.el` で
 
-  .. code:: emacs-lisp
+  .. code:: elisp
 
      (setq skk-tut-file "/usr/local/share/skk/SKK.tut")
 
@@ -908,27 +870,19 @@ DDSKK には、基本的な操作方法を学習できるチュートリアル�
   語版のチュートリアルファイルは、 ``skk-tut-file`` に ``.E`` が付いたファイル名
   です。この場合であれば、 :file:`/usr/local/share/skk/SKK.tut.E` になります。
 
-.. index::
-   pair: Variable; skk-tut-lang
-
-.. describe:: skk-tut-lang
+.. el:defvar:: skk-tut-lang
 
   チュートリアルで用いる言語を文字列 ``Japanese`` 又は ``English`` で指定します。
   この変数よりも :kbd:`C-u M-x skk-tutorial` による言語指定が優先されます。
 
-.. index::
-   pair: Variable; skk-tut-use-face
-
-.. describe:: skk-tut-use-face
+.. el:defvar:: skk-tut-use-face
 
   Non-nil であれば、チュートリアルで face を利用して表示します。
 
 .. rubric:: 脚注
 
-.. [#] :file:`skk.el` の :func:`skk-setup-modeline` にて、 ``mode-line-format`` に ``skk-icon`` と ``skk-modeline-input-mode`` を追加しています。
-
-.. [#] カラーディスプレイを使用し、カラー表示をサポートしている Window System 下
-       で対応する Emacs を使用している場合。
+.. [#] :file:`skk.el` の :el:defun:`skk-setup-modeline` にて、 :el:defvar:`mode-line-format` に
+       :el:defvar:`skk-icon` と :el:defvar:`skk-modeline-input-mode` を追加しています。
 
 .. [#] ただし、「アスキーモード」を利用すれば SKK モードから抜ける必要はほとんど
        ありません。
@@ -937,24 +891,18 @@ DDSKK には、基本的な操作方法を学習できるチュートリアル�
 
 .. [#] :ref:`個人辞書の保存動作 <saving-jisyo>`
 
-.. [#] :ref:`入力モードを示すカーソル色に関する設定 <cursor-color-input-mode>`
-
 .. [#] JIS X 0208 英字のこと。このマニュアルでは「全角アルファベット」と表記する。
-
-.. [#] 本マニュアルでは、見出し語と候補群を合わせた一行を「エントリ」と呼びます。
 
 .. [#] ハイライト表示は GNU Emacs の Overlays、XEmacs の extent の機能を使用して
        います。
 
-.. [#] ``skk-henkan-number-to-display-candidates``
-
-.. [#] ``skk-show-candidates-nth-henkan-char``
+.. [#] :el:defvar:`skk-show-candidates-nth-henkan-char`
 
 .. [#] エコーエリアとミニバッファは視覚的には同一の場所にありますが、エコーエリア
        が単にユーザへのメッセージを表示するのみであるのに対し、ミニバッファは独立
        したバッファとして機能する点が異なります。
 
-.. [#] ``x`` は小文字で入力する必要があります。
+.. [#] :kbd:`x` は小文字で入力する必要があります。
 
 .. [#] :ref:`送り仮名の自動処理 <okurigana>`
 
@@ -974,7 +922,8 @@ DDSKK には、基本的な操作方法を学習できるチュートリアル�
        ただし、DDSKK 13 以降では暫定的にサ変動詞の送りあり変換を可能にする機能を
        用意しました。 :ref:`サ変動詞変換 <sahen-dousi>`
 
-.. [#] :kbd:`M-y` の :func:`isearch-yank-kill` 、 :kbd:`M-p` の :func:`isearch-ring-retreat` 、
-       又は :kbd:`M-n` の :func:`isearch-ring-advance` など
+.. [#] :kbd:`M-y` の :el:defun:`isearch-yank-kill` 、
+       :kbd:`M-p` の :el:defun:`isearch-ring-retreat` 又は
+       :kbd:`M-n` の :el:defun:`isearch-ring-advance` など
 
-.. [#] ``search-highlight`` など
+.. [#] :el:defvar:`search-highlight` など
