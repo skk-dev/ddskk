@@ -89,6 +89,19 @@ SKK オートフィルモード
 は :kbd:`M-1 C-x j` や :kbd:`C-u C-x j` などとキー入力し、このコマンドに正の引数
 を渡します。
 
+.. index::
+   keyword: 負の引数
+   pair: Key; M-- C-x j
+   pair: Key; C-u -1 C-x j
+
+オートフィルモードをオフにし、かつ SKK モードも終了したい場合には
+:kbd:`M-- C-x j` や :kbd:`C-u -1 C-x j` などとキー入力し、このコマンドに負の引数を
+渡します。
+
+- :infonode:`Auto Fill Mode in GNU Emacs Manual <(emacs)Auto Fill>`
+
+- :infonode:`Arguments in GNU Emacs Manual <(emacs)Arguments>`
+
 辞書の保存
 ==========
 
@@ -310,6 +323,8 @@ SKK モードは、文字種類による４種類の **入力モード** と、�
 これは、 :ref:`辞書エントリ <jisyo-entry>` の見出し語に空白を含めることができない
 制限からきています。
 
+- :infonode:`Point in GNU Emacs Manual <(emacs)Point>`
+
 ▽モードを抜ける方法
 --------------------
 
@@ -469,10 +484,6 @@ SKK モードは、文字種類による４種類の **入力モード** と、�
   指定できます。
 
   標準設定は :code:`(list "x" "\C-p")` です。
-
-.. el:defvar:: skk-search-excluding-word-pattern-function
-
-  詳しくは docstring を参照のこと。
 
 .. el:defvar:: skk-show-candidates-nth-henkan-char
 
@@ -925,5 +936,7 @@ DDSKK には、基本的な操作方法を学習できるチュートリアル�
 .. [#] :kbd:`M-y` の :el:defun:`isearch-yank-kill` 、
        :kbd:`M-p` の :el:defun:`isearch-ring-retreat` 又は
        :kbd:`M-n` の :el:defun:`isearch-ring-advance` など
+
+       :infonode:`Incremental Search in GNU Emacs Manual <(emacs)Incremental Search>`
 
 .. [#] :el:defvar:`search-highlight` など

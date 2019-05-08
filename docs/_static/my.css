@@ -1,19 +1,21 @@
+/* -*- mode: utf-8-unix;  */
+
 .rst-content code.literal {
-    color: unset;
-    font: unset;
-    border: none;
+    /* color: unset; */
+    /* font: unset; */
+    /* border: none; */
 }
 
 .file::before {
-    content: "ファイル ";
+    /* content: "ファイル "; */
 }
 
 .command::before {
-    content: "コマンド ";
+    /* content: "コマンド "; */
 }
 
 .py-func::before {
-    content: "関数 ";
+    /* content: "関数 "; */
 }
 
 .kbd {

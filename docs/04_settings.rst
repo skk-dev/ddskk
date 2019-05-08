@@ -107,25 +107,6 @@ DDSKK 14.1 以降は辞書サーバを経由せずとも CDB 形式 [#]_ の辞�
   辞書サーバが使うポート番号。 :file:`/etc/services` に ``skkserv`` のエントリが記述
   されていれば、この変数を指定する必要は無い。
 
-.. el:defvar:: skk-server-inhibit-startup-server
-
-  この変数が nil であれば、辞書サーバが起動していなかったときに Emacs か
-  ら ``skkserv`` プロセスを起動することができます。
-
-  Emacs から立ち上げて利用する事ができる辞書サーバは、
-
-  .. code:: console
-
-    skkserv [-p port] [jisyo]
-
-  のようなオプションを受け付け、 ``inetd`` などを経由せず直接起動するものに限られ
-  ます。辞書サーバプログラムと辞書ファイルは、次のように設定します。
-
-  .. code:: console
-
-    (setq skk-server-prog "/your/path/to/skkserv")
-    (setq skk-server-jisyo "/your/path/to/SKK-JISYO.L")
-
 .. el:defvar:: skk-server-prog
 
   辞書サーバプログラムをフルパスで指定する。
