@@ -13,17 +13,13 @@ AZIK
 は、QWERTY 配列をベースとした拡張ローマ字入力です。一般のローマ字入力がそのまま使
 える上での拡張であることが特徴です。
 
-.. index::
-   pair: Variable; skk-use-azik
+.. el:defvar:: skk-use-azik
 
-skk-use-azik
-   この値が non-nil であれば AZIK 拡張が有効となります。
+   non-nil であれば AZIK 拡張が有効となります。
    :file:`~/.skk` に :code:`(setq skk-use-azik t)` と書きます。
 
-.. index::
-   pair: Variable; skk-azik-keyboard-type
+.. el:defvar:: skk-azik-keyboard-type
 
-skk-azik-keyboard-type
    AZIK で使うときのキーボードのタイプをシンボルで指定する。
 
    .. list-table::
@@ -42,11 +38,12 @@ skk-azik-keyboard-type
 azik と skk で仕様が重なる部分があるため、 :file:`skk-azik.el` では以下のとおり対
 応しています。
 
-キー :kbd:`q`
-   AZIK では、撥音「ん」を入力するには :kbd:`q` を使うこととされていますが、
-   skk では既に :kbd:`q` に :func:`skk-toggle-kana` を割り当てています。
+.. el:define-key:: q
 
-   そのため :file:`skk-azik.el` では :func:`skk-toggle-kana` の実行を
+   AZIK では、撥音「ん」を入力するには :kbd:`q` を使うこととされていますが、
+   skk では既に :kbd:`q` に :el:defun:`skk-toggle-kana` を割り当てています。
+
+   そのため :file:`skk-azik.el` では :el:defun:`skk-toggle-kana` の実行を
 
    -  日本語キーボードであれば :kbd:`@` を
 
@@ -54,8 +51,9 @@ azik と skk で仕様が重なる部分があるため、 :file:`skk-azik.el` �
 
    それぞれ使用します。
 
-キー :kbd:`@`
-   上記のとおり、 :func:`skk-toggle-kana` の実行には :kbd:`@` （日本語キーボード）
+.. el:define-key:: @
+
+   上記のとおり、 :el:defun:`skk-toggle-kana` の実行には :kbd:`@` （日本語キーボード）
    や :kbd:`[` （英語キーボード）を使用しますが、skk では既に :kbd:`@` には「今日
    の日付の入力」（ :ref:`プログラム実行変換 <program-conversion>` ）を割り当てて
    います。
@@ -63,7 +61,9 @@ azik と skk で仕様が重なる部分があるため、 :file:`skk-azik.el` �
    そのため、skk 本来の動作には :kbd:`x` を付けて、それぞれ :kbd:`x@` と :kbd:`x[`
    で代用できるようにしてあります。
 
-キー :kbd:`l`, :kbd:`xx`
+.. el:define-key:: l
+                   xx
+
    AZIK では、単独の拗音「ゃゅょぁぃぅぇぉゎ」を入力するには :kbd:`l` を前置する
    こととされていますが、skk では既に :kbd:`l` に「アスキーモードへの切り替え」
    を割り当てています。
@@ -92,8 +92,9 @@ azik と skk で仕様が重なる部分があるため、 :file:`skk-azik.el` �
 
    - :kbd:`xwa` → ゎ
 
-キー :kbd:`X`
-   skk では、▼モードでの :kbd:`X` は  :func:`skk-purge-from-jisyo` を実行し
+.. el:define-key:: X
+
+   skk では、▼モードでの :kbd:`X` は  :el:defun:`skk-purge-from-jisyo` を実行し
    ますが、AZIK では :kbd:`X` は「シャ行」の入力に使われます。
 
    そのため、 :file:`skk-azik.el` での :ref:`誤った登録の削除 <delete-wrong-register>` は、
@@ -107,11 +108,9 @@ ACT
 AZIK の考え方を Dvorak 配列に適用し、Dvorak 配列でかなを快適にタイプできるように
 考案された方式です。
 
-.. index::
-   pair: Variable; skk-use-act
+.. el:defvar:: skk-use-act
 
-skk-use-act
-   この値が non-nil であれば、 ACT 拡張が有効となります。
+   non-nil であれば、 ACT 拡張が有効となります。
    :file:`~/.skk` に :code:`(setq skk-use-act t)` と書きます。
 
 ********
@@ -145,21 +144,17 @@ DDSKK はローマ字式ではない、いわゆるかな入力方式をサポ�
 
 https://github.com/skk-dev/ddskk/blob/master/nicola/README.ja
 
-.. index::
-   pair: Variable; skk-use-kana-keyboard
+.. el:defvar:: skk-use-kana-keyboard
 
-skk-use-kana-keyboard
-   この変数を non-nil に設定すると、かな入力サポートが SKK 起動時に有効になります。
+   non-nil に設定すると、かな入力サポートが SKK 起動時に有効になります。
 
    .. code:: emacs-lisp
 
        (setq skk-use-kana-keyboard t)
 
-.. index::
-   pair: Variable; skk-kanagaki-keyboard-type
+.. el:defvar:: skk-kanagaki-keyboard-type
 
-skk-kanagaki-keyboard-type
-   この変数で、かな入力サポートの種類を切換えます。適切なシンボルを設定してください。
+   適切なシンボルを設定することで、かな入力サポートの種類を切り換えます。
 
    .. list-table::
 
@@ -189,22 +184,16 @@ skk-kanagaki-keyboard-type
 
 かな入力方式使用時の■モードでは、以下のコマンドなどが役に立ちます。
 
-.. index::
-   pair: Key; F1 1
+.. el:define-key:: F1 1
 
-:kbd:`F1 1`
    かな入力方式での特殊キー定義の一覧を表示します。
 
-.. index::
-   pair: Key; F1 2
+.. el:define-key:: F1 2
 
-:kbd:`F1 2`
    かな入力方式でのかなキー配列を表示します。
 
-.. index::
-   pair: Key; F12
+.. el:define-key::  F12
 
-:kbd:`F12`
    かな入力方式とローマ字入力方式とを切り換えます。
 
 なお、親指シフト方式については `NICOLA 日本語入力コンソーシアム <http://nicola.sunicom.co.jp/>`_

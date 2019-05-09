@@ -151,6 +151,8 @@ DDSKK のカスタマイズは、ファイル :file:`~/.emacs.d/init.el` ある�
 
   Emacs を起動したときに一度だけ読み込まれます。
 
+  :infonode:`The Emacs Initialization File in GNU Emacs Manual <(emacs)Init File>`
+
   このマニュアルではファイル :file:`~/.emacs.d/init.el` という記述で統一しています。
 
 .. index::
@@ -332,6 +334,10 @@ Emacs 標準の Customize 機能を使って SKK を設定することもでき�
 
 あるいは、モードラインの SKK インジケータをマウスの右ボタン（第３ボタン）でクリッ
 クすると表示されるメニューから「SKK をカスタマイズ」を選んでも同じ画面となります。
+
+カスタマイズの使い方は Info を参照してください。
+
+:infonode:`Easy Customization in GNU Emacs Manual <(emacs)Easy Customization>`
 
 skk で設定できる変数の中には、まだこのマニュアルで解説されていないものもあります。
 Customize を使うと、それらについても知ることができます。
@@ -4625,6 +4631,8 @@ Apple macOS 付属の辞書、Wiktionary/Wikipedia などから取得可能で�
    :kbd:`C-w` をタイプすると、現在表示されているアノテーションを kill ring
    に保存します。
 
+   :infonode:`The Kill Ring in GNU Emacs Manual <(emacs)Kill Ring>`
+
 .. el:define-key:: ^
 
    候補バッファで変換候補を一覧表示しているときにアノテーションの表示／非表示を動
@@ -4709,6 +4717,10 @@ Apple macOS 付属の辞書、Wiktionary/Wikipedia などから取得可能で�
    上記の例では、アノテーションがユーザアノテーション（先頭が ``*`` で始まる）の
    場合に t を返すラムダ式を :el:defvar:`skk-annotation-function` に定義しました。
    これによってユーザアノテーションだけを表示することができます。
+
+.. el:defvar:: interprogram-cut-function
+
+   保存した内容を Emacs 以外のアプリケーションで利用したい場合に設定してください。
 
 アノテーションの登録
 ====================
@@ -4897,7 +4909,7 @@ Wikipedia/Wiktionary からアノテーションを取得する
 .. el:defvar:: skk-annotation-browse-key
 
    標準設定は ``C-o`` です。
-   EWW (Emacs Web Wowser) で閲覧したい場合は、次のとおり設定してください。
+   EWW (`Emacs Web Wowser <https://www.gnu.org/software/emacs/manual/html_node/eww/index.html>`_) で閲覧したい場合は、次のとおり設定してください。
 
    .. code:: emacs-lisp
 
@@ -6121,6 +6133,8 @@ VIP/VIPERとの併用
 *****************
 
 VIPER については Info を参照してください。
+
+:infonode:`VIPER Manual <(viper)Top>`
 
 また、VIPER の前身である VIP にも対応します。
 
