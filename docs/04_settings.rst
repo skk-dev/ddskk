@@ -11,7 +11,7 @@
    pair: Key; C-x C-j
 
 標準的にインストールした場合は、特段の設定なしに Emacs を起動するだけで DDSKK が
-使える状態になります。自動的に :file:`skk-setup.el` というファイルが読み込まれ、
+使える状態になります。自動的にファイル :file:`skk-setup.el` が読み込まれ、
 設定されます [#]_ 。この自動設定によらずに手動で設定したい場合は、以下の説明を参
 照してください。
 
@@ -25,8 +25,8 @@
    pair: Key; C-x j
    pair: Key; C-x t
 
-自動設定によらず手動で設定する場合は、次の内容を :file:`~/.emacs.d/init.el` に書
-きます [#]_ 。
+自動設定によらず手動で設定する場合は、次の内容をファイル :file:`~/.emacs.d/init.el` に
+書きます [#]_ 。
 
 .. code:: elisp
 
@@ -41,9 +41,9 @@
 
   (setq skk-large-jisyo "/your/path/to/SKK-JISYO.L")
 
-辞書サーバを使わない場合は Emacs のバッファに :el:defvar:`skk-large-jisyo` が指すファイル
+辞書サーバを使わない場合は Emacs のバッファに変数 :el:defvar:`skk-large-jisyo` が指すファイル
 を取り込んで使用するためメモリ使用量が増加します。これが支障となる場合は、上記の
-:file:`SKK-JISYO.L` を :file:`SKK-JISYO.M` 、 :file:`SKK-JISYO.ML` 又は
+ファイル :file:`SKK-JISYO.L` を :file:`SKK-JISYO.M` 、 :file:`SKK-JISYO.ML` 又は
 :file:`SKK-JISYO.S` に変更してください。
 
 .. _cdb-format:
@@ -66,14 +66,14 @@ DDSKK 14.1 以降は辞書サーバを経由せずとも CDB 形式 [#]_ の辞�
 インクリメント検索の設定
 ************************
 
-基本的な設定は :file:`skk-setup.el` が読み込まれた時点で完了しています [#]_ 。
+基本的な設定はファイル :file:`skk-setup.el` が読み込まれた時点で完了しています [#]_ 。
 
 .. index::
    pair: Option; skk-isearch-mode-enable
 
 .. el:defvar:: skk-isearch-mode-enable
 
-  この変数は :file:`~/.emacs.d/init.el` か :kbd:`M-x customize-variable` で設定し
+  この変数はファイル :file:`~/.emacs.d/init.el` か :kbd:`M-x customize-variable` で設定し
   てください。
 
   .. list-table::
@@ -91,7 +91,7 @@ DDSKK 14.1 以降は辞書サーバを経由せずとも CDB 形式 [#]_ の辞�
 辞書サーバを使いたいときの設定
 ******************************
 
-辞書サーバを使いたいときは、 :file:`~/.skk` で以下のように設定します。
+辞書サーバを使いたいときは、ファイル :file:`~/.skk` で以下のように設定します。
 
 .. code:: elisp
 
@@ -104,8 +104,8 @@ DDSKK 14.1 以降は辞書サーバを経由せずとも CDB 形式 [#]_ の辞�
 
 .. el:defvar:: skk-server-portnum
 
-  辞書サーバが使うポート番号。 :file:`/etc/services` に ``skkserv`` のエントリが記述
-  されていれば、この変数を指定する必要は無い。
+  辞書サーバが使うポート番号。ファイル :file:`/etc/services` に ``skkserv`` のエ
+  ントリが記述されていれば、この変数を指定する必要は無い。
 
 .. el:defvar:: skk-server-prog
 
@@ -156,7 +156,7 @@ DDSKK を Emacs の Input Method とする
    pair: Key; C-\
    pair: Key; M-x toggle-input-method
 
-Emacs の標準キーバインドでは :kbd:`C-\\` を打鍵すると、 :el:defun:`toggle-input-method` を
+Emacs の標準キーバインドでは :kbd:`C-\\` を打鍵すると、関数 :el:defun:`toggle-input-method` を
 実行します。この関数は、変数 :el:defvar:`default-input-method` が指す input method を
 トグル切り替えします。
 
@@ -176,21 +176,21 @@ Emacs の標準キーバインドでは :kbd:`C-\\` を打鍵すると、 :el:de
 マンド :kbd:`M-x set-input-method` 又は :kbd:`C-x RET C-\\` を実行することで
 input method を切り替えることができます。
 
-:file:`skk-leim.el` から生成される :file:`skk-autoloads.el` で input method をふ
-たつ追加しています。
+ファイル:file:`skk-leim.el` から生成されるファイル :file:`skk-autoloads.el` で
+input method をふたつ追加しています。
 
 .. list-table::
 
    * - input method
      - 内容
    * - "japanese-skk"
-     - :el:defun:`(skk-mode 1)`
+     - 関数 :el:defun:`(skk-mode 1)`
    * - "japanese-skk-auto-fill"
-     - :el:defun:`(skk-auto-fill-mode 1)`
+     - :関数 el:defun:`(skk-auto-fill-mode 1)`
 
 .. el:defvar:: default-input-method
 
-  Emacs 起動時の input method を DDSKK とするには、 :file:`~/.emacs.d/init.el` に
+  Emacs 起動時の input method を DDSKK とするには、ファイル :file:`~/.emacs.d/init.el` に
 
   .. code:: elisp
 
@@ -200,29 +200,30 @@ input method を切り替えることができます。
 
 .. rubric:: 脚注
 
-.. [#] Emacs が起動する過程の :el:defun:`normal-top-level` で :file:`SKK_LISPDIR/leim-list.el` が
+.. [#] Emacs が起動する過程の関数 :el:defun:`normal-top-level` でファイル :file:`SKK_LISPDIR/leim-list.el` が
        読み込まれます。
-       :file:`leim-list.el` は :file:`skk-autoloads.el` と :file:`skk-setup.el` を require します。
-       :file:`skk-autoloads.el` は DDSKK の :command:`make` 時に自動的に生成され
+       ファイル :file:`leim-list.el` はファイル :file:`skk-autoloads.el` とファイル :file:`skk-setup.el` を require します。
+       ファイル :file:`skk-autoloads.el` は DDSKK の :command:`make` 時に自動的に生成され
        るファイルであり、各関数を autoload するよう定義するほか
-       :el:defun:`register-input-method` も行います。
-       :file:`skk-setup.el` はキーバインド（ :kbd:`C-x C-j` → ``skk-mode`` ）の定義、
+       関数 :el:defun:`register-input-method` も行います。
+       ファイル :file:`skk-setup.el` はキーバインド（ :kbd:`C-x C-j` → ``skk-mode`` ）の定義、
        変数 :el:defvar:`skk-tut-file` の定義及びインクリメンタル・サーチの定義を行っています。
 
-.. [#] 配布物にサンプル :file:`etc/dot.emacs` と :file:`etc/dot.skk` があります。
-       参考にして下さい。
+.. [#] 配布物にサンプルとしてファイル :file:`etc/dot.emacs` とファイル :file:`etc/dot.skk` が
+       あります。参考にして下さい。
 
 .. [#] constant database のこと。
        詳しくは http://cr.yp.to/cdb.html 又は http://ja.wikipedia.org/wiki/Cdb を
        参照のこと。
 
-.. [#] SKK 辞書の :file:`Makefile` 中の ``cdb`` ターゲットを実行することで
-       :file:`SKK-JISYO.L` に基づく :file:`SKK-JISYO.L.cdb` を生成することができます。
+.. [#] SKK 辞書のファイル :file:`Makefile` 中の ``cdb`` ターゲットを実行することで
+       ファイル :file:`SKK-JISYO.L` に基づくファイル :file:`SKK-JISYO.L.cdb` を生
+       成することができます。
 
 .. [#] :ref:`辞書検索の設定の具体例 <setting-search-jisyo>`
 
-.. [#] :file:`skk-setup.el` では、 ``isearch-mode-hook`` に :el:defun:`skk-isearch-setup-maybe` を、
-       ``isearch-mode-end-hook`` に :el:defun:`skk-isearch-cleanup-maybe` をそれぞれ追加
+.. [#] ファイル :file:`skk-setup.el` では、 ``isearch-mode-hook`` に関数 :el:defun:`skk-isearch-setup-maybe` を、
+       ``isearch-mode-end-hook`` に関数 :el:defun:`skk-isearch-cleanup-maybe` をそれぞれ追加
        しています。
-       :el:defun:`skk-isearch-{setup|cleanup}-maybe` も :file:`skk-setup.el` で定義されて
-       おり、その実態は、 :el:defun:`skk-isearch-mode-{setup|cleanup}` です。
+       関数 :el:defun:`skk-isearch-{setup|cleanup}-maybe` もファイル :file:`skk-setup.el` で
+       定義されており、その実体は、関数 :el:defun:`skk-isearch-mode-{setup|cleanup}` です。

@@ -176,7 +176,7 @@ DDSKK のカスタマイズは、ファイル :file:`~/.emacs.d/init.el` ある�
   標準設定は nil です。
 
   この変数はファイル :file:`~/.emacs.d/init.el` で設定してください。
-  DDSKK 起動時に :el:defvar:`skk-user-directory` が指すディレクトリが存在しない場合は、自
+  DDSKK 起動時に変数 :el:defvar:`skk-user-directory` が指すディレクトリが存在しない場合は、自
   動的に作られます。
 
   .. code:: emacs-lisp
@@ -314,7 +314,7 @@ Customize による設定変更
 
 Emacs 標準の Customize 機能を使って SKK を設定することもできます。
 ただし、Customize での設定はファイル :file:`~/.emacs.d/init.el` での設定と同様に、
-:file:`/.skk` による設定で上書きされてしまいますので注意してください。
+ファイル :file:`/.skk` による設定で上書きされてしまいますので注意してください。
 
 .. index::
    pair: Key; M-x customize-group
@@ -594,10 +594,10 @@ skk-customize による設定変更
    pair: File; context-skk.el
    pair: Key; M-x context-skk-mode
 
-:file:`context-skk.el` は、編集中の文脈に応じて SKK の入力モードを自動的にアスキーモ
+ファイル :file:`context-skk.el` は、編集中の文脈に応じて SKK の入力モードを自動的にアスキーモ
 ードに切り替える等の機能を提供します。
 
-:file:`context-skk.el` をロードするにはファイル :file:`~/.emacs.d/init.el` に
+ファイル :file:`context-skk.el` をロードするにはファイル :file:`~/.emacs.d/init.el` に
 
 .. code:: emacs-lisp
 
@@ -1002,7 +1002,7 @@ face が使える環境では「んとう」の部分が異なる face で表示
    pair: File; skk-tankan.el
    pair: Key; @
 
-:file:`skk-tankan.el` を読み込むことによって単漢字変換が可能となります。
+ファイル :file:`skk-tankan.el` を読み込むことによって単漢字変換が可能となります。
 候補は総画数の昇順でソートして表示します。
 
 単漢字変換を使うには設定が必要ですが、先に例を見てみましょう。▽モードの最後の文
@@ -1079,7 +1079,7 @@ face が使える環境では「んとう」の部分が異なる face で表示
 --------------
 
 標準設定の検索キーは :kbd:`@` です。DDSKK の標準設定ではキー :kbd:`@` は
-:el:defun:`skk-today` の実行に割り当てられていますが、DDSKK 14.2 からは特段の
+関数 :el:defun:`skk-today` の実行に割り当てられていますが、DDSKK 14.2 からは特段の
 設定なしに▽モードで :kbd:`@` の打鍵が可能となりました。
 
 .. el:defvar:: skk-tankan-search-key
@@ -1094,10 +1094,10 @@ face が使える環境では「んとう」の部分が異なる face で表示
 ----------
 
 DDSKK 14.2 からは標準で変数 :el:defvar:`skk-search-prog-list` に関数 :el:defun:`skk-tankan-search` が
-含まれています。DDSKK 14.1 を利用の方、ご自身で :el:defvar:`skk-search-prog-list` を設定す
+含まれています。DDSKK 14.1 を利用の方、ご自身で変数 :el:defvar:`skk-search-prog-list` を設定す
 る方は以下の解説を参考にしてください。
 
-:file:`skk-tankan.el` には、漢字の部首とその中での画数のデータのみが入っています。
+ファイル :file:`skk-tankan.el` には、漢字の部首とその中での画数のデータのみが入っています。
 読みのデータは、普通の辞書ファイルを使います。
 
 単漢字変換の辞書の設定は、変数 :el:defvar:`skk-search-prog-list` に以下の形式で要素を追加
@@ -1107,9 +1107,9 @@ DDSKK 14.2 からは標準で変数 :el:defvar:`skk-search-prog-list` に関数 
 
    (skk-tankan-search 'function . args)
 
-*確定変換* を併用する場合は、 :el:defvar:`skk-search-prog-list` の先頭の要素は
-:el:defun:`skk-search-kakutei-jisyo-file` でなければいけませんので、
-:el:defvar:`skk-search-prog-list` の２番目の要素に関数 :el:defun:`skk-tankan-search` を追加します。
+*確定変換* を併用する場合は、変数 :el:defvar:`skk-search-prog-list` の先頭の要素は
+関数 :el:defun:`skk-search-kakutei-jisyo-file` でなければいけませんので、
+変数 :el:defvar:`skk-search-prog-list` の２番目の要素に関数 :el:defun:`skk-tankan-search` を追加します。
 
 .. code:: emacs-lisp
 
@@ -1120,7 +1120,7 @@ DDSKK 14.2 からは標準で変数 :el:defvar:`skk-search-prog-list` に関数 
                                          skk-large-jisyo 10000)
                      (cdr skk-search-prog-list))))
 
-なお、確定変換を使用しない場合は、 :el:defvar:`skk-search-prog-list` の要素の先頭
+なお、確定変換を使用しない場合は、変数 :el:defvar:`skk-search-prog-list` の要素の先頭
 が関数 :el:defun:`skk-tankan-search` でも大丈夫です。
 
 .. code:: emacs-lisp
@@ -1243,7 +1243,7 @@ DDSKK 14.2 からは標準で変数 :el:defvar:`skk-search-prog-list` に関数 
 候補の絞り込み
 ==============
 
-:file:`skk-hint.el` は、２つの読みの積集合みたいなものを取ることによって候補の絞
+ファイル :file:`skk-hint.el` は、２つの読みの積集合みたいなものを取ることによって候補の絞
 り込みを行うプログラムです。インストールはファイル :file:`~/.skk` に以下を記入します。
 
 .. code:: emacs-lisp
@@ -1275,7 +1275,7 @@ DDSKK 14.2 からは標準で変数 :el:defvar:`skk-search-prog-list` に関数 
       ▼間道
       ----- Buffer: foo -----
 
-:file:`skk-hint.el` は、２つの読みの厳密な積集合を取っているわけではなく、通常の
+ファイル :file:`skk-hint.el` は、２つの読みの厳密な積集合を取っているわけではなく、通常の
 変換候補のなかでヒントとして与えられた読みを含んだ漢字を持つものに候補を絞ります。
 この実例として「感動」と「感圧」を挙げます。
 
@@ -1293,7 +1293,7 @@ DDSKK 14.2 からは標準で変数 :el:defvar:`skk-search-prog-list` に関数 
       ▼感動
       ----- Buffer: foo -----
 
-:file:`skk-hint.el` は単漢字の候補がたくさんある場合に、そこから候補を絞りこむ手
+ファイル :file:`skk-hint.el` は単漢字の候補がたくさんある場合に、そこから候補を絞りこむ手
 段としても非常に有効です。例えば
 
 .. code:: text
@@ -1679,11 +1679,11 @@ SKK abbrve モードで使われる辞書は、普通のかな漢字変換と同
    pair: File; SKK-JISYO.lisp
 
 辞書ファイル :file:`SKK-JISYO.lisp` には、見出し語 ``today`` の候補として関数 :el:defun:`skk-date-ad` と
-:el:defvar:`skk-number-style` の全ての組み合わせが :ref:`プログラム実行変換 <program-conversion>`
+変数 :el:defvar:`skk-number-style` の全ての組み合わせが :ref:`プログラム実行変換 <program-conversion>`
 機能を用いて登録されています。従って、 :kbd:`/ t o d a y SPC` と入力すると、今日
 の日付が上記の形式で順次候補として表示されます。
 
-:el:defun:`skk-relative-date` を利用すると、昨日、一昨日、明後日など任意の日付を
+関数 :el:defun:`skk-relative-date` を利用すると、昨日、一昨日、明後日など任意の日付を
 求めることができます。詳細はファイル :file:`skk-gadget.el` のコメントを参照してください。
 
 なお、 :kbd:`@` の打鍵で日付を挿入するのではなく、文字どおり @ を挿入したい場
@@ -1729,7 +1729,7 @@ SKK abbrve モードで使われる辞書は、普通のかな漢字変換と同
 
     today /(let ((skk-date-ad) (skk-number-style t)) (skk-today))/.../
 
-:file:`skk-gadget.el` には、西暦／元号変換や簡単な計算など
+ファイル :file:`skk-gadget.el` には、西暦／元号変換や簡単な計算など
 :ref:`プログラム実行変換 <program-conversion>` 用の関数が集められています。
 
 .. el:defun:: skk-calc operator
@@ -1758,7 +1758,7 @@ SKK abbrve モードで使われる辞書は、普通のかな漢字変換と同
    :kbd:`Q 1 1 1 * 4 5 SPC` とキー入力します。ここで 111 と 45 の２つの数
    字は、変換時に :code:`("111" "45")` のような文字列のリストにまとめられ、
    変数 :el:defvar:`skk-num-list` の値として保存されます。
-   次に関数 :el:defun:`skk-calc` が呼ばれます。この中で :el:defvar:`skk-num-list` の各要素に対
+   次に関数 :el:defun:`skk-calc` が呼ばれます。この中で変数 :el:defvar:`skk-num-list` の各要素に対
    し演算を行うため、各要素は数に変換されます。
    その上で関数 :el:defun:`skk-calc` に与えられた引数（この場合は ``*`` ）を演算子として
    演算を行います。
@@ -2003,13 +2003,13 @@ SKK abbrve モードで使われる辞書は、普通のかな漢字変換と同
 
 .. el:defvar:: skk-j-mode-function-key-usage
 
-   シンボル 'conversion ならば、 :el:defvar:`skk-search-prog-list-1` 〜 :el:defvar:`skk-search-prog-list-9`
-   および :el:defvar:`skk-search-prog-list-0` を実行するよう自動設定します。
+   シンボル 'conversion ならば、変数 :el:defvar:`skk-search-prog-list-1` 〜変数 :el:defvar:`skk-search-prog-list-9`
+   および変数 :el:defvar:`skk-search-prog-list-0` を実行するよう自動設定します。
    これらのプログラムは▽モード限定でファンクションキー :kbd:`[F1]` 〜 :kbd:`[F10]`
    に割り当てられます。
 
    :kbd:`[F5]` 〜 :kbd:`[F10]` については本オプションの設定により自動的に割り当て
-   られます。これらの割り当てはユーザオプション :el:defvar:`skk-verbose` を設定するとエコー
+   られます。これらの割り当ては変数 :el:defvar:`skk-verbose` を設定するとエコー
    エリアに表示されるようになります。
 
    :ref:`冗長な案内メッセージの表示 <display-verbose-message>`
@@ -2050,11 +2050,11 @@ DDSKK の■モードにおける文字変換は、２つの変数
 
 を用いて行われます。
 
-:el:defvar:`skk-rom-kana-base-rule-list` には、基本的なローマ字かな変換のルールが定められ
+変数 :el:defvar:`skk-rom-kana-base-rule-list` には、基本的なローマ字かな変換のルールが定められ
 ています。
 
-:el:defvar:`skk-rom-kana-rule-list` は、ユーザが独自のルールを定めるために用意されており、
-:el:defvar:`skk-rom-kana-base-rule-list` よりも優先して評価されます。
+変数 :el:defvar:`skk-rom-kana-rule-list` は、ユーザが独自のルールを定めるために用意されており、
+変数 :el:defvar:`skk-rom-kana-base-rule-list` よりも優先して評価されます。
 
 .. _rom-kana-rule-list:
 
@@ -2070,7 +2070,7 @@ DDSKK の■モードにおける文字変換は、２つの変数
     - | 次の入力状態に移るときにバッファに挿入される文字列の組み合わせ
       | :code:`("ア" . "あ")` のようなコンスセル
 
-:el:defvar:`skk-rom-kana-base-rule-list` の一部を見てみましょう。
+変数 :el:defvar:`skk-rom-kana-base-rule-list` の一部を見てみましょう。
 
 .. code:: emacs-lisp
 
@@ -2097,7 +2097,7 @@ DDSKK の■モードにおける文字変換は、２つの変数
 
 のようになります。
 
-:el:defvar:`skk-rom-kana-base-rule-list` には、次のような便利な変換ルールも定められていま
+変数 :el:defvar:`skk-rom-kana-base-rule-list` には、次のような便利な変換ルールも定められていま
 す。
 
 .. list-table::
@@ -2144,7 +2144,7 @@ DDSKK の■モードにおける文字変換は、２つの変数
 ローマ字ルールの変更例
 ----------------------
 
-:el:defvar:`skk-rom-kana-base-rule-list` の規則に従うと
+変数 :el:defvar:`skk-rom-kana-base-rule-list` の規則に従うと
 
   - :kbd:`hannou` → はんおう
   - :kbd:`han'ou` → はんおう
@@ -2182,7 +2182,7 @@ DDSKK の■モードにおける文字変換は、２つの変数
 のような規則を追加することで実現されます。自分の名前を入力することはよくあるので、
 適当な省略形を用いて、このリストに追加しておく、といった利用をお勧めします。
 
-更に :el:defvar:`skk-rom-kana-rule-list` を用いれば TUT-code による日本語入力を実現するこ
+更に変数 :el:defvar:`skk-rom-kana-rule-list` を用いれば TUT-code による日本語入力を実現するこ
 ともできます。TUT-code による入力についてはソースアーカイブの tut-code ディレクト
 リに収録されている各ファイルを参照してください。
 
@@ -2194,7 +2194,7 @@ DDSKK の■モードにおける文字変換は、２つの変数
 .. el:defvar:: skk-kana-input-search-function
 
    ルールリストの中に記せない変換ルールを処理する関数。
-   これは `:el:defvar:skk-rom-kana-base-rule-list` と :el:defvar:`skk-rom-kana-rule-list` の要素を
+   これは変数 :el:defvar:`skk-rom-kana-base-rule-list` と変数 :el:defvar:`skk-rom-kana-rule-list` の要素を
    全て検索した後にコールされます。引数はありません。バッファの文字を、
    直接 ``preceding-char`` などで調べて下さい。
 
@@ -2208,7 +2208,7 @@ DDSKK の■モードにおける文字変換は、２つの変数
      - :kbd:`ohhonn` → おっほん
      - :kbd:`ohhira` → おっひら
 
-   これは :el:defvar:`skk-rom-kana-rule-list` の標準設定に
+   これは変数 :el:defvar:`skk-rom-kana-rule-list` の標準設定に
 
    .. code:: emacs-lisp
 
@@ -2303,7 +2303,7 @@ DDSKK の■モードにおける文字変換は、２つの変数
                     (";" nil ";")
                     ("?" nil "?"))))
 
-:el:defun:`skk-insert` は、Emacs のオリジナル関数 :el:defun:`self-insert-command` を
+関数 :el:defun:`skk-insert` は、Emacs のオリジナル関数 :el:defun:`self-insert-command` を
 エミュレートしています。具体的には、引数を渡すことによって同じ文字を複数、一度に
 挿入することが可能です。
 
@@ -2343,7 +2343,7 @@ DDSKK の■モードにおける文字変換は、２つの変数
 
 挿入される文字を変更したい場合: :ref:`数字や記号文字の入力 <insert-num>`
 
-:el:defun:`skk-jisx0208-latin-insert` も Emacs オリジナルの関数 :el:defun:`self-insert-command` を
+関数 :el:defun:`skk-jisx0208-latin-insert` も Emacs オリジナルの関数 :el:defun:`self-insert-command` を
 エミュレートしています。つまり、関数 :el:defun:`skk-insert` における動作と同じく、引
 数を渡すことにより同じ文字を複数、一度に挿入することができます。
 
@@ -2489,7 +2489,7 @@ yatex-mode など、既に同様の機能が付いているモードがありま
 .. el:defvar:: skk-use-auto-enclose-pair-of-region
 
    non-nil であれば、上記の機能が有効になります。
-   当然に :el:defvar:`skk-auto-insert-paren` も non-nil である必要があります。
+   当然に変数 :el:defvar:`skk-auto-insert-paren` も non-nil である必要があります。
    なお、 ``delete-selection-mode`` の方が優先されます。
 
 確定するキー
@@ -2745,7 +2745,7 @@ SKK では通常、「漢字変換の開始位置」と「送り仮名の開始�
 
      (setq skk-sticky-key ";")
 
-  のように string を設定して下さい。 :el:defvar:`skk-sticky-key` に設定した文字そのも
+  のように string を設定して下さい。変数 :el:defvar:`skk-sticky-key` に設定した文字そのも
   のを入力したい場合は２回続けて打鍵すると入力できます。
 
 - 表示を伴わないキー
@@ -2785,7 +2785,7 @@ Emacs では本来、連続する 20 文字の挿入が一回の取り消し操�
 をするように設計されています [#]_ 。
 
 正確に言えば、関数 :el:defun:`skk-insert` ,関数 :el:defun:`skk-set-henkan-point` ,
-:el:defun:`skk-jisx0208-latin-insert` [#]_ の各関数にバインドされたキー入力については、
+関数 :el:defun:`skk-jisx0208-latin-insert` [#]_ の各関数にバインドされたキー入力については、
 連続して入力された 20 文字 [#]_ をいちどのアンドゥの対象としています。
 
 ただし、これらの DDSKK のコマンドと Emacs 本来の関数 :el:defun:`self-insert-command` を織
@@ -3088,7 +3088,7 @@ Emacs では本来、連続する 20 文字の挿入が一回の取り消し操�
        '(okuri-nasi abbrev)
 
    この機能は、全ての辞書を検索した上で変換候補が唯一か否かを調べます。
-   そのため、 :el:defvar:`skk-search-prog-list` の内容によってはレスポンスが悪くなる可能性
+   そのため、変数 :el:defvar:`skk-search-prog-list` の内容によってはレスポンスが悪くなる可能性
    があります。
 
    :ref:`辞書の検索方法の設定 <search-jisyo>`
@@ -3096,7 +3096,7 @@ Emacs では本来、連続する 20 文字の挿入が一回の取り消し操�
 .. el:defvar:: skk-kakutei-search-prog-limit
 
    この変数の値が数値であれば、積極的な確定 ``skk-kakutei-when-unique-candidate`` に
-   おける「変換候補が唯一か否か」の判定を :el:defvar:`skk-search-prog-list` の先頭から数え
+   おける「変換候補が唯一か否か」の判定を変数 :el:defvar:`skk-search-prog-list` の先頭から数え
    て当該数値の個数までの辞書に制限します。
 
    数値以外であれば、無制限に全ての辞書を検索対象とします。
@@ -3498,9 +3498,9 @@ SKK の送り仮名の処理は、好みが分かれるところです。色々�
    このユーザオプションを non-nil に設定して SKK モードを起動すると、両立でき
    ないオプションである下記オプションは自動的に nil に設定されます。
 
-   - :el:defvar:`skk-kakutei-early`
-   - :el:defvar:`skk-auto-okuri-process`
-   - :el:defvar:`skk-henkan-okuri-strictly`
+   - 変数 :el:defvar:`skk-kakutei-early`
+   - 変数 :el:defvar:`skk-auto-okuri-process`
+   - 変数 :el:defvar:`skk-henkan-okuri-strictly`
 
    既に SKK モードに入った後でこの変数の設定を変更した場合は、カレントバッファで
    :kbd:`C-x C-j` もしくは :kbd:`C-x j` を２回打鍵して SKK モードを起動し直す
@@ -3527,12 +3527,12 @@ skk の初期設定では、変換で確定された単語は、次の変換時�
 変換の学習
 ==========
 
-:file:`skk-study.el` は、ある語 A を確定した場合に、A 及びその見出し語 A' に対し
+ファイル :file:`skk-study.el` は、ある語 A を確定した場合に、A 及びその見出し語 A' に対し
 て、直前に変換した語 B とその見出し語 B' を関連語として登録しておき、
 再度見出し語 A' の変換を行ったときに、B 及び B' のペアが直前の何回かに確定した語
 の中に見つかれば、A を優先して出力する単純な学習効果を提供するプログラムです。
 
-:file:`~/.skk` に :code:`(require 'skk-study)` と書いて DDSKK を起動して下さい。
+ファイル :file:`~/.skk` に :code:`(require 'skk-study)` と書いて DDSKK を起動して下さい。
 以降、 かな漢字変換の学習を始めます。
 
 例えば「梅雨には雨が降る」と変換した場合、
@@ -3561,11 +3561,11 @@ skk の初期設定では、変換で確定された単語は、次の変換時�
 の間に「大量」（たいりょう）が入っています [#]_ 。
 
 実はちゃんと「雨が大量に降る」と変換されます。何故なら「ふr」の関連語を探す際、
-:el:defvar:`skk-study-search-times` に指定された回数分だけ遡って、以前に確定した語の中に関
+変数 :el:defvar:`skk-study-search-times` に指定された回数分だけ遡って、以前に確定した語の中に関
 連語がないか探すのです。従って、この場合だと、２つ前の確定情報を探した際に「雨」
 （あめ）を見つけ、これを関連語として「ふr」の値を決めようとするのです。
 
-:file:`skk-study.el` に関するその他のオプションを説明します。
+ファイル :file:`skk-study.el` に関するその他のオプションを説明します。
 
 .. el:defvar:: skk-study-sesearch-times
 
@@ -3655,7 +3655,7 @@ skk の初期設定では、変換、選択された候補は、次回の変換�
 
 :ref:`変換の学習 <skk-study>`
 
-:el:defvar:`skk-jisyo-fix-order` が non-nil の時、個人辞書の候補を手軽に並べ替える方法
+変数 :el:defvar:`skk-jisyo-fix-order` が non-nil の時、個人辞書の候補を手軽に並べ替える方法
 は、現時点ではありません。
 コマンド :kbd:`M-x skk-edit-private-jisyo` を実行して
 :ref:`個人辞書ファイルを直接編集 <edit-jisyo>` して下さい。
@@ -3665,7 +3665,7 @@ skk の初期設定では、変換、選択された候補は、次回の変換�
 ベイズ統計を用いた学習
 ======================
 
-:file:`skk-bayesian.el` は、直前の履歴のみ使用するファイル :file:`skk-study.el` に比べて、
+ファイル :file:`skk-bayesian.el` は、直前の履歴のみ使用するファイル :file:`skk-study.el` に比べて、
 更に拡張された学習機能です。
 ベイズ統計を用いて文脈から変換候補が選択される確率を計算して候補順をソートします。
 なお、機能が重なることからファイル :file:`skk-study.el` と の併用はお勧めできません。
@@ -3677,7 +3677,7 @@ skk の初期設定では、変換、選択された候補は、次回の変換�
 
 が連携することで実現しています。
 
-:file:`skk-bayesian.el` のインストールについてはファイル :file:`bayesian/README.ja.md`
+ファイル :file:`skk-bayesian.el` のインストールについてはファイル :file:`bayesian/README.ja.md`
 を参照してください。
 
 .. el:defvar:: skk-bayesian-debug
@@ -3694,7 +3694,7 @@ skk の初期設定では、変換、選択された候補は、次回の変換�
 
 .. el:defvar:: skk-bayesian-prefer-server
 
-   non-nil ならば :el:defvar:`skk-bayesian-host` の :el:defvar:`skk-bayesian-port` に接続します。
+   non-nil ならば変数 :el:defvar:`skk-bayesian-host` の変数 :el:defvar:`skk-bayesian-port` に接続します。
    nil であれば コマンド :command:`bskk` を emacs のサブプロセスとして起動します。
 
 .. el:defvar:: skk-bayesian-host
@@ -3787,7 +3787,7 @@ skk の初期設定では、変換、選択された候補は、次回の変換�
 
    確定辞書の後、かつ、個人辞書の前に検索を行う辞書です。この辞書を適当に指定する
    ことにより、最初に出てくる候補を操作することができます。
-   例えば、複数の専門用語毎の辞書を用意しておいて :el:defvar:`skk-initial-search-jisyo`
+   例えば、複数の専門用語毎の辞書を用意しておいて変数 :el:defvar:`skk-initial-search-jisyo`
    の値を切り替えることにより、専門分野毎の専門用語を切り替えて入力することができ
    ます。
 
@@ -3807,18 +3807,18 @@ skk の初期設定では、変換、選択された候補は、次回の変換�
 .. el:defvar:: skk-cdb-large-jisyo
 
    共有辞書のうち :ref:`CDB 形式に変換した辞書 <cdb-format>` です。
-   指定した場合は :el:defvar:`skk-large-jisyo` よりも先に検索されます。
+   指定した場合は変数 :el:defvar:`skk-large-jisyo` よりも先に検索されます。
    DDSKK 14.1 からは辞書サーバを経由せずとも CDB 形式辞書ファイルを直接検索できる
    ようになりました。
 
 .. el:defvar:: skk-large-jisyo
 
    共有辞書のひとつ。バッファに読み込んで検索を行います。
-   例えば :el:defvar:`skk-large-jisyo` に S 辞書 か M 辞書を指定し、
+   例えば変数 :el:defvar:`skk-large-jisyo` に S 辞書 か M 辞書を指定し、
    :el:defvar:`skk-aux-large-jisyo` に L 辞書を指定する、という選択肢もあります。
 
    また、辞書サーバ経由のアクセスも決して遅くはないので「共有辞書はバッファには読
-   み込まない」という設定も自然であり、これには :el:defvar:`skk-large-jisyo` を nil に
+   み込まない」という設定も自然であり、これには変数 :el:defvar:`skk-large-jisyo` を nil に
    設定します。
 
 .. el:defvar:: skk-aux-large-jisyo
@@ -3851,7 +3851,7 @@ skk の初期設定では、変換、選択された候補は、次回の変換�
    上記の例中のファイル :file:`SKK-JISYO.JIS3_4` のように「ファイル名と文字コードのペア」
    を記述します。
 
-これらの変数の意味するところは初期設定でのものですが、 :el:defvar:`skk-search-prog-list` の
+これらの変数の意味するところは初期設定でのものですが、変数 :el:defvar:`skk-search-prog-list` の
 設定で変更することもできます。
 
 :ref:`辞書検索のための関数 <jisyo-search-functions>`
@@ -3869,10 +3869,10 @@ skk の初期設定では、変換、選択された候補は、次回の変換�
 辞書検索の設定の具体例
 ----------------------
 
-この節では :el:defvar:`skk-search-prog-list` の初期設定を示し、大体の流れを説明します。
+この節では変数 :el:defvar:`skk-search-prog-list` の初期設定を示し、大体の流れを説明します。
 
 DDSKK では、複数の辞書を扱うことが可能です。複数の辞書が同時並列に検索されるので
-はなく、指定した順番に検索します。 :el:defvar:`skk-search-prog-list` はリストであり、大雑
+はなく、指定した順番に検索します。変数 :el:defvar:`skk-search-prog-list` はリストであり、大雑
 把に言えば、確定されるまで先頭の要素から順に lisp として評価されます。
 
 .. code:: emacs-lisp
@@ -3962,7 +3962,7 @@ DDSKK では、複数の辞書を扱うことが可能です。複数の辞書�
    確定変換を行う検索プログラム。検索対象の辞書ファイルは Emacs のバッファに読み
    込まれます。検索対象のファイルから候補を見つけると、内部変数 :el:defvar:`skk-kakutei-henkan-flag` を
    立てて、いきなり確定します。このためユーザが確定操作を行う必要はありません。
-   引数の意味はいずれも :el:defvar:`skk-search-jisyo-file` の場合と同様です。
+   引数の意味はいずれも関数 :el:defun:`skk-search-jisyo-file` の場合と同様です。
 
 .. el:defun:: skk-okuri-search
 
@@ -4013,7 +4013,7 @@ DDSKK 14.2 から追加された「ja-dic.el 検索機能」 (:el:defun:`skk-sea
 
 .. el:defvar:: skk-inhibit-ja-dic-search
 
-   この変数を non-nil に設定すると、 :el:defvar:`skk-large-jisyo` 等の値にかかわらず、
+   この変数を non-nil に設定すると、変数 :el:defvar:`skk-large-jisyo` 等の値にかかわらず、
    あらゆる場面で関数 :el:defun:`skk-search-ja-dic` を無効とします。
 
 .. el:defun:: skk-search-ja-dic
@@ -4129,7 +4129,7 @@ Server completion に対応した辞書サーバであれば、見出し語か�
 
 .. el:defun:: skk-comp-by-server-completion
 
-   この関数を :el:defvar:`skk-completion-prog-list` の要素に追加すると、▽モードにおいて見
+   この関数を変数 :el:defvar:`skk-completion-prog-list` の要素に追加すると、▽モードにおいて見
    出し語補完を実行します。
 
    .. code:: emacs-lisp
@@ -4139,8 +4139,8 @@ Server completion に対応した辞書サーバであれば、見出し語か�
 
 .. el:defun:: skk-server-completion-search
 
-   この関数を :el:defvar:`skk-search-prog-list` の要素に追加すると、変換を実行する際に
-   :el:defvar:`skk-server-completion-search-char` を付すことによって見出し語で始まるすべて
+   この関数を変数 :el:defvar:`skk-search-prog-list` の要素に追加すると、変換を実行する際に
+   変数 :el:defvar:`skk-server-completion-search-char` を付すことによって見出し語で始まるすべて
    の候補を掲げます。
 
    .. code:: emacs-lisp
@@ -4276,8 +4276,8 @@ SKK では、送り仮名の有無が変換方法のひとつの種別となっ�
 構成されています。見出し語「ふくm」の場合は「ま」「み」「む」「め」「も」を送り仮
 名とする５ブロックに分けられています。
 
-この送り仮名毎のブロック部分は、 :el:defvar:`skk-henkan-okuri-strictly` あるいは
-:el:defvar:`skk-auto-okuri-process` のいずれかの変数が non-nil である場合に使用されま
+この送り仮名毎のブロック部分は、変数 :el:defvar:`skk-henkan-okuri-strictly` あるいは
+変数 :el:defvar:`skk-auto-okuri-process` のいずれかが non-nil である場合に使用されま
 す。この場合、検索において、見出し語の一致に加えて、更に送り仮名もマッチするかど
 うかをテストします。例えば、
 
@@ -4290,7 +4290,7 @@ SKK では、送り仮名の有無が変換方法のひとつの種別となっ�
 
 https://skk-dev.github.io/dict/ で配布している共有辞書では、 ``[`` と ``]`` を
 使用した送り仮名毎のブロックの形式に対応していません。個人辞書のみがこの
-形式で書き込まれていきます。 :el:defvar:`skk-henkan-okuri-strictly` が nil であっても送り
+形式で書き込まれていきます。変数 :el:defvar:`skk-henkan-okuri-strictly` が nil であっても送り
 仮名のブロック形式で書き込まれます [#]_ 。
 
 .. _entries:
@@ -4457,7 +4457,7 @@ https://skk-dev.github.io/dict/ で配布している共有辞書では、 ``[``
 ============================
 
 DDSKK は、かな漢字変換及び個人辞書に関する統計を取っており、Emacs の終了時に
-:file:`~/.skk-record` に保存します。保存する内容は、以下の形式です。
+ファイル :file:`~/.skk-record` に保存します。保存する内容は、以下の形式です。
 
 .. code:: text
 
@@ -4476,7 +4476,7 @@ DDSKK は、かな漢字変換及び個人辞書に関する統計を取って�
 .. el:defvar:: skk-keep-record
 
    この変数の値を nil に設定すると、本節で説明した統計機能を無効にします。
-   数値を設定すると、 :el:defvar:`skk-record-file` を指定数値の行数より大きくしません。
+   数値を設定すると、変数 :el:defvar:`skk-record-file` を指定数値の行数より大きくしません。
 
 .. el:defvar:: skk-count-private-jisyo-candidates-exactly
 
@@ -4715,7 +4715,7 @@ Apple macOS 付属の辞書、Wiktionary/Wikipedia などから取得可能で�
                  (eq (aref annotation 0) ?*)))
 
    上記の例では、アノテーションがユーザアノテーション（先頭が ``*`` で始まる）の
-   場合に t を返すラムダ式を :el:defvar:`skk-annotation-function` に定義しました。
+   場合に t を返すラムダ式を変数 :el:defvar:`skk-annotation-function` に定義しました。
    これによってユーザアノテーションだけを表示することができます。
 
 .. el:defvar:: interprogram-cut-function
@@ -4753,7 +4753,7 @@ Apple macOS 付属の辞書、Wiktionary/Wikipedia などから取得可能で�
 .. index::
    keyword: EPWING 辞書
 
-:file:`skk-lookup.el` に含まれる関数 :el:defun:`skk-lookup-get-content` を活用することに
+ファイル :file:`skk-lookup.el` に含まれる関数 :el:defun:`skk-lookup-get-content` を活用することに
 より、EPWING 辞書から得た内容をアノテーション表示することが可能です。辞書検索ツー
 ルの Lookup [#]_ が正常にインストールされていることが前提です。Lookup を新規にイ
 ンストールした場合は、SKK をインストールし直す必要があります。
@@ -4900,20 +4900,22 @@ Wikipedia/Wiktionary からアノテーションを取得する
       ----------------------------- Echo Area ------------------------------
 
 エコーエリアに解説が表示されている最中に :kbd:`C-o` を押すと、
-:el:defun:`browse-url` を用いて、その解説の元となった URL をブラウズします。
+関数 :el:defun:`browse-url` を用いて、その解説の元となった URL をブラウズします。
 
 .. el:defvar:: skk-annotation-wikipedia-key
 
-   標準設定は ``C-i`` です。
+   標準設定は :kbd:`C-i` です。
 
 .. el:defvar:: skk-annotation-browse-key
 
-   標準設定は ``C-o`` です。
-   EWW (`Emacs Web Wowser <https://www.gnu.org/software/emacs/manual/html_node/eww/index.html>`_) で閲覧したい場合は、次のとおり設定してください。
+   標準設定は :kbd:`C-o` です。
+   EWW (Emacs Web Wowser) で閲覧したい場合は、次のとおり設定してください。
 
    .. code:: emacs-lisp
 
        (setq browse-url-browser-function 'eww-browse-url)
+
+   :infonode:`Emacs Web Wowser Manual <(eww)Top>`
 
 .. el:defvar:: skk-annotation-other-sources
 
@@ -4926,7 +4928,7 @@ Wikipedia/Wiktionary からアノテーションを取得する
 
 .. el:defvar:: skk-annotation-lookup-dict
 
-   Non-nil ならば、 :el:defvar:`skk-annotation-dict-program` に指定された外部コマンド
+   Non-nil ならば、変数 :el:defvar:`skk-annotation-dict-program` に指定された外部コマンド
    からアノテーションを指定します。
 
 .. el:defvar:: skk-annotation-dict-program
@@ -4966,7 +4968,7 @@ Wikipedia/Wiktionary からアノテーションを取得する
 このようにしておくと、何かの意味が調べたくなったとき、領域選択して
 :kbd:`M-i` と打鍵すれば、その場で辞書を引くことができます。
 
-さらに、ユーザオプション :el:defvar:`skk-annotation-other-sources` の３番目 (Apple macOS で は４番目) は
+さらに、変数 :el:defvar:`skk-annotation-other-sources` の３番目 (Apple macOS で は４番目) は
 標準で ``en.wiktionary`` になっています。例えば、英文を読んでいて buffer という語
 の正確な意味を参照したくなったとします。そのときは単語 buffer にポイントを合わせ
 て :kbd:`M-3 M-i` (Apple macOS では :kbd:`M-4 M-i`) とプレフィックス付でコマンド
@@ -5225,21 +5227,21 @@ DDSKK 以外のツールを用いた辞書変換
 skk-lookup
 ==========
 
-:file:`skk-lookup.el` を使用すると、辞書検索ツールの
+ファイル :file:`skk-lookup.el` を使用すると、辞書検索ツールの
 `Lookup <http://openlab.jp/edict/lookup/>`_ で検索できる辞書を用いて単語の候補を
 出すことができるようになります。
 
 DDSKK のインストール過程で :code:`(require 'lookup)` が成功する場合は
-:file:`skk-lookup.el` も 自動的にインストールされます。
+ファイル :file:`skk-lookup.el` も自動的にインストールされます。
 まずは コマンド :command:`make` :samp:`what-where` を実行して ``SKK modules:`` 欄 に ``skk-lookup``
 が含まれていることを確認してください。
 
 Lookup がインストールされているにも関わらず、うまくファイル :file:`skk-lookup.el` が
 インストールされない場合は、ファイル :file:`SKK-CFG` を編集してファイル :file:`lookup.el`
-が置かれているパスを :el:defvar:`ADDITIONAL_LISPDIR` に設定し、再度 DDSKK をインストール
+が置かれているパスを環境変数 :el:defvar:`ADDITIONAL_LISPDIR` に設定し、再度 DDSKK をインストール
 して下さい [#]_ 。
 
-:file:`~/.skk` に以下のように設定します。
+ファイル :file:`~/.skk` に以下のように設定します。
 
 .. code:: emacs-lisp
 
@@ -5248,17 +5250,17 @@ Lookup がインストールされているにも関わらず、うまくファ�
                  (list
                   '(skk-lookup-search))))
 
-:el:defvar:`skk-lookup-search` は、 DDSKK が用意している検索プログラムの中で最も遅いものです。
-したがって、 :el:defvar:`skk-search-prog-list` の設定にあっては辞書サーバの検索
-:el:defun:`skk-search-server` よりも後方に置くよう設定します。
+関数 :el:defun:`skk-lookup-search` は、 DDSKK が用意している検索プログラムの中で最も遅いものです。
+したがって、変数 :el:defvar:`skk-search-prog-list` の設定にあっては辞書サーバの検索
+関数 :el:defun:`skk-search-server` よりも後方に置くよう設定します。
 
-Lookup の agent で利用するのは、 :el:defvar:`lookup-search-agents` から
+Lookup の agent で利用するのは、変数 :el:defvar:`lookup-search-agents` から
 ``ndkks``, ``ndcookie`` 及び ``ndnmz`` を取り去ったものです [#]_ 。
 
 skk-look
 ========
 
-:file:`skk-look.el` は、 コマンド :command:`look` コマンドを使って３つの機能を提供します。
+ファイル :file:`skk-look.el` は、 コマンド :command:`look` コマンドを使って３つの機能を提供します。
 
 英単語の補完
 ------------
@@ -5433,7 +5435,7 @@ SKK abbrev モードにて、Lisp シンボル名を補完して検索し、検�
       ----- Buffer: *候補* -----
 
 この機能を有効とするには、リスト :el:defvar:`skk-search-prog-list` の要素に
-:el:defun:`skk-search-lisp-symbol` を加えてください。
+関数 :el:defun:`skk-search-lisp-symbol` を加えてください。
 
 .. code:: emacs-lisp
 
@@ -5463,7 +5465,7 @@ SKK abbrev モードにて、Lisp シンボル名を補完して検索し、検�
 
 .. el:defvar:: skk-completion-search-char
 
-   :el:defvar:`skk-completion-search` による変換機能を指示するキーキャラクタ。
+   関数 :el:defun:`skk-completion-search` による変換機能を指示するキーキャラクタ。
    標準設定は ``~`` です。
 
 Google CGI API for Japanese Input を利用したかな漢字変換
@@ -5477,7 +5479,7 @@ Google CGI API for Japanese Input を利用したかな漢字変換
 するようになります。
 
 同じくファイル :file:`~/.skk` にて、リスト :el:defvar:`skk-search-prog-list` の一番最後の要素として、
-:el:defun:`skk-search-web` を追加します。
+関数 :el:defun:`skk-search-web` を追加します。
 
 .. code:: emacs-lisp
 
@@ -5655,14 +5657,14 @@ Google CGI API for Japanese Input を利用したかな漢字変換
 
        (setq skk-inline-show-face 'font-lock-doc-face)
 
-   :el:defvar:`skk-treat-candidate-appearance-function` による装飾を優先するには nil に設
+   変数 :el:defvar:`skk-treat-candidate-appearance-function` による装飾を優先するには nil に設
    定して下さい。
 
 .. el:defvar:: skk-inline-show-background-color
 
    インライン表示する変換候補の背景色を指定します。
 
-   :el:defvar:`skk-inline-show-face` または :el:defvar:`skk-treat-candidate-appearance-function` に
+   :el:defface:`skk-inline-show-face` または変数 :el:defvar:`skk-treat-candidate-appearance-function` に
    て、背景色が指定されていない文字に対してのみ作用します。
 
 .. el:defvar:: skk-inline-show-background-color-odd
@@ -5690,7 +5692,7 @@ Google CGI API for Japanese Input を利用したかな漢字変換
        (setq skk-tooltip-face 'font-lock-doc-face)
        ;; (make-face 'skk-tooltip-face) ではないことに注意
 
-   候補文字列のフェイス属性（ :el:defvar:`skk-treat-candidate-appearance-function` による
+   候補文字列のフェイス属性（ 変数 :el:defvar:`skk-treat-candidate-appearance-function` による
    加工など）をそのまま使いたい場合は nil に設定して下さい。
 
 .. el:defvar:: skk-tooltip-mouse-behavior
@@ -5734,7 +5736,7 @@ Google CGI API for Japanese Input を利用したかな漢字変換
 .. el:defvar:: skk-tooltip-parameters
 
    SKK 独自のフレームパラメータを設定する。
-   標準設定 nil の場合、 :el:defvar:`tooltip-frame-parameters` が適用される。
+   標準設定 nil の場合、変数 :el:defvar:`tooltip-frame-parameters` が適用される。
 
 現在のウィンドウの隣に別なウィンドウを開いて表示する（ポップアップ）
 --------------------------------------------------------------------
@@ -5796,7 +5798,7 @@ Google CGI API for Japanese Input を利用したかな漢字変換
    ます。標準では、背景の明暗により black/darkseagreen2 又は white/darkolivegreen
    を用います。
 
-   なお、この変数よりも :el:defvar:`skk-treat-candidate-appearance-function` の設定が優先
+   なお、この変数よりも変数 :el:defvar:`skk-treat-candidate-appearance-function` の設定が優先
    されます。
    
 変数 :el:defvar:`skk-henkan-face` には、既存のフェイス [#]_ を指定できますが、
@@ -5855,11 +5857,11 @@ Google CGI API for Japanese Input を利用したかな漢字変換
             | セパレータは、通常の ``;`` の代わりに利用される。
             | 注釈は、もうセパレータを含まないものとして処理される。
 
-:file:`etc/dot.skk` に設定例があるほか、サンプルとして
-:el:defun:`skk-treat-candidate-sample1` と関数 :el:defun:`skk-treat-candidate-sample2`
+ファイル :file:`etc/dot.skk` に設定例があるほか、サンプルとして
+関数 :el:defun:`skk-treat-candidate-sample1` と関数 :el:defun:`skk-treat-candidate-sample2`
 を用意してあります。
 
-:file:`~/.skk` に次のいずれかを書いてみて変換候補の装飾を試してください。
+ファイル :file:`~/.skk` に次のいずれかを書いてみて変換候補の装飾を試してください。
 
 .. code:: emacs-lisp
 
@@ -5892,20 +5894,20 @@ XEmacs 及び GNU Emacs 21 以降では、以下の機能が使用できます�
 
 - GNU Emacs 21 以上（変数 :el:defvar:`mule-version` の値が 5.0 以上の GNU Emacs）の場合
 
-   - :el:defvar:`skk-emacs-hiragana-face`
-   - :el:defvar:`skk-emacs-katakana-face`
-   - :el:defvar:`skk-emacs-jisx0208-latin-face`
-   - :el:defvar:`skk-emacs-jisx0201-face`
-   - :el:defvar:`skk-emacs-abbrev-face`
+   - :el:defface:`skk-emacs-hiragana-face`
+   - :el:defface:`skk-emacs-katakana-face`
+   - :el:defface:`skk-emacs-jisx0208-latin-face`
+   - :el:defface:`skk-emacs-jisx0201-face`
+   - :el:defface:`skk-emacs-abbrev-face`
 
 - XEmacs の場合
 
-   - :el:defvar:`skk-xemacs-hiragana-face`
-   - :el:defvar:`skk-xemacs-katakana-face`
-   - :el:defvar:`skk-xemacs-jisx0208-latin-face`
-   - :el:defvar:`skk-xemacs-latin-face`
-   - :el:defvar:`skk-xemacs-jisx0201-face`
-   - :el:defvar:`skk-xemacs-abbrev-face`
+   - :el:defface:`skk-xemacs-hiragana-face`
+   - :el:defface:`skk-xemacs-katakana-face`
+   - :el:defface:`skk-xemacs-jisx0208-latin-face`
+   - :el:defface:`skk-xemacs-latin-face`
+   - :el:defface:`skk-xemacs-jisx0201-face`
+   - :el:defface:`skk-xemacs-abbrev-face`
 
 なお、インジケータを右クリックするとポップアップメニューが表示されます。
 
@@ -5938,17 +5940,17 @@ XEmacs 及び GNU Emacs 21 以降では、以下の機能が使用できます�
 
 .. el:defvar:: skk-japanese-message-and-error
 
-   この変数の値を non-nil に設定すると、エラー、メッセージ及びミニバッファでのプ
-   ロンプトを日本語で表示します。標準では nil です。
+   non-nil に設定すると、エラー、メッセージ及びミニバッファでのプロンプトを日本語
+   で表示します。標準では nil です。
 
 .. el:defvar:: skk-show-japanese-menu
 
-   この変数の値を non-nil に設定すると、メニューバーを日本語で表示します。
+   non-nil に設定すると、メニューバーを日本語で表示します。
 
 .. el:defvar:: skk-version-codename-ja
 
-   この変数の値を non-nil に設定すると、関数 :el:defun:`skk-version` を評価したときの
-   コードネームを日本語で表示します。
+   non-nil に設定すると、関数 :el:defun:`skk-version` を評価したときのコードネー
+   ムを日本語で表示します。
 
 .. _display-verbose-message:
 
@@ -5957,8 +5959,7 @@ XEmacs 及び GNU Emacs 21 以降では、以下の機能が使用できます�
 
 .. el:defvar:: skk-verbose
 
-   この変数の値を non-nil に設定すると、入力中／変換中に冗長なメッセージを表示し
-   ます。
+   non-nil に設定すると、入力中／変換中に冗長なメッセージを表示します。
 
    .. code:: emacs-lisp
 
@@ -6069,8 +6070,8 @@ I-search 関連
 
 .. el:defvar:: skk-isearch-use-previous-mode
 
-   この変数の値が non-nil であれば、次のインクリメンタル・サーチ起動時の入力モー
-   ドは、前回のインクリメンタル・サーチでの入力モードになります。
+   non-nil であれば、次のインクリメンタル・サーチ起動時の入力モードは、前回のイン
+   クリメンタル・サーチでの入力モードになります。
    nil であれば、変数 :el:defvar:`skk-isearch-start-mode` の設定が優先されます。
 
 間に空白等を含む文字列の検索
@@ -6142,7 +6143,7 @@ VIPER については Info を参照してください。
 
 .. el:defvar:: skk-use-viper
 
-   この変数の値を non-nil に設定すると、VIPER に対応します。
+   non-nil に設定すると、VIPER に対応します。
 
 ********************
 picture-modeとの併用
@@ -6159,7 +6160,7 @@ SKK モードを ``picture-mode`` において使用した場合は、以下の�
 - 関数 :el:defun:`picture-movement-up` や関数 :el:defun:`picture-movement-down` により上
   下に全角文字を挿入した場合に、桁がずれる場合があります。
 
-:el:defun:`move-to-column-force` の中で使用されている関数 :el:defun:`move-to-column` の
+関数 :el:defun:`move-to-column-force` の中で使用されている関数 :el:defun:`move-to-column` の
 引数として、全角文字を無視した桁数が与えられることがあり、そのときカーソル移動が
 できないため、これらの問題が生じます。
 
@@ -6181,7 +6182,7 @@ SKK モードを ``picture-mode`` において使用した場合は、以下の�
        しまいますので、 SKK abbrev モードからアスキー文字を入力するのは、一語のみ
        の場合以外は不便です。
 
-.. [#] `:kbd:C-q` は :el:defvar:`skk-abbrev-mode-map` にて特別な動作をするように定義されて
+.. [#] `:kbd:C-q` は変数 :el:defvar:`skk-abbrev-mode-map` にて特別な動作をするように定義されて
        います。
 
 .. [#] メニューバーが使用できる環境では、メニューバーを使ってこれらの一括変換コマ
@@ -6223,14 +6224,14 @@ SKK モードを ``picture-mode`` において使用した場合は、以下の�
        しかし、実行変換されるプログラムを辞書登録する際にはこの機能を利用できない
        ため、改行を含むことができません。
 
-.. [#] :el:defvar:`skk-search-prog-list` の設定をユーザが変更している場合は期待どおりに動
-       作しない場合があります。その場合は :el:defvar:`skk-search-prog-list` の設定に
+.. [#] 変数 :el:defvar:`skk-search-prog-list` の設定をユーザが変更している場合は期待どおりに動
+       作しない場合があります。その場合は変数 :el:defvar:`skk-search-prog-list` の設定に
        関数 :el:defun:`skk-search-katakana` の呼び出しがあることを確認してください。
        またこの機能の設定は DDSKK 14.1 以前では異なります。詳しくはソースに付属の
        ドキュメント、設定例をご覧ください。
 
-.. [#] :el:defvar:`skk-search-prog-list` の設定をユーザが変更している場合は期待どおりに動
-       作しない場合があります。その場合は :el:defvar:`skk-search-prog-list` の設定に
+.. [#] 変数 :el:defvar:`skk-search-prog-list` の設定をユーザが変更している場合は期待どおりに動
+       作しない場合があります。その場合は変数 :el:defvar:`skk-search-prog-list` の設定に
        関数 :el:defun:`skk-search-sagyo-henkaku` の呼び出しがあることを確認してください。
        またこの機能の設定は DDSKK 14.1 以前では異なります。詳しくはソースに付属の
        ドキュメント、設定例をご覧ください。
@@ -6248,7 +6249,7 @@ SKK モードを ``picture-mode`` において使用した場合は、以下の�
        また SKK 以外でも sticky-shift を使いたい場合は、前述のような設定を併用す
        る必要があります。
 
-.. [#] ファイル :file:`skk-hint.el` を併用する場合は :el:defvar:`skk-hint-start-char` の
+.. [#] ファイル :file:`skk-hint.el` を併用する場合は変数 :el:defvar:`skk-hint-start-char` の
        標準設定も :kbd:`;` であるため、どちらかを別のキーに割り当てる必要があります。
 
        :ref:`候補の絞り込み <skk-hint>`
@@ -6260,7 +6261,7 @@ SKK モードを ``picture-mode`` において使用した場合は、以下の�
 
 .. [#] SKK abbrev モードでは、アスキー文字入力が Emacs 本来の関数 :el:defun:`self-insert-command` に
        より行われているので、エミュレーションのための内部変数である
-       :el:defvar:`skk-self-insert-non-undo-count` をインクリメントすることができず、アン
+       変数 :el:defvar:`skk-self-insert-non-undo-count` をインクリメントすることができず、アン
        ドゥをエミュレートできません。しかも、カンマやピリオドを挿入した時点で、
        関数 :el:defun:`skk-abbrev-comma` や関数 :el:defun:`skk-abbrev-period` を使うことに
        なるので、本来のアンドゥの機能も損なってしまいます。
@@ -6283,9 +6284,9 @@ SKK モードを ``picture-mode`` において使用した場合は、以下の�
 
 .. [#] 正確には、印字可能な文字または :kbd:`RET` が入力されたときです。
 
-.. [#] :el:defvar:`skk-kakutei-early` の機能と :el:defvar:`skk-process-okuri-early` の機能を同時に
-       有効にすることはできません。
-       :el:defvar:`skk-kakutei-early` の値を non-nil にする場合は :el:defvar:`skk-process-okuri-early` の値を nil にする必要があります。
+.. [#] 変数 :el:defvar:`skk-kakutei-early` の機能と変数 :el:defvar:`skk-process-okuri-early` の
+       機能を同時に有効にすることはできません。
+       変数 :el:defvar:`skk-kakutei-early` の値を non-nil にする場合は変数 :el:defvar:`skk-process-okuri-early` の値を nil にする必要があります。
 
 .. [#] 確定変換用辞書の見出し語の配列については、サイズが大きい場合は、共有辞書と
        同様、ソートして二分検索（バイナリサーチ）を行い、サイズが小さければ適当な
@@ -6322,7 +6323,7 @@ SKK モードを ``picture-mode`` において使用した場合は、以下の�
        す。
 
 .. [#] 専ら補完的に自動送り処理を利用するのであれば関数 :el:defun:`skk-okuri-search`
-   を :el:defvar:`skk-search-prog-list` の最後に設定するという方法もあります。
+       を変数 :el:defvar:`skk-search-prog-list` の最後に設定するという方法もあります。
 
    :ref:`辞書の検索方法の設定 <search-jisyo>`
 
@@ -6338,8 +6339,8 @@ SKK モードを ``picture-mode`` において使用した場合は、以下の�
 .. [#] Ruby 2.4 以降を使用する場合は、DDSKK 16.2 以降に付属するファイル :file:`bayesian/bskk` を
        使用してください。
 
-.. [#] :el:defvar:`skk-search-prog-list` に登録されている関数 :el:defun:`skk-search-extra-jisyo-files` が、
-       :el:defvar:`skk-extra-jisyo-file-list` の各要素を逐次処理します。
+.. [#] 変数 :el:defvar:`skk-search-prog-list` に登録されている関数 :el:defun:`skk-search-extra-jisyo-files` が、
+       変数 :el:defvar:`skk-extra-jisyo-file-list` の各要素を逐次処理します。
 
 .. [#] 辞書バッファの文字コードの設定
 
@@ -6352,9 +6353,9 @@ SKK モードを ``picture-mode`` において使用した場合は、以下の�
        - :ref:`送り仮名の厳密なマッチ <okuri-strictly>`
        - :ref:`送り仮名の優先的なマッチ <okuri-precedence>`
 
-.. [#] ただし、 :el:defvar:`skk-process-okuri-early` の値が non-nil であれば、送り仮名
-       を決定する前に変換を開始することになるので、送り仮名を明示的に入力していて
-       も個人辞書にはブロック形式は作られません。
+.. [#] ただし、変数 :el:defvar:`skk-process-okuri-early` の値が non-nil であれば、
+       送り仮名を決定する前に変換を開始することになるので、送り仮名を明示的に入力
+       していても個人辞書にはブロック形式は作られません。
 
 .. [#] ソートする際には、見出し語を unsigned-char と見なします。この順序は Emacs
        が関数 :el:defun:`string<` で文字列を比較するときの順序であり、UNIX の コマンド :command:`sort`
@@ -6400,22 +6401,22 @@ SKK モードを ``picture-mode`` において使用した場合は、以下の�
 
 .. [#] ``*`` の文字は変換時には表示されません。
 
-.. [#] :el:defvar:`skk-lookup-search-agents` にセットして検索するようにしています。
+.. [#] 変数 :el:defvar:`skk-lookup-search-agents` にセットして検索するようにしています。
        Lookup とは異なる設定をする場合、この変数の設定を変更すれば可能です。
 
 .. [#] この設定は、変数 :el:defvar:`skk-treat-candidate-appearance-function` の値を上書きし
-       ます。 :el:defvar:`skk-treat-candidate-appearance-function` を自分で設定する場合は
-       :el:defvar:`skk-annotation-lookup-lookup` には t または nil を必要に応じて
+       ます。変数 :el:defvar:`skk-treat-candidate-appearance-function` を自分で設定する場合は
+       変数 :el:defvar:`skk-annotation-lookup-lookup` には t または nil を必要に応じて
        設定します。
 
 .. [#] この設定は、変数 :el:defvar:`skk-treat-candidate-appearance-function` の値を上書きし
-       ます。 :el:defvar:`skk-treat-candidate-appearance-function` を自分で設定したい場合
-       は :el:defvar:`skk-annotation-lookup-DictionaryServices` には t または nil を必要に
+       ます。変数 :el:defvar:`skk-treat-candidate-appearance-function` を自分で設定したい場合
+       は変数 :el:defvar:`skk-annotation-lookup-DictionaryServices` には t または nil を必要に
        応じて設定します。
 
 .. [#] 変数 :el:defvar:`skk-show-tooltip` が non-nil の場合、ツールティップで表示します。
 
-.. [#] `:el:defvar:skk-annotation-other-sources` の標準の値は環境によって異なります。
+.. [#] 変数 :el:defvar:`skk-annotation-other-sources` の標準の値は環境によって異なります。
        ``lookup.el`` と ``skk-lookup.el`` の設定が有効になっている場合は
        ``en.wiktionary`` は ４番目 (Apple macOS では５番目) になります。
 
@@ -6429,11 +6430,11 @@ SKK モードを ``picture-mode`` において使用した場合は、以下の�
 
 .. [#] 変数 :el:defvar:`skk-show-tooltip` が non-nil であればツールティップで表示します。
        変数 :el:defvar:`skk-show-candidates-always-pop-to-buffer` が non-nil で あれば
-       other-window に表示します。 :el:defvar:`skk-show-tooltip` が優先します。
+       other-window に表示します。変数 :el:defvar:`skk-show-tooltip` が優先します。
 
 .. [#] 関数 :el:defun:`skk-lookup-search` がファイル :file:`skk-autoloads.el` に追加されます。
 
-.. [#] :el:defvar:`skk-lookup-search-agents` にセットして検索するようにしています。
+.. [#] 変数 :el:defvar:`skk-lookup-search-agents` にセットして検索するようにしています。
        Lookup とは異なる設定をする場合、この変数の設定を変更すれば可能です。
 
 .. [#] edict 辞書ファイル :file:`SKK-JISYO.edict` があれば、例えば、
@@ -6447,7 +6448,7 @@ SKK モードを ``picture-mode`` において使用した場合は、以下の�
 
    のように設定することにより、 edict 辞書を使用できます。
 
-.. [#] ただし、 :el:defvar:`frame-width` が不足する場合は、候補バッファに表示します。
+.. [#] ただし、変数 :el:defvar:`frame-width` が不足する場合は、候補バッファに表示します。
 
 .. [#] 以前のバージョンではテキスト属性 (text property) を使用していました。
        オーバーレイ属性はテキスト属性と異なり、テキストの一部とは見なされません。

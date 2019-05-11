@@ -45,7 +45,7 @@ SKK モードに入るには :kbd:`C-x C-j` もしくは :kbd:`C-x j` とキー�
 
   .. note::
 
-     :file:`~/.emacs.d/init.el` にて設定すること
+     ファイル :file:`~/.emacs.d/init.el` にて設定すること
 
   これは、SKK 本体プログラムの読み込みと、変数 :el:defvar:`skk-search-prog-list` に指定さ
   れた辞書の読み込みを Emacs の起動時に済ませてしまうことにより実現しています。
@@ -56,7 +56,8 @@ SKK モードに入るには :kbd:`C-x C-j` もしくは :kbd:`C-x j` とキー�
 .. el:define-key:: M-x skk-restart
 
   SKK を再起動します。
-  :file:`~/.skk` は再ロードしますが、 :file:`~/.emacs.d/init.el` は再ロードしません。
+  ファイル :file:`~/.skk` は再ロードしますが、ファイル :file:`~/.emacs.d/init.el` は
+  再ロードしません。
 
 .. el:define-key:: M-x skk-version
 
@@ -109,10 +110,10 @@ SKK オートフィルモード
    pair: Variable; skk-backup-jisyo
    pair: Variable; skk-jisyo
 
-Emacs を終了するときは、保存前の個人辞書を :file:`~/.skk-jisyo.BAK` に退避してから
-:ref:`個人辞書 <jisyo-variant>` の内容を :file:`~/.skk-jisyo` に保存 [#]_ します。
+Emacs を終了するときは、保存前の個人辞書をファイル :file:`~/.skk-jisyo.BAK` に退避してから
+:ref:`個人辞書 <jisyo-variant>` の内容をファイル :file:`~/.skk-jisyo` に保存 [#]_ します。
 
-:file:`~/.skk-jisyo` や :file:`~/.skk-jisyo.BAK` の名称を変更したければ、そ
+ファイル :file:`~/.skk-jisyo` やファイル :file:`~/.skk-jisyo.BAK` の名称を変更したければ、そ
 れぞれ変数 :el:defvar:`skk-jisyo` や変数 :el:defvar:`skk-backup-jisyo` の値を変更して下さい。
 
 .. el:define-key:: M-x skk-kill-emacs-without-saving-jisyo
@@ -190,7 +191,7 @@ SKK モードは、文字種類による４種類の **入力モード** と、�
 
 .. el:define-key:: M-x skk-show-mode
 
-   :el:defvar:`skk-show-mode-show` の値をトグル切り替えします。  
+   変数 :el:defvar:`skk-show-mode-show` の値をトグル切り替えします。  
 
 .. el:defvar:: skk-show-mode-style
 
@@ -479,16 +480,16 @@ SKK モードは、文字種類による４種類の **入力モード** と、�
 
 .. el:defvar:: skk-previous-candidate-keys
 
-  前候補／前候補群に戻る :el:defun:`skk-previous-candidate` を割り当てるオブジェ
-  クトのリストを指定する。オブジェクトにはキーを表す文字列または event vector が
+  前候補／前候補群に戻る関数 :el:defun:`skk-previous-candidate` を割り当てるオブ
+  ジェクトのリストを指定する。オブジェクトにはキーを表す文字列または event vector が
   指定できます。
 
   標準設定は :code:`(list "x" "\C-p")` です。
 
 .. el:defvar:: skk-show-candidates-nth-henkan-char
 
-  候補一覧を表示する :el:defun:`skk-henkan-show-candidates` を呼び出すまで
-  の :el:defvar:`skk-start-henkan-char` を打鍵する回数。２以上の整数である必要。
+  候補一覧を表示する関数 :el:defun:`skk-henkan-show-candidates` を呼び出すまで
+  の変数 :el:defvar:`skk-start-henkan-char` を打鍵する回数。２以上の整数である必要。
 
 .. el:defvar:: skk-henkan-number-to-display-candidates
 
@@ -583,7 +584,7 @@ DDSKK には独立した辞書登録モードはありません。その代わ�
 .. el:defvar:: skk-read-from-minibuffer-function
 
   この変数に「文字列を返す関数」を収めると、その文字列を辞書登録モードに入ったと
-  きのプロンプトに初期表示します。 :el:defun:`read-from-minibuffer` の
+  きのプロンプトに初期表示します。関数 :el:defun:`read-from-minibuffer` の
   引数 ``INITIAL-CONTENTS`` に相当します。
 
   .. code:: elisp
@@ -804,7 +805,7 @@ DDSKK には独立した辞書登録モードはありません。その代わ�
    keyword: I-search
    keyword: Incremental search
 
-DDSKK では、専用のインクリメンタル・サーチプログラムを Emacs 添付の :file:`isearch.el` の
+DDSKK では、専用のインクリメンタル・サーチプログラムを Emacs 添付のファイル :file:`isearch.el` の
 ラッパーとして実装しているため、日本語文字列のインクリメンタル・サーチをアスキー
 文字と同様の操作で行うことができます。
 
@@ -871,7 +872,7 @@ DDSKK には、基本的な操作方法を学習できるチュートリアル�
 
 .. el:defvar:: skk-tut-file
 
-  チュートリアルファイルが標準の場所に置かれていない場合は、 :file:`~/.emacs.d/init.el` で
+  チュートリアルファイルが標準の場所に置かれていない場合は、ファイル :file:`~/.emacs.d/init.el` で
 
   .. code:: elisp
 
@@ -879,7 +880,8 @@ DDSKK には、基本的な操作方法を学習できるチュートリアル�
 
   と書くことにより、指定したチュートリアルファイルを使用させることができます。英
   語版のチュートリアルファイルは、 ``skk-tut-file`` に ``.E`` が付いたファイル名
-  です。この場合であれば、 :file:`/usr/local/share/skk/SKK.tut.E` になります。
+  です。この場合であれば、ファイル :file:`/usr/local/share/skk/SKK.tut.E` になり
+  ます。
 
 .. el:defvar:: skk-tut-lang
 
@@ -892,8 +894,8 @@ DDSKK には、基本的な操作方法を学習できるチュートリアル�
 
 .. rubric:: 脚注
 
-.. [#] :file:`skk.el` の :el:defun:`skk-setup-modeline` にて、 :el:defvar:`mode-line-format` に
-       :el:defvar:`skk-icon` と :el:defvar:`skk-modeline-input-mode` を追加しています。
+.. [#] ファイル :file:`skk.el` の関数 :el:defun:`skk-setup-modeline` にて、変数 :el:defvar:`mode-line-format` に
+       変数 :el:defvar:`skk-icon` と変数 :el:defvar:`skk-modeline-input-mode` を追加しています。
 
 .. [#] ただし、「アスキーモード」を利用すれば SKK モードから抜ける必要はほとんど
        ありません。
@@ -907,7 +909,7 @@ DDSKK には、基本的な操作方法を学習できるチュートリアル�
 .. [#] ハイライト表示は GNU Emacs の Overlays、XEmacs の extent の機能を使用して
        います。
 
-.. [#] :el:defvar:`skk-show-candidates-nth-henkan-char`
+.. [#] 変数 :el:defvar:`skk-show-candidates-nth-henkan-char`
 
 .. [#] エコーエリアとミニバッファは視覚的には同一の場所にありますが、エコーエリア
        が単にユーザへのメッセージを表示するのみであるのに対し、ミニバッファは独立
@@ -925,18 +927,18 @@ DDSKK には、基本的な操作方法を学習できるチュートリアル�
 
 .. [#] :ref:`送り仮名が有る場合 <word-okuri>`
 
-.. [#] :file:`SKK-JISYO.L` など共有辞書のメンテナンス上、原則としてサ変動詞を送り
-       ありエントリに追加していません。そのため、「する」を送り仮名とした送りあり
-       変換では、辞書に候補がなく :ref:`辞書登録モード <jisyo-register-mode>` に
+.. [#] ファイル :file:`SKK-JISYO.L` など共有辞書のメンテナンス上、原則としてサ変
+       動詞を「送りありエントリ」に追加していません。そのため、「する」を送り仮名
+       とした送りあり変換では、辞書に候補がなく :ref:`辞書登録モード <jisyo-register-mode>` に
        入ってしまうので、名詞として分解して入力することが一般的です。
 
        ただし、DDSKK 13 以降では暫定的にサ変動詞の送りあり変換を可能にする機能を
        用意しました。 :ref:`サ変動詞変換 <sahen-dousi>`
 
-.. [#] :kbd:`M-y` の :el:defun:`isearch-yank-kill` 、
-       :kbd:`M-p` の :el:defun:`isearch-ring-retreat` 又は
-       :kbd:`M-n` の :el:defun:`isearch-ring-advance` など
+.. [#] :kbd:`M-y` の関数 :el:defun:`isearch-yank-kill` 、
+       :kbd:`M-p` の関数 :el:defun:`isearch-ring-retreat` 又は
+       :kbd:`M-n` の関数 :el:defun:`isearch-ring-advance` など
 
        :infonode:`Incremental Search in GNU Emacs Manual <(emacs)Incremental Search>`
 
-.. [#] :el:defvar:`search-highlight` など
+.. [#] 変数 :el:defvar:`search-highlight` など

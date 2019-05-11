@@ -24,3 +24,7 @@
     padding: 0 0.2em 0 0.2em;
     /* background-color: red; */
 }
+
+em.property {
+    margin-left: 1em;
+}

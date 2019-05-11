@@ -16,7 +16,7 @@ AZIK
 .. el:defvar:: skk-use-azik
 
    non-nil であれば AZIK 拡張が有効となります。
-   :file:`~/.skk` に :code:`(setq skk-use-azik t)` と書きます。
+   ファイル :file:`~/.skk` に :code:`(setq skk-use-azik t)` と書きます。
 
 .. el:defvar:: skk-azik-keyboard-type
 
@@ -35,15 +35,15 @@ AZIK
       * - nil
         - キーボード依存処理を無効にする
 
-azik と skk で仕様が重なる部分があるため、 :file:`skk-azik.el` では以下のとおり対
+azik と skk で仕様が重なる部分があるため、ファイル :file:`skk-azik.el` では以下のとおり対
 応しています。
 
 .. el:define-key:: q
 
    AZIK では、撥音「ん」を入力するには :kbd:`q` を使うこととされていますが、
-   skk では既に :kbd:`q` に :el:defun:`skk-toggle-kana` を割り当てています。
+   skk では既に :kbd:`q` に関数 :el:defun:`skk-toggle-kana` を割り当てています。
 
-   そのため :file:`skk-azik.el` では :el:defun:`skk-toggle-kana` の実行を
+   そのため、ファイル :file:`skk-azik.el` では関数 :el:defun:`skk-toggle-kana` の実行を
 
    -  日本語キーボードであれば :kbd:`@` を
 
@@ -53,7 +53,7 @@ azik と skk で仕様が重なる部分があるため、 :file:`skk-azik.el` �
 
 .. el:define-key:: @
 
-   上記のとおり、 :el:defun:`skk-toggle-kana` の実行には :kbd:`@` （日本語キーボード）
+   上記のとおり、関数 :el:defun:`skk-toggle-kana` の実行には :kbd:`@` （日本語キーボード）
    や :kbd:`[` （英語キーボード）を使用しますが、skk では既に :kbd:`@` には「今日
    の日付の入力」（ :ref:`プログラム実行変換 <program-conversion>` ）を割り当てて
    います。
@@ -68,7 +68,7 @@ azik と skk で仕様が重なる部分があるため、 :file:`skk-azik.el` �
    こととされていますが、skk では既に :kbd:`l` に「アスキーモードへの切り替え」
    を割り当てています。
 
-   そのため、 :file:`skk-azik.el` では、拗音のうち「ぁぃぅぇぉ」 の入力については
+   そのため、ファイル :file:`skk-azik.el` では、拗音のうち「ぁぃぅぇぉ」 の入力については
    :kbd:`xx` を前置することとしています。
 
    - :kbd:`xxa` → ぁ
@@ -81,8 +81,8 @@ azik と skk で仕様が重なる部分があるため、 :file:`skk-azik.el` �
 
    - :kbd:`xxo` → ぉ
 
-   なお、拗音のうち「ゃゅょゎ」の単独入力は、AZIK 拡張 :file:`skk-azik.el`
-   では なく、標準 :file:`skk-vars.el` です。
+   なお、拗音のうち「ゃゅょゎ」の単独入力は、AZIK 拡張ファイル :file:`skk-azik.el`
+   では なく、標準ファイル :file:`skk-vars.el` です。
 
    - :kbd:`xya` → ゃ
 
@@ -94,10 +94,10 @@ azik と skk で仕様が重なる部分があるため、 :file:`skk-azik.el` �
 
 .. el:define-key:: X
 
-   skk では、▼モードでの :kbd:`X` は  :el:defun:`skk-purge-from-jisyo` を実行し
+   skk では、▼モードでの :kbd:`X` は関数 :el:defun:`skk-purge-from-jisyo` を実行し
    ますが、AZIK では :kbd:`X` は「シャ行」の入力に使われます。
 
-   そのため、 :file:`skk-azik.el` での :ref:`誤った登録の削除 <delete-wrong-register>` は、
+   そのため、ファイル :file:`skk-azik.el` での :ref:`誤った登録の削除 <delete-wrong-register>` は、
    ▼モードで :kbd:`M-x skk-purge-from-jisyo` を実行してください。
 
 ****
@@ -111,7 +111,7 @@ AZIK の考え方を Dvorak 配列に適用し、Dvorak 配列でかなを快適
 .. el:defvar:: skk-use-act
 
    non-nil であれば、 ACT 拡張が有効となります。
-   :file:`~/.skk` に :code:`(setq skk-use-act t)` と書きます。
+   ファイル :file:`~/.skk` に :code:`(setq skk-use-act t)` と書きます。
 
 ********
 TUT-code
@@ -123,11 +123,11 @@ TUT-code
 使用するには、SKK のインストール時にいくつかのファイルをインストールする必要があ
 ります。
 
-SKK ソースの `tut-code` ディレクトリにある :file:`skk-tutcdef.el` と
-:file:`skk-tutcode.el` を SKK ソースのトップディレクトリにコピーしてから、
+SKK ソースの `tut-code` ディレクトリにあるファイル :file:`skk-tutcdef.el` と
+ファイル :file:`skk-tutcode.el` を SKK ソースのトップディレクトリにコピーしてから、
 あらためて SKK をインストールします。
 
-その後、 :file:`~/.skk` に :code:`(require 'skk-tutcdef)` と書きます。
+その後、ファイル :file:`~/.skk` に :code:`(require 'skk-tutcdef)` と書きます。
 
 ********************
 かな入力と親指シフト
@@ -139,7 +139,7 @@ DDSKK はローマ字式ではない、いわゆるかな入力方式をサポ�
   - 親指シフト方式でのかな入力
 
 に対応しています。これを使うにはまず、nicola-ddskk 拡張パッケージをインストールす
-る必要があります。SKK ソースの :file:`nicola` ディレクトリに移動し、ドキュメント
+る必要があります。SKK ソースのディレクトリ :file:`nicola` に移動し、ドキュメント
 に従ってインストールしてください。
 
 https://github.com/skk-dev/ddskk/blob/master/nicola/README.ja

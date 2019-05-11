@@ -77,8 +77,8 @@ emacs の実体ファイルを特定することもできます。
 .. index::
    pair: File; SKK-CFG
 
-また、DDSKK のインストール先ディレクトリを変更したい場合は :file:`SKK-CFG` を編集
-してください。編集後は必ず :command:`make` ``what-where`` を実行して表示内容
+また、DDSKK のインストール先ディレクトリを変更したい場合は、ファイル :file:`SKK-CFG` を
+編集してください。編集後は必ず :command:`make` ``what-where`` を実行して表示内容
 を確認してください。
 
 次にスーパーユーザになって、
@@ -218,10 +218,10 @@ DDSKK 14.2 からは、 GNU Emacs 同梱の辞書データ ja-dic を利用し�
    XEmacs では ja-dic は利用できませんので、後述する SKK 辞書をインストールする必
    要があります。
 
-しかし、 ja-dic は、 GNU Emacs の入力メソッド LEIM のために :file:`SKK-JISYO.L` か
+しかし、 ja-dic は、 GNU Emacs の入力メソッド LEIM のためにファイル :file:`SKK-JISYO.L` か
 ら変換して生成されたものであり、英数変換や数値変換などのエントリ、および「大丈夫」
 など複合語とみなし得る語が大幅に削除されています。
-そのため、 :file:`SKK-JISYO.L` を利用したかな漢字変換と同等の結果は得られません。
+そのため、ファイル :file:`SKK-JISYO.L` を利用したかな漢字変換と同等の結果は得られません。
 
 有志の知恵を結集して作られている各種 SKK 辞書は便利ですから、是非入手してインスト
 ールしましょう。
@@ -292,8 +292,8 @@ DDSKK 14.2 からは、 GNU Emacs 同梱の辞書データ ja-dic を利用し�
 辞書を DDSKK と同時にインストールする
 *************************************
 
-DDSKK のソースを展開すると、中に ``dic`` というディレクトリが存在します。
-:file:`SKK-JISYO.L` などをこのディレクトリにコピーしてから :command:`make` ``install`` を
+DDSKK のソースを展開すると、中に :file:`dic` というディレクトリが存在します。
+ファイル :file:`SKK-JISYO.L` などをこのディレクトリにコピーしてから :command:`make` ``install`` を
 実行すると、辞書ファイルがチュートリアル (:file:`SKK.tut`) と同じディレクトリ [#]_
 にインストールされます。
 
@@ -327,18 +327,19 @@ DDSKK は特定の辞書サーバの実装に依存していませんので、�
 .. rubric:: 脚注
 
 .. [#] Microsoft Windows 環境では :command:`makeit.bat` を使用することで、UNIX と
-       同様の操作でインストールできます。 :file:`READMEs/README.w32.ja` を参照し
-       てください。cygwin 環境をインストールされている方は :command:`make` 
+       同様の操作でインストールできます。ファイル :file:`READMEs/README.w32.ja` を
+       参照してください。cygwin 環境をインストールされている方は :command:`make` 
        が使用できるので、本文の解説がそのまま当てはまります。Apple macOS 環境の
-       方は :file:`READMEs/README.MacOSX.ja` を参照してください。
+       方はファイル :file:`READMEs/README.MacOSX.ja` を参照してください。
 
-.. [#] :file:`ChangeLog` や :file:`Makefile` が置かれているディレクトリです。
+.. [#] ファイル :file:`ChangeLog` やファイル :file:`Makefile` が置かれているディ
+       レクトリです。
 
 .. [#] `Milkypostman's Emacs Lisp Package Archive. <http://melpa.org/>`_
 
 .. [#] GNU Emacs 24 以降で標準で搭載されています。GNU Emacs 23 以前では手動でイ ン
        ストールする必要があります。 http://wikemacs.org/wiki/Package.el
 
-.. [#] ``/usr/share/skk`` や ``c:/emacs-24.5/etc/skk`` など
+.. [#] :file:`/usr/share/skk` や :file:`c:/emacs-24.5/etc/skk` など
 
 .. [#] Microsoft Windows 環境では :command:`makeit.bat` ``get`` と実行します。

@@ -33,7 +33,7 @@ SKK が Simple Kana to Kanji conversion program の略であるとおり、か�
 にはありません。
 
 多機能化と言っても多くはユーザオプションによって無効にすることができますし、
-:file:`skk.el` 本体が複雑化しないようにモジュール化されています。
+ファイル :file:`skk.el` 本体が複雑化しないようにモジュール化されています。
 
 Q1-3 DDSKK はどの Emacs で使えますか?
 =====================================
@@ -110,7 +110,7 @@ Q3-1 「．」、「，」 が入力できるようにカスタマイズした�
 通常 :kbd:`.` で「．」を、 :kbd:`,` で「，」を入力したい場合
 ------------------------------------------------------------
 
-:ref:`■モードに関連するその他の変数 <var-skk-kutouten-type>` をごご覧ください。
+:ref:`■モードに関連するその他の変数 <var-skk-kutouten-type>` をご覧ください。
 
 一時的に :kbd:`.` で「．」を、 :kbd:`,` で「，」を入力したい場合
 ----------------------------------------------------------------
@@ -131,14 +131,14 @@ Q3-1 「．」、「，」 が入力できるようにカスタマイズした�
 常に :kbd:`.` で「．」を、 :kbd:`,` で「，」を入力したい場合
 ------------------------------------------------------------
 
-``skk-rom-kana-rule-list`` を直接変更します。
+変数 :el:defvar:`skk-rom-kana-rule-list` を直接変更します。
 
 .. warning::
 
    この設定をすると :kbd:`M-x skk-toggle-kutouten` での切り替えが効かなくなるので、
    注意して下さい。
 
-:file:`~/.skk` に以下を追加します。
+ファイル :file:`~/.skk` に以下を追加します。
 
 .. code:: emacs-lisp
 
@@ -154,7 +154,7 @@ Q3-2 「ゐ」や「ヰ」 が入力できるようにカスタマイズした�
 ==================================================================
 
 一つ前の Q の変形問題ですね。かなモード／カナモードでそれぞれ出力する文字を変える
-やり方です。 :file:`~/.skk` に
+やり方です。ファイル :file:`~/.skk` に
 
 .. code:: emacs-lisp
 
@@ -166,8 +166,8 @@ Q3-2 「ゐ」や「ヰ」 が入力できるようにカスタマイズした�
 
 一番内側の cons cell は
 
-  - :func:`car` つまり「ヰ」が、カナモード
-  - :func:`cdr` つまり「ゐ」が、かなモードで
+  - 関数 :el:defun:`car` の評価、つまり「ヰ」が、カナモード
+  - 関数 :el:defun:`cdr` の評価、つまり「ゐ」が、かなモードで
 
 の入力文字を表しています。
 
@@ -177,7 +177,7 @@ Q3-2 「ゐ」や「ヰ」 が入力できるようにカスタマイズした�
 Q3-3 検索する辞書を増やしたいのですが。
 =======================================
 
-``skk-search-prog-list`` で設定をしましょう。
+変数 :el:defvar:`skk-search-prog-list` で設定をしましょう。
 
 まず、現在の設定を確認しましょうね。 scratch バッファに ``skk-search-prog-list`` と
 書いてそのシンボルの末尾にポイントを置いて :kbd:`C-j` してみましょう。
@@ -194,24 +194,24 @@ Q3-3 検索する辞書を増やしたいのですが。
 各要素は検索する関数と辞書を指定したリストです。要素の順番に検索がなされます。
 上記の例だと、
 
-- まず最初に ``skk-jisyo`` （個人辞書）を ``skk-search-jisyo`` という関数を使って
+- まず最初に :el:defvar:`skk-jisyo` （個人辞書）を関数 :el:defun:`skk-search-jisyo` を使って
   リニアサーチし、
-- 次に ``skk-search-server`` という関数を使って ``skk-aux-large-jisyo`` をサーチ
+- 次に関数 :el:defun:`skk-search-server` を使って :el:defvar:`skk-aux-large-jisyo` をサーチ
   します。
 
 変換の際、 :kbd:`SPC` を押しますよね？　１回 :kbd:`SPC` を押すと、SKK は候補が見
-つかるまでの間、 ``skk-search-prog-list`` の要素を前から読んでいって検索を行い、
+つかるまでの間、 :el:defvar:`skk-search-prog-list` の要素を前から読んでいって検索を行い、
 見つかればそこでいったん検索を止めてユーザに候補を提示します。
 
 ユーザが :kbd:`SPC` を更に押してゆき最初の要素のプログラムが見つけた候補が尽きると、
-SKK は中断していた個所から再び ``skk-search-prog-list`` の次の要素を見つけ、ここ
+SKK は中断していた個所から再び :el:defvar:`skk-search-prog-list` の次の要素を見つけ、ここ
 で指定されている関数を使って検索する、で新しい候補が見つかればまた提示する、とい
 うシステムになっています。
 
-では、辞書サーバを使って検索した後に、JIS 第２水準の単漢字辞書 :file:`SKK-JISYO.JIS2` を
+では、辞書サーバを使って検索した後に、JIS 第２水準の単漢字辞書ファイル :file:`SKK-JISYO.JIS2` を
 検索したい場合はどうすれば良いでしょう？　もう分かりますよね？
-辞書サーバを使った検索式の次に第２水準辞書の検索式を書いたリストを ``skk-search-prog-list`` に
-指定すれば良いのです。 :file:`~/.skk` に次のように書きましょう。
+辞書サーバを使った検索式の次に第２水準辞書の検索式を書いたリストを :el:defvar:`skk-search-prog-list` に
+指定すれば良いのです。ファイル :file:`~/.skk` に次のように書きましょう。
 
 .. code:: emacs-lisp
 
@@ -220,7 +220,7 @@ SKK は中断していた個所から再び ``skk-search-prog-list`` の次の�
             (skk-search-server skk-aux-large-jisyo 10000)
             (skk-search-jisyo-file "~/dic/SKK-JISYO.JIS2" 0)))
 
-``skk-search-jisyo-file`` の第２引数である 0 の数字でリニアサーチにて検索するよう
+:el:defun:`skk-search-jisyo-file` の第２引数である 0 の数字でリニアサーチにて検索するよう
 指定しています。第２水準辞書はあまり大きくないので、リニアサーチで十分でしょう。
 大きな辞書を検索する場合などは、
 
@@ -232,7 +232,7 @@ SKK は中断していた個所から再び ``skk-search-prog-list`` の次の�
 ョンのポイント差が 10,000 未満になるまではバイナリサーチを行い、その後リニアサー
 チを行います。大きな辞書ではバイナリサーチを行う方がはるかに効率が良いです。
 
-ちなみに、 :file:`SKK-JISYO.JIS2` は、最大でもリージョン間のポイント差が 8,500 程度です。
+ちなみに、ファイル :file:`SKK-JISYO.JIS2` は、最大でもリージョン間のポイント差が 8,500 程度です。
 
 .. _Q3-4:
 
@@ -270,7 +270,7 @@ X Window System 上 であれば、おそらく
 
 という答えが返ってくるでしょう。
 
-次に、この名前を使って :file:`~/.emacs.d/init.el` に設定を書きこみます。
+次に、この名前を使ってファイル :file:`~/.emacs.d/init.el` に設定を書きこみます。
 以下は :kbd:`無変換` = ``muhenkan`` の場合の例です。
 
 .. code:: emacs-lisp
@@ -326,7 +326,7 @@ DDSKK には NICOLA-DDSKK というプログラムが付属しており、これ
     % cd nicola
     % make install
 
-とした後に、 :file:`~/.skk` に
+とした後に、ファイル :file:`~/.skk` に
 
 .. code:: emacs-lisp
 
@@ -346,7 +346,7 @@ Q3-5 全く漢字が出てきません。
 
 恐らく辞書の設定ができていないのでしょう。
 
-:file:`SKK-JISYO.L` というファイルがインストールされている場所を確認してください。
+ファイル :file:`SKK-JISYO.L` というファイルがインストールされている場所を確認してください。
 普通は
 
   - `/usr/local/share/skk`
@@ -357,7 +357,7 @@ Q3-5 全く漢字が出てきません。
 XEmacs のパッケージならば `/usr/local/lib/xemacs/mule-packages/etc/skk` な
 どを確認します。
 
-その後で :file:`~/.skk` に
+その後でファイル :file:`~/.skk` に
 
 .. code:: emacs-lisp
 
@@ -377,7 +377,7 @@ XEmacs のパッケージならば `/usr/local/lib/xemacs/mule-packages/etc/skk`
 Q3-6 チュートリアルが起動できません。
 =====================================
 
-:file:`SKK.tut` というファイルがインストールされている場所を確認してください。
+ファイル :file:`SKK.tut` というファイルがインストールされている場所を確認してください。
 普通は
 
   - `/usr/local/share/skk`
@@ -388,7 +388,7 @@ Q3-6 チュートリアルが起動できません。
 XEmacs のパッケージならば `/usr/local/lib/xemacs/mule-packages/etc/skk` な
 どを確認します。
 
-その後で :file:`~/.emacs.d/init.el` に
+その後でファイル :file:`~/.emacs.d/init.el` に
 
 .. code:: emacs-lisp
 
@@ -399,8 +399,8 @@ XEmacs のパッケージならば `/usr/local/lib/xemacs/mule-packages/etc/skk`
 Q3-7 C-x C-j で dired が起動してしまいます。
 ============================================
 
-``dired-x`` を読み込むと :kbd:`C-x C-j` が :func:`dired-jump` にバインドされます。
-この状態でも SKK を :kbd:`C-x C-j` で起動したいときは、変数 ``dired-bind-jump`` に
+``dired-x`` を読み込むと :kbd:`C-x C-j` が関数 :el:defun:`dired-jump` にバインドされます。
+この状態でも SKK を :kbd:`C-x C-j` で起動したいときは、変数 :el:defvar:`dired-bind-jump` に
 nil を設定します。
 
 .. code:: emacs-lisp
@@ -471,20 +471,20 @@ edict を自分で加工して上記と同等のものを作成することも�
     % skkdic-expr temp | skkdic-sort > SKK-JISYO.E2J
     % rm temp
 
-できた :file:`SKK-JISYO.E2J` の利用方法は色々ありますが、
+できたファイル :file:`SKK-JISYO.E2J` の利用方法は色々ありますが、
 
 .. code:: console
 
     % skkdic-expr SKK-JISYO.E2J + /usr/local/share/skk/SKK-JISYO.L | \
       skkdic-sort > SKK-JISYO.L
 
-などとして、 :file:`SKK-JISYO.L` とマージして使うのが手軽です。
+などとして、ファイル :file:`SKK-JISYO.L` とマージして使うのが手軽です。
 
 なお、edict の配布条件は GNU GPL (General Public License) ではありません。
 
 http://www.csse.monash.edu.au/groups/edrdg/newlic.html
 
-をご覧下さい。 :file:`SKK-JISYO.edict` のヘッダー部分にもそのダイジェスト
+をご覧下さい。ファイル :file:`SKK-JISYO.edict` のヘッダー部分にもそのダイジェスト
 が記載されています。
 
 *************
@@ -494,15 +494,15 @@ Miscellaneous
 Q5-1 SKK abbrev モードでもっと英単語を利用した変換ができませんか?
 =================================================================
 
-UNIX :command:`look` と :file:`skk-look.el` を利用すると、色々できますよ。
+UNIX :command:`look` とファイル :file:`skk-look.el` を利用すると、色々できますよ。
 
-まず、 :file:`~/.skk` で ``skk-use-look`` を t にセットして Emacs/SKK を立ち上げ
+まず、ファイル :file:`~/.skk` で変数 :el:defvar:`skk-use-look` を t にセットして Emacs/SKK を立ち上げ
 直して下さい。
 
 .. note::
 
    ``skk-look.el`` を使った補完・変換が期待するスピードよりも遅い、補完・変換で余
-   分な候補が出る、とお感じの貴方は、 ``skk-look-use-ispell`` の値を nil にして
+   分な候補が出る、とお感じの貴方は、変数 :el:defvar:`skk-look-use-ispell` の値を nil にして
    :command:`ispell` によるスペルチェック・修正をオフにしてお試し下さい。
 
 さぁ、下記のような芸当が可能になりました。
@@ -522,14 +522,14 @@ UNIX :command:`look` と :file:`skk-look.el` を利用すると、色々でき�
 に移動できます。SKK 形式の英和辞書があれば、ここから :kbd:`SPC` を押して英和変換
 ができますね。
 
-また、 ``skk-look-use-ispell`` の値が non-nil であれば、 :command:`look` で検索す
+また、変数 :el:defvar:`skk-look-use-ispell` の値が non-nil であれば、 :command:`look` で検索す
 る前に :command:`ispell` でスペルチェック・修正をします。
 
 英単語をあいまいに変換して取り出す
 ----------------------------------
 
-上記同様、 ``skk-look-use-ispell`` の値が non-nil であれば、
-:command:`look` で検索する前に `:command:ispell` でスペルチェック・修正をします。
+上記同様、変数 :el:defvar:`skk-look-use-ispell` の値が non-nil であれば、
+:command:`look` で検索する前に :command:`ispell` でスペルチェック・修正をします。
 
 .. code:: text
 
@@ -544,7 +544,7 @@ UNIX :command:`look` と :file:`skk-look.el` を利用すると、色々でき�
 あいまいに変換した後、更に再帰的な英和変換を行う
 ------------------------------------------------
 
-まず、 ``skk-look-recursive-search`` の値を non-nil にセットして下さい。
+まず、変数 :el:defvar:`skk-look-recursive-search` の値を non-nil にセットして下さい。
 Emacs / SKK を再起動する必要はありません。すると、例えば、
 
 .. code:: text
@@ -574,7 +574,7 @@ Emacs / SKK を再起動する必要はありません。すると、例えば�
 このように英単語＋その英単語を見出し語にした候補の「セット」を変換結果として出力
 することができます。
 
-この際、 ``skk-look-expanded-word-only`` の値が non-nil であれば、再帰検索に成功
+この際、変数 :el:defvar:`skk-look-expanded-word-only` の値が non-nil であれば、再帰検索に成功
 した英単語の「セット」だけを出力することができます（再帰検索で検出されなかった英
 単語は無視して出力しません）。
 
@@ -593,16 +593,16 @@ Q5-2 市販の CD-ROM 辞書やネットワークの辞書サーバが利用で�
 
 Lookup が扱える辞書はほとんど使えます。Lookup がインストールされている状態で
 SKK をインストールすると、SKK と Lookup のゲートウェイプログラム
-:file:`skk-lookup.el` が インストールされます。
+ファイル :file:`skk-lookup.el` が インストールされます。
 
 インストールで注意すべきは、 :command:`make` で呼び出される Emacs は
-``-q -no-site-file`` フラグ付きで呼ばれるので、 :file:`~/.emacs.d/init.el`
-や :file:`site-start.el` などは読み込まれないことです。
-標準設定で ``load-path`` の通っているディレクトリに Lookup をインストールするか、
-:file:`SKK-CFG` の中で ``VERSION_SPECIFIC_LISPDIR`` などにディレクトリを明示する
+``-q -no-site-file`` フラグ付きで呼ばれるので、ファイル :file:`~/.emacs.d/init.el`
+やファイル :file:`site-start.el` などは読み込まれないことです。
+標準設定で変数 :el:defvar:`load-path` の通っているディレクトリに Lookup をインストールするか、
+ファイル :file:`SKK-CFG` の中で ``VERSION_SPECIFIC_LISPDIR`` などにディレクトリを明示する
 ことで解決できます。
 
-さぁ、 :file:`~/.skk`` で ``skk-search-prog-list`` の要素に :code:`(skk-lookup-search)` を
+さぁ、ファイル :file:`~/.skk` で変数 :el:defvar:`skk-search-prog-list` の要素に :code:`(skk-lookup-search)` を
 追加しましょう。他の検索エンジンよりも検索は比較的遅いので、最後の方が良いと思い
 ます。
 

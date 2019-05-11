@@ -20,8 +20,8 @@ DDSKK |release| が動作すると思われる Emacsen のバージョンは、�
 - Mule 機能付きでコンパイルされた XEmacs 21.5 の最新版
 
 XEmacs に関しては、XEmacs 本体とは別に配布されているパッケージ群は最新版が要求さ
-れます。少なくとも ``xemacs-base`` パッケージが最新であることに加えて
-``fsf-compat`` パッケージが必須です。
+れます。少なくとも xemacs-base パッケージが最新であることに加えて
+fsf-compat パッケージが必須です。
 
 総論として、現在は XEmacs よりも GNU Emacs での動作がよくテストされており、最近で
 は XEmacs でのテストは充分行われていません。GNU Emacs 23 以上での利用が最も推奨さ
