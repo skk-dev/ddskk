@@ -1,9 +1,11 @@
 /* -*- mode: utf-8-unix;  */
 
 .rst-content code.literal {
-    /* color: unset; */
-    /* font: unset; */
-    /* border: none; */
+    color: unset;
+    font-family: monospace,serif;
+    font-size: 1em;
+    font-weight: normal;
+    border: none;
 }
 
 .file::before {

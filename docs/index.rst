@@ -3,9 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-###########################################################
-SKK (Simple Kana to Kanji conversion program) documentation
-###########################################################
+####################################################
+SKK (Simple Kana to Kanji conversion program) Manual
+####################################################
+
+:Version:
+   - This edition is for SKK version |release|
 
 :Authors:
    - Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>

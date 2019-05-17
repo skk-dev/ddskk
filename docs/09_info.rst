@@ -63,7 +63,7 @@ SKK 関連ソフトウェア
 SKK 関連ソフトウェアに関しては、次の URL にリンクをまとめてありますので参照してく
 ださい。
 
-`SKK 辞書 Wiki におけるリンク集 <http://openlab.jp/skk/wiki/wiki.cgi?page=%A5%EA%A5%F3%A5%AF%BD%B8>`_
+  - `SKK 辞書 Wiki におけるリンク集 <http://openlab.jp/skk/wiki/wiki.cgi?page=%A5%EA%A5%F3%A5%AF%BD%B8>`_
 
 .. _skk-jisyo:
 
@@ -100,7 +100,7 @@ SKK 辞書に関するツールには、Perl, C, Ruby の各言語により書�
 が、Perl によるツールは現在十分メンテナンスされていません。現在は C, Ruby のツー
 ルが開発・メンテナンスされています。
 
-`辞書メンテナンスツール <http://openlab.jp/skk/wiki/wiki.cgi?page=%BC%AD%BD%F1%A5%E1%A5%F3%A5%C6%A5%CA%A5%F3%A5%B9%A5%C4%A1%BC%A5%EB>`_
+  - `辞書メンテナンスツール <https://github.com/skk-dev/skktools>`_
 
 **********
 SKK の作者

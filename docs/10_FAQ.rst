@@ -437,7 +437,7 @@ TODO としては、辞書に品詞情報を持たせることで更なる入力
 
 興味のある方は次の url をご覧ください。
 
- `SKK-JISYO.notes <http://openlab.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1>`_
+  - `SKK-JISYO.notes <http://openlab.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1>`_
 
 Q4-3 複数の SKK 辞書を結合できますか?
 =====================================

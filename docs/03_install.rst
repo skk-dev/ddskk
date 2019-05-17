@@ -234,7 +234,7 @@ DDSKK 14.2 からは、 GNU Emacs 同梱の辞書データ ja-dic を利用し�
 
 次のサイトには、様々な辞書が用意されています。
 
-`SKK 各辞書の解説とダウンロード <http://openlab.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1>`_
+`SKK dictionary files gh-pages <https://skk-dev.github.io/dict/>`_
 
 以下は、その一例です。
 
@@ -271,7 +271,7 @@ DDSKK 14.2 からは、 GNU Emacs 同梱の辞書データ ja-dic を利用し�
    一部の辞書は、著作権が GNU GPL v2 ではありませんのでご注意下さい。詳細は、次の
    資料を参照して下さい。
 
-   http://openlab.jp/skk/skk/dic/READMEs/committers.txt
+   https://github.com/skk-dev/dict/blob/master/committers.txt
 
 .. el:define-key:: M-x skk-get
 
