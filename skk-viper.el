@@ -32,7 +32,11 @@
 
 (eval-when-compile
   (require 'skk-macs)
-  (require 'skk-vars))
+  (require 'skk-vars)
+  (if (boundp 'viper-mode)
+      (when (eq viper-mode 'ask)
+        (setq viper-mode nil))
+    (defvar viper-mode nil)))
 (require 'viper)
 
 (eval-when-compile
