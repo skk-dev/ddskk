@@ -49,3 +49,7 @@ experimental/rdbms/tmp/private.txt
 experimental/rdbms/tmp/stroke.txt
 experimental/rdbms/tmp/temp.txt
 experimental/tut-code/text
+docs/__pycache__
+docs/_build
+docs/_static/__pycache__
+docs/_templates
