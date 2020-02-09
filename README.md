@@ -24,6 +24,10 @@ for its details.
 
 Thank you.
 
+## How to use
+
+https://ddskk.readthedocs.io/ja/latest/
+
 ## How to join the SKK Openlab Mailing list
 
 ### Subscribe request
