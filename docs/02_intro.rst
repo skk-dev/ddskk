@@ -12,7 +12,6 @@ Daredevil SKK （以下、このマニュアルにおいて DDSKK と呼びま�
 GNU General Public License に基づいて配布されているフリー・ソフトウェアです。
 DDSKK |release| が動作すると思われる Emacsen のバージョンは、次のとおりです。
 
-- GNU Emacs 23.1 以降
 - GNU Emacs 24.1 以降
 - GNU Emacs 25.1 以降
 - GNU Emacs 26.1 以降
@@ -42,9 +41,8 @@ GNU Emacs 22.3
    ーザは DDSKK 16.1 をお使いください。
 
 GNU Emacs 23.3
-   - X Window System 上でのメニューバーの日本語表示は GTK 対応版のみです。
-   - MELPA を利用してインストールするには、先に :file:`package.el` をインストール
-     する必要があります。
+   DDSKK 16.4 以降は GNU Emacs 23 はサポート対象外です。GNU Emacs 23 のユ
+   ーザは DDSKK 16.3 をお使いください。
 
 GNU Emacs 24.3
    GNU Emacs 24.3 と DDSKK 14 の組み合わせで isearch 使用時の不具合が発見されてい

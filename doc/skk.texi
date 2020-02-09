@@ -33,8 +33,8 @@
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
 @c  Keywords: japanese
 @c
-@set SKK-VERSION 16.3
-@set UPDATED Date: 2020/02/09
+@set SKK-VERSION 16.3.50
+@set UPDATED Date: 2020/02/10
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -255,9 +255,9 @@ DDSKK @value{SKK-VERSION} が動作すると思われる Emacsen のバージョ
 おりです。
 
 @itemize @bullet
-@item GNU Emacs 23.1 以降 (推奨)
 @item GNU Emacs 24.1 以降 (推奨)
 @item GNU Emacs 25.1 以降 (推奨)
+@item GNU Emacs 26.1 以降 (推奨)
 @item Mule 機能付きでコンパイルされた XEmacs 21.4 の最新版
 @item Mule 機能付きでコンパイルされた XEmacs 21.5 の最新版
 @end itemize
@@ -290,10 +290,8 @@ GNU Emacs 22 のユーザは DDSKK 16.1 をお使いください。
 
 @item GNU Emacs 23.3
 
-@itemize @bullet
-@item X Window System 上でのメニューバーの日本語表示は GTK 対応版のみです。
-@item MELPA を利用してインストールするには、先に @file{package.el} をインストールする必要があります。
-@end itemize
+DDSKK 16.4 以降は GNU Emacs 23 はサポート対象外です。
+GNU Emacs 23 のユーザは DDSKK 16.3 をお使いください。
 
 @item GNU Emacs 24.3
 
