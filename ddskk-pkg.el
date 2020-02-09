@@ -5,6 +5,6 @@
 ;;;     39.3 Multi-file Packages
 ;;;       One of the files in the content directory must be named name-pkg.el.
 
-(define-package "ddskk" "16.2.50"
+(define-package "ddskk" "16.3"
   "Simple Kana to Kanji conversion program."
   '((ccc "1.43") (cdb "20141201.754")))		; REQUIREMENTS

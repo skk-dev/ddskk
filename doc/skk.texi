@@ -34,7 +34,7 @@
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 16.3
-@set UPDATED Date: 2017/03/04
+@set UPDATED Date: 2020/02/09
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
