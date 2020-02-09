@@ -1,0 +1,32 @@
+/* -*- mode: utf-8-unix;  */
+
+.rst-content code.literal {
+    color: unset;
+    font-family: monospace,serif;
+    font-size: 1em;
+    font-weight: normal;
+    border: none;
+}
+
+.file::before {
+    /* content: "ファイル "; */
+}
+
+.command::before {
+    /* content: "コマンド "; */
+}
+
+.py-func::before {
+    /* content: "関数 "; */
+}
+
+.kbd {
+    border: 1px dashed black;
+    border-radius: 0.2em;
+    padding: 0 0.2em 0 0.2em;
+    /* background-color: red; */
+}
+
+em.property {
+    margin-left: 1em;
+}

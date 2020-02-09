@@ -1,0 +1,5 @@
+_build/doctrees/*
+_build/html/*
+_static/__pycache__/*
+__pycache__/*
+

@@ -43,47 +43,8 @@ downloads :
 package:
 	$(XEMACS) $(FLAGS) -f SKK-MK-compile-package
 
-.SUFFIXES: .org .texi .info .html .pdf
-
-.org.html:
-	$(EMACS) $(FLAGS) -f SKK-MK-export-to-html
-
-html: doc/skk.org doc/skk.html
-
-texi: doc/skk.org doc/skk.texi
-
-# skk.org -> skk.texi -> skk.info
-.org.texi:
-	$(EMACS) $(FLAGS) -f SKK-MK-export-to-texinfo
-
-.texi.info:
+info:
 	$(EMACS) $(FLAGS) -f SKK-MK-compile-info
-
-info: doc/skk.info doc/skk.texi doc/skk.org
-
-# skk.org -> skk.texi -> skk.pdf
-#   based on http://www.trueroad.jp/2016/05/14-01.html
-pdf: doc/skk.pdf doc/skk.texi doc/skk.org
-
-.texi.pdf:
-	$(EMACS) $(FLAGS) -f SKK-MK-edit-texi
-	cd doc;                                           \
-	PDFTEX=luatex $(TEXI2PDF) --output=skk.pdf tmp.texi; \
-	$(RM) tmp.texi
-
-# skk.org -> skk.texi -> skk.xml -> skk.epub -> skk.mobi
-.SUFFIXES: .xml .epub .mobi
-
-mobi: doc/skk.mobi doc/skk.epub doc/skk.xml doc/skk.texi doc/skk.org
-
-.texi.xml:
-	$(MAKEINFO) --docbook doc/skk.texi -o doc/
-
-.xml.epub:
-	$(DBTOEPUB) -s doc/mobi.xsl doc/skk.xml -o doc/skk.epub
-
-.epub.mobi:
-	- $(KINDLEGEN) doc/skk.epub -verbose -locale ja -o skk.mobi
 
 install:
 	$(EMACS) $(FLAGS) -f SKK-MK-install

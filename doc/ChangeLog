@@ -1,3 +1,12 @@
+2020-02-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* makepdf.bat, makepdf.sh, skk.texi, txi-ja.tex:
+	move from obsolete-doc/ directory.
+
+	* README.org, dash.el, htmlize.el, mobi.xsl, ox-texinfo+.el:
+	* skk.css, skk.org, texinfo-ja.tex, texinfo.tex, txi-ja.tex:
+	move to obsolete-org/ directory.
+
 2017-07-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* mobi.xsl: New file for `make mobi'.
