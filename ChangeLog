@@ -1,5 +1,7 @@
 2020-02-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* README.md : update.
+
 	* SKK-MK (SKK-MK-export-to-html, SKK-MK-edit-texi):
 	(SKK-MK-export-to-texinfo): Remove function.
 
