@@ -1,5 +1,8 @@
 2020-02-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* SKK-MK: version check when installation. Emacs 23 is not supported by
+	this version of SKK.
+
 	* skk-version.el, docs/conf.py, ddskk-pkg.el, Makefile: Bump SKK version to 16.3.50.
 
 2020-02-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
