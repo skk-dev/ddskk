@@ -1,15 +1,15 @@
-* 16.3
+* 16.3 (2020-02-09)
+
+** 新元号「令和」をサポートしました
 
 ** ドキュメント
 
-*** Org 形式へ移行
+*** sphinx 形式を追加
 
-skk.texi から skk.org へ移行しました。
-これまでの skk.texi は obsolete-doc ディレクトリへ移しました。
+docs/ ディレクトリに sphinx 形式のファイルを追加しました。
 
-*** html, PDF, mobi
-
-それぞれ make html, mahe pdf, make mobi で生成できます。
+https://ddskk.readthedocs.io/ja/latest/ は、 https://github.com/skk-dev/ddskk/docs を
+参照しています。
 
 ** 新機能
 

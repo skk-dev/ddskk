@@ -1,7 +1,7 @@
 DDSKK リリース手順書
 ====================
 
-DDSKK 16.2（蕨岱 Warabitai）のリリース作業を例として、リリース手順書としてまとめ
+DDSKK 16.3（黒松内 Kuromatsunai）のリリース作業を例として、リリース手順書としてまとめ
 ておきます。
 
 **この文書は DDSKK の開発者・リリース担当者に向けたものです。**
@@ -55,41 +55,8 @@ GNU Emacs の新メジャーバージョンがリリースされたときには�
 * Makefile: 6 行目の `VERSION`
 * skk-version.el: 34 行目の `ver`
 * ddskk-pkg.el: 8 行目
-
-
-    diff --git a/Makefile b/Makefile
-    index 4836286..7beec60 100644
-    --- a/Makefile
-    +++ b/Makefile
-    @@ -6 +6 @@
-    -VERSION = 16.1.50
-    +VERSION = 16.2
-
-    diff --git a/ddskk-pkg.el b/ddskk-pkg.el
-    index 402cfdc..4a82ab2 100644
-    --- a/ddskk-pkg.el
-    +++ b/ddskk-pkg.el
-    @@ -8 +8 @@
-    -(define-package "ddskk" "16.1.50"
-    +(define-package "ddskk" "16.2"
-
-    diff --git a/doc/skk.texi b/doc/skk.texi
-    index d96fe6c..3262467 100644
-    --- a/doc/skk.texi
-    +++ b/doc/skk.texi
-    @@ -36,2 +36,2 @@
-    -@set SKK-VERSION 16.1.50
-    -@set UPDATED Date: 2017/02/18 13:12:05
-    +@set SKK-VERSION 16.2
-    +@set UPDATED Date: 2017/03/04
-
-    diff --git a/skk-version.el b/skk-version.el
-    index b0e4041..d3f3bf6 100644
-    --- a/skk-version.el
-    +++ b/skk-version.el
-    @@ -34 +34 @@
-    -     (let ((ver "16.1.50")
-    +     (let ((ver "16.2")
+* docs/conf.py: 30 行目
+* READMEs/CODENAME.ja
 
 ChangeLog を修正します。
 
@@ -97,11 +64,6 @@ ChangeLog を修正します。
 2017-03-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 	* Version 16.2 Warabitai Released.
 	* Makefile, ddskk-pkg.el, skk-version.el: Bump SKK version to 16.2.
-```
-
-```
-2017-03-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
-	* skk.texi: Bump SKK version to 16.2.
 ```
 
 commit します。
@@ -142,6 +104,7 @@ https://github.com/skk-dev/ddskk を開き、タブ "n releases" を開きます
 
 なお、あとから自由に編集することもできます。
 
+<!--
 ## 7. openlab でのリリース作業
 
 ### (1) ファイルを配置する
@@ -226,6 +189,8 @@ openlab 向け cvs 作業です。
     +  <li>elisp: <a href="./maintrunk">Daredevil SKK 16.2</a> released. (2017-03-04)
        <li>elisp: <a href="./maintrunk">Daredevil SKK 16.1</a> released. (2016-10-01)
 
+ -->
+
 #### 歴史表
 
 ファイル `skk/web/history-ja.html.in` と `skk/web/history.html.in` に、リリース
@@ -273,6 +238,7 @@ openlab 向け cvs 作業です。
     +      <td></td>
            <td><a href="./countdic.cgi">Number of candidates today</a></td>
 
+<!--
 #### マニュアル
 
 ファイル `skk/web/doc-ja.html.in` と `skk/web/doc.html.in` に、7-(2) で公開し
@@ -311,6 +277,8 @@ ChangeLog を付して cvs commit します。
 ## 8. アナウンス
 
 メーリングリストで新版をリリースした旨をアナウンスしましょう。
+
+-->
 
 ## 9. 各ファイルのバージョン情報を修正
 

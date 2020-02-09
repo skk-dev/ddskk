@@ -1,3 +1,9 @@
+2020-02-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Version 16.3 Kuromatsunai Released.
+
+	* ReleaseOperation.ja.md, NEWS.ja, INSTALL, CODENAME.ja: Bump SKK version to 16.3.
+
 2019-04-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* READMEs/history.md: Add new file.

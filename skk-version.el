@@ -31,7 +31,7 @@
 
 (put 'skk-version 'product-name "Daredevil SKK")
 (put 'skk-version 'version-string
-     (let ((ver "16.2.50")
+     (let ((ver "16.3")
 	   (mepla "mepla")
 	   (path (catch 'exit
 		   (dolist (p load-path)
