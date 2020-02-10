@@ -1,9 +1,6 @@
 language: generic
 sudo: false
 env:
-  - EVM_EMACS=emacs-23.4-travis
-  - EVM_EMACS=emacs-24.1-travis
-  - EVM_EMACS=emacs-24.2-travis
   - EVM_EMACS=emacs-24.3-travis
   - EVM_EMACS=emacs-24.4-travis
   - EVM_EMACS=emacs-24.5-travis
@@ -18,7 +15,7 @@ before_install:
   - evm config path /tmp
   - evm install $EVM_EMACS --use --skip
 before_script:
-  - if [[ "$EVM_EMACS" = 'emacs-23.4-travis' ]]; then
+  - if [[ "$EVM_EMACS" = 'emacs-24.3-travis' ]]; then
       make downloads;
     fi
 script:

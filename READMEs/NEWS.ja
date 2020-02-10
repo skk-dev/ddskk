@@ -1,5 +1,13 @@
 * 16.4
 
+** cl を cl-lib へ変更
+
+(require 'cl) を (require 'cl-lib) へ変更しています。
+
+** GNU Emacs 24.2 以下 のサポートを終了しました
+
+GNU Emacs 24.2 をお使いの方は DDSKK 16.3 を利用してください。
+
 ** GNU Emacs 23 のサポートを終了しました
 
 GNU Emacs 23 をお使いの方は DDSKK 16.3 を利用してください。
