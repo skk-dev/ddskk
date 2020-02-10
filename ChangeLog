@@ -1,3 +1,27 @@
+2020-02-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-make-indicator-alist-1): Remove comment.
+
+	* skk-viper.el: Remove code for Emacs version check.
+
+	* skk-macs.el (skk-deactivate-input-method): Remove macro skk-deactivate-input-method.
+
+	* skk-leim.el (skk-leim-exit-from-minibuffer):
+	* skk-isearch.el (skk-isearch-mode-cleanup, skk-isearch-really-early-advice):
+	Use deactivate-input-method instead of skk-deactivate-input-method.
+
+	* skk-macs.el (skk-set-deactivate-im-func): Remove macro skk-set-deactivate-im-func.
+
+	* skk-leim.el (skk-activate, skk-auto-fill-activate):
+	* skk-isearch.el (skk-isearch-mode-setup): Use deactivate-current-input-method-function
+	instead of skk-set-deactivate-im-func.
+
+	* skk-macs.el (skk-called-interactively-p):
+	* skk-emacs.el (skk-search-ja-dic):
+	* skk-develop.el (skk-get-delete-files): Remove code for GNU Emacs 23.
+
+	* .github/workflows/test.yml: Emacs 24.2 is not supported by this version of SKK.
+
 2020-02-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* cdb.el, install-info.el, skk-cus.el, skk-dcomp.el, skk-emacs.el:

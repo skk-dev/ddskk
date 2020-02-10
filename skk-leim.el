@@ -32,14 +32,14 @@
 
 ;;;###autoload
 (defun skk-activate (&optional name)
-  (skk-set-deactivate-im-func 'skk-inactivate)
+  (setq deactivate-current-input-method-function 'skk-inactivate)
   (skk-mode 1)
   (when (eq (selected-window) (minibuffer-window))
     (add-hook 'minibuffer-exit-hook 'skk-leim-exit-from-minibuffer)))
 
 ;;;###autoload
 (defun skk-auto-fill-activate (&optional name)
-  (skk-set-deactivate-im-func 'skk-auto-fill-inactivate)
+  (setq deactivate-current-input-method-function 'skk-auto-fill-inactivate)
   (skk-auto-fill-mode 1)
   (when (eq (selected-window) (minibuffer-window))
     (add-hook 'minibuffer-exit-hook 'skk-leim-exit-from-minibuffer)))
@@ -53,7 +53,7 @@
   (skk-auto-fill-mode -1))
 
 (defun skk-leim-exit-from-minibuffer ()
-  (skk-deactivate-input-method)
+  (deactivate-input-method)
   (when (<= (minibuffer-depth) 1)
     (remove-hook 'minibuffer-exit-hook 'skk-leim-exit-from-minibuffer)))
 

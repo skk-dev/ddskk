@@ -58,8 +58,7 @@
 (setq skk-use-viper t)
 (save-match-data
   (unless (string-match (if (eval-when-compile
-			      (and (featurep 'emacs)
-				   (>= emacs-major-version 22)))
+			      (featurep 'emacs))
 			    (sentence-end)
 			  sentence-end)
 			"。？！．")

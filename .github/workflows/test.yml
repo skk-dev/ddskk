@@ -7,9 +7,6 @@ jobs:
     strategy:
       matrix:
         emacs_version:
-          - '23.4'
-          - '24.1'
-          - '24.2'
           - '24.3'
           - '24.4'
           - '24.5'
@@ -30,7 +27,7 @@ jobs:
         version: ${{ matrix.emacs_version }}
     
     - name: Download requirements
-      if: matrix.emacs_version == '23.4'
+      if: matrix.emacs_version == '24.3'
       run: 'make downloads'
 
     - name: Run tests
