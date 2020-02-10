@@ -70,7 +70,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'cl)
+  (require 'cl-lib)
   (defvar jka-compr-compression-info-list)
   (defvar print-quoted))
 
@@ -116,9 +116,9 @@
   entry)
 
 (defun skk-study-search-1 (target-alist midasi okurigana entry)
-  (do ((index 0 (1+ index))
-       (times skk-study-search-times (1- times))
-       last-data associates e exit)
+  (cl-do ((index 0 (1+ index))
+          (times skk-study-search-times (1- times))
+          last-data associates e exit)
       ((or exit (zerop times)) entry)
     (and
      (setq last-data (skk-study-get-last-henkan-data index))

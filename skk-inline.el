@@ -28,7 +28,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'cl)
+  (require 'cl-lib)
   (require 'skk-vars)
   (require 'skk-macs))
 
@@ -48,7 +48,7 @@
 	  (setq orig-face (get-text-property start 'face string))
 	  (while (and (< end len)
 		      (eq orig-face (get-text-property end 'face string)))
-	    (incf end))
+	    (cl-incf end))
 	  (cond ((not orig-face)
 		 (put-text-property start end 'face
 				    `(:background ,color)
@@ -134,7 +134,7 @@
 	    (setq beg-col
 		  (save-excursion (goto-char skk-henkan-start-point)
 				  (- (current-column) margin))))
-	  (case i
+	  (cl-case i
 	    (0
 	     (setq col (skk-screen-column)))
 	    (t
@@ -186,7 +186,7 @@
 	(overlay-put ol 'invisible t)
 	(overlay-put ol 'after-string str)
 	(push ol skk-inline-overlays)
-	(incf i))
+	(cl-incf i))
       (when (or invisible
 		(and bottom
 		     (> (1+ skk-henkan-number-to-display-candidates)

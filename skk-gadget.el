@@ -93,7 +93,7 @@
 (eval-when-compile
   (require 'skk-macs)
   (require 'skk-vars)
-  (require 'cl))
+  (require 'cl-lib))
 
 ;; -- programs
 ;;;###autoload
@@ -119,7 +119,7 @@ AND-TIME \(boolean\) $B$r;XDj$9$k$H;~9o$bJV$9!#(B
 
 $B%*%W%7%g%J%k0z?t$N(B SPECIFIED-TIME $B$O(B `current-time-string' $B$N(B docstring
 $B$r;2>H$N$3$H!#(B"
-  (multiple-value-bind (dow month day time year)
+  (cl-multiple-value-bind (dow month day time year)
       (split-string (current-time-string specified-time))
     (append (list year month day dow)
 	    (split-string time ":"))))
@@ -166,7 +166,7 @@ DAYOFWEEK-ALIST-INDEX $B$O(B `skk-day-of-week-alist' $B$N3FMWAG$N(B cadr $B
 $B$^L5JQ49!#(B
 
 AND-TIME $B$O;~9o$bI=<($9$k$+$I$&$+(B \(boolean\)$B!#(B"
-  (multiple-value-bind (year month day day-of-week hour minute second v)
+  (cl-multiple-value-bind (year month day day-of-week hour minute second v)
       date-information
     (when gengo
       (setq v (skk-ad-to-gengo-1
@@ -200,7 +200,7 @@ AND-TIME $B$O;~9o$bI=<($9$k$+$I$&$+(B \(boolean\)$B!#(B"
       (format (or format "%s$BG/(B%s$B7n(B%s$BF|(B(%s)") year month day day-of-week))))
 
 ;;;###autoload
-(defun* skk-relative-date (pp-function format and-time &key (yy 0) (mm 0) (dd 0))
+(cl-defun skk-relative-date (pp-function format and-time &key (yy 0) (mm 0) (dd 0))
   "`skk-current-date' $B$N3HD%HG!#(BPP-FUNCTION, FORMAT, AND-TIME $B$O(B `skk-current-date' $B$r;2>H$N$3$H!#(B
 $B<B9TNc(B
  (skk-relative-date) => \"$BJ?@.(B25$BG/(B2$B7n(B03$BF|(B($BF|(B)\"
@@ -208,7 +208,7 @@ AND-TIME $B$O;~9o$bI=<($9$k$+$I$&$+(B \(boolean\)$B!#(B"
  (skk-relative-date (lambda (arg) body) nil nil :mm -1) => \"$BJ?@.(B25$BG/(B1$B7n(B03$BF|(B($BLZ(B)\"
  (skk-relative-date (lambda (arg) body) nil nil :yy  2) => \"$BJ?@.(B27$BG/(B2$B7n(B03$BF|(B($B2P(B)\"
 "
-  (let ((specified-time (multiple-value-bind (sec min hour day month year dow dst zone)
+  (let ((specified-time (cl-multiple-value-bind (sec min hour day month year dow dst zone)
 			    (decode-time)
 			  (encode-time sec min hour
 				       (+ day   dd)

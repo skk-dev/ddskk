@@ -961,7 +961,7 @@ BUFFER defaults to the current buffer."
 ;; <nextstate>    ::= <英小文字文字列> | nil
 
 (defsubst skk-make-raw-arg (arg)
-  (case arg
+  (cl-case arg
     (1 nil)
     (-1 '-)
     (t (if (numberp arg) (list arg) nil))))

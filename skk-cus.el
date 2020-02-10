@@ -29,6 +29,7 @@
 ;;; Code:
 
 (eval-when-compile
+  (require 'cl-lib)
   (require 'skk-macs))
 
 (require 'skk-vars)
@@ -170,7 +171,7 @@
 			 skk-cus-params-input
 			 skk-cus-params-misc))
     (let ((var (car param)))
-      (when (and (eq 'const (caadr param))
+      (when (and (eq 'const (cl-caadr param))
 		 (symbol-value var))
 	(set var t))))
   (setq skk-custom-buffer-original (current-buffer))

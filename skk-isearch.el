@@ -45,7 +45,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'cl)
+  (require 'cl-lib)
   (require 'skk-macs))
 (require 'skk)
 (require 'skk-vars)
@@ -140,7 +140,7 @@ The MODE should be canonical."
   ;; following code is highly depends on internal of skk.
   ;; (skk-isearch-turn-on-skk-mode)
   ;; (skk-isearch-skk-kakutei)
-  (case mode
+  (cl-case mode
     (hiragana
      (skk-isearch-skk-turn-on-hiragana-mode))
     (katakana
@@ -275,7 +275,7 @@ kakutei'ed and erase the buffer contents."
     ;; 変更されるので、カレントバッファの入力モードとモードラインの表示
     ;; とが sync しなくなる。従い、サーチが終了した際、モードラインをカ
     ;; レントバッファの入力モードと sync させる。
-    (case mode
+    (cl-case mode
       (hiragana
        (skk-j-mode-on))
       (katakana
@@ -329,7 +329,7 @@ Optional argument PREFIX is appended if given."
 ;; XXX should be more generic
 (defun skk-isearch-setup-keymap (map)
   ;; printable chars.
-  (do ((c ?\040 (1+ c)))
+  (cl-do ((c ?\040 (1+ c)))
       ((>= c ?\177))
     (define-key map (skk-char-to-unibyte-string c) 'skk-isearch-wrapper))
 
@@ -478,9 +478,9 @@ If the conversion is in progress and no string is fixed, just return nil."
 
 (defun skk-isearch-search-string-regexp (string)
   (if isearch-regexp
-      (do ((prev (skk-isearch-last-char isearch-string) (car chars))
-	   (result "" (concat result (char-to-string (car chars))))
-	   (chars (string-to-list string) (cdr chars)))
+      (cl-do ((prev (skk-isearch-last-char isearch-string) (car chars))
+	      (result "" (concat result (char-to-string (car chars))))
+	      (chars (string-to-list string) (cdr chars)))
 	  ((null chars) result)
 	(when (and (skk-isearch-breakable-p prev)
 		   (skk-isearch-breakable-p (car chars)))
@@ -585,11 +585,11 @@ If the current mode is different from previous, remove it first."
 	;; 内のモードが切り替えられていた場合、 isearch-cmds の第 2 要素につい
 	;; て、 messege の内容を update しないと [DEL] したときのモードの表示が
 	;; おかしくなる。
-	(do ((alist skk-isearch-mode-string-alist (cdr alist))
-	     (msg nil (when (string-match
-			     (concat "^" (regexp-quote (cdar alist)))
-			     oldmsg)
-			(substring oldmsg (match-end 0)))))
+	(cl-do ((alist skk-isearch-mode-string-alist (cdr alist))
+	        (msg nil (when (string-match
+			        (concat "^" (regexp-quote (cdar alist)))
+			        oldmsg)
+			   (substring oldmsg (match-end 0)))))
 	    ((or msg (null alist))
 	     (setq newmsg (concat prompt (or msg oldmsg)))
 	     (if (stringp (aref cmd 0))
