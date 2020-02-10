@@ -255,7 +255,7 @@ DDSKK @value{SKK-VERSION} が動作すると思われる Emacsen のバージョ
 おりです。
 
 @itemize @bullet
-@item GNU Emacs 24.1 以降 (推奨)
+@item GNU Emacs 24.3 以降
 @item GNU Emacs 25.1 以降 (推奨)
 @item GNU Emacs 26.1 以降 (推奨)
 @item Mule 機能付きでコンパイルされた XEmacs 21.4 の最新版
@@ -292,6 +292,11 @@ GNU Emacs 22 のユーザは DDSKK 16.1 をお使いください。
 
 DDSKK 16.4 以降は GNU Emacs 23 はサポート対象外です。
 GNU Emacs 23 のユーザは DDSKK 16.3 をお使いください。
+
+@item GNU Emacs 24.2
+
+DDSKK 16.4 以降は GNU Emacs 24.2 はサポート対象外です。
+GNU Emacs 24.2 のユーザは DDSKK 16.3 をお使いください。
 
 @item GNU Emacs 24.3
 

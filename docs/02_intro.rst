@@ -12,7 +12,7 @@ Daredevil SKK （以下、このマニュアルにおいて DDSKK と呼びま�
 GNU General Public License に基づいて配布されているフリー・ソフトウェアです。
 DDSKK |release| が動作すると思われる Emacsen のバージョンは、次のとおりです。
 
-- GNU Emacs 24.1 以降
+- GNU Emacs 24.3 以降
 - GNU Emacs 25.1 以降
 - GNU Emacs 26.1 以降
 - Mule 機能付きでコンパイルされた XEmacs 21.4 の最新版
@@ -42,6 +42,11 @@ GNU Emacs 22.3
 
 GNU Emacs 23.3
    DDSKK 16.4 以降は GNU Emacs 23 はサポート対象外です。GNU Emacs 23 のユ
+   ーザは DDSKK 16.3 をお使いください。
+
+GNU Emacs 24.2
+
+   DDSKK 16.4 以降は GNU Emacs 24.2 はサポート対象外です。GNU Emacs 24.2 のユ
    ーザは DDSKK 16.3 をお使いください。
 
 GNU Emacs 24.3

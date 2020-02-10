@@ -25,7 +25,7 @@ Describes how to install SKK for Emacs on Microsoft Windows.
 ** APEL
 
 In DDSKK 16.4, installation of APEL (A Portable Emacs Library) is no
-longer required under GNU Emacs 24 or later.  For XEmacs,
+longer required under GNU Emacs 24.3 or later.  For XEmacs,
 make sure you have APEL 10.7 or later installed.  It is highly
 recommended that you install the latest release.  APEL is available
 at:
@@ -37,7 +37,7 @@ or
 ** Get SKK dictionaries and copy them to ./dic subdirectory.
 
 In DDSKK 16.4, installation of an SKK dictionary is no longer
-mandatory under GNU Emacs 24 or later.  Emacs 24 contains a japanese
+mandatory under GNU Emacs 24.3 or later.  Emacs 24 contains a japanese
 kana-kanji dictionary called ja-dic as a part of the LEIM input
 method.  Indeed ja-dic is derived from SKK-JISYO.L and we wrote a
 code to use ja-dic for DDSKK.
