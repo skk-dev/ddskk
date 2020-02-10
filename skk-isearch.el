@@ -244,7 +244,7 @@ kakutei'ed and erase the buffer contents."
 		     'skk-auto-fill-inactivate)))
 	(with-current-buffer (get-buffer-create skk-isearch-working-buffer)
 	  (unless current-input-method
-	    (skk-set-deactivate-im-func func)
+            (setq deactivate-current-input-method-function func)
 	    (setq current-input-method method))))))
   ;; skk-isearch の状態を表す内部変数の設定
   (setq skk-isearch-switch t)
@@ -290,7 +290,7 @@ kakutei'ed and erase the buffer contents."
   (when (eval-when-compile (featurep 'emacs))
     (when (string-match "^japanese-skk" (format "%s" default-input-method))
       (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
-	(skk-deactivate-input-method))))
+	(deactivate-input-method))))
   ;; skk-isearch の状態を表す内部変数の設定
   (setq skk-isearch-switch nil)
   (unless skk-isearch-in-editing
@@ -558,24 +558,13 @@ If the current mode is different from previous, remove it first."
 		  (skk-isearch-incomplete-message))))))
 
     ;; isearch-cmds ... Stack of search status sets.
-    ;;   '(["test" "test" 198 198 t 194 nil nil nil 192 t nil]
-    ;;     ["tes" "tes" 197 197 t 194 nil nil nil 192 t nil]
-    ;;     ["te" "te" 196 196 t 194 nil nil nil 192 t nil]
-    ;;     ["t" "t" 195 195 t 194 nil nil nil 192 t nil]
-    ;;     ["" "" 192 t t nil nil nil nil 192 t nil])
-    ;;   or
     ;;   '([cl-struct-isearch--state "test" "[aa] test" 196 196 t ..]
     ;;     [cl-struct-isearch--state "tes" "[aa] tes" 195 195 t ..]
     ;;     [cl-struct-isearch--state "te" "[aa] te" 102 102 t ..]
     ;;     [cl-struct-isearch--state "t" "[aa] t" 92 92 t ..]
     ;;     [cl-struct-isearch--state "" "[か] " 78 t t ..]
     (let* ((cmd (nth 1 isearch-cmds))
-	   (oldmsg (cond ((null cmd)
-			  "")
-			 ((stringp (aref cmd 0))
-			  (aref cmd 1))	  ; GNU Emacs 24.2 まで
-			 (t
-			  (aref cmd 2)))) ; GNU Emacs 24.3 から
+	   (oldmsg (if (null cmd) "" (aref cmd 2)))
 	   (prompt (skk-isearch-mode-string))
 	   newmsg)
       (unless (or (null cmd)
@@ -592,9 +581,7 @@ If the current mode is different from previous, remove it first."
 			   (substring oldmsg (match-end 0)))))
 	    ((or msg (null alist))
 	     (setq newmsg (concat prompt (or msg oldmsg)))
-	     (if (stringp (aref cmd 0))
-		 (aset cmd 1 newmsg)	;GNU Emacs 24.2 まで
-	       (aset cmd 2 newmsg))	;GNU Emacs 24.3 から
+	     (aset cmd 2 newmsg)
 	     ))))
     (isearch-delete-char)))
 
@@ -810,7 +797,7 @@ If the current mode is different from previous, remove it first."
 	       (let ((skk-isearch-initial-mode-when-skk-mode-disabled
 		      'latin))
 		 (skk-isearch-mode-setup))
-	       (skk-deactivate-input-method)))
+	       (deactivate-input-method)))
 	    (t
 	     ad-do-it)))))
 

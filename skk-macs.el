@@ -203,20 +203,10 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 	 ;; `called-interactively-p' is not defined.
 	 '(interactive-p))
 
-	((or (>= emacs-major-version 24)
-	     (and (= emacs-major-version 23)
-		  (>= emacs-minor-version 2)))
+	(t
 	 ;; GNU Emacs 23.2 or later
 	 ;; `called-interactively-p' takes one argument.
-	 `(called-interactively-p ,kind))
-
-	(t
-	 ;; GNU Emacs 23.1
-	 ;; `called-interactively-p' takes no argument and is equivalent
-	 ;; to (called-interactively-p 'any) in later Emacs versions.
-	 `(if (eq ,kind 'interactive)
-	      (interactive-p)
-	    (called-interactively-p)))))
+	 `(called-interactively-p ,kind))))
 
 (defmacro skk-delete-overlay (list)
   ;; skk-dcomp-multiple-hide と skk-inline-hide を統合した。
@@ -224,25 +214,6 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
      (dolist (o ,list)
        (delete-overlay o))
      (setq ,list nil)))
-
-(defmacro skk-set-deactivate-im-func (func)
-  (cond ((boundp 'deactivate-current-input-method-function)
-	 ;; GNU Emacs 24.2 から
-	 `(setq deactivate-current-input-method-function ,func))
-
-	(t
-	 ;; GNU Emacs 24.1 まで
-	 `(setq inactivate-current-input-method-function ,func))
-	))
-
-(defmacro skk-deactivate-input-method ()
-  (cond ((fboundp 'deactivate-input-method)
-	 ;; GNU Emacs 24.2 から
-	 '(deactivate-input-method))
-	(t
-	 ;; GNU Emacs 24.1 まで
-	 '(inactivate-input-method))
-	))
 
 (defmacro skk-facep (face)
   (cond ((featurep 'xemacs)

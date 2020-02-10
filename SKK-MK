@@ -51,9 +51,9 @@ GNU Emacs 22 is not supported by this version of SKK.
 Please install Daredevil SKK 16.1"))
 
 (when (and (featurep 'emacs)
-	   (string-lessp emacs-version "24.0"))
+	   (string-lessp emacs-version "24.3"))
   (error "%s" "\
-GNU Emacs 23 is not supported by this version of SKK.
+GNU Emacs 23, 24.2 is not supported by this version of SKK.
 Please install Daredevil SKK 16.3"))
 
 (unless (featurep 'mule)

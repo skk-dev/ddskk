@@ -591,16 +591,8 @@ dependent."
 	       mode-string-list)))))
 
 (defun skk-make-indicator-alist-1 (mode base)
-  ;; faces.el (Emacs 24.2)
-  ;;   Make `modeline' an alias for `mode-line', for compatibility.
-  ;;   (put 'modeline 'face-alias 'mode-line)
-
-  ;; * Incompatible Lisp Changes in Emacs 24.3
-  ;; ** Some obsolete functions, variables, and faces have been removed:
-  ;; *** `modeline'
-
   (let* ((ml (if (skk-facep 'mode-line)
-		 'mode-line	  ;GNU Emacs (2012-10-02 Remove obsolete face `modeline')
+		 'mode-line	  ;GNU Emacs
 	       'modeline))	  ;XEmacs
 	 (string (concat "--" base
 			 (cond ((skk-face-proportional-p ml)
