@@ -65,7 +65,7 @@
 ;; $B%s%H$r;2>H!#(B
 
 (eval-when-compile
-  (require 'cl))
+  (require 'cl-lib))
 
 ;; Emacs standard library.
 (require 'advice)
@@ -614,7 +614,7 @@ dependent."
 (defun skk-setup-modeline ()
   "$B%b!<%I%i%$%s$X$N%9%F!<%?%9I=<($r=`Hw$9$k!#(B"
   (setq skk-indicator-alist (skk-make-indicator-alist))
-  (case skk-status-indicator
+  (cl-case skk-status-indicator
     (left
      (unless (and mode-line-format
 		  (memq 'skk-modeline-input-mode (default-value 'mode-line-format)))
@@ -681,7 +681,7 @@ dependent."
 	   (split-string
 	    (apply 'format
 		   ;; fotmat#STRING
-		   (case skk-j-mode-function-key-usage
+		   (cl-case skk-j-mode-function-key-usage
 		     (conversion
 		      "\
 \[F5]%s  [F6]%s  [F7]%s  [F8]%s  [F9]%s  [F10]%s")
@@ -828,7 +828,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 
 (defun skk-setup-minibuffer ()
   "$B%+%l%s%H%P%C%U%!$NF~NO%b!<%I$K=>$C$F%_%K%P%C%U%!$NF~NO%b!<%I$r@_Dj$9$k!#(B"
-  (case skk-minibuffer-origin-mode
+  (cl-case skk-minibuffer-origin-mode
     (hiragana
      (skk-j-mode-on))
     (katakana
@@ -960,7 +960,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 (defun skk-abbrev-mode (arg)
   "ascii $BJ8;z$r%-!<$K$7$?JQ49$r9T$&$?$a$NF~NO%b!<%I!#(B"
   (interactive "*P")
-  (case skk-henkan-mode
+  (cl-case skk-henkan-mode
     (active
      (skk-kakutei))
     (on
@@ -989,7 +989,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 		      (eq 'unknown (setq char-type (skk-what-char-type)))))
 	   (forward-char 1)))
 	(skk-henkan-skk-region-by-func
-	 (case char-type
+	 (cl-case char-type
 	   (hiragana #'skk-katakana-region)
 	   (katakana #'skk-hiragana-region)
 	   (jisx0208-latin #'skk-latin-region)
@@ -1116,7 +1116,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
   ;; $B$K$7!"$J$*$+$D!"$3$N%3%^%s%I$,J8;z%-!<$G$J$$F~NO$K$h$j8F$P$l$?$H$-$K$b@\(B
   ;; $BHx<-!&(B $B@\F,<-F~NO$,$G$-$k$h$&$K$9$k!#(B
   (interactive "*p")
-  (case skk-henkan-mode
+  (cl-case skk-henkan-mode
     (active
      ;; $B@\Hx<-$N$?$a$N=hM}(B
      (skk-kakutei)
@@ -1563,7 +1563,7 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 (defun skk-toggle-kutouten ()
   "$B6gFIE@$N<oN`$r%H%0%k$GJQ99$9$k!#(B"
   (interactive)
-  (setq skk-kutouten-type (case skk-kutouten-type
+  (setq skk-kutouten-type (cl-case skk-kutouten-type
 			    (jp 'en)
 			    (en 'jp-en)
 			    (jp-en 'en-jp)
@@ -1780,7 +1780,7 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 (defun skk-henkan-1 ()
   "`skk-henkan' $B$N%5%V%k!<%A%s!#(B"
   (let (new-word)
-    (case (skk-henkan-count)
+    (cl-case (skk-henkan-count)
 	  ;; $B0lH/L\$N(B SPC $BBG80!J$D$^$j"&"*(BSPC$B"*"'$N$H$-!K(B
 	  (0
 	   (let ((prog-list-length (when (numberp skk-kakutei-search-prog-limit)
@@ -2043,7 +2043,7 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 					       skk-delete-backward-char
 					       skk-undo)
 					     skk-j-mode-map)
-		     (case loop
+		     (cl-case loop
 		       (0
 			;; skk-henkan-show-candidates $B$r8F$VA0$N(B
 			;; $B>uBV$KLa$9!#(B
@@ -2549,7 +2549,7 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 		    (point-marker))))
 	   pair)
        (skk-save-point
-	(case (skk-henkan-count)
+	(cl-case (skk-henkan-count)
 	  (0
 	   (when skk-okuri-char
 	     ;; roman prefix for okurigana should be removed.
@@ -2732,7 +2732,7 @@ WORD $B$G3NDj$9$k!#(B"
   (let ((inhibit-quit t)
 	converted kakutei-word)
     (when skk-henkan-mode		;'on or 'active
-      (case skk-henkan-mode
+      (cl-case skk-henkan-mode
 	(active				;$B"'%b!<%I(B
 	 (setq kakutei-word
 	       ;; $B3NDj<-=q$N8l$G3NDj$7$?$H$-$O!"<-=q$K$=$N8l$r=q$-9~$`I,MW$b$J(B
@@ -3347,7 +3347,7 @@ WORD $B$G3NDj$9$k!#(B"
   "`skk-backward-and-set-henkan-point' $B$N%5%V%k!<%A%s!#(B
 TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#(B"
   (skip-chars-backward
-   (case type
+   (cl-case type
      (hiragana
       ;; "$B$r(B" $B$NA0$G;_$^$C$?J}$,JXMx!)(B
       "$B!3!4!5!6!7!<$s$!(B-$B$q(B")
@@ -4452,7 +4452,7 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
 			;; $B$&$JAw$j2>L>$N$_$N8uJd$r:n$i$J$$$h$&$K$9$k(B ($BI,MW$G(B
 			;; $B$"$l$P!"(Bwords2 $B$N:G8eJ}$H(B) words4 $B$N@hF,$N(B "]" $B$r:o=|!#(B
 			(let* ((len (length words2))
-			       (last2 (case len
+			       (last2 (cl-case len
 					    (0 nil)
 					    (1 (list nil (car words2)))
 					    (t (nthcdr (- (length words2) 2)
@@ -4460,7 +4460,7 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
 			  ;; words2 $B$N:G8eJ}$O>o$K(B "[$BAw$j2>L>(B" $B$H$O8B$i$J$$!#(B
 			  (when (and last2
 				     (string= (nth 1 last2) (concat "[" okurigana)))
-			    (case len
+			    (cl-case len
 				  (1 (setq words2 nil))
 				  (t (setcdr last2 nil))))
 			  ;; words4 $B$N@hF,$O>o$K(B "]"$B!#(B
@@ -4912,7 +4912,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 $BJQ492DG=$+$I$&$+$N%A%'%C%/$r$7$?8e$K(B ARG $B$r0z?t$H$7$F(B FUNC $B$rE,MQ$7!"(B
 `skk-henkan-start-point' $B$H(B `skk-henkan-end-point' $B$N4V$NJ8;zNs$rJQ49$9$k!#(B"
   (skk-with-point-move
-   (case skk-henkan-mode
+   (cl-case skk-henkan-mode
      (active				;$B"'%b!<%I(B
       nil)
      (on				;$B"&%b!<%I(B

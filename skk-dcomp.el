@@ -105,7 +105,7 @@
   (require 'skk-macs)
   (require 'skk-vars))
 (require 'skk-comp)
-(eval-when-compile (require 'cl))
+(eval-when-compile (require 'cl-lib))
 
 ;;; functions.
 ;; (defsubst skk-extentp (object)
@@ -237,7 +237,7 @@
 			      candidates))))
     (while (and (< i skk-dcomp-multiple-rows) head)
       (push (pop head) extract)
-      (incf i))
+      (cl-incf i))
     (nreverse extract)))
 
 (declare-function skk-comp-get-candidate "skk-comp")
@@ -279,7 +279,7 @@
 		       (setq cand (skk-comp-get-candidate (zerop i))))
 	     (unless (member cand candidates)
 	       (push cand candidates)
-	       (incf i)))))
+	       (cl-incf i)))))
 	(setq candidates (nreverse candidates))
 	(when (< i skk-dcomp-multiple-rows)
 	  (setq skk-dcomp-multiple-search-done t))
@@ -420,7 +420,7 @@
 	  (overlay-put ol 'invisible t)
 	  (overlay-put ol 'after-string str)
 	  (push ol skk-dcomp-multiple-overlays)
-	  (incf i))
+	  (cl-incf i))
 	(when (or invisible
 		  (and bottom
 		       (> (+ 2 skk-dcomp-multiple-rows)

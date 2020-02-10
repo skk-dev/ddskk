@@ -31,7 +31,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'cl)
+  (require 'cl-lib)
   (require 'skk-macs)
   (require 'skk-vars)
   (defvar enable-recursive-minibuffers)
@@ -45,7 +45,7 @@
   ;; `skk-rom-kana-base-rule-list' が指しているのはこの関数。
   (interactive "*P")
   (let (list)
-    (case skk-kcode-method
+    (cl-case skk-kcode-method
       (char-list
        (skk-list-chars arg))
       (code-or-char-list
@@ -141,7 +141,7 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
     (list flag n1 n2 char)))
 
 (defun skk-kcode-find-char-string (flag n1 n2 char)
-  (case flag
+  (cl-case flag
     (x0213-1
      (char-to-string (skk-make-char 'japanese-jisx0213-1 n1 n2)))
     (x0213-2

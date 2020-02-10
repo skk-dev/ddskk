@@ -111,7 +111,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'cl)
+  (require 'cl-lib)
   (require 'skk-macs)
   (require 'skk-vars)
   (require 'skk-num))

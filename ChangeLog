@@ -1,5 +1,11 @@
 2020-02-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* cdb.el, install-info.el, skk-cus.el, skk-dcomp.el, skk-emacs.el:
+	* skk-gadget.el, skk-inline.el, skk-isearch.el, skk-kcode.el:
+	* skk-lookup.el, skk-macs.el, skk-study.el, skk.el: use 'cl-lib instead of 'cl.
+
+2020-02-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* SKK-MK: version check when installation. Emacs 23 is not supported by
 	this version of SKK.
 

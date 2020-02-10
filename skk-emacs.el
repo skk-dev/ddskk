@@ -28,7 +28,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'cl)
+  (require 'cl-lib)
   (require 'ja-dic-utl)
   (require 'tooltip)
   (require 'skk-vars)
@@ -322,10 +322,10 @@
 
 (defun skk-emacs-find-func-keys (func)
   (let ((keys
-	 (or (do ((spec (nth 4 skk-rule-tree) (cdr spec))
-		  (list nil (car spec))
-		  (str nil (when (eq (nth 3 list) func)
-			     (nth 1 list))))
+	 (or (cl-do ((spec (nth 4 skk-rule-tree) (cdr spec))
+		     (list nil (car spec))
+		     (str nil (when (eq (nth 3 list) func)
+			        (nth 1 list))))
 		 ((or str (null spec))
 		  (if (stringp str)
 		      str

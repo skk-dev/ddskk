@@ -45,7 +45,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'cl))
+  (require 'cl-lib))
 
 (defconst cdb-version "20100719+")
 
@@ -252,21 +252,21 @@
   ;;	+2,2:\xa4\xa2->\xa4\xa4
   ;;
   (cdb-init path)
-  (assert (string= (cdb-get path "de") "00596d84"))
-  (assert (string= (cdb-get path "eD") "00596d84"))
-  (assert (string= (cdb-get path "dE") "00596da4"))
-  (assert (not (cdb-get path "ed")))
-  (assert (not (cdb-get path "x")))
-  (assert (string= (cdb-get path "xxx") "0b8791dd"))
-  (assert (not (cdb-get path "xxxx")))
-  (assert (string= (cdb-get path "xxxxx") "0bb36ddd"))
-  (assert (string= (cdb-get path "xxxxxx") "82212905"))
-  (assert (string= (cdb-get path "xxxxxxx") "c64649dd"))
-  (assert (string= (cdb-get path "abc") "0b873285"))
-  (assert (not (cdb-get path "bbbb")))
-  (assert (not (cdb-get path "dd")))
-  (assert (string= (cdb-get path "\244\242") "\244\244"))
-  (assert (equal (cdb-keys path) 
+  (cl-assert (string= (cdb-get path "de") "00596d84"))
+  (cl-assert (string= (cdb-get path "eD") "00596d84"))
+  (cl-assert (string= (cdb-get path "dE") "00596da4"))
+  (cl-assert (not (cdb-get path "ed")))
+  (cl-assert (not (cdb-get path "x")))
+  (cl-assert (string= (cdb-get path "xxx") "0b8791dd"))
+  (cl-assert (not (cdb-get path "xxxx")))
+  (cl-assert (string= (cdb-get path "xxxxx") "0bb36ddd"))
+  (cl-assert (string= (cdb-get path "xxxxxx") "82212905"))
+  (cl-assert (string= (cdb-get path "xxxxxxx") "c64649dd"))
+  (cl-assert (string= (cdb-get path "abc") "0b873285"))
+  (cl-assert (not (cdb-get path "bbbb")))
+  (cl-assert (not (cdb-get path "dd")))
+  (cl-assert (string= (cdb-get path "\244\242") "\244\244"))
+  (cl-assert (equal (cdb-keys path) 
 		 '("de" "eD" "dE" "xxx" "xxxxx" "xxxxxx" 
 		   "xxxxxxx" "abc" "\244\242")))
   (cdb-uninit path)
