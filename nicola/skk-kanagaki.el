@@ -84,16 +84,6 @@
 ;; と書くことなどが考えられます。
 ;; (同様のアイデアは Canna で仮名入力する際にも有効であるようです。)
 ;;
-;; もしあなたが XEmacs のベータテスターならば
-;;
-;; keycode 123 = kana_RO underscore
-;; keycode 19 = 0 kana_WO
-;;
-;; なんて設定でとても幸せになれるかもしれません。 (Mr. XEmacs のしわざかな?)
-;;
-;; さらに、もしあなたが PC-98 ユーザ で XEmacs のベータテスターならば、おもむ
-;; ろに「かな」キーをロックしてみてください。 ;')
-;;
 ;;  -*- 使い方 -*-
 ;;
 ;; 1. 変換開始点の指定
@@ -254,7 +244,7 @@
 
 (defcustom skk-kanagaki-previous-candidate-key "\C-p"
   "*前候補を表示するためのキー。
-XFree86 上で使用する場合、 例えばこの値を [henkan]  (XEmacs では [henkan-mode])
+XFree86 上で使用する場合、 例えばこの値を [henkan]
 にすれば、日本語キーボードの [前候補] キーに割り当てることができる。"
   :type (if (get 'key-sequence 'widget-type)
 	    'key-sequence
