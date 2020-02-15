@@ -107,12 +107,6 @@
 (require 'skk-comp)
 (eval-when-compile (require 'cl-lib))
 
-;;; functions.
-;; (defsubst skk-extentp (object)
-;;   (static-cond
-;;    ((featurep 'xemacs) (extentp object))
-;;    (t (overlayp object))))
-
 (defsubst skk-dcomp-face-on (start end)
   (skk-face-on skk-dcomp-extent start end skk-dcomp-face
 	       skk-dcomp-face-priority))
@@ -206,11 +200,8 @@
 	 (goto-char (cdr pair))))))
 
 (defun skk-dcomp-multiple-available-p ()
-  (cond ((eval-when-compile (featurep 'xemacs))
-	 nil)
-	(t
-	 (< (1+ skk-dcomp-multiple-rows)
-	    (skk-window-body-height)))))
+  (< (1+ skk-dcomp-multiple-rows)
+     (skk-window-body-height)))
 
 (defun skk-dcomp-multiple-increase-index (index &optional ignore-search-done)
   (cond ((and skk-comp-circulate

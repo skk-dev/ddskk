@@ -81,14 +81,8 @@
      . 'skk-count-jisyo-candidates-original)
     (skk-count-private-jisyo-candidates-exactly . nil)
     (skk-date-ad . 1)
-    (skk-cursor-default-color
-     . (cond
-	((featurep 'xemacs)
-	 (frame-property (selected-frame) 'cursor-color))
-	(t
-	 (cdr
-	  (assq 'cursor-color
-		(frame-parameters (selected-frame)))))))
+    (skk-cursor-default-color . (cdr (assq 'cursor-color
+		                           (frame-parameters (selected-frame)))))
     (skk-delete-implies-kakutei . t)
     (skk-delete-okuri-when-quit . nil)
     (skk-downcase-alist . nil)
@@ -428,14 +422,14 @@
 
 (defadvice skk-kakutei (before skktut-ad disable)
   "SKK チュートリアル用アドバイス付。"
-  (when (and (skk-called-interactively-p 'interactive)
+  (when (and (called-interactively-p 'interactive)
 	     (= skktut-question-count 1))
     (skktut-error "このキーはまだ使えません"
 		  "Cannot use this key yet")))
 
 (defadvice skk-mode (before skktut-ad disable)
   "SKK チュートリアル用アドバイス付。"
-  (when (and (skk-called-interactively-p 'interactive)
+  (when (and (called-interactively-p 'interactive)
 	     (= skktut-question-count 1))
     (skktut-error "このキーはまだ使えません"
 		  "Cannot use this key yet")))
@@ -449,7 +443,7 @@
 ;; hooks
 (add-hook 'kill-buffer-hook
 	  (lambda ()
-	    (when (and (skk-called-interactively-p 'interactive)
+	    (when (and (called-interactively-p 'interactive)
 		       (member (buffer-name (current-buffer))
 			       (list skktut-working-buffer
 				     skktut-question-buffer
@@ -878,9 +872,7 @@ tutorial /チュートリアル/
     (let ((cbuf (current-buffer))
 	  p)
       (unwind-protect
-	  (let ((plist (cons (if (featurep 'xemacs)
-				 'end-open
-			       'rear-nonsticky)
+	  (let ((plist (cons 'rear-nonsticky
 			     '(t intangible t read-only t))))
 	    ;; secondary make a new answer buffer.
 	    (set-buffer skktut-answer-buffer)

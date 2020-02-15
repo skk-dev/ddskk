@@ -623,7 +623,7 @@
       (when (and (not (memq skk-tooltip-mouse-behavior '(banish nil)))
 		 (car oP))
 	(mouse-avoidance-set-mouse-position oP))
-      (skk-set-henkan-count 0)
+      (setq skk-henkan-count 0)
       (cond ((eq skk-henkan-mode 'active)
 	     (skk-unread-event
 	      (character-to-event

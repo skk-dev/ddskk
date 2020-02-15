@@ -44,22 +44,16 @@
 	obj)))
 
 (defun skk-find-window-system ()
-  (cond
-   ((eval-when-compile (featurep 'emacs))
-    ;; GNU Emacs
-    (let ((frames (frame-list))
-	  val)
-      (while (and (not val) frames)
-	;; $BJQ?t(B window-system $B$O(B frame local $BCM$r;}$D!#(B
-	;; $BNc$($P(B window system $B$H(B "emacsclient -nw" $B$NJ;MQ;~$J$I(B
-	;; $B$$$:$l$+$N(B frame $B$,(B window system $B2<$GF0$$$F$$$k$3$H$r(B
-	;; $B3NG'$9$k!#(B
-	(setq val (window-system (car frames))
-	      frames (cdr frames)))
-      val))
-   (t
-    ;; XEmacs
-    window-system)))
+  (let ((frames (frame-list))
+	val)
+    (while (and (not val) frames)
+      ;; $BJQ?t(B window-system $B$O(B frame local $BCM$r;}$D!#(B
+      ;; $BNc$($P(B window system $B$H(B "emacsclient -nw" $B$NJ;MQ;~$J$I(B
+      ;; $B$$$:$l$+$N(B frame $B$,(B window system $B2<$GF0$$$F$$$k$3$H$r(B
+      ;; $B3NG'$9$k!#(B
+      (setq val (window-system (car frames))
+	    frames (cdr frames)))
+    val))
 
 ;;;###autoload
 (put 'skk-deflocalvar 'lisp-indent-function 'defun)
@@ -241,41 +235,33 @@
 (defcustom skk-background-mode
   ;; from font-lock-make-faces of font-lock.el  Welcome!
   (or frame-background-mode
-      (cond
-       ((featurep 'xemacs)
-	(if (< (apply '+ (color-rgb-components
-			  (face-property 'default 'background)))
-	       (/ (apply '+ (color-rgb-components
-			     (make-color-specifier "white")))
-		  3))
-	    'dark
-	  'light))
-       (t
-	(cond
-	 ((and window-system (x-display-color-p))
-	  (let ((bg-resource (x-get-resource ".backgroundMode"
-					     "BackgroundMode"))
-		(params (frame-parameters)))
-	    (cond
-	     (bg-resource
-	      (intern (downcase bg-resource)))
-	     ((and (eq system-type 'windows-nt)
-		   (not (fboundp 'x-color-values)))
-	      (if (string-match "light"
-				(cdr (assq 'background-color params)))
-		  'light
-		'dark))
-	     ((not (null (cdr (assq 'background-mode params))))
-	      ;; Emacs20.x (Meadow)
-	      (cdr (assq 'background-mode params)))
-	     ((< (apply '+ (x-color-values
-			    (cdr (assq 'background-color params))))
-		 (/ (apply '+ (x-color-values "white")) 3))
-	      'dark)
-	     (t
-	      'light))))
-	 (t
-	  nil)))))
+      (cond ((and window-system (x-display-color-p))
+	     (let ((bg-resource (x-get-resource ".backgroundMode"
+					        "BackgroundMode"))
+	           (params (frame-parameters)))
+	       (cond (bg-resource
+	              (intern (downcase bg-resource)))
+
+	             ((and (eq system-type 'windows-nt)
+		           (not (fboundp 'x-color-values)))
+	              (if (string-match "light"
+			                (cdr (assq 'background-color params)))
+		          'light
+	                'dark))
+
+	             ((not (null (cdr (assq 'background-mode params))))
+	              ;; Emacs20.x (Meadow)
+	              (cdr (assq 'background-mode params)))
+
+	             ((< (apply '+ (x-color-values
+			            (cdr (assq 'background-color params))))
+	                 (/ (apply '+ (x-color-values "white")) 3))
+	              'dark)
+
+	             (t
+	              'light))))
+            (t
+	     nil)))
   "*SKK $B$NI8=`$N%U%'%$%9?'$r7h$a$k$?$a$NGX7J?'$K4X$9$k>pJs!#(B
 $BI8=`$G$O(B `frame-background-mode' $B$r@_Dj$7$F$$$k>l9g$O$=$l$K=>$$!"(B
 $B@_Dj$7$F$$$J$$>l9g$OFH<+$NJ}K!$G(B `light' $B$+(B `dark' $B$+$r7h$a$k!#(B
@@ -388,18 +374,12 @@ Non-nil $B$G$"$l$P!";XDj$5$l$?<-=q$r8!:w$N$?$a%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#
 $B8+=P$78l$O!"%=!<%H$5$l$F$$$J$1$l$P$J$i$J$$!#(B
 Non-nil $B$G$"$l$P!";XDj$5$l$?<-=q$r8!:w$N$?$a%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#(B"
   :type `(radio (file :tag "$B<-=q%U%!%$%kL>(B"
-		      ,(cond
-			((featurep 'xemacs)
-			 (or (locate-data-file "SKK-JISYO.L")
-			     ""))
-			((fboundp 'locate-file)
-			 (or (locate-file "skk/SKK-JISYO.L"
-					  (list
-					   (expand-file-name "../../.."
-							     data-directory)))
-			     (locate-file "skk/SKK-JISYO.L"
-					  (list data-directory))
-			     ""))))
+		      ,(or (locate-file "skk/SKK-JISYO.L"
+					(list (expand-file-name "../../.."
+							        data-directory)))
+			   (locate-file "skk/SKK-JISYO.L"
+					(list data-directory))
+			   ""))
 		(const :tag "$B;XDj$7$J$$(B" nil))
   :group 'skk-dictionary)
 
@@ -410,18 +390,12 @@ Non-nil $B$G$"$l$P!";XDj$5$l$?<-=q$r8!:w$N$?$a%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#
 Non-nil $B$G$"$l$P!"<-=q%5!<%P$,(B active $B$G$J$$;~$K!"(B
 $B;XDj$5$l$?<-=q$r%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#(B"
   :type `(radio (file :tag "$B<-=q%U%!%$%kL>(B"
-		      ,(cond
-			((featurep 'xemacs)
-			 (or (locate-data-file "SKK-JISYO.L")
-			     ""))
-			((fboundp 'locate-file)
-			 (or (locate-file "skk/SKK-JISYO.L"
-					  (list
-					   (expand-file-name "../../.."
-							     data-directory)))
-			     (locate-file "skk/SKK-JISYO.L"
-					  (list data-directory))
-			     ""))))
+		      ,(or (locate-file "skk/SKK-JISYO.L"
+					(list (expand-file-name "../../.."
+							        data-directory)))
+			   (locate-file "skk/SKK-JISYO.L"
+					(list data-directory))
+			   ""))
 		(const :tag "$B;XDj$7$J$$(B" nil))
   :group 'skk-dictionary
   :group 'skk-server)
@@ -1984,9 +1958,7 @@ left $B$G$"$l$P:8C<$KI=<($9$k!#(B
 	   (when (and (boundp 'skk-mode-invoked)
 		      skk-mode-invoked)
 	     (cond (value
-		    (if (featurep 'xemacs)
-			(skk-xemacs-prepare-modeline-properties)
-		      (skk-emacs-prepare-modeline-properties))
+		    (skk-emacs-prepare-modeline-properties)
 		    (skk-setup-modeline))
 		   (t
 		    (setq skk-icon nil))))))
@@ -2591,9 +2563,7 @@ Non-nil $B$G$"$l$P!"%+%l%s%H%P%C%U%!$G8=:_(B `skk-mode' $B$r5/F0$7$F$$$k$3$H$
   "$B%_%K%P%C%U%!$G8uJd$r<!!9$KI=<($7$F!"8uJd$,?T$-$?$H$-$K(B non-nil $B$H$J$k!#(B
 $B$=$NCM$O%j%9%H$G!"(Bcar $B$K(B `skk-henkan-show-candidates' $B4X?t$G(B while $B%k!<%W$r(B
 $B2s$C$?2s?t$r<($90l;~JQ?t(B loop $B$NCM$r!"(Bcdr $BIt$K:G8e$K%_%K%P%C%U%!$KI=<($7$?(B
-1 $B$DA0$N8uJd72$N:G8e$NMWAG$r;X$9%$%s%G%/%9$,BeF~$5$l$k!#(B
-`skk-henkan-show-candidates' $B$H(B `skk-set-exit-show-candidates' $B$GJQ99!"(B
-$B;2>H$5$l$k!#(B")
+1 $B$DA0$N8uJd72$N:G8e$NMWAG$r;X$9%$%s%G%/%9$,BeF~$5$l$k!#(B")
 
  ;; <$B%-!<%^%C%W4XO"(B>
 (skk-deflocalvar skk-current-rule-tree nil
@@ -3000,11 +2970,6 @@ Apple OS X $B$G$OI8=`$N!V<-=q!W$rMxMQ$G$-$k!#(B"
 
 (defvar skkannot-py-buffer nil)
 
-(defvar skkannot-url-installed-p
-  (if (featurep 'emacs)
-      t
-    'untested))
-
 (defconst skkannot-py-none-regexp "^\\(Traceback\\|AttributeError\\|None\\)")
 
 (defconst skkannot-DictServ-cmd-format-str "word = u\"%s\"; \
@@ -3185,18 +3150,12 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))")
 Non-nil $B$G$"$l$P!";XDj$5$l$?(B CDB $B7A<0<-=q$r(B Emacs $B$+$iD>@\MxMQ$7!"(B
 $B9bB.$J8!:w$r9T$&!#(B"
   :type `(radio (file :tag "$B<-=q%U%!%$%kL>(B"
-		      ,(cond
-			((featurep 'xemacs)
-			 (or (locate-data-file "SKK-JISYO.L.cdb")
-			     ""))
-			((fboundp 'locate-file)
-			 (or (locate-file "skk/SKK-JISYO.L.cdb"
-					  (list
-					   (expand-file-name "../../.."
-							     data-directory)))
-			     (locate-file "skk/SKK-JISYO.L.cdb"
-					  (list data-directory))
-			     ""))))
+		      ,(or (locate-file "skk/SKK-JISYO.L.cdb"
+					(list (expand-file-name "../../.."
+							        data-directory)))
+			   (locate-file "skk/SKK-JISYO.L.cdb"
+					(list data-directory))
+			   ""))
 		(const :tag "$B;XDj$7$J$$(B" nil))
   :group 'skk-cdb
   :group 'skk-dictionary)
@@ -3229,15 +3188,9 @@ Non-nil $B$G$"$l$P!";XDj$5$l$?(B CDB $B7A<0<-=q$r(B Emacs $B$+$iD>@\MxMQ$7!
   :group 'skk-comp)
 
 (defcustom skk-previous-completion-backtab-key
-  (cond ((not (skk-find-window-system))
-	 [backtab])
-	((featurep 'xemacs)
-	 [iso-left-tab])
-	((memq system-type '(darwin windows-nt))
-	 [S-tab])
-	(t
-	 ;; X Window System
-	 [S-iso-lefttab]))
+  (cond ((not (skk-find-window-system))          [backtab])
+	((memq system-type '(darwin windows-nt)) [S-tab])
+	(t                                       [S-iso-lefttab])) ;X Window System
   "*Shift + TAB $B$KAjEv$9$k%-!<(B (key event)$B!#(B
 `skk-previous-completion-use-backtab' $B$,M-8z$J:]$KMQ$$$i$l$k!#(B"
   :type (if (get 'key-sequence 'widget-type)
@@ -3479,11 +3432,7 @@ server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
   :group 'skk-cursor)
 
 (defcustom skk-cursor-default-color
-  (cond
-   ((featurep 'xemacs)
-    (frame-property (selected-frame) 'cursor-color))
-   (t
-    (cdr (assq 'cursor-color (frame-parameters (selected-frame))))))
+  (cdr (assq 'cursor-color (frame-parameters (selected-frame))))
   "*SKK $B%b!<%I$N%*%U$r<($9%+!<%=%k?'!#(B
 `skk-use-color-cursor' $B$,(B non-nil $B$N$H$-$K;HMQ$5$l$k!#(B"
   :type 'string
@@ -3619,8 +3568,7 @@ server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
 
 (defcustom skk-dcomp-multiple-activate nil
   "*Non-nil $B$G$"$l$P!"F0E*Jd40$N8uJd$rJ#?tI=<($9$k!#(B
-$B4X?t$G$"$l$P!"$=$NI>2A7k2L$,(B non-nil $B$N;~$@$1F0E*Jd40$N8uJd$rJ#?tI=<($9$k!#(B
-$B$3$N5!G=$O(B XEmacs $B$G$OF0:n$7$J$$!#(B"
+$B4X?t$G$"$l$P!"$=$NI>2A7k2L$,(B non-nil $B$N;~$@$1F0E*Jd40$N8uJd$rJ#?tI=<($9$k!#(B"
   :type '(radio (const :tag "always on" t)
 		(const :tag "off" nil)
 		(sexp :tag "$BG$0U$N%k!<%k(B"))
@@ -3897,9 +3845,7 @@ Non-nil $B$G$"$l$P!"(B`skk-isearch-message' $B4X?t$r%3!<%k$9$k!#(B")
 This map should be derived from `isearch-mode-map'.")
 
 (defvar skk-isearch-overriding-local-map
-  (if (featurep 'xemacs)
-      'overriding-local-map
-    'overriding-terminal-local-map)
+  'overriding-terminal-local-map
   "Variable holding overriding local map used in `isearch-mode'.")
 
 (defvar skk-isearch-last-mode-string "")
@@ -5118,9 +5064,7 @@ ring.el $B$rMxMQ$7$F$*$j!"6qBNE*$K$O!"2<5-$N$h$&$J9=B$$K$J$C$F$$$k!#(B
 
 (put 'annotation 'char-table-extra-slots 0)
 (defvar skk-tankan-annotation-table
-  (make-char-table (if (featurep 'xemacs)
-		       'generic
-		     'annotation)))
+  (make-char-table 'annotation))
 
 (defvar skk-tankan-mode-map
   (let ((map (make-sparse-keymap)))
@@ -5168,9 +5112,7 @@ ring.el $B$rMxMQ$7$F$*$j!"6qBNE*$K$O!"2<5-$N$h$&$J9=B$$K$J$C$F$$$k!#(B
 
 ;;; skk-tooltip related.
 (defcustom skk-show-tooltip nil
-  "*Non-nil $B$G$"$l$P!"%(%3!<%(%j%"$NBe$o$j$K(B tooltip $B$G8uJd$J$I$rI=<($9$k!#(B
-$B$3$N5!G=$O(B GNU Emacs 21 $B0J>e$H(B XEmacs 21.5 $B0J>e$GF0:n$9$k!#(B
-XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!#(B"
+  "*Non-nil $B$G$"$l$P!"%(%3!<%(%j%"$NBe$o$j$K(B tooltip $B$G8uJd$J$I$rI=<($9$k!#(B"
   :type 'boolean
   :group 'skk-basic
   :group 'skk-tooltip)
@@ -5216,19 +5158,14 @@ XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!
   :group 'skk-tooltip)
 
 (defcustom skk-tooltip-mouse-behavior
-  (cond ((featurep 'xemacs)
-	 'banish)
-	(t
-	 'banish))
+  'banish
   "*Tooltip $B$rI=<($9$k>l9g$N!"%^%&%9%]%$%s%?$N5sF0!#(B
 `follow' $B$J$i$P!"(B tip $B$N0LCV$K0\F0$9$k!#(B
 `avoid' $B$J$i$P!"%&%#%s%I%&$NC<$KB`Hr$9$k!#(B
 `avoid-maybe' $B$J$i$P!"%&%#%s%I%&>e$K$"$k%^%&%9%]%$%s%?$N$_B`Hr$9$k!#(B
 `banish' $B$J$i$P!"%&%#%s%I%&$NC<$KB`Hr$7$?$^$^5"$C$F$3$J$$!#(B
 `nil' $B$J$i$P!"B`Hr$7$J$$!#$3$N>l9g!"(Btip $B$N%F%-%9%H$H%^%&%9%]%$%s%?$,(B
-$B=E$J$C$?$j!"$&$^$/(B tip $B$,I=<($G$-$J$+$C$?$j$9$k$N$GCm0U!#(B
-
-$B$3$N5!G=$O(B GNU Emacs 22 $B0J>e$+(B XEmacs 21.5 $B0J>e$GF0:n$9$k!#(B"
+$B=E$J$C$?$j!"$&$^$/(B tip $B$,I=<($G$-$J$+$C$?$j$9$k$N$GCm0U!#(B"
   :type '(radio (const :tag "Tip $B$K=>$&(B" follow)
 		(const :tag "$B%&%#%s%I%&$NC<$KF($2$k(B" avoid)
 		(const :tag "$BF($2$?$[$&$,$h$5$=$&$J$H$-$@$1F($2$k(B" avoid-maybe)
@@ -5237,9 +5174,7 @@ XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!
   :group 'skk-tooltip)
 
 (defcustom skk-tooltip-x-offset
-  (if (featurep 'xemacs)
-      0
-    (/ (1+ (frame-char-height)) 2))
+  (/ (1+ (frame-char-height)) 2)
   "*Tooltip $B$NI=<(0LCV$r1&$K$:$i$9%T%/%;%k?t!#(B
 $BIi$N@0?t$r;XDj$9$k$H:8$K$:$l$k!#(B"
   :type 'integer
@@ -5262,17 +5197,11 @@ XEmacs 21.4 $B$G$O%(%i!<$K$J$i$J$$$+$b$7$l$J$$$,!"6K$a$FIT40A4$JF0:n$7$+$7$J$$!
 
 ;;; skk-tut.el related.
 (defcustom skk-tut-file
-  (cond ((featurep 'xemacs)
-	 (or (locate-data-file "SKK.tut")
-	     "/usr/local/share/skk/SKK.tut"))
-	((fboundp 'locate-file)
-	 (or (locate-file "skk/SKK.tut"
-			  (list (expand-file-name "../../.."
-						  data-directory)))
-	     (locate-file "skk/SKK.tut" (list data-directory))
-	     "/usr/local/share/skk/SKK.tut"))
-	(t
-	 "/usr/local/share/skk/SKK.tut"))
+  (or (locate-file "skk/SKK.tut"
+		   (list (expand-file-name "../../.."
+					   data-directory)))
+      (locate-file "skk/SKK.tut" (list data-directory))
+      "/usr/local/share/skk/SKK.tut")
   "*SKK $BF|K\8l%A%e!<%H%j%"%k$N%U%!%$%kL>(B ($B%Q%9$r4^$`(B)$B!#(B"
   :type 'file
   :group 'skk-tut)

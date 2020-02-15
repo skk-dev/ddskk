@@ -31,7 +31,7 @@
 
 (put 'skk-version 'product-name "Daredevil SKK")
 (put 'skk-version 'version-string
-     (let ((ver "16.3.50")
+     (let ((ver "17.0.50")
 	   (mepla "mepla")
 	   (path (catch 'exit
 		   (dolist (p load-path)
@@ -51,7 +51,7 @@
 If WITHOUT-CODENAME is non-nil, simply return SKK version without
 the codename."
   (interactive "P")
-  (if (skk-called-interactively-p 'interactive)
+  (if (called-interactively-p 'interactive)
       (message "%s" (skk-version without-codename))
     (if without-codename
 	(format "%s/%s"

@@ -214,9 +214,6 @@
   (defvar html2text-remove-tag-list)
   (defvar html2text-format-tag-list))
 
-(when (eval-when-compile (featurep 'xemacs))
-  (require 'skk-xemacs))
-
 (unless skk-annotation-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map "\C-c\C-c" 'skk-annotation-save-and-quit)
@@ -514,9 +511,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
     (skk-annotation-setup)
     (let* ((plist (append
 		   '(intangible t read-only t)
-		   (if (featurep 'xemacs)
-		       '(start-closed t end-open t)
-		     '(front-sticky t rear-nonsticky t))))
+		   '(front-sticky t rear-nonsticky t)))
 	   (wholestring (nth 2 skk-annotation-target-data))
 	   (realword (if (and wholestring
 			      (string-match ";\\*?" wholestring))
@@ -730,7 +725,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 		    (progn
 		      (setq event (next-command-event)
 			    key (skk-event-key event)
-			    command (key-binding (if (featurep 'xemacs) event key)))
+			    command (key-binding key))
 		      ;; Return value of the following expression is important.
 		      (or (memq command list)
 			  (eq command 'digit-argument)
@@ -788,12 +783,8 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 	       (unless exit
 		 (skk-annotation-show-2 annotation))))
 	    ((eq command 'digit-argument)
-	     (setq char (cond ((featurep 'xemacs)
-			       key)
-			      ((integerp event)
-			       event)
-			      (t
-			       (get event 'ascii-character)))
+	     (setq char (cond ((integerp event) event)
+			      (t (get event 'ascii-character)))
 		   digit (- (logand char ?\177) ?0)
 		   event nil))
 	    ((or (equal (key-description key)
@@ -1797,14 +1788,12 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
       (require 'url-util)
     (error
      (error "%s" "新しい URL パッケージが必要です")))
-  (if (skkannot-url-installed-p)
-      (apply #'format format-string
-	     (mapcar (lambda (element)
-		       (if (stringp element)
-			   (url-hexify-string element)
-			 element))
-		     args))
-    (error "%s" "URL パッケージまたは Mule-UCS が利用できません")))
+  (apply #'format format-string
+	 (mapcar (lambda (element)
+		   (if (stringp element)
+		       (url-hexify-string element)
+		     element))
+		 args)))
 
 (defun skkannot-wikipedia-normalize-word (word &optional method preserve-case)
   ;; スペースは %20 ではなく、アンダースコアに変換する
@@ -1829,37 +1818,6 @@ wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
 	 (concat (vector (upcase (aref word 0)))
 		 (substring word 1))
        word)))))
-
-(defun skkannot-url-installed-p ()
-  ;; skkannot-url-installed-p の初期値は skk-vars.el で定義
-  ;;  - featurep 'emacs なら t
-  ;;  - 以外は 'untested
-  (when (eq skkannot-url-installed-p 'untested)
-    ;; GNU Emacs 以外で URL パッケージをテストする
-    (cond
-     ((and (featurep 'xemacs)
-	   (= emacs-major-version 21)
-	   (= emacs-minor-version 4)
-	   (not (featurep 'un-define)))	; Mule-UCS
-      ;; XEmacs 21.4 かつ Mule-UCS 未インストールの場合
-      (setq skkannot-url-installed-p nil))
-
-     (t
-      ;; 上記以外
-      (defadvice url-hexify-string (around multibyte-char activate)
-	(setq ad-return-value
-	      (mapconcat (lambda (byte)
-			   (if (memq byte url-unreserved-chars)
-			       (char-to-string byte)
-			     (format "%%%02x" byte)))
-			 (if (multibyte-string-p (ad-get-arg 0))
-			     (encode-coding-string (ad-get-arg 0) 'utf-8)
-			   (ad-get-arg 0))
-			 "")))
-      ;;
-      (setq skkannot-url-installed-p t))))
-  ;;
-  skkannot-url-installed-p)
 
 ;;; 各種アノテーション・ソースのキャッシュ管理
 ;;;###autoload

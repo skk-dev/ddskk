@@ -38,8 +38,7 @@ SKK が Simple Kana to Kanji conversion program の略であるとおり、か�
 Q1-3 DDSKK はどの Emacs で使えますか?
 =====================================
 
-基本的には、GNU Emacs と Mule 機能付きの XEmacs で使えます。対応する Emacs のバー
-ジョンについては :doc:`このバージョンの SKK について <02_intro>` をご覧ください。
+対応する Emacs のバージョンについては :doc:`このバージョンの SKK について <02_intro>` をご覧ください。
 
 Q1-4 DDSKK はどんなオペレーティングシステムで使えますか?
 ========================================================
@@ -61,13 +60,7 @@ Q1-5 APEL って何? 必要ですか?
 APEL は A Portable Emacs Library の略です。APEL の主な機能は、異なる Emacs 間の非
 互換性を吸収することです。
 
-XEmacs では APEL が必要です。
-
-.. note::
-
-   GNU Emacs 22 以上では APEL は不要となりました。
-   この変更は 2010 年 9 月 に CVS に commit され、2011 年 1 月に DDSKK 14.2 とし
-   てリリースされました。
+GNU Emacs 22 以上では APEL は不要となりました。この変更は 2010 年 9 月 に CVS に commit され、2011 年 1 月に DDSKK 14.2 としてリリースされました。
 
 ************
 Installation
@@ -77,12 +70,6 @@ Q2-1 SKK を使うのに何が必要ですか?
 ==================================
 
 SKK 本体と SKK 辞書が必要です。オプションで辞書サーバを用意することができます。
-
-.. note::
-
-   XEmacs では事前に APEL をインストールしてください。
-
-   :ref:`XEmacs へのインストール <install-xemacs>`
 
 Q2-2 SKK 辞書はどこにありますか?
 ================================
@@ -354,9 +341,6 @@ Q3-5 全く漢字が出てきません。
 
 といった場所にインストールされています。
 
-XEmacs のパッケージならば `/usr/local/lib/xemacs/mule-packages/etc/skk` な
-どを確認します。
-
 その後でファイル :file:`~/.skk` に
 
 .. code:: emacs-lisp
@@ -384,9 +368,6 @@ Q3-6 チュートリアルが起動できません。
   - `/usr/share/skk`
 
 といった場所にインストールされています。
-
-XEmacs のパッケージならば `/usr/local/lib/xemacs/mule-packages/etc/skk` な
-どを確認します。
 
 その後でファイル :file:`~/.emacs.d/init.el` に
 

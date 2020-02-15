@@ -143,9 +143,9 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
 (defun skk-kcode-find-char-string (flag n1 n2 char)
   (cl-case flag
     (x0213-1
-     (char-to-string (skk-make-char 'japanese-jisx0213-1 n1 n2)))
+     (char-to-string (make-char 'japanese-jisx0213-1 n1 n2)))
     (x0213-2
-     (char-to-string (skk-make-char 'japanese-jisx0213-2 n1 n2)))
+     (char-to-string (make-char 'japanese-jisx0213-2 n1 n2)))
     (unicode
      (char-to-string
       (if (fboundp 'ucs-representation-decoding-backend)
@@ -175,16 +175,7 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
 
 (defun skk-make-string (n1 n2)
   "`skk-kcode-charset' が示す文字集合に従って n1 n2 に対応する STRING を返す"
-  (char-to-string (skk-make-char skk-kcode-charset n1 n2)))
-
-;; tiny function, but called once in skk-kcode.el.  So not make it inline.
-(defun skk-make-char (charset n1 n2)
-  (cond ((eval-when-compile (featurep 'xemacs))
-	 (make-char charset
-		    (logand (lognot 128) n1)
-		    (logand (lognot 128) n2)))
-	(t
-	 (make-char charset n1 n2))))
+  (char-to-string (make-char skk-kcode-charset n1 n2)))
 
 (defun skk-next-n2-code (n)
   (if (<= (setq n (1+ n)) skk-code-n2-max)
@@ -576,12 +567,6 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
 	 (c2 (if (>= ch2 158) (- ch2 125) (- ch2 31)))
 	 (c1 (if (> ch2 127) (+ ch1 1) ch1)))
     (list c1 c2)))
-
-;; 2面
-;; XEmacs でのエラー回避のためにこの関数を一時 skk-emacs.el に退避する。
-;; (autoload 'skk-jis2sjis2 "skk-emacs")
-(when (eval-when-compile (featurep 'xemacs))
-  (defalias 'skk-jis2sjis2 'ignore))
 
 ;;;; skk-list-chars
 ;; TODO

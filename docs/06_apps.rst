@@ -42,8 +42,6 @@ SKK の基本的な機能はファイル :file:`skk.el` に収められていま
    * - skk-autoloads.el
      - | コマンド :command:`make` 時に自動生成されるファイル。
        | オートロードの設定のほか関数 :el:defun:`register-input-method` も行う。
-       | XEmacs で DDSKK をパッケージとしてインストールした場合は
-       | ファイル :file:`auto-autoloads.el` がこれに相当します。
    * - skk-azik.el
      - 拡張ローマ字入力 AZIK の設定を提供します
    * - skk-bayesian.el
@@ -125,9 +123,6 @@ SKK の基本的な機能はファイル :file:`skk.el` に収められていま
      - DDSKK のバージョン情報を提供するプログラムファイル
    * - skk-viper.el
      - VIPER インターフェイスプログラムを集めたファイル
-   * - skk-xemacs.el
-     - | XEmacs の拡張機能を利用するプログラムを集めたファイル
-       | インジケータのカラー化や画像表示、ツールティップ利用など
    * - tar-util.el
      - utility for tar archive
 
@@ -146,9 +141,8 @@ DDSKK のカスタマイズは、ファイル :file:`~/.emacs.d/init.el` ある�
 
 .. index::
    pair: File; ~/.emacs.d/init.el
-   pair: File; ~/.xemacs/init.el
 
-.. describe:: ~/.emacs.d/init.el ( ~/.xemacs/init.el )
+.. describe:: ~/.emacs.d/init.el
 
    Emacs を起動したときに一度だけ読み込まれます。
 
@@ -948,10 +942,6 @@ face が使える環境では「んとう」の部分が異なる face で表示
    れます。標準は DarkKhaki です。
 
 .. el:defvar:: skk-dcomp-multiple-activate
-
-   .. note::
-
-      XEmacs では動作しません。
 
    Non-nil であれば、動的補完の候補をインラインに複数表示 [#]_ します。
 
@@ -5653,10 +5643,6 @@ Google CGI API for Japanese Input を利用したかな漢字変換
 現在のウィンドウにインライン表示する
 ------------------------------------
 
-.. note::
-
-   XEmacs ではインライン表示はサポートされません。
-
 .. el:defvar:: skk-show-inline
 
    この変数の値が non-nil であれば、候補一覧を現在のポイント位置でインライン表示
@@ -5889,8 +5875,6 @@ Google CGI API for Japanese Input を利用したかな漢字変換
 モードラインの装飾
 ==================
 
-XEmacs 及び GNU Emacs 21 以降では、以下の機能が使用できます。
-
 インジケータ
 ------------
 
@@ -5912,15 +5896,6 @@ XEmacs 及び GNU Emacs 21 以降では、以下の機能が使用できます�
    - :el:defface:`skk-emacs-jisx0208-latin-face`
    - :el:defface:`skk-emacs-jisx0201-face`
    - :el:defface:`skk-emacs-abbrev-face`
-
-- XEmacs の場合
-
-   - :el:defface:`skk-xemacs-hiragana-face`
-   - :el:defface:`skk-xemacs-katakana-face`
-   - :el:defface:`skk-xemacs-jisx0208-latin-face`
-   - :el:defface:`skk-xemacs-latin-face`
-   - :el:defface:`skk-xemacs-jisx0201-face`
-   - :el:defface:`skk-xemacs-abbrev-face`
 
 なお、インジケータを右クリックするとポップアップメニューが表示されます。
 
@@ -6404,15 +6379,9 @@ SKK モードを ``picture-mode`` において使用した場合は、以下の�
        と、 Dabbrev が辞書バッファを検索してしまう可能性があります。この措置によ
        って、そのような事態を回避しています。
 
-.. [#] coding system は、 GNU Emacs であれば 'euc-jp, 'shift_jis, 'junet な
+.. [#] coding system は、 'euc-jp, 'shift_jis, 'junet な
        どのシンボルで表され、 :kbd:`M-x describe-coding-system` や
        :kbd:`M-x list-coding-systems` で 調べることができます。
-       XEmacs であれば、シンボルは coding system そのものではなく、
-       coding system object を指示するためのシンボルとして扱われます。
-
-       具体的には GNU Emacs では :code:`(coding-system-p 'euc-jp)` が t を返
-       すのに対して、 XEmacs では nil を返しますが、代わりにシンボルが示す
-       coding system object を 返す関数 :el:defun:`find-coding-system` が存在します。
 
 .. [#] ``*`` の文字は変換時には表示されません。
 
@@ -6475,9 +6444,6 @@ SKK モードを ``picture-mode`` において使用した場合は、以下の�
        その他にも、オーバーレイの移動やその属性の変更はバッファの変更とは見なされ
        ないこと、オーバーレイの変更はバッファのアンドゥリストに記録されないこと、
        などが特徴として挙げられます。
-
-       なお、XEmacs にはオーバーレイ機能 はありません。代わりに extent というもの
-       が用意されているのでそれを利用します。
 
 .. [#] Emacs 標準 では ``default``, ``modeline``, ``region``, ``secondary-selection``,
        ``highlight``, ``underline``, ``bold``, ``italic``, ``bold-italic`` があります。

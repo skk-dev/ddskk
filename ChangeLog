@@ -1,8 +1,32 @@
+2020-02-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-annotation.el (skkannot-url-installed-p): Remove function.
+	* skk-vars.el (skkannot-url-installed-p): Remove variable.
+
+	* skk-kcode.el (skk-make-char): Remove function.
+
+	* skk-macs.el (skk-called-interactively-p, skk-facep): Remove macro.
+
+	* skk-tankan.el (skk-tankan-set-char-annotaion): Remove function.
+
+	* skk.el (skk-multiple-line-message, skk-multiple-line-message-clear):
+	(skk-henkan-count, skk-set-henkan-count, skk-exit-show-candidates):
+	(skk-set-exit-show-candidates): Remove function.
+
+	* SKK-MK, skk-annotation.el, skk-vars.el, skk-cursor.el:
+	* skk-dcomp.el, skk-gadget.el, skk-isearch.el, skk-jisyo-edit-mode.el:
+	* skk-kcode.el, skk-macs.el, skk-tankan.el, skk-tut.el:
+	* skk-vars.el, skk-viper.el, skk.el: Remove code for XEmacs.
+
+	* skk-xemacs.el: Remove file.
+
+	* SKK-CFG: Remove contents for XEmacs.
+
 2020-02-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-make-indicator-alist-1): Remove comment.
 
-	* skk-viper.el: Remove code for Emacs version check.
+	* skk-viper.el: Remove code for GNU Emacs version check.
 
 	* skk-macs.el (skk-deactivate-input-method): Remove macro skk-deactivate-input-method.
 
@@ -20,7 +44,7 @@
 	* skk-emacs.el (skk-search-ja-dic):
 	* skk-develop.el (skk-get-delete-files): Remove code for GNU Emacs 23.
 
-	* .github/workflows/test.yml: Emacs 24.2 is not supported by this version of SKK.
+	* .github/workflows/test.yml: GNU Emacs 24.2 is not supported by this version of SKK.
 
 2020-02-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -30,7 +54,7 @@
 
 2020-02-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* SKK-MK: version check when installation. Emacs 23 is not supported by
+	* SKK-MK: version check when installation. GNU Emacs 23 is not supported by
 	this version of SKK.
 
 	* skk-version.el, docs/conf.py, ddskk-pkg.el, Makefile: Bump SKK version to 16.3.50.
