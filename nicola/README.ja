@@ -35,8 +35,6 @@ o Emacs 20.7 以降
 
   (対応するバージョンの Meadow を含む)
 
-o XEmacs 21.4.x
-
 
 * ファイル
 
@@ -63,30 +61,7 @@ http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/keymap.html
 
 * インストール
 
-** 使用する環境
-
-   o GNU Emacs 21 を使用する場合は APEL と DDSKK 14.4 をインストールして
-     ください。
-
-   o GNU Emacs 22 以降を使用する場合は APEL は不要です。最新版の DDSKK
-     をインストールしてください。
-
-   o XEmacs を使用する場合は APEL と最新版の DDSKK をインストールしてく
-     ださい。
-
-** APEL の最新版をインストール
-
-   http://git.chise.org/elisp/apel/
-
-   % make install (XEmacs では make install-package)
-
 ** SKK をインストール
-
-   [リリース版]
-
-     http://openlab.ring.gr.jp/skk/
-
-   [開発版]
 
      https://github.com/skk-dev/ddskk
 
@@ -97,7 +72,7 @@ http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/keymap.html
    NICOLA-DDSKK をインストールし直してください。
 
    % cd nicola
-   % make install (XEmacs では make install-package)
+   % make install
 
 
 * 設定

@@ -1,3 +1,13 @@
+2020-02-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* README.NICOLA.ja: update.
+
+	* skk-kanagaki.el: Remove comment for XEmacs.
+
+	* Makefile, NICOLA-DDSKK-ELS, skk-kanagaki-menu.el, skk-kanagaki-util.el:
+	* skk-nicola.el, NICOLA-DDSKK-CFG (install-prefix):
+	Remove code for XEmacs.
+
 2017-03-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* makeit.bat, make1.bat: New file for NTEmacs.

@@ -180,7 +180,7 @@
 	   (or (eolp)
 	       (looking-at "[ \t]+$")))))
 
-;; 動的補完で候補を複数表示する （XEmacs では機能しません）
+;; 動的補完で候補を複数表示する
 ;; (setq skk-dcomp-multiple-activate t
 ;;       skk-dcomp-multiple-rows 10)
 
@@ -210,7 +210,6 @@
 ;; 確定には C-j ではなく【変換キー】を使う
 ;; (setq skk-kakutei-key [henkan])
 ;; 注) 変換キーは、Emacs on XFree86  では [henkan]
-;;                 XEmacs on XFree86 では [henkan-mode]
 ;;                 Meadow と NTEmacs では [convert]
 
 ;; 接頭・接尾辞変換のキーを設定する
@@ -290,7 +289,7 @@
 ;;   3. skk-show-candidates-always-pop-to-buffer
 ;;  (4. echo area)
 
-;; 変換候補をインラインに （XEmacs では機能しません）
+;; 変換候補をインラインに
 ;;   nil => 表示しない (デフォルト)
 ;;   t   => 表示する
 ;;   'vertical => 縦型インラインに表示する
@@ -305,7 +304,6 @@
 
 ;; 変換候補一覧と注釈 (annotation) の表示を
 ;; エコーエリアに代えて tooltip で表示する
-;; 注) 今のところ FSF Emacs 21 以上と XEmacs 21.5 以上で機能します。
 (setq skk-show-tooltip t)
 
 ;; ;; Tip 描画に pos-tip を利用してみる
@@ -406,10 +404,7 @@
 
 ;; @@ 候補表示の装飾（フェイス）に関する高度な設定
 
-;; 注1) skk-emacs-*-face は GNU Emacs に限って定義される face です。
-;; XEmacs では別の存在する face に置き換えてください。
-;;
-;; 注2) 候補の個人辞書への登録においても、`skk-update-jisyo-function' を
+;; 注) 候補の個人辞書への登録においても、`skk-update-jisyo-function' を
 ;; 設定することで同様のカスタマイズができます。「個人辞書に関する設定」の
 ;; 例をご覧ください。
 (setq skk-treat-candidate-appearance-function

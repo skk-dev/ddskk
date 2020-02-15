@@ -66,9 +66,6 @@
 		 dir)
 	     (expand-file-name "../../.." dir))))
 
-	((featurep 'xemacs)
-	 (expand-file-name "../../.." exec-directory))
-
 	(t
 	 (expand-file-name "../../../.." data-directory))))
 

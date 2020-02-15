@@ -44,13 +44,11 @@
   (require 'cl)
   (require 'skk-kanagaki-util)
   (require 'skk-macs)
-  (require 'skk-vars))
+  (require 'skk-vars)
+  (require 'skk-emacs))
 
 (eval-and-compile
   (require 'skk-kanagaki))
-
-(when (eval-when-compile (featurep 'emacs))
-  (require 'skk-emacs))
 
 (eval-and-compile
   (autoload 'skk-dcomp-marked-p "skk-dcomp")
@@ -76,8 +74,6 @@
 	 ((eq system-type 'windows-nt)
 	  [noconvert])
 	 (t
-	  ;; XEmacs, Emacs 19 or later
-	  ;; (except Emacs 20.1 & 20.2)
 	  [muhenkan])))
   "*$B:8?F;X%-!<$H$7$F;H$&%-!<!#(B"
   :type (if (get 'key-sequence 'widget-type)
@@ -90,10 +86,7 @@
 	  (list (cond
 		 ((eq system-type 'windows-nt)
 		  [convert])
-		 ((featurep 'xemacs)
-		  [henkan-mode])
 		 (t
-		  ;; Emacs 20.3 or later
 		  [henkan]))))
   "*$B1&?F;X%-!<$H$7$F;H$&%-!<!#(B"
   :type (if (get 'key-sequence 'widget-type)
@@ -449,9 +442,7 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
   (skk-henkan-on-message))
 
 ;;;###autoload
-(let ((property (if (featurep 'xemacs)
-		    'pending-del
-		  'delete-selection)))
+(let ((property 'delete-selection))
   (put 'skk-nicola-self-insert-rshift property t)
   (put 'skk-nicola-self-insert-lshift property t))
 
@@ -485,16 +476,8 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
 	    ?\ )
 	(call-interactively 'self-insert-command t))
     ;; else
-    (let ((last (cond
-		 ((eval-when-compile (featurep 'xemacs))
-		  (event-key last-command-event))
-		 (t
-		  last-command-event)))
-	  (next (cond
-		 ((eval-when-compile (featurep 'xemacs))
-		  (event-key (next-command-event)))
-		 (t
-		  (next-command-event))))
+    (let ((last last-command-event)
+	  (next (next-command-event))
 	  char)
       (if (eq last next)
 	  ;; then
@@ -599,16 +582,9 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
 
 (defun skk-nicola-event-to-key (event)
   "EVENT $B$rH/@8$9$k%-!<$r<hF@$9$k!#(B"
-  (cond
-   ((eval-when-compile (featurep 'xemacs))
-    (let ((char (event-to-character event)))
-      (if (characterp char)
-	  char
-	(event-key event))))
-   (t
-    (if (symbolp event)
-	(vector event)
-      event))))
+  (if (symbolp event)
+      (vector event)
+    event))
 
 ;; $B!A(B NICOLA $B5,3J=q$h$j(B $B!A(B
 ;; 7.4.2$B!!BG80=g=x$@$1$G$O7hDj$G$-$J$$F1;~BG80(B
