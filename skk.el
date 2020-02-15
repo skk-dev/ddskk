@@ -1029,6 +1029,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 		     (not (skk-select-branch skk-current-rule-tree ch))))
 	    ;; normal pattern
 	    ;; skk-set-henkan-point -> skk-kana-input.
+            (setq skk-insert-keysequence (string ch))
 	    (skk-set-henkan-point arg))
 
 	   ;; start conversion.
@@ -1067,6 +1068,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 
 	   ;; just input Kana.
 	   (t
+            (setq skk-insert-keysequence (concat skk-insert-keysequence (string ch)))
 	    (skk-kana-input arg)))
      ;; verbose message
      (skk-henkan-on-message))))
@@ -4600,32 +4602,35 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 
 (defun skk-search-romaji (&optional jisx0208)
   "$BJQ49%-!<$r%m!<%^;z$KJQ49$7$?8uJd$rJV$9!#(B"
-  (when (executable-find "kakasi")
-    (unless (or skk-henkan-okurigana
-		(string-match ">$" skk-henkan-key) ; $B@\F,<-(B
-		(string-match "^>" skk-henkan-key)) ; $B@\Hx<-(B
-      (let ((key skk-henkan-key)
-	    words chars)
-	(with-temp-buffer
-	  (insert key)
-	  ;; $B@\F,<-!&@\Hx<-$NF~NO$@$C$?$i(B ">" $B$r>C$7$F$*$/!#(B
-	  (goto-char (1- (point)))
-	  (when (looking-at ">")
-	    (delete-char 1))
-	  (goto-char (point-min))
-	  (when (looking-at ">")
-	    (delete-char 1))
-	  ;;
-	  (while (not (eobp))
-	    (add-to-list 'chars (skk-what-char-type))
-	    (forward-char 1))
-	  (when (memq 'hiragana chars)
-	    (skk-romaji-region (point-min) (point-max))
-	    (setq words (list (buffer-string))))
-	  (when (and jisx0208 words)
-	    (skk-jisx0208-latin-region (point-min) (point-max))
-	    (setq words (nconc words (list (buffer-string))))))
-	words))))
+  (cond ((executable-find "kakasi")
+         (unless (or skk-henkan-okurigana
+		     (string-match ">$" skk-henkan-key) ; $B@\F,<-(B
+		     (string-match "^>" skk-henkan-key)) ; $B@\Hx<-(B
+           (let ((key skk-henkan-key)
+	         words chars)
+	     (with-temp-buffer
+	       (insert key)
+               ;; $B@\F,<-!&@\Hx<-$NF~NO$@$C$?$i(B ">" $B$r>C$7$F$*$/!#(B
+	       (goto-char (1- (point)))
+	       (when (looking-at ">")
+	         (delete-char 1))
+	       (goto-char (point-min))
+	       (when (looking-at ">")
+	         (delete-char 1))
+               ;;
+	       (while (not (eobp))
+	         (add-to-list 'chars (skk-what-char-type))
+	         (forward-char 1))
+	       (when (memq 'hiragana chars)
+	         (skk-romaji-region (point-min) (point-max))
+	         (setq words (list (buffer-string))))
+	       (when (and jisx0208 words)
+	         (skk-jisx0208-latin-region (point-min) (point-max))
+	         (setq words (nconc words (list (buffer-string))))))
+	     words)))
+
+        (skk-insert-keysequence
+         (list skk-insert-keysequence))))
 
 (defun skk-search-jisx0208-romaji ()
   "$B8+=P$78l$rA43Q%m!<%^;z$KJQ49$7$F!"%j%9%H$K$7$FJV$9!#(B"

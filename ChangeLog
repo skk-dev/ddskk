@@ -1,3 +1,12 @@
+2020-02-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* .travis.yml: fix EVM_EMACS.
+
+2020-02-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-insert-keysequence): New internal variable.
+	* skk.el (skk-search-romaji): use it.
+
 2020-02-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-annotation.el (skkannot-url-installed-p): Remove function.
