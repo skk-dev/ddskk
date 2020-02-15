@@ -906,8 +906,7 @@ DDSKK には、基本的な操作方法を学習できるチュートリアル�
 
 .. [#] JIS X 0208 英字のこと。このマニュアルでは「全角アルファベット」と表記する。
 
-.. [#] ハイライト表示は GNU Emacs の Overlays、XEmacs の extent の機能を使用して
-       います。
+.. [#] ハイライト表示は GNU Emacs の Overlays 機能を使用しています。
 
 .. [#] 変数 :el:defvar:`skk-show-candidates-nth-henkan-char`
 

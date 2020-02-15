@@ -1,3 +1,9 @@
+2020-02-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* INSTALL: Remove contents for XEmacs.
+
+	* history.md, NEWS.ja: update.
+
 2020-02-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* INSTALL, NEWS.ja : update.

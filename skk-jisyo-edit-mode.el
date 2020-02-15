@@ -78,12 +78,7 @@
   (setq skk-jisyo-edit-syntax-table (make-syntax-table))
   (set-syntax-table skk-jisyo-edit-syntax-table)
   (let ((map (make-sparse-keymap)))
-    (cond
-     ((eval-when-compile (featurep 'xemacs))
-      (set-keymap-parents map (list skk-jisyo-edit-map))
-      (use-local-map map))
-     (t
-      (use-local-map (nconc map skk-jisyo-edit-map)))))
+    (use-local-map (nconc map skk-jisyo-edit-map)))
   (modify-syntax-entry ?\" "w" skk-jisyo-edit-syntax-table)
   (modify-syntax-entry ?/ "w" skk-jisyo-edit-syntax-table)
   (run-hooks 'skk-jisyo-edit-mode-hook))
@@ -144,8 +139,6 @@ You must edit your private dictionary at your own risk.  Do you accept it? "))
     (find-file skk-jisyo))
   (unless (eq major-mode 'skk-jisyo-edit-mode)
     (skk-jisyo-edit-mode))
-  (when (eval-when-compile (featurep 'xemacs))
-    (make-local-hook 'kill-buffer-hook))
   ;; 編集中に再度実行しても、
   ;; ↓ のようになるから skk-update-jisyo-function は復元される。
   ;; '((lambda nil

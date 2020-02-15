@@ -15,39 +15,29 @@ DDSKK |release| が動作すると思われる Emacsen のバージョンは、�
 - GNU Emacs 24.3 以降
 - GNU Emacs 25.1 以降
 - GNU Emacs 26.1 以降
-- Mule 機能付きでコンパイルされた XEmacs 21.4 の最新版
-- Mule 機能付きでコンパイルされた XEmacs 21.5 の最新版
-
-XEmacs に関しては、XEmacs 本体とは別に配布されているパッケージ群は最新版が要求さ
-れます。少なくとも xemacs-base パッケージが最新であることに加えて
-fsf-compat パッケージが必須です。
-
-総論として、現在は XEmacs よりも GNU Emacs での動作がよくテストされており、最近で
-は XEmacs でのテストは充分行われていません。GNU Emacs 23 以上での利用が最も推奨さ
-れます。
 
 現時点で Emacs のバージョンごとに少なくとも以下の制限があります。
 
-GNU Emacs 20.x
+GNU Emacs 20
    DDSKK 14.2 以降は GNU Emacs 20 はサポート対象外です。GNU Emacs 20 のユ
    ーザは DDSKK 14.1 をお使いください。
 
-GNU Emacs 21.4
+GNU Emacs 21
    DDSKK 15.1 以降は GNU Emacs 21 はサポート対象外です。GNU Emacs 21 のユ
    ーザは DDSKK 14.4 をお使いください。
 
-GNU Emacs 22.3
+GNU Emacs 22
    DDSKK 16.2 以降は GNU Emacs 22 はサポート対象外です。GNU Emacs 22 のユ
    ーザは DDSKK 16.1 をお使いください。
 
-GNU Emacs 23.3
-   DDSKK 16.4 以降は GNU Emacs 23 はサポート対象外です。GNU Emacs 23 のユ
+GNU Emacs 23
+   DDSKK 17.1 以降は GNU Emacs 23 はサポート対象外です。GNU Emacs 23 のユ
    ーザは DDSKK 16.3 をお使いください。
 
-GNU Emacs 24.2
+GNU Emacs 24.1, 24.2
 
-   DDSKK 16.4 以降は GNU Emacs 24.2 はサポート対象外です。GNU Emacs 24.2 のユ
-   ーザは DDSKK 16.3 をお使いください。
+   DDSKK 17.1 以降は GNU Emacs 24.1 と 24.2 はサポート対象外です。
+   これら GNU Emacs ユーザは DDSKK 16.3 をお使いください。
 
 GNU Emacs 24.3
    GNU Emacs 24.3 と DDSKK 14 の組み合わせで isearch 使用時の不具合が発見されてい
@@ -63,20 +53,14 @@ GNU Emacs 24.4
 GNU Emacs 25.1
    DDSKK 15.2 以降をお使いください（DDSKK 16 を推奨します）。
 
-XEmacs 21.4
-   - :file:`skk-kcode.el` の機能を含む JIS X 0213 対応が機能しません。
-   - インライン候補表示は機能しません。
-   - 動的補完における複数候補表示は機能しません。
-   - ツールティップ表示が機能しません。
-   - 日本語メニュー表示は X リソースによる方法のみテストされています。
-   - GNU Emacs 標準添付辞書 ja-dic は利用できません。
+GNU Emacs 27.1
 
-XEmacs 21.5 (beta)
-   - :file:`skk-kcode.el` の機能を含む JIS X 0213 対応が機能しません。
-   - インライン候補表示は機能しません。
-   - 動的補完における複数候補表示は機能しません。
-   - 日本語メニュー表示は X リソースによる方法のみテストされています。
-   - GNU Emacs 標準添付辞書 ja-dic は利用できません。
+   cl が正式に廃止され、cl-lib が採用されました。
+   DDSKK 17 で対応しています。
+
+XEmacs
+   DDSKK 17.1 以降は XEmacs はサポート対象外です。
+   XEmacs のユーザは DDSKK 16.3 をお使いください。
 
 **************
 SKK とはなにか

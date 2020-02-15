@@ -223,16 +223,9 @@ kakutei'ed and erase the buffer contents."
       (skk-isearch-set-initial-mode initial)))
   ;; setup variables and keymap
   (unless (keymapp skk-isearch-mode-map)
-    (cond
-     ((eval-when-compile (featurep 'xemacs))
-      (setq skk-isearch-mode-map (skk-isearch-setup-keymap
-				  (make-keymap)))
-      (set-keymap-parents skk-isearch-mode-map
-			  isearch-mode-map))
-     (t
-      (setq skk-isearch-mode-map
-	    (skk-isearch-setup-keymap (cons 'keymap
-					    isearch-mode-map))))))
+    (setq skk-isearch-mode-map
+	  (skk-isearch-setup-keymap (cons 'keymap
+					  isearch-mode-map))))
   (set skk-isearch-overriding-local-map skk-isearch-mode-map)
   ;; Input Method として SKK を使っている場合の対策
   (when (eval-when-compile (featurep 'emacs))
@@ -357,36 +350,33 @@ Optional argument PREFIX is appended if given."
 
   ;; Keys for `skk-isearch-skk-mode'.
   (let ((commands '(skk-mode skk-auto-fill-mode)))
-    (unless (eval-when-compile (featurep 'xemacs))
-      (when (string-match "^japanese-skk" (format "%s" default-input-method))
-	(push 'toggle-input-method commands)))
+    (when (string-match "^japanese-skk" (format "%s" default-input-method))
+      (push 'toggle-input-method commands))
     (skk-isearch-find-keys-define map commands 'skk-isearch-skk-mode))
 
-  (unless (eval-when-compile (featurep 'xemacs))
-    ;; XEmacs にはないコマンド
-    (if (fboundp 'isearch-other-control-char)			;2013-10-08 Remove functions
-	(define-key map [?\C-x t] 'isearch-other-control-char)) ; GNU Emacs 24.4 から廃止
+  (if (fboundp 'isearch-other-control-char)			;2013-10-08 Remove functions
+      (define-key map [?\C-x t] 'isearch-other-control-char)) ; GNU Emacs 24.4 から廃止
 
-    (define-key map [?\C-0] 'skk-isearch-start-henkan)
-    (define-key map [?\C-1] 'skk-isearch-start-henkan)
-    (define-key map [?\C-2] 'skk-isearch-start-henkan)
-    (define-key map [?\C-3] 'skk-isearch-start-henkan)
-    (define-key map [?\C-4] 'skk-isearch-start-henkan)
-    (define-key map [?\C-5] 'skk-isearch-start-henkan)
-    (define-key map [?\C-6] 'skk-isearch-start-henkan)
-    (define-key map [?\C-7] 'skk-isearch-start-henkan)
-    (define-key map [?\C-8] 'skk-isearch-start-henkan)
-    (define-key map [?\C-9] 'skk-isearch-start-henkan)
-    (define-key map [?\M-0] 'skk-isearch-start-henkan)
-    (define-key map [?\M-1] 'skk-isearch-start-henkan)
-    (define-key map [?\M-2] 'skk-isearch-start-henkan)
-    (define-key map [?\M-3] 'skk-isearch-start-henkan)
-    (define-key map [?\M-4] 'skk-isearch-start-henkan)
-    (define-key map [?\M-5] 'skk-isearch-start-henkan)
-    (define-key map [?\M-6] 'skk-isearch-start-henkan)
-    (define-key map [?\M-7] 'skk-isearch-start-henkan)
-    (define-key map [?\M-8] 'skk-isearch-start-henkan)
-    (define-key map [?\M-9] 'skk-isearch-start-henkan))
+  (define-key map [?\C-0] 'skk-isearch-start-henkan)
+  (define-key map [?\C-1] 'skk-isearch-start-henkan)
+  (define-key map [?\C-2] 'skk-isearch-start-henkan)
+  (define-key map [?\C-3] 'skk-isearch-start-henkan)
+  (define-key map [?\C-4] 'skk-isearch-start-henkan)
+  (define-key map [?\C-5] 'skk-isearch-start-henkan)
+  (define-key map [?\C-6] 'skk-isearch-start-henkan)
+  (define-key map [?\C-7] 'skk-isearch-start-henkan)
+  (define-key map [?\C-8] 'skk-isearch-start-henkan)
+  (define-key map [?\C-9] 'skk-isearch-start-henkan)
+  (define-key map [?\M-0] 'skk-isearch-start-henkan)
+  (define-key map [?\M-1] 'skk-isearch-start-henkan)
+  (define-key map [?\M-2] 'skk-isearch-start-henkan)
+  (define-key map [?\M-3] 'skk-isearch-start-henkan)
+  (define-key map [?\M-4] 'skk-isearch-start-henkan)
+  (define-key map [?\M-5] 'skk-isearch-start-henkan)
+  (define-key map [?\M-6] 'skk-isearch-start-henkan)
+  (define-key map [?\M-7] 'skk-isearch-start-henkan)
+  (define-key map [?\M-8] 'skk-isearch-start-henkan)
+  (define-key map [?\M-9] 'skk-isearch-start-henkan)
 
   ;; Keys for `skk-isearch-delete-char'.
   (let ((commands '(backward-delete-char-untabify
@@ -690,20 +680,9 @@ If the current mode is different from previous, remove it first."
       (skk-isearch-wrapper-1))
 
      (t
-      (cond
-       ((eval-when-compile (featurep 'xemacs))
-	(let ((search-nonincremental-instead nil))
-	  (isearch-exit))
-	(skk-unread-event last-event)
-	;; XXX なぜ 2 回 unread する...?
-	(skk-unread-event event)
-	(skk-unread-event event))
-
-       (t
-	(skk-unread-event event)
-	(if (fboundp 'isearch-other-control-char) ; 2013-10-08 Remove functions.
-	    (isearch-other-control-char)))	  ; GNU Emacs 24.4 から廃止
-	)))))
+      (skk-unread-event event)
+      (if (fboundp 'isearch-other-control-char) ; 2013-10-08 Remove functions.
+	  (isearch-other-control-char))))))     ; GNU Emacs 24.4 から廃止
 
 
 ;;
@@ -758,20 +737,6 @@ If the current mode is different from previous, remove it first."
 	     (skk-isearch-mode-string)
 	     (mapconcat 'isearch-text-char-description isearch-string ""))))))
 
-(when (eval-when-compile (featurep 'xemacs))
-  (defadvice digit-argument (around skk-isearch activate)
-    "isearch 内で digit-argument を活用できるよう調整する。"
-    (if (and skk-isearch-switch
-	     (with-current-buffer skk-isearch-working-buffer
-	       (eq skk-henkan-mode 'on)))
-	(let* ((event last-command-event)
-	       (key (and (key-press-event-p event)
-			 (event-key event)))
-	       (digit (and key (characterp key) (>= key ?0) (<= key ?9)
-			   (- key ?0))))
-	  (skk-isearch-start-henkan digit event))
-      ad-do-it)))
-
 ;;; This advice will be enabled before skk-isearch is loaded.
 ;;;###autoload
 (defconst skk-isearch-really-early-advice
@@ -802,21 +767,21 @@ If the current mode is different from previous, remove it first."
 	     ad-do-it)))))
 
 ;;;###autoload
-(unless (featurep 'xemacs)
-  (define-key isearch-mode-map [(control \\)] 'isearch-toggle-input-method)
-  (cond
-   ((and (featurep 'advice)
-	 (assq 'skk-isearch-ad
-	       (assq 'around
-		     (ad-get-advice-info 'isearch-toggle-input-method))))
-    ;; Already advised.
-    nil)
-   ((locate-library "advice")
-    ;; Advise now.
-    (funcall skk-isearch-really-early-advice))
-   (t
-    ;; Emacs 21 loads "leim-list" files before `load-path' is prepared.
-    (add-hook 'before-init-hook skk-isearch-really-early-advice))))
+(define-key isearch-mode-map [(control \\)] 'isearch-toggle-input-method)
+(cond ((and (featurep 'advice)
+            (assq 'skk-isearch-ad
+	          (assq 'around
+		        (ad-get-advice-info 'isearch-toggle-input-method))))
+       ;; Already advised.
+       nil)
+
+      ((locate-library "advice")
+       ;; Advise now.
+       (funcall skk-isearch-really-early-advice))
+
+      (t
+       ;; Emacs 21 loads "leim-list" files before `load-path' is prepared.
+       (add-hook 'before-init-hook skk-isearch-really-early-advice)))
 
 (put 'digit-argument 'isearch-command t)
 (if (fboundp 'isearch-other-control-char)		  ; 2013-10-08 Remove functions

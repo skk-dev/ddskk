@@ -2,26 +2,6 @@
 インストール
 ############
 
-*******************
-APEL のインストール
-*******************
-
-.. index::
-   keyword: APEL
-
-DDSKK 14.2 からは、GNU Emacs 22 以上を利用する場合においては APEL を別途インスト
-ールする必要がなくなりました。APEL に依存している他の elisp プログラムを使用して
-いなければ、インストール済の APEL は削除することが可能です。
-
-.. note::
-
-   XEmacs をお使いの場合は、 DDSKK をインストールする前に APEL （APEL 10.8 以上を
-   推奨）をインストールして下さい。APEL は
-
-     - http://git.chise.org/elisp/apel/
-
-   から入手できます。
-
 ********************
 DDSKK のインストール
 ********************
@@ -107,46 +87,6 @@ emacs の実体ファイルを特定することもできます。
 
 と指定します。
 
-.. _install-xemacs:
-
-XEmacs へのインストール
------------------------
-
-XEmacs でパッケージとしてインストールする場合は、まず ``what-where-package``
-を引数に :command:`make` を実行してパッケージのインストール先を確認しましょう。
-
-.. code:: console
-
-   $ make what-where-package XEMACS=/usr/bin/xemacs
-   -| /usr/bin/xemacs -batch -q -no-site-file -l SKK-MK \
-   -| -f SKK-MK-what-where-package
-   -|   Loading /home/user/temp/ddskk-SKK-VERSION/SKK-CFG...
-
-   -| Running in:
-   -|   XEmacs 21.5  (beta34) "kale" [Lucid] (x86_64-redhat-linux, Mule) of ...
-
-   -| SKK modules:
-   -|   skk-cursor, skk-viper, ...
-   -|   -> /usr/share/xemacs/site-packages/lisp/skk
-
-   -| SKK infos:
-   -|   skk.info
-   -|   -> /usr/share/xemacs/site-packages/info
-
-   -| SKK tutorials:
-   -|   SKK.tut, SKK.tut.E, NICOLA-SKK.tut, skk.xpm
-   -|   -> /usr/share/xemacs/site-packages/etc/skk
-
-次に、スーパーユーザになって ``install-package`` を引数に :command:`make` を
-実行すると、実際にインストールされます。
-
-.. code:: console
-
-   $ su
-   % make install-package XEMACS=/usr/bin/xemacs
-   -| xemacs -batch -q -no-site-file -l SKK-MK -f SKK-MK-install-package
-   -|   Loading /home/user/temp/ddskk-VERSION/SKK-CFG ...
-
 対話的なインストール
 --------------------
 
@@ -212,11 +152,6 @@ DDSKK を使用するには、いわゆる辞書（主にかなと漢字の対�
 DDSKK 14.2 からは、 GNU Emacs 同梱の辞書データ ja-dic を利用したかな漢字変換に対
 応しましたので、SKK 辞書ファイルを別途インストールしなくても最低限の使用ができま
 す。
-
-.. note::
-
-   XEmacs では ja-dic は利用できませんので、後述する SKK 辞書をインストールする必
-   要があります。
 
 しかし、 ja-dic は、 GNU Emacs の入力メソッド LEIM のためにファイル :file:`SKK-JISYO.L` か
 ら変換して生成されたものであり、英数変換や数値変換などのエントリ、および「大丈夫」

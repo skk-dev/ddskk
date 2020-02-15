@@ -82,7 +82,7 @@
 ;;			    skk-henkan-key)))
 ;;
 ;; ;; 文字 CHAR の ANNOTATION (文字列) を変更したい場合
-;; ;; (skk-tankan-set-char-annotation CHAR ANNOTATION)
+;; ;; (aset skk-tankan-annotation-table CHAR ANNOTATION)
 ;;
 ;; ;; メモリを節約したい人向け (部首と画数以外のデータを保持しません)
 ;; ;; (setq skk-tankan-annotation-table nil)
@@ -1685,17 +1685,8 @@
 ;;; get/set char's annotation
 (defun skk-tankan-get-char-annotation (char)
   (if skk-tankan-annotation-table
-      (cond ((eval-when-compile (featurep 'xemacs))
-	     (get-char-table char skk-tankan-annotation-table))
-	    (t
-	     (aref skk-tankan-annotation-table char)))
+      (aref skk-tankan-annotation-table char)
     nil))
-
-(defun skk-tankan-set-char-annotaion (char annotation)
-  (cond ((eval-when-compile (featurep 'xemacs))
-	 (put-char-table char annotation skk-tankan-annotation-table))
-	(t
-	 (aset skk-tankan-annotation-table char annotation))))
 
 ;;; get stroke for radical part
 (defun skk-tankan-stroke-for-radical (radical dat)
@@ -2725,7 +2716,7 @@ METHOD が 2 であれば数値 NUM は総画数として検索を実行する。
 
 )))
     (dolist (x l)
-      (skk-tankan-set-char-annotaion (car x) (nth 1 x)))))
+      (aset skk-tankan-annotation-table (car x) (nth 1 x)))))
 
 ;;; annotation data for japanese-jisx0213-1
 (when (and skk-tankan-annotation-table
@@ -3405,11 +3396,9 @@ METHOD が 2 であれば数値 NUM は総画数として検索を実行する。
 
 )))
     (dolist (x l)
-      (skk-tankan-set-char-annotaion
-       (make-char 'japanese-jisx0213-1
-		  (+ 32 (car x))
-		  (+ 32 (nth 1 x)))
-		  (nth 2 x)))))
+      (aset skk-tankan-annotation-table
+       (make-char 'japanese-jisx0213-1 (+ 32 (car x)) (+ 32 (nth 1 x)))
+       (nth 2 x)))))
 
 (provide 'skk-tankan)
 

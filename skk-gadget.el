@@ -280,20 +280,7 @@ interactive に起動する他、\"clock /(skk-clock)/\" などのエントリを S
      (t
       (setq expr1 "[七八九]秒"
 	    expr2 "〇秒")))
-    ;;
-    (when (eval-when-compile (featurep 'xemacs))
-      ;; XEmacs で sound がロードされているかどうか。
-      (when (setq snd
-		  (and (boundp 'sound-alist)
-		       (eq t (catch 'tag
-			       (mapc
-				(lambda (list)
-				  (when (eq 'drum (cadr (memq :sound list)))
-				    (throw 'tag t)))
-				sound-alist)))))
-	(unless (assq 'clink sound-alist)
-	  (load-sound-file "clink" 'clink))))
-    ;;
+
     (save-match-data
       (condition-case nil
 	  (let (case-fold-search

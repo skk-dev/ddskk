@@ -47,7 +47,7 @@ When PROCESS is nil, check `skkserv-process' instead."
 When called interactively, print version information."
   (interactive)
   (cond
-   ((skk-called-interactively-p 'interactive)
+   ((called-interactively-p 'interactive)
     (message "%s" (skk-server-version)))
    ((not (or skk-server-host
 	     skk-servers-list))

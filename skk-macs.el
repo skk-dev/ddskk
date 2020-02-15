@@ -164,28 +164,16 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 (def-edebug-spec skk-with-point-move t)
 
 (defmacro skk-face-on (object start end face &optional priority)
-  (cond
-   ((eval-when-compile (featurep 'xemacs))
-    `(let ((inhibit-quit t))
-       (if (not (extentp ,object))
-	   (progn
-	     (setq ,object (make-extent ,start ,end))
-	     (if (not ,priority)
-		 (set-extent-face ,object ,face)
-	       (set-extent-properties
-		,object (list 'face ,face 'priority ,priority))))
-	 (set-extent-endpoints ,object ,start ,end))))
-   (t
-    `(let ((inhibit-quit t))
-       (if (not (overlayp ,object))
-	   (progn
-	     (setq ,object (make-overlay ,start ,end))
-	     (when ,priority
-	       (overlay-put ,object 'priority ,priority))
-	       (overlay-put ,object 'face ,face)
-	       ;;(overlay-put (, object) 'evaporate t)
-	       )
-	 (move-overlay ,object ,start ,end))))))
+  `(let ((inhibit-quit t))
+     (if (not (overlayp ,object))
+	 (progn
+	   (setq ,object (make-overlay ,start ,end))
+	   (when ,priority
+	     (overlay-put ,object 'priority ,priority))
+	   (overlay-put ,object 'face ,face)
+	   ;;(overlay-put (, object) 'evaporate t)
+	   )
+       (move-overlay ,object ,start ,end))))
 
 ;;;###autoload
 (put 'skk-loop-for-buffers 'lisp-indent-function 1)
@@ -197,29 +185,12 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 	 (set-buffer buf)
 	 ,@body))))
 
-(defmacro skk-called-interactively-p (&optional kind)
-  (cond ((featurep 'xemacs)
-	 ;; XEmacs
-	 ;; `called-interactively-p' is not defined.
-	 '(interactive-p))
-
-	(t
-	 ;; GNU Emacs 23.2 or later
-	 ;; `called-interactively-p' takes one argument.
-	 `(called-interactively-p ,kind))))
-
 (defmacro skk-delete-overlay (list)
   ;; skk-dcomp-multiple-hide と skk-inline-hide を統合した。
   `(when ,list
      (dolist (o ,list)
        (delete-overlay o))
      (setq ,list nil)))
-
-(defmacro skk-facep (face)
-  (cond ((featurep 'xemacs)
-	 `(find-face ,face))
-	(t
-	 `(facep ,face))))
 
 (defmacro skk-help-make-usage (symbol arglist)
   (cond ((fboundp 'help--make-usage)
@@ -233,11 +204,6 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 ;;; functions.
 ;; version dependent
 ;; Many functions are derived from emu (APEL).
-
-(when (eval-when-compile (featurep 'emacs))
-  ;; int-char() が出現するのは skk-compute-henkan-lists() のみ
-  ;; XEmacs では int-char() は標準？
-  (defalias 'int-char 'identity))
 
 ;;; string-to-char-list が出現するのは 9 行下の defalias のみ
 ;;; よって string-to-int-list の定義を変更してしまう
@@ -916,7 +882,7 @@ BUFFER defaults to the current buffer."
 ;;  (char-to-string (string-to-char string)))
 
 (defsubst skk-get-current-candidate-1 (&optional count)
-  (setq count (or count (skk-henkan-count)))
+  (setq count (or count skk-henkan-count))
   (when (> 0 count)
     (skk-error "候補を取り出すことができません"
 	       "Cannot get current candidate"))
@@ -1082,7 +1048,7 @@ Return the modified ALIST."
 (defun skk-reset-henkan-count (count)
   ;; ▽モードに戻るときは 0
   ;; ▼モードのまま候補一覧の手前に戻るときは 4
-  (skk-set-henkan-count count)
+  (setq skk-henkan-count count)
   (skk-unread-event (character-to-event
 		     (aref (car (where-is-internal
 				 'skk-previous-candidate

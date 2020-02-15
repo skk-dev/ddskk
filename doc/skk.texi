@@ -33,8 +33,8 @@
 @c  Maintainer: SKK Development Team <skk@ring.gr.jp>
 @c  Keywords: japanese
 @c
-@set SKK-VERSION 16.3.50
-@set UPDATED Date: 2020/02/10
+@set SKK-VERSION 17.0.50
+@set UPDATED Date: 2020/02/14
 
 @dircategory Emacs
 @dircategory GNU Emacs Lisp
@@ -258,45 +258,35 @@ DDSKK @value{SKK-VERSION} が動作すると思われる Emacsen のバージョ
 @item GNU Emacs 24.3 以降
 @item GNU Emacs 25.1 以降 (推奨)
 @item GNU Emacs 26.1 以降 (推奨)
-@item Mule 機能付きでコンパイルされた XEmacs 21.4 の最新版
-@item Mule 機能付きでコンパイルされた XEmacs 21.5 の最新版
 @end itemize
-
-XEmacs に関しては、XEmacs 本体とは別に配布されているパッケージ群は最新版が要
-求されます。少なくとも xemacs-base パッケージが最新であることに加えて、fsf-compat パ
-ッケージが必須です。
-
-総論として、現在は XEmacs よりも GNU Emacs での動作がよくテストされてお
-り、最近では XEmacs でのテストは充分行われていません。
-GNU Emacs 23 以上での利用が最も推奨されます。
 
 現時点で Emacs のバージョンごとに少なくとも以下の制限があります。
 
 @table @b
-@item GNU Emacs 20.x
+@item GNU Emacs 20
 
 DDSKK 14.2 以降は GNU Emacs 20 はサポート対象外です。
 GNU Emacs 20 のユーザは DDSKK 14.1 をお使いください。
 
-@item GNU Emacs 21.4
+@item GNU Emacs 21
 
 DDSKK 15.1 以降は GNU Emacs 21 はサポート対象外です。
 GNU Emacs 21 のユーザは DDSKK 14.4 をお使いください。
 
-@item GNU Emacs 22.3
+@item GNU Emacs 22
 
 DDSKK 16.2 以降は GNU Emacs 22 はサポート対象外です。
 GNU Emacs 22 のユーザは DDSKK 16.1 をお使いください。
 
-@item GNU Emacs 23.3
+@item GNU Emacs 23
 
-DDSKK 16.4 以降は GNU Emacs 23 はサポート対象外です。
+DDSKK 17.1 以降は GNU Emacs 23 はサポート対象外です。
 GNU Emacs 23 のユーザは DDSKK 16.3 をお使いください。
 
-@item GNU Emacs 24.2
+@item GNU Emacs 24.1, 24.2
 
-DDSKK 16.4 以降は GNU Emacs 24.2 はサポート対象外です。
-GNU Emacs 24.2 のユーザは DDSKK 16.3 をお使いください。
+DDSKK 17.1 以降は GNU Emacs 24.1 と 24.2 はサポート対象外です。
+これら GNU Emacs のユーザは DDSKK 16.3 をお使いください。
 
 @item GNU Emacs 24.3
 
@@ -321,28 +311,15 @@ tar 展開は非対応です。
 
 DDSKK 15.2 以降をお使いください（DDSKK 16 を推奨します）。
 
-@item XEmacs 21.4
+@item GNU Emacs 27.1
 
-@itemize @bullet
-@item @file{skk-kcode.el} の機能を含む JIS X 0213 対応が機能しません。
-@item インライン候補表示は機能しません。
-@item 動的補完における複数候補表示は機能しません。
-@item ツールティップ表示が機能しません。
-@item 日本語メニュー表示は X リソースによる方法のみテストされています。
-@item GNU Emacs 標準添付辞書 ja-dic は利用できません。
-@item skk-search-web は利用できません。
-@end itemize
+cl が正式に廃止され、cl-lib が採用されました。
+DDSKK 17 で対応しています。
 
-@item XEmacs 21.5 (beta)
+@item XEmacs
 
-@itemize @bullet
-@item @file{skk-kcode.el} の機能を含む JIS X 0213 対応が機能しません。
-@item インライン候補表示は機能しません。
-@item 動的補完における複数候補表示は機能しません。
-@item 日本語メニュー表示は X リソースによる方法のみテストされています。
-@item GNU Emacs 標準添付辞書 ja-dic は利用できません。
-@item skk-search-web は利用できません。
-@end itemize
+DDSKK 17.1 以降は XEmacs はサポート対象外です。
+XEmacs のユーザは DDSKK 16.3 をお使いください。
 
 @end table
 
@@ -422,7 +399,6 @@ Apple OS X 環境の方は @url{https://github.com/skk-dev/ddskk/blob/master/REA
 
 @menu
 * GNU Emacs へのインストール::
-* XEmacs へのインストール::
 * 対話的なインストール::
 * MELPA によるインストール::
 @end menu
@@ -495,55 +471,6 @@ $ su
 @noindent
 と指定します。
 
-@node XEmacs へのインストール
-@subsection XEmacs へのインストール
-@cindex APEL
-
-XEmacs をお使いの場合は、 DDSKK をインストールする前に APEL (APEL 10.8 以
-上を推奨) をインストールして下さい。APEL は次のサイトから入手できます。
-
-@uref{http://git.chise.org/elisp/apel/, APEL}
-
-XEmacs でパッケージとしてインストールする場合は、
-まず、@option{what-where-package} を引数に @command{make} コマンドを実行
-してパッケージのインストール先を確認しましょう。
-
-@example
-@group
-% make what-where-package XEMACS=/usr/bin/xemacs
-@print{}xemacs -batch -q -no-site-file -l SKK-MK -f SKK-MK-what-where-package
-
-@print{}  Loading /home/user/temp/ddskk-@value{SKK-VERSION}/SKK-CFG...
-
-@print{}Running in:
-@print{}  XEmacs 21.5  (beta29) garbanzo [Lucid] (i386-redhat-linux, Mule) of @dots{}
-
-@print{}SKK modules:
-@print{}  skk-cursor, skk-viper, @dots{}
-@print{}  -> /usr/share/xemacs/site-packages/lisp/skk
-
-@print{}SKK infos:
-@print{}  skk.info
-@print{}  -> /usr/share/xemacs/site-packages/info
-
-@print{}SKK tutorials:
-@print{}  SKK.tut, SKK.tut.E, NICOLA-SKK.tut, skk.xpm
-@print{}  -> /usr/share/xemacs/site-packages/etc/skk
-@end group
-@end example
-
-つぎに、スーパーユーザになって @option{install-package} を引数
-に @command{make} を実行すると、実際にインストールされます。
-
-@example
-@group
-% make install-package XEMACS=/usr/bin/xemacs
-@print{}xemacs -batch -q -no-site-file -l SKK-MK -f SKK-MK-install-package
-@print{}  Loading /home/user/temp/ddskk-@value{SKK-VERSION}/SKK-CFG@dots{}
-@dots{}
-@end group
-@end example
-
 @node 対話的なインストール
 @subsection 対話的なインストール
 
@@ -606,8 +533,7 @@ DDSKK を使用するには、いわゆる辞書 (主にかなと漢字の対応
 
 DDSKK 14.2 からは、 GNU Emacs 同梱の辞書データ @file{ja-dic} を利用した
 かな漢字変換に対応しましたので、SKK 辞書ファイルを別途インストールしなく
-ても最低限の使用ができます（XEmacs では @file{ja-dic} は利用できませんの
-で、後述する SKK 辞書をインストールする必要があります）。
+ても最低限の使用ができます。
 
 しかし、@file{ja-dic} は、 Emacs の入力メソッド LEIM のために @file{SKK-JISYO.L} か
 ら変換して生成されたものであり、英数変換や数値変換などのエントリ、および
@@ -786,7 +712,7 @@ DDSKK は特定の辞書サーバの実装に依存していませんので、�
 
 @lisp
 @group
-(require 'skk-autoloads) ; @b{XEmacs でパッケージとしてインストールした場合は不要}
+(require 'skk-autoloads)
 (global-set-key "\C-x\C-j" 'skk-mode)
 (global-set-key "\C-xj" 'skk-auto-fill-mode)
 (global-set-key "\C-xt" 'skk-tutorial)
@@ -1517,7 +1443,7 @@ SKK モードは、文字種類による４種類の@b{「入力モード」}と
 この例では、▽モードにおける @samp{▽} マークからポイントまでの間の文字列
 @samp{かんじ} を辞書変換の対象文字列として確定し、それについて辞書内での
 検索を行っています。実際の変換動作では、候補部分がハイライト表示されます
-@footnote{ハイライト表示は FSF Emacs の Overlays、XEmacs の extent の機能を使
+@footnote{ハイライト表示は FSF Emacs の Overlays の機能を使
 用しています。}。
 
 @samp{漢字} が求める語であれば @kbd{C-j} をタイプしてこの変換を
@@ -2180,9 +2106,6 @@ make 時に自動生成されるファイル。オートロードの設定のほ
 
 @xref{はじめの設定}.
 
-XEmacs で DDSKK をパッケージとしてインストールした場合
-は @file{auto-autoloads.el} というファイルがこれに相当します。
-
 @item skk-azik.el
 @cindex @file{skk-azik.el}
 
@@ -2437,12 +2360,6 @@ VIPER インターフェイスプログラムを集めたファイル。
 
 @xref{VIP/VIPERとの併用}.
 
-@item skk-xemacs.el
-@cindex @file{skk-xemacs.el}
-
-XEmacs の拡張機能を利用するプログラムを集めたファイル。
-インジケータのカラー化や画像表示、ツールティップ利用など。
-
 @item tar-util.el
 
 @end table
@@ -2451,7 +2368,6 @@ XEmacs の拡張機能を利用するプログラムを集めたファイル。
 @section ユーザオプションの設定方法
 
 @cindex @file{~/.emacs.d/init.el}
-@cindex @file{~/.xemacs/init.el}
 @cindex @file{~/.skk}
 DDSKK のカスタマイズは、@file{~/.emacs.d/init.el} あるいは @file{~/.skk} に記述し
 ます。また、各ファイルの提供するフックも利用します。上記のファイルやフッ
@@ -2469,7 +2385,6 @@ DDSKK のカスタマイズは、@file{~/.emacs.d/init.el} あるいは @file{~/
 
 @table @file
 @item ~/.emacs.d/init.el
-@itemx ~/.xemacs/init.el
 
 Emacs を起動したときに一度だけ読み込まれます。
 このマニュアルは @file{~/.emacs.d/init.el} という記述で統一しています。
@@ -3433,8 +3348,6 @@ face が使える環境では、@samp{んとう}の部分が異なる face で�
 @end defvr
 
 @defvr {ユーザ変数} skk-dcomp-multiple-activate
-
-@b{XEmacs では動作しません。}
 
 @code{Non-nil} であれば、動的補完の候補をインラインに複数表示します
 @footnote{現在は候補群の右側1カラムのフェイスがデフォルトに戻る、という制約があります。}。
@@ -7973,12 +7886,7 @@ abbreviation の展開を行うように設定することができるのです�
 @item Emacs の coding system (コード系)
 @footnote{coding system は GNU Emacs の場合 @code{euc-jp}, @code{shift_jis},
 @code{junet} などのシンボルで表され、@kbd{M-x describe-coding-system} や
-@kbd{M-x list-coding-systems} で調べることができます。
-XEmacs の場合、シンボルは coding system そのものでは
-なく coding system object を指示するためのシンボルとして扱われます。
-具体的には GNU Emacs では @code{(coding-system-p 'euc-jp)} が @code{t} を
-返すのに対し、 XEmacs では @code{nil} を返しますが、代わりにシンボルが示
-す coding system object を返す @code{find-coding-system} 関数が存在します。}
+@kbd{M-x list-coding-systems} で調べることができます。}
 
 @item @samp{euc}, @samp{ujis}, @samp{sjis}, @samp{jis} の文字列。@code{skk-coding-system-alist} に従って、順に @code{euc-jisx0213}, @code{euc-jisx0213}, @code{shift_jisx0213}, @code{iso-2022-jp-3-strict} の各シンボルへ変換されます。
 
@@ -9347,8 +9255,6 @@ skk abbrev モードであることを示すカーソル色。標準は、royalb
 
 @defvr {ユーザ変数} skk-show-inline
 
-@b{XEmacs ではこの機能はサポートされません。}
-
 この変数の値が @code{non-nil} であれば、候補一覧を現在のポイント位置でインライン表
 示します。
 値が シンボル @code{'vertical} であれば、各候補を縦方向にインライン表示します。
@@ -9521,10 +9427,7 @@ skk abbrev モードであることを示すカーソル色。標準は、royalb
 そのため、テキストのコピーの際にオーバーレイ属性は保存されません。その他
 にも、オーバーレイの移動やその属性の変更はバッファの変更とは見なされない
 こと、オーバーレイの変更はバッファのアンドゥリストに記録されないこと、な
-どが特徴として挙げられます。
-
-なお、XEmacs にはオーバーレイ機能はありません。代わりに extent というも
-のが用意されているのでそれを利用します。}。
+どが特徴として挙げられます。}。
 @end defvr
 
 @defvr {ユーザ変数} skk-henkan-face
@@ -9634,8 +9537,6 @@ skk abbrev モードであることを示すカーソル色。標準は、royalb
 @node モードラインの装飾
 @subsection モードラインの装飾
 
-XEmacs 及び Emacs 21 以降では、以下の機能が使用できます。
-
 @menu
 * インジケータ::
 * アイコン::
@@ -9673,24 +9574,6 @@ Emacs 21 以上 @footnote{変数 @code{mule-version} の値が 5.0 以上の Ema
 @item @code{skk-emacs-jisx0208-latin-face} 
 @item @code{skk-emacs-jisx0201-face} 
 @item @code{skk-emacs-abbrev-face} 
-@end itemize
-
-XEmacs の場合
-
-@vindex skk-xemacs-hiragana-face
-@vindex skk-xemacs-katakana-face
-@vindex skk-xemacs-jisx0208-latin-face
-@vindex skk-xemacs-latin-face
-@vindex skk-xemacs-jisx0201-face
-@vindex skk-xemacs-abbrev-face
-
-@itemize @bullet
-@item @code{skk-xemacs-hiragana-face}
-@item @code{skk-xemacs-katakana-face}
-@item @code{skk-xemacs-jisx0208-latin-face}
-@item @code{skk-xemacs-latin-face}
-@item @code{skk-xemacs-jisx0201-face}
-@item @code{skk-xemacs-abbrev-face}
 @end itemize
 
 なお、インジケータを右クリックするとポップアップメニューが表示されます。
@@ -10547,9 +10430,7 @@ SKK が Simple Kana to Kanji conversion program の略であるとおり、か�
 @node Q1-3 DDSKK はどの Emacs で使えますか?
 @unnumberedsubsec Q1-3 DDSKK はどの Emacs で使えますか?
 
-基本的には、GNU Emacs と Mule 機能付きの XEmacs で使えます。
-
-対応する Emacs のバージョンについては以下をご覧ください。
+対応する GNU Emacs のバージョンについては以下をご覧ください。
 
 @display
 @xref{このバージョンのSKKについて}.
@@ -10576,8 +10457,6 @@ Apple OS X 版 Emacs に特化した情報については、以下のファイ�
 APEL は A Portable Emacs Library の略です。APEL の主な機能は異なる Emacs
 間の非互換性を吸収することです。
 
-XEmacs では APEL が必要です。
-
 GNU Emacs 22 以上では APEL は不要となりました。この変更は 2010 年 9 月に CVS に commit され、2011 年 1 月に DDSKK 14.2 としてリリースされました。
 
 @node Installation
@@ -10594,11 +10473,6 @@ GNU Emacs 22 以上では APEL は不要となりました。この変更は 201
 
 SKK 本体と SKK 辞書が必要です。オプションで辞書サーバを用意す
 ることができます。
-XEmacs では事前に APEL をインストールしてください。
-
-@display
-@xref{XEmacs へのインストール}.
-@end display
 
 SKK 本体は以下から入手できます。
 
@@ -10942,14 +10816,9 @@ NICOLA 配列は、特別に日本語入力のために考えられた配列な�
 @end display
 
 @noindent
-といった場所にインストールされています。XEmacs のパッケージならば
+といった場所にインストールされています。
 
-@display
-@file{/usr/local/lib/xemacs/mule-packages/etc/skk}
-@end display
-
-@noindent
-などを確認します。その後で @file{~/.skk} に
+その後で @file{~/.skk} に
 
 @lisp
 (setq skk-large-jisyo "/usr/local/share/skk/SKK-JISYO.L")
@@ -10984,15 +10853,9 @@ NICOLA 配列は、特別に日本語入力のために考えられた配列な�
 @end display
 
 @noindent
-といった場所にインストールされています。XEmacs のパッケージならば
-@cindex パッケージ
+といった場所にインストールされています。
 
-@display
-@file{/usr/local/lib/xemacs/mule-packages/etc/skk}
-@end display
-
-@noindent
-などを確認します。その後で @file{~/.emacs.d/init.el} に
+その後で @file{~/.emacs.d/init.el} に
 
 @lisp
 (setq skk-tut-file "/usr/local/share/skk/SKK.tut")

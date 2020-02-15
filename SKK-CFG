@@ -14,15 +14,14 @@
 ;; イル (SKK-CFG) を編集することによってお使いの環境に合わせた設定をすることがで
 ;; きます。ここでは設定できる変数を紹介し、次に設定例を示します。
 
-;; SKK のインストーラは、標準的な環境では make install (XEmacs の場合は make
-;; install-package) と実行するだけでインストールできるように作られていますが、
-;; もし、あなたの環境でうまくいかないときは、以下の設定を変更してみて下さい。
+;; SKK のインストーラは、標準的な環境では make install と実行するだけでインストー
+;; ルできるように作られていますが、もし、あなたの環境でうまくいかないときは、以下
+;; の設定を変更してみて下さい。
 
 ;; また、インストーラが SKK の各ファイルをどこにインストールしようとしているか
 ;; 知りたい場合は、
 ;;
-;; (例)% make what-where         ※ GNU Emacs の場合
-;; (例)% make what-where-package ※ XEmacs
+;; (例)% make what-where
 
 ;; を実行してみてください。
 
@@ -37,7 +36,6 @@
 ;;
 ;; (例 2)% make install EMACS=/Applications/Emacs.app/Contents/MacOS/Emacs
 ;;
-;; (例 3)% make install-pacakge XEMACS=/usr/bin/xemacs
 
 ;; 非 UNIX 的な Emacs 環境では特にインストール先が適切に決定されないことが
 ;; あり得ますので、このファイルを活用して設定してください。
@@ -62,7 +60,7 @@
 ;;   ない場合は、そのディレクトリを明示的に load-path に追加する必要がある。そ
 ;;   の際、この変数を利用して下記のように設定する。
 ;;
-;;   (setq ADDITIONAL_LISPDIR "/usr/local/lib/xemacs/site-lisp/lookup")
+;;   (setq ADDITIONAL_LISPDIR "/usr/local/lib/emacs/site-lisp/lookup")
 ;;
 
 ;; VERSION_SPECIFIC_LISPDIR:
@@ -75,22 +73,16 @@
 ;;   チュートリアルなどのインストール先。
 ;;   この変数に値を設定しなかった場合は、PREFIX の値から環境に応じて自動的に
 ;;   設定される。
-;;   XEmacs で make install-package するときは使用されない。
 
 ;; SKK_INFODIR:
 ;;   skk.info (ヘルプ) のインストール先。
 ;;   この変数に値を設定しなかった場合は、PREFIX の値から環境に応じて自動的に
 ;;   設定される。
-;;   XEmacs で make install-package するときは使用されない。
 
 ;; SKK_LISPDIR:
 ;;   SKK の Emacs Lisp のインストール先。
 ;;   この変数に値を設定しなかった場合は、VERSION_SPECIFIC_LISPDIR 以下の
 ;;   "skk" というサブディレクトリが選択される。
-;;   XEmacs で make install-package するときは使用されない。
-
-;; PACKAGEDIR:
-;;   XEmacs で make install-package するときのインストール先。
 
 ;; SKK_SET_JISYO:
 ;;   skk-large-jisyo の値を自動設定するかどうか決める。
@@ -100,9 +92,6 @@
 
 ;;; Example:
 ;; (setq SKK-MK-debugging nil)
-
-;;; XEmacs 21 の設定例:
-;; (setq PACKAGEDIR "/usr/share/xemacs/site-packages")
 
 ;;; NTEmacs の設定例:
 ;; (setq SKK_DATADIR "C:/usr/emacs-25.1/share/emacs/25.1/etc")

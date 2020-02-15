@@ -137,23 +137,15 @@
     (setq viper-insert-state-cursor-color skk-cursor-hiragana-color)))
 
 (when (boundp 'viper-insert-state-cursor-color)
-  (cond
-   ((eval-when-compile (featurep 'xemacs))
-    (skk-defadvice read-from-minibuffer (before skk-viper-ad activate)
-      (when skk-use-color-cursor
-	(add-hook 'minibuffer-setup-hook
-		  'skk-cursor-set
-		  'append))))
-   (t
-    (skk-defadvice read-from-minibuffer (before skk-viper-ad activate)
-      "`minibuffer-setup-hook' に `update-buffer-local-frame-params' をフックする。
+  (skk-defadvice read-from-minibuffer (before skk-viper-ad activate)
+    "`minibuffer-setup-hook' に `update-buffer-local-frame-params' をフックする。
 `viper-read-string-with-history' は `minibuffer-setup-hook' を関数ローカル
 にしてしまうので、予め `minibuffer-setup-hook' にかけておいたフックが無効
 となる。"
-      (when skk-use-color-cursor
-	;; non-command subr.
-	(add-hook 'minibuffer-setup-hook 'ccc-update-buffer-local-frame-params
-		  'append))))))
+    (when skk-use-color-cursor
+      ;; non-command subr.
+      (add-hook 'minibuffer-setup-hook 'ccc-update-buffer-local-frame-params
+		'append))))
 
 ;;; advices.
 ;; vip-4 の同種の関数名は vip-read-string-with-history？
@@ -225,7 +217,7 @@
       ((and skk-henkan-mode
 	    (>= skk-henkan-start-point (point))
 	    (not (skk-get-prefix skk-current-rule-tree)))
-       (skk-set-henkan-count 0)
+       (setq skk-henkan-count 0)
        (skk-kakutei))
       ;; 入力中の見出し語に対しては delete-backward-char で
       ;; 必ず全角文字 1文字分 backward 方向に戻った方が良い。
@@ -275,10 +267,7 @@
 ;;; functions.
 ;;;###autoload
 (defun skk-viper-normalize-map ()
-  (let ((other-buffer
-	 (if (eval-when-compile (featurep 'xemacs))
-	     (local-variable-p 'minor-mode-map-alist nil t)
-	   (local-variable-if-set-p 'minor-mode-map-alist))))
+  (let ((other-buffer (local-variable-if-set-p 'minor-mode-map-alist)))
     ;; for current buffer and buffers to be created in the future.
     ;; substantially the same job as viper-harness-minor-mode does.
     (funcall skk-viper-normalize-map-function)

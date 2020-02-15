@@ -3,7 +3,7 @@
 # Maintainer: SKK Development Team <skk@ring.gr.jp>
 
 
-VERSION = 16.3.50
+VERSION = 17.0.50
 
 BZIP2     = bzip2 -9
 DATE	  = date
@@ -14,14 +14,8 @@ GIT       = git
 GZIP      = gzip -9
 MD5	  = md5
 RM	  = /bin/rm -f
-TEXI2PDF  = /usr/bin/texi2pdf
-MAKEINFO  = /usr/bin/makeinfo
-DBTOEPUB  = /usr/bin/dbtoepub
-KINDLEGEN = $(HOME)/bin/kindlegen
 SNAPBASE  = ddskk-`$(DATE) '+%Y%m%d'`
 TAR	  = gtar
-XEMACS	  = xemacs
-RUBY      = ruby
 PWD       = pwd
 CURL      = curl
 SKK_DEFAULT_JISYO =
@@ -40,9 +34,6 @@ test:
 downloads :
 	$(CURL) '$(TEST_DEP_1_STABLE_URL)' > $(TEST_DEP_1).el
 
-package:
-	$(XEMACS) $(FLAGS) -f SKK-MK-compile-package
-
 info:
 	$(EMACS) $(FLAGS) -f SKK-MK-compile-info
 
@@ -55,14 +46,8 @@ install-elc:
 install-info:
 	$(EMACS) $(FLAGS) -f SKK-MK-install-info
 
-install-package:
-	$(XEMACS) $(FLAGS) -f SKK-MK-install-package
-
 what-where:
 	$(EMACS) $(FLAGS) -f SKK-MK-what-where
-
-what-where-package:
-	$(XEMACS) $(FLAGS) -f SKK-MK-what-where-package
 
 uninstall:
 	$(EMACS) $(FLAGS) -f SKK-MK-uninstall
