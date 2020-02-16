@@ -1,5 +1,7 @@
 2020-02-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* README.md: Rename from README.ja
+
 	* skk-oasys.el, skk-nicola.el, skk-nicola-dcomp.el, skk-kanagaki.el:
 	* skk-kanagaki-util.el, skk-kanagaki-menu.el, skk-106-jis.el:
 	* NICOLA-DDSKK-MK: Require cl-lib instead of cl.

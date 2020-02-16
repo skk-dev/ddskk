@@ -1,17 +1,15 @@
--*- mode: outline -*-
-
 
 このディレクトリには SKK の仮名入力対応コードを置いています。
 
 
-* 概要
+# 1. 概要
 
 SKK をローマ字的入力以外の入力方式に対応させることを目的とします。現在
 は以下の入力方式について、サポートするべく開発しています。
 
-o 日本語 106 キーボードでの仮名入力
+  - 日本語 106 キーボードでの仮名入力
 
-o 親指シフトキーボードのエミュレーション
+  - 親指シフトキーボードのエミュレーション
 
 後者については、 箕浦逸史さん作の NICOLA-SKK 0.39 を基にして開発を進め
 ています。というよりこちらが主力です。
@@ -20,36 +18,24 @@ o 親指シフトキーボードのエミュレーション
 SKK の experimental repository にあります。
 
 
-* ステータス
+# 2. ステータス
 
 Beta.
 
 
-* サポートする Emacsen
+# 3. ファイル
 
-同梱のバージョンの SKK がサポートするもの。
+  - skk-kanagaki.el … 仮名入力のための基本的な枠組み
 
-以下のものは正式対応です。
+  - skk-106-jis.el  … 日本語 106 キーボードで仮名入力するためのルール
 
-o Emacs 20.7 以降
+  - skk-nicola.el   … 親指シフト入力をエミュレートする関数  (オリジナルの skk-nicola.el に書かれていた関数)
 
-  (対応するバージョンの Meadow を含む)
+  - skk-nicola-*.el … NICOLA 配列のルール (JIS, US, Dvorak, Colemak)
 
+  - skk-oasys.el    … OASYS 風配列のルール
 
-* ファイル
-
-o skk-kanagaki.el … 仮名入力のための基本的な枠組み
-
-o skk-106-jis.el  … 日本語 106 キーボードで仮名入力するためのルール
-
-o skk-nicola.el   … 親指シフト入力をエミュレートする関数  (オリジナル
-                     の skk-nicola.el に書かれていた関数)
-
-o skk-nicola-*.el … NICOLA 配列のルール (JIS, US, Dvorak, Colemak)
-
-o skk-oasys.el    … OASYS 風配列のルール
-
-o skk-omelet-*.el … omelet 独自配列のルール (JIS, US, Dvorak, Colemak)
+  - skk-omelet-*.el … omelet 独自配列のルール (JIS, US, Dvorak, Colemak)
 
 
 skk-nicola-*.el, skk-oasys.el, skk-omelet-*.el の配列はすべて
@@ -59,25 +45,25 @@ http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/keymap.html
 のものを利用させていただきました。
 
 
-* インストール
+# 4. インストール
 
-** SKK をインストール
+## 4.1. SKK をインストール
 
      https://github.com/skk-dev/ddskk
 
-** NICOLA-DDSKK のインストール
+## 4.2. NICOLA-DDSKK のインストール
 
    必ず、上記でインストールした SKK に同梱されている NICOLA-DDSKK をイン
    ストールしてください。つまり、SKK をバージョンアップしたら必ず
    NICOLA-DDSKK をインストールし直してください。
 
-   % cd nicola
-   % make install
+     % cd nicola
+     % make install
 
 
-* 設定
+# 5. 設定
 
-** SKK の設定
+## 5.1. SKK の設定
 
    ~/.emacs.d/init.el に
 
@@ -85,7 +71,7 @@ http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/keymap.html
 
    と記入。
 
-** NICOLA-DDSKK の設定
+## 5.2. NICOLA-DDSKK の設定
 
    親指シフト入力する場合は ~/.skk に
 
@@ -99,7 +85,7 @@ http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/keymap.html
 
    と記入。
 
-** カスタマイズ
+## 5.3. カスタマイズ
 
    skk-kanagaki-keyboard-type に対応したファイルに書かれている変数によっ
    て、キー入力と挿入される文字のルールを変更します。
@@ -114,7 +100,9 @@ http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/keymap.html
         を呼び出します。
 
    `skk-omelet-jis-plain-rule-list'
+
    `skk-omelet-jis-rshift-rule-list'
+
    `skk-omelet-jis-lshift-rule-list'
 
         これらの変数は、関数 `skk-nicola-insert' が文字を挿入する際の
@@ -124,7 +112,7 @@ http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/keymap.html
    これらの設定をファイル ~/.skk に記述してから SKK を起動すれば、設定
    が反映されます。
 
-* 使用法
+# 6. 使用法
 
 親指シフト入力についての詳しいことは、README.NICOLA.ja をご一読くださ
 い。
@@ -132,49 +120,49 @@ http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/keymap.html
 それ以外の仮名入力について詳しいことは skk-kanagaki.el の冒頭のコメン
 トをご一読ください。
 
-以下で、[fj] などというのは f と j とを同時に打鍵することを意味します。
+以下で、<kbd>[fj]</kbd> などというのは <kbd>f</kbd> と <kbd>j</kbd> とを同時に打鍵することを意味します。
 
-** 一般的キー定義
+## 6.1. 一般的キー定義
 
-   [fj]     … 変換開始点をセット
-   [gh]     … 接頭辞 or 接尾辞変換 (▽モード or ▼モード)
-   [gh]     … abbrev モード
-   [dk]     … カナモード or カナ変換
-   space    … 送りなし変換開始、変換・次候補表示
-   x        … 前候補表示
-   S (SHIFT + s) … 送りあり変換開始
-   C-h 1    … ヘルプを表示
+  - <kbd>[fj]</kbd> … 変換開始点をセット
+  - <kbd>[gh]</kbd> … 接頭辞 or 接尾辞変換 (▽モード or ▼モード)
+  - <kbd>[gh]</kbd> … abbrev モード
+  - <kbd>[dk]</kbd> … カナモード or カナ変換
+  - <kbd>space</kbd> … 送りなし変換開始、変換・次候補表示
+  - <kbd>x</kbd> … 前候補表示
+  - <kbd>S</kbd> … <kbd>SHIFT</kbd> + <kbd>s</kbd>。送りあり変換開始
+  - <kbd>C-h</kbd> <kbd>1</kbd> … ヘルプを表示
 
-** 親指シフト入力モードの独自キー定義
+## 6.2. 親指シフト入力モードの独自キー定義
 
-   muhenkan … 左親指シフトキー
-   henkan   … 右親指シフトキー
-   space    … 右親指シフトキー
-   [fj]     … 送り開始点指定
-   [muhenkan + henkan] … latin モード ⇔ かなモードの切り替え
-   C-h 2    … 現在の入力方式のキー配列を表示
-   C-h 3    … ヘルプを表示
+  - <kbd>muhenkan</kbd> … 左親指シフトキー
+  - <kbd>henkan</kbd> … 右親指シフトキー
+  - <kbd>space</kbd> … 右親指シフトキー
+  - <kbd>[fj]</kbd> … 送り開始点指定
+  - <kbd>[muhenkan + henkan]</kbd> … latin モード ⇔ かなモードの切り替え
+  - <kbd>C-h</kbd> <kbd>2</kbd> … 現在の入力方式のキー配列を表示
+  - <kbd>C-h</kbd> <kbd>3</kbd> … ヘルプを表示
 
-** 旧 JIS 仮名入力モードの独自キー定義
+## 6.3. 旧 JIS 仮名入力モードの独自キー定義
 
-   [fj]     … 直前の 1 文字を送り仮名として送りあり変換を開始。
-   [muhenkan + henkan] … latin モード ⇔ かなモード の切り替え
-   C-h 2    … 現在の入力方式のキー配列を表示
-   C-h 3    … ヘルプを表示
+  - <kbd>[fj]</kbd> … 直前の 1 文字を送り仮名として送りあり変換を開始。
+  - <kbd>[muhenkan + henkan]</kbd> … latin モード ⇔ かなモード の切り替え
+  - <kbd>C-h</kbd> <kbd>2</kbd> … 現在の入力方式のキー配列を表示
+  - <kbd>C-h</kbd> <kbd>3</kbd> … ヘルプを表示
 
-** 特殊機能の退避キー
+## 6.4. 特殊機能の退避キー
 
-   f2 … 変換開始点をセット
-   f3 … 接頭辞 or 接尾辞変換
-   f5 … コード入力
-   f6 … abbrev モード
-   f7 … カナモード or カナ変換
-   f8 … 全英モード
-   f9 … 半角カナモード or 半角カナ変換
-   f10 … latin モード
-   f12 … ローマ字入力 ⇔ 仮名入力
+  - <kbd>f2</kbd> … 変換開始点をセット
+  - <kbd>f3</kbd> … 接頭辞 or 接尾辞変換
+  - <kbd>f5</kbd> … コード入力
+  - <kbd>f6</kbd> … abbrev モード
+  - <kbd>f7</kbd> … カナモード or カナ変換
+  - <kbd>f8</kbd> … 全英モード
+  - <kbd>f9</kbd> … 半角カナモード or 半角カナ変換
+  - <kbd>f10</kbd> … latin モード
+  - <kbd>f12</kbd> … ローマ字入力 ⇔ 仮名入力
 
-* 問題点
+# 7. 問題点
 
 親指シフト入力は、 まだ NICOLA-SKK と挙動の異なる部分があります。 問題
 は多くありますが、徐々に改良する予定です。また、omelet 及び NICOLA-SKK
@@ -186,11 +174,11 @@ http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/keymap.html
 を刻印通りの入力にするには、 xmodmap を使うなどしてキー配列を変更する
 必要があります。
 
-* 謝辞
+# 8. 謝辞
 
 NICOLA-SKK 原作者の箕浦さんに敬意を表し，また感謝いたします。
 
-* 後日談 (2004-03-10)
+# 9. 後日談 (2004-03-10)
 
 実は、SKK のモデルとなったかな漢字変換システムである Kanzen は標準でロー
 マ字式入力と新 JIS 配列かな入力に対応していたようです。(旧ではなくて新
