@@ -1,5 +1,10 @@
 2020-02-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-kanagaki-util.el (skk-kanagaki-print-help-function): Remove function.
+	(skk-kanagaki-help-1): Use help-print-return-message.
+
+2020-02-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* README.NICOLA.ja: update.
 
 	* skk-kanagaki.el: Remove comment for XEmacs.

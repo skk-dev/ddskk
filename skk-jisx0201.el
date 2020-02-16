@@ -282,7 +282,7 @@
   (cond
    (skk-jisx0201-mode
     (let ((arg (ad-get-arg 0))
-	  (ch (skk-last-command-char)))
+	  (ch last-command-event))
       (cond
        ((or (and (not skk-jisx0201-roman)
 		 (memq ch skk-set-henkan-point-key)

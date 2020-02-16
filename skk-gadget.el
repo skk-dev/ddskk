@@ -296,7 +296,7 @@ interactive に起動する他、\"clock /(skk-clock)/\" などのエントリを S
 		  ;; [7890] のように正規表現を使わず、7 だけで全てのマシンが
 		  ;; 着いてゆけば良いのだが...。丁度この関数実行時に Garbage
 		  ;; collection が呼ばれても表示される数字が飛ぶ場合がある。
-		  (skk-ding nil 'drum))
+		  (ding))
 		 ((string-match expr2 mes)
 		  ;; 0 だけ「ポ〜ン」といきたいところですが、マシンによっ
 		  ;; て差がある。
@@ -306,7 +306,7 @@ interactive に起動する他、\"clock /(skk-clock)/\" などのエントリを S
 		  ;; どき 1 秒分ついていけなくなる。Pentium 90Mhz +
 		  ;; Mule-2.xだと「ピッ」という単音になってしまう... (;_;)。
 		  (if snd
-		      (skk-ding nil 'clink)
+		      (ding)
 		    (ding)
 		    (unless (sit-for (setq sec (+ sec 0.16))
 				     'nodisplay)

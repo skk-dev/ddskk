@@ -293,9 +293,7 @@
     (skk-kcode-charset . (if (featurep 'jisx0213) ; Mule-UCS
 			     (quote japanese-jisx0208)
 			   skk-kcode-charset))
-    (skk-kcode-method . (if (featurep 'emacs)
-			    'code-or-char-list
-			  'code-or-menu))
+    (skk-kcode-method . 'code-or-char-list)
     (skk-dcomp-activate . nil)
     (skk-dcomp-multiple-activate . nil)
     (skk-read-from-minibuffer-function . nil)
@@ -415,7 +413,7 @@
 
 (defadvice skk-insert (before skktut-ad disable)
   "SKK チュートリアル用アドバイス付。"
-  (when (and (memq (skk-last-command-char) skk-set-henkan-point-key)
+  (when (and (memq last-command-event skk-set-henkan-point-key)
 	     (> 12 skktut-question-count))
     (skktut-error "かな/カナモードでは、英大文字はまだ使えません"
 		  "Cannot use upper case character in kana/katakana mode")))
@@ -659,7 +657,7 @@ You can select English version by \\[universal-argument] \\[skk-tutorial]."
     (define-key skktut-j-mode-map "\t" 'skk-insert)
     ;; for minor-mode-map-alist localized by Viper.
     (when (and (featurep 'viper)
-	       (skk-local-variable-p 'minor-mode-map-alist nil t))
+	       (local-variable-p 'minor-mode-map-alist))
       (setq-default minor-mode-map-alist minor-mode-map-alist))))
 
 (defun skktut-disable-tutmap ()

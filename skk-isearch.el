@@ -122,7 +122,7 @@
   "Show isearch message."
   (skk-isearch-incomplete-message
    (if (string= skk-prefix "")
-       (skk-char-to-unibyte-string (skk-last-command-char))
+       (skk-char-to-unibyte-string last-command-event)
      skk-prefix)))
 
 (defun skk-isearch-current-mode ()
@@ -228,17 +228,16 @@ kakutei'ed and erase the buffer contents."
 					  isearch-mode-map))))
   (set skk-isearch-overriding-local-map skk-isearch-mode-map)
   ;; Input Method として SKK を使っている場合の対策
-  (when (eval-when-compile (featurep 'emacs))
-    (when (and current-input-method
-	       (string-match "^japanese-skk" current-input-method))
-      (let* ((method current-input-method)
-	     (func (if (string= "japanese-skk" method)
-		       'skk-inactivate
-		     'skk-auto-fill-inactivate)))
-	(with-current-buffer (get-buffer-create skk-isearch-working-buffer)
-	  (unless current-input-method
-            (setq deactivate-current-input-method-function func)
-	    (setq current-input-method method))))))
+  (when (and current-input-method
+	     (string-match "^japanese-skk" current-input-method))
+    (let* ((method current-input-method)
+	   (func (if (string= "japanese-skk" method)
+		     'skk-inactivate
+		   'skk-auto-fill-inactivate)))
+      (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
+	(unless current-input-method
+          (setq deactivate-current-input-method-function func)
+	  (setq current-input-method method)))))
   ;; skk-isearch の状態を表す内部変数の設定
   (setq skk-isearch-switch t)
   (setq skk-isearch-in-editing nil)
@@ -280,10 +279,9 @@ kakutei'ed and erase the buffer contents."
       (jisx0208-latin
        (skk-jisx0208-latin-mode-on))))
   ;; Input Method として SKK を使っている場合の対策
-  (when (eval-when-compile (featurep 'emacs))
-    (when (string-match "^japanese-skk" (format "%s" default-input-method))
-      (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
-	(deactivate-input-method))))
+  (when (string-match "^japanese-skk" (format "%s" default-input-method))
+    (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
+      (deactivate-input-method)))
   ;; skk-isearch の状態を表す内部変数の設定
   (setq skk-isearch-switch nil)
   (unless skk-isearch-in-editing
@@ -667,7 +665,7 @@ If the current mode is different from previous, remove it first."
 が参照される。"
   (interactive)
   (let ((digit (or digit
-		   (- (logand (skk-last-command-char) ?\177) ?0)))
+		   (- (logand last-command-event ?\177) ?0)))
 	(event (next-command-event nil (skk-isearch-incomplete-message))))
     (cond
      ((equal event (character-to-event ?\ ))

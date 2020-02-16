@@ -224,160 +224,53 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 ;;     (mapcar #'char-int string)))
 
 (defmacro string-to-int-list (string)
-  (cond ((featurep 'xemacs)
-	 `(mapcar #'char-int ,string))	; XEamcs
-	(t
-	 `(mapcar #'identity ,string)))) ; GNU Emacs
+  `(mapcar #'identity ,string))
 
-(when (eval-when-compile (featurep 'emacs))
-  (defun character-to-event (ch)
-    "Convert keystroke CH into an event structure, replete with bucky bits.
+(defun character-to-event (ch)
+  "Convert keystroke CH into an event structure, replete with bucky bits.
 Note that CH (the keystroke specifier) can be an integer, a character
 or a symbol such as 'clear."
-    ch))
+  ch)
 
-(when (eval-when-compile (featurep 'emacs))
-  (defun event-to-character (event)
-    "Return the character approximation to the given event object.
+
+(defun event-to-character (event)
+  "Return the character approximation to the given event object.
 If the event isn't a keypress, this returns nil."
-    (cond
-     ((symbolp event)
-      ;; mask is (BASE-TYPE MODIFIER-BITS) or nil.
-      (let ((mask (get event 'event-symbol-element-mask)))
-	(if mask
-	    (let ((base (get (car mask) 'ascii-character)))
-	      (if base
-		  (logior base (cadr mask)))))))
-     ((integerp event)
-      event))))
+  (cond
+   ((symbolp event)
+    ;; mask is (BASE-TYPE MODIFIER-BITS) or nil.
+    (let ((mask (get event 'event-symbol-element-mask)))
+      (if mask
+	  (let ((base (get (car mask) 'ascii-character)))
+	    (if base
+		(logior base (cadr mask)))))))
+   ((integerp event)
+    event)))
 
-(when (eval-when-compile (featurep 'emacs))
-  (defun cancel-undo-boundary ()
-    "Cancel undo boundary."
-    (if (and (consp buffer-undo-list)
-	     (null (car buffer-undo-list)))
-	(setq buffer-undo-list (cdr buffer-undo-list)))))
-
-(when (eval-when-compile (featurep 'xemacs))
-  (defun substring-no-properties (string &optional from to)
-    "Return a substring of string, without text properties.
-It starts at index from and ending before to.
-to may be nil or omitted; then the substring runs to the end of string.
-If from is nil or omitted, the substring starts at the beginning of string.
-If from or to is negative, it counts from the end.
-
-With one argument, just copy string without its properties."
-    (let ((substr (copy-sequence (substring string (or from 0) to))))
-      (set-text-properties 0 (length substr) nil substr)
-      substr)))
-
-;; From GNU Emacs 22.1.
-(when (eval-when-compile (and (featurep 'xemacs)
-			      (= emacs-major-version 21)
-			      (= emacs-minor-version 4)))
-  (defun replace-regexp-in-string (regexp rep string &optional
-						fixedcase literal subexp start)
-    "Replace all matches for REGEXP with REP in STRING.
-
-Return a new string containing the replacements.
-
-Optional arguments FIXEDCASE, LITERAL and SUBEXP are like the
-arguments with the same names of function `replace-match'.  If START
-is non-nil, start replacements at that index in STRING.
-
-REP is either a string used as the NEWTEXT arg of `replace-match' or a
-function.  If it is a function, it is called with the actual text of each
-match, and its value is used as the replacement text.  When REP is called,
-the match-data are the result of matching REGEXP against a substring
-of STRING.
-
-To replace only the first match (if any), make REGEXP match up to \\'
-and replace a sub-expression, e.g.
-  (replace-regexp-in-string \"\\\\(foo\\\\).*\\\\'\" \"bar\" \" foo foo\" nil nil 1)
-    => \" bar foo\"
-"
-
-    ;; To avoid excessive consing from multiple matches in long strings,
-    ;; don't just call `replace-match' continually.  Walk down the
-    ;; string looking for matches of REGEXP and building up a (reversed)
-    ;; list MATCHES.  This comprises segments of STRING which weren't
-    ;; matched interspersed with replacements for segments that were.
-    ;; [For a `large' number of replacements it's more efficient to
-    ;; operate in a temporary buffer; we can't tell from the function's
-    ;; args whether to choose the buffer-based implementation, though it
-    ;; might be reasonable to do so for long enough STRING.]
-    (let ((l (length string))
-	  (start (or start 0))
-	  matches str mb me)
-      (save-match-data
-	(while (and (< start l) (string-match regexp string start))
-	  (setq mb (match-beginning 0)
-		me (match-end 0))
-	  ;; If we matched the empty string, make sure we advance by one char
-	  (when (= me mb) (setq me (min l (1+ mb))))
-	  ;; Generate a replacement for the matched substring.
-	  ;; Operate only on the substring to minimize string consing.
-	  ;; Set up match data for the substring for replacement;
-	  ;; presumably this is likely to be faster than munging the
-	  ;; match data directly in Lisp.
-	  (string-match regexp (setq str (substring string mb me)))
-	  (setq matches
-		(cons (replace-match (if (stringp rep)
-					 rep
-				       (funcall rep (match-string 0 str)))
-				     fixedcase literal str subexp)
-		      (cons (substring string start mb)      ; unmatched prefix
-			    matches)))
-	  (setq start me))
-	;; Reconstruct a string from the pieces.
-	(setq matches (cons (substring string start l) matches)) ; leftover
-	(apply #'concat (nreverse matches))))))
+(defun cancel-undo-boundary ()
+  "Cancel undo boundary."
+  (if (and (consp buffer-undo-list)
+	   (null (car buffer-undo-list)))
+      (setq buffer-undo-list (cdr buffer-undo-list))))
 
 ;; For GNU Emacs.
-(when (eval-when-compile (featurep 'emacs))
-  (defun next-command-event (&optional event prompt)
-    "Read an event object from the input stream.
+(defun next-command-event (&optional event prompt)
+  "Read an event object from the input stream.
 If EVENT is non-nil, it should be an event object and will be filled
 in and returned; otherwise a new event object will be created and
 returned.
 If PROMPT is non-nil, it should be a string and will be displayed in
 the echo area while this function is waiting for an event."
-    (read-event prompt)))
-
-(when (eval-when-compile (featurep 'xemacs))
-  (defun set-buffer-multibyte (flag)
-    "Set the multibyte flag of the current buffer to FLAG.
-If FLAG is t, this makes the buffer a multibyte buffer.
-If FLAG is nil, this makes the buffer a single-byte buffer.
-The buffer contents remain unchanged as a sequence of bytes
-but the contents viewed as characters do change.
-\[Emacs 20.3 emulating function]"
-  flag))
-
-(defun skk-ding (&optional arg sound device)
-  "`ding' の Emacsen による違いを吸収する。"
-  (cond
-   ((eval-when-compile (featurep 'xemacs))
-    (ding arg sound device))
-   (t
-    (ding arg))))
+  (read-event prompt))
 
 (defun skk-color-cursor-display-p ()
-  (cond
-   ((eval-when-compile (featurep 'xemacs))
-    (eq (device-class (selected-device)) 'color))
-   ((eval-when-compile (featurep 'emacs))
-    (and (skk-find-window-system)
-	 (fboundp 'x-display-color-p)
-	 (x-display-color-p)))))
+  (and (skk-find-window-system)
+       (fboundp 'x-display-color-p)
+       (x-display-color-p)))
 
 (defun skk-char-to-unibyte-string (char)
   (ignore-errors
     (cond
-     ;; XEmacs
-     ((eval-when-compile (featurep 'xemacs))
-      (char-to-string char))
-
      ;; Warning: `string-make-unibyte' is an obsolete function (as of 26.1).
      ;;          use `encode-coding-string'.
      ((eval-when-compile (>= emacs-major-version 26))
@@ -388,179 +281,69 @@ but the contents viewed as characters do change.
       (string-make-unibyte (char-to-string char))))))
 
 (defun skk-ascii-char-p (char)
-  (cond
-   ((eval-when-compile (featurep 'emacs))
-    ;; GNU Emacs
-    (eq (char-charset char skk-charset-list) 'ascii))
-   ;; XEmacs
-   (t
-    (eq (char-charset char) 'ascii))))
+  (eq (char-charset char skk-charset-list) 'ascii))
 
 (defun skk-jisx0208-p (char)
-  (cond
-   ((eval-when-compile (featurep 'emacs))
-    ;; GNU Emacs
-    (eq (char-charset char skk-charset-list) 'japanese-jisx0208))
-   ;; XEmacs
-   (t
-    (eq (char-charset char) 'japanese-jisx0208))))
+  (eq (char-charset char skk-charset-list) 'japanese-jisx0208))
 
 (defun skk-jisx0213-p (char)
-  (cond
-   ((eval-when-compile (featurep 'emacs))
-    ;; GNU Emacs
-    (memq (char-charset char skk-charset-list)
-	  '(japanese-jisx0213-1
-	    japanese-jisx0213.2004-1
-	    japanese-jisx0213-2)))
-   (t
-    (and (featurep 'jisx0213)		; Mule-UCS
-	 (memq (char-charset char)
-	       '(japanese-jisx0213-1 japanese-jisx0213-2))))))
+  (memq (char-charset char skk-charset-list)
+	'(japanese-jisx0213-1
+	  japanese-jisx0213.2004-1
+	  japanese-jisx0213-2)))
 
 (defun skk-split-char (ch)
   ;; http://mail.ring.gr.jp/skk/200908/msg00006.html
-  (cond
-   ((eval-when-compile (featurep 'emacs))
-    ;; C の split-char() と同様の機能だが、char-charset() の呼出しにおいて
-    ;; 文字集合の選択肢を skk-charset-list に含まれるものに制限する。
-    ;; これは例えば、japanese-jisx0208 の文字が unicode-bmp に属する、
-    ;; と判定されるような状況を回避する。
-    (let* ((charset (char-charset ch skk-charset-list))
-	   (code (encode-char ch charset))
-	   (dimension (charset-dimension charset))
-	   val)
-      (while (> dimension 0)
-	(setq val (cons (logand code 255) ;; 0xFF
-			val))
-	(setq code (lsh code -8))
-	(setq dimension (1- dimension)))
-      (cons charset val)))
-
-   ;; XEmacs
-   (t
-    (split-char ch))))
-
-(defun skk-char-charset (ch &optional restriction)
-  (cond
-   ((eval-when-compile (featurep 'emacs))
-    ;; GNU Emacs
-    (char-charset ch restriction))
-
-   ;; XEmacs
-   (t
-    (char-charset ch))))
-
-;; this one is called once in skk-kcode.el, too.
-(defun skk-charsetp (object)
-  (cond
-   ((eval-when-compile (featurep 'xemacs))
-    (find-charset object))
-   (t
-    (charsetp object))))
+  ;; C の split-char() と同様の機能だが、char-charset() の呼出しにおいて
+  ;; 文字集合の選択肢を skk-charset-list に含まれるものに制限する。
+  ;; これは例えば、japanese-jisx0208 の文字が unicode-bmp に属する、
+  ;; と判定されるような状況を回避する。
+  (let* ((charset (char-charset ch skk-charset-list))
+	 (code (encode-char ch charset))
+	 (dimension (charset-dimension charset))
+	 val)
+    (while (> dimension 0)
+      (setq val (cons (logand code 255) ;; 0xFF
+		      val))
+      (setq code (lsh code -8))
+      (setq dimension (1- dimension)))
+    (cons charset val)))
 
 (defun skk-indicator-to-string (indicator &optional no-properties)
   "SKK インジケータ型オブジェクト INDICATOR を文字列に変換する。"
-  (cond
-   ((eval-when-compile (featurep 'xemacs))
-    (if (stringp indicator)
-	indicator
-      (cdr indicator)))
-   (t
-    (if no-properties
-	(with-temp-buffer
-	  (insert indicator)
-	  (buffer-substring-no-properties (point-min) (point-max)))
-      indicator))))
+  (if no-properties
+      (with-temp-buffer
+	(insert indicator)
+	(buffer-substring-no-properties (point-min) (point-max)))
+    indicator))
 
 (defun skk-mode-string-to-indicator (mode string)
   "文字列 STRING を SKK インジケータ型オブジェクトに変換する。"
-  (cond
-   ((eval-when-compile (featurep 'xemacs))
-    (cons (cdr (assq mode skk-xemacs-extent-alist))
-	  string))
-   (t
-    (if (and window-system
-	     (not (eq mode 'default)))
-	(apply 'propertize string
-	       (cdr (assq mode skk-emacs-property-alist)))
-      string))))
-
-(defun skk-local-variable-p (variable &optional buffer afterset)
-  "Non-nil if VARIABLE has a local binding in buffer BUFFER.
-BUFFER defaults to the current buffer."
-  (cond
-   ((eval-when-compile (featurep 'xemacs))
-    (local-variable-p variable (or buffer (current-buffer)) afterset))
-   (t
-    (local-variable-p variable (or buffer (current-buffer))))))
+  (if (and window-system
+	   (not (eq mode 'default)))
+      (apply 'propertize string
+	     (cdr (assq mode skk-emacs-property-alist)))
+    string))
 
 (defun skk-face-proportional-p (face)
-  (cond ((eval-when-compile (featurep 'xemacs))
-	 (face-proportional-p face))
-	(t
-	 (or (face-equal face 'variable-pitch)
-	     (eq (face-attribute face :inherit) 'variable-pitch)))))
+  (or (face-equal face 'variable-pitch)
+      (eq (face-attribute face :inherit) 'variable-pitch)))
 
 (defun skk-event-key (event)
   "イベント EVENT を発生した入力の情報を取得する。"
-  (cond
-   ((eval-when-compile (featurep 'xemacs))
-    (let ((char (event-to-character event t t t)))
-      (if (characterp char)
-	  char
-	(event-key event))))
-   (t
-    (let ((char (event-to-character event))
-	  keys)
-      (if char
-	  (vector char)
-	(setq keys (recent-keys))
-	(vector (aref keys (1- (length keys)))))))))
-
-;; Emacs 23 or later shows warning for the use of last-command-char,
-;; which is an obsolete variable alias for last-command-event.
-;; What is annoying is incompatibility between FSF Emacs and XEmacs.
-;; In XEmacs, last-command-event is an event, not a character, whereas
-;; last-command-char is a character equivalent to last-command-event.
-(defun skk-last-command-char ()
-  (cond
-   ((eval-when-compile (featurep 'xemacs))
-    last-command-char)
-   (t
-    last-command-event)))
-
-(defun skk-set-last-command-char (char)
-  (let ((variable (if (featurep 'xemacs)
-		      'last-command-char
-		    'last-command-event)))
-    (set variable char)))
-
-(defun skk-region-active-p ()
-  (cond
-   ((eval-when-compile (featurep 'emacs))
-    (use-region-p))
-
-   ;; XEmacs
-   ((eval-when-compile (featurep 'xemacs))
-    (region-active-p))))
+  (let ((char (event-to-character event))
+	keys)
+    (if char
+	(vector char)
+      (setq keys (recent-keys))
+      (vector (aref keys (1- (length keys)))))))
 
 (put 'skk-bind-last-command-char 'lisp-indent-function 1)
 (defmacro skk-bind-last-command-char (char &rest body)
-  (let ((variable (cond ((featurep 'xemacs)
-			 'last-command-char)
-			(t
-			 'last-command-event))))
+  (let ((variable 'last-command-event))
     `(let ((,variable ,char))
        (progn
 	 ,@body))))
-
-(defun skk-process-kill-without-query (process)
-  (cond
-   ((eval-when-compile (featurep 'emacs))
-    (set-process-query-on-exit-flag process nil))
-   (t
-    (process-kill-without-query process))))
 
 ;;; version independent
 
@@ -798,13 +581,6 @@ BUFFER defaults to the current buffer."
   "カレントバッファがミニバッファであれば t を返す。"
   (eq (current-buffer) (window-buffer (minibuffer-window))))
 
-(defun skk-window-body-height ()
-  (cond
-   ((eval-when-compile (featurep 'xemacs))
-    nil) ; XEmacs でサポートされない機能
-   (t
-    (window-body-height)))) ; emacs21 にはない
-
 (defun skk-screen-column ()
   "スクリーン行から得たカーソル位置の桁数を返す。
 テキスト行（改行文字で区切られたテキスト）がウィンドウ幅を越えて折り返して表示
@@ -854,12 +630,8 @@ BUFFER defaults to the current buffer."
 内部コードが emacs-mule でないなど `stringp' の返り値が異なる Emacs に
 対して emacs-mule の encoded string に変換して比較する。
 比較の結果 str1 < str2 ならば t を返す。"
-  (cond
-   ((eval-when-compile (featurep 'emacs))
-    ;; Emacs with coding system utf-8-emacs
-    (skk-string-lessp-in-coding-system str1 str2 'emacs-mule))
-   (t
-    (string< str1 str2))))
+  ;; Emacs with coding system utf-8-emacs
+  (skk-string-lessp-in-coding-system str1 str2 'emacs-mule))
 
 (defsubst skk-string<= (str1 str2)
   "STR1 と STR2 とを比較して、`string<' か `string=' であれば、t を返す。"
@@ -1036,14 +808,6 @@ Return the modified ALIST."
   "Delete an element whose car equals KEY from the alist bound to SYMBOL."
   (and (boundp symbol)
        (set symbol (skk-del-alist key (symbol-value symbol)))))
-
-(defun skk-fit-window (&optional window)
-  "カレントウィンドウ (又は WINDOW) を、その表示内容に応じた高さに調節する。"
-  (unless (eval-when-compile (and (featurep 'xemacs)
-				  (= emacs-major-version 21)
-				  (<= emacs-minor-version 4)))
-    ;; XEmacs 21.4 にはない関数
-    (fit-window-to-buffer window)))
 
 (defun skk-reset-henkan-count (count)
   ;; ▽モードに戻るときは 0

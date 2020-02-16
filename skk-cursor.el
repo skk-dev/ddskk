@@ -36,8 +36,7 @@
   (require 'skk-vars))
 
 (eval-and-compile
-  (when (featurep 'emacs)
-    (require 'ccc)))
+  (require 'ccc))
 
 ;; Functions.
 

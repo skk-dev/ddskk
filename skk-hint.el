@@ -117,7 +117,7 @@
 
 (defadvice skk-insert (around skk-hint-ad activate)
   (cond ((and skk-henkan-mode
-	      (eq (skk-last-command-char) skk-hint-start-char)
+	      (eq last-command-event skk-hint-start-char)
 	      (not skk-hint-state))
 	 (skk-with-point-move
 	  (when (featurep 'skk-dcomp)
@@ -127,7 +127,7 @@
 	  (setq skk-hint-state 'kana
 		skk-hint-inhibit-kakutei t)))
 	((and (eq skk-hint-state 'kana)
-	      (eq (skk-last-command-char) skk-start-henkan-char))
+	      (eq last-command-event skk-start-henkan-char))
 	 (skk-with-point-move
 	  (skk-hint-setup-hint)
 	  (delete-region skk-hint-start-point (point))
@@ -136,13 +136,13 @@
 	  (setq skk-henkan-list nil)
 	  (skk-start-henkan arg)))
 	((and (eq skk-hint-state 'kana)
-	      (memq (skk-last-command-char) skk-set-henkan-point-key))
+	      (memq last-command-event skk-set-henkan-point-key))
 	 (skk-with-point-move
 	  (setq skk-hint-end-point (point))
 	  (setq skk-hint-state 'okuri)
-	  (skk-set-last-command-char (skk-downcase (skk-last-command-char)))
+	  (set 'last-command-event (skk-downcase last-command-event))
 	  (setq skk-hint-okuri-char (skk-char-to-unibyte-string
-				     (skk-last-command-char)))
+				     last-command-event))
 	  (skk-kana-input arg)
 	  (when (skk-jisx0208-p (char-before))
 	    (skk-hint-setup-hint)

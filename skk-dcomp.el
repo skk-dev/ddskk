@@ -201,7 +201,7 @@
 
 (defun skk-dcomp-multiple-available-p ()
   (< (1+ skk-dcomp-multiple-rows)
-     (skk-window-body-height)))
+     (window-body-height)))
 
 (defun skk-dcomp-multiple-increase-index (index &optional ignore-search-done)
   (cond ((and skk-comp-circulate
@@ -415,7 +415,7 @@
 	(when (or invisible
 		  (and bottom
 		       (> (+ 2 skk-dcomp-multiple-rows)
-			  (- (skk-window-body-height)
+			  (- (window-body-height)
 			     (count-screen-lines (window-start) (point))))))
 	  (recenter (- (+ 2 skk-dcomp-multiple-rows))))))))
 
@@ -487,7 +487,7 @@
     (when (and skk-j-mode
 	       (or skk-use-kana-keyboard
 		   ;; 送りあり変換が始まったら補完しない
-		   (not (memq (skk-last-command-char) skk-set-henkan-point-key))))
+		   (not (memq last-command-event skk-set-henkan-point-key))))
       (if (skk-get-prefix skk-current-rule-tree)
 	  (when (and (skk-dcomp-multiple-activate-p)
 		     (skk-dcomp-multiple-available-p))
@@ -516,7 +516,7 @@
     ad-do-it
     (when skk-use-look
       (setq skk-look-completion-words nil))
-    (unless (memq (skk-last-command-char) '(?*))
+    (unless (memq last-command-event '(?*))
       (skk-dcomp-do-completion (point))))
    (t
     ad-do-it)))
@@ -532,7 +532,7 @@
     ad-do-it
     (when skk-use-look
       (setq skk-look-completion-words nil))
-    (unless (memq (skk-last-command-char) '(?*))
+    (unless (memq last-command-event '(?*))
       (skk-dcomp-do-completion (point))))
    (t
     ad-do-it)))
@@ -548,7 +548,7 @@
     ad-do-it
     (when skk-use-look
       (setq skk-look-completion-words nil))
-    (unless (memq (skk-last-command-char) '(?*))
+    (unless (memq last-command-event '(?*))
       (skk-dcomp-do-completion (point))))
    (t
     ad-do-it)))
@@ -621,14 +621,14 @@
 (defadvice skk-comp-do (before skk-dcomp-ad activate)
   (when (and skk-comp-use-prefix
 	     (not (string= "" skk-prefix))
-	     (eq (skk-last-command-char) skk-next-completion-char))
+	     (eq last-command-event skk-next-completion-char))
     (ad-set-arg 0 t)))
 
 (defadvice skk-comp-do (after skk-dcomp-ad activate)
   (when (and (skk-dcomp-multiple-activate-p)
 	     (skk-dcomp-multiple-available-p)
 	     ;;(not (ad-get-arg 0))
-	     (eq (skk-last-command-char) skk-next-completion-char))
+	     (eq last-command-event skk-next-completion-char))
     (skk-kana-cleanup 'force)
     (setq skk-dcomp-multiple-select-index
 	  (skk-dcomp-multiple-increase-index skk-dcomp-multiple-select-index))
