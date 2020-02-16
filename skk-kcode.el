@@ -435,7 +435,7 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
   t) ; エコーした文字列をカレントバッファに挿入しないように。
 
 (defun skk-display-code (char p)
-  (let ((charset (skk-char-charset char skk-charset-list))
+  (let ((charset (char-charset char skk-charset-list))
 	mesg)
     (cond
      ((memq charset '(japanese-jisx0213-1
@@ -455,31 +455,10 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
 	     (char2-s (cadr sjis))
 	     (char-data (skk-tankan-get-char-data char))
 	     (anno (skk-tankan-get-char-annotation char))
-	     (unicode (cond ((eval-when-compile (featurep 'emacs))
-			     (concat ", "
-				     (propertize "UNICODE:" 'face
-						 'skk-display-code-prompt-face)
-				     (format "U+%04x" char)))
-
-			    ((and (eval-when-compile (fboundp 'char-to-ucs))
-				  (fboundp 'char-to-ucs)
-				  (char-to-ucs char))
-			     (concat ", "
-				     (propertize "UNICODE:" 'face
-						 'skk-display-code-prompt-face)
-				     (format "U+%04x" (char-to-ucs char))))
-
-			    ;; Mule-UCS
-			    ((and (eval-when-compile (fboundp 'encode-char))
-				  (fboundp 'encode-char)
-				  (encode-char char 'ucs))
-			     (concat ", "
-				     (propertize "UNICODE:" 'face
-						 'skk-display-code-prompt-face)
-				     (format "U+%04x" (encode-char char 'ucs))))
-
-			    (t
-			     "")))
+	     (unicode (concat ", "
+                              (propertize "UNICODE:" 'face
+                                          'skk-display-code-prompt-face)
+                              (format "U+%04x" char)))
 	     (composition (find-composition p nil nil t)))
 
 	(setq mesg
@@ -756,7 +735,7 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
 	(skk-list-chars-move-to-charstr str)))))
 
 (defun skk-list-chars-move-to-charstr (charstr)
-  (when (memq (skk-char-charset (string-to-char charstr) skk-charset-list)
+  (when (memq (char-charset (string-to-char charstr) skk-charset-list)
 	      (list 'japanese-jisx0208 skk-kcode-charset))
     (goto-char (point-min))
     (let ((case-fold-search nil))

@@ -400,7 +400,7 @@
 	    (unless (eq (next-window) (selected-window))
 	      (delete-other-windows)))
 	  ;;
-	  (skk-fit-window (display-buffer skk-annotation-buffer))
+	  (fit-window-to-buffer (display-buffer skk-annotation-buffer))
 	  (when minibuf-p
 	    (select-window (minibuffer-window)))
 	  ;;
@@ -734,11 +734,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 			  (equal (key-description key)
 				 (key-description skk-annotation-wikipedia-key))))
 		  (quit
-		   (when (eval-when-compile (and (featurep 'xemacs)
-						 (= emacs-major-version 21)
-						 (= emacs-minor-version 4)))
-		     ;; workaround for XEmacs 21.4
-		     (keyboard-quit)))))
+		   nil)))
       (cond ((eq command copy-command)
 	     (setq list (delq copy-command list))
 	     (unless (equal annotation "")
@@ -914,7 +910,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 に、nil であれば別 window に表示する。"
   (interactive (cons (prefix-numeric-value current-prefix-arg)
 		     (cond
-		      ((skk-region-active-p)
+		      ((use-region-p)
 		       (list (region-beginning) (region-end)))
 		      ((eq skk-henkan-mode 'on)
 		       (list (marker-position skk-henkan-start-point)
@@ -989,9 +985,7 @@ information etc.  If PROC is non-nil, check the buffer for that process."
 (declare-function compilation-forget-errors "compile")
 (defun skkannot-py-send-command (command)
   "Like `skkannot-py-send-string' but resets `compilation-shell-minor-mode'."
-  (when (or (eval-when-compile (and (featurep 'emacs)
-				    (= emacs-major-version 22)))
-	    (skkannot-py-check-comint-prompt (get-buffer-process
+  (when (or (skkannot-py-check-comint-prompt (get-buffer-process
 					      skkannot-py-buffer))
 	    t)
     (with-current-buffer skkannot-py-buffer
@@ -1031,7 +1025,7 @@ information etc.  If PROC is non-nil, check the buffer for that process."
 
 	(font-lock-mode 0)
 	(set-buffer-multibyte t)
-	(skk-process-kill-without-query (get-buffer-process (current-buffer)))
+	(set-process-query-on-exit-flag (get-buffer-process (current-buffer)) nil)
 	(set-buffer-file-coding-system 'utf-8-emacs)
 
         ;; Jan 15 2018, lisp/international/mule.el
@@ -1136,7 +1130,7 @@ information etc.  If PROC is non-nil, check the buffer for that process."
 			     skk-annotation-dict-program
 			     (append skk-annotation-dict-program-arguments
 				     (list word))))
-      (skk-process-kill-without-query process))))
+      (set-process-query-on-exit-flag process nil))))
 
 ;;;###autoload
 (defun skk-annotation-preread-dict (word &optional nowait)

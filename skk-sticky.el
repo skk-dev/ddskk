@@ -172,10 +172,10 @@
   (when (and skk-sticky-okuri-flag
 	     (skk-sticky-looking-back-okuri-mark)
 	     (string= "" skk-prefix))
-    (let ((pair (rassq (skk-last-command-char) skk-downcase-alist)))
-      (skk-set-last-command-char (if pair
+    (let ((pair (rassq last-command-event skk-downcase-alist)))
+      (set 'last-command-event (if pair
 				     (car pair)
-				   (upcase (skk-last-command-char)))))))
+				   (upcase last-command-event))))))
 
 (defadvice skk-set-henkan-point (before skk-sticky-ad activate)
   "`point' 直前の `*' を消す。"
@@ -206,7 +206,7 @@
   "FIRST と NEXT が同時打鍵であれば non-nil を返す。"
   (let ((char (if (characterp first)
 		  first
-		(skk-last-command-char))))
+		last-command-event)))
     (and (not (eq char next))
 	 (memq char skk-sticky-key)
 	 (memq next skk-sticky-key))))
@@ -215,7 +215,7 @@
   "同時打鍵を検出して処理する。"
   (cond ((not (consp skk-sticky-key))
 	 ad-do-it)
-	((not (memq (skk-last-command-char) skk-sticky-key))
+	((not (memq last-command-event skk-sticky-key))
 	 ad-do-it)
 	((sit-for skk-sticky-double-interval t)
 	 ;; No input in the interval.

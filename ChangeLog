@@ -1,5 +1,52 @@
 2020-02-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-macs.el (skk-ding, skk-char-charset, skk-charsetp):
+	(skk-local-variable-p, skk-last-command-char, skk-set-last-command-char):
+	(skk-region-active-p, skk-process-kill-without-query, skk-window-body-height):
+	(skk-fit-window): Remove functions.
+
+	* skk-gadget.el (skk-clock): Use function ding() instead of skk-ding().
+	* skk-kcode.el (skk-display-code, skk-list-chars-move-to-charstr):
+	Use function char-charset() instead of skk-char-charset().
+	* skk.el (skk-setup-charset-list): Use function charsetp() instead of skk-charsetp().
+	(skk-setup-modeline): Use function local-variable-p() instead of skk-local-variable-p().
+	(skk-delete-selection-wrapper, skk-insert):
+	Use last-command-event instead of skk-last-command-char().
+	(skk-insert, skk-set-henkan-point): Use set() instead of skk-set-last-command-char().
+	* skk-tut.el (skk-insert): Use last-command-event instead of skk-last-command-char().
+	* skk-jisx0201.el (skk-insert): Use last-command-event instead of skk-last-command-char().
+	* skk-isearch.el (skk-isearch-message, skk-isearch-start-henkan):
+	Use last-command-event instead of skk-last-command-char().
+	* skk-hint.el (skk-insert): Use last-command-event instead of skk-last-command-char().
+	(skk-insert): Use set() instead of skk-set-last-command-char().
+	* skk-dcomp.el (skk-kana-input, skk-abbrev-insert, skk-abbrev-comma):
+	(skk-abbrev-period, skk-comp-do): Use last-command-event instead of
+	skk-last-command-char().
+	* skk-sticky.el (skk-insert): Use set() instead of skk-set-last-command-char().
+	* skk-annotation.el (skk-annotation-lookup-region-or-at-point):
+	* skk.el (skk-kana-input,skk-jisx0208-latin-insert):
+	Use function use-region-p() instead of skk-region-active-p().
+	* skk-annotation.el (skk-annotation-start-python, skkannot-start-dict-process)
+	* skk-server.el (skk-open-network-stream):
+	Use function set-process-query-on-exit-flag() instead of skk-process-kill-without-query().
+	* skk-dcomp.el (skk-dcomp-multiple-available-p, skk-dcomp-multiple-show):
+	Use function window-body-height() instead of skk-window-body-height().
+	* skk-inline.el (skk-inline-show, skk-inline-show-vertically):
+	Use function window-body-height() instead of skk-window-body-height().
+	* skk-annotation.el (skk-annotation-show-buffer):
+	* skk.el (skk-henkan-show-candidates-buffer, skk-show-num-type-info):
+	Use function fit-window-to-buffer() instead of skk-fit-window().
+
+	* skk-tut.el (skktut-enable-tutmap): Use function local-variable-p() instead of
+	skk-local-variable-p().
+
+	* skk-setup.el.in, skk-annotation.el, skk-isearch.el, skk-inline.el:
+	* skk-cursor.el, skk-annotation.el, skk-kcode.el, skk-tankan.el:
+	* skk-macs.el, skk-tut.el, skk-vars.el, skk.el, skk-viper.el: Remove code for XEmacs.
+
+	* patches/README.ja, patches/emacs23_1-gtk-fix-dynamic-menus.diff:
+	Remove file (for GNU Emacs 23).
+
 	* .travis.yml: fix EVM_EMACS.
 
 2020-02-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>

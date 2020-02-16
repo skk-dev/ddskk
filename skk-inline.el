@@ -36,46 +36,45 @@
 (defun skk-add-background-color (string color)
   "STRING のうち背景色が指定されていない文字に限って COLOR の背景色を
 適用する。"
-  (when (eval-when-compile (featurep 'emacs))
-    (when (and string
-	       color
-	       (color-defined-p color))
-      (let ((start 0)
-	    (end 1)
-	    (len (length string))
-	    orig-face)
-	(while (< start len)
-	  (setq orig-face (get-text-property start 'face string))
-	  (while (and (< end len)
-		      (eq orig-face (get-text-property end 'face string)))
-	    (cl-incf end))
-	  (cond ((not orig-face)
-		 (put-text-property start end 'face
-				    `(:background ,color)
-				    string))
-		;;
-		((and (facep orig-face)
-		      (not (face-background orig-face)))
-		 (put-text-property start end 'face
-				    `(:inherit ,orig-face :background ,color)
-				    string))
-		;;
-		((and (listp orig-face)
-		      (not (plist-get (get-text-property start 'face string)
-				      :background))
-		      (not (and (plist-get (get-text-property start 'face start)
-					   :inherit)
-				(face-background
-				 (plist-get (get-text-property start 'face start)
-					    :inherit)))))
-		 (put-text-property start end 'face
-				    (cons `(:background ,color)
-					  orig-face)
-				    string)))
+  (when (and string
+	     color
+	     (color-defined-p color))
+    (let ((start 0)
+	  (end 1)
+	  (len (length string))
+	  orig-face)
+      (while (< start len)
+	(setq orig-face (get-text-property start 'face string))
+	(while (and (< end len)
+		    (eq orig-face (get-text-property end 'face string)))
+	  (cl-incf end))
+	(cond ((not orig-face)
+	       (put-text-property start end 'face
+				  `(:background ,color)
+				  string))
+              ;;
+	      ((and (facep orig-face)
+		    (not (face-background orig-face)))
+	       (put-text-property start end 'face
+				  `(:inherit ,orig-face :background ,color)
+				  string))
+              ;;
+	      ((and (listp orig-face)
+		    (not (plist-get (get-text-property start 'face string)
+				    :background))
+		    (not (and (plist-get (get-text-property start 'face start)
+					 :inherit)
+			      (face-background
+			       (plist-get (get-text-property start 'face start)
+					  :inherit)))))
+	       (put-text-property start end 'face
+				  (cons `(:background ,color)
+					orig-face)
+				  string)))
 
-	  (setq start (max (1+ start) end)
-		end (1+ start)))))
-    string))
+	(setq start (max (1+ start) end)
+	      end (1+ start)))))
+    string)
 
 ;;;###autoload
 (defun skk-inline-show (str face &optional vertical-str text-max-height)
@@ -84,7 +83,7 @@
 	   ;; window が候補群を表示できる高さがあるかチェック
 	   (stringp vertical-str)
 	   (integerp text-max-height)
-	   (< (1+ text-max-height) (skk-window-body-height)))
+	   (< (1+ text-max-height) (window-body-height)))
       (skk-inline-show-vertically vertical-str face)
     (skk-inline-show-horizontally str face)))
 
@@ -190,7 +189,7 @@
       (when (or invisible
 		(and bottom
 		     (> (1+ skk-henkan-number-to-display-candidates)
-			(- (skk-window-body-height)
+			(- (window-body-height)
 			   (count-screen-lines (window-start) (point))))))
 	(recenter (- (1+ skk-henkan-number-to-display-candidates)))))))
 

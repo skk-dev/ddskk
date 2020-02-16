@@ -28,8 +28,7 @@
 ;;; Code:
 
 ;;; Autoloads.
-(unless (featurep 'xemacs)
-  (require 'skk-autoloads))
+(require 'skk-autoloads)
 
 ;;; Key bindings.
 (global-set-key "\C-x\C-j" 'skk-mode)

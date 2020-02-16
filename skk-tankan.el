@@ -1705,15 +1705,10 @@
   ;;   => (24 7 9)
   ;; (aref skk-tankan-radical-vector 24)
   ;;   => "十"
-  (let* ((charset (if (eval-when-compile (featurep 'emacs))
-		      ;; GNU Emacs
-		      (char-charset char skk-charset-list)
-		    (char-charset char))) ; => 'japanese-jisx0208
-					  ;    or 'japanese-jisx0213-2
-	(fun (cdr (assq charset skk-tankan-get-char-data-functions))))
-    ;;
+  (let* ((charset (char-charset char skk-charset-list))
+         (fun (cdr (assq charset skk-tankan-get-char-data-functions))))
     (or (and fun
-	     (funcall fun char))	; => skk-tankan-get-char-data-0213-1()
+	     (funcall fun char)) ; => skk-tankan-get-char-data-0213-1()
 	(list 0 0 0))))
 
 (defun skk-tankan-get-char-data-0213-1 (char)
@@ -1786,31 +1781,20 @@ METHOD が 2 であれば数値 NUM は総画数として検索を実行する。
   ;; ↑の 2nd byte + skk-tankan-stroke-for-radical-vector が総画数。
   ;; index から char へは skk-tankan-encode-0213-1 を逆算すれば可能。
 
-  (if (or (featurep 'emacs)
-	  (featurep 'jisx0213))		; Mule-UCS
-      ;; JIS X 0213
-      (append
-       (skk-search-by-stroke-or-radical-sub ?\x2e ?\x7e ?\x21 ?\x7e
-					    num method 'japanese-jisx0213-1)
-       (skk-search-by-stroke-or-radical-sub ?\x21 ?\x21 ?\x21 ?\x7e
-					    num method 'japanese-jisx0213-2)
-       (skk-search-by-stroke-or-radical-sub ?\x23 ?\x25 ?\x21 ?\x7e
-					    num method 'japanese-jisx0213-2)
-       (skk-search-by-stroke-or-radical-sub ?\x28 ?\x28 ?\x21 ?\x7e
-					    num method 'japanese-jisx0213-2)
-       (skk-search-by-stroke-or-radical-sub ?\x2c ?\x2f ?\x21 ?\x7e
-					    num method 'japanese-jisx0213-2)
-       (skk-search-by-stroke-or-radical-sub ?\x6e ?\x7e ?\x21 ?\x7e
-					    num method 'japanese-jisx0213-2)
-       )
-    ;; JIS X 0208
-    (let ((charset 'japanese-jisx0208))
-      (append
-       (skk-search-by-stroke-or-radical-sub ?\x30 ?\x4e ?\x21 ?\x7e num method charset)
-       (skk-search-by-stroke-or-radical-sub ?\x4f ?\x4f ?\x21 ?\x53 num method charset)
-       (skk-search-by-stroke-or-radical-sub ?\x50 ?\x73 ?\x21 ?\x7e num method charset)
-       (skk-search-by-stroke-or-radical-sub ?\x74 ?\x74 ?\x21 ?\x26 num method charset)
-       ))))
+  (append
+   (skk-search-by-stroke-or-radical-sub ?\x2e ?\x7e ?\x21 ?\x7e
+                                        num method 'japanese-jisx0213-1)
+   (skk-search-by-stroke-or-radical-sub ?\x21 ?\x21 ?\x21 ?\x7e
+					num method 'japanese-jisx0213-2)
+   (skk-search-by-stroke-or-radical-sub ?\x23 ?\x25 ?\x21 ?\x7e
+					num method 'japanese-jisx0213-2)
+   (skk-search-by-stroke-or-radical-sub ?\x28 ?\x28 ?\x21 ?\x7e
+					num method 'japanese-jisx0213-2)
+   (skk-search-by-stroke-or-radical-sub ?\x2c ?\x2f ?\x21 ?\x7e
+					num method 'japanese-jisx0213-2)
+   (skk-search-by-stroke-or-radical-sub ?\x6e ?\x7e ?\x21 ?\x7e
+					num method 'japanese-jisx0213-2)
+   ))
 
 (defun skk-tankan-bushu-compread ()
   "配列 `skk-tankan-radical-vector' の内容を一覧表示して選択する。

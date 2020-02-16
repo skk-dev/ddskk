@@ -204,7 +204,7 @@ HOST が nil ならば `skk-server-host' を参照する。
 				skkserv-working-buffer
 				(or host skk-server-host)
 				(or port "skkserv"))))
-      (skk-process-kill-without-query process)
+      (set-process-query-on-exit-flag process nil)
       process)))
 
 (defun skk-startup-server (host prog jisyo port)

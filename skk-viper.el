@@ -57,11 +57,7 @@
 
 (setq skk-use-viper t)
 (save-match-data
-  (unless (string-match (if (eval-when-compile
-			      (featurep 'emacs))
-			    (sentence-end)
-			  sentence-end)
-			"。？！．")
+  (unless (string-match (sentence-end) "。？！．")
     (setq sentence-end (concat "[。？！．]\\|" sentence-end))))
 
 ;;; cursor color support.

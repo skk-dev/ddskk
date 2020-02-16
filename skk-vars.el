@@ -37,11 +37,10 @@
   (defvar mule-version))
 
 ;; Functions needed prior to loading skk-macs.el.
-(when (eval-when-compile (featurep 'emacs))
-  (defsubst find-coding-system (obj)
-    "Return OBJ if it is a coding-system."
-    (if (coding-system-p obj)
-	obj)))
+(defsubst find-coding-system (obj)
+  "Return OBJ if it is a coding-system."
+  (if (coding-system-p obj)
+      obj))
 
 (defun skk-find-window-system ()
   (let ((frames (frame-list))
@@ -2131,23 +2130,10 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
 
 ;;; -- Internal constants and variables of skk.el
 (defconst skk-coding-system-alist
-  (cond ((featurep 'emacs)
-	 '(("euc" . euc-jis-2004)
-	   ("ujis" . euc-jis-2004)
-	   ("sjis". japanese-shift-jis-2004)
-	   ("jis" . iso-2022-jp-3)))
-
-	((featurep 'jisx0213)		; Mule-UCS
-	 '(("euc" . euc-jisx0213)
-	   ("ujis" . euc-jisx0213)
-	   ("sjis". shift_jisx0213)
-	   ("jis" . iso-2022-jp-3-strict)))
-
-	(t
-	 '(("euc" . euc-japan)
-	   ("ujis" . euc-japan)
-	   ("sjis". shift_jis)
-	   ("jis" . junet))))
+  '(("euc" . euc-jis-2004)
+    ("ujis" . euc-jis-2004)
+    ("sjis". japanese-shift-jis-2004)
+    ("jis" . iso-2022-jp-3))
   "coding-system $B$NJ8;zNsI=8=$H!"%7%s%\%kI=8=$NO"A[%j%9%H!#(B")
 
 (defconst skk-kana-rom-vector
@@ -3815,15 +3801,10 @@ ALIAS can be used as an alias of CANONICAL.
 CANONICAL should be found in `skk-isearch-mode-canonical-alist'. ")
 
 (defconst skk-isearch-breakable-character-p-function
-  (cond ((eval-when-compile (featurep 'emacs))
-	 (lambda (char)
-	   ;; see emacs/lisp/fill.el how the category `|' is
-	   ;; treated.
-	   (aref (char-category-set char) ?|)))
-	(t
-	 (lambda (char)
-	   (string-match word-across-newline
-			 (char-to-string char)))))
+  (lambda (char)
+    ;; see emacs/lisp/fill.el how the category `|' is
+    ;; treated.
+    (aref (char-category-set char) ?|))
   "Function to test if we can insert a newline around CHAR when filling.")
 
 (defconst skk-isearch-working-buffer " *skk-isearch*"
@@ -3966,9 +3947,7 @@ SKK $B;HMQCf$K$3$NJQ?t$NCM$r@Z$jBX$($k$3$H$G(B  $B%m!<%^;zF~NO(B $B"+"*(B 
   :group 'skk-kanagaki)
 
 ;;; skk-kcode.el related.
-(defcustom skk-kcode-method (if (featurep 'emacs)
-				'code-or-char-list
-			      'code-or-menu)
+(defcustom skk-kcode-method 'code-or-char-list
   "*`skk-input-by-code-or-menu' $B$G;H$o$l$kJ8;zA^F~$N$?$a$N%$%s%?!<%U%'!<%9!#(B
 `char-list' $B$G$"$l$P!"J8;z0lMwI=(B (`skk-list-chars') $B$+$iA*Br$9$k!#(B
 `code-or-char-list' $B$G$"$l$P!"$^$:(B JIS $B%3!<%I(B/$B6hE@%3!<%IF~NO%W%m%s%W%H$rI=<((B
@@ -4034,9 +4013,7 @@ SKK $B;HMQCf$K$3$NJQ?t$NCM$r@Z$jBX$($k$3$H$G(B  $B%m!<%^;zF~NO(B $B"+"*(B 
 (defconst skk-kcode-charset-list
   (mapcar (lambda (x)
 	    (list (symbol-name x)))
-	  (if (eval-when-compile (featurep 'emacs))
-	      charset-list
-	    (charset-list))))
+          charset-list))
 
 (defvar skk-display-code-method 'code
   "*Non-nil $B$G$"$l$P%]%$%s%H$K$"$kJ8;z$N%3!<%I$rI=<($9$k!#(B
