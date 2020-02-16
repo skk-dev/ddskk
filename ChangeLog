@@ -1,5 +1,22 @@
 2020-02-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-decor.el: New file.
+	* SKK-MK: Use skk-decor.el.
+	* skk-vars.el (skk-inline-show-vertically-decor,skk-tooltip-show-at-point-decor)
+	(skk-henkan-show-candidates-buffer-decor): New variables.
+	(skk-inline-show-vertically-cand-face, skk-inline-show-vertically-anno-face)
+	(skk-tooltip-show-at-point-cand-face, skk-tooltip-show-at-point-anno-face)
+	(skk-henkan-show-candidates-buffer-cand-face, skk-henkan-show-candidates-buffer-anno-face)
+	New faces.
+	* skk.el (skk-henkan-show-candidates-buffer):
+	Use variable skk-henkan-show-candidates-buffer-decor.
+	* skk-inline.el (skk-inline-show-vertically):
+	Use variable skk-inline-show-vertically-decor.
+	* skk-emacs.el (skk-tooltip-show-at-point):
+	Use variable skk-tooltip-show-at-point-decor.
+
+2020-02-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* skk-macs.el (skk-ding, skk-char-charset, skk-charsetp):
 	(skk-local-variable-p, skk-last-command-char, skk-set-last-command-char):
 	(skk-region-active-p, skk-process-kill-without-query, skk-window-body-height):

@@ -190,7 +190,8 @@ This version of SKK requires MULE features"))
 
 (defvar SKK_MODULES
   ;; こんなもんコマンドラインで指定する人いないよね？
-  (let ((list '(cdb
+  (let ((list '(ccc
+                cdb
 		context-skk
 		skk-abbrev
 		skk-act
@@ -204,7 +205,9 @@ This version of SKK requires MULE features"))
 		skk-cursor
 		skk-cus
 		skk-dcomp
+                skk-decor
 		skk-develop
+                skk-emacs
 		skk-gadget
 		skk-hint
 		skk-inline
@@ -217,6 +220,7 @@ This version of SKK requires MULE features"))
 		skk-look
 		skk-macs
 		skk-num
+                skk-search-web
 		skk-server-completion
 		skk-server
 		skk-show-mode
@@ -240,10 +244,6 @@ This version of SKK requires MULE features"))
 		;; VIP 3.7
 		;; vip
 		)))
-
-    (add-to-list 'list 'ccc)
-    (add-to-list 'list 'skk-emacs)
-    (add-to-list 'list 'skk-search-web)
 
     ;; skk-jisx0213.el
     (when (or (coding-system-p 'euc-jisx0213)

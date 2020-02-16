@@ -1,6 +1,8 @@
 2020-02-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* dot.skk: Remove code for XEmacs.
+	(skk-inline-show-vertically-decor, skk-tooltip-show-at-point-decor)
+	(skk-henkan-show-candidates-buffer-decor): New variables.
 
 2018-07-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 

@@ -5342,6 +5342,69 @@ then filename of the English version will be \"SKK.tut.E\".")
     'viper-normalize-minor-mode-map-alist)
   "Viper が `minor-mode-map-alist' を調整するための関数。")
 
+;;; skk-decor.el related.
+
+;; skk-show-inline 'vertical に限ってフェイスを作用させる
+(defvar skk-inline-show-vertically-decor nil)
+
+(defface skk-inline-show-vertically-cand-face
+  '((((type tty))
+     (:foreground "light sea green" :background "dark sea green"))
+    (t
+     (:foreground "white" :background "gray40" :height 180
+      :box (:line-width 3 :color "gray40" :style released-button) )))
+  "候補に適用する FACE"
+  :group 'skk-visual)
+
+(defface skk-inline-show-vertically-anno-face
+  '((((type tty))
+     (:foreground "DarkSeaGreen"))
+    (t
+     (:foreground "yellow" :height 120)))
+  "アノテーションに適用する FACE"
+  :group 'skk-visual)
+
+;; tooltip に限ってフェイスを作用させる
+(defvar skk-tooltip-show-at-point-decor nil)
+
+(defface skk-tooltip-show-at-point-cand-face
+  '((((type tty))
+     (:foreground "light sea green" :background "dark sea green"))
+    (t
+     (:foreground "white" :background "gray40" :height 200
+      :box (:line-width 3 :color "gray40" :style released-button) )))
+  "候補に適用する FACE"
+  :group 'skk-visual)
+
+(defface skk-tooltip-show-at-point-anno-face
+  '((((type tty))
+     (:foreground "DarkSeaGreen"))
+    (t
+     (:foreground "yellow" :height 120)))
+  "アノテーションに適用する FACE"
+  :group 'skk-visual)
+
+;; 候補バッファに限ってフェイスを作用させる
+(defvar skk-henkan-show-candidates-buffer-decor nil)
+
+(defface skk-henkan-show-candidates-buffer-cand-face
+  '((((type tty))
+     (:foreground "light sea green" :background "dark sea green"))
+    (t
+     (:foreground "white" :background "gray40" :height 250
+      :box (:line-width 3 :color "gray40" :style released-button) )))
+  "候補に適用する FACE"
+  :group 'skk-visual)
+
+(defface skk-henkan-show-candidates-buffer-anno-face
+  '((((type tty))
+     (:foreground "DarkSeaGreen"))
+    (t
+     (:foreground "yellow" :height 120)))
+  "アノテーションに適用する FACE"
+  :group 'skk-visual)
+
+
 (provide 'skk-vars)
 
 ;;; skk-vars.el ends here

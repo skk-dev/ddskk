@@ -302,8 +302,7 @@
 	skk-inline-show-background-color     "gray15"	;偶数ラインの背景色
 	skk-inline-show-background-color-odd "gray20")) ;奇数ラインの背景色
 
-;; 変換候補一覧と注釈 (annotation) の表示を
-;; エコーエリアに代えて tooltip で表示する
+;; 変換候補一覧と注釈 (annotation) の表示をエコーエリアに代えて tooltip で表示する
 (setq skk-show-tooltip t)
 
 ;; ;; Tip 描画に pos-tip を利用してみる
@@ -378,6 +377,18 @@
 ;; *候補*バッファ の fringe を消す
 ;; (setq skk-candidate-buffer-display-fringes nil)
 
+;;; ;; (setq skk-show-inline 'vertical) を装飾する関数
+;; (setq skk-inline-show-vertically-decor
+;;       #'skk-inline-show-vertically-decor-func)
+
+;;; ;; (setq skk-show-tooltip t) を装飾する関数
+;; (setq skk-tooltip-show-at-point-decor
+;;       #'skk-tooltip-show-at-point-decor-func)
+
+;;; ;; (setq skk-show-candidates-always-pop-to-buffer t) を装飾する関数
+;; (setq skk-henkan-show-candidates-buffer-decor
+;;       #'skk-henkan-show-candidates-buffer-decor-func)
+
 ;; @@ window 管理
 
 ;; Popup Window Manager for Emacs (https://github.com/m2ym/popwin-el)
@@ -428,6 +439,16 @@
 		   (put-text-property 0 (length cand)
 				      'face 'skk-emacs-hiragana-face cand)
 		   cand)))))
+
+;; `$' skk-display-code-for-char-at-point() は必ず tooltip で表示
+(advice-add #'skk-display-code-for-char-at-point :around
+            #'(lambda (orig-func &rest args)
+                (let ((skk-show-tooltip t)
+                      skk-display-code-char-face)
+                  (set-face-attribute 'skk-display-code-char-face nil
+                                      :foreground "black"
+                                      :height 400)
+                  (apply orig-func args))))
 
 ;; @@ 辞書検索に関連した設定
 

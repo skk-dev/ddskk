@@ -102,6 +102,8 @@
       (overlay-put ol 'after-string string))))
 
 (defun skk-inline-show-vertically (string face)
+  (when skk-inline-show-vertically-decor
+    (setq string (funcall skk-inline-show-vertically-decor string)))
   (unless (skk-in-minibuffer-p)
     (let* ((margin 2)
 	   ;; XXX beg-col が -1 になって `make-string' でエラーになる
