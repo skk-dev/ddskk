@@ -29,7 +29,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'cl)
+  (require 'cl-lib)
   (require 'skk-vars))
 
 (eval-and-compile

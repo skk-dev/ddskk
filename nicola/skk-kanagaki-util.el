@@ -31,7 +31,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'cl)
+  (require 'cl-lib)
   (require 'skk-vars)
   (require 'skk-macs))
 
@@ -112,7 +112,7 @@
   (setq skk-kanagaki-state
 	(if (memq arg '(kana rom))
 	    arg
-	  (case skk-kanagaki-state
+	  (cl-case skk-kanagaki-state
 	    (kana 'rom)
 	    (rom 'kana)
 	    ;; とりあえず。
@@ -121,7 +121,7 @@
   ;;
   (when (featurep 'skk-nicola)
     ;; モード行の表示の調節。
-    (case skk-kanagaki-state
+    (cl-case skk-kanagaki-state
       (kana
        (setq skk-hiragana-mode-string skk-nicola-hiragana-mode-string
 	     skk-katakana-mode-string skk-nicola-katakana-mode-string))

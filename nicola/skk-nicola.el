@@ -41,7 +41,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'cl)
+  (require 'cl-lib)
   (require 'skk-kanagaki-util)
   (require 'skk-macs)
   (require 'skk-vars)
@@ -285,7 +285,7 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
   (remove-hook 'skk-mode-hook 'skk-nicola-setup))
 
 (defun skk-nicola-setup-modeline ()
-  (case skk-kanagaki-state
+  (cl-case skk-kanagaki-state
     (kana
      (setq skk-hiragana-mode-string skk-nicola-hiragana-mode-string
 	   skk-katakana-mode-string skk-nicola-katakana-mode-string))
@@ -351,7 +351,7 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
 		"$BAw$j$J$7JQ493+;O(B"))
     ;;
     (list
-     (do ((spec (nth 4 skk-kanagaki-rule-tree)
+     (cl-do ((spec (nth 4 skk-kanagaki-rule-tree)
 		(cdr spec))
 	  (list nil (car spec))
 	  (str nil
@@ -366,7 +366,7 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
 		  "$B%3!<%I$^$?$O%a%K%e!<$K$h$kF~NO(B")))))
     ;;
     (list
-     (do ((spec (nth 4 skk-kanagaki-rule-tree)
+     (cl-do ((spec (nth 4 skk-kanagaki-rule-tree)
 		(cdr spec))
 	  (list nil
 		(car spec))
@@ -381,7 +381,7 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
 	    (cons str "$B:#F|$NF|IU$1$rA^F~(B")))))
     ;;
     (list
-     (do ((spec (nth 4 skk-kanagaki-rule-tree)
+     (cl-do ((spec (nth 4 skk-kanagaki-rule-tree)
 		(cdr spec))
 	  (list nil
 		(car spec))
@@ -458,8 +458,8 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
 	 (not skk-jisx0201-mode))
     (skk-nicola-insert arg parg))
    (t
-    (unless (skk-last-command-char)
-      (skk-set-last-command-char ?\ ))
+    (unless last-command-event
+      (set 'last-command-event ?\ ))
     (call-interactively 'skk-insert))))
 
 ;;;###autoload
@@ -470,8 +470,7 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
   (if (sit-for skk-nicola-latin-interval t)
       ;; then
       (skk-bind-last-command-char
-	  (if (characterp (event-to-character
-			   last-command-event))
+	  (if (characterp (event-to-character last-command-event))
 	      (event-to-character last-command-event)
 	    ?\ )
 	(call-interactively 'self-insert-command t))
@@ -657,8 +656,8 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
 
 (defun skk-nicola-insert-single (command arg &optional parg)
   "$BC1FHBG80$r=hM}$9$k!#(B"
-  (let ((char (skk-last-command-char)))
-    (case command
+  (let ((char last-command-event))
+    (cl-case command
       (skk-nicola-self-insert-rshift
        ;; ($BJQ49!&%9%Z!<%9(B)
        (skk-nicola-space-function arg parg))
@@ -683,14 +682,14 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
 		   (lookup-key skk-j-mode-map first))))
 	(char (if (characterp first)
 		  first
-		(skk-last-command-char)))
+		last-command-event))
 	(str (when (characterp next)
 	       (skk-char-to-unibyte-string next))))
     ;;
-    (case (lookup-key skk-j-mode-map (or str next))
+    (cl-case (lookup-key skk-j-mode-map (or str next))
       (skk-nicola-self-insert-rshift
        ;; $B1&%7%U%H(B
-       (case command
+       (cl-case command
 	 (skk-nicola-self-insert-rshift
 	  ;; [$B1&(B $B1&(B]
 	  (skk-bind-last-command-char ?\ 
@@ -717,7 +716,7 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
 				  arg))))
       (skk-nicola-self-insert-lshift
        ;; $B:8%7%U%H(B
-       (case command
+       (cl-case command
 	 (skk-nicola-self-insert-lshift
 	  ;;[$B:8(B $B:8(B]
 	  (cond ((skk-in-minibuffer-p)
@@ -749,7 +748,7 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
 				 skk-nicola-lshift-rule
 				 arg))
 	((and (not (eq char next))
-	      (memq (skk-last-command-char)
+	      (memq last-command-event
 		    skk-nicola-set-henkan-point-chars)
 	      (memq next
 		    skk-nicola-set-henkan-point-chars))
@@ -884,7 +883,7 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
 		   (lookup-key skk-j-mode-map first))))
 	(char (if (characterp first)
 		  first
-		(skk-last-command-char)))
+		last-command-event))
 	(str (when (characterp next)
 	       (skk-char-to-unibyte-string next)))
 	(shifts '(skk-nicola-self-insert-lshift
@@ -899,7 +898,7 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
    (and (not (eq char next))
 	(or
 	 ;; [fj]
-	 (and (memq (skk-last-command-char)
+	 (and (memq last-command-event
 		    skk-nicola-set-henkan-point-chars)
 	      (memq next
 		    skk-nicola-set-henkan-point-chars))
@@ -1077,9 +1076,9 @@ ARG $B$rM?$($i$l$?>l9g$O$=$N?t$@$1J8;zNs$rO"7k$7$FF~NO$9$k!#(B"
     (cond
      ((and (eq skk-kanagaki-state 'kana)
 	   skk-j-mode
-	   (or (eq (skk-last-command-char)
+	   (or (eq last-command-event
 		   (car cell1))
-	       (eq (skk-last-command-char)
+	       (eq last-command-event
 		   (car cell2)))
 	   skk-henkan-mode)
       ;; $B$J$<$+$3$1$k!#860x2rL@Cf!#(B

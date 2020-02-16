@@ -1,5 +1,19 @@
 2020-02-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-oasys.el, skk-nicola.el, skk-nicola-dcomp.el, skk-kanagaki.el:
+	* skk-kanagaki-util.el, skk-kanagaki-menu.el, skk-106-jis.el:
+	* NICOLA-DDSKK-MK: Require cl-lib instead of cl.
+
+2020-02-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-nicola.el (skk-nicola-self-insert-lshift-1,skk-nicola-turn-on-j-mode):
+	(skk-nicola-insert-single, skk-nicola-insert-double):
+	(skk-nicola-maybe-double-p, skk-insert):
+	Use last-command-event instead of skk-last-command-char.
+
+	* skk-kanagaki.el (skk-kanagaki-adjust-rule-tree):
+	Use function local-variable-p() instead of skk-local-variable-p().
+
 	* skk-kanagaki-util.el (skk-kanagaki-print-help-function): Remove function.
 	(skk-kanagaki-help-1): Use help-print-return-message.
 
