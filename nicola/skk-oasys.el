@@ -32,7 +32,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'cl)
+  (require 'cl-lib)
   (require 'skk-kanagaki-util))
 
 (require 'skk-kanagaki)

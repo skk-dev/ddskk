@@ -2,7 +2,7 @@
 
 ;;; Code:
 
-(require 'cl)
+(require 'cl-lib)
 (require 'advice)
 
 (defun config-nicola-ddskk ()

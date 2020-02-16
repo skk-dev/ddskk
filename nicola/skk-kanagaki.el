@@ -137,7 +137,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'cl)
+  (require 'cl-lib)
   (require 'skk-dcomp)
   (require 'skk-kanagaki-util)
   (require 'skk-macs)
@@ -338,7 +338,7 @@ XFree86 上で使用する場合、 例えばこの値を [henkan]
 	   "このヘルプを表示"))
     ;;
     (list
-     (do ((spec (nth 4 skk-kanagaki-rule-tree)
+     (cl-do ((spec (nth 4 skk-kanagaki-rule-tree)
 		(cdr spec))
 	  (list nil (car spec))
 	  (str nil (when (memq
@@ -363,13 +363,13 @@ XFree86 上で使用する場合、 例えばこの値を [henkan]
 	       skk-rom-kana-base-rule-list
 	       skk-rom-kana-rule-list))))
   (let ((rule
-	 (case skk-kanagaki-state
+	 (cl-case skk-kanagaki-state
 	   (kana
 	    skk-kanagaki-rule-tree)
 	   (t
 	    skk-kanagaki-rom-kana-rule-tree))))
     (setq skk-rule-tree rule)
-    (when (skk-local-variable-p 'skk-rule-tree)
+    (when (local-variable-p 'skk-rule-tree)
       (setq-default skk-rule-tree rule))))
 
 ;;;###autoload
