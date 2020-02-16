@@ -460,6 +460,11 @@
 (defun skk-tooltip-show-at-point (text &optional situation)
   "TEXT を tooltip で表示する。"
   (require 'tooltip)
+
+  (and (null (eq situation 'annotation))
+       skk-tooltip-show-at-point-decor
+       (setq text (funcall skk-tooltip-show-at-point-decor text)))
+
   (let* ((P (cdr (skk-emacs-mouse-position)))
 	 (oP (cdr (mouse-position)))
 	 event

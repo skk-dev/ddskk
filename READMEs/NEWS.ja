@@ -1,6 +1,6 @@
 * 17.1
 
-** XEmacs のサポートをを終了しました
+** XEmacs のサポートを終了しました
 
 ** GNU Emacs 23 のサポートを終了しました
 
@@ -15,6 +15,13 @@ GNU Emacs 23 をお使いの方は DDSKK 16.3 を利用してください。
 *** cl から cl-lib へ変更
 
 'cl' が廃止されたことから、'cl-lib' へ変更しました。.
+
+** 新たな装飾機構
+
+次の関数を導入しました。設定例は etc/dot.skk を参考にしてください。
+  - skk-inline-show-vertically-decor-func()
+  - skk-tooltip-show-at-point-decor-func()
+  - skk-henkan-show-candidates-buffer-decor-func()
 
 ** ローマ字変換機能を改善
 

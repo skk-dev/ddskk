@@ -2176,7 +2176,9 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
 	(case-fold-search t))
     (with-current-buffer buff
       (erase-buffer)
-      (insert str)
+      (insert (if skk-henkan-show-candidates-buffer-decor
+                  (funcall skk-henkan-show-candidates-buffer-decor str)
+                str))
       (goto-char (point-min))
       ;; 1 候補に 1 行を割り当てる。
       (forward-char 2)
