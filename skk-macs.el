@@ -654,7 +654,7 @@ the echo area while this function is waiting for an event."
 ;;  (char-to-string (string-to-char string)))
 
 (defsubst skk-get-current-candidate-1 (&optional count)
-  (setq count (or count skk-henkan-count))
+  (setq count (or count (skk-henkan-count)))
   (when (> 0 count)
     (skk-error "候補を取り出すことができません"
 	       "Cannot get current candidate"))
@@ -812,7 +812,7 @@ Return the modified ALIST."
 (defun skk-reset-henkan-count (count)
   ;; ▽モードに戻るときは 0
   ;; ▼モードのまま候補一覧の手前に戻るときは 4
-  (setq skk-henkan-count count)
+  (skk-set-henkan-count count)
   (skk-unread-event (character-to-event
 		     (aref (car (where-is-internal
 				 'skk-previous-candidate
