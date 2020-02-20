@@ -2269,7 +2269,7 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
   (unless (numberp skk-henkan-in-minibuff-nest-level)
     (setq skk-henkan-in-minibuff-nest-level (minibuffer-depth)))
   (when (and window-system skk-show-tooltip)
-    (skk-tooltip-hide))
+    (tooltip-hide))
   (when skk-show-inline
     (skk-inline-show "↓辞書登録中↓" 'skk-jisyo-registration-badge-face))
   (save-match-data
@@ -2746,7 +2746,7 @@ WORD で確定する。"
 	    (buffer-substring-no-properties
 	     skk-henkan-start-point (point))))))
       (when (and window-system skk-show-tooltip)
-	(skk-tooltip-hide))
+	(tooltip-hide))
       (when skk-mode
 	(skk-kakutei-cleanup-buffer)
 	(when (and skk-undo-kakutei-word-only

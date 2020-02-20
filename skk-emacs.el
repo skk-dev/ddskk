@@ -693,7 +693,6 @@ TEXT には `skk-tooltip-face' が適用される。"
      (sit-for 1)
      (message "%s" text))))
 
-(defalias 'skk-tooltip-hide 'tooltip-hide)
 
 ;;@@ Other functions.
 
