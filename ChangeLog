@@ -1,5 +1,7 @@
 2020-02-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-tut.el (skktut-enable-advice, skktut-disable-advice): Remove unnecessary let().
+
 	* skk-emacs.el (skk-tooltip-hide): Remove Alias.
 	* skk.el (skk-henkan-in-minibuff, skk-kakutei): Use tooltip-hide() instead of
 	skk-tooltip-hide().
