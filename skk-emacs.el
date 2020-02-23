@@ -36,7 +36,8 @@
   (require 'ja-dic-utl)
   (require 'tooltip)
 
-  (defvar tool-bar-border))
+  (defvar tool-bar-border)
+  (declare-function x-show-tip "xfns.c"))
 
 (eval-and-compile
   (autoload 'mouse-avoidance-banish-destination "avoid")

@@ -1,5 +1,15 @@
 2020-02-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-emacs.el: Add declare-function x-show-tip.
+
+	* skk-dcomp.el: Remove declare-function skk-comp-get-candidate.
+
+	* skk-comp.el: Remove defalias skk-start-henkan-with-completion.
+	* skk.el (skk-setup-abbrev-mode-map-options): Use function skk-comp-start-henkan
+	instead	of skk-start-henkan-with-completion.
+
+2020-02-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* bayesian/skk-bayesian.el: require skk-autoloads.
 
 	* maint/ptexinfmt.el (texinfo-format-verb): Use delete-char() instead of

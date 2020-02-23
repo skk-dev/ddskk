@@ -511,7 +511,6 @@ dependent."
 	(skk-char-to-unibyte-string skk-backward-and-set-henkan-point-char)
 	#'skk-backward-and-set-henkan-point))))
 
-(declare-function skk-start-henkan-with-completion "skk-comp")
 (defun skk-setup-abbrev-mode-map-options ()
   (unless (eq (lookup-key skk-abbrev-mode-map skk-kakutei-key) 'skk-kakutei)
     (define-key skk-abbrev-mode-map skk-kakutei-key #'skk-kakutei)
@@ -524,7 +523,7 @@ dependent."
     (unless skk-use-viper
       (define-key skk-abbrev-mode-map
 	(skk-char-to-unibyte-string skk-start-henkan-with-completion-char)
-	#'skk-start-henkan-with-completion))))
+	#'skk-comp-start-henkan))))
 
 (defun skk-make-indicator-alist ()
   "SKK インジケータ型オブジェクトを用意し、連想リストにまとめる。"
