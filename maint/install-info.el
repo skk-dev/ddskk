@@ -131,8 +131,7 @@ from DIR-FILE; don't insert any new entries."
       (setq section (list section)))
     ;;
     (unless (and entry section)
-      (save-excursion
-	(set-buffer buf)
+      (with-current-buffer buf
 	(setq buffer-read-only nil)
 	(erase-buffer)
 	(install-info-insert-file-contents info-file)))
@@ -145,8 +144,7 @@ from DIR-FILE; don't insert any new entries."
      (entry
       ;; Only entry is given. Determine section from the info file.
       (unless delete
-	(save-excursion
-	  (set-buffer buf)
+	(with-current-buffer buf
 	  (goto-char (point-min))
 	  (while (re-search-forward "^INFO-DIR-SECTION " nil t)
 	    (setq section
@@ -159,8 +157,7 @@ from DIR-FILE; don't insert any new entries."
 	(setq groups (install-info-groups section entry))))
      ((or section delete)
       ;; Only section is given. Determine entry from the info file.
-      (save-excursion
-	(set-buffer buf)
+      (with-current-buffer buf
 	(goto-char (point-min))
 	(while (re-search-forward "^START-INFO-DIR-ENTRY" nil t)
 	  (install-info-forward-line 1)
@@ -184,8 +181,7 @@ from DIR-FILE; don't insert any new entries."
 	(setq groups (install-info-groups section entry))))
      (t
       ;; Neither entry nor section is given.
-      (save-excursion
-	(set-buffer buf)
+      (with-current-buffer buf
 	(goto-char (point-min))
 	(while (re-search-forward "^INFO-DIR-SECTION " nil t)
 	  (let (section entry)
@@ -222,8 +218,7 @@ from DIR-FILE; don't insert any new entries."
       (unless groups
 	;; No section is specified on the info file. Use "Miscellaneous"
 	;; as the section name.
-	(save-excursion
-	  (set-buffer buf)
+	(with-current-buffer buf
 	  (goto-char (point-min))
 	  (while (re-search-forward "^START-INFO-DIR-ENTRY" nil t)
 	    (install-info-forward-line 1)
@@ -252,8 +247,7 @@ from DIR-FILE; don't insert any new entries."
   ;; Delete all entries given.
   (setq dir (expand-file-name dir))
   (let ((buf (get-buffer-create " *install-info-dir*")))
-    (save-excursion
-      (set-buffer buf)
+    (with-current-buffer buf
       (setq buffer-read-only nil)
       (erase-buffer)
       (unless (file-exists-p dir)
@@ -283,8 +277,7 @@ from DIR-FILE; don't insert any new entries."
 (defun install-info-add-groups (groups dir)
   (setq dir (expand-file-name dir))
   (let ((buf (get-buffer-create " *install-info-dir*")))
-    (save-excursion
-      (set-buffer buf)
+    (with-current-buffer buf
       (setq buffer-read-only nil)
       (erase-buffer)
       (when (file-exists-p dir)
@@ -331,7 +324,7 @@ File: dir,	Node: Top	This is the top of the INFO tree
 		  (cond
 		   ((or (eobp)
 			(not (looking-at "^\\* ")))
-		      ;; No entries in the section.
+		    ;; No entries in the section.
 		    (goto-char sec-start)
 		    (unless (eolp)
 		      (insert "\n")
@@ -402,7 +395,7 @@ File: dir,	Node: Top	This is the top of the INFO tree
 	    (install-info-forward-line 1)
 	    (insert (format "\n%s\n" sec))
 	    (dolist (en (sort entry #'string-lessp))
-		(insert (format "%s\n" en)))))))
+	      (insert (format "%s\n" en)))))))
       ;;
       (install-info-write-region (point-min) (point-max) dir))
     (kill-buffer buf)))
