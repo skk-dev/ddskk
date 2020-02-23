@@ -30,9 +30,11 @@
 
 ;;; Code:
 
+(require 'skk-autoloads)
+(require 'skk-macs)
+(require 'skk-vars)
+
 (eval-when-compile
-  (require 'skk-macs)
-  (require 'skk-vars)
   (if (boundp 'viper-mode)
       (when (eq viper-mode 'ask)
         (setq viper-mode nil))
@@ -113,7 +115,7 @@
   (let ((funcs '(skk-abbrev-mode
 		 skk-jisx0208-latin-mode
 		 skk-latin-mode
-		 skk-toggle-kana)))
+		 skk-toggle-characters)))
     (dolist (func funcs)
       (eval
        `(defadvice ,(intern (symbol-name func))

@@ -29,9 +29,13 @@
 
 ;;; Code:
 
+(require 'skk-macs)
+(require 'skk-vars)
+
 (eval-when-compile
-  (require 'skk-macs)
-  (require 'skk-vars))
+  (declare-function skk-num-compute-henkan-key "skk-num.el")
+  (declare-function skk-compute-henkan-lists "skk.el")
+  (declare-function skk-search-jisyo-file "skk.el"))
 
 (defun skk-server-live-p (&optional process)
   "Return t if PROCESS is alive.

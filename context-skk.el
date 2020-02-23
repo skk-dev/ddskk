@@ -106,6 +106,8 @@
 
 ;;; Code: 
 
+(require 'skk-autoloads)
+
 ;;
 ;; Custom
 ;;

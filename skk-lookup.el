@@ -110,13 +110,35 @@
 
 ;;; Code:
 
+(require 'skk-autoloads)
+(require 'skk-macs)
+(require 'skk-vars)
+(require 'skk-num)
+
 (eval-when-compile
   (require 'cl-lib)
-  (require 'skk-macs)
-  (require 'skk-vars)
-  (require 'skk-num))
+  (defvar lookup-search-pattern)
+  (defvar lookup-search-agents))
 
-(require 'lookup)
+(condition-case nil
+    (require 'lookup)
+  (error
+   (declare-function lookup-module-setup "lookup.el")
+  (declare-function lookup-foreach "lookup.el")
+  (declare-function lookup-dictionary-selected-p "lookup.el")
+  (declare-function lookup-dictionary-name "lookup.el")
+  (declare-function lookup-dictionary-methods "lookup.el")
+  (declare-function lookup-make-query "lookup.el")
+  (declare-function lookup-entry-heading "lookup.el")
+  (declare-function lookup-module-dictionaries "lookup.el")
+  (declare-function skk-okurigana-prefix "lookup.el")
+  (declare-function lookup-agent-id "lookup.el")
+  (declare-function lookup-nunique "lookup.el")
+  (declare-function lookup-make-module "lookup.el")
+  (declare-function lookup-module-put-property "lookup.el")
+  (declare-function lookup-module-init "lookup.el")
+  (declare-function lookup-dictionary-id "lookup.el")
+  (declare-function lookup-dictionary-command "lookup.el")))
 
 (eval-and-compile
   (autoload 'lookup-vse-search-query "lookup-vse"))
@@ -274,7 +296,7 @@
   ;; heading しか取り出さないのはもったいない？  他にも情報を取り出し
   ;; ておいて、必要に応じて参照するか？
   (save-match-data
-    (do* ((pickup (skk-lookup-get-pickup-regexp name))
+    (cl-do* ((pickup (skk-lookup-get-pickup-regexp name))
 	  (pickup-regexp (if (consp pickup) (car pickup)))
 	  (match (if (consp pickup) (cdr pickup) 1))
 	  (split-regexp (skk-lookup-get-split-regexp name))

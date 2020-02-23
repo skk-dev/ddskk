@@ -29,9 +29,9 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (require 'skk-macs)
-  (require 'skk-vars))
+(require 'skk-autoloads)
+(require 'skk-macs)
+(require 'skk-vars)
 
 (defsubst skk-num-get-suuji (expression alist)
   (cdr (assq expression alist)))

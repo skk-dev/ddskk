@@ -264,12 +264,6 @@ This version of SKK requires MULE features"))
 	    (error))
       (add-to-list 'list 'skk-lookup))
 
-    ;; skk-w3m.el
-    ;;(when (condition-case nil
-    ;;          (require 'w3m-search)
-    ;;        (error))
-    ;;  (add-to-list 'list 'skk-w3m))
-    ;; skk-viper.el
     (when (condition-case nil
 	      (require 'viper)
 	    (error))
@@ -395,8 +389,8 @@ This version of SKK requires MULE features"))
 (defun SKK-MK-compile ()
   (let (enable-local-eval)
     (SKK-MK-generate-autoloads-el)
-    (load (expand-file-name "skk-autoloads.el"))
-    (require 'skk (expand-file-name "skk.el"))
+    ;; (load (expand-file-name "skk-autoloads.el"))
+    ;; (require 'skk (expand-file-name "skk.el"))
     (compile-elisp-modules SKK_MODULES
 			   (expand-file-name "."))))
 
@@ -581,7 +575,7 @@ This version of SKK requires MULE features"))
   "Updates info/dir entries."
   (when SKK_INFO
     ;; updates info/dir entries.
-    (require 'install-info (expand-file-name "install-info.el"))
+    (require 'install-info (expand-file-name "./maint/install-info.el"))
     (let ((info-file (expand-file-name SKK_INFO
 				       SKK_INFODIR))
 	  (dir-file (cond

@@ -9,7 +9,7 @@ BZIP2     = bzip2 -9
 DATE	  = date
 EMACS	  = emacs
 ETAGS	  = etags
-FLAGS     = -batch -q -no-site-file -l SKK-MK
+FLAGS     = --batch --no-init-file --quick --load SKK-MK
 GIT       = git
 GZIP      = gzip -9
 MD5	  = md5
@@ -25,7 +25,9 @@ TEST_DEP_1=ert
 TEST_DEP_1_STABLE_URL=http://git.savannah.gnu.org/cgit/emacs.git/plain/lisp/emacs-lisp/ert.el?h=emacs-24.3
 
 elc:
-	$(EMACS) $(FLAGS) -f SKK-MK-compile
+###	$(EMACS) $(FLAGS) --funcall SKK-MK-compile
+	$(EMACS) $(FLAGS) --funcall SKK-MK-generate-autoloads-el
+	find . -maxdepth 1 -name '*.el' | xargs -n1 --verbose $(EMACS) --batch --no-init-file --quick --directory ./ --funcall batch-byte-compile
 
 .PHONY: test downloads
 test:

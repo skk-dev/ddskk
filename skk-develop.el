@@ -27,15 +27,13 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (require 'skk-macs)
-  (require 'tar-util)
-  (require 'url))
-
-(eval-and-compile
-  (require 'skk-vars))
+(require 'skk-autoloads)
+(require 'skk-macs)
+(require 'skk-vars)
+(require 'tar-util)
 
 (eval-when-compile
+  (require 'url)
   (defvar skk-exserv-list))
 
 ;;;###autoload

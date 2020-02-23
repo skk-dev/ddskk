@@ -26,9 +26,9 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (require 'skk-macs)
-  (require 'skk-vars))
+(require 'skk-autoloads)
+(require 'skk-macs)
+(require 'skk-vars)
 
 ;;;###autoload
 (defun skk-activate (&optional name)

@@ -187,9 +187,16 @@
 
 ;;; Code:
 
+(require 'skk-autoloads)
+
+;; for byte compile Warning
+(eval-when-compile
+  (require 'ccc))
+
 (eval-and-compile
   (require 'skk-macs)
   (require 'skk-vars)
+  (require 'skk-emacs)
 
   (autoload 'skk-lookup-get-content "skk-lookup")
   (autoload 'run-python "python")

@@ -97,9 +97,6 @@
   (autoload 'skk-kanagaki-initialize "skk-kanagaki")
   (autoload 'skk-rdbms-count-jisyo-candidates "skk-rdbms"))
 
-;; aliases.
-(defalias 'skk-toggle-kana 'skk-toggle-characters)
-
 ;;;###autoload
 (defun skk-mode (&optional arg)
   "$BF|K\8lF~NO%b!<%I!#(B
@@ -801,6 +798,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
     (jisx0208-latin
      (skk-jisx0208-latin-mode-on))))
 
+;;;###autoload
 (defun skk-setup-jisyo-buffer ()
   "SKK $B$N<-=q%P%C%U%!$rMQ0U$9$k!#(B
 `skk-jisyo' $B$N<-=q%P%C%U%!$G!"(B
@@ -849,6 +847,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
     (backward-char 1)
     (setq skk-okuri-nasi-min (point-marker))))
 
+;;;###autoload
 (defun skk-emulate-original-map (arg)
   "$B%-!<F~NO$KBP$7$F(B Emacs $B$N%*%j%8%J%k$N%-!<3d$jIU$1$G%3%^%s%I$r<B9T$9$k!#(B"
   (let ((prefix-arg arg)
@@ -887,6 +886,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
   (unless (zerop (length key))
     key))
 
+;;;###autoload
 (defun skk-adjust-user-option ()
   "$B%f!<%6%*%W%7%g%s$NIT@09g$rD4@0$9$k!#(B"
   (unless (skk-color-cursor-display-p)
@@ -904,6 +904,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
     ;; $B$3$H$K$J$C$F$$$k!#(B
     (setq skk-share-private-jisyo nil)))
 
+;;;###autoload
 (defun skk-latin-mode (arg)
   "SKK $B$N%b!<%I$r%"%9%-!<%b!<%I$KJQ99$9$k!#(B"
   (interactive "P")
@@ -911,6 +912,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
   (skk-latin-mode-on)
   nil)
 
+;;;###autoload
 (defun skk-jisx0208-latin-mode (arg)
   "SKK $B$N%b!<%I$rA41Q%b!<%I$KJQ99$9$k!#(B"
   (interactive "P")
@@ -931,6 +933,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
   (skk-abbrev-mode-on)
   nil)
 
+;;;###autoload
 (defun skk-toggle-characters (arg)
   "$B"#%b!<%I!""'%b!<%I$G!"$+$J%b!<%I$H%+%J%b!<%I$r%H%0%k$G@Z$jBX$($k!#(B
 $B"&%b!<%I$G$O(B `skk-henkan-start-point' ($B"&$ND>8e(B) $B$H%+!<%=%k$N4V$NJ8;zNs$K$D$$(B
@@ -1001,6 +1004,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 	(kill-local-variable v)))))
 
 ;;;; kana inputting functions
+;;;###autoload
 (defun skk-insert (&optional arg prog-list-number)
   "SKK $B$NJ8;zF~NO$r9T$J$&!#(B"
   (interactive "p")
@@ -2264,6 +2268,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
       (when minibuf-p
 	(select-window (minibuffer-window))))))
 
+;;;###autoload
 (defun skk-henkan-in-minibuff ()
   "$B<-=qEPO?%b!<%I$KF~$j!"EPO?$7$?C18l$NJ8;zNs$rJV$9!#(B"
   (unless (numberp skk-henkan-in-minibuff-nest-level)
@@ -2453,6 +2458,7 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 	(when minibuf-p
 	  (select-window (minibuffer-window)))))))
 
+;;;###autoload
 (defun skk-previous-candidate (&optional arg)
   "$B"'%b!<%I$G$"$l$P!"0l$DA0$N8uJd$rI=<($9$k!#(B
 $B"'%b!<%I0J30$G$O%+%l%s%H%P%C%U%!$K%?%$%W$7$?J8;z$rA^F~$9$k!#(B
@@ -2631,6 +2637,7 @@ catch $B$9$k!#(Bcatch $B$7$?CM$,J8;zNs$J$i$P!"$=$l$rJV$9(B (word $B$r$=$l$K
       (setq word (skk-eval-string word))
       (cons word note))))
 
+;;;###autoload
 (defun skk-treat-strip-note-from-word (word)
   "$BJQ498uJd$NJ8;zNs(B WORD $B$r!"8uJd$=$N$b$N$HCm<a$H$KJ,3d$7$F(B cons cell $B$rJV$9!#(B
 $B8uJd$=$N$b$N$HCm<a$H$N%;%Q%l!<%?$O(B \";\" $B$G$"$kI,MW$,$"$k!#(B
@@ -2648,6 +2655,7 @@ catch $B$9$k!#(Bcatch $B$7$?CM$,J8;zNs$J$i$P!"$=$l$rJV$9(B (word $B$r$=$l$K
 	 (setq cand word))
        (cons cand note)))))
 
+;;;###autoload
 (defun skk-kakutei (&optional arg word)
   "$B8=:_I=<($5$l$F$$$k8l$G3NDj$7!"<-=q$r99?7$9$k!#(B
 $B%+%l%s%H%P%C%U%!$G(B SKK $B%b!<%I$K$J$C$F$$$J$+$C$?$i(B SKK $B%b!<%I$KF~$k!#(B
@@ -3125,6 +3133,7 @@ WORD $B$G3NDj$9$k!#(B"
      (keyboard-quit)))
   nil)
 
+;;;###autoload
 (defun skk-start-henkan (arg &optional prog-list-number)
   "$B"&%b!<%I$G$O4A;zJQ49$r3+;O$9$k!#"'%b!<%I$G$O<!$N8uJd$rI=<($9$k!#(B
 $B"&%b!<%I$G%+%J%b!<%I$N$^$^4A;zJQ49$r3+;O$7$?>l9g$O!"8+=P$78l$rJ?2>L>$K(B
@@ -3303,6 +3312,7 @@ TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#
 	  (t
 	   'unknown))))
 
+;;;###autoload
 (defun skk-set-henkan-point-subr (&optional arg)
   "$B$+$J$rF~NO$7$?8e$G!"%]%$%s%H$KJQ493+;O$N%^!<%/(B ($B"&(B) $B$rIU$1$k!#(B
 $B$3$N4X?t$O(B `skk-set-henkan-point' $B$NFbIt4X?t$H$7$F$b;HMQ$5$l$F$$$k!#(B"
@@ -3479,6 +3489,7 @@ NOCLEAR $B$,(B nil $B$G$"$l$PAw$j2>L>4XO"%U%i%0$r(B nil $B$K%;%C%H$9$k!#(B
        (skk-kakutei)))))
   nil)
 
+;;;###autoload
 (defun skk-save-jisyo (&optional quiet)
   "SKK $B$N<-=q%P%C%U%!$r%;!<%V$9$k!#(B
 $B%*%W%7%g%J%k0z?t$N(B QUIET $B$,(B non-nil $B$G$"$l$P!"<-=q%;!<%V;~$N%a%C%;!<%8$r(B
@@ -3495,6 +3506,7 @@ NOCLEAR $B$,(B nil $B$G$"$l$PAw$j2>L>4XO"%U%i%0$r(B nil $B$K%;%C%H$9$k!#(B
     (when (file-exists-p skk-jisyo)
       (funcall skk-save-jisyo-function quiet))))
 
+;;;###autoload
 (defun skk-save-jisyo-original (&optional quiet)
   "SKK $B$N<-=q%P%C%U%!$r%;!<%V$9$k!#(B
 $B%*%W%7%g%J%k0z?t(B QUIET $B$,(B non-nil $B$G$"$l$P!"<-=q%;!<%V;~$N%a%C%;!<%8$r=P$5$J$$!#(B"
@@ -3680,6 +3692,7 @@ If you want to restore the dictionary from your drive, try
     (delete-file skk-jisyo))
   (rename-file tempo-file skk-jisyo 'ok-if-already-exists))
 
+;;;###autoload
 (defun skk-reread-private-jisyo (&optional force)
   "$B%P%C%U%!$KFI$_9~$s$@8D?M<-=q$rGK4~$7!"%U%!%$%k$+$i%P%C%U%!$X:FFI$_9~$_$9$k!#(B
 $B%*%W%7%g%J%k0z?t$N(B FORCE $B$,(B non-nil $B$G$"$l$P!"GK4~$N3NG'$r$7$J$$!#(B"
@@ -3811,6 +3824,7 @@ If you want to restore the dictionary from your drive, try
 	    (unless orig-buffer
 	      (kill-buffer (current-buffer)))))))))
 
+;;;###autoload
 (defun skk-create-file (file &optional japanese english modes)
   "FILE $B$,$J$1$l$P!"(BFILE $B$H$$$&L>A0$N6u%U%!%$%k$r:n$k!#(B
 $B%*%W%7%g%J%k0z?t$N(B JAPANESE/ENGLISH $B$r;XDj$9$k$H!"%U%!%$%k:n@.8e$=$N%a%C%;!<%8(B
@@ -3829,6 +3843,7 @@ If you want to restore the dictionary from your drive, try
 		   english))
 	(sit-for 3)))))
 
+;;;###autoload
 (defun skk-get-jisyo-buffer (file &optional nomsg)
   "FILE $B$r3+$$$F(B SKK $B<-=q%P%C%U%!$r:n$j!"%P%C%U%!$rJV$9!#(B
 $B<-=q%P%C%U%!$K$O(B `skk-jisyo-code' $B$,E,MQ$5$l$k(B (nil $B$G$"$l$P(B euc) $B$,!"(BFILE $B$K(B (\"path/to/file\" . CODING-SYSTEM) $B$N%3%s%9%;%k$b;XDj$G$-$k!#(B
@@ -3890,6 +3905,7 @@ If you want to restore the dictionary from your drive, try
 	  (set-buffer-modified-p nil)))
       buf)))
 
+;;;###autoload
 (defun skk-search ()
   "`skk-current-search-prog-list' $B$N3FMWAG!J8!:w%W%m%0%i%`!K$r=g$KI>2A$9$k!#(B
 $B$$$:$l$+$NMWAG$,8uJd$r8+$D$1$?;~E@$G=*N;$9$k!#(B"
@@ -4090,6 +4106,7 @@ DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$
 	(setq words (funcall function buffer midasi okurigana words)))
       words)))
 
+;;;###autoload
 (defun skk-compute-henkan-lists (okurigana)
   "$B<-=q8uJd72$r#4$D$N%j%9%H$KJ,2r$9$k!#(B
 $B>\$7$/$O!"$3$N4X?t$N%3%a%s%H$r;2>H!#(B"
@@ -4183,42 +4200,6 @@ DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$
   ;; Yet to be elucidated.
   item)
 
-(defun skk-nunion (x y)
-  "X $B$H(B Y $B$NOB=89g$r:n$k!#(B
-$BEy$7$$$+$I$&$+$NHf3S$O!"(B`equal' $B$G9T$o$l$k!#(BX $B$K(B Y $B$rGK2uE*$KO"@\$9$k!#(B"
-  (cond
-   ((null x)
-    y)
-   ((null y)
-    x)
-   (t
-    (save-match-data
-      (let ((list2 y) list1 origlist1 e1 e2)
-	(while list2
-	  (setq list1 (cons nil x)
-		e2 (car list2)
-		origlist1 list1)
-	  (catch 'found
-	    (while (setq e1 (cadr list1))
-	      (cond
-	       ((equal e1 e2)
-		(throw 'found nil))
-	       ((and (stringp e1)
-		     (stringp e2)
-		     (string-match ";" e1))
-		(setq e1 (substring e1 0 (match-beginning 0)))
-		(when (or (equal e1 e2)
-			  (and
-			   (string-match ";" e2)
-			   (equal (substring e2 0 (match-beginning 0))
-				  e1)))
-		  (throw 'found nil))))
-	      (setq list1 (cdr list1)))
-	    (setcdr list1 (list e2))
-	    (setq x (cdr origlist1)))
-	  (setq list2 (cdr list2)))
-	x)))))
-
 ;;;###autoload
 (defun skk-remove-duplicates (list)
   "LIST $B$+$i!"=EJ#$9$kMWAG$r=|30$7$?%j%9%H$rJV$9!#(B"
@@ -4236,6 +4217,7 @@ DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$
 $BMxMQ$9$k>l9g$O(B `skk-search-prog-list' $B$N@hF,$KG[$9$k;v!#(B"
   (setq skk-kakutei-henkan-flag (skk-search-jisyo-file file limit nomsg)))
 
+;;;###autoload
 (defun skk-update-jisyo (word &optional purge)
   (funcall skk-update-jisyo-function word purge)
   (when (and skk-save-jisyo-instantly
@@ -4244,6 +4226,7 @@ DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$
     (skk-save-jisyo 'quiet)
     (setq skk-jisyo-updated nil)))
 
+;;;###autoload
 (defun skk-update-jisyo-original (word &optional purge)
   "$B<!$NJQ49;~$K(B WORD $B$,:G=i$N8uJd$K$J$k$h$&$K!"8D?M<-=q$r99?7$9$k!#(B
 PURGE $B$,(B non-nil $B$G(B WORD $B$,6&M-<-=q$K$"$k8uJd$J$i(B `skk-ignore-dic-word'
@@ -4433,6 +4416,7 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
 	     words
 	     "/"))
 
+;;;###autoload
 (defun skk-quote-char (word)
   "WORD $B$r<-=q%(%s%H%j$H$7$F@5$7$$7A$K@07A$9$k!#(B
 $B<-=q7A<0$N@)8B$+$i!"<-=q%(%s%H%jFb$K4^$a$F$O$J$i$J$$J8;z$,(B WORD $B$NCf$K$"$l$P!"(B
@@ -4449,6 +4433,7 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
 	  (t
 	   word))))
 
+;;;###autoload
 (defun skk-quote-semicolon (word)
   "WORD $B$r<-=q%(%s%H%j$H$7$F@5$7$$7A$K@07A$9$k!#(B
 `skk-quote-char' $B$H;w$F$$$k$,!"Cp<a$H4X78$J$$%;%_%3%m%s(B (;) $B$r=hM}$9$kE@$,(B
@@ -4684,6 +4669,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 	(when result
 	  (list (format "(quote %s)" result)))))))
 
+;;;###autoload
 (defun skk-search-progs (key &optional prog-list remove-note)
   ;; prog-list $B$,>JN,$5$l$?;~$O(B skk-search-prog-list $B$NA4$F$,BP>](B
   ;; $B$b$70z?t$r$5$i$KDI2C$9$k$h$&$J;v$,$"$l$P(B
@@ -4806,6 +4792,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 			    (or (skk-jisx0208-to-ascii matched)
 				matched))))
 
+;;;###autoload
 (defun skk-search-and-replace (start end regexp func)
   (let (matched replace)
     (save-match-data
@@ -4827,6 +4814,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 			  (+ end0 (length replace)))))
        (set-marker end nil)))))
 
+;;;###autoload
 (defun skk-jisx0208-to-ascii (string)
   (require 'japan-util)
   (let ((char (get-char-code-property (string-to-char string)
@@ -4835,6 +4823,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 	(char-to-string char)
       nil)))
 
+;;;###autoload
 (defun skk-henkan-skk-region-by-func (func &optional arg)
   "`skk-henkan-start-point' $B$H(B `skk-henkan-end-point' $B$N4V$NJ8;zNs$rJQ49$9$k!#(B
 $BJQ492DG=$+$I$&$+$N%A%'%C%/$r$7$?8e$K(B ARG $B$r0z?t$H$7$F(B FUNC $B$rE,MQ$7!"(B
@@ -4875,6 +4864,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
      (t
       (skk-emulate-original-map arg)))))
 
+;;;###autoload
 (defun skk-hiragana-to-katakana (hiragana)
   (let ((diff (- ?$B%"(B ?$B$"(B)))
     (mapconcat (lambda (e)
@@ -4883,6 +4873,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 		   (char-to-string e)))
 	       (string-to-int-list hiragana) "")))
 
+;;;###autoload
 (defun skk-katakana-to-hiragana (katakana)
   (let ((diff (- ?$B%"(B ?$B$"(B)))
     (mapconcat (lambda (e)
@@ -4891,26 +4882,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 		   (char-to-string e)))
 	       (string-to-int-list katakana) "")))
 
-(defun skk-splice-in (org offset spliced)
-  ;; ORG := '(A B C), SPLICED := '(X Y), OFFSET := 1
-  ;; -> '(A B X Y C)
-  (let (tmp tail)
-    (unless (> offset 0)
-      (error "%s" "Cannot splice in!"))
-    (setq tmp (nthcdr (1- offset) org)
-	  tail (cdr tmp))
-    (setcdr tmp nil) ;cut off
-    (setcdr tmp (if tail
-		    (nconc spliced tail)
-		  spliced))
-    org))
-
-;; (defun skk-chomp (nth list)
-;;   ;; LIST := '(A B C D), NTH := 1
-;;   ;; -> '(A B)
-;;   (and (> nth -1) (setcdr (nthcdr nth list) nil))
-;;   list)
-
+;;;###autoload
 (defun skk-henkan-face-on (&optional face)
   "SKK $B$N(B face $BB0@-$r(B ON $B$K$9$k!#(B
 `skk-use-face' $B$,(B non-nil $B$N>l9g!"(B`skk-henkan-start-point' $B$H(B
@@ -4930,16 +4902,13 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 		 skk-henkan-start-point skk-henkan-end-point
 		 face skk-henkan-overlay-priority)))
 
+;;;###autoload
 (defun skk-henkan-face-off ()
   "SKK $B$N(B face $BB0@-$r(B OFF $B$K$9$k!#(B
 `skk-henkan-start-point' $B$H(B `skk-henkan-end-point' $B$N4V$NI=<($rJQ99$7$F$$$k(B
 `skk-henkan-overlay' $B$r>C$9!#(B"
   (when skk-henkan-face
     (skk-detach-extent skk-henkan-overlay)))
-
-(defun skk-detach-extent (object)
-  (when (overlayp object)
-    (delete-overlay object)))
 
 (defun skk-make-face (face)
   "$B?7$7$$(B FACE $B$r:n@.$9$k!#(B
@@ -5071,16 +5040,6 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
 				    1)
 		    33))))))
 
-(defun skk-time-difference (a b)
-  ;; from type-break.el.  Welcome!
-  ;; Compute the difference, in seconds, between a and b, two structures
-  ;; similar to those returned by `current-time'.
-  ;; Use addition rather than logand since that is more robust; the low 16
-  ;; bits of the seconds might have been incremented, making it more than 16
-  ;; bits wide.
-  (+ (lsh (- (car b) (car a)) 16)
-     (- (nth 1 b) (nth 1 a))))
-
 (defun skk-update-kakutei-history (midasi &optional word)
   "$BJQ?t(B `skk-kakutei-history' $B$r99?7$9$k!#(B
 $B$3$NMzNr$O(B skk-comp.el $B$K$*$$$FMxMQ$5$l$k!#(B"
@@ -5109,6 +5068,7 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
 	     (null (memq this-command skk-kana-cleanup-command-list)))
     (skk-kana-cleanup t)))
 
+;;;###autoload
 (defun skk-remove-minibuffer-setup-hook (&rest args)
   ;; Remove all args from minibuffer-setup-hook.
   (dolist (hook args)

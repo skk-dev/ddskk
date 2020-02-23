@@ -27,12 +27,14 @@
 
 ;;; Code:
 
+(require 'skk-vars)
+(require 'skk-macs)
+(require 'skk-autoloads)
+
 (eval-when-compile
   (require 'cl-lib)
   (require 'ja-dic-utl)
   (require 'tooltip)
-  (require 'skk-vars)
-  (require 'skk-macs)
 
   (defvar tool-bar-border))
 
@@ -126,24 +128,6 @@
     ("About Daredevil SKK.." . "Daredevil SKK について..")
     ("Visit Daredevil Web Site" . "Daredevil SKK のサイトへ")))
 
-(defvar skk-emacs-modeline-property
-  (when window-system
-    (list 'local-map (let ((map (make-sparse-keymap)))
-		       (define-key map [mode-line mouse-3]
-			 #'skk-emacs-modeline-menu)
-		       (define-key map [mode-line mouse-1]
-			 #'skk-emacs-circulate-modes)
-		       map)
-	  'help-echo
-	  "mouse-1: モード切替(循環)\nmouse-3: SKK メニュー"
-	  'mouse-face
-	  'highlight)))
-
-(defvar skk-emacs-property-alist
-  (when window-system
-    (list
-     (cons 'latin skk-emacs-modeline-property))))
-
 (defvar skk-emacs-max-tooltip-size '(80 . 40)
   "Not used if `x-max-tooltip-size' is bound.")
 
@@ -220,7 +204,7 @@
   (aset (nth 1 skk-emacs-modeline-menu-items)
 	7
 	(cond (skk-katakana
-	       (skk-emacs-find-func-keys 'skk-toggle-kana))
+	       (skk-emacs-find-func-keys 'skk-toggle-characters))
 	      ((not skk-mode)
 	       (skk-emacs-find-func-keys 'skk-mode))
 	      ((not skk-j-mode)
@@ -231,7 +215,7 @@
 	7
 	(if (and skk-j-mode
 		 (not skk-katakana))
-	    (skk-emacs-find-func-keys 'skk-toggle-kana)
+	    (skk-emacs-find-func-keys 'skk-toggle-characters)
 	  nil))
   (aset (nth 3 skk-emacs-modeline-menu-items)
 	7
@@ -257,7 +241,7 @@
 	(skk-j-mode
 	 (if skk-katakana
 	     (skk-jisx0208-latin-mode arg)
-	   (skk-toggle-kana arg)))
+	   (skk-toggle-characters arg)))
 	(skk-jisx0208-latin-mode
 	 (skk-latin-mode arg))
 	(skk-latin-mode

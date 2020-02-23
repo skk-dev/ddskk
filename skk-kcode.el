@@ -30,14 +30,16 @@
 
 ;;; Code:
 
+(require 'skk-autoloads)
+(require 'skk-macs)
+(require 'skk-vars)
+(require 'skk-emacs)
+(require 'skk-tankan)
+
 (eval-when-compile
   (require 'cl-lib)
-  (require 'skk-macs)
-  (require 'skk-vars)
   (defvar enable-recursive-minibuffers)
   (defvar message-log-max))
-
-(require 'skk-tankan)
 
 ;;;###autoload
 (defun skk-input-by-code-or-menu (&optional arg)

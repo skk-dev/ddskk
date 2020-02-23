@@ -42,9 +42,8 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (require 'skk-macs))
-
+(require 'skk-autoloads)
+(require 'skk-macs)
 (require 'skk-vars)
 
 (let ((euc (cdr (assoc "euc" skk-coding-system-alist))))

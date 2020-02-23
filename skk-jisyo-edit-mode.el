@@ -28,9 +28,8 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (require 'skk-macs))
-
+(require 'skk-macs)
+(require 'skk-autoloads)
 (require 'skk-cus)
 (require 'skk-vars)
 

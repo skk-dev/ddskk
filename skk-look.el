@@ -110,9 +110,11 @@
 
 ;;; Code:
 
+(require 'skk-macs)
+(require 'skk-vars)
+(require 'skk-autoloads)
+
 (eval-when-compile
-  (require 'skk-macs)
-  (require 'skk-vars)
   ;; shut up compiler warnings.
   (defvar ispell-process)
   (defvar ispell-filter)

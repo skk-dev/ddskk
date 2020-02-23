@@ -73,6 +73,7 @@
 
 ;;; Code:
 
+(require 'skk-autoloads)
 (require 'skk-vars)
 
 ;; skk-show-inline 'vertical に限ってフェイスを作用させる.
