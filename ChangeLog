@@ -1,6 +1,9 @@
 2020-02-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* Makefile (elc): Do not use SKK-MK-compile() when make.
+	Generate autoload files before make get.
+	* make1.bat: Ditto.
+
 	* context-skk.el, ddskk-pkg.el, skk-act.el, skk-annotation.el, skk-auto.el:
 	* skk-azik.el, skk-cdb.el, skk-comp.el, skk-cursor.el, skk-cus.el, skk-dcomp.el:
 	* skk-decor.el, skk-develop.el, skk-emacs.el, skk-gadget.el, skk-hint.el:

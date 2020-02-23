@@ -37,25 +37,26 @@ downloads :
 	$(CURL) '$(TEST_DEP_1_STABLE_URL)' > $(TEST_DEP_1).el
 
 info:
-	$(EMACS) $(FLAGS) -f SKK-MK-compile-info
+	$(EMACS) $(FLAGS) --funcall SKK-MK-compile-info
 
 install:
-	$(EMACS) $(FLAGS) -f SKK-MK-install
+	$(EMACS) $(FLAGS) --funcall SKK-MK-install
 
 install-elc:
-	$(EMACS) $(FLAGS) -f SKK-MK-install-elc
+	$(EMACS) $(FLAGS) --funcall SKK-MK-install-elc
 
 install-info:
-	$(EMACS) $(FLAGS) -f SKK-MK-install-info
+	$(EMACS) $(FLAGS) --funcall SKK-MK-install-info
 
 what-where:
-	$(EMACS) $(FLAGS) -f SKK-MK-what-where
+	$(EMACS) $(FLAGS) --funcall SKK-MK-what-where
 
 uninstall:
-	$(EMACS) $(FLAGS) -f SKK-MK-uninstall
+	$(EMACS) $(FLAGS) --funcall SKK-MK-uninstall
 
 get:
-	$(EMACS) -batch -q -no-site-file -l tar-util.el -l skk-develop.el --eval='(skk-get "./dic")'
+	$(EMACS) $(FLAGS) --funcall SKK-MK-generate-autoloads-el
+	$(EMACS) --batch --no-init-file --quick --directory ./ --load tar-util.el --load skk-develop.el --eval='(skk-get "./dic")'
 
 TAGS:
 	$(ETAGS) `find . -name '*.el'`
