@@ -27,15 +27,16 @@
 
 ;;; Code:
 
+(require 'advice)
 (eval-when-compile
   (defvar mule-version)
-  (defvar skk-emacs-modeline-property))
+  (declare-function skk-remove-skk-pre-command "skk.el")
+  (declare-function skk-setup-keymap "skk.el")
+  (declare-function skk-insert-str "skk.el")
+  (declare-function skk-cursor-set-1 "skk-cursor.el")
+  (declare-function skk-cursor-off-1 "skk-cursor.el"))
 
-(eval-when-compile
-  (require 'advice))
-
-(eval-and-compile
-  (require 'skk-vars))
+(require 'skk-vars)
 
 ;;;; macros
 
@@ -823,6 +824,71 @@ Return the modified ALIST."
   ;; skk-henkan まで一気に throw する。
   (skk-reset-henkan-count count)
   (throw 'unread nil))
+
+(defun skk-nunion (x y)
+  "X と Y の和集合を作る。
+等しいかどうかの比較は、`equal' で行われる。X に Y を破壊的に連接する。"
+  (cond
+   ((null x)
+    y)
+   ((null y)
+    x)
+   (t
+    (save-match-data
+      (let ((list2 y) list1 origlist1 e1 e2)
+	(while list2
+	  (setq list1 (cons nil x)
+		e2 (car list2)
+		origlist1 list1)
+	  (catch 'found
+	    (while (setq e1 (cadr list1))
+	      (cond
+	       ((equal e1 e2)
+		(throw 'found nil))
+	       ((and (stringp e1)
+		     (stringp e2)
+		     (string-match ";" e1))
+		(setq e1 (substring e1 0 (match-beginning 0)))
+		(when (or (equal e1 e2)
+			  (and
+			   (string-match ";" e2)
+			   (equal (substring e2 0 (match-beginning 0))
+				  e1)))
+		  (throw 'found nil))))
+	      (setq list1 (cdr list1)))
+	    (setcdr list1 (list e2))
+	    (setq x (cdr origlist1)))
+	  (setq list2 (cdr list2)))
+	x)))))
+
+(defun skk-splice-in (org offset spliced)
+  ;; ORG := '(A B C), SPLICED := '(X Y), OFFSET := 1
+  ;; -> '(A B X Y C)
+  (let (tmp tail)
+    (unless (> offset 0)
+      (error "%s" "Cannot splice in!"))
+    (setq tmp (nthcdr (1- offset) org)
+	  tail (cdr tmp))
+    (setcdr tmp nil) ;cut off
+    (setcdr tmp (if tail
+		    (nconc spliced tail)
+		  spliced))
+    org))
+
+(defun skk-detach-extent (object)
+  (when (overlayp object)
+    (delete-overlay object)))
+
+(defun skk-time-difference (a b)
+  ;; from type-break.el.  Welcome!
+  ;; Compute the difference, in seconds, between a and b, two structures
+  ;; similar to those returned by `current-time'.
+  ;; Use addition rather than logand since that is more robust; the low 16
+  ;; bits of the seconds might have been incremented, making it more than 16
+  ;; bits wide.
+  (+ (lsh (- (car b) (car a)) 16)
+     (- (nth 1 b) (nth 1 a))))
+
 
 (provide 'skk-macs)
 

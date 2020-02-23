@@ -44,11 +44,14 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (require 'cl-lib)
-  (require 'skk-macs))
-(require 'skk)
+(require 'skk-autoloads)
 (require 'skk-vars)
+(require 'skk-macs)
+
+(eval-when-compile
+  (require 'cl-lib))
+
+;(require 'skk)
 
 ;; interface to skk.el
 ;;

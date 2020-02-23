@@ -27,10 +27,11 @@
 
 ;;; Code:
 
+(require 'skk-vars)
+(require 'skk-macs)
+
 (eval-when-compile
-  (require 'cl-lib)
-  (require 'skk-vars)
-  (require 'skk-macs))
+  (require 'cl-lib))
 
 ;; Functions.
 (defun skk-add-background-color (string color)

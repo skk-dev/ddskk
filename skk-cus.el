@@ -29,9 +29,9 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'cl-lib)
-  (require 'skk-macs))
-
+  (require 'cl-lib))
+(require 'skk-autoloads)
+(require 'skk-macs)
 (require 'skk-vars)
 (require 'cus-edit)
 (require 'custom)

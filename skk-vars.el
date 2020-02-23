@@ -36,6 +36,16 @@
   (defvar emacs-beta-version)
   (defvar mule-version))
 
+(declare-function skk-emacs-prepare-modeline-properties "skk-emacs.el")
+(declare-function skk-setup-modeline "skk.el")
+(declare-function skk-kanagaki-initialize "nicola/skk-kanagaki.el")
+(declare-function skk-treat-strip-note-from-word "skk.el")
+(declare-function skk-lookup-get-content "skk-lookup.el")
+(declare-function skk-annotation-lookup-DictionaryServices "skk-annotation.el")
+(declare-function skk-annotation-display-p "skk-annotation.el")
+(declare-function skk-emacs-modeline-menu "skk-emacs.el")
+(declare-function skk-emacs-circulate-modes "skk-emacs.el")
+
 ;; Functions needed prior to loading skk-macs.el.
 (defsubst find-coding-system (obj)
   "Return OBJ if it is a coding-system."
@@ -927,7 +937,7 @@ Non-nil $B$J$i$P!"@\F,<-$^$?$O@\Hx<-F~NO$N:]!"@\F,<-$^$?$O@\Hx<-$H7k9g$7$?(B
     ("[" nil "$B!V(B")
     ("]" nil "$B!W(B")
     ("l" nil skk-latin-mode)
-    ("q" nil skk-toggle-kana)
+    ("q" nil skk-toggle-characters)
     ("L" nil skk-jisx0208-latin-mode)
     ("Q" nil skk-set-henkan-point-subr)
     ("X" nil skk-purge-from-jisyo)
@@ -1945,6 +1955,11 @@ left $B$G$"$l$P:8C<$KI=<($9$k!#(B
   :type 'boolean
   :group 'skk-visual)
 
+(defvar skk-icon nil
+  "SKK $B%"%$%3%s$N2hA|%U%!%$%k(B skk.xpm $B$N%Q%9!#(B")
+
+(put 'skk-icon 'risky-local-variable t)
+
 (defcustom skk-show-icon nil
   "*Non-nil $B$G$"$l$P!"%b!<%I%i%$%s$K(B SKK $B$N%"%$%3%s$r>o;~I=<($9$k!#(B
 $BI=<($9$k(B SKK $B%"%$%3%s$N2hA|$O(B `skk-icon' $B$G;XDj$9$k!#(B"
@@ -2078,49 +2093,6 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
 		(function :tag "$BG$0U$N4X?t(B"))
   :group 'skk-annotation
   :group 'skk-visual)
-
-;; skk-treat-candidate-appearance-function $B$N$?$a$KMQ0U$9$k4X?t(B
-(defun skk-treat-candidate-sample1 (candidate listing-p)
-  (cond
-   ((string-match ";" candidate)
-    (put-text-property 0 (match-beginning 0)
-		       'face 'skk-tut-question-face
-		       candidate)
-    (put-text-property (match-beginning 0) (length candidate)
-		       'face 'skk-tut-hint-face
-		       candidate))
-   (t
-    (put-text-property 0 (length candidate)
-		       'face 'skk-tut-question-face
-		       candidate)))
-  candidate)
-
-(defun skk-treat-candidate-sample2 (candidate listing-p)
-  (let* ((value (skk-treat-strip-note-from-word candidate))
-	 (cand (car value))
-	 (note (if listing-p
-		   (or (and (eq skk-annotation-lookup-lookup 'always)
-			    (skk-lookup-get-content cand t))
-		       (and (eq skk-annotation-lookup-DictionaryServices 'always)
-			    (skk-annotation-lookup-DictionaryServices cand t))
-		       (cdr value))
-		 (cdr value)))
-	 (sep (if note
-		  (propertize (if (skk-annotation-display-p 'list)
-				  " $B"b(B "
-				" !")
-			      'face 'skk-tut-do-it-face)
-		nil)))
-    (cond (note
-	   (put-text-property 0 (length cand)
-			      'face 'skk-tut-question-face cand)
-	   (put-text-property 0 (length note)
-			      'face 'skk-tut-hint-face note)
-	   (cons cand (cons sep note)))
-	  (t
-	   (put-text-property 0 (length cand)
-			      'face 'skk-treat-default cand)
-	   cand))))
 
 (defface skk-treat-default
   '((((class color) (background light)) (:foreground "black"))
@@ -2284,11 +2256,6 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
 $B$b$7$/$O(B nil $B$N$$$:$l$+!#(B")
 
 (defvar skk-menu nil)
-
-(defvar skk-icon nil
-  "SKK $B%"%$%3%s$N2hA|%U%!%$%k(B skk.xpm $B$N%Q%9!#(B")
-
-(put 'skk-icon 'risky-local-variable t)
 
 (skk-deflocalvar skk-modeline-input-mode nil)
 (put 'skk-modeline-input-mode 'risky-local-variable t)
@@ -3538,11 +3505,11 @@ server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
   ;;   (delq
   ;;    nil
   ;;    (list
-  ;;     (car (rassoc (list nil 'skk-toggle-kana)
+  ;;     (car (rassoc (list nil 'skk-toggle-characters)
   ;;                  skk-rom-kana-rule-list))
   ;;     (car (rassoc (list nil 'skk-toggle-characters)
   ;;                  skk-rom-kana-rule-list))
-  ;;     (car (rassoc (list nil 'skk-toggle-kana)
+  ;;     (car (rassoc (list nil 'skk-toggle-characters)
   ;;                  skk-rom-kana-base-rule-list))
   ;;     (car (rassoc (list nil 'skk-toggle-characters)
   ;;                  skk-rom-kana-base-rule-list))))
@@ -5186,6 +5153,8 @@ ring.el $B$rMxMQ$7$F$*$j!"6qBNE*$K$O!"2<5-$N$h$&$J9=B$$K$J$C$F$$$k!#(B
   :type 'file
   :group 'skk-tut)
 
+(defvar skk-tut-current-lang nil)
+
 (defcustom skk-tut-lang "Japanese"
   "*SKK $B%A%e!<%H%j%"%k$GMQ$$$k8@8l!#(B
 \\[universal-argument] \\[skk-tutorial] $B$K$h$k8@8l;XDj$O!"$3$NJQ?t$h$j$bM%@h(B
@@ -5206,8 +5175,6 @@ ring.el $B$rMxMQ$7$F$*$j!"6qBNE*$K$O!"2<5-$N$h$&$J9=B$$K$J$C$F$$$k!#(B
   "Alist of (LANGUAGE . suffix) pairs.
 For example, if filename of the Japanese version is \"SKK.tut\",
 then filename of the English version will be \"SKK.tut.E\".")
-
-(defvar skk-tut-current-lang nil)
 
 (defcustom skk-tut-use-face skk-use-face
   "*Non-nil $B$G$"$l$P!"%A%e!<%H%j%"%k$G(B face $B$rMxMQ$7$FI=<($9$k!#(B"
@@ -5404,6 +5371,66 @@ then filename of the English version will be \"SKK.tut.E\".")
   "$B%"%N%F!<%7%g%s$KE,MQ$9$k(B FACE"
   :group 'skk-visual)
 
+;; skk-treat-candidate-appearance-function $B$N$?$a$KMQ0U$9$k4X?t(B
+(defun skk-treat-candidate-sample1 (candidate listing-p)
+  (cond
+   ((string-match ";" candidate)
+    (put-text-property 0 (match-beginning 0)
+		       'face 'skk-tut-question-face
+		       candidate)
+    (put-text-property (match-beginning 0) (length candidate)
+		       'face 'skk-tut-hint-face
+		       candidate))
+   (t
+    (put-text-property 0 (length candidate)
+		       'face 'skk-tut-question-face
+		       candidate)))
+  candidate)
+
+(defun skk-treat-candidate-sample2 (candidate listing-p)
+  (let* ((value (skk-treat-strip-note-from-word candidate))
+	 (cand (car value))
+	 (note (if listing-p
+		   (or (and (eq skk-annotation-lookup-lookup 'always)
+			    (skk-lookup-get-content cand t))
+		       (and (eq skk-annotation-lookup-DictionaryServices 'always)
+			    (skk-annotation-lookup-DictionaryServices cand t))
+		       (cdr value))
+		 (cdr value)))
+	 (sep (if note
+		  (propertize (if (skk-annotation-display-p 'list)
+				  " $B"b(B "
+				" !")
+			      'face 'skk-tut-do-it-face)
+		nil)))
+    (cond (note
+	   (put-text-property 0 (length cand)
+			      'face 'skk-tut-question-face cand)
+	   (put-text-property 0 (length note)
+			      'face 'skk-tut-hint-face note)
+	   (cons cand (cons sep note)))
+	  (t
+	   (put-text-property 0 (length cand)
+			      'face 'skk-treat-default cand)
+	   cand))))
+
+(defvar skk-emacs-modeline-property
+  (when window-system
+    (list 'local-map (let ((map (make-sparse-keymap)))
+		       (define-key map [mode-line mouse-3]
+			 #'skk-emacs-modeline-menu)
+		       (define-key map [mode-line mouse-1]
+			 #'skk-emacs-circulate-modes)
+		       map)
+	  'help-echo
+	  "mouse-1: $B%b!<%I@ZBX(B($B=[4D(B)\nmouse-3: SKK $B%a%K%e!<(B"
+	  'mouse-face
+	  'highlight)))
+
+(defvar skk-emacs-property-alist
+  (when window-system
+    (list
+     (cons 'latin skk-emacs-modeline-property))))
 
 (provide 'skk-vars)
 

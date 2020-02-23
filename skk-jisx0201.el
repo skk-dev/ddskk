@@ -60,9 +60,9 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (require 'skk-macs)
-  (require 'skk-vars))
+(require 'skk-autoloads)
+(require 'skk-macs)
+(require 'skk-vars)
 
 (require 'japan-util)
 

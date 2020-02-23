@@ -31,9 +31,8 @@
 (unless (skk-color-cursor-display-p)
   (error "%s" "SKK-CURSOR requires color display"))
 
-(eval-when-compile
-  (require 'skk-macs)
-  (require 'skk-vars))
+(require 'skk-macs)
+(require 'skk-vars)
 
 (eval-and-compile
   (require 'ccc))

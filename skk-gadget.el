@@ -90,9 +90,11 @@
 
 ;;; Code:
 
+(require 'skk-autoloads)
+(require 'skk-macs)
+(require 'skk-vars)
+
 (eval-when-compile
-  (require 'skk-macs)
-  (require 'skk-vars)
   (require 'cl-lib))
 
 ;; -- programs

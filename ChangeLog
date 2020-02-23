@@ -1,3 +1,20 @@
+2020-02-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Makefile (elc): Do not use SKK-MK-compile() when make.
+	* context-skk.el, ddskk-pkg.el, skk-act.el, skk-annotation.el, skk-auto.el:
+	* skk-azik.el, skk-cdb.el, skk-comp.el, skk-cursor.el, skk-cus.el, skk-dcomp.el:
+	* skk-decor.el, skk-develop.el, skk-emacs.el, skk-gadget.el, skk-hint.el:
+	* skk-inline.el, skk-isearch.el, skk-jisx0201.el, skk-jisyo-edit-mode.el:
+	* skk-kakasi.el, skk-kcode.el, skk-leim.el, skk-look.el, skk-lookup.el:
+	* skk-macs.el, skk-num.el, skk-search-web.el, skk-server.el, skk-show-mode.el:
+	* skk-sticky.el, skk-study.el, skk-tankan.el, skk-tut.el, skk-vars.el:
+	* skk-viper.el, skk.el: Modify.
+
+	* SKK-MK (SKK-MK-compile): Do not load files skk-autoloads.el, skk.el
+	when Interactive Install.
+
+	* maint/install.el: Move from top directory.
+
 2020-02-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-tut.el (skktut-enable-advice, skktut-disable-advice): Remove unnecessary let().

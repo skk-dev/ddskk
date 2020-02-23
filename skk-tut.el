@@ -30,11 +30,11 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (require 'skk-macs))
+(require 'skk-macs)
+(require 'skk-vars)
+(require 'skk-autoloads)
 
 (eval-and-compile
-  (require 'skk-vars)
   (autoload 'skk-nicola-setup-tutorial "skk-nicola")
   (autoload 'skk-viper-normalize-map "skk-viper"))
 
@@ -259,7 +259,7 @@
        ("," nil skk-current-touten) ("-" nil "ー")
        (":" nil "：") (";" nil "；") ("?" nil "？")
        ("[" nil "「") ("]" nil "」") ("l" nil skk-latin-mode)
-       ("q" nil skk-toggle-kana) ("L" nil skk-jisx0208-latin-mode)
+       ("q" nil skk-toggle-characters) ("L" nil skk-jisx0208-latin-mode)
        ("Q" nil skk-set-henkan-point-subr)
        ("X" nil skk-purge-from-jisyo) ("/" nil skk-abbrev-mode)
        ("$" nil skk-display-code-for-char-at-point)

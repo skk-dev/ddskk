@@ -36,7 +36,7 @@
 ;;
 ;;
 ;;   注意 1 - ACT では "q" を "おん" の入力に使うので，"q" のもともとの
-;;            機能である `skk-toggle-kana' は "\" に割当てています．
+;;            機能である `skk-toggle-characters' は "\" に割当てています．
 ;;            SKK 標準で "\" の `skk-input-by-code-or-menu' は割当てて
 ;;            いないのでマニュアルで呼出す必要があります．
 ;;
@@ -58,17 +58,18 @@
 ;;
 ;;   キー割当て変更点
 ;;                                  SKK標準     ACT
-;;	`skk-toggle-kana'              q         \
+;;	`skk-toggle-characters'        q         \
 ;;	`skk-set-henkan-point-subr'    Q         |
 ;;	`skk-input-by-code-or-menu'    \     割当てなし
 ;;	`skk-purge-from-jisyo'         X     割当てなし
 
 ;;; Code:
 
-(eval-when-compile
-  (require 'skk-macs)
-  (require 'skk-vars)
+(require 'skk-macs)
+(require 'skk-vars)
+(require 'skk-autoloads)
 
+(eval-when-compile
   (defvar skk-jisx0201-rule-list)
   (defvar skk-jisx0201-base-rule-list))
 
@@ -110,7 +111,7 @@
 
 (defvar skk-act-additional-rom-kana-rule-list
   (let ((list
-	 '(("\\" nil skk-toggle-kana)
+	 '(("\\" nil skk-toggle-characters)
 	   ("|" nil skk-set-henkan-point-subr)
 	   ("`|" nil "|")
 	   ("'" nil ("ッ" . "っ"))

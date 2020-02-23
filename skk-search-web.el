@@ -71,6 +71,11 @@
 (require 'url-http)
 (require 'json)
 
+(eval-when-compile
+  (defvar skk-henkan-key)
+  (defvar skk-comp-key)
+  (defvar skk-comp-first))
+
 (defun skk-url-retrieve (url coding-system)
   "URL を取得する。戻り値は decode-coding-string である."
   (let (buf p)

@@ -34,8 +34,10 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (require 'skk-vars))
+(require 'skk-autoloads)
+(require 'skk-macs)
+(require 'skk-vars)
+(require 'skk-emacs)
 
 (defadvice skk-isearch-set-initial-mode (before skk-show-mode activate)
   (setq skk-show-mode-show nil))

@@ -42,7 +42,7 @@
 ;;
 ;;
 ;;   注意 1 - AZIK では "q" を "ん" の入力に使うので、"q" のもともと
-;;            の機能である "skk-toggle-kana" には、日本語キーボード
+;;            の機能である "skk-toggle-characters" には、日本語キーボード
 ;;            であれば "@" を、英語キーボードであれば、"[" で代用します。
 ;;            SKK 標準の "@"(日本語キーボード) や "["(英語キーボード) は、
 ;;            は、 x を付けて、それぞれ "x@" と "x[" で使用できます。
@@ -55,10 +55,11 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (require 'skk-macs)
-  (require 'skk-vars)
+(require 'skk-macs)
+(require 'skk-vars)
+(require 'skk-autoloads)
 
+(eval-when-compile
   (defvar skk-jisx0201-rule-list)
   (defvar skk-jisx0201-base-rule-list))
 
@@ -546,7 +547,7 @@
       (setq skk-downcase-alist
             (append '((?+ . ?\;)) skk-downcase-alist))
       (setq skk-azik-keyboard-specific-additional-rom-kana-rule-list
-	    '(("@" nil skk-toggle-kana)
+	    '(("@" nil skk-toggle-characters)
 	      ("x@" nil skk-today)
 	      ("`" nil skk-set-henkan-point-subr)
 	      (":" nil "ー"))))
@@ -556,7 +557,7 @@
       (setq skk-downcase-alist
             (append '((?+ . ?\;)) skk-downcase-alist))
       (setq skk-azik-keyboard-specific-additional-rom-kana-rule-list
-	    '(("@" nil skk-toggle-kana)
+	    '(("@" nil skk-toggle-characters)
 	      ("x@" nil skk-today)
 	      ("~" nil skk-set-henkan-point-subr)
 	      ("x~" nil "~")
@@ -569,7 +570,7 @@
       (setq skk-azik-keyboard-specific-additional-rom-kana-rule-list
 	    '(("\'" nil "ー")
 	      ("x\'" nil "'")
-	      ("[" nil skk-toggle-kana)
+	      ("[" nil skk-toggle-characters)
 	      ("{" nil skk-set-henkan-point-subr)
 	      ("x[" nil "「"))))))
 

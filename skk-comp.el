@@ -30,11 +30,11 @@
 ;; ▽さ (TAB) -> ▽さとう (.) -> ▽さいとう (,) -> ▽さとう(.) -> ▽さいとう
 
 ;;; Code:
+(require 'skk-autoloads)
+(require 'skk-macs)
+(require 'skk-vars)
 
 (eval-when-compile
-  (require 'skk-macs)
-  (require 'skk-vars)
-
   (defvar smart-find-file-path)
   (defvar dont-bind-my-keys)
   (condition-case nil

@@ -31,9 +31,9 @@
 ;;
 
 (require 'cdb)
-(eval-when-compile
-  (require 'skk-macs)
-  (require 'skk-vars))
+(require 'skk-autoloads)
+(require 'skk-macs)
+(require 'skk-vars)
 
 (defconst skk-cdb-version "20100719+")
 

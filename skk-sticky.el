@@ -99,9 +99,9 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (require 'skk-macs)
-  (require 'skk-vars))
+(require 'skk-autoloads)
+(require 'skk-macs)
+(require 'skk-vars)
 
 (defvar skk-sticky-key-orig-output nil)
 (skk-deflocalvar skk-sticky-okuri-flag nil)
