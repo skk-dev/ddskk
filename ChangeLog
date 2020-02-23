@@ -1,5 +1,7 @@
 2020-02-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* bayesian/skk-bayesian.el: require skk-autoloads.
+
 	* maint/ptexinfmt.el (texinfo-format-verb): Use delete-char() instead of
 	delete-backward-char().
 

@@ -89,6 +89,7 @@
 
 ;;; Code:
 
+(require 'skk-autoloads)
 (require 'skk-vars)
 (require 'skk-macs)
 

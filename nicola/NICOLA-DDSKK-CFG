@@ -105,6 +105,4 @@
 (setq NICOLA-DDSKK_DIR (expand-file-name NICOLA-DDSKK_PREFIX
 					 VERSION_SPECIFIC_LISPDIR))
 
-(defvar PACKAGEDIR (install-get-default-package-directory))
-
 ;;; NICOLA-DDSKK-CFG ends here
