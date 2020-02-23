@@ -197,13 +197,12 @@
   (require 'skk-macs)
   (require 'skk-vars)
   (require 'skk-emacs)
+  (require 'compile)
+  (require 'comint)
 
   (autoload 'skk-lookup-get-content "skk-lookup")
   (autoload 'run-python "python")
-;  (autoload 'python-send-command "python")
-;  (autoload 'python-send-string "python")
   (autoload 'python-check-comint-prompt "python")
-;  (autoload 'python-proc "python")
   (autoload 'python-shell-internal-get-or-create-process "python")
   (autoload 'python-shell-get-process-name "python")
   (autoload 'html2text "html2text")
@@ -212,8 +211,6 @@
   (autoload 'url-retrieve "url"))
 
 (eval-when-compile
-  (require 'compile)
-  (require 'comint)
   (defvar python-buffer)
   (defvar python-shell-prompt-regexp)
   (defvar python-shell-buffer-name)
@@ -955,7 +952,6 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
   "dict の内容を格納するバッファのフォーマット。"
   (format "  *skk dict %s" word))
 
-(declare-function comint-send-string "comint")
 (defun skkannot-py-send-string (string)
   "Evaluate STRING in inferior Python process."
   (require 'comint)
@@ -989,7 +985,6 @@ information etc.  If PROC is non-nil, check the buffer for that process."
    (t
     (python-check-comint-prompt))))
 
-(declare-function compilation-forget-errors "compile")
 (defun skkannot-py-send-command (command)
   "Like `skkannot-py-send-string' but resets `compilation-shell-minor-mode'."
   (when (or (skkannot-py-check-comint-prompt (get-buffer-process

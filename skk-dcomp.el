@@ -231,7 +231,6 @@
       (cl-incf i))
     (nreverse extract)))
 
-(declare-function skk-comp-get-candidate "skk-comp")
 (defun skk-dcomp-multiple-get-candidates (&optional same-key)
   (let (candidates)
     (cond

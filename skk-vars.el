@@ -949,7 +949,7 @@ Non-nil ならば、接頭辞または接尾辞入力の際、接頭辞または接尾辞と結合した
     ;; XXX
     ;;("\t" nil skk-insert)
     ;;("," nil skk-previous-candidate)
-    ;;("\M-\040" nil skk-start-henkan-with-completion); M-SPC
+    ;;("\M-\040" nil skk-comp-start-henkan); M-SPC
     ;;("\M-\121" nil skk-backward-and-set-henkan-point); M-Q
     )
   ;; コンスタントにしてしまわないのは、ローマ字入力とは全く別の設定を

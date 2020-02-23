@@ -596,8 +596,6 @@ WITHOUT-MIDASI を指定すると見出しは省かれる。"
 	    (setq words (nconc words tmp))))
 	words))))
 
-(defalias 'skk-start-henkan-with-completion 'skk-comp-start-henkan)
-
 (run-hooks 'skk-comp-load-hook)
 
 (provide 'skk-comp)
