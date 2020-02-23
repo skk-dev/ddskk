@@ -225,68 +225,6 @@ subdirectory under load-path.")
   (install-detect-elisp-directory))
 
 
-;;; @ for XEmacs package system
-;;;
-
-(defun install-get-default-package-directory ()
-  (let ((dirs (append
-	       (cond
-		((boundp 'early-package-hierarchies)
-		 (append (if early-package-load-path
-			     early-package-hierarchies)
-			 (if late-package-load-path
-			     late-package-hierarchies)
-			 (if last-package-load-path
-			     last-package-hierarchies)) )
-		((boundp 'early-packages)
-		 (append (if early-package-load-path
-			     early-packages)
-			 (if late-package-load-path
-			     late-packages)
-			 (if last-package-load-path
-			     last-packages)) ))
-	       (if (and (boundp 'configure-package-path)
-			(listp configure-package-path))
-		   (delete "" configure-package-path))))
-	dir)
-    (while (and (setq dir (car dirs))
-		(not (file-exists-p dir)))
-      (setq dirs (cdr dirs)))
-    dir))
-
-(defun install-update-package-files (package dir &optional just-print)
-  (cond
-   (just-print
-    (princ (format "Updating autoloads in directory %s..\n\n" dir))
-
-    (princ (format "Processing %s\n" dir))
-    (princ "Generating custom-load.el...\n\n")
-
-    (princ (format "Compiling %s...\n"
-		   (expand-file-name "auto-autoloads.el" dir)))
-    (princ (format "Wrote %s\n"
-		   (expand-file-name "auto-autoloads.elc" dir)))
-
-    (princ (format "Compiling %s...\n"
-		   (expand-file-name "custom-load.el" dir)))
-    (princ (format "Wrote %s\n"
-		   (expand-file-name "custom-load.elc" dir))))
-   (t
-    (if (fboundp 'batch-update-directory-autoloads)
-	;; XEmacs 21.5.19 and newer.
-	(let ((command-line-args-left (list package dir)))
-	  (batch-update-directory-autoloads))
-      (setq autoload-package-name package)
-      (let ((command-line-args-left (list dir)))
-	(batch-update-directory)))
-
-    (let ((command-line-args-left (list dir)))
-      (Custom-make-dependencies))
-
-    (byte-compile-file (expand-file-name "auto-autoloads.el" dir))
-    (byte-compile-file (expand-file-name "custom-load.el" dir)))))
-
-
 ;;; @ Other Utilities
 ;;;
 

@@ -1,3 +1,15 @@
+2020-02-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* maint/ptexinfmt.el (texinfo-format-verb): Use delete-char() instead of
+	delete-backward-char().
+
+	* maint/install.el (install-get-default-package-directory):
+	(install-update-package-files): Remove functions for XEmacs.
+
+	* maint/install-info.el (install-info-1, install-info-delete-entry):
+	(install-info-add-groups): Use with-current-buffer() instead of
+	save-excursion() + set-buffer().
+
 2020-02-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* Makefile (elc): Do not use SKK-MK-compile() when make.
