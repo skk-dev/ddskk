@@ -827,7 +827,7 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
 	      (memq next
 		    skk-nicola-toggle-kana-chars))
 	 ;; [dk]
-	 (skk-toggle-kana 1))
+	 (skk-toggle-characters 1))
 	(t
 	 ;; [$BJ8;z(B $BJ8;z(B]
 	 (let ((str (skk-nicola-insert-kana
@@ -868,7 +868,7 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
 	 (not skk-katakana))
     (skk-latin-mode 1))
    (t
-    (skk-toggle-kana 1)))
+    (skk-toggle-characters 1)))
   nil)
 
 (defun skk-nicola-maybe-double-p (first next)

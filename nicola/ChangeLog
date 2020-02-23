@@ -1,3 +1,10 @@
+2020-02-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-nicola.el (skk-nicola-insert-double, skk-nicola-double-shift):
+	Use function skk-toggle-characters() instead of skk-toggle-kana().
+
+	* NICOLA-DDSKK-CFG: Remove defvar PACKAGEDIR.
+
 2020-02-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* README.md: Rename from README.ja
