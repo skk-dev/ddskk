@@ -31,7 +31,7 @@ elc:
 
 .PHONY: test downloads
 test:
-	$(EMACS) -batch -Q -L . -L test -l test/all-tests.el -f ert-run-tests-batch-and-exit
+	$(EMACS) --batch --quick --directory ./ --directory test --load test/all-tests.el --funcall ert-run-tests-batch-and-exit
 
 downloads :
 	$(CURL) '$(TEST_DEP_1_STABLE_URL)' > $(TEST_DEP_1).el

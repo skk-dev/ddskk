@@ -92,9 +92,9 @@
   (require 'skk-vars)
   (require 'skk-macs)
   (require 'skk-emacs)
+
   ;; Shut up, compiler.
-  (autoload 'skk-jisx0213-henkan-list-filter "skk-jisx0213")
-  (autoload 'skk-kanagaki-initialize "skk-kanagaki")
+  (autoload 'skk-kanagaki-initialize "skk-kanagaki") ; nicola/
   (autoload 'skk-rdbms-count-jisyo-candidates "skk-rdbms"))
 
 ;;;###autoload

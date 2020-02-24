@@ -35,8 +35,7 @@
 (require 'skk-autoloads)
 
 (eval-and-compile
-  (autoload 'skk-nicola-setup-tutorial "skk-nicola")
-  (autoload 'skk-viper-normalize-map "skk-viper"))
+  (autoload 'skk-nicola-setup-tutorial "skk-nicola"))
 
 (eval-when-compile
   (defvar skk-kanagaki-keyboard-type)
