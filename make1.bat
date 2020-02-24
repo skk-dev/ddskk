@@ -1,4 +1,3 @@
-echo off
 rem MAKE1.BAT for SKK.
 rem Copyright (C) 1999 Yuh Ohmura, mailto:yutopia@y6.dion.ne.jp
 rem
@@ -38,7 +37,10 @@ goto pauseend
 
 :compile
 %EMACS% --batch --no-init-file --quick --load SKK-MK --funcall SKK-MK-generate-autoloads-el
-%EMACS% --batch --no-init-file --quick --directory ./ --funcall batch-byte-compile *.el
+FOR %%f IN (*.el) do (
+  echo %%f
+  %EMACS% --batch --no-init-file --quick --directory ./ --funcall batch-byte-compile %%f
+)
 goto end
 
 :install
