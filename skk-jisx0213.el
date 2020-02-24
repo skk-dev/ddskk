@@ -31,9 +31,6 @@
 (eval-when-compile
   (require 'skk-macs)
   (require 'skk-vars))
-(unless (find-coding-system 'euc-jisx0213)
-  (require 'jisx0213))			; Mule-UCS
-;;(require 'un-define)
 
 ;;;###autoload
 (defun skk-jisx0213-henkan-list-filter ()

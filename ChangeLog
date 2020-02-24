@@ -1,5 +1,15 @@
 2020-02-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-vars.el (find-coding-system): Remove function.
+	(skk-kcode-charset): Do not use function find-coding-system().
+	(skk-code-n1-max): Do not use function find-coding-system().
+
+	* skk-macs.el (skk-find-coding-system): Do not use function find-coding-system().
+
+	* skk-jisx0213.el: Remove require jisx0213.
+
+2020-02-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* skk-tut.el, skk.el: Remove unnecessary autoload function.
 
 	* skk-lookup.el: Fix indent.
