@@ -4,9 +4,6 @@
 
  * MELPA: Milkypostman's Emacs Lisp Package Archive (https://melpa.org/)
 
- * package.el: GNU Emacs 24 からは標準で搭載されています。GNU Emacs 23 以前では手動でインストール必要があります。
-http://wikemacs.org/wiki/Package.el
-
 ## 1. package.el の設定
 
 まず、`package.el` が、パッケージを MELPA から取得できるよう、
@@ -17,12 +14,6 @@ http://wikemacs.org/wiki/Package.el
 (when (require 'package nil t)
   (add-to-list 'package-archives
     '("melpa" . "https://melpa.org/packages/") t))
-```
-
-Emacs 23 を使用している場合は、さらに次の行を追加してください。
-
-```
-(package-initialize)
 ```
 
 ## 2. DDSKK のインストール
