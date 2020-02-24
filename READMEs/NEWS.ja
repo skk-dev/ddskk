@@ -14,11 +14,20 @@ GNU Emacs 23 をお使いの方は DDSKK 16.3 を利用してください。
 
 *** cl から cl-lib へ変更
 
-'cl' が廃止されたことから、'cl-lib' へ変更しました。.
+'cl' が廃止されたことから、'cl-lib' へ変更しました。
+
+** インストーラの変更
+
+Makefile のターゲット elc を書き直しました。
+変更前のターゲット elc は、 SKK-MK をロードして skk-autoloads.el と skk.el もロー
+ドして SKK-MK-compile() を実行するものであり、この方法では Emacs がすでに起動した
+状態であるため load-path に過去にインストールした skk が残っている可能性もあり、
+バイトコンパイルにおける各ファイルの依存性が不透明でした。
 
 ** 新たな装飾機構
 
-次の関数を導入しました。設定例は etc/dot.skk を参考にしてください。
+新たなファイル skk-decor.el に、次の関数を導入しました。
+設定例は etc/dot.skk を参考にしてください。
   - skk-inline-show-vertically-decor-func()
   - skk-tooltip-show-at-point-decor-func()
   - skk-henkan-show-candidates-buffer-decor-func()

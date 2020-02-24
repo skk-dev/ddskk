@@ -474,10 +474,17 @@ skk-macs.el, skk-num.el, skk-obsolete.el, skk-search-web.el, skk-tankan.el,
 skk-tut.el, skk-vars.el, skk.el, bskk, skk-bayesian.el, skk-develop.el,
 ddskk-pkg.el, makeit.bat, make1.bat, Makefile
 
-** skk.texi などドキュメント執筆・整備
+** ドキュメント執筆・整備
+
+*** skk.texi の整備
+
+*** sphinx 形式のドキュメント（docs/）を新規作成
 
 ** 開発環境を github へ移行
+
 http://mail.ring.gr.jp/skk/201412/msg00061.html
+
+** XEmacs のサポートを廃止 2020.2
 
 
 * Fumihiko MACHIDA

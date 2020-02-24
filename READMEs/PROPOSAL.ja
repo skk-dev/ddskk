@@ -36,6 +36,17 @@
 
 * Emacs のバージョン
 
+** Daredevil SKK 17.1 が動作する Emacs のバージョンは?
+
+XEmacs のサポートを終了しました。XEmacs をお使いの方は
+DDSKK 16.3 をインストールしてください。
+
+GNU Emacs 23 のサポートを終了しました。GNU Emacs 23 をお使いの方は
+DDSKK 16.3 を利用してください。
+
+GNU Emacs 24.1 及び 24.2 のサポートを終了しました
+これらの GNU Emacs をお使いの方は DDSKK 16.3 を利用してください。
+
 ** Daredevil SKK 16.2 が動作する Emacs のバージョンは?
 
 GNU Emacs 22 のサポートを終了しました。GNU Emacs 22 をお使いの方は
@@ -50,37 +61,6 @@ DDSKK 14.4 をインストールしてください。
 
 GNU Emacs 20 のサポートを終了しました。GNU Emacs 20 をお使いの方は
 DDSKK 14.1 をインストールしてください。
-
-** Daredevil SKK 12 が動作する Emacs のバージョンは?
-
-Daredevil SKK 開発陣がサポート可能な Emacs のみが対象です。
-
-ただし、現実にはサポートのための労力と、サポートするメリットとをはかり
-にかけて決めることになります。Daredevil SKK 12 は Emacs 20.4 以降と
-XEmacs 21.1 以降をサポートしますが、各 Emacsen のバグ修正の状況を考え
-ると Emacs 20.7 以降、あるいは XEmacs 21.4 以降が推奨されます。
-
-** Emacs のバージョン間差異の吸収は?
-
-DDSKK 14.2 からは、GNU Emacs 22 以上であれば APEL は不要です。
-
-Emacs のバージョン間差異は APEL (A Portable Emacs Library。以前
-は emu として知られていた) によって吸収されます。APEL は
-
-    http://git.chise.org/elisp/apel/
-
-から get できます。
-
-この Emacs の関数は、最新の Emacs にしか装備されておらず (あるいは仕様
-が異なり)、私の Emacs では動かない、というものを発見された場合は、APEL
-に取り込んでいただきますので、「APEL に追加して」というような分りやす
-い Subject を付けて SKK Openlab ml か APEL ML までお知せ下さい。
-APEL ML には参加していなくとも
-
-	apel-en@m17n.org	(英語)
-	apel-ja@m17n.org	(日本語)
-
-にメールを送ることができます。
 
 * ファイル分割について
 
@@ -100,22 +80,25 @@ skk-auto.el) というファイルに分割して下さい。特殊機能を使�
 
 ** skk.el 以外のファイルに必須の記述
 
-ファイルの冒頭部分、`;;; Code:' の直後に
+各ファイルの冒頭にある `;;; Code:' の直後に
 
-     (eval-when-compile (require 'skk-macs) (require 'skk-vars))
+  (require 'skk-autoloads)
+  (require 'skk-macs)
+  (require 'skk-vars))
 
 と書いて下さい。SKK 共通のマクロやインライン関数、primary
 variables/constants が skk-macs.el に、全ての変数が skk-vars.el に含ま
 れています。
 
-また、オートロードしたい関数の宣言の直前の行に、
+skk-autoloads は、make 時にバイトコンパイルに先立って生成されます。
+各ファイルでオートロード化したい関数の宣言の直前の行に、
 `;;;###autoload' と書いて下さい。こんな感じです。
 
       ;;;###autoload
       (defun skk-completion (first)
          ...)
 
-これで autoload が自動的に設定されます。
+これで skk-autoload が自動的に設定されます。
 
 また、ファイルの末尾は、例えば skk-abbrev.el の場合は下記のように記述
 します。
@@ -124,6 +107,8 @@ variables/constants が skk-macs.el に、全ての変数が skk-vars.el に含�
      (product-provide (provide 'skk-abbrev) (require 'skk-version))
 
      ;;; skk-abbrev.el ends here
+
+M-x checkdoc も役立つと思われます。
 
 
 * 関数名・変数名について

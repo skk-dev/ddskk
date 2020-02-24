@@ -208,21 +208,11 @@ C-x C-j または M-x skk-mode で起動し、入力できることを確認し�
 
 Windows で利用できる SKK 辞書サーバには次のようなものがあります。
 
-** wskkserv
-
-Windows 上で動作する skkserv です。
-
-    (http://www.tatari-sakamoto.jp/wskkserv.jis.html)
-
-     http://homepage3.nifty.com/monjya/wskkserv.jis.html
-
 ** wceSKKSERV
 
 複数辞書検索が可能な Windows 系 OS 用の skk サーバです。
 
-    (http://ms.megadriver.yi.org/~fumi/wceskkserv/)
-
-     http://www.megadriver.info/~fumi/wceskkserv/
+    http://www.megadriver.info/wceskkserv/
 
 ** cygwin を利用してソースからコンパイルして利用する
 
@@ -245,7 +235,7 @@ cygwin が使用できる環境では skkserv を直接コンパイルして使�
 
 ruby が使用できるならば、 rskkserv が使用できます。
 
-     http://sourceforge.jp/projects/rskkserv/
+    https://github.com/tarao/rskkserv
 
 ----------
 
