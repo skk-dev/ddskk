@@ -203,36 +203,9 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 	 `(help-make-usage ,symbol ,arglist))))
 
 ;;; functions.
-;; version dependent
-;; Many functions are derived from emu (APEL).
-
-;;; string-to-char-list が出現するのは 9 行下の defalias のみ
-;;; よって string-to-int-list の定義を変更してしまう
-;; (when (eval-when-compile (featurep 'emacs))
-;;   (defun string-to-char-list (string)
-;;     "Return a list of which elements are characters in the STRING."
-;;     (mapcar #'identity string)))
-
-;;; string-to-int-list() の定義を macro へ変更
-;; (when (eval-when-compile (featurep 'emacs))
-;;   ;; (defalias 'string-to-int-list 'string-to-char-list))
-;;   (defun string-to-int-list (string)
-;;     "Return a list of which elements are characters in the STRING."
-;;     (mapcar #'identity string)))
-;;
-;; (when (eval-when-compile (featurep 'xemacs))
-;;   (defun string-to-int-list (string)
-;;     (mapcar #'char-int string)))
 
 (defmacro string-to-int-list (string)
   `(mapcar #'identity ,string))
-
-(defun character-to-event (ch)
-  "Convert keystroke CH into an event structure, replete with bucky bits.
-Note that CH (the keystroke specifier) can be an integer, a character
-or a symbol such as 'clear."
-  ch)
-
 
 (defun event-to-character (event)
   "Return the character approximation to the given event object.
@@ -808,11 +781,10 @@ Return the modified ALIST."
   ;; ▽モードに戻るときは 0
   ;; ▼モードのまま候補一覧の手前に戻るときは 4
   (setq skk-henkan-count count)
-  (skk-unread-event (character-to-event
-		     (aref (car (where-is-internal
-				 'skk-previous-candidate
-				 skk-j-mode-map))
-			   0))))
+  (skk-unread-event (aref (car (where-is-internal
+				'skk-previous-candidate
+				skk-j-mode-map))
+			  0)))
 
 (defun skk-escape-from-show-candidates (count)
   ;; skk-henkan まで一気に throw する。
