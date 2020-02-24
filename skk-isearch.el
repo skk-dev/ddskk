@@ -670,20 +670,19 @@ If the current mode is different from previous, remove it first."
   (let ((digit (or digit
 		   (- (logand last-command-event ?\177) ?0)))
 	(event (next-command-event nil (skk-isearch-incomplete-message))))
-    (cond
-     ((equal event (character-to-event ?\ ))
-      ;; XEmacs では eq にはならない
-      (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
-	(when (eq skk-henkan-mode 'on)
-	  (skk-bind-last-command-char skk-start-henkan-char
-	    (skk-start-henkan 1 digit))))
-      (skk-isearch-mode-message)
-      (skk-isearch-wrapper-1))
+    (cond ((equal event ?\ )
+           ;; XEmacs では eq にはならない
+           (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
+	     (when (eq skk-henkan-mode 'on)
+	       (skk-bind-last-command-char skk-start-henkan-char
+	         (skk-start-henkan 1 digit))))
+           (skk-isearch-mode-message)
+           (skk-isearch-wrapper-1))
 
-     (t
-      (skk-unread-event event)
-      (if (fboundp 'isearch-other-control-char) ; 2013-10-08 Remove functions.
-	  (isearch-other-control-char))))))     ; GNU Emacs 24.4 から廃止
+          (t
+           (skk-unread-event event)
+           (if (fboundp 'isearch-other-control-char) ; 2013-10-08 Remove functions.
+	       (isearch-other-control-char))))))     ; GNU Emacs 24.4 から廃止
 
 
 ;;

@@ -1,5 +1,12 @@
 2020-02-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* skk-macs.el (character-to-event): Remove function.
+	(skk-reset-henkan-count): Do not use function character-to-event().
+	* skk-emacs.el (skk-tooltip-show-at-point): Ditto.
+	* skk-isearch.el (skk-isearch-start-henkan): Ditto.
+
+2020-02-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
 	* skk-vars.el (find-coding-system): Remove function.
 	(skk-kcode-charset): Do not use function find-coding-system().
 	(skk-code-n1-max): Do not use function find-coding-system().

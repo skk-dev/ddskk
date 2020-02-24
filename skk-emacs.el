@@ -603,34 +603,32 @@
       (skk-annotation-message situation))
     ;;
     (setq event (next-command-event))
-    (cond
-     ((skk-key-binding-member (skk-event-key event)
-			      '(keyboard-quit
-				skk-kanagaki-bs
-				skk-kanagaki-esc)
-			      skk-j-mode-map)
-      (tooltip-hide)
-      (when (and (not (memq skk-tooltip-mouse-behavior '(banish nil)))
-		 (car oP))
-	(mouse-avoidance-set-mouse-position oP))
-      (setq skk-henkan-count 0)
-      (cond ((eq skk-henkan-mode 'active)
-	     (skk-unread-event
-	      (character-to-event
-	       (aref (car (where-is-internal 'skk-previous-candidate
-					     skk-j-mode-map))
-		     0)))
-	     (when (eq situation 'listing)
-	       ;; skk-henkan まで一気に throw する。
-	       (throw 'unread nil)))
-	    (t
-	     (skk-unread-event event))))
-     (t
-      (when (and (not (memq skk-tooltip-mouse-behavior '(banish nil)))
-		 (car oP))
-	(mouse-avoidance-set-mouse-position oP))
-      (tooltip-hide)
-      (skk-unread-event event)))))
+    (cond ((skk-key-binding-member (skk-event-key event)
+			           '(keyboard-quit
+				     skk-kanagaki-bs
+				     skk-kanagaki-esc)
+			           skk-j-mode-map)
+           (tooltip-hide)
+           (when (and (not (memq skk-tooltip-mouse-behavior '(banish nil)))
+		      (car oP))
+	     (mouse-avoidance-set-mouse-position oP))
+           (setq skk-henkan-count 0)
+           (cond ((eq skk-henkan-mode 'active) ; ▼モード
+	          (skk-unread-event
+	           (aref (car (where-is-internal 'skk-previous-candidate
+					         skk-j-mode-map))
+		         0))
+	          (when (eq situation 'listing)
+	            (throw 'unread nil))) ; skk-henkan まで一気に throw する。
+	         (t
+	          (skk-unread-event event))))
+
+          (t
+           (when (and (not (memq skk-tooltip-mouse-behavior '(banish nil)))
+		      (car oP))
+	     (mouse-avoidance-set-mouse-position oP))
+           (tooltip-hide)
+           (skk-unread-event event)))))
 
 (defun skk-tooltip-show-1 (text skk-params)
   "TEXT を tooltip で表示する。
