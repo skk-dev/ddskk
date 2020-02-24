@@ -47,11 +47,6 @@
 (declare-function skk-emacs-circulate-modes "skk-emacs.el")
 
 ;; Functions needed prior to loading skk-macs.el.
-(defsubst find-coding-system (obj)
-  "Return OBJ if it is a coding-system."
-  (if (coding-system-p obj)
-      obj))
-
 (defun skk-find-window-system ()
   (let ((frames (frame-list))
 	val)
@@ -3943,16 +3938,10 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
   :type '(repeat character)
   :group 'skk-kcode)
 
-(defcustom skk-kcode-charset
-  (cond ((find-coding-system 'euc-jisx0213)
-	 'japanese-jisx0213-1)
-	(t
-	 'japanese-jisx0208))
+(defcustom skk-kcode-charset 'japanese-jisx0213-1
   "*`skk-input-by-code-or-menu' で使われる文字セット。"
-  :type (let ((list (if (find-coding-system 'euc-jisx0213)
-			'((const japanese-jisx0213-1)
-			  (const japanese-jisx0208))
-		      '((const japanese-jisx0208))))
+  :type (let ((list '((const japanese-jisx0213-1)
+		      (const japanese-jisx0208)))
 	      (prompt (if (get 'charset 'widget-type)
 			  '(charset)
 			'(symbol))))
@@ -3967,9 +3956,7 @@ SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 
 
 (defconst skk-code-n1-min 161)
 
-(defconst skk-code-n1-max (if (find-coding-system 'euc-jisx0213)
-			      254
-			    244))
+(defconst skk-code-n1-max 254)
 
 (defconst skk-code-n2-min 161)
 

@@ -703,18 +703,12 @@ the echo area while this function is waiting for an event."
   "CODE が、Emacs が解釈する coding-system シンボル表現であればそのまま返し、
 文字列であれば連想リスト `skk-coding-system-alist' を用いてシンボル表現へ変換する。
 これら以外（nil を含む）であればシンボル euc-jis-2004 を返す。"
-  (cond ((and code
-	      (or (and (fboundp 'coding-system-p) ; GNU Emacs
-		       (coding-system-p code))
-		  (and (fboundp 'find-coding-system) ; XEmacs
-		       (symbolp code)
-		       (find-coding-system code))))
+  (cond ((and code (coding-system-p code))
 	 code)
-	;;
-	((and code
-	      (stringp code))
+
+	((and code (stringp code))
 	 (cdr (assoc code skk-coding-system-alist)))
-	;;
+
 	(t
 	 (cdr (assoc "euc" skk-coding-system-alist)))))
 
