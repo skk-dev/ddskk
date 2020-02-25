@@ -1,3 +1,7 @@
+2020-02-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-kanagaki-util.el (skk-kanagaki-dakuten): Do not use function character-to-event().
+
 2020-02-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-nicola.el (skk-nicola-insert-double, skk-nicola-double-shift):
