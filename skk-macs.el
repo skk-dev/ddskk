@@ -369,18 +369,6 @@ the echo area while this function is waiting for an event."
 	kana
 	branch-list))
 
-;;(defsubst skk-get-char (tree)
-;;  (car tree))
-;;
-;; skk-current-rule-tree に対して破壊的な操作は行えない。skk-rule-tree の
-;; 内容まで変わってしまい、skk-current-rule-tree の initialize が手軽に行え
-;; なくなる。ここが解決できれば skk-prefix を全滅できるのに...。
-;;(defsubst skk-set-char (tree char)
-;;  (setcar tree char))
-;;
-;;(defsubst skk-set-prefix (tree prefix)
-;;  (setcar (cdr tree) prefix))
-
 (defsubst skk-get-prefix (tree)
   (nth 1 tree))
 
@@ -604,7 +592,10 @@ the echo area while this function is waiting for an event."
 内部コードが emacs-mule でないなど `stringp' の返り値が異なる Emacs に
 対して emacs-mule の encoded string に変換して比較する。
 比較の結果 str1 < str2 ならば t を返す。"
-  ;; Emacs with coding system utf-8-emacs
+  ;; mule-version が 6.0 以上の GNU Emacs は Emacs with coding system utf-8-emacs
+  ;;   (emacs-version) => "GNU Emacs 28.0.50"
+  ;;   (stringp "漢") => t
+  ;;   (encode-coding-string "漢" 'emacs-mule) => "\222\264\301"
   (skk-string-lessp-in-coding-system str1 str2 'emacs-mule))
 
 (defsubst skk-string<= (str1 str2)
@@ -624,9 +615,6 @@ the echo area while this function is waiting for an event."
 	(skk-katakana 'katakana)
 	(skk-j-mode 'hiragana)))
 
-;;(defsubst skk-substring-head-character (string)
-;;  (char-to-string (string-to-char string)))
-
 (defsubst skk-get-current-candidate-1 (&optional count)
   (setq count (or count skk-henkan-count))
   (when (> 0 count)
@@ -644,10 +632,11 @@ the echo area while this function is waiting for an event."
 ;; <nextstate>    ::= <英小文字文字列> | nil
 
 (defsubst skk-make-raw-arg (arg)
-  (cl-case arg
-    (1 nil)
-    (-1 '-)
-    (t (if (numberp arg) (list arg) nil))))
+  (cond ((eql arg '1) nil)
+        ((eql arg '-1) '-)
+        (t (if (numberp arg)
+               (list arg)
+             nil))))
 
 (defsubst skk-unread-event (event)
   "Unread single EVENT."
@@ -656,13 +645,6 @@ the echo area while this function is waiting for an event."
 
 (defsubst skk-get-last-henkan-datum (key)
   (cdr (assq key skk-last-henkan-data)))
-
-;;; 2013-3-18 どこからも参照されておらず
-;; (defsubst skk-put-last-henkan-datum (key val)
-;;   (let ((e (assq key skk-last-henkan-data)))
-;;     (if e
-;; 	(setcdr e val)
-;;       (push (cons key val) skk-last-henkan-data))))
 
 (defun skk-put-last-henkan-data (alist)
   (let (e)

@@ -1,3 +1,9 @@
+2020-02-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-macs.el (skk-make-raw-arg): cl-case() を cond() へ書き換え.
+	(skk-string<): コメントを追加.
+	ほか、不要と思われるコメント行を削除.
+
 2020-02-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-macs.el (character-to-event): Remove function.
