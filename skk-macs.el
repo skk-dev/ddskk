@@ -644,10 +644,11 @@ the echo area while this function is waiting for an event."
 ;; <nextstate>    ::= <英小文字文字列> | nil
 
 (defsubst skk-make-raw-arg (arg)
-  (cl-case arg
-    (1 nil)
-    (-1 '-)
-    (t (if (numberp arg) (list arg) nil))))
+  (cond ((eql arg '1) nil)
+        ((eql arg '-1) '-)
+        (t (if (numberp arg)
+               (list arg)
+             nil))))
 
 (defsubst skk-unread-event (event)
   "Unread single EVENT."
