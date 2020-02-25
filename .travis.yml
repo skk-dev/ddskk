@@ -22,3 +22,4 @@ before_script:
     fi
 script:
   - make elc test;
+  - cd nicola && make
