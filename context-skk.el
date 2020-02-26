@@ -106,7 +106,8 @@
 
 ;;; Code: 
 
-(require 'skk-autoloads)
+(when (featurep 'skk-autoloads)
+  (require 'skk-autoloads))
 
 ;;
 ;; Custom

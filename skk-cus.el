@@ -30,7 +30,8 @@
 
 (eval-when-compile
   (require 'cl-lib))
-(require 'skk-autoloads)
+(when (featurep 'skk-autoloads)
+  (require 'skk-autoloads))
 (require 'skk-macs)
 (require 'skk-vars)
 (require 'cus-edit)

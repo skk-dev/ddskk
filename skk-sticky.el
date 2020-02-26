@@ -99,7 +99,8 @@
 
 ;;; Code:
 
-(require 'skk-autoloads)
+(when (featurep 'skk-autoloads)
+  (require 'skk-autoloads))
 (require 'skk-macs)
 (require 'skk-vars)
 

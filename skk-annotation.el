@@ -187,7 +187,8 @@
 
 ;;; Code:
 
-(require 'skk-autoloads)
+(when (featurep 'skk-autoloads)
+  (require 'skk-autoloads))
 
 ;; for byte compile Warning
 (eval-when-compile

@@ -30,8 +30,11 @@
 ;;    (setq skk-cdb-large-jisyo "/usr/share/skk/SKK-JISYO.L.cdb")
 ;;
 
+;;; Code:
+
 (require 'cdb)
-(require 'skk-autoloads)
+(when (featurep 'skk-autoloads)
+  (require 'skk-autoloads))
 (require 'skk-macs)
 (require 'skk-vars)
 

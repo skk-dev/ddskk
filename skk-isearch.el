@@ -44,7 +44,8 @@
 
 ;;; Code:
 
-(require 'skk-autoloads)
+(when (featurep 'skk-autoloads)
+  (require 'skk-autoloads))
 (require 'skk-vars)
 (require 'skk-macs)
 
