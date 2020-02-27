@@ -76,18 +76,12 @@
 
 
   ;; skk の起動時、*-autoloads は下記の２種類のうちどちらかに限って存在する。
+  ;; MELPA経由の場合、 autoload は package.el によって管理されるため、
+  ;; skk-autoloadsがロードできない場合、単に無視する。
   ;;                | make でインストール     | MELPA 経由でインストール
   ;;   ファイル名   | skk-autoloads.el        | ddskk-autoloads.el
   ;;   provide 宣言 | あり (SKK-MK が生成)    | なし
-  ;;
-  ;; 単なる require だと MELPA 版 で Required feature skk-autoloads was
-  ;;   not provided となってしまうため featurep で確認してから [featurep は
-  ;;   ファイル内に provide 宣言がなければ nil を返す] require している。
-  ;;
-  ;; leim-list.el と skk-setup.el にも単なる require 'skk-autoloads が存在する
-  ;;   が、MELPA 経由でインストールした DDSKK は両 el を使用しないため影響ない。
-  (when (featurep 'skk-autoloads)
-    (require 'skk-autoloads))
+  (require 'skk-autoloads nil 'noerror)
 
   (require 'skk-vars)
   (require 'skk-macs)

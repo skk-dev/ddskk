@@ -73,8 +73,7 @@
 
 ;;; Code:
 
-(when (featurep 'skk-autoloads)
-  (require 'skk-autoloads))
+(require 'skk-autoloads nil 'noerror)
 (require 'skk-vars)
 
 ;; skk-show-inline 'vertical に限ってフェイスを作用させる.
