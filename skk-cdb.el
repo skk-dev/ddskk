@@ -33,8 +33,7 @@
 ;;; Code:
 
 (require 'cdb)
-(when (featurep 'skk-autoloads)
-  (require 'skk-autoloads))
+(require 'skk-autoloads nil 'noerror)
 (require 'skk-macs)
 (require 'skk-vars)
 

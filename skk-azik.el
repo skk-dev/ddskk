@@ -57,8 +57,7 @@
 
 (require 'skk-macs)
 (require 'skk-vars)
-(when (featurep 'skk-autoloads)
-  (require 'skk-autoloads))
+(require 'skk-autoloads nil 'noerror)
 
 (eval-when-compile
   (defvar skk-jisx0201-rule-list)

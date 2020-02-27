@@ -29,8 +29,7 @@
 ;;; Code:
 
 (require 'skk-macs)
-(when (featurep 'skk-autoloads)
-  (require 'skk-autoloads))
+(require 'skk-autoloads nil 'noerror)
 (require 'skk-cus)
 (require 'skk-vars)
 

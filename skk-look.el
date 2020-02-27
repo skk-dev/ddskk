@@ -112,8 +112,7 @@
 
 (require 'skk-macs)
 (require 'skk-vars)
-(when (featurep 'skk-autoloads)
-  (require 'skk-autoloads))
+(require 'skk-autoloads nil 'noerror)
 
 (eval-when-compile
   ;; shut up compiler warnings.

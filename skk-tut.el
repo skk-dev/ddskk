@@ -32,8 +32,7 @@
 
 (require 'skk-macs)
 (require 'skk-vars)
-(when (featurep 'skk-autoloads)
-  (require 'skk-autoloads))
+(require 'skk-autoloads nil 'noerror)
 
 (eval-and-compile
   (autoload 'skk-nicola-setup-tutorial "skk-nicola"))

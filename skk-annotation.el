@@ -187,8 +187,7 @@
 
 ;;; Code:
 
-(when (featurep 'skk-autoloads)
-  (require 'skk-autoloads))
+(require 'skk-autoloads nil 'noerror)
 
 ;; for byte compile Warning
 (eval-when-compile

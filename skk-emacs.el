@@ -29,8 +29,7 @@
 
 (require 'skk-vars)
 (require 'skk-macs)
-(when (featurep 'skk-autoloads)
-  (require 'skk-autoloads))
+(require 'skk-autoloads nil 'noerror)
 
 (eval-when-compile
   (require 'cl-lib)
