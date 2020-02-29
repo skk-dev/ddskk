@@ -44,7 +44,7 @@
 
 ;;; Code:
 
-(eval-when-compile (require 'skk-macs))
+(require 'skk-macs)
 (require 'skk)
 
 (defvar skk-mkmgk-region-limit 10000
@@ -76,23 +76,20 @@
 		(setq cont nil)))
 	  (with-current-buffer workbuf (erase-buffer))
 	  (with-temp-buffer
-	    (insert-file-contents-as-coding-system
-	     (cdr (assoc "euc" skk-coding-system-alist))
-	     (expand-file-name dic))
-	    (re-search-forward "^;; okuri-nasi entries\\.$")
-	    ;; abbrev 候補を skip
-	    (delete-region (point-min) (progn (re-search-forward "^あ")
-					      (beginning-of-line)
-					      (point)))
-	    (setq ret (skk-make-mazegaki-dic-1 workbuf nomsg)))
+            (let ((coding-system-for-read (cdr (assoc "euc" skk-coding-system-alist))))
+	      (insert-file-contents (expand-file-name dic))
+	      (re-search-forward "^;; okuri-nasi entries\\.$")
+	      ;; abbrev 候補を skip
+	      (delete-region (point-min) (progn (re-search-forward "^あ")
+					        (beginning-of-line)
+					        (point)))
+	      (setq ret (skk-make-mazegaki-dic-1 workbuf nomsg))))
 	  (if ret
 	      (with-current-buffer workbuf
-		(write-region-as-coding-system
-		 (cdr (assoc "euc" skk-coding-system-alist))
-		;; only Emacs 21's write-region has 6th arg MUSTBENEW.
-		 1 (point-max) output nil t nil)
-		(or nomsg
-		    (message "Making Mazegaki dictionary...100%% done")))))
+                (let ((coding-system-for-read (cdr (assoc "euc" skk-coding-system-alist))))
+		  (write-region 1 (point-max) output nil t nil)
+		  (or nomsg
+		      (message "Making Mazegaki dictionary...100%% done"))))))
       (kill-buffer workbuf))))
 
 ;;;###autoload
@@ -118,16 +115,15 @@
 					      nil nil 'mustmatch))
 	      (with-current-buffer (get-buffer-create " *skkmkmgk working1*")
 		(erase-buffer)
-		(insert-file-contents-as-coding-system
-		 (cdr (assoc "euc" skk-coding-system-alist))
-		 (expand-file-name reference))
-		(goto-char (point-min))
-		(re-search-forward "^;; okuri-nasi entries\\.$")
-		;; abbrev 候補を skip
-		(delete-region (point-min) (progn (re-search-forward "^あ")
-						  (beginning-of-line)
-						  (point)))
-		(setq reference (current-buffer)))))
+                (let ((coding-system-for-read (cdr (assoc "euc" skk-coding-system-alist))))
+		  (insert-file-contents (expand-file-name reference))
+		  (goto-char (point-min))
+		  (re-search-forward "^;; okuri-nasi entries\\.$")
+		  ;; abbrev 候補を skip
+		  (delete-region (point-min) (progn (re-search-forward "^あ")
+						    (beginning-of-line)
+						    (point)))
+		  (setq reference (current-buffer))))))
 	(save-excursion
 	  (save-restriction
 	    (narrow-to-region min max)
@@ -154,7 +150,7 @@
       (setq header0 (buffer-substring-no-properties
 		     (point) (save-excursion (search-forward " ")
 					     (backward-char 1) (point))))
-      (if (= (skk-str-length header0) 1)
+      (if (= (length header0) 1)
 	  nil
 	(search-forward " /")
 	;; ひらがな見出しをキーにした候補リスト (2 文字以上) e.x. "相川"
@@ -164,8 +160,7 @@
 	    nil
 	  ;; ひらがな見出しを分解
 	  (setq header-list (string-to-list header0))
-	  (save-excursion ; have to restore point after searching
-	    (set-buffer reference)
+	  (with-current-buffer reference ; have to restore point after searching
 	    (let ((max (point-max)) (min (point-min))
 		  (header-list1 header-list)
 		  header1 n)
@@ -209,8 +204,8 @@
 				;; 相かわ /相川/
 				(insert key1 " /" (car can0) "/\n")))
 			  (setq candidates1 nil)))))
-		  (if (> (skk-str-length
-			  (mapconcat 'char-to-string header-list1 nil)) n)
+		  (if (> (length (mapconcat 'char-to-string header-list1 nil))
+			 n)
 		      ;; HEADER1 を伸ばして再検索
 		      ;; e.x. "あ" → "あい" → "あいか" → "あいかわ"
 		      ;;      "い" → "いか" → "いかわ"
@@ -247,7 +242,7 @@
 				   (if (string-match ";" word)
 				       (substring word 0 (match-beginning 0))
 				     word)))
-		    (if (and (not onecharacter) (= (skk-str-length word) 1))
+		    (if (and (not onecharacter) (= (length word) 1))
 			(setq word nil))
 		    word))
 		 list))))

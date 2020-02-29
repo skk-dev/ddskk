@@ -70,7 +70,7 @@
 
 ;;; Code:
 
-(eval-when-compile (require 'skk))
+(require 'skk)
 
 ;;;###autoload
 (defgroup skk-tutcode nil "SKK/TUT-code related customization."

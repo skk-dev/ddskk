@@ -29,6 +29,8 @@
 
 ;;; Code:
 
+(require 'skk-vars)
+
 (setq skk-start-henkan-char ?\040)
 
 (setq skk-rom-kana-base-rule-list
