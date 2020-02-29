@@ -248,7 +248,7 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
 	       (funcall skk-tooltip-function str)
 	     (message "%s" str)))
 	 ;;
-	 (let* ((event (next-command-event))
+	 (let* ((event (read-event))
 		(char (event-to-character event))
 		(key (skk-event-key event))
 		rest ch)
@@ -299,7 +299,7 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
 	      n-org skk-code-n1-min
 	      (- n-org 128) (- skk-code-n1-min 128)
 	      (- n-org 128) (- skk-code-n1-min 128))
-	     (next-command-event)
+	     (read-event)
 	     (setq n n-org))
 	    ;;
 	    (t
@@ -350,7 +350,7 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
 	   (if skk-show-tooltip
 	       (funcall skk-tooltip-function str)
 	     (message "%s" str)))
-	 (let* ((event (next-command-event))
+	 (let* ((event (read-event))
 		(char (event-to-character event))
 		(key (skk-event-key event))
 		rest ch)
@@ -398,7 +398,7 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
 	      n1-org n2-org
 	      (- n1-org 128) (- n2-org 128)
 	      (- n1-org 128) (- n2-org 128))
-	     (next-command-event)
+	     (read-event)
 	     (setq n1 n1-org n2 n2-org))
 	    ;;
 	    ((eq char ?>)

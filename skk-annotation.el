@@ -410,7 +410,7 @@
 	  ;;
 	  (skk-annotation-message 'annotation)
 	  ;;
-	  (setq event (next-command-event))
+	  (setq event (read-event))
 	  (when (skk-key-binding-member (skk-event-key event)
 					'(key-board-quit
 					  skk-kanagaki-bs
@@ -727,7 +727,7 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
 					    nil)))
 		(condition-case nil
 		    (progn
-		      (setq event (next-command-event)
+		      (setq event (read-event)
 			    key (skk-event-key event)
 			    command (key-binding key))
 		      ;; Return value of the following expression is important.

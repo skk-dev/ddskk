@@ -312,11 +312,11 @@ interactive に起動する他、\"clock /(skk-clock)/\" などのエントリを S
 		    (ding)
 		    (unless (sit-for (setq sec (+ sec 0.16))
 				     'nodisplay)
-		      (next-command-event)
+		      (read-event)
 		      (signal 'quit nil))
 		    (ding)))))
 	      (unless (sit-for (- 1 sec) 'nodisplay)
-		(next-command-event)
+		(read-event)
 		(signal 'quit nil))))
 	(quit
 	 (prog2
