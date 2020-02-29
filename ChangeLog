@@ -1,5 +1,7 @@
 2020-02-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* Makefile (test): テスト実行時に bayesian と tut-code のバイトコンパイルを追加.
+
 	* tut-code/skk-def.el: Always require skk-vars.el.
 
 	* tut-code/skk-tutcode.el: Always require skk.el.
