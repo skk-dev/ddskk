@@ -1903,7 +1903,7 @@ CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
 	 (setq n (skk-henkan-show-candidate-subr candidate-keys henkan-list))
 	 (when (> n 0)
 	   (condition-case nil
-	       (let* ((event (next-command-event))
+	       (let* ((event (read-event))
 		      (char (event-to-character event))
 		      (key (skk-event-key event))
 		      num)

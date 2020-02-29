@@ -669,7 +669,7 @@ If the current mode is different from previous, remove it first."
   (interactive)
   (let ((digit (or digit
 		   (- (logand last-command-event ?\177) ?0)))
-	(event (next-command-event nil (skk-isearch-incomplete-message))))
+	(event (read-event (skk-isearch-incomplete-message))))
     (cond ((equal event ?\ )
            ;; XEmacs では eq にはならない
            (with-current-buffer (get-buffer-create skk-isearch-working-buffer)

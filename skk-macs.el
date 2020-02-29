@@ -228,15 +228,6 @@ If the event isn't a keypress, this returns nil."
       (setq buffer-undo-list (cdr buffer-undo-list))))
 
 ;; For GNU Emacs.
-(defun next-command-event (&optional event prompt)
-  "Read an event object from the input stream.
-If EVENT is non-nil, it should be an event object and will be filled
-in and returned; otherwise a new event object will be created and
-returned.
-If PROMPT is non-nil, it should be a string and will be displayed in
-the echo area while this function is waiting for an event."
-  (read-event prompt))
-
 (defun skk-color-cursor-display-p ()
   (and (skk-find-window-system)
        (fboundp 'x-display-color-p)

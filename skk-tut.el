@@ -1008,7 +1008,7 @@ with both the subject and the body empty.
 			   'face skk-tut-do-it-face)))
     (while (not skktut-tutorial-end)
       (ignore-errors
-	(let* ((event (next-command-event))
+	(let* ((event (read-event))
 	       (char (event-to-character event)))
 	  (skktut-message "<return> キーを押してください"
 			  "Hit <return> key")

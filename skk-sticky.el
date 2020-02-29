@@ -222,7 +222,7 @@
 	 ad-do-it)
 	(t
 	 ;; Some key's pressed.
-	 (let ((next-event (next-command-event)))
+	 (let ((next-event (read-event)))
 	   (if (skk-sticky-double-p this-command
 				    (aref (skk-event-key next-event) 0))
 	       (skk-sticky-set-henkan-point)
