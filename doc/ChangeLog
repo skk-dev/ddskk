@@ -1,3 +1,9 @@
+2020-02-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* README.org, dash.el, htmlize.el, mobi.xsl, ox-texinfo+.el:
+	* skk.css, skk.org, texinfo-ja.tex, texinfo.tex, txi-ja.tex:
+	Remove directory obsolete-org/.
+
 2020-02-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.texi: Remove contents for XEmacs.
