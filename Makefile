@@ -6,6 +6,7 @@
 VERSION = 17.0.50
 
 BZIP2     = bzip2 -9
+CP        = cp --force
 DATE	  = date
 EMACS	  = emacs
 ETAGS	  = etags
@@ -32,6 +33,16 @@ elc:
 .PHONY: test downloads
 test:
 	$(EMACS) --batch --quick --directory ./ --directory test --load test/all-tests.el --funcall ert-run-tests-batch-and-exit
+	$(RM) skk-bayesian.el* skk-def.el* skk-mkmgk.el* skk-tutcdef.el* skk-tutcode.el* skk-autoloads.el
+	$(CP) bayesian/skk-bayesian.el .
+	$(CP) tut-code/*.el .
+	$(EMACS) $(FLAGS) --funcall SKK-MK-generate-autoloads-el
+	$(EMACS) --batch --quick --directory ./ --funcall batch-byte-compile skk-bayesian.el
+	$(EMACS) --batch --quick --directory ./ --funcall batch-byte-compile skk-def.el
+	$(EMACS) --batch --quick --directory ./ --funcall batch-byte-compile skk-mkmgk.el
+	$(EMACS) --batch --quick --directory ./ --funcall batch-byte-compile skk-tutcdef.el
+	$(EMACS) --batch --quick --directory ./ --funcall batch-byte-compile skk-tutcode.el
+	$(RM) skk-bayesian.el* skk-def.el* skk-mkmgk.el* skk-tutcdef.el* skk-tutcode.el* skk-autoloads.el
 
 downloads :
 	$(CURL) '$(TEST_DEP_1_STABLE_URL)' > $(TEST_DEP_1).el
