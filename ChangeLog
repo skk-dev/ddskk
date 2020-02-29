@@ -1,3 +1,21 @@
+2020-02-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* tut-code/skk-def.el: Always require skk-vars.el.
+
+	* tut-code/skk-tutcode.el: Always require skk.el.
+
+	* tut-code/skk-mkmgk.el: Always require skk-macs.el.
+	* tut-code/skk-mkmgk.el (skk-make-mazegaki-dic): Use function insert-file-contents()
+	or write-region() instead of insert-file-contents-as-coding-system() or
+	write-region-as-coding-system()
+	(skk-make-mazegaki-dic-1): Use macro with-current-buffer() instead of
+	save-excursion() + set-buffer().
+	Use function length() instead of skk-str-length().
+	Use macro with-current-buffer() instead od save-excursion() + set-buffer().
+	(skk-make-mazegaki-dic-region): Use function insert-file-contents() instead of
+	insert-file-contents-as-coding-system().
+	(skk-mkmgk-filter): Use function length() instead of skk-str-length().
+
 2020-02-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-macs.el (skk-make-raw-arg): cl-case() を cond() へ書き換え.
