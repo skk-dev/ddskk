@@ -1,3 +1,8 @@
+2020-03-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-emacs.el (skk-tooltip-show-at-point): Use function read-event() instead of
+	next-command-event().
+
 2020-02-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-macs.el (next-command-event): Remove function.
