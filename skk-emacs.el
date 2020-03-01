@@ -602,7 +602,7 @@
     (when (eq situation 'annotation)
       (skk-annotation-message situation))
     ;;
-    (setq event (next-command-event))
+    (setq event (read-event))
     (cond ((skk-key-binding-member (skk-event-key event)
 			           '(keyboard-quit
 				     skk-kanagaki-bs
