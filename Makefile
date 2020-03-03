@@ -43,6 +43,7 @@ test:
 	$(EMACS) --batch --quick --directory ./ --funcall batch-byte-compile skk-tutcdef.el
 	$(EMACS) --batch --quick --directory ./ --funcall batch-byte-compile skk-tutcode.el
 	$(RM) skk-bayesian.el* skk-def.el* skk-mkmgk.el* skk-tutcdef.el* skk-tutcode.el* skk-autoloads.el
+	cd nicola;make;make clean
 
 downloads :
 	$(CURL) '$(TEST_DEP_1_STABLE_URL)' > $(TEST_DEP_1).el
