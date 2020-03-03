@@ -1,3 +1,9 @@
+2020-03-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-nicola.el (skk-nicola-turn-on-j-mode, skk-nicola-insert)
+	(skk-nicola-treat-triple): #125 fix. Use function read-event() instead of
+	next-command-event().
+
 2020-02-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-kanagaki-util.el (skk-kanagaki-dakuten): Do not use function character-to-event().
