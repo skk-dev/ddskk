@@ -1,3 +1,7 @@
+2020-03-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Makefile (test): fix.
+
 2020-03-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* Makefile (test): Add byte-compile files in nicola/ directory when `make test'.
