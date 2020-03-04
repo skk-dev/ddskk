@@ -27,9 +27,7 @@
 
 ;;; Code:
 
-(require 'skk-vars)
-(require 'skk-macs)
-(require 'skk-autoloads nil 'noerror)
+(require 'skk)
 
 (eval-when-compile
   (require 'cl-lib)

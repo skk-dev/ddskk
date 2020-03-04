@@ -83,6 +83,7 @@
   ;;   provide 宣言 | あり (SKK-MK が生成)    | なし
   (require 'skk-autoloads nil 'noerror)
 
+  (provide 'skk)                        ; workaround for recursive require
   (require 'skk-vars)
   (require 'skk-macs)
   (require 'skk-emacs)

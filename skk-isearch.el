@@ -44,14 +44,10 @@
 
 ;;; Code:
 
-(require 'skk-autoloads nil 'noerror)
-(require 'skk-vars)
-(require 'skk-macs)
+(require 'skk)
 
 (eval-when-compile
   (require 'cl-lib))
-
-;(require 'skk)
 
 ;; interface to skk.el
 ;;

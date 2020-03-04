@@ -99,9 +99,7 @@
 
 ;;; Code:
 
-(require 'skk-autoloads nil 'noerror)
-(require 'skk-macs)
-(require 'skk-vars)
+(require 'skk)
 
 (defvar skk-sticky-key-orig-output nil)
 (skk-deflocalvar skk-sticky-okuri-flag nil)

@@ -65,9 +65,7 @@
 
 ;;; Code:
 
-(require 'skk-macs)
-(require 'skk-vars)
-(require 'skk-autoloads nil 'noerror)
+(require 'skk)
 
 (eval-when-compile
   (defvar skk-jisx0201-rule-list)

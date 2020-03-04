@@ -30,10 +30,7 @@
 
 ;;; Code:
 
-(require 'skk-autoloads nil 'noerror)
-(require 'skk-macs)
-(require 'skk-vars)
-(require 'skk-emacs)
+(require 'skk)
 (require 'skk-tankan)
 
 (eval-when-compile

@@ -110,9 +110,7 @@
 
 ;;; Code:
 
-(require 'skk-macs)
-(require 'skk-vars)
-(require 'skk-autoloads nil 'noerror)
+(require 'skk)
 
 (eval-when-compile
   ;; shut up compiler warnings.

@@ -28,15 +28,7 @@
 ;;; Code:
 
 (require 'advice)
-(eval-when-compile
-  (defvar mule-version)
-  (declare-function skk-remove-skk-pre-command "skk.el")
-  (declare-function skk-setup-keymap "skk.el")
-  (declare-function skk-insert-str "skk.el")
-  (declare-function skk-cursor-set-1 "skk-cursor.el")
-  (declare-function skk-cursor-off-1 "skk-cursor.el"))
-
-(require 'skk-vars)
+(require 'skk)
 
 ;;;; macros
 

@@ -74,9 +74,7 @@
   (defvar jka-compr-compression-info-list)
   (defvar print-quoted))
 
-(require 'skk-autoloads nil 'noerror)
-(require 'skk-macs)
-(require 'skk-vars)
+(require 'skk)
 (require 'ring)
 
 (defconst skk-study-file-format-version "0.3")

@@ -29,9 +29,7 @@
 
 ;;; Code:
 
-(require 'skk-autoloads nil 'noerror)
-(require 'skk-macs)
-(require 'skk-vars)
+(require 'skk)
 
 (defsubst skk-num-get-suuji (expression alist)
   (cdr (assq expression alist)))

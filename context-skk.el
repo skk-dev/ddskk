@@ -106,7 +106,7 @@
 
 ;;; Code: 
 
-(require 'skk-autoloads nil 'noerror)
+(require 'skk)
 
 ;;
 ;; Custom

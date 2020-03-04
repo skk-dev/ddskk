@@ -42,9 +42,7 @@
 
 ;;; Code:
 
-(require 'skk-autoloads nil 'noerror)
-(require 'skk-macs)
-(require 'skk-vars)
+(require 'skk)
 
 (let ((euc (cdr (assoc "euc" skk-coding-system-alist))))
   (modify-coding-system-alist 'process "kakasi" (cons euc euc)))
