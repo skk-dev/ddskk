@@ -61,12 +61,7 @@
 
 ;;; Code:
 
-(require 'skk-autoloads nil 'noerror)
-(require 'skk-macs)
-(require 'skk-vars)
-
-;; is this necessary?
-(require 'skk-comp)
+(require 'skk)
 
 (defadvice skk-search (around skk-hint-ad activate)
   ;; skk-current-search-prog-list の要素になっているプログラムを評価して、

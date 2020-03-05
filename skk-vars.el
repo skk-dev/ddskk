@@ -36,15 +36,8 @@
   (defvar emacs-beta-version)
   (defvar mule-version))
 
-(declare-function skk-emacs-prepare-modeline-properties "skk-emacs.el")
-(declare-function skk-setup-modeline "skk.el")
-(declare-function skk-kanagaki-initialize "nicola/skk-kanagaki.el")
-(declare-function skk-treat-strip-note-from-word "skk.el")
+(require 'skk)
 (declare-function skk-lookup-get-content "skk-lookup.el")
-(declare-function skk-annotation-lookup-DictionaryServices "skk-annotation.el")
-(declare-function skk-annotation-display-p "skk-annotation.el")
-(declare-function skk-emacs-modeline-menu "skk-emacs.el")
-(declare-function skk-emacs-circulate-modes "skk-emacs.el")
 
 ;; Functions needed prior to loading skk-macs.el.
 (defun skk-find-window-system ()

@@ -26,8 +26,7 @@
 ;;; Commentary:
 
 ;;; Code:
-(eval-and-compile
-  (require 'skk-macs))
+(require 'skk-vars)
 
 (put 'skk-version 'product-name "Daredevil SKK")
 (put 'skk-version 'version-string

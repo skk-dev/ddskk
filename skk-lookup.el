@@ -110,9 +110,7 @@
 
 ;;; Code:
 
-(require 'skk-autoloads nil 'noerror)
-(require 'skk-macs)
-(require 'skk-vars)
+(require 'skk)
 (require 'skk-num)
 
 (eval-when-compile
@@ -131,7 +129,6 @@
    (declare-function lookup-make-query "lookup.el")
    (declare-function lookup-entry-heading "lookup.el")
    (declare-function lookup-module-dictionaries "lookup.el")
-   (declare-function skk-okurigana-prefix "lookup.el")
    (declare-function lookup-agent-id "lookup.el")
    (declare-function lookup-nunique "lookup.el")
    (declare-function lookup-make-module "lookup.el")

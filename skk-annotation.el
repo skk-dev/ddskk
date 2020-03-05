@@ -187,16 +187,9 @@
 
 ;;; Code:
 
-(require 'skk-autoloads nil 'noerror)
-
-;; for byte compile Warning
-(eval-when-compile
-  (require 'ccc))
+(require 'skk)
 
 (eval-and-compile
-  (require 'skk-macs)
-  (require 'skk-vars)
-  (require 'skk-emacs)
   (require 'compile)
   (require 'comint)
 

@@ -89,8 +89,7 @@
 
 ;;; Code:
 
-(require 'skk-macs)
-(require 'skk-vars)
+(require 'skk)
 
 ;;; 部首番号を部首を表す文字列に変換するための配列
 (defconst skk-tankan-radical-vector

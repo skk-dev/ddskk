@@ -26,9 +26,7 @@
 
 ;;; Code:
 
-(require 'skk-autoloads nil 'noerror)
-(require 'skk-macs)
-(require 'skk-vars)
+(require 'skk)
 
 ;;;###autoload
 (defun skk-activate (&optional name)

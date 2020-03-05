@@ -34,9 +34,6 @@
 
 ;;; Code:
 
-(require 'skk-autoloads nil 'noerror)
-(require 'skk-macs)
-(require 'skk-vars)
 (require 'skk-emacs)
 
 (defadvice skk-isearch-set-initial-mode (before skk-show-mode activate)

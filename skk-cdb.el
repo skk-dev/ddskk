@@ -33,9 +33,7 @@
 ;;; Code:
 
 (require 'cdb)
-(require 'skk-autoloads nil 'noerror)
-(require 'skk-macs)
-(require 'skk-vars)
+(require 'skk)
 
 (defconst skk-cdb-version "20100719+")
 

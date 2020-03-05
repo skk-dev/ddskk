@@ -31,9 +31,7 @@
 
 ;;; Code:
 
-(require 'skk-autoloads nil 'noerror)
-(require 'skk-macs)
-(require 'skk-vars)
+(require 'skk)
 
 (eval-when-compile
   (defvar smart-find-file-path)

@@ -52,8 +52,7 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'skk-macs)
-  (require 'skk-vars)
+  (require 'skk)
   (require 'skk-comp))
 
 ;;; ;;;###autoload

@@ -28,10 +28,8 @@
 
 ;;; Code:
 
-(require 'skk-macs)
-(require 'skk-autoloads nil 'noerror)
+(require 'skk)
 (require 'skk-cus)
-(require 'skk-vars)
 
 (eval-when-compile
   (defvar font-lock-defaults))

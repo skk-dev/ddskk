@@ -30,9 +30,7 @@
 
 ;;; Code:
 
-(require 'skk-macs)
-(require 'skk-vars)
-(require 'skk-autoloads nil 'noerror)
+(require 'skk)
 
 (eval-and-compile
   (autoload 'skk-nicola-setup-tutorial "skk-nicola"))

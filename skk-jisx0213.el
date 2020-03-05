@@ -28,9 +28,7 @@
 
 ;;; Code:
 
-(eval-when-compile
-  (require 'skk-macs)
-  (require 'skk-vars))
+(require 'skk)
 
 ;;;###autoload
 (defun skk-jisx0213-henkan-list-filter ()

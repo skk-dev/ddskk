@@ -101,8 +101,7 @@
 
 ;;; Code:
 
-(require 'skk-macs)
-(require 'skk-vars)
+(require 'skk)
 
 (require 'skk-comp)
 (eval-when-compile (require 'cl-lib))
