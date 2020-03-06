@@ -1,3 +1,7 @@
+2020-03-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Makefile: maintenance.
+
 2020-03-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* Makefile (test): fix.

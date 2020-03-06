@@ -6,10 +6,12 @@
 VERSION = 17.0.50
 
 BZIP2     = bzip2 -9
+CD	  = cd
 CP        = cp --force
 DATE	  = date
 EMACS	  = emacs
 ETAGS	  = etags
+FIND	  = find . -maxdepth 1 -name
 FLAGS     = --batch --no-init-file --quick --load SKK-MK
 GIT       = git
 GZIP      = gzip -9
@@ -19,6 +21,7 @@ SNAPBASE  = ddskk-`$(DATE) '+%Y%m%d'`
 TAR	  = gtar
 PWD       = pwd
 CURL      = curl
+XARGS	  = xargs --max-args=1 --verbose
 SKK_DEFAULT_JISYO =
 set_jisyo =
 
@@ -26,9 +29,8 @@ TEST_DEP_1=ert
 TEST_DEP_1_STABLE_URL=http://git.savannah.gnu.org/cgit/emacs.git/plain/lisp/emacs-lisp/ert.el?h=emacs-24.3
 
 elc:
-###	$(EMACS) $(FLAGS) --funcall SKK-MK-compile
 	$(EMACS) $(FLAGS) --funcall SKK-MK-generate-autoloads-el
-	find . -maxdepth 1 -name '*.el' | xargs -n1 --verbose $(EMACS) --batch --no-init-file --quick --directory ./ --funcall batch-byte-compile
+	$(FIND) '*.el' | $(XARGS) $(EMACS) --batch --no-init-file --quick --directory ./ --funcall batch-byte-compile
 
 .PHONY: test downloads
 test:
@@ -43,7 +45,7 @@ test:
 	$(EMACS) --batch --quick --directory ./ --funcall batch-byte-compile skk-tutcdef.el
 	$(EMACS) --batch --quick --directory ./ --funcall batch-byte-compile skk-tutcode.el
 	$(RM) skk-bayesian.el* skk-def.el* skk-mkmgk.el* skk-tutcdef.el* skk-tutcode.el*
-	cd nicola;make;make clean
+	$(CD) nicola;make;make clean
 
 downloads :
 	$(CURL) '$(TEST_DEP_1_STABLE_URL)' > $(TEST_DEP_1).el
@@ -77,7 +79,6 @@ clean:
 	-$(RM) leim-list.el skk-autoloads.el skk-setup.el *.elc experimental/*.elc \
 	auto-autoloads.el custom-load.el ert.el \
 	./doc/skk.info* ./doc/skk.html* ./doc/skk.pdf \
-	./doc/skk.xml ./doc/skk.epub ./doc/skk.mobi \
 	./doc/*.aux ./doc/*.cp* ./doc/*.fn* ./doc/*.ky* ./doc/*.log ./doc/*.toc ./doc/*.vr* \
 	`find . -name '*~'` `find . -name '.*~'` `find . -name '.#*'`
 
