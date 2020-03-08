@@ -1,3 +1,19 @@
+2020-03-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-study.el (skk-study-save-1, skk-study-read-1): Accept '(PATH . CODING) cons-cell.
+	* skk-jisyo-edit-mode.el (skk-edit-private-jisyo): Ditto.
+	* skk.el (skk-get-jisyo-buffer): Ditto.
+	(skk-update-jisyo-original): Ditto.
+
+	* skk-vars.el (skk-car): New function.
+	(skk-dcomp-multiple-keep-point-buffer-list): Use it.
+	* skk.el (skk-mode, skk-save-jisyo, skk-save-jisyo-original,): Use it.
+	(skk-update-shared-jisyo, skk-save-jisyo-as):
+	(skk-check-size-and-do-save-jisyo, skk-make-new-jisyo, skk-reread-private-jisyo):
+	(skk-record-jisyo-data, skk-create-file, skk-count-jisyo-candidates):
+	* skk-jisyo-edit-mode.el (skk-edit-private-jisyo-1): Use it.
+	* skk-comp.el (skk-comp-from-jisyo): Use it.
+
 2020-03-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* Makefile: maintenance.

@@ -22,6 +22,13 @@ Makefile のターゲット elc が行うバイトコンパイルの動作につ
 に伴う警告表示を明らかとするため、各 el ファイルを個別にバイトコンパイルする動作
 へ書き直しました。
 
+** 個人辞書の改善
+
+skk-jisyo は '(PATH . CODING) 形式のコンス・セルを受け入れます。
+~/.emacs.d/init.el で指定してください。
+   (setq skk-user-directory "~/.ddskk")
+   (setq skk-jisyo (cons (expand-file-name "jisyo" skk-user-directory) 'utf-8))
+
 ** 新たな装飾機構
 
 新たなファイル skk-decor.el に、次の関数を導入しました。
