@@ -50,6 +50,12 @@
 ;;       上記の設定をした場合はそれらのプログラムの設定ファイルも書き
 ;;       換える必要があります。
 
+;; skk-jisyo は (path . coding) 形式のコンス・セルも受け付けます。
+;;   $ mv jisyo jisyo.euc-jisx0213
+;;   $ iconv -f euc-jisx0213 -t utf8 -o jisyo jisyo.euc-jisx0213
+;;   同様に skk-study の学習結果ファイルも変換すること
+(setq skk-jisyo (cons (expand-file-name "jisyo" skk-user-directory) 'utf-8))
+
 ;; migemo を使うから skk-isearch にはおとなしくしていて欲しい
 (setq skk-isearch-start-mode 'latin)
 

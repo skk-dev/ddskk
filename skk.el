@@ -169,7 +169,7 @@ dependent."
       ;; enter `skk-mode' for the first time in this session.
       (skk-mode-invoke))
     ;; 以下は skk-mode に入るたびに毎回コールされるコード。
-    (skk-create-file skk-jisyo
+    (skk-create-file (skk-car skk-jisyo)
 		     "空の SKK 個人辞書を作りました"
 		     "I have created an empty SKK Jisyo file for you")
     (skk-require-module)
@@ -3497,14 +3497,15 @@ NOCLEAR が nil であれば送り仮名関連フラグを nil にセットする。
     ;; skk-mode に入るたびに個人辞書の存在を確認している（なければ自動生成）が、
     ;; 何らかの原因で個人辞書が存在しない状態で emacs を終了しようとすると
     ;; skk-save-jisyo-original (skk-get-jisyo-buffer) 内のエラーで emacs を終了できない事態となる。
-    (when (file-exists-p skk-jisyo)
-      (funcall skk-save-jisyo-function quiet))))
+    (let ((jisyo (skk-car skk-jisyo)))
+      (when (file-exists-p jisyo)
+        (funcall skk-save-jisyo-function quiet)))))
 
 ;;;###autoload
 (defun skk-save-jisyo-original (&optional quiet)
   "SKK の辞書バッファをセーブする。
 オプショナル引数 QUIET が non-nil であれば、辞書セーブ時のメッセージを出さない。"
-  (let ((jisyo-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg)))
+  (let ((jisyo-buffer (skk-get-jisyo-buffer (skk-car skk-jisyo) 'nomsg)))
     (if (not (and jisyo-buffer
 		  (buffer-modified-p jisyo-buffer)))
 	(unless quiet
@@ -3514,7 +3515,7 @@ NOCLEAR が nil であれば送り仮名関連フラグを nil にセットする。
       ;;
       (with-current-buffer jisyo-buffer
 	(when (skk-share-private-jisyo-p)
-	  (lock-buffer skk-jisyo)
+	  (lock-buffer (skk-car skk-jisyo))
 	  (when (skk-jisyo-is-shared-p)
 	    (skk-update-shared-jisyo)))
 	(let ((inhibit-quit t)
@@ -3530,8 +3531,8 @@ NOCLEAR が nil であれば送り仮名関連フラグを nil にセットする。
 	    (skk-init-shared-jisyo)
 	    ;; `set-buffer-modified-p' は不要な lock を解除する。ただし、
 	    ;; バッファとファイル名が関連付けられている必要がある。
-	    (let ((buffer-file-name (expand-file-name skk-jisyo))
-		  (buffer-file-truename (file-truename skk-jisyo)))
+	    (let ((buffer-file-name (expand-file-name (skk-car skk-jisyo)))
+		  (buffer-file-truename (file-truename (skk-car skk-jisyo))))
 	      (set-buffer-modified-p nil)))
 	   (t
 	    (set-buffer-modified-p nil)))
@@ -3560,7 +3561,7 @@ NOCLEAR が nil であれば送り仮名関連フラグを nil にセットする。
 現在の辞書バッファの内容を消去して、他の Emacs 上の SKK が更新した
 `skk-jisyo' を読み込む。"
   (erase-buffer)
-  (insert-file-contents skk-jisyo)
+  (insert-file-contents (skk-car skk-jisyo))
   (skk-setup-jisyo-buffer)
   ;; skk-jisyo-update-vector にしたがってバッファを更新する。
   (let ((index 0)
@@ -3593,8 +3594,10 @@ Header line for okuri-ari entries is missing!  Stop saving SKK jisyo"))
 送りなしエントリのヘッダーがありません ！ SKK 辞書のセーブを中止します"
 	 "\
 Header line for okuri-nasi entries is missing!  Stop saving SKK jisyo")))
-    (let ((coding-system-for-write (skk-find-coding-system skk-jisyo-code))
-	  jka-compr-compression-info-list)
+    (let ((coding-system-for-write (skk-find-coding-system (if (consp skk-jisyo)
+                                                               (cdr skk-jisyo)
+                                                             skk-jisyo-code)))
+          jka-compr-compression-info-list)
       (write-region 1 (point-max) file nil 'nomsg))))
 
 (defun skk-check-size-and-do-save-jisyo (new-file)
@@ -3622,10 +3625,10 @@ Header line for okuri-nasi entries is missing!  Stop saving SKK jisyo")))
 		  (>= new-size old-size))))
 	(skk-make-new-jisyo new-file))
        ((skk-yes-or-no-p
-	 (format "%s が %dbytes 小さくなりますが、セーブして良いですか？"
-		 skk-jisyo (- old-size new-size))
-	 (format "New %s will be %dbytes smaller.  Save anyway?"
-		 skk-jisyo (- old-size new-size)))
+	 (format "%s が %d bytes 小さくなりますが、セーブして良いですか？"
+		 (skk-car skk-jisyo) (- old-size new-size))
+	 (format "New %s will be %d bytes smaller.  Save anyway?"
+		 (skk-car skk-jisyo) (- old-size new-size)))
 	;; とにかくセーブ。
 	(skk-make-new-jisyo new-file))
        (t
@@ -3682,16 +3685,16 @@ If you want to restore the dictionary from your drive, try
       (progn
 	(when (file-exists-p skk-backup-jisyo)
 	  (delete-file skk-backup-jisyo))
-	(rename-file skk-jisyo skk-backup-jisyo))
-    (delete-file skk-jisyo))
-  (rename-file tempo-file skk-jisyo 'ok-if-already-exists))
+	(rename-file (skk-car skk-jisyo) skk-backup-jisyo))
+    (delete-file (skk-car skk-jisyo)))
+  (rename-file tempo-file (skk-car skk-jisyo) 'ok-if-already-exists))
 
 ;;;###autoload
 (defun skk-reread-private-jisyo (&optional force)
   "バッファに読み込んだ個人辞書を破棄し、ファイルからバッファへ再読み込みする。
 オプショナル引数の FORCE が non-nil であれば、破棄の確認をしない。"
   (interactive "P")
-  (let ((buf (skk-get-jisyo-buffer skk-jisyo 'nomsg)))
+  (let ((buf (skk-get-jisyo-buffer (skk-car skk-jisyo) 'nomsg)))
     (when (and buf
 	       (or force
 		   (skk-yes-or-no-p
@@ -3700,7 +3703,7 @@ If you want to restore the dictionary from your drive, try
       (with-current-buffer buf
 	(set-buffer-modified-p nil)
 	(kill-buffer buf))
-      (unless (skk-get-jisyo-buffer skk-jisyo 'nomsg)
+      (unless (skk-get-jisyo-buffer (skk-car skk-jisyo) 'nomsg)
 	(skk-error "個人辞書を再読み込みすることができません！"
 		   "Cannot reread private JISYO!")))))
 
@@ -3725,14 +3728,12 @@ If you want to restore the dictionary from your drive, try
 		 (skk-rdbms-count-jisyo-candidates
 		  skk-rdbms-private-jisyo-table))
 		(skk-count-private-jisyo-candidates-exactly
-		 (skk-count-jisyo-candidates
-		  (expand-file-name (if (consp skk-jisyo)
-					(car skk-jisyo)
-				      skk-jisyo))))
+		 (skk-count-jisyo-candidates (skk-car skk-jisyo)))
+
 		;; 1 行 1 候補とみなす。
 	      (t
 	       (with-current-buffer (skk-get-jisyo-buffer
-				     skk-jisyo 'nomsg)
+				     (skk-car skk-jisyo) 'nomsg)
 		 (- (count-lines (point-min) (point-max))
 		    2))))))
       (when (integerp skk-keep-record)
@@ -3751,8 +3752,8 @@ If you want to restore the dictionary from your drive, try
 	  ((eq skk-count-jisyo-candidates-function
 	       'skk-count-jisyo-candidates-original)
 	   (read-file-name
-	    (format "Jisyo file: (default: %s) " skk-jisyo)
-	    default-directory skk-jisyo 'confirm))
+	    (format "Jisyo file: (default: %s) " (skk-car skk-jisyo))
+	    default-directory (skk-car skk-jisyo) 'confirm))
 	  ((eq skk-count-jisyo-candidates-function
 	       'skk-rdbms-count-jisyo-candidates)
 	   ;; データベースファイルを直接ファイル名で指定できる
@@ -3823,7 +3824,7 @@ If you want to restore the dictionary from your drive, try
   "FILE がなければ、FILE という名前の空ファイルを作る。
 オプショナル引数の JAPANESE/ENGLISH を指定すると、ファイル作成後そのメッセージ
 をエコーエリアに表示する。"
-  (let ((file (expand-file-name file)))
+  (let ((file (expand-file-name (skk-car file))))
     (if (file-exists-p file)
 	(when modes
 	  (set-file-modes file modes))
@@ -3845,11 +3846,13 @@ If you want to restore the dictionary from your drive, try
 い。"
   (when file
     (let* ((inhibit-quit t)
-	   (code (skk-find-coding-system (if (consp file)
-					     (cdr file)
-					   skk-jisyo-code)))
-	   (file (or (car-safe file)
-		     file))
+	   (code (skk-find-coding-system (cond ((consp file)
+					        (cdr file))
+                                               ((equal file (car skk-jisyo))
+                                                (cdr skk-jisyo))
+                                               (t
+					        skk-jisyo-code))))
+	   (file (skk-car file))
 	   (enable-character-translation
 	    (not (memq code '(euc-japan shift_jis junet))))
 	   (buf-name (concat " *"
@@ -3954,9 +3957,7 @@ LIMIT が 0 であれば、リニアサーチのみを行う。
 FILE には辞書ファイルだけでなく、
   (辞書ファイル . コーディングシステム)
 のペアも受けつける。コーディングシステムは `skk-jisyo-code' と
-同様に指定する。
-※ 個人辞書のコーディングシステムについては、この形式で指定する事はできない。
-   必ず、変数 `skk-jisyo-code' によって指定すること。"
+同様に指定する。"
   (skk-search-jisyo-buf (skk-get-jisyo-buffer file nomsg)
 			limit))
 
@@ -4250,7 +4251,7 @@ WORD が共有辞書になければ、個人辞書の辞書エントリから削除する。"
   ;; すため、個人辞書のソートは必要でない。
   ;; よって、最後に変換したものを skk-okuri-ari-min の位置に挿入する。
   ;;
-  (let* ((jisyo-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg))
+  (let* ((jisyo-buffer (skk-get-jisyo-buffer (skk-car skk-jisyo) 'nomsg))
 	 (cand (car (skk-treat-strip-note-from-word word)))
 	 (midasi (if (and (skk-numeric-p)
 			  (or (string-match "#[0-9]" cand)

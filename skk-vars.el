@@ -3523,8 +3523,13 @@ server completion が実装されておらず、かつ無反応な辞書サーバ対策。")
   :type 'integer
   :group 'skk-dcomp)
 
+(defun skk-car (x)
+  (if (consp x)
+      (car x)
+    x))
+
 (defcustom skk-dcomp-multiple-keep-point-buffer-list
-  (list (concat " *" (file-name-nondirectory skk-jisyo) "*"))
+  (list (concat " *" (file-name-nondirectory (skk-car skk-jisyo)) "*"))
   "*複数表示の為に補完候補を検索する際に `point' を保持するバッファのリスト。
 
 動的補完で候補を複数表示する際に検索対象バッファ
