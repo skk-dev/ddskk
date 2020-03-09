@@ -532,9 +532,11 @@ C-0 SPC で使用される"
   :type 'function
   :group 'skk-dictionary)
 
-(defcustom skk-jisyo (if skk-user-directory
-			 (expand-file-name "jisyo" skk-user-directory)
-		       (convert-standard-filename "~/.skk-jisyo"))
+(defcustom skk-jisyo (cons
+                      (if skk-user-directory
+			  (expand-file-name "jisyo" skk-user-directory)
+		        (convert-standard-filename "~/.skk-jisyo"))
+                      'utf-8)
   "*SKK の個人辞書。"
   :type `(file :tag "辞書ファイル名")
   :group 'skk-private)
