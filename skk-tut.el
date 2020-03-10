@@ -430,7 +430,7 @@
 		  "Cannot use this key yet")))
 
 (defadvice skk-get-jisyo-buffer (around skktut-ad disable)
-  (cond ((string= skk-jisyo skktut-tut-jisyo)
+  (cond ((string= (skk-jisyo) skktut-tut-jisyo)
 	 (setq ad-return-value (get-buffer skktut-jisyo-buffer)))
 	(t
 	 ad-do-it)))

@@ -284,7 +284,7 @@
 (defun skk-comp-from-jisyo (file)
   ;; skk-comp-prefix を使える
   "SKK 辞書フォーマットの FILE から補完候補を得る。"
-  (let ((buffer (skk-get-jisyo-buffer (skk-car file) 'nomsg))
+  (let ((buffer (skk-get-jisyo-buffer file 'nomsg))
 	(abbrev skk-abbrev-mode)
 	(key skk-comp-key)
 	(prefix skk-comp-prefix)
