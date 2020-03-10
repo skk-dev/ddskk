@@ -1,3 +1,22 @@
+2020-03-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-jisyo): New function.
+	(skk-jisyo): Update custom-type.
+	(skk-car): Remove function.
+
+	* skk.el (skk-mode, skk-save-jisyo, skk-save-jisyo-original): Use function skk-jisyo().
+	(skk-update-shared-jisyo, skk-save-jisyo-as,skk-check-size-and-do-save-jisyo): Use it.
+	(skk-make-new-jisyo, skk-record-jisyo-data, skk-count-jisyo-candidates): Use it.
+	(skk-create-file, skk-get-jisyo-buffer): Use it.
+	(skk-reread-private-jisyo, skk-update-jisyo-original): Do not use function skk-car().
+
+	* skk-tut.el (skk-get-jisyo-buffer): Use it.
+
+	* skk-study.el (skk-study-save-1, skk-study-read-1): Use it.
+	* skk-jisyo-edit-mode.el (skk-edit-private-jisyo, skk-edit-private-jisyo-1): Use it.
+
+	* skk-comp.el (skk-comp-from-jisyo): Do not use function skk-car().
+
 2020-03-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-study.el (skk-study-save-1, skk-study-read-1): Accept '(PATH . CODING) cons-cell.

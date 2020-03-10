@@ -52,6 +52,15 @@
 	    frames (cdr frames)))
     val))
 
+(defun skk-jisyo (&optional coding)
+  "CODING が nil であれば、個人辞書の PATH を返す (変数 `skk-jisyo' が文字列で
+あればその値を、コンスセルであれば car を返す).
+CODING が non-nil であれば、個人辞書に適用される CODING を返す (変数 `skk-jisyo' が
+文字列であれば変数 `skk-jisyo-code' の値を、コンスセルであれば cdr を返す)."
+  (let ((p (if (consp skk-jisyo) (car skk-jisyo) skk-jisyo))
+        (c (if (consp skk-jisyo) (cdr skk-jisyo) skk-jisyo-code)))
+    (if coding c p)))
+
 ;;;###autoload
 (put 'skk-deflocalvar 'lisp-indent-function 'defun)
 (defmacro skk-deflocalvar (symbol initvalue &optional docstring)
@@ -536,7 +545,10 @@ C-0 SPC で使用される"
 			 (expand-file-name "jisyo" skk-user-directory)
 		       (convert-standard-filename "~/.skk-jisyo"))
   "*SKK の個人辞書。"
-  :type `(file :tag "辞書ファイル名")
+  :type '(radio (file :tag "辞書ファイル名")
+                (cons :tag "`skk-jisyo-code' と異なる文字コードを使用する場合"
+                      (file :tag "PATH/TO/FILE")
+                      (coding-system :tag "CODING-SYSTEM-NAME")))
   :group 'skk-private)
 
 (defcustom skk-backup-jisyo (if skk-user-directory
@@ -3523,13 +3535,8 @@ server completion が実装されておらず、かつ無反応な辞書サーバ対策。")
   :type 'integer
   :group 'skk-dcomp)
 
-(defun skk-car (x)
-  (if (consp x)
-      (car x)
-    x))
-
 (defcustom skk-dcomp-multiple-keep-point-buffer-list
-  (list (concat " *" (file-name-nondirectory (skk-car skk-jisyo)) "*"))
+  (list (concat " *" (file-name-nondirectory (skk-jisyo)) "*"))
   "*複数表示の為に補完候補を検索する際に `point' を保持するバッファのリスト。
 
 動的補完で候補を複数表示する際に検索対象バッファ

@@ -119,13 +119,9 @@ You must edit your private dictionary at your own risk.  Do you accept it? "))
     (when coding-system
       (setq coding-system (read-coding-system
 			   "個人辞書のコーディングシステムを指定: "
-			   (skk-find-coding-system (if (consp skk-jisyo)
-                                                       (cdr skk-jisyo)
-                                                     skk-jisyo-code)))))
+			   (skk-find-coding-system (skk-jisyo t)))))
     (unless coding-system
-      (setq coding-system (skk-find-coding-system (if (consp skk-jisyo)
-                                                      (cdr skk-jisyo)
-                                                    skk-jisyo-code))))
+      (setq coding-system (skk-find-coding-system (skk-jisyo t))))
     ;;
     (when (skk-y-or-n-p "個人辞書を保存しますか？ "
 			"Save private jisyo? ")
@@ -137,7 +133,7 @@ You must edit your private dictionary at your own risk.  Do you accept it? "))
 	(current-window-configuration))
   ;; SKK 辞書の文字コードは誤判定がありうるため、注意する
   (let ((coding-system-for-read coding-system))
-    (find-file (skk-car skk-jisyo)))
+    (find-file (skk-jisyo)))
   (unless (eq major-mode 'skk-jisyo-edit-mode)
     (skk-jisyo-edit-mode))
   ;; 編集中に再度実行しても、
