@@ -15,3 +15,4 @@ docs/_build/*
 skk-autoloads.el
 skk-setup.el
 ert.el
+checkdoc.log

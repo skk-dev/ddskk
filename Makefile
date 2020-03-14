@@ -19,6 +19,7 @@ MD5	  = md5
 RM	  = /bin/rm -f
 SNAPBASE  = ddskk-`$(DATE) '+%Y%m%d'`
 TAR	  = gtar
+TEE	  = tee
 PWD       = pwd
 CURL      = curl
 XARGS	  = xargs --max-args=1 --verbose
@@ -46,6 +47,10 @@ test:
 	$(EMACS) --batch --quick --directory ./ --funcall batch-byte-compile skk-tutcode.el
 	$(RM) skk-bayesian.el* skk-def.el* skk-mkmgk.el* skk-tutcdef.el* skk-tutcode.el*
 	$(CD) nicola;make;make clean
+
+checkdoc:
+	$(RM) checkdoc.log
+	$(FIND) '*.el' | $(XARGS) $(EMACS) --batch --quick --load maint/checkdoc-batch.el --funcall checkdoc-batch-commandline 2>&1 | $(TEE) checkdoc.log
 
 downloads :
 	$(CURL) '$(TEST_DEP_1_STABLE_URL)' > $(TEST_DEP_1).el
@@ -77,7 +82,7 @@ TAGS:
 
 clean:
 	-$(RM) leim-list.el skk-autoloads.el skk-setup.el *.elc experimental/*.elc \
-	auto-autoloads.el custom-load.el ert.el \
+	auto-autoloads.el custom-load.el ert.el checkdoc.log\
 	./doc/skk.info* ./doc/skk.html* ./doc/skk.pdf \
 	./doc/*.aux ./doc/*.cp* ./doc/*.fn* ./doc/*.ky* ./doc/*.log ./doc/*.toc ./doc/*.vr* \
 	`find . -name '*~'` `find . -name '.*~'` `find . -name '.#*'`
