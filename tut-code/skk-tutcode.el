@@ -24,44 +24,44 @@
 ;;; Commentary:
 
 ;; <INFORMATION>
-;;
+
 ;; TUT-code was developed by Hajime Ohiwa <ohiwa@sfc.keio.ac.jp> and
 ;; Takaaki Takashima of Toyohashi University of Technology in 1982.
 ;; TUT-code is a kind of direct input method of Japanese with two
 ;; strokes.  You can pronounce it `Tea You Tea' or `TUT' like
 ;; Tutankamen's nickname, king `TUT'.
-;;
+
 ;; At Mon, 23 Aug 1999 01:13:34 +0900,
 ;; Hajime Ohiwa <ohiwa@sfc.keio.ac.jp> wrote:
-;;
+
 ;; > 私は「てぃーゆーてぃーこーど」と読んでいますが、もう少し言い易い方が
 ;; > よいと思います。TUTはこれを開発した豊橋技術科学大学の略称です。
 ;; > 米国人に見せたら、「たっと」と読みました。つたんかーめん王のことを英語
 ;; > では king TUT と呼び、発音は「たっと」なのだそうです。「たっとこーど」
 ;; > の方がよいかもしれません。御意見をお聞かせ下さい。
-;;
+
 ;; To get more information, access following URL;
 ;;    http://www.crew.sfc.keio.ac.jp/~chk/
-;;
+
 ;; To join TUT-code mailing list, send mail like following;
 ;;    To: tut-code-control@crew.sfc.keio.ac.jp
 ;;    Subject: APPEND
 ;;    Body: an introduction of yourself (null body is available).
-;;
+
 ;; <INSTALL>
-;;
+
 ;; Put the following lines in your .skk.
-;;
+
 ;;   (require 'skk-tutcdef)
-;;
+
 ;; If you would like to customize some definitions in skk-tutcdef.el,
 ;; you could do, for example;
-;;
+
 ;;   (require 'skk-tutcdef)
 ;;   ;; your customizations...
 ;;   (setq skk-rom-kana-rule-list
 ;;         '(...))
-;;
+
 ;; <TODO>
 ;; - Efficient mazegaki (e.x. provided by T-code driver) support.
 ;; - To switch easily okurigana prefix in jisyo buffer.

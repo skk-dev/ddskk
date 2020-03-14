@@ -22,7 +22,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
-;; 
+
 ;;  ~/.skk にて
 ;;      (setq skk-show-mode-show t)
 ;;  と設定してください。

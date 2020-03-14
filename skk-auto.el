@@ -131,7 +131,7 @@
 		       (1+ mark)
 		       '((skk-okuri-search)))))))
 
-;;(add-hook 'skk-mode-hook 'skk-adjust-search-prog-list-for-auto-okuri)
+;; (add-hook 'skk-mode-hook 'skk-adjust-search-prog-list-for-auto-okuri)
 
 (run-hooks 'skk-auto-load-hook)
 

@@ -1,4 +1,4 @@
-;; skk.el --- Daredevil SKK (Simple Kana to Kanji conversion program) -*- coding: iso-2022-jp -*-
+;;; skk.el --- Daredevil SKK (Simple Kana to Kanji conversion program) -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 1988-1997 Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Copyright (C) 1999-2010 SKK Development Team <skk@ring.gr.jp>
@@ -26,7 +26,7 @@
 
 ;; SKK-MODE is a mode for inputting Japanese to a current buffer which is
 ;; composed of four minor modes described below.
-;;
+
 ;;      +---------------+-------- skk-mode -----+--------------------+
 ;;      |               |                       |                    |
 ;;      |               |                       |                    |
@@ -36,10 +36,10 @@
 ;;
 ;; skk-j-mode-map               skk-jisx0208-latin-mode-map
 ;;              skk-latin-mode-map                        skk-abbrev-mode-map
-;;
+
 ;; skk-katakana: nil
 ;;   HIRAKANA
-;;
+
 ;; skk-katakana: t
 ;;   KATAKANA
 

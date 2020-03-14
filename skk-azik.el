@@ -23,32 +23,33 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
+
 ;; 拡張ローマ字入力 "AZIK" を SKK で使うための設定です。
 ;; "AZIK"については、以下の URL を参照して下さい。
 ;;   http://hp.vector.co.jp/authors/VA002116/azik/azikindx.htm
-;;
+
 ;; 使い方 - 下記の設定を .skk に加えてください。
 ;;          その後 Emacs(Mule) を再起動すれば skk による AZIK での
 ;;          入力が可能です。
-;;
+
 ;;          (setq skk-use-azik t)
 ;;          (setq skk-azik-keyboard-type 'jp106)
-;;
+
 ;;          変数 skk-azik-keyboard-type にお使いのキーボードのタイプを
 ;;          指定して下さい。skk-azik-keyboard-type はシンボルで
 ;;          'jp106 もしくは 'jp-pc98 、または、 'en を指定します。
-;;
-;;
-;;   注意 1 - AZIK では "q" を "ん" の入力に使うので、"q" のもともと
-;;            の機能である "skk-toggle-characters" には、日本語キーボード
-;;            であれば "@" を、英語キーボードであれば、"[" で代用します。
-;;            SKK 標準の "@"(日本語キーボード) や "["(英語キーボード) は、
-;;            は、 x を付けて、それぞれ "x@" と "x[" で使用できます。
-;;
-;;        2 - 純正の AZIK では "la" で "ぁ" を入力します。しかし
-;;            SKK では L を ASCII/全英モードの切り替えキーとして
-;;            使用するので、 "xxa" で "ぁ" が入力できるようにして
-;;            います。
+
+
+;; 注意 1 - AZIK では "q" を "ん" の入力に使うので、"q" のもともと
+;;          の機能である "skk-toggle-characters" には、日本語キーボード
+;;          であれば "@" を、英語キーボードであれば、"[" で代用します。
+;;          SKK 標準の "@"(日本語キーボード) や "["(英語キーボード) は、
+;;          は、 x を付けて、それぞれ "x@" と "x[" で使用できます。
+
+;;      2 - 純正の AZIK では "la" で "ぁ" を入力します。しかし
+;;          SKK では L を ASCII/全英モードの切り替えキーとして
+;;          使用するので、 "xxa" で "ぁ" が入力できるようにして
+;;          います。
 
 
 ;;; Code:
@@ -606,3 +607,5 @@
 (run-hooks 'skk-azik-load-hook)
 
 (provide 'skk-azik)
+
+;;; skk-azik.el ends here

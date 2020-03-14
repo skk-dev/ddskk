@@ -21,39 +21,38 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
-;;
+
 ;; dvorak 配列での拡張ローマ字入力 "ACT" を SKK で使うための設定です．
 ;; "ACT" については，以下の URL を参照して下さい．
 ;;   http://www1.vecceed.ne.jp/~bemu/act/act_index.html
-;;
+
 ;; 使い方 - 下記の設定を .skk に加えてください．
 ;;          その後 Emacs(Mule) を再起動すれば skk による ACT での
 ;;          入力が可能です．
-;;
-;;          (setq skk-use-act t)
-;;
-;;
-;;   注意 1 - ACT では "q" を "おん" の入力に使うので，"q" のもともとの
-;;            機能である `skk-toggle-characters' は "\" に割当てています．
-;;            SKK 標準で "\" の `skk-input-by-code-or-menu' は割当てて
-;;            いないのでマニュアルで呼出す必要があります．
-;;
-;;        2 - 同様に "Q" も使用できませんので
-;;            `skk-set-henkan-point-subr' は "|" に割当てています．
-;;
-;;        3 - 純正の ACT では "la" で "ぁ" を入力します．しかし
-;;            SKK では l を ASCII/かなモードの切り替えキーとして
-;;            使用するので，"`a" で "ぁ" を入力できるようにしています．
-;;
-;;        4 - SKK 標準の "z*" (「〜」「…」など)，"x*" (「ぃ」「ゎ」な
-;;            ど)は "`*" に割当てています．
-;;
-;;        5 - デフォルトでは子音の後の "y" には2重母音の "ui" を割当て
-;;            ているので，"y" を使った拗音の入力は無効です．"y" を使っ
-;;            て拗音を入力したい場合は `skk-act-use-normal-y' を
-;;            non-nil に設定して skk を起動して下さい．(skk-act をロー
-;;            ドしたときの値が有効になります)
-;;
+
+;;  (setq skk-use-act t)
+
+;; 注意 1 - ACT では "q" を "おん" の入力に使うので，"q" のもともとの
+;;          機能である `skk-toggle-characters' は "\" に割当てています．
+;;          SKK 標準で "\" の `skk-input-by-code-or-menu' は割当てて
+;;          いないのでマニュアルで呼出す必要があります．
+
+;;      2 - 同様に "Q" も使用できませんので
+;;          `skk-set-henkan-point-subr' は "|" に割当てています．
+
+;;      3 - 純正の ACT では "la" で "ぁ" を入力します．しかし
+;;          SKK では l を ASCII/かなモードの切り替えキーとして
+;;          使用するので，"`a" で "ぁ" を入力できるようにしています．
+
+;;      4 - SKK 標準の "z*" (「〜」「…」など)，"x*" (「ぃ」「ゎ」な
+;;          ど)は "`*" に割当てています．
+
+;;      5 - デフォルトでは子音の後の "y" には2重母音の "ui" を割当て
+;;          ているので，"y" を使った拗音の入力は無効です．"y" を使っ
+;;          て拗音を入力したい場合は `skk-act-use-normal-y' を
+;;          non-nil に設定して skk を起動して下さい．(skk-act をロー
+;;          ドしたときの値が有効になります)
+
 ;;   キー割当て変更点
 ;;                                  SKK標準     ACT
 ;;	`skk-toggle-characters'        q         \
@@ -842,4 +841,5 @@
 (run-hooks 'skk-act-load-hook)
 
 (provide 'skk-act)
+
 ;;; skk-act.el ends here

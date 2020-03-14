@@ -22,13 +22,12 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
-;; 
 
 ;; 使い方
 ;; o (tar-salvage-file "~/temp/foo.tar" "foo/bar.el" "~/bar.el")
 ;;   アーカイブ foo.tar の中のファイル bar.el を取り出して、
 ;;   ~/bar.el として保存します。
-;;
+
 ;; o (tar-list-files "~/temp/foo.tar")
 ;;   アーカイブ foo.tar の中のファイル群をリストで返します。
 

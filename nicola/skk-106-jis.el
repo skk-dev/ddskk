@@ -32,16 +32,16 @@
 ;; 挙動にすることができます。
 
 ;; (例)  1. xmodmap にて以下のような設定をする。
-;;
+
 ;;        % cat ~/.Xmodmap
 ;;        keycode 211 = underscore underscore
 ;;        % xmodmap ~/.Xmodmap
-;;
+
 ;;       (注) 上記の例では仮想キーコード 211 となっていますが、環境によって
 ;;            異なるので xev など用いて自分で調べてください。
-;;
+
 ;;       2. ~/.skk にて以下の設定をする。
-;;
+
 ;;        (eval-after-load "skk-106-jis"
 ;;          '(setcar (cdr (assq ?\\ skk-106-jis-plain-rule-list)) "ー"))
 

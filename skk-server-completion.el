@@ -1,5 +1,5 @@
 ;;; skk-server-completion.el --- server completion のクライアント -*- coding: iso-2022-jp -*-
-;;
+
 ;; Copyright (C) 2005 Fumihiko MACHIDA <machida@users.sourceforge.jp>
 
 ;; This file is part of Daredevil SKK.
@@ -23,39 +23,39 @@
 ;; 語句の検索を行います。
 
 ;; このプログラムは以下の 2 つの機能を提供します。
-;;
+
 ;; * skk-look の日本語版。読みの最後に `~' を付けて変換すると、その読みか
 ;;   ら始まる全ての候補を表示します。
-;;
+
 ;; 例：
-;;
+
 ;; ▽まちだ~
 ;; ==> "まちだ" "町田" "まちだえき" "町田駅" "まちだおだきゅう" "町田小田急" ..
-;;
+
 ;; * skk-comp で、server completion を使用
-;;
+
 ;; 例：
-;;
+
 ;; ▽まちだ-!- で Tab を押すと、▽まちだえき → ▽まちだおだきゅう ……
 ;; となります。
 
 ;; [設定方法]
-;;
+
 ;; .skk に、以下を追加します。
-;;
-;; (add-to-list 'skk-search-prog-list
-;;	     '(skk-server-completion-search) t)
-;;
+
+;;  (add-to-list 'skk-search-prog-list
+;;        '(skk-server-completion-search) t)
+
 ;; (add-to-list 'skk-completion-prog-list
 ;;	     '(skk-comp-by-server-completion) t)
-;;
+
 ;; また、`~' を付けた変換結果を個人辞書に学習してしまうのをやめるためには
 ;; 以下を追加してください。
-;;
-;; (add-hook 'skk-search-excluding-word-pattern-function
-;; 	  #'(lambda (kakutei-word)
-;; 	      (eq (aref skk-henkan-key (1- (length skk-henkan-key)))
-;; 		  skk-server-completion-search-char)))
+
+;;   (add-hook 'skk-search-excluding-word-pattern-function
+;;   	  #'(lambda (kakutei-word)
+;;   	      (eq (aref skk-henkan-key (1- (length skk-henkan-key)))
+;;   		  skk-server-completion-search-char)))
 
 ;;; Code:
 
@@ -192,6 +192,5 @@
 	word))))
 
 (provide 'skk-server-completion)
-
 
 ;;; skk-server-completion.el ends here

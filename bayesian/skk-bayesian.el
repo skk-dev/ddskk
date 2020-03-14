@@ -1,4 +1,5 @@
-;; skk-bayesian.el -- Bayesian estimation for SKK -*- coding: iso-2022-jp -*-
+;;; skk-bayesian.el -- Bayesian estimation for SKK -*- coding: iso-2022-jp -*-
+
 ;; Copyright (C) 2004 Kenichi Kurihara <kenichi_kurihara@nifty.com>
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
@@ -21,30 +22,30 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
-;;
+
 ;; skk-study が直前の履歴のみを使用するので、これを拡張したいと思ったの
 ;; が全ての動機です。SKK とそのコミュニティに感謝します。
-;;
-;;
+
+
 ;; <動作>
 ;; 例: (skk-bayesian-context-len = 5 の時)
 ;; 「その服を、」の後に、きr を変換する状況において、
 ;; entry が、("切" "着" "斬") である状況を考える。
 ;; この enrty を以下の確率を計算することで、ソートする。
-;;
+
 ;; Prob( word="切" | p_1="、", p_2="を", p_3="服", p_4="の", p_5="そ" )
 ;; Prob( word="着" | p_1="、", p_2="を", p_3="服", p_4="の", p_5="そ" )
 ;; Prob( word="斬" | p_1="、", p_2="を", p_3="服", p_4="の", p_5="そ" )
-;;
+
 ;; 学習すべきパラメータの数を減らすため、この確率モデルを以下のような
 ;; 混合分布であると仮定する。
-;;
+
 ;; Prob( word="切" | p_1="、", p_2="を", p_3="服", p_4="の", p_5="そ" )
 ;;   ~= \sum_{i=1}^5 w_i * Prob( word="切" | p_i )
-;;
+
 ;; ただし、w_i は混合分布の重みである。
-;;
-;;
+
+
 ;; <課題>
 ;; 1. bskk が単純に作られているので、変換の履歴が大きくなった時に、動作
 ;;    速度と必要なメモリの量が心配。
@@ -59,12 +60,12 @@
 ;; 4. 2と3に重なるが、著作権の心配をしなくてもよいコーパスから、学習を行い
 ;;    skk-bayesian-context-len と 混合分布の重みを決定したい。
 ;; 5. bskk とのプロトコルが素人臭い。
-;;
-;;
+
+
 ;; <使い方>
 ;; ~/.skk に、(require 'skk-bayesian) と書いて下さい。
 ;; skk-study との併用は機能が重なるので、お勧めできません。
-;;
+
 ;; また、bskk は、サブプロセスかサーバとして使用します。
 ;; *サブプロセス
 ;;   サブプロセスとして使用するには、bskk を環境変数 PATH の通った場所に
@@ -80,10 +81,10 @@
 ;;     % kill -TERM {bskk の PID}
 ;;   です。
 ;;   ~/.skk には、(setq skk-bayesian-prefer-server t) を書いて下さい。
-;;
+
 ;; <仕様の覚え書き>
 ;; 各関数と、bskk のコメント内の Specifications に書かれている。
-;;
+
 
 ;;; Code:
 

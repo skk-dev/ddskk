@@ -25,35 +25,35 @@
 ;;; Commentary:
 
 ;; <簡単な説明>
-;;
+
 ;; ~/.skk に
-;;
-;; (setq skk-use-jisx0201-input-method t)
-;;
+
+;;   (setq skk-use-jisx0201-input-method t)
+
 ;; と書くことでインストールされます。使い方は以下のようになります。
-;;
-;; ◎カタカナモードにおいて、
-;;   ・"C-q" で全角カナモードと半角カナモードを切りかえます。
-;;
-;; ◎ひらがな/カタカナ両モード内での▽モードにおいて、
-;;   ・"C-q" を押すと､見出し語として入力されたひらがな/カタカナをﾊﾝｶｸｶﾀｶﾅに変
-;;     換します。
-;;
+
+;;   ◎カタカナモードにおいて、
+;;     ・"C-q" で全角カナモードと半角カナモードを切りかえます。
+
+;;   ◎ひらがな/カタカナ両モード内での▽モードにおいて、
+;;     ・"C-q" を押すと､見出し語として入力されたひらがな/カタカナをﾊﾝｶｸｶﾀｶﾅに変
+;;       換します。
+
 ;; `skk-jisx0201-roman-rule-list' に JISX0201.1976 Japanese Roman
 ;; (latin-jisx0201) の文字列を定義しています。ただし GNU Emacs 23 以降、ファ
 ;; イル保存時に JIS X 0201 Roman と ASCII の区別がされなくなったようです (円
 ;; 記号およびオーバーラインを除く)。したがってこのファイルの現行版では、これ
 ;; らの 2 文字以外は ASCII の文字が定義されています。
-;;
+
 ;; ｶﾅ と roman を切り替える機能 `skk-toggle-jisx0201' にはキー定義していませ
 ;; ん。
-;;
+
 ;; <業務連絡>
-;;
+
 ;; GNU Emacs 20.3 〜 22 でこのファイルを編集する場合は、ファイルを開く前に
-;;
-;; (setq standard-translation-table-for-decode (make-translation-table nil))
-;;
+
+;;   (setq standard-translation-table-for-decode (make-translation-table nil))
+
 ;; を評価してください。
 
 ;;; Code:

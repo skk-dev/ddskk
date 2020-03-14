@@ -30,7 +30,7 @@
 ;;     skk-search-prog-list の最後方に skk-search-web() を置くことにより、
 ;;     個人辞書や共有辞書に登録されていない見出し語を Google サジェスト
 ;;     します。
-;;
+
 ;;     (add-to-list 'skk-search-prog-list
 ;;                  '(skk-search-web 'skk-google-suggest)
 ;;                  t)
@@ -45,7 +45,7 @@
 ;;     (add-to-list 'skk-search-prog-list
 ;; 	            '(skk-search-web 'skk-google-cgi-api-for-japanese-input)
 ;;                  t)
-;;
+
 ;;     (setq skk-read-from-minibuffer-function
 ;;           (lambda ()
 ;;             (car (skk-google-cgi-api-for-japanese-input skk-henkan-key))))

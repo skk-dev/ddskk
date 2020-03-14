@@ -21,18 +21,18 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;;; Commentary
+;;; Commentary:
 
 ;; M-x skk-make-mazegaki-dic して出力された辞書 (下記の例では TMP) を
-;;
+
 ;;   $ skkdic-expr TMP | skkdic-sort > NEWDICT
-;;
+
 ;; と加工すると混ぜ書き SKK 辞書 (NEWDICT) が出来上がります。
-;;
+
 ;; <TODO>
 ;; - search okuri-ari entries, too.
 ;; - fix a know bug below.
-;;
+
 ;; <KNOWN BUG>
 ;; + お遊び /お遊び/                                fixed.
 ;; + きりえ /切り絵/切絵/ → きりり絵 /切り絵/      とりあえず仮名を含む候補は捨てることにしました。

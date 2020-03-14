@@ -25,32 +25,32 @@
 ;;; Commentary:
 
 ;; 1. 使い方
-;;
+
 ;; 1-a. 読みの最後に、読みの一部として @ を入力してから変換すると、
 ;;      一文字のみからなる候補に絞り込んだ上で、
 ;;      候補を総画数順でソートしてから変換します。
-;;
+
 ;; 1-b. 「読み」部分が数値であれば、その数値を総画数とする候補を表示します。
 ;;        ▽12@<SPC> [Q 1 2 @ <SPC>]
 ;;  
 ;; 1-c. 「読み」部分が @ であれば、部首変換を開始します。
 ;;        ▽@@<SPC> [Q @ @ <SPC>]
-;;
+
 ;; 2. 設定方法
-;;
+
 ;; ~/.skk には次の様なことを書いておきます。
-;;
+
 ;; ;; 検索先の指定は
 ;; ;; skk-search-prog-list に指定できる要素 (function . args) に対して
 ;; ;; (skk-tankan-search 'function . args) を指定する
 ;; ;; ほかの skk-search-prog-list を変更する設定より後に設定すべきです。
-;;
+
 ;; ;; 確定変換を用いない場合は、以下のように skk-search-prog-list の先頭に
 ;; ;; 追加しても構いません。
 ;; (add-to-list 'skk-search-prog-list
 ;;              '(skk-tankan-search 'skk-search-jisyo-file
 ;;                                  skk-large-jisyo 10000))
-;;
+
 ;; ;; しかし、確定変換を併用する場合は、 skk-search-kakutei-jisyo-file
 ;; ;; または代わりの確定プログラムが skk-search-prog-list の先頭に
 ;; ;; なければいけません。その場合は代わりに以下の設定をします。
@@ -59,18 +59,18 @@
 ;;	       (cons '(skk-tankan-search 'skk-search-jisyo-file
 ;;				         skk-large-jisyo 10000)
 ;;		     (cdr skk-search-prog-list))))
-;;
+
 ;; ;; 単漢字検索のキーを @ にする(デフォルト)
 ;; (setq skk-tankan-search-key ?@)
-;;
+
 ;; ;; ;; @ を入力できるようにする          ; DDSKK 14.2 からは不要です。
 ;; ;; (setq skk-rom-kana-rule-list         ; メーリングリスト 2010-11-27
 ;; ;;       (append skk-rom-kana-rule-list
 ;; ;;	         '(("@" nil "@"))))
-;;
+
 ;; ;; annotation として画数と部首を表示する
 ;; (setq skk-show-annotation t)
-;;
+
 ;; ;; 単漢字入力は学習対象からはずす
 ;; (add-hook 'skk-search-excluding-word-pattern-function
 ;;	  #'(lambda (kakutei-word)
@@ -78,10 +78,10 @@
 ;;				    (regexp-quote
 ;;				     (char-to-string skk-tankan-search-key)))
 ;;			    skk-henkan-key)))
-;;
+
 ;; ;; 文字 CHAR の ANNOTATION (文字列) を変更したい場合
 ;; ;; (aset skk-tankan-annotation-table CHAR ANNOTATION)
-;;
+
 ;; ;; メモリを節約したい人向け (部首と画数以外のデータを保持しません)
 ;; ;; (setq skk-tankan-annotation-table nil)
 
