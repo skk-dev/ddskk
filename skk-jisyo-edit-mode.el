@@ -195,4 +195,4 @@ You must edit your private dictionary at your own risk.  Do you accept it? "))
 
 (provide 'skk-jisyo-edit)
 
-;;; skk-jisyo-edit.el ends here
+;;; skk-jisyo-edit-mode.el ends here

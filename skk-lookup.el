@@ -22,44 +22,44 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;;; Commentary
+;;; Commentary:
 
 ;; Keisuke Nishida <kxn30@po.cwru.edu> さんの作られた辞書検索ツール
 ;; Lookup と SKK との gateway を行い、Lookup で検索できる辞書を使っ
 ;; て候補を出力するプログラムです。
-;;
+
 ;; <HOW TO INSTALL>
 ;; make を実行する際に、lookup.el にパスが通っていて require できる
 ;; ときは、本プログラムも自動的にインストールされます。lookup.el が
 ;; インストールされているのに Emacs が検出してくれないときは、
 ;; SKK-CFG を編集して ADDITIONAL_LISPDIR にそのパスを書くと良
 ;; いでしょう。
-;;
+
 ;; <HOW TO USE>
 ;; 当然ですが、Lookup がインストールされていて、かつ、対応する辞書が
 ;; マウントされていないと使えません。
-;;
+
 ;; 次のように skk-search-prog-list に加えて指定し使用します。
 ;; SKK が用意している検索プログラムの中で最も重いので、
 ;; skk-seach-server の検索の後に持ってくるのがセオリーです。
-;;
+
 ;;  (setq skk-search-prog-list
 ;;        '((skk-search-jisyo-file skk-jisyo 0 t)
 ;;          (skk-search-server skk-aux-large-jisyo 10000)
 ;;          (skk-lookup-search)))
-;;
+
 ;; ディフォルトの設定では、lookup の変数である `lookup-search-agents'
 ;; をコピーして ndkks, ndcookie, ndnmz を取り去り、
 ;; `skk-lookup-search-agents' にセットしてこれを検索するようにしてい
 ;; ます。もちろん lookup の検索とは異なる設定を
 ;; `skk-lookup-search-agents' に明示することも可能です。
-;;
+
 ;; `lookup-entry-heading' が返す heading (辞書見出し。辞書毎にフォーマ
 ;; ットが異なる) から正規表現を使い、候補として出力する文字列を切り出し
 ;; ています。現在対応している辞書は下記の通り (`lookup-dictionary-name'
 ;; が返す値で標記しています) ですが、下記に記載のない辞書でも正規表現を
 ;; 指定することで使用可能です。
-;;
+
 ;;    "CHIEZO" ;知恵蔵
 ;;    "CHUJITEN" ;辞・典・盤
 ;;    "COLLOC" ;
@@ -82,23 +82,23 @@
 ;;    "WAEI";
 ;;    "ispell";
 ;;    "jedict";
-;;
+
 ;; ご自分で使用している辞書の出力が上手く取り込めないときは、
 ;; `skk-lookup-pickup-headings' を使用して例えば、
-;;
+
 ;;   (skk-lookup-pickup-headings "こしょう" 'exact)
-;;
+
 ;; などと評価して ("こしょう" の文字列部分は問題となっている検索対象と
 ;; 入れ替えましょう) `lookup-dictionary-name' と
 ;; `lookup-entry-heading' が返す値を参考に、`skk-lookup-option-alist'
 ;; に必要なリストを加えましょう。新たなリストを加えられたら是非
 ;; skk@ring.gr.jp 宛てに知せて下さい。default value に取り込みたいと思
 ;; います。よろしくお願いいたします。
-;;
+
 ;; kakasi ("KAKASI" を利用する代りに skk-kakasi.el を使いましょう),
 ;; "ndcookie", "ndnmz" には対応していませんし、対応の必要はないと考え
 ;; ています (メリットがあれば教えて下さい)。
-;;
+
 ;; 末尾ながら、Lookup を作られた Lookup Development Team の皆様、
 ;; Lookup の 原作者であり、本プログラムの開発にもいくつか貴重なご意見を
 ;; いただきました Keisuke Nishida <kxn30@po.cwru.edu> さん、開発の初期
@@ -454,8 +454,7 @@ METHOD は変数`lookup-search-methods'を参照のこと."
 	(setq alist (cons (cons prefix (list kana)) alist))))
     alist))
 
-;;
-;; 
+
 (defun skk-lookup-get-content-setup-dic ()
   (interactive)
   (let ((module (skk-lookup-default-module)))

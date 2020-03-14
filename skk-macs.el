@@ -1,4 +1,4 @@
-;;; skk-macs.el --- macros and inline functions commonly used in SKK -*- coding: iso-2022-jp -*-
+;;; skk-macs.el --- Macros and inline functions commonly used in SKK -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 1999-2010 SKK Development Team <skk@ring.gr.jp>
 ;; Copyright (C) 1993-2000 Free Software Foundation, Inc.
@@ -22,6 +22,8 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
+
+;; Macros and inline functions commonly used in SKK
 
 ;;; Code:
 

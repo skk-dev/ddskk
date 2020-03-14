@@ -31,11 +31,11 @@
 
 (define-key skk-j-mode-map "\C-l" 'skk-latin-mode)
 (setq skk-try-completion-char ?\016)	; \C-n
-;;(setq skk-latin-mode-string " sTUT")
-;;(setq skk-hiragana-mode-string " ｓたっと")
-;;(setq skk-katakana-mode-string " ｓタット")
-;;(setq skk-jisx0208-latin-mode-string " ｓＴＵＴ")
-;;(setq skk-abbrev-mode-string " sた")
+;; (setq skk-latin-mode-string " sTUT")
+;; (setq skk-hiragana-mode-string " ｓたっと")
+;; (setq skk-katakana-mode-string " ｓタット")
+;; (setq skk-jisx0208-latin-mode-string " ｓＴＵＴ")
+;; (setq skk-abbrev-mode-string " sた")
 (setq skk-start-henkan-char ?\^@)
 
 (setq skk-rom-kana-base-rule-list

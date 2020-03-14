@@ -27,56 +27,55 @@
 ;; ~/.skk か ~/.emacs.d/init.el で `skk-use-look' を t にセットしてこれを
 ;; 評価して下さい。その後 skk-mode を立ち上げるか、M-x skk-restart すると、
 ;; 下記のような芸当が可能になります。
-;;
+
 ;; (1)英単語を補完ができます。
-;;
+
 ;;    ▽abstr(TAB) ---> ▽abstract
-;;
+
 ;;    通常の補完機能同様、`.' で次の補完候補、`,' でひとつ前の補完候補に
 ;;    移動できます。
-;;
-;;    SKK 形式の英和辞書があれば、ここから SPC を押して英和変換ができます
-;;    ね。
-;;
+
+;;    SKK 形式の英和辞書があれば、ここから SPC を押して英和変換ができますね。
+
 ;; (2)英単語をあいまいに変換して取り出すことができます。
-;;
+
 ;;    ▽abstr* (SPC) ---> ▼abstract
-;;
+
 ;;    見出し語にアスタリスク (`*') を入れるのをお忘れなく。
-;;
+
 ;;    確定すると、`abstr*' を見出し語、`abstract' を候補とするエントリが個人辞
 ;;    書に追加されます。このようなエントリを追加したくない場合は、
 ;;    ユーザー変数、`skk-search-excluding-word-pattern-function' を適切に
 ;;    設定することで、これを実現することができます。詳しくは、
 ;;    `skk-search-excluding-word-pattern-function' のドキュメントをご覧下さい。
-;;
+
 ;; (3)(2)で変換した後、更に再帰的な英和変換を行うことができます。
-;;
+
 ;;    まず、`skk-look-recursive-search' の値を non-nil にセットして下さ
 ;;    い。Emacs/SKK を再起動する必要はありません。
-;;
+
 ;;    すると、例えば、
-;;
+
 ;;    ▽abstr* (SPC)
-;;
+
 ;;      ---> ▼abstract (SPC) -> ▼アブストラクト (SPC) -> ▼抽象 (SPC)
 ;;        -> ▼abstraction (SPC) -> ▼アブストラクション
-;;
+
 ;;    このように英単語 + その英単語を見出し語にした候補の「セット」を変換
 ;;    結果として出力することができます。
-;;
+
 ;;    この際、`skk-look-expanded-word-only' の値が non-nil であれば、再帰
 ;;    検索に成功した英単語の「セット」だけを出力することができます (再帰
 ;;    検索で検出されなかった英単語は無視して出力しません) 。
-;;
+
 ;;    もちろん、SKK 辞書に
-;;
+
 ;;       abstract /アブストラクト/抽象/
 ;;       abstraction /アブストラクション/
-;;
+
 ;;    というエントリがあることを前提としています。edict を SKK 辞書形式に
 ;;    変換すると良いですね。
-;;
+
 ;; 動作を確認した look は、Slackware 3.5 に入っていた、man page に
 ;; `BSD Experimental June 14, 1993' と記載のあるもの (バージョン情報がない)
 ;; です。オプションの指定などが異なる look があれば、ご一報下さい。
@@ -85,23 +84,23 @@
 ;; <Dictionary>
 ;; ftp://ftp.u-aizu.ac.jp:/pub/SciEng/nihongo/ftp.cc.monash.edu.au/
 ;; に置いてある edict を利用すると手軽に英和辞書ができます。
-;;
+
 ;;   % jgawk -f skk-10/lisp/look/edict2skk.awk edict > temp
 ;;   % skkdic-expr temp | skkdic-sort > SKK-JISYO.E2J
 ;;   % rm temp
-;;
+
 ;; できた SKK-JISYO.E2J の利用方法は色々ありますが、
-;;
+
 ;;   % skkdic-expr SKK-JISYO.E2J + /usr/local/share/skk/SKK-JISYO.L\
 ;;     | skkdic-sort > SKK-JISYO.L
-;;
+
 ;; などとして、SKK-JISYO.L とマージして使うのが手軽です。
 
 ;; <Motivation>
 ;; このプログラムは、eWnn for Linux/FreeBSD の広告に類似の機能紹介があったのを
 ;; 見て、「こんな機能なら SKK 上にすぐインプリメントできるさ」と思うとたまらく
 ;; なって書いてしまいました。eWnn に負けるな、SKK!
-;;
+
 ;; 昔、Seiichi Namba <sn@asahi-net.email.ne.jp> さんと一緒に Emacs Lisp で
 ;; look interface を書いたことがあるのですが、今回はその際の経験を生かすことが
 ;; できました。難波さんに感謝いたします。

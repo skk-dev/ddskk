@@ -22,7 +22,7 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;;; Commentary
+;;; Commentary:
 
 ;; <how to install>
 ;;   下記のフォームを ~/.emacs.d/init.el か ~/.skk に書いて下さい。
@@ -53,10 +53,10 @@
   (require 'skk)
   (require 'skk-comp))
 
-;;; ;;;###autoload
-;;(defgroup skk-abbrev nil "SKK abbrev related customization."
-;;  :prefix "skk-abbrev-"
-;;  :group 'skk)
+;; ;;;###autoload
+;; (defgroup skk-abbrev nil "SKK abbrev related customization."
+;;   :prefix "skk-abbrev-"
+;;   :group 'skk)
 
 ;;;###autoload
 (defun skk-abbrev-search ()

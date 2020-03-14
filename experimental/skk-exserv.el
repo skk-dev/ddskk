@@ -1,9 +1,10 @@
 ;;; skk-exserv.el --- SKK サーバーのためのプログラム -*- coding: iso-2022-jp -*-
+
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996,
 ;;               1997, 1998, 1999, 2000
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
-;;
+
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Keywords: japanese
@@ -27,7 +28,7 @@
 
 ;; This file needs eieio package (which provides CLOS like OO
 ;; programming) that can be found at;
-;;
+
 ;;    ftp://ftp.ultranet.com/pub/zappo
 
 ;;; Code:
@@ -214,14 +215,16 @@ candidates that are delimited by slash.")
     (if (not non-del)
 	(remove-alist 'skk-search-prog-list 'skk-exserv-search))))
 
-;;(add-hook 'skk-mode-hook 'skk-adjust-search-prog-list-for-server-search)
+;; (add-hook 'skk-mode-hook 'skk-adjust-search-prog-list-for-server-search)
 (add-hook 'kill-emacs-hook
 	  (function (lambda () (disconnect-server (car skk-exserv-list)))))
 
 (run-hooks 'skk-exserv-load-hook)
 
 (provide 'skk-exserv)
+
 ;;; Local Variables:
 ;;; eval: (require 'eieio)
 ;;; End:
+
 ;;; skk-exserv.el ends here

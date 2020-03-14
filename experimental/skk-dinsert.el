@@ -25,11 +25,11 @@
 
 ;; カーソルの前後の文字列や、任意の elisp の評価値によってバッファに挿
 ;; 入する文字を動的に決定するプログラムです。
-;;
+
 ;; skk-dinsert-rule-list に、キー入力とそれに対応する条件のリストを書
 ;; いてください。数字の直後でのみ [-,.]を[ー、。]でなくそのまま入力し
 ;; たい場合には次のように .skk に書いてください。
-;;
+
 ;;   (setq skk-dinsert-rule-list
 ;;         '(("." nil
 ;;            (("[0-9]" . ".")
@@ -40,10 +40,10 @@
 ;;           ("-" nil
 ;;            (("[0-9]" . "-")
 ;;             (t . "ー")))))
-;;
+
 ;; また、SKK 本体に統合されるまでは、skk-dinsert-rule-list の設定より
 ;; も下の方に以下のコードを追加して下さい。
-;;
+
 ;;   (when (locate-library "skk-dinsert")
 ;;     (require 'skk-dinsert)
 ;;     (setq skk-rom-kana-rule-list
@@ -56,10 +56,9 @@
 ;;                                       `(lambda (arg)
 ;;                                          (skk-dinsert arg ,count))))
 ;;                             skk-dinsert-rule-list)))))
-;;
+
 ;; さらに、このファイルを load-path の通ったディレクトリに置いて下さい。
-;;
-;;
+
 ;; 動的な入力を無効にしたい時は、M-x skk-toggle-dinsert して下さい。
 ;; 又、一時的に無効にしたい時は、Q の入力により▽モードに入って下さい。
 ;; 続く一文字目については無効になります。
@@ -269,3 +268,5 @@ VAL には、以下の 3つの形式を指定できる。
 
 
 (provide 'skk-dinsert)
+
+;;; skk-dinsert.el ends here

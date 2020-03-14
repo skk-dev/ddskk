@@ -1,4 +1,5 @@
 ;;; skk-exsearch.el --- 外部検索プログラム共用 interface -*- coding: iso-2022-jp -*-
+
 ;; Copyright (C) 2000 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
@@ -24,9 +25,9 @@
 
 ;; This file needs eieio package (which provides CLOS like OO
 ;; programming) that can be found at;
-;;
+
 ;;    ftp://ftp.ultranet.com/pub/zappo
-;;
+
 ;; This program may be (or may not be) a core engine of external
 ;; searching program of Daredevil (or some other new branch) SKK.
 

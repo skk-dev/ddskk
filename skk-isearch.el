@@ -25,18 +25,18 @@
 ;;; Commentary:
 
 ;; Hook functions are defined in skk-setup.el.
-;;
+
 ;; 1. always invoke skk isearch.
-;;
+
 ;; (setq skk-isearch-mode-enable 'always)
-;;
+
 ;; 2. invoke only if skk-mode is on.
-;;
+
 ;; (setq skk-isearch-mode-enable t)
-;;
+
 ;; 3. invoke if current buffer has japanese characters.
 ;; ...
-;;
+
 ;; skk-isearch-initial-mode examine the variable of skk before calling
 ;; skk-mode.
 

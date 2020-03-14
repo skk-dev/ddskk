@@ -1,4 +1,4 @@
-;;  skk-cdb.el --- Directly search words in CDB dictionary
+;;;  skk-cdb.el --- Directly search words in CDB dictionary
 
 ;;  Copyright (C) 2010  Yusuke Shinyama <yusuke at cs . nyu . edu>
 
@@ -24,9 +24,9 @@
 ;;; Commentary:
 
 ;;  Usage: Set skk-cdb-large-jisyo in your ~/.skk like the following.
-;;
+
 ;;    (setq skk-cdb-large-jisyo "/usr/share/skk/SKK-JISYO.L.cdb")
-;;
+
 
 ;;; Code:
 
@@ -35,12 +35,8 @@
 
 (defconst skk-cdb-version "20100719+")
 
-;;  skk-cdb-working-buffer
-;;
 (defvar skk-cdb-working-buffer " *skk-cdb*")
 
-;;  skk-search-cdb-jisyo
-;;
 ;;;###autoload
 (defun skk-search-cdb-jisyo (cdb-path)
   (unless cdb-path

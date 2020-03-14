@@ -1,4 +1,4 @@
-;; skk-viper.el --- SKK related code for Viper -*- coding: iso-2022-jp -*-
+;;; skk-viper.el --- SKK related code for Viper -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001
 ;;   Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>

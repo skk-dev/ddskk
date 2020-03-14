@@ -20,29 +20,29 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;;; Commentary
+;;; Commentary:
 
 ;; 辞書中にない読みのブレた見出し語で変換した際に、内部で skk-correct-table
 ;; を参照して正しい見出し語に置き換え候補を検索するプログラムです。
 ;; skk-correct-search の引数に、ブレ補正後に検索したい辞書を、
 ;; skk-search-prog-list と同じ要領でリストで表し、検索プログラムとともに記載
 ;; して下さい。例えばこんな感じです。
-;;
+
 ;;   (skk-correct-search
 ;;    '((skk-search-jisyo-file skk-jisyo 0 t)
 ;;      (skk-search-server skk-aux-large-jisyo 10000)
 ;;      (skk-okuri-search)))
-;;
+
 ;;     * 上記の例では、補正した見出し語に対し、個人辞書、サーバー、自動送り
 ;;       処理して個人辞書という検索を行ないますが、どこかで補正後の見出し語
 ;;       に対する候補が見つかればそれ以上は検索を行ないません。
-;;
+
 ;; これを更に skk-search-prog-list の中の適当な個所に入れましょう。下記のよ
 ;; うに個人辞書検索直後に、一度見出し語を補正して個人辞書を検索し直し、サー
 ;; バー検索後に見つからなかったら再度補正してサーバーを検索する、というのも
 ;; 一案です。あるいは、個人の癖をもろに反映している個人辞書のブレ補正は止め
 ;; て、サーバーのみ補正後検索をする、というのも良いでしょう。
-;;
+
 ;;   (setq skk-search-prog-list
 ;;         '((skk-search-jisyo-file skk-jisyo 0 t)
 ;;	     (skk-correct-search '((skk-search-jisyo-file skk-jisyo 0 t)))
@@ -52,7 +52,7 @@
 ;;	      '((skk-search-server skk-aux-large-jisyo 10000)
 ;;	        (skk-okuri-search)))
 ;;	     ))
-;;
+
 ;; 現在のところ、skk-correct-table の各要素を最初から順に取り出し、ブレた見
 ;; 出し語がないかどうかを調べて、ブレが見つかったらそれ以上 skk-correct-table
 ;; の後半部分は見ない仕様になっています。
@@ -61,12 +61,12 @@
 ;; 単純に sort して、2 文字のもの, 1 文字のものという順で skk-correct-table
 ;; に収めていますが、上記のように何か一つブレが見つかったらそれ以上はテーブル
 ;; を見ていないので、このテーブルのブレの優先順位は検討した方が良いでしょう。
-;;
+
 ;; 今後の改良のアイディアの一つとしては、変換条件に応じて見るブレと見ないブレ
 ;; を作るのも良いかもしれません。例えば、このブレは送りあり変換のときだけしか
 ;; 検索しない、などというものです。この辺りは実際に使ってみてご意見をお聞かせ
 ;; 下さい。
-;;
+
 ;; なお、変換時に当初手で入力したブレた見出し語は、そのまま個人辞書に取り込ま
 ;; れますが、これは仕様です。何故なら、確定時には、確定された候補が、見出し語
 ;; のブレを補正して見つけた候補かどうかを確認する術が現在のところ提供されてい
@@ -148,6 +148,5 @@
       v)))
 
 (provide 'skk-correct)
-;;; Local Variables:
-;;; End:
+
 ;;; skk-correct.el ends here

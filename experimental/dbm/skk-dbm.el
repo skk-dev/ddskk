@@ -28,7 +28,7 @@
 ;; 単に「データベース」と言います) をオープンして検索します。
 ;; --with-database オプションの指定された XEmacs で *のみ* 使用することができま
 ;; す。動作確認は、XEmacs 21.2b8 で行ないました。
-;;
+
 ;; データベースライブラリとして gdbm を使う場合で、データベースを gdbm 形式とし
 ;; たいときは、XEmacs 21.2b8 が gdbm ファイルに直接アクセスできない (libgdbm を
 ;; リンクしていながら libndbm 互換関数しか使用しないので .dir, .pag を拡張子とす
@@ -38,21 +38,21 @@
 ;; パイルする必要があります。このパッチを当てた XEmacs では、gdbm ファイルの
 ;; synchronize や reorganize が可能となる他、cashsize や fastmode のオプションも
 ;; 指定可能となります。
-;;
+
 ;; ** berkeley-db もしくは ndbm ファイルだけであればパッチを当てる必要はありません。***
-;;
+
 ;; skk-search-prog-list を例えば、下記のように設定することで、autoload されます。
-;;
+
 ;;    (setq skk-search-prog-list
 ;;         '((skk-search-jisyo-file skk-jisyo 0 t)
 ;;   	     (skk-dbm-search-jisyo-database skk-dbm-large-jisyo 'nomsg)))
-;;
+
 ;; 下記のように設定すると、個人辞書もデータベース化して検索を行なうことができます。
-;;
+
 ;;    (setq skk-search-prog-list
 ;;         '((skk-dbm-search-jisyo-database skk-dbm-jisyo)
 ;;   	     (skk-dbm-search-jisyo-database skk-dbm-large-jisyo 'nomsg)))
-;;
+
 ;; pskkserv 添付の makedbmdic で作った辞書では何故か検索できません (XEmacs のデー
 ;; タベース機能がコーディングシステムを無視しているから？)。このファイルの
 ;; skk-dbm-make-jisyo 関数を使ってデータベースを作って下さい。
@@ -387,7 +387,7 @@ berkeley-db を使用する場合のみ指定すること。"
       ;; this should do in Emacs internal.
       (setq skk-dbm-alist (delq (assoc file skk-dbm-alist) skk-dbm-alist)))))
 	
-;;(add-hook 'kill-emacs-hook 'skk-dbm-close-all-database)
+;; (add-hook 'kill-emacs-hook 'skk-dbm-close-all-database)
 
 (run-hooks 'skk-dbm-load-hook)
 

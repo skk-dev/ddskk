@@ -22,6 +22,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
+
 ;;    skk-dcomp-multiple-get-candidates()
 ;;      => skk-comp-get-candidate(first)
 ;;        => when first setq skk-comp-first t
@@ -33,6 +34,7 @@
 ;;                                       (skk-look-completion))
 
 ;;; How to use:
+
 ;;    (require 'skk-pre-henkan)
 
 ;;; Code:
