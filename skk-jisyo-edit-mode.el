@@ -44,15 +44,15 @@
   (setq skk-jisyo-edit-map (make-sparse-keymap 'skk-jisyo-edit-map)))
 
 (defvar skk-jisyo-edit-font-lock-keywords
- '(("\\(\\[[^]]*/\\]\\)" 1 font-lock-constant-face)
-   ("^\\([^; ]+ \\)/" 1 font-lock-function-name-face)
-   ("/[^;\n]+\\(;[^/\n]*\\)" 1 font-lock-type-face t)
-   ("^\\(;.+\\)$" 1 font-lock-comment-face t)
-   ("^\\(;; okuri-ari entries\\.\\)$" 1 font-lock-keyword-face t)
-   ("^\\(;; okuri-nasi entries\\.\\)$" 1 font-lock-keyword-face t)
-   ("/\\([^/\n]+\\)$" 1 highlight)
-   ("\\(/\\)" 1 font-lock-warning-face))
- "Additional expressions to highlight in SKK JISYO edit mode.")
+  '(("\\(\\[[^]]*/\\]\\)" 1 font-lock-constant-face)
+    ("^\\([^; ]+ \\)/" 1 font-lock-function-name-face)
+    ("/[^;\n]+\\(;[^/\n]*\\)" 1 font-lock-type-face t)
+    ("^\\(;.+\\)$" 1 font-lock-comment-face t)
+    ("^\\(;; okuri-ari entries\\.\\)$" 1 font-lock-keyword-face t)
+    ("^\\(;; okuri-nasi entries\\.\\)$" 1 font-lock-keyword-face t)
+    ("/\\([^/\n]+\\)$" 1 highlight)
+    ("\\(/\\)" 1 font-lock-warning-face))
+  "Additional expressions to highlight in SKK JISYO edit mode.")
 
 (put 'skk-jisyo-edit-mode
      'font-lock-defaults
@@ -82,10 +82,10 @@
 (add-to-list 'auto-mode-alist '("SKK-JISYO" . skk-jisyo-edit-mode) t)
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.skk-jisyo\\(\\.BAK\\|\\.bak\\|~\\)?$"
-				. skk-jisyo-edit-mode))
+                                . skk-jisyo-edit-mode))
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\..*skk/jisyo\\(\\.BAK\\|\\.bak\\|~\\)?$"
-				. skk-jisyo-edit-mode))
+                                . skk-jisyo-edit-mode))
 
 ;;;###autoload
 (defun skk-edit-private-jisyo (&optional coding-system)
@@ -109,26 +109,26 @@ SKK 使用中の場合は SKK による個人辞書バッファの更新が禁止される。
     (unless skk-jisyo-edit-user-accepts-editing
       (setq answer (skk-yes-or-no-p "\
 個人辞書の編集は辞書を壊す可能性があります。自己責任での実行に同意しますか？ "
-				    "\
+                                    "\
 You must edit your private dictionary at your own risk.  Do you accept it? "))
       (when answer
-	(skk-cus-set '((skk-jisyo-edit-user-accepts-editing . t))))))
+        (skk-cus-set '((skk-jisyo-edit-user-accepts-editing . t))))))
   (when skk-jisyo-edit-user-accepts-editing
     (when coding-system
       (setq coding-system (read-coding-system
-			   "個人辞書のコーディングシステムを指定: "
-			   (skk-find-coding-system (skk-jisyo t)))))
+                           "個人辞書のコーディングシステムを指定: "
+                           (skk-find-coding-system (skk-jisyo t)))))
     (unless coding-system
       (setq coding-system (skk-find-coding-system (skk-jisyo t))))
     ;;
     (when (skk-y-or-n-p "個人辞書を保存しますか？ "
-			"Save private jisyo? ")
+                        "Save private jisyo? ")
       (skk-save-jisyo))
     (skk-edit-private-jisyo-1 coding-system)))
 
 (defun skk-edit-private-jisyo-1 (coding-system)
   (setq skk-jisyo-edit-original-window-configuration
-	(current-window-configuration))
+        (current-window-configuration))
   ;; SKK 辞書の文字コードは誤判定がありうるため、注意する
   (let ((coding-system-for-read coding-system))
     (find-file (skk-jisyo)))
@@ -142,57 +142,61 @@ You must edit your private dictionary at your own risk.  Do you accept it? "))
   ;;     (setq skk-update-jisyo-function #'skk-update-jisyo-original))
   ;;   t)
   (add-hook 'kill-buffer-hook
-	    `(lambda ()
-	       (setq skk-update-jisyo-function
-		     #',skk-update-jisyo-function)
-	       (ad-disable-advice 'skk-henkan-in-minibuff 'before 'notify-no-effect)
-	       (ad-disable-advice 'skk-purge-from-jisyo 'around 'notify-no-effect)
-	       (ad-activate 'skk-henkan-in-minibuff)
-	       (ad-activate 'skk-purge-from-jisyo))
-	    nil t)
+            `(lambda ()
+               (setq skk-update-jisyo-function
+                     #',skk-update-jisyo-function)
+               (ad-disable-advice 'skk-henkan-in-minibuff 'before 'notify-no-effect)
+               (ad-disable-advice 'skk-purge-from-jisyo 'around 'notify-no-effect)
+               (ad-activate 'skk-henkan-in-minibuff)
+               (ad-activate 'skk-purge-from-jisyo))
+            nil t)
   (setq skk-update-jisyo-function #'ignore)
   (ad-enable-advice 'skk-henkan-in-minibuff 'before 'notify-no-effect)
   (ad-enable-advice 'skk-purge-from-jisyo 'around 'notify-no-effect)
   (ad-activate 'skk-henkan-in-minibuff)
   (ad-activate 'skk-purge-from-jisyo)
   (local-set-key "\C-c\C-c"
-		 (lambda ()
-		   (interactive)
-		   (when (skk-y-or-n-p "編集を終了しますか？ "
-				       "Finish editing jisyo? ")
-		     (save-buffer)
-		     (kill-buffer (current-buffer))
-		     (skk-reread-private-jisyo t)
-		     (set-window-configuration
-		      skk-jisyo-edit-original-window-configuration))
-		   (message nil)))
+                 (lambda ()
+                   (interactive)
+                   (when (skk-y-or-n-p "編集を終了しますか？ "
+                                       "Finish editing jisyo? ")
+                     (save-buffer)
+                     (kill-buffer (current-buffer))
+                     (skk-reread-private-jisyo t)
+                     (set-window-configuration
+                      skk-jisyo-edit-original-window-configuration))
+                   (message nil)))
   (local-set-key "\C-c\C-k"
-		 (lambda ()
-		   (interactive)
-		   (when (skk-y-or-n-p "編集を中止しますか？ "
-				       "Abort editing jisyo? ")
-		     (set-buffer-modified-p nil)
-		     (kill-buffer (current-buffer))
-		     (set-window-configuration
-		      skk-jisyo-edit-original-window-configuration))
-		   (message nil)))
+                 (lambda ()
+                   (interactive)
+                   (when (skk-y-or-n-p "編集を中止しますか？ "
+                                       "Abort editing jisyo? ")
+                     (set-buffer-modified-p nil)
+                     (kill-buffer (current-buffer))
+                     (set-window-configuration
+                      skk-jisyo-edit-original-window-configuration))
+                   (message nil)))
   (skk-message "保存終了: C-c C-c, 編集中止: C-c C-k"
-	       "Save & Exit: C-c C-c, Abort: C-c C-k"))
+               "Save & Exit: C-c C-c, Abort: C-c C-k"))
 
 (defadvice skk-henkan-in-minibuff (before notify-no-effect disable)
   (ding)
   (skk-message "個人辞書の編集中です。登録は反映されません。"
-	       "You are editing private jisyo.  This registration has no effect.")
+               "You are editing private jisyo.  This registration has no effect.")
   (sit-for 1.5))
 
 (defadvice skk-purge-from-jisyo (around notify-no-effect disable)
   (if (eq skk-henkan-mode 'active)
       (progn
-	(ding)
-	(skk-message "個人辞書の編集中です。削除できません。"
-		     "You are editing private jisyo.  Can't purge."))
+        (ding)
+        (skk-message "個人辞書の編集中です。削除できません。"
+                     "You are editing private jisyo.  Can't purge."))
     ad-do-it))
 
 (provide 'skk-jisyo-edit)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; skk-jisyo-edit-mode.el ends here

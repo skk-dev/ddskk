@@ -61,40 +61,44 @@
 ;;;###autoload
 (defun skk-abbrev-search ()
   (let ((var (when skk-abbrev-mode
-	       (abbrev-expansion skk-henkan-key))))
+               (abbrev-expansion skk-henkan-key))))
     (when var
       (list var))))
 
 (defadvice skk-completion-original (around skk-abbrev-ad activate)
   (let ((first (ad-get-arg 0))
-	c-word)
+        c-word)
     (condition-case nil
-	;; not to search by look in ad-do-it.
-	(let (skk-use-look)
-	  ad-do-it)
+        ;; not to search by look in ad-do-it.
+        (let (skk-use-look)
+          ad-do-it)
       ;; no word to be completed.
       (error
        (when skk-abbrev-mode
-	 (setq c-word (and (abbrev-expansion skk-completion-word)))
-	 (when (and skk-use-look
-		    (or (not c-word)
-			(member c-word skk-completion-stack)))
-	   ;; more searching by look when abbreviating is not enough.
-	   (while (or (not c-word)
-		      (member c-word skk-completion-stack))
-	     (setq c-word (skk-look-completion)))))
+         (setq c-word (and (abbrev-expansion skk-completion-word)))
+         (when (and skk-use-look
+                    (or (not c-word)
+                        (member c-word skk-completion-stack)))
+           ;; more searching by look when abbreviating is not enough.
+           (while (or (not c-word)
+                      (member c-word skk-completion-stack))
+             (setq c-word (skk-look-completion)))))
        (unless c-word
-	 (if skk-japanese-message-and-error
-	     (error "\"%s\" で補完すべき見出し語は%sありません"
-		    skk-completion-word
-		    (if first "" "他に"))
-	   (error "No %scompletions for \"%s\""
-		  (if first "" "more ")
-		  skk-completion-word)))
+         (if skk-japanese-message-and-error
+             (error "\"%s\" で補完すべき見出し語は%sありません"
+                    skk-completion-word
+                    (if first "" "他に"))
+           (error "No %scompletions for \"%s\""
+                  (if first "" "more ")
+                  skk-completion-word)))
        (setq skk-completion-stack (cons c-word skk-completion-stack))
        (delete-region skk-henkan-start-point (point))
        (insert c-word)))))
 
 (provide 'skk-abbrev)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; skk-abbrev.el ends here

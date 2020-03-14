@@ -77,55 +77,59 @@
 ;;;###autoload
 (defun skk-inline-show-vertically-decor-func (string)
   (let* ((sp (reverse (split-string string "\n")))
-	 (rest (car sp))
-	 (cands (reverse (cdr sp))))
+         (rest (car sp))
+         (cands (reverse (cdr sp))))
     (concat (mapconcat
-    	     (lambda (x)
-    	       (let* ((d (skk-treat-strip-note-from-word (substring x 2)))
-    		      (c (car d))
-    		      (n (cdr d)))
-    		 (concat (substring x 0 2)
-    			 (propertize c 'face 'skk-inline-show-vertically-cand-face)
-    			 (when n
-    			   (concat " " (propertize n 'face 'skk-inline-show-vertically-anno-face))))))
-    	     cands "\n")
-    	    "\n" rest)))
+             (lambda (x)
+               (let* ((d (skk-treat-strip-note-from-word (substring x 2)))
+                      (c (car d))
+                      (n (cdr d)))
+                 (concat (substring x 0 2)
+                         (propertize c 'face 'skk-inline-show-vertically-cand-face)
+                         (when n
+                           (concat " " (propertize n 'face 'skk-inline-show-vertically-anno-face))))))
+             cands "\n")
+            "\n" rest)))
 
 ;; tooltip に限ってフェイスを作用させる
 ;;;###autoload
 (defun skk-tooltip-show-at-point-decor-func (text)
   (let* ((sp (reverse (split-string text "\n")))
-	 (rest (car sp))
-	 (cands (reverse (cdr sp))))
+         (rest (car sp))
+         (cands (reverse (cdr sp))))
     (concat (mapconcat
-	     (lambda (x)
-	       (let* ((d (skk-treat-strip-note-from-word (substring x 2)))
-		      (c (car d))
-		      (n (cdr d)))
-		 (concat (substring x 0 2)
-			 (propertize c 'face 'skk-tooltip-show-at-point-cand-face)
-			 (when n
-			   (concat " " (propertize n 'face 'skk-tooltip-show-at-point-anno-face))))))
-	     cands "\n")
-	    "\n" rest)))
+             (lambda (x)
+               (let* ((d (skk-treat-strip-note-from-word (substring x 2)))
+                      (c (car d))
+                      (n (cdr d)))
+                 (concat (substring x 0 2)
+                         (propertize c 'face 'skk-tooltip-show-at-point-cand-face)
+                         (when n
+                           (concat " " (propertize n 'face 'skk-tooltip-show-at-point-anno-face))))))
+             cands "\n")
+            "\n" rest)))
 
 ;; 候補バッファに限ってフェイスを作用させる
 ;;;###autoload
 (defun skk-henkan-show-candidates-buffer-decor-func (str)
   (let* ((cand (reverse (split-string str "  " t)))
-	 (nokori (car cand))
-	 (cand (reverse (cdr cand))))
+         (nokori (car cand))
+         (cand (reverse (cdr cand))))
     (concat (mapconcat (lambda (x)
-	                 (let* ((d (skk-treat-strip-note-from-word (substring x 2)))
-		                (c (car d))
-		                (n (cdr d)))
-		           (concat (substring x 0 2) ; `A:'
-			           (propertize c 'face 'skk-henkan-show-candidates-buffer-cand-face)
-			           (when n
-			             (concat " " (propertize n 'face 'skk-henkan-show-candidates-buffer-anno-face))))))
-		   cand "  ")
-		  "  " nokori)))
+                         (let* ((d (skk-treat-strip-note-from-word (substring x 2)))
+                                (c (car d))
+                                (n (cdr d)))
+                           (concat (substring x 0 2) ; `A:'
+                                   (propertize c 'face 'skk-henkan-show-candidates-buffer-cand-face)
+                                   (when n
+                                     (concat " " (propertize n 'face 'skk-henkan-show-candidates-buffer-anno-face))))))
+                       cand "  ")
+            "  " nokori)))
 
 (provide 'skk-decor)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; skk-decor.el ends here

@@ -1,4 +1,5 @@
 ;;; skk-correct.el --- correct key word for conversion. -*- coding: iso-2022-jp -*-
+
 ;; Copyright (C) 1999 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
@@ -45,13 +46,12 @@
 
 ;;   (setq skk-search-prog-list
 ;;         '((skk-search-jisyo-file skk-jisyo 0 t)
-;;	     (skk-correct-search '((skk-search-jisyo-file skk-jisyo 0 t)))
-;;	     (skk-search-server skk-aux-large-jisyo 10000)
+;;       (skk-correct-search '((skk-search-jisyo-file skk-jisyo 0 t)))
+;;       (skk-search-server skk-aux-large-jisyo 10000)
 ;;           (skk-okuri-search)
-;;	     (skk-correct-search
-;;	      '((skk-search-server skk-aux-large-jisyo 10000)
-;;	        (skk-okuri-search)))
-;;	     ))
+;;       (skk-correct-search
+;;        '((skk-search-server skk-aux-large-jisyo 10000)
+;;          (skk-okuri-search)))))
 
 ;; 現在のところ、skk-correct-table の各要素を最初から順に取り出し、ブレた見
 ;; 出し語がないかどうかを調べて、ブレが見つかったらそれ以上 skk-correct-table
@@ -85,37 +85,37 @@
 (defvar skk-correct-table
   '(
     ;; 2 chars
-    ("おー" . "おう")			; 大きい
+    ("おー" . "おう")           ; 大きい
     ("おー" . "おお")
     ("おう" . "おお")
-    ("とう" . "とお")			; 通る
+    ("とう" . "とお")           ; 通る
     ("どう" . "どお")
-    ("やう" . "よう")			; やうやk /漸/ -> ようやk /漸/
-    ("らう" . "ろう")			; らうs /労/ -> ろうs /労/
+    ("やう" . "よう")           ; やうやk /漸/ -> ようやk /漸/
+    ("らう" . "ろう")           ; らうs /労/ -> ろうs /労/
     ;; 1 char
-    ("い" . "ゆ")			; いきどm /行き止/ -> ゆきどm /行き止/
-    ("い" . "よ")			; いi /良/ -> よi /良/
-    ("お" . "う")			; ほおt /放/ -> ほうt /放/
-    ("お" . "ほ")			; よそおu /裝/ -> よそほu /裝/
-    ("お" . "を")			; くちおs /口惜/ -> くちをs /口惜/
-    ("か" . "が")			; まぬかr /免/ -> まぬがr /免/
-    ("ざ" . "さ")			; はだざむk /肌寒/ -> はださむi /肌寒/
-    ("じ" . "ぢ")			; みじかn /身近/ -> みぢかn /身近/
-    ("そ" . "ぞ")			; みぎそろe /右揃/ -> みぎぞろe /右揃/
-    ("た" . "だ")			; やくたt /役立/ -> やくだt /役立/
-    ("づ" . "ず")			; わづらw /煩/ -> わずらw /煩/ ; むづかs /難/ -> むずかs /難/
-    ("と" . "ど")			; もとr /戻/ -> もどr /戻/
-    ("は" . "わ")			; めざはr /目障/ -> めざわr /目障/
-    ("ば" . "は")			; はらi /払/  -> ばらi /払/
-    ("ぱ" . "は")			; ぱt /張/ -> はt /張/
-    ("ひ" . "い")			; ふがひなi /腑甲斐無/ -> ふがいなi /腑甲斐無/
-    ("ひ" . "び")			; りょうひらk /両開/ -> りょうびらk /両開/
-    ("ふ" . "ぶ")			; ふかk /深/ -> ぶかk /深/
-    ("ぶ" . "ふ")			; けぶかi /毛深/ -> けふかi /毛深/
-    ("む" . "ん")			; やむごとなs /止事無/ -> やんごとなs /止事無/
-    ("ゆ" . "い")			; ゆきどm /行き止/ -> いきどm /行き止/
-    ("よ" . "い")			; よi /良/ -> いi /良/
-    ("ゐ" . "い")			; ゐr /居/ -> いr /居/
+    ("い" . "ゆ")           ; いきどm /行き止/ -> ゆきどm /行き止/
+    ("い" . "よ")           ; いi /良/ -> よi /良/
+    ("お" . "う")           ; ほおt /放/ -> ほうt /放/
+    ("お" . "ほ")           ; よそおu /裝/ -> よそほu /裝/
+    ("お" . "を")           ; くちおs /口惜/ -> くちをs /口惜/
+    ("か" . "が")           ; まぬかr /免/ -> まぬがr /免/
+    ("ざ" . "さ")           ; はだざむk /肌寒/ -> はださむi /肌寒/
+    ("じ" . "ぢ")           ; みじかn /身近/ -> みぢかn /身近/
+    ("そ" . "ぞ")           ; みぎそろe /右揃/ -> みぎぞろe /右揃/
+    ("た" . "だ")           ; やくたt /役立/ -> やくだt /役立/
+    ("づ" . "ず")           ; わづらw /煩/ -> わずらw /煩/ ; むづかs /難/ -> むずかs /難/
+    ("と" . "ど")           ; もとr /戻/ -> もどr /戻/
+    ("は" . "わ")           ; めざはr /目障/ -> めざわr /目障/
+    ("ば" . "は")           ; はらi /払/  -> ばらi /払/
+    ("ぱ" . "は")           ; ぱt /張/ -> はt /張/
+    ("ひ" . "い")           ; ふがひなi /腑甲斐無/ -> ふがいなi /腑甲斐無/
+    ("ひ" . "び")           ; りょうひらk /両開/ -> りょうびらk /両開/
+    ("ふ" . "ぶ")           ; ふかk /深/ -> ぶかk /深/
+    ("ぶ" . "ふ")           ; けぶかi /毛深/ -> けふかi /毛深/
+    ("む" . "ん")           ; やむごとなs /止事無/ -> やんごとなs /止事無/
+    ("ゆ" . "い")           ; ゆきどm /行き止/ -> いきどm /行き止/
+    ("よ" . "い")           ; よi /良/ -> いi /良/
+    ("ゐ" . "い")           ; ゐr /居/ -> いr /居/
     )
   "*見出し語変換のためのテーブル。
 各要素のデータ構造は、\(\"読みがぶれた見出し語\" . \"正しい見出し語\"\)。")
@@ -127,12 +127,12 @@
 ;;;###autoload
 (defun skk-correct-search (search-method-list)
   (let ((henkan-key skk-henkan-key)
-	search-list skk-henkan-key v)
+        search-list skk-henkan-key v)
     (setq skk-correct-current-table skk-correct-table)
     (while (and (not v) (setq search-list search-method-list
-			      skk-henkan-key (skk-correct henkan-key)))
+                              skk-henkan-key (skk-correct henkan-key)))
       (while (and search-list (not (setq v (eval (car search-list)))))
-	(setq search-list (cdr search-list))))
+        (setq search-list (cdr search-list))))
     v))
 
 (defun skk-correct (string)
@@ -140,13 +140,17 @@
   (let (v)
     (save-match-data
       (while (and (not v) skk-correct-current-table)
-	(if (string-match (car (car skk-correct-current-table)) string)
-	    (setq v (concat (substring string 0 (match-beginning 0))
-			    (cdr (car skk-correct-current-table))
-			    (substring string (match-end 0)))))
-	(setq skk-correct-current-table (cdr skk-correct-current-table)))
+        (if (string-match (car (car skk-correct-current-table)) string)
+            (setq v (concat (substring string 0 (match-beginning 0))
+                            (cdr (car skk-correct-current-table))
+                            (substring string (match-end 0)))))
+        (setq skk-correct-current-table (cdr skk-correct-current-table)))
       v)))
 
 (provide 'skk-correct)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; skk-correct.el ends here

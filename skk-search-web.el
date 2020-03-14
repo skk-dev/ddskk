@@ -43,7 +43,7 @@
 ;; 上記例で示した関数 skk-google-suggest は skk-google-cgi-api-for-japanese-input
 ;; に置き換え可能です。
 ;;     (add-to-list 'skk-search-prog-list
-;; 	            '(skk-search-web 'skk-google-cgi-api-for-japanese-input)
+;;              '(skk-search-web 'skk-google-cgi-api-for-japanese-input)
 ;;                  t)
 
 ;;     (setq skk-read-from-minibuffer-function
@@ -78,21 +78,21 @@
   "URL を取得する。戻り値は decode-coding-string である."
   (let (buf p)
     (unwind-protect
-	(progn
-	  (setq buf (let (
-			  ;; (url-request-extra-headers '(("" . "")
-			  ;; 			          ("" . "")))
-			  (url-request-method "GET")
-			  (url-max-redirextions 0))
-		      (url-retrieve-synchronously url))) ; return BUFFER contain data
-	  (when (setq p (url-http-symbol-value-in-buffer
-			 'url-http-end-of-headers buf))
-	    (with-current-buffer buf
-	      (decode-coding-string (buffer-substring (1+ p)
-						      (point-max))
-				    coding-system))))
+        (progn
+          (setq buf (let (
+                          ;; (url-request-extra-headers '(("" . "")
+                          ;;                      ("" . "")))
+                          (url-request-method "GET")
+                          (url-max-redirextions 0))
+                      (url-retrieve-synchronously url))) ; return BUFFER contain data
+          (when (setq p (url-http-symbol-value-in-buffer
+                         'url-http-end-of-headers buf))
+            (with-current-buffer buf
+              (decode-coding-string (buffer-substring (1+ p)
+                                                      (point-max))
+                                    coding-system))))
       (when buf
-	(kill-buffer buf)))))
+        (kill-buffer buf)))))
 
 
 (defun skk-google-cgi-api-for-japanese-input (word)
@@ -100,18 +100,18 @@
 http://www.google.co.jp/ime/cgiapi.html
 戻り値は、候補群のリスト."
   (let* ((jsonp (skk-url-retrieve
-		 (concat "http://www.google.com/transliterate"
-			 "?langpair=ja-Hira|ja"
-			 "&text="
-			 (url-hexify-string (encode-coding-string (concat word ",")
-								  'utf-8)))
-		 'utf-8))
-	 (json (json-read-from-string jsonp)) ; [["みだしご" ["候補a" "候補b" "候補c"]]]
-	 (ary (aref (aref json 0) 1))	      ; ["候補a" "候補b" "候補c"]
-	 list)
+                 (concat "http://www.google.com/transliterate"
+                         "?langpair=ja-Hira|ja"
+                         "&text="
+                         (url-hexify-string (encode-coding-string (concat word ",")
+                                                                  'utf-8)))
+                 'utf-8))
+         (json (json-read-from-string jsonp)) ; [["みだしご" ["候補a" "候補b" "候補c"]]]
+         (ary (aref (aref json 0) 1))         ; ["候補a" "候補b" "候補c"]
+         list)
     (dotimes (i (length ary))
       (setq list (cons (aref ary i)
-		       list)))
+                       list)))
     (nreverse list)))
 
 
@@ -121,38 +121,38 @@ http://www.google.co.jp/ime/cgiapi.html
 
   (with-temp-buffer
     (insert (skk-url-retrieve
-	     (concat "http://clients1.google.co.jp/complete/search"
-		     "?hl=ja"
-		     "&cp=2"
-		     "&output=toolbar" ; xml レスポンス
-		     "&q=" (url-hexify-string (encode-coding-string word 'utf-8)))
-	     'sjis))
+             (concat "http://clients1.google.co.jp/complete/search"
+                     "?hl=ja"
+                     "&cp=2"
+                     "&output=toolbar" ; xml レスポンス
+                     "&q=" (url-hexify-string (encode-coding-string word 'utf-8)))
+             'sjis))
     (goto-char (point-min))
     (let (list)
       (while (re-search-forward "suggestion data=\"\\([^>]*\\)\"" nil t)
-	(setq list (cons (buffer-substring (match-beginning 1)
-					   (match-end 1))
-			 list)))
+        (setq list (cons (buffer-substring (match-beginning 1)
+                                           (match-end 1))
+                         list)))
       (nreverse list))))
 
 (defun skk-wikipedia-suggest (word)
   (let* ((jsonp (skk-url-retrieve
-		 (concat "http://ja.wikipedia.org/w/api.php"
-			 "?action=opensearch"
-			 "&format=json"
-			 "&search=" (url-hexify-string
-				     (encode-coding-string word 'utf-8)))
-		 'utf-8))
-	 (json (json-read-from-string jsonp))
-	 ;; ["みだしご" ["候補a" "候補b" "候補c"]]
-	 ;; ※「みだしご」が漢字であれば様々な候補が得られるが、
-	 ;;   平仮名だとあまりヒットしない。そのため、かな漢字
-	 ;;   変換の用途には不向きかも。
-	 (ary (aref json 1))
-	 list)
+                 (concat "http://ja.wikipedia.org/w/api.php"
+                         "?action=opensearch"
+                         "&format=json"
+                         "&search=" (url-hexify-string
+                                     (encode-coding-string word 'utf-8)))
+                 'utf-8))
+         (json (json-read-from-string jsonp))
+         ;; ["みだしご" ["候補a" "候補b" "候補c"]]
+         ;; ※「みだしご」が漢字であれば様々な候補が得られるが、
+         ;;   平仮名だとあまりヒットしない。そのため、かな漢字
+         ;;   変換の用途には不向きかも。
+         (ary (aref json 1))
+         list)
     (dotimes (i (length ary))
       (setq list (cons (aref ary i)
-		       list)))
+                       list)))
     (nreverse list)))
 
 
@@ -168,14 +168,18 @@ http://www.google.co.jp/ime/cgiapi.html
   (unless (string= skk-comp-key "")
     (when skk-comp-first
       (setq skk-comp-google-candidates (skk-comp-google-make-candidates)))
-     (prog1
-	 (car skk-comp-google-candidates)
-       (setq skk-comp-google-candidates (cdr skk-comp-google-candidates)))))
+    (prog1
+        (car skk-comp-google-candidates)
+      (setq skk-comp-google-candidates (cdr skk-comp-google-candidates)))))
 
 (defun skk-comp-google-make-candidates ()
   (let ((key (car (split-string skk-comp-key "*" t))))
     (skk-google-suggest key)))
 
 (provide 'skk-search-web)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; skk-search-web.el ends here

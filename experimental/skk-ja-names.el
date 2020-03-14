@@ -72,4 +72,8 @@
 
 (provide 'skk-ja-names)
 
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
+
 ;;; skk-ja-names.el ends here

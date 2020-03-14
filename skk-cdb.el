@@ -1,6 +1,6 @@
 ;;;  skk-cdb.el --- Directly search words in CDB dictionary
 
-;;  Copyright (C) 2010  Yusuke Shinyama <yusuke at cs . nyu . edu>
+;; Copyright (C) 2010  Yusuke Shinyama <yusuke at cs . nyu . edu>
 
 ;; Author: Yusuke Shinyama <yusuke at cs . nyu . edu>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
@@ -23,9 +23,9 @@
 
 ;;; Commentary:
 
-;;  Usage: Set skk-cdb-large-jisyo in your ~/.skk like the following.
+;; Usage: Set skk-cdb-large-jisyo in your ~/.skk like the following.
 
-;;    (setq skk-cdb-large-jisyo "/usr/share/skk/SKK-JISYO.L.cdb")
+;;   (setq skk-cdb-large-jisyo "/usr/share/skk/SKK-JISYO.L.cdb")
 
 
 ;;; Code:
@@ -42,31 +42,35 @@
   (unless cdb-path
     (setq cdb-path skk-cdb-large-jisyo))
   (when (and (stringp cdb-path)
-	     (file-readable-p cdb-path))
+             (file-readable-p cdb-path))
     (cdb-init cdb-path)
     (let* ((key (if skk-use-numeric-conversion
-		    (skk-num-compute-henkan-key skk-henkan-key)
-		  skk-henkan-key))
-	   (bkey (encode-coding-string key skk-cdb-coding-system))
-	   (bval (cdb-get cdb-path bkey))
-	   l)
+                    (skk-num-compute-henkan-key skk-henkan-key)
+                  skk-henkan-key))
+           (bkey (encode-coding-string key skk-cdb-coding-system))
+           (bval (cdb-get cdb-path bkey))
+           l)
       (when bval
-	(with-current-buffer (get-buffer-create skk-cdb-working-buffer)
-	  (erase-buffer)
-	  (insert (decode-coding-string bval skk-cdb-coding-system))
-	  (goto-char (point-min))
-	  (when (eq (following-char) ?/)
-	    (let ((okurigana (or skk-henkan-okurigana skk-okuri-char)))
-	      (forward-char 1)
-	      (setq l (skk-compute-henkan-lists okurigana))
-	      (when l
-		(cond ((and okurigana skk-henkan-okuri-strictly)
-		       (nth 2 l))
-		      ((and okurigana skk-henkan-strict-okuri-precedence)
-		       (skk-nunion (nth 2 l) (car l)))
-		      (t
-		       (car l)))))))))))
+        (with-current-buffer (get-buffer-create skk-cdb-working-buffer)
+          (erase-buffer)
+          (insert (decode-coding-string bval skk-cdb-coding-system))
+          (goto-char (point-min))
+          (when (eq (following-char) ?/)
+            (let ((okurigana (or skk-henkan-okurigana skk-okuri-char)))
+              (forward-char 1)
+              (setq l (skk-compute-henkan-lists okurigana))
+              (when l
+                (cond ((and okurigana skk-henkan-okuri-strictly)
+                       (nth 2 l))
+                      ((and okurigana skk-henkan-strict-okuri-precedence)
+                       (skk-nunion (nth 2 l) (car l)))
+                      (t
+                       (car l)))))))))))
 
 (provide 'skk-cdb)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; skk-cdb.el ends here

@@ -544,32 +544,32 @@
       (setq skk-downcase-alist
             (append '((?+ . ?\;)) skk-downcase-alist))
       (setq skk-azik-keyboard-specific-additional-rom-kana-rule-list
-	    '(("@" nil skk-toggle-characters)
-	      ("x@" nil skk-today)
-	      ("`" nil skk-set-henkan-point-subr)
-	      (":" nil "ー"))))
+            '(("@" nil skk-toggle-characters)
+              ("x@" nil skk-today)
+              ("`" nil skk-set-henkan-point-subr)
+              (":" nil "ー"))))
      ((eq skk-azik-keyboard-type 'jp-pc98)
       (setq skk-set-henkan-point-key
             (append '(?+) skk-set-henkan-point-key))
       (setq skk-downcase-alist
             (append '((?+ . ?\;)) skk-downcase-alist))
       (setq skk-azik-keyboard-specific-additional-rom-kana-rule-list
-	    '(("@" nil skk-toggle-characters)
-	      ("x@" nil skk-today)
-	      ("~" nil skk-set-henkan-point-subr)
-	      ("x~" nil "~")
-	      (":" nil "ー"))))
+            '(("@" nil skk-toggle-characters)
+              ("x@" nil skk-today)
+              ("~" nil skk-set-henkan-point-subr)
+              ("x~" nil "~")
+              (":" nil "ー"))))
      (t
       (setq skk-set-henkan-point-key
             (append '(?:) skk-set-henkan-point-key))
       (setq skk-downcase-alist
             (append '((?: . ?\;)) skk-downcase-alist))
       (setq skk-azik-keyboard-specific-additional-rom-kana-rule-list
-	    '(("\'" nil "ー")
-	      ("x\'" nil "'")
-	      ("[" nil skk-toggle-characters)
-	      ("{" nil skk-set-henkan-point-subr)
-	      ("x[" nil "「"))))))
+            '(("\'" nil "ー")
+              ("x\'" nil "'")
+              ("[" nil skk-toggle-characters)
+              ("{" nil skk-set-henkan-point-subr)
+              ("x[" nil "「"))))))
 
 ;; 以下共通
 (setq skk-set-henkan-point-key
@@ -578,11 +578,11 @@
 ;; skk-rom-kana-base-rule-list から変換規則を削除する
 (dolist (str skk-azik-unnecessary-base-rule-list)
   (setq skk-rom-kana-base-rule-list
-	(skk-del-alist str skk-rom-kana-base-rule-list)))
+        (skk-del-alist str skk-rom-kana-base-rule-list)))
 
 ;; AZIK 特有の変換規則を追加する
 (dolist (rule (append skk-azik-keyboard-specific-additional-rom-kana-rule-list
-		      skk-azik-additional-rom-kana-rule-list))
+                      skk-azik-additional-rom-kana-rule-list))
   (add-to-list 'skk-rom-kana-rule-list rule))
 
 ;; for jisx0201
@@ -590,22 +590,26 @@
   '(progn
      (dolist (str skk-azik-unnecessary-base-rule-list)
        (setq skk-jisx0201-base-rule-list
-	     (skk-del-alist str skk-jisx0201-base-rule-list)))
+             (skk-del-alist str skk-jisx0201-base-rule-list)))
 
      (dolist (rule (append skk-azik-keyboard-specific-additional-rom-kana-rule-list
-			   skk-azik-additional-rom-kana-rule-list))
+                           skk-azik-additional-rom-kana-rule-list))
        (add-to-list 'skk-jisx0201-rule-list
-		    (if (listp (nth 2 rule))
-			(list (nth 0 rule) (nth 1 rule)
-			      (japanese-hankaku (car (nth 2 rule))))
-		      rule)))
+                    (if (listp (nth 2 rule))
+                        (list (nth 0 rule) (nth 1 rule)
+                              (japanese-hankaku (car (nth 2 rule))))
+                      rule)))
 
      (setq skk-jisx0201-base-rule-tree
-	   (skk-compile-rule-list skk-jisx0201-base-rule-list
-				  skk-jisx0201-rule-list))))
+           (skk-compile-rule-list skk-jisx0201-base-rule-list
+                                  skk-jisx0201-rule-list))))
 
 (run-hooks 'skk-azik-load-hook)
 
 (provide 'skk-azik)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; skk-azik.el ends here

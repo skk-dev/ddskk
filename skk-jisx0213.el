@@ -33,15 +33,19 @@
   ;; remove candidate that contains jisx0213 characters from
   ;; SKK-HENKAN-LIST.
   (let ((henkan-list (nthcdr skk-henkan-count skk-henkan-list))
-	e charset)
+        e charset)
     (while (setq e (car henkan-list))
       (setq charset (find-charset-string (if (consp e) (cdr e) e)))
       (if (or (memq 'japanese-jisx0213-1 charset)
-	      (memq 'japanese-jisx0213-2 charset))
-	  (setq skk-henkan-list (delq e skk-henkan-list)
-		henkan-list (delq e henkan-list))
-	(setq henkan-list (cdr henkan-list))))))
+              (memq 'japanese-jisx0213-2 charset))
+          (setq skk-henkan-list (delq e skk-henkan-list)
+                henkan-list (delq e henkan-list))
+        (setq henkan-list (cdr henkan-list))))))
 
 (provide 'skk-jisx0213)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; skk-jisx0213.el ends here

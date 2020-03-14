@@ -66,20 +66,20 @@
        (setq buffer-read-only nil)
        (erase-buffer)
        (insert
-	(concat
-	 (format "%s\n\n" ,title)
-	 (mapconcat
-	  #'(lambda (cons)
-	      (cond
-	       ((and (symbolp (car cons))
-		     (symbol-value (car cons)))
-		(format "%s … %s\n"
-			(key-description (symbol-value (car cons)))
-			(cdr cons)))
-	       (t
-		(format "%s … %s\n" (car cons) (cdr cons)))))
-	  ;;
-	  (delq nil ,list) "")))
+        (concat
+         (format "%s\n\n" ,title)
+         (mapconcat
+          #'(lambda (cons)
+              (cond
+               ((and (symbolp (car cons))
+                     (symbol-value (car cons)))
+                (format "%s … %s\n"
+                        (key-description (symbol-value (car cons)))
+                        (cdr cons)))
+               (t
+                (format "%s … %s\n" (car cons) (cdr cons)))))
+          ;;
+          (delq nil ,list) "")))
        ;;
        (setq buffer-read-only t)
        (set-buffer-modified-p nil)
@@ -93,10 +93,10 @@
 (defun skk-nicola-visit-nicola-website ()
   (interactive)
   (let ((func (cond
-	       ((fboundp 'browse-url)
-		'browse-url)
-	       (t
-		'browse-url-netscape))))
+               ((fboundp 'browse-url)
+                'browse-url)
+               (t
+                'browse-url-netscape))))
     (funcall func "http://nicola.sunicom.co.jp/")))
 
 ;;;###autoload
@@ -105,16 +105,16 @@
   (interactive)
   ;;
   (when (featurep 'skk-nicola)
-      (setq skk-nicola-okuri-flag nil))
+    (setq skk-nicola-okuri-flag nil))
   ;;
   (setq skk-kanagaki-state
-	(if (memq arg '(kana rom))
-	    arg
-	  (cl-case skk-kanagaki-state
-	    (kana 'rom)
-	    (rom 'kana)
-	    ;; とりあえず。
-	    (t 'kana))))
+        (if (memq arg '(kana rom))
+            arg
+          (cl-case skk-kanagaki-state
+            (kana 'rom)
+            (rom 'kana)
+            ;; とりあえず。
+            (t 'kana))))
   (skk-kanagaki-adjust-rule-tree)
   ;;
   (when (featurep 'skk-nicola)
@@ -122,95 +122,95 @@
     (cl-case skk-kanagaki-state
       (kana
        (setq skk-hiragana-mode-string skk-nicola-hiragana-mode-string
-	     skk-katakana-mode-string skk-nicola-katakana-mode-string))
+             skk-katakana-mode-string skk-nicola-katakana-mode-string))
       (rom
        (setq skk-hiragana-mode-string skk-nicola-hiragana-rom-string
-	     skk-katakana-mode-string skk-nicola-katakana-rom-string)))
+             skk-katakana-mode-string skk-nicola-katakana-rom-string)))
     ;;
     (skk-modify-indicator-alist 'katakana skk-katakana-mode-string)
     (skk-modify-indicator-alist 'hiragana skk-hiragana-mode-string)
     ;;
     (skk-loop-for-buffers (buffer-list)
       (when (and skk-j-mode
-		 (listp mode-line-format))
-	(skk-update-modeline (if skk-katakana
-				 'katakana
-			       'hiragana))))))
+                 (listp mode-line-format))
+        (skk-update-modeline (if skk-katakana
+                                 'katakana
+                               'hiragana))))))
 
 ;;;###autoload
 (defun skk-kanagaki-dakuten (&optional arg handakuten)
   "直前の文字を見て可能なら濁点を付加し、さもなければ \"゛\" を入力する。"
   (interactive "*p")
   (let ((list skk-kanagaki-dakuten-alist)
-	(pt1 (point))
-	(henkan-on (and skk-isearch-switch
-			(with-current-buffer
-			    (get-buffer-create skk-isearch-working-buffer)
-			  (eq skk-henkan-mode 'on))))
-	char1 char2 str)
+        (pt1 (point))
+        (henkan-on (and skk-isearch-switch
+                        (with-current-buffer
+                            (get-buffer-create skk-isearch-working-buffer)
+                          (eq skk-henkan-mode 'on))))
+        char1 char2 str)
     (ignore-errors
       (setq char1 (cond
-		   ((and skk-isearch-switch
-			 (not (skk-in-minibuffer-p)))
-		    (if henkan-on
-			(with-current-buffer skk-isearch-working-buffer
-			  (skk-save-point
-			   (backward-char 1)
-			   (buffer-substring-no-properties
-			    (point)
-			    pt1)))
-		      (substring isearch-string -1)))
-		   (t
-		    (skk-save-point
-		     (backward-char 1)
-		     (buffer-substring-no-properties
-		      (point)
-		      pt1))))))
+                   ((and skk-isearch-switch
+                         (not (skk-in-minibuffer-p)))
+                    (if henkan-on
+                        (with-current-buffer skk-isearch-working-buffer
+                          (skk-save-point
+                           (backward-char 1)
+                           (buffer-substring-no-properties
+                            (point)
+                            pt1)))
+                      (substring isearch-string -1)))
+                   (t
+                    (skk-save-point
+                     (backward-char 1)
+                     (buffer-substring-no-properties
+                      (point)
+                      pt1))))))
     (cond
      ((setq char2 (nth (if handakuten 2 1) (assoc char1 list)))
       (cond
        ((and skk-isearch-switch
-	     (not (skk-in-minibuffer-p)))
-	(if henkan-on
-	    (with-current-buffer skk-isearch-working-buffer
-	      (delete-char -1)
-	      (skk-insert-str char2))
-	  (setq str isearch-string)
-	  (while (string= str (if (vectorp (car isearch-cmds))
-				  (aref (car isearch-cmds) 0)
-				(caar isearch-cmds)))
-	    (with-current-buffer skk-isearch-current-buffer
-	      (skk-isearch-delete-char arg)))
-	  (setq isearch-string (concat (if (vectorp (car isearch-cmds))
-					   (aref (car isearch-cmds) 0)
-					 (caar isearch-cmds))
-				       char2)
-		isearch-message (concat
-				 (skk-isearch-mode-string)
-				 (mapconcat
-				  #'isearch-text-char-description
-				  isearch-string "")))
-	  (put 'isearch-barrier 'skk-kanagaki t)
-	  (skk-unread-event (aref (where-is-internal
-				   (if isearch-forward 'isearch-repeat-forward
-				     'isearch-repeat-backward)
-				   isearch-mode-map t)
-				  0))))
+             (not (skk-in-minibuffer-p)))
+        (if henkan-on
+            (with-current-buffer skk-isearch-working-buffer
+              (delete-char -1)
+              (skk-insert-str char2))
+          (setq str isearch-string)
+          (while (string= str (if (vectorp (car isearch-cmds))
+                                  (aref (car isearch-cmds) 0)
+                                (caar isearch-cmds)))
+            (with-current-buffer skk-isearch-current-buffer
+              (skk-isearch-delete-char arg)))
+          (setq isearch-string (concat (if (vectorp (car isearch-cmds))
+                                           (aref (car isearch-cmds) 0)
+                                         (caar isearch-cmds))
+                                       char2)
+                isearch-message (concat
+                                 (skk-isearch-mode-string)
+                                 (mapconcat
+                                  #'isearch-text-char-description
+                                  isearch-string "")))
+          (put 'isearch-barrier 'skk-kanagaki t)
+          (skk-unread-event (aref (where-is-internal
+                                   (if isearch-forward 'isearch-repeat-forward
+                                     'isearch-repeat-backward)
+                                   isearch-mode-map t)
+                                  0))))
        (t
-	(delete-char -1)
-	(skk-insert-str char2))))
+        (delete-char -1)
+        (skk-insert-str char2))))
      (t
       (skk-insert-str (if handakuten
-			  "゜"
-			"゛"))))))
+                          "゜"
+                        "゛"))))))
 
 (defadvice isearch-repeat (around skk-kanagaki-workaround activate)
   (cond ((get 'isearch-barrier 'skk-kanagaki)
-	 (goto-char isearch-barrier)
-	 ad-do-it
-	 (put 'isearch-barrier 'skk-kanagaki nil))
-	(t
-	 ad-do-it)))
+         (goto-char isearch-barrier)
+         ad-do-it
+         (put 'isearch-barrier 'skk-kanagaki nil))
+        (t
+         ad-do-it)))
 
 ;;;###autoload
 (defun skk-kanagaki-handakuten (&optional arg)
@@ -234,14 +234,14 @@
    ((eq skk-henkan-mode 'active)
     (call-interactively 'keyboard-quit))
    ((and (eq skk-henkan-mode 'on)
-	 (= (point) (marker-position
-		     skk-henkan-start-point)))
+         (= (point) (marker-position
+                     skk-henkan-start-point)))
     (skk-kakutei arg))
    ((eq skk-henkan-mode 'on)
     (forward-char -1)
     (delete-char 1))
    ((and skk-isearch-switch
-	 (buffer-live-p skk-isearch-current-buffer))
+         (buffer-live-p skk-isearch-current-buffer))
     (with-current-buffer skk-isearch-current-buffer
       (skk-isearch-delete-char arg)))
    (t
@@ -269,7 +269,7 @@
    ((skk-in-minibuffer-p)
     (call-interactively
      (if (fboundp 'minibuffer-keyboard-quit)
-	 'minibuffer-keyboard-quit
+         'minibuffer-keyboard-quit
        'abort-recursive-edit)))
    (skk-henkan-mode
     (call-interactively 'keyboard-quit))
@@ -277,5 +277,9 @@
     nil)))
 
 (provide 'skk-kanagaki-util)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; skk-kanagaki-util.el ends here

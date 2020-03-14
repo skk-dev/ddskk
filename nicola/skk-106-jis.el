@@ -165,4 +165,8 @@
 
 (provide 'skk-106-jis)
 
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
+
 ;;; skk-106-jis.el ends here

@@ -29,7 +29,7 @@
 ;; This file needs eieio package (which provides CLOS like OO
 ;; programming) that can be found at;
 
-;;    ftp://ftp.ultranet.com/pub/zappo
+;;   ftp://ftp.ultranet.com/pub/zappo
 
 ;;; Code:
 
@@ -42,23 +42,23 @@
 
 (defclass network-search-engine (search-engine)
   ((host :initarg :host
-	 :initform "localhost"
-	 :documentation "Host name.")
+         :initform "localhost"
+         :documentation "Host name.")
    (service :initarg :service
-	    :initform nil
-	    :documentation
-	    "Name of the service desired, or an integer specifying a port number to connect to.")
+            :initform nil
+            :documentation
+            "Name of the service desired, or an integer specifying a port number to connect to.")
    (process-name :initarg :process-name
-		 :initform nil
-		 :documentation
-		 "Name of process.  It is modified if necessary to make it unique.")
+                 :initform nil
+                 :documentation
+                 "Name of process.  It is modified if necessary to make it unique.")
    (process initarg :process
-	    :initform nil
-	    :documentation "Process object that belongs to program.")
+            :initform nil
+            :documentation "Process object that belongs to program.")
    (buffer :initarg :buffer
-	   :initform nil
-	   :documentation
-	   "The buffer (or buffer-name) to associate with the process.\
+           :initform nil
+           :documentation
+           "The buffer (or buffer-name) to associate with the process.\
 Process output goes at end of that buffer, unless you specify\
 an output stream or filter function to handle the output.\
 buffer may be also nil, meaning that this process is not associated\
@@ -67,17 +67,17 @@ with any buffer."))
 
 (defclass dbskkd-engine (network-search-engine)
   ((service :initarg :service
-	    :initform "skkserv")
+            :initform "skkserv")
    (process-name :initarg :process-name :initform "dbskkd")
    (buffer :initarg :buffer
-	   :initform (lambda () (get-buffer-create " *dbskkd*")))
+           :initform (lambda () (get-buffer-create " *dbskkd*")))
    (found :initform 1
-	  :documentation "A magic number that indicates the server found a candidate.")
+          :documentation "A magic number that indicates the server found a candidate.")
    (not-found :initform 4
-	      :documentation
-	      "A magic number that indicates the server did not find a candidates.")
+              :documentation
+              "A magic number that indicates the server did not find a candidates.")
    (coding-system :initarg :coding-system
-		  :initform (lambda () (cdr (assoc "euc" skk-coding-system-alist)))))
+                  :initform (lambda () (cdr (assoc "euc" skk-coding-system-alist)))))
   "A class of dbskkd type server search engine via TCP connection.
 Output of this type is a line that contains a magic number and
 candidates that are delimited by slash.")
@@ -91,9 +91,9 @@ candidates that are delimited by slash.")
 (defun skk-open-server ()
   ;; return active server object.
   (while (and (car skk-exserv-list)
-	      (not (server-opened-p (car skk-exserv-list)))
-	      (not (open-server (car skk-exserv-list)))
-	      (setq skk-exserv-list (cdr skk-exserv-list))))
+              (not (server-opened-p (car skk-exserv-list)))
+              (not (open-server (car skk-exserv-list)))
+              (setq skk-exserv-list (cdr skk-exserv-list))))
   (car skk-exserv-list))
 
 (defmethod server-opened-p ((engine network-search-engine))
@@ -104,30 +104,30 @@ candidates that are delimited by slash.")
   ;; Return t if process is opened.
   (with-slots (process coding-system) engine
     (condition-case nil
-	(progn
-	  (setq process
-		(open-network-stream
-		 (oref engine process-name) (oref engine buffer)
-		 (oref engine host) (oref engine service)))
-	  (if (not process)
-	      nil
-	    (process-kill-without-query process)
-	    (static-cond
-	     ((featurep 'xemacs)
-	      (set-process-input-coding-system process coding-system)
-	      (set-process-output-coding-system process coding-system))
-	     (t
-	      (set-process-coding-system process coding-system coding-system)))
-	    (oset engine process process)
-	    (eq (process-status process) 'open)))
+        (progn
+          (setq process
+                (open-network-stream
+                 (oref engine process-name) (oref engine buffer)
+                 (oref engine host) (oref engine service)))
+          (if (not process)
+              nil
+            (process-kill-without-query process)
+            (static-cond
+             ((featurep 'xemacs)
+              (set-process-input-coding-system process coding-system)
+              (set-process-output-coding-system process coding-system))
+             (t
+              (set-process-coding-system process coding-system coding-system)))
+            (oset engine process process)
+            (eq (process-status process) 'open)))
       (error nil))))
 
 (defmethod disconnect-server ((engine dbskkd-engine))
   (with-slots (process-name) engine
     (if (eq (process-status process-name) 'open)
-	(progn
-	  (process-send-string process-name "0") 
-	  (accept-process-output (get-process process-name))))))
+        (progn
+          (process-send-string process-name "0")
+          (accept-process-output (get-process process-name))))))
 
 ;;;###autoload
 (defun skk-server-version ()
@@ -139,33 +139,33 @@ candidates that are delimited by slash.")
 (defmethod server-version ((engine dbskkd-engine))
   (or skk-exserv-list
       (skk-error "Lack of host information of SKK server"
-		 "SKK サーバーのホスト情報がありません" ))
+                 "SKK サーバーのホスト情報がありません" ))
   (or (skk-open-server)
       (skk-error "Cannot open connection to SKK server"
-		 "SKK サーバーとコネクションを張ることができません"))
+                 "SKK サーバーとコネクションを張ることができません"))
   (save-excursion
     (unwind-protect
-	(progn
-	  (set-buffer (oref engine buffer))
-	  (let (v)
-	    (erase-buffer)
-	    ;; サーバーバージョンを得る。
-	    (process-send-string (oref engine process-name) "2")
-	    (while (and (server-opened-p engine) (eq (buffer-size) 0))
-	      (accept-process-output))
-	    (setq v (buffer-string))
-	    (erase-buffer)
-	    ;; ホスト名を得る。
-	    (process-send-string (oref engine process-name) "3")
-	    (while (and (server-opened-p engine) (eq (buffer-size) 0))
-	      (accept-process-output))
-	    (goto-char (point-min))
-	    (format
-	     (concat "SKK SERVER version %s"
-		     (if skk-japanese-message-and-error
-			 "(ホスト名 %s)"
-		       "running on HOST %s"))
-	     v (buffer-string) )))
+        (progn
+          (set-buffer (oref engine buffer))
+          (let (v)
+            (erase-buffer)
+            ;; サーバーバージョンを得る。
+            (process-send-string (oref engine process-name) "2")
+            (while (and (server-opened-p engine) (eq (buffer-size) 0))
+              (accept-process-output))
+            (setq v (buffer-string))
+            (erase-buffer)
+            ;; ホスト名を得る。
+            (process-send-string (oref engine process-name) "3")
+            (while (and (server-opened-p engine) (eq (buffer-size) 0))
+              (accept-process-output))
+            (goto-char (point-min))
+            (format
+             (concat "SKK SERVER version %s"
+                     (if skk-japanese-message-and-error
+                         "(ホスト名 %s)"
+                       "running on HOST %s"))
+             v (buffer-string) )))
       (erase-buffer))))
 
 ;;;###autoload
@@ -175,28 +175,28 @@ candidates that are delimited by slash.")
 
 (defmethod search-server ((engine dbskkd-engine))
   (let ((key
-	 (if skk-use-numeric-conversion
-	     (skk-num-compute-henkan-key skk-henkan-key)
-	   skk-henkan-key))
+         (if skk-use-numeric-conversion
+             (skk-num-compute-henkan-key skk-henkan-key)
+           skk-henkan-key))
         (okurigana (or skk-henkan-okurigana skk-okuri-char)))
     (with-current-buffer (oref engine buffer)
       (let (l)
-	(erase-buffer)
-	(process-send-string (oref engine process-name) (concat "1" key " "))
-	(while (and (server-opened-p engine) (eq (buffer-size) 0))
-	  (accept-process-output))
-	;; found key successfully, so check if a whole line is received.
-	(if (and (eq (char-after 1) ?1) (eq (char-after (1- (point-max))) ?\n))
-	    (progn
-	      (goto-char (point-min))
-	      (forward-char 2)
-	      (and (setq l (skk-compute-henkan-lists okurigana))
-		   (cond ((and okurigana skk-henkan-okuri-strictly)
-			  ;; 送り仮名が同一のエントリのみを返す。
-			  (nth 2 l))
-			 ((and okurigana skk-henkan-strict-okuri-precedence)
-			  (skk-nunion (nth 2 l) (car l)))
-			 (t (car l))))))))))
+        (erase-buffer)
+        (process-send-string (oref engine process-name) (concat "1" key " "))
+        (while (and (server-opened-p engine) (eq (buffer-size) 0))
+          (accept-process-output))
+        ;; found key successfully, so check if a whole line is received.
+        (if (and (eq (char-after 1) ?1) (eq (char-after (1- (point-max))) ?\n))
+            (progn
+              (goto-char (point-min))
+              (forward-char 2)
+              (and (setq l (skk-compute-henkan-lists okurigana))
+                   (cond ((and okurigana skk-henkan-okuri-strictly)
+                          ;; 送り仮名が同一のエントリのみを返す。
+                          (nth 2 l))
+                         ((and okurigana skk-henkan-strict-okuri-precedence)
+                          (skk-nunion (nth 2 l) (car l)))
+                         (t (car l))))))))))
 
 ;;;###autoload
 (defun skk-adjust-search-prog-list-for-server-search (&optional non-del)
@@ -213,18 +213,18 @@ candidates that are delimited by slash.")
                 ;; 良い？
                 (nconc skk-search-prog-list (list '(skk-exserv-search)))))
     (if (not non-del)
-	(remove-alist 'skk-search-prog-list 'skk-exserv-search))))
+        (remove-alist 'skk-search-prog-list 'skk-exserv-search))))
 
 ;; (add-hook 'skk-mode-hook 'skk-adjust-search-prog-list-for-server-search)
 (add-hook 'kill-emacs-hook
-	  (function (lambda () (disconnect-server (car skk-exserv-list)))))
+          (function (lambda () (disconnect-server (car skk-exserv-list)))))
 
 (run-hooks 'skk-exserv-load-hook)
 
 (provide 'skk-exserv)
 
-;;; Local Variables:
-;;; eval: (require 'eieio)
-;;; End:
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; skk-exserv.el ends here

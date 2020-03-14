@@ -42,20 +42,24 @@
 (defun skk-isearch-setup-maybe ()
   (require 'skk-vars)
   (when (or (eq skk-isearch-mode-enable 'always)
-	    (and (boundp 'skk-mode)
-		 skk-mode
-		 skk-isearch-mode-enable))
+            (and (boundp 'skk-mode)
+                 skk-mode
+                 skk-isearch-mode-enable))
     (skk-isearch-mode-setup)))
 
 (defun skk-isearch-cleanup-maybe ()
   (require 'skk-vars)
   (when (and (featurep 'skk-isearch)
-	     skk-isearch-mode-enable)
+             skk-isearch-mode-enable)
     (skk-isearch-mode-cleanup)))
 
 (add-hook 'isearch-mode-hook #'skk-isearch-setup-maybe)
 (add-hook 'isearch-mode-end-hook #'skk-isearch-cleanup-maybe)
 
 (provide 'skk-setup)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; skk-setup.el ends here

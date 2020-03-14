@@ -118,11 +118,11 @@
 
 (defun ccc-setup-new-frame (frame)
   (ccc-set-frame-cursor-color frame (or (ccc-default-cursor-color)
-				    (ccc-fallback-cursor-color)))
+                                        (ccc-fallback-cursor-color)))
   (ccc-set-frame-foreground-color frame (or (ccc-default-foreground-color)
-					(ccc-fallback-foreground-color)))
+                                            (ccc-fallback-foreground-color)))
   (ccc-set-frame-background-color frame (or (ccc-default-background-color)
-					(ccc-fallback-background-color))))
+                                            (ccc-fallback-background-color))))
 
 ;;;###autoload
 (defun ccc-setup ()
@@ -130,28 +130,28 @@
   (add-hook 'after-make-frame-functions 'ccc-setup-new-frame)
   ;; Determine default colors for frames other than the initial frame.
   (setq ccc-default-cursor-color (or (ccc-default-cursor-color)
-				 (ccc-current-cursor-color))
-	ccc-default-foreground-color (or (ccc-default-foreground-color)
-				     (ccc-current-foreground-color))
-	ccc-default-background-color (or (ccc-default-background-color)
-				     (ccc-current-background-color)))
+                                     (ccc-current-cursor-color))
+        ccc-default-foreground-color (or (ccc-default-foreground-color)
+                                         (ccc-current-foreground-color))
+        ccc-default-background-color (or (ccc-default-background-color)
+                                         (ccc-current-background-color)))
   ;; Set up colors for the initial frame.
   (let ((frame (selected-frame)))
     (ccc-set-frame-cursor-color frame (or (ccc-initial-cursor-color)
-				      (ccc-default-cursor-color)
-				      (ccc-fallback-cursor-color)))
+                                          (ccc-default-cursor-color)
+                                          (ccc-fallback-cursor-color)))
     (ccc-set-frame-foreground-color frame (or (ccc-initial-foreground-color)
-					  (ccc-default-foreground-color)
-					  (ccc-fallback-background-color)))
+                                              (ccc-default-foreground-color)
+                                              (ccc-fallback-background-color)))
     (ccc-set-frame-background-color frame (or (ccc-initial-background-color)
-					  (ccc-default-background-color)
-					  (ccc-fallback-background-color)))))
+                                              (ccc-default-background-color)
+                                              (ccc-fallback-background-color)))))
 
 ;;;###autoload
 (defun ccc-update-buffer-local-frame-params (&optional buffer)
   (with-current-buffer (if (buffer-live-p buffer)
-			   buffer
-			 (window-buffer (selected-window)))
+                           buffer
+                         (window-buffer (selected-window)))
     (ccc-update-buffer-local-cursor-color)
     (ccc-update-buffer-local-foreground-color)
     (ccc-update-buffer-local-background-color)))
@@ -163,20 +163,20 @@
   (interactive (ccc-read-color "Cursor color: "))
   (let ((local ccc-buffer-local-cursor-color))
     (setq ccc-buffer-local-cursor-color
-	  (or color-name
-	      (ccc-frame-cursor-color)))
+          (or color-name
+              (ccc-frame-cursor-color)))
     (condition-case nil
-	(ccc-update-buffer-local-cursor-color)
+        (ccc-update-buffer-local-cursor-color)
       (error
        (setq ccc-buffer-local-cursor-color local)))))
 
 (defun ccc-update-buffer-local-cursor-color ()
   (let ((color (if (stringp ccc-buffer-local-cursor-color)
-		   ccc-buffer-local-cursor-color
-		 (ccc-frame-cursor-color))))
+                   ccc-buffer-local-cursor-color
+                 (ccc-frame-cursor-color))))
     (when (and (stringp color)
-	       (x-color-defined-p color)
-	       (not (ccc-color-equal color (ccc-current-cursor-color))))
+               (x-color-defined-p color)
+               (not (ccc-color-equal color (ccc-current-cursor-color))))
       (set-cursor-color color))))
 
 (defun ccc-set-cursor-color-buffer-local (arg)
@@ -194,21 +194,21 @@
     (setq color-name nil))
   (let ((local ccc-buffer-local-foreground-color))
     (setq ccc-buffer-local-foreground-color
-	  (or color-name
-	      (ccc-frame-foreground-color)))
+          (or color-name
+              (ccc-frame-foreground-color)))
     (condition-case nil
-	(ccc-update-buffer-local-foreground-color)
+        (ccc-update-buffer-local-foreground-color)
       (error
        (setq ccc-buffer-local-foreground-color local)))))
 
 (defun ccc-update-buffer-local-foreground-color ()
   (let ((color (if (stringp ccc-buffer-local-foreground-color)
-		   ccc-buffer-local-foreground-color
-		 (ccc-frame-foreground-color))))
+                   ccc-buffer-local-foreground-color
+                 (ccc-frame-foreground-color))))
     (when (and window-system
-	       (stringp color)
-	       (x-color-defined-p color)
-	       (not (ccc-color-equal color (ccc-current-foreground-color))))
+               (stringp color)
+               (x-color-defined-p color)
+               (not (ccc-color-equal color (ccc-current-foreground-color))))
       (set-foreground-color color))))
 
 (defun ccc-set-foreground-color-buffer-local (arg)
@@ -226,21 +226,21 @@
     (setq color-name nil))
   (let ((local ccc-buffer-local-background-color))
     (setq ccc-buffer-local-background-color
-	  (or color-name
-	      (ccc-frame-background-color)))
+          (or color-name
+              (ccc-frame-background-color)))
     (condition-case nil
-	(ccc-update-buffer-local-background-color)
+        (ccc-update-buffer-local-background-color)
       (error
        (setq ccc-buffer-local-background-color local)))))
 
 (defun ccc-update-buffer-local-background-color ()
   (let ((color (if (stringp ccc-buffer-local-background-color)
-		   ccc-buffer-local-background-color
-		 (ccc-frame-background-color))))
+                   ccc-buffer-local-background-color
+                 (ccc-frame-background-color))))
     (when (and window-system
-	       (stringp color)
-	       (x-color-defined-p color)
-	       (not (ccc-color-equal color (ccc-current-background-color))))
+               (stringp color)
+               (x-color-defined-p color)
+               (not (ccc-color-equal color (ccc-current-background-color))))
       (set-background-color color))))
 
 (defun ccc-set-background-color-buffer-local (arg)
@@ -251,8 +251,8 @@
 
 (defun ccc-setup-current-colors ()
   (setq ccc-default-cursor-color (ccc-current-cursor-color)
-	ccc-default-foreground-color (ccc-current-foreground-color)
-	ccc-default-background-color (ccc-current-background-color))
+        ccc-default-foreground-color (ccc-current-foreground-color)
+        ccc-default-background-color (ccc-current-background-color))
   (ccc-set-frame-cursor-color (selected-frame) (ccc-current-cursor-color))
   (ccc-set-frame-foreground-color (selected-frame) (ccc-current-foreground-color))
   (ccc-set-frame-background-color (selected-frame) (ccc-current-background-color)))
@@ -260,23 +260,23 @@
 ;; Advices.
 (defadvice modify-frame-parameters (after ccc-ad activate)
   (when (and (assq 'cursor-color (ad-get-arg 1))
-	     (null ccc-buffer-local-cursor-color))
+             (null ccc-buffer-local-cursor-color))
     (ccc-set-frame-cursor-color (ad-get-arg 0)
-			    (cdr (assq 'cursor-color (ad-get-arg 1)))))
+                                (cdr (assq 'cursor-color (ad-get-arg 1)))))
   (when (and (assq 'foreground-color (ad-get-arg 1))
-	     (null ccc-buffer-local-foreground-color))
+             (null ccc-buffer-local-foreground-color))
     (ccc-set-frame-foreground-color (ad-get-arg 0)
-				(cdr (assq 'foreground-color (ad-get-arg 1)))))
+                                    (cdr (assq 'foreground-color (ad-get-arg 1)))))
   (when (and (assq 'background-color (ad-get-arg 1))
-	     (null ccc-buffer-local-background-color))
+             (null ccc-buffer-local-background-color))
     (ccc-set-frame-background-color (ad-get-arg 0)
-				(cdr (assq 'background-color
-					   (ad-get-arg 1))))))
+                                    (cdr (assq 'background-color
+                                               (ad-get-arg 1))))))
 
 (defadvice custom-theme-checkbox-toggle (after ccc-ad activate)
   (setq ccc-default-cursor-color (ccc-current-cursor-color)
-	ccc-default-foreground-color (ccc-current-foreground-color)
-	ccc-default-background-color (ccc-current-background-color))
+        ccc-default-foreground-color (ccc-current-foreground-color)
+        ccc-default-background-color (ccc-current-background-color))
   (ccc-set-frame-cursor-color (selected-frame) (ccc-current-cursor-color))
   (ccc-set-frame-foreground-color (selected-frame) (ccc-current-foreground-color))
   (ccc-set-frame-background-color (selected-frame) (ccc-current-background-color)))
@@ -288,5 +288,9 @@
   (ccc-setup-current-colors))
 
 (provide 'ccc)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; ccc.el ends here

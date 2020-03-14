@@ -4,7 +4,7 @@
 ;;   Itsushi Minoura <minoura@eva.hi-ho.ne.jp>
 
 ;; Author: Itsushi Minoura <minoura@eva.hi-ho.ne.jp>
-;;      Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
+;;         Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 ;; Keywords: hardware, japanese, mule, input method
 
 ;; This file is part of Daredevil SKK.
@@ -204,5 +204,9 @@
 (require 'skk-nicola)
 
 (provide 'skk-omelet-dvorak)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; skk-omelet-dvorak.el ends here

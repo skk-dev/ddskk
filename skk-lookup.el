@@ -144,20 +144,20 @@
 ;;;; inline functions.
 (defsubst skk-lookup-get-1 (name index)
   (let ((list
-	 (cdr
-	  (or (assoc name skk-lookup-option-alist)
-	      (save-match-data
-		;; If you search via ndtpd, book's name and slash are attached
-		;; to NAME as prefix, like `IWANAMI/KOJIEN'.  The following
-		;; forms will truncate it to `KOJIEN'.
-		(when (string-match "/\\(.+\\)$" name)
-		  (assoc (match-string 1 name) skk-lookup-option-alist)))))))
+         (cdr
+          (or (assoc name skk-lookup-option-alist)
+              (save-match-data
+                ;; If you search via ndtpd, book's name and slash are attached
+                ;; to NAME as prefix, like `IWANAMI/KOJIEN'.  The following
+                ;; forms will truncate it to `KOJIEN'.
+                (when (string-match "/\\(.+\\)$" name)
+                  (assoc (match-string 1 name) skk-lookup-option-alist)))))))
     (nth index (or list skk-lookup-default-option-list))))
 
 (defsubst skk-lookup-get-method (name okuri-process)
   (let ((sex (skk-lookup-get-1 name okuri-process)))
     (cond ((symbolp sex) sex)
-	  (t (eval sex)))))
+          (t (eval sex)))))
 
 (defsubst skk-lookup-get-nonsearch-sex (name)
   (skk-lookup-get-1 name 3))
@@ -175,37 +175,37 @@
 ;;;###autoload
 (defun skk-lookup-search ()
   (unless (or skk-num-list
-	      skk-num-recompute-key)
+              skk-num-recompute-key)
     ;; 数値変換のときは変換キーが `#' を含むものなので、lookup で検索しない。
     (let ((module (skk-lookup-default-module))
-	  ;; if `lookup-enable-gaiji' is nil, gaiji tag like
-	  ;; `<gaiji=za52a>' is put out.
-	  ;;(lookup-enable-gaiji nil)
-	  (lookup-gaiji-alternate "")
-	  (henkan-key skk-henkan-key)
-	  okuri-process v)
+          ;; if `lookup-enable-gaiji' is nil, gaiji tag like
+          ;; `<gaiji=za52a>' is put out.
+          ;;(lookup-enable-gaiji nil)
+          (lookup-gaiji-alternate "")
+          (henkan-key skk-henkan-key)
+          okuri-process v)
       (cond
        ((not (or skk-henkan-okurigana skk-okuri-char))
-	;; okuri-nasi
-	(setq okuri-process 0))
+        ;; okuri-nasi
+        (setq okuri-process 0))
        ;; okuri-ari and `skk-lookup-process-henkan-key-function' is non-nil.
        (skk-lookup-process-henkan-key-function
-	(setq v (funcall skk-lookup-process-henkan-key-function
-			 henkan-key)
-	      henkan-key (car v)
-	      okuri-process (cdr v)))
+        (setq v (funcall skk-lookup-process-henkan-key-function
+                         henkan-key)
+              henkan-key (car v)
+              okuri-process (cdr v)))
        ;; okuri-ari and (not skk-process-okuri-early)
        (skk-henkan-okurigana
-	;; 送り仮名のかな prefix を捨て、送り仮名を足して lookup に渡す。
-	(setq henkan-key (concat (substring henkan-key
-					    0 (1- (length henkan-key)))
-				 skk-henkan-okurigana)
-	      okuri-process 1))
+        ;; 送り仮名のかな prefix を捨て、送り仮名を足して lookup に渡す。
+        (setq henkan-key (concat (substring henkan-key
+                                            0 (1- (length henkan-key)))
+                                 skk-henkan-okurigana)
+              okuri-process 1))
        ;; okuri-ari and skk-process-okuri-early
        (skk-okuri-char
-	;; 送り仮名のかな prefix を捨てて lookup に渡す。
-	(setq henkan-key (substring henkan-key 0 (1- (length henkan-key)))
-	      okuri-process 2)))
+        ;; 送り仮名のかな prefix を捨てて lookup に渡す。
+        (setq henkan-key (substring henkan-key 0 (1- (length henkan-key)))
+              okuri-process 2)))
       (delete skk-henkan-key (skk-lookup-search-1 module henkan-key okuri-process)))))
 
 (defun skk-lookup-search-1 (module key okuri-process)
@@ -217,34 +217,34 @@
     (lookup-foreach
      (lambda (dictionary)
        (when (and (lookup-dictionary-selected-p dictionary)
-		  (setq name (lookup-dictionary-name dictionary))
-		  (eval (skk-lookup-get-nonsearch-sex name))
-		  (setq method (skk-lookup-get-method name okuri-process))
-		  ;; valid method or not?
-		  (memq method (lookup-dictionary-methods dictionary))
-		  ;; actual search.
-		  (setq entries (lookup-vse-search-query
-				 dictionary
-				 (lookup-make-query method
-						    lookup-search-pattern))))
-	 (lookup-foreach
-	  (lambda (entry)
-	    ;; pickup necessary string for SKK.
-	    (setq candidates-string (lookup-entry-heading entry))
-	    (if (or (skk-lookup-get-pickup-regexp name)
-		    (skk-lookup-get-split-regexp name))
-		(setq candidates-list
-		      (nconc (skk-lookup-process-heading
-			      name candidates-string okuri-process)
-			     candidates-list))
-	      (setq candidates-string (skk-lookup-process-okurigana
-				       candidates-string
-				       okuri-process))
-	      (if (and candidates-string
-		       (not (string= lookup-search-pattern candidates-string)))
-		  (setq candidates-list (cons candidates-string
-					      candidates-list)))))
-	  entries)))
+                  (setq name (lookup-dictionary-name dictionary))
+                  (eval (skk-lookup-get-nonsearch-sex name))
+                  (setq method (skk-lookup-get-method name okuri-process))
+                  ;; valid method or not?
+                  (memq method (lookup-dictionary-methods dictionary))
+                  ;; actual search.
+                  (setq entries (lookup-vse-search-query
+                                 dictionary
+                                 (lookup-make-query method
+                                                    lookup-search-pattern))))
+         (lookup-foreach
+          (lambda (entry)
+            ;; pickup necessary string for SKK.
+            (setq candidates-string (lookup-entry-heading entry))
+            (if (or (skk-lookup-get-pickup-regexp name)
+                    (skk-lookup-get-split-regexp name))
+                (setq candidates-list
+                      (nconc (skk-lookup-process-heading
+                              name candidates-string okuri-process)
+                             candidates-list))
+              (setq candidates-string (skk-lookup-process-okurigana
+                                       candidates-string
+                                       okuri-process))
+              (if (and candidates-string
+                       (not (string= lookup-search-pattern candidates-string)))
+                  (setq candidates-list (cons candidates-string
+                                              candidates-list)))))
+          entries)))
      ;; dictionaries to be searched.
      (lookup-module-dictionaries module))
     (nreverse candidates-list)))
@@ -265,89 +265,89 @@
    ;; okuri-ari
    (t
     (let* ((okuri-length
-	    (cond
-	     ;; has `skk-henkan-okurigana'.
-	     ((= process-type 1) (length skk-henkan-okurigana))
-	     ;; `skk-process-okuri-early' is non-nil.
-	     ((= process-type 2)
-	      ;; don't know exactly how long okurigana is.
-	      ;; truncate length of one character anyway.
-	      1)))
-	   (okurigana (and (> (length string) okuri-length)
-			   (substring string (- okuri-length)))))
+            (cond
+             ;; has `skk-henkan-okurigana'.
+             ((= process-type 1) (length skk-henkan-okurigana))
+             ;; `skk-process-okuri-early' is non-nil.
+             ((= process-type 2)
+              ;; don't know exactly how long okurigana is.
+              ;; truncate length of one character anyway.
+              1)))
+           (okurigana (and (> (length string) okuri-length)
+                           (substring string (- okuri-length)))))
       (cond (
-	     ;; cannot detect okurigana in STRING.
-	     (not okurigana) nil)
-	    (skk-henkan-okuri-strictly
-	     (and (string= skk-henkan-okurigana okurigana)
-		  ;; cut okurigana off.
-		  (substring string 0 (- okuri-length))))
-	    ;; `skk-process-okuri-early' or not `skk-henkan-okuri-strictly'.
-	    ((string= (skk-okurigana-prefix okurigana) skk-okuri-char)
-	     ;; cut okurigana off.
-	     (substring string 0 (- okuri-length))))))))
+             ;; cannot detect okurigana in STRING.
+             (not okurigana) nil)
+            (skk-henkan-okuri-strictly
+             (and (string= skk-henkan-okurigana okurigana)
+                  ;; cut okurigana off.
+                  (substring string 0 (- okuri-length))))
+            ;; `skk-process-okuri-early' or not `skk-henkan-okuri-strictly'.
+            ((string= (skk-okurigana-prefix okurigana) skk-okuri-char)
+             ;; cut okurigana off.
+             (substring string 0 (- okuri-length))))))))
 
 (defun skk-lookup-process-heading (name heading okuri-process-type)
   ;; heading しか取り出さないのはもったいない？  他にも情報を取り出し
   ;; ておいて、必要に応じて参照するか？
   (save-match-data
     (cl-do* ((pickup (skk-lookup-get-pickup-regexp name))
-	  (pickup-regexp (if (consp pickup) (car pickup)))
-	  (match (if (consp pickup) (cdr pickup) 1))
-	  (split-regexp (skk-lookup-get-split-regexp name))
-	  (cleanup-regexp (skk-lookup-get-cleanup-regexp name))
-	  (candidates-list (if (not pickup) (list heading)))
-	  candidates-string)
-	;; `だし【出し】【出し・〈出汁〉】【｛山車｝】' などのように
-	;; 1 つの heading に対し、複数の切り出し作業が必要になる場合
-	;; があるのでループで作業する。
-	((or (string= heading "")
-	     (and pickup-regexp
-		  (not (string-match pickup-regexp heading))))
-	 candidates-list)
+             (pickup-regexp (if (consp pickup) (car pickup)))
+             (match (if (consp pickup) (cdr pickup) 1))
+             (split-regexp (skk-lookup-get-split-regexp name))
+             (cleanup-regexp (skk-lookup-get-cleanup-regexp name))
+             (candidates-list (if (not pickup) (list heading)))
+             candidates-string)
+        ;; `だし【出し】【出し・〈出汁〉】【｛山車｝】' などのように
+        ;; 1 つの heading に対し、複数の切り出し作業が必要になる場合
+        ;; があるのでループで作業する。
+        ((or (string= heading "")
+             (and pickup-regexp
+                  (not (string-match pickup-regexp heading))))
+         candidates-list)
       (setq match (eval match))
       (cond
        ((and pickup-regexp
-	     (listp match))
-	(setq candidates-string
-	      (mapconcat (lambda (num)
-			    (match-string-no-properties num heading))
-			 match "")
-	      ;; XXX MATCH が複数だったら、heading 切り出しは
-	      ;; 一度だけしかできない...。
-	      heading ""))
+             (listp match))
+        (setq candidates-string
+              (mapconcat (lambda (num)
+                           (match-string-no-properties num heading))
+                         match "")
+              ;; XXX MATCH が複数だったら、heading 切り出しは
+              ;; 一度だけしかできない...。
+              heading ""))
        (pickup-regexp
-	(setq candidates-string (match-string-no-properties match heading)
-	      heading (substring heading
-				 (min (1+ (match-end match))
-				      (length heading)))))
+        (setq candidates-string (match-string-no-properties match heading)
+              heading (substring heading
+                                 (min (1+ (match-end match))
+                                      (length heading)))))
        (t
-	;; XXX never be used?
-	(setq candidates-string heading
-	      heading "")))
+        ;; XXX never be used?
+        (setq candidates-string heading
+              heading "")))
       (when cleanup-regexp
-	(while (string-match cleanup-regexp candidates-string)
-	  (setq candidates-string
-		(concat (substring candidates-string 0 (match-beginning 0))
-			(substring candidates-string (match-end 0))))))
+        (while (string-match cleanup-regexp candidates-string)
+          (setq candidates-string
+                (concat (substring candidates-string 0 (match-beginning 0))
+                        (substring candidates-string (match-end 0))))))
       (cond
        (split-regexp
-	(lookup-foreach
-	 (lambda (c)
-	   (unless (string= lookup-search-pattern c)
-	     (setq c (skk-lookup-process-okurigana c okuri-process-type))
-	     (when c
-	       (setq candidates-list (cons c (delete c candidates-list))))))
-	 (split-string candidates-string split-regexp)))
-	((string= lookup-search-pattern candidates-string)
-	 nil)
-	(t
-	 (setq candidates-string (skk-lookup-process-okurigana
-				  candidates-string okuri-process-type))
-	 (when candidates-string
-	   (setq candidates-list
-		 (cons candidates-string
-		       (delete candidates-string candidates-list)))))))))
+        (lookup-foreach
+         (lambda (c)
+           (unless (string= lookup-search-pattern c)
+             (setq c (skk-lookup-process-okurigana c okuri-process-type))
+             (when c
+               (setq candidates-list (cons c (delete c candidates-list))))))
+         (split-string candidates-string split-regexp)))
+       ((string= lookup-search-pattern candidates-string)
+        nil)
+       (t
+        (setq candidates-string (skk-lookup-process-okurigana
+                                 candidates-string okuri-process-type))
+        (when candidates-string
+          (setq candidates-list
+                (cons candidates-string
+                      (delete candidates-string candidates-list)))))))))
 
 ;; The following four functions were imported from lookup.el and
 ;; lookup-types.el.
@@ -358,30 +358,30 @@
 (defun skk-lookup-module-list ()
   (or skk-lookup-module-list
       (setq skk-lookup-module-list
-	    (mapcar 'skk-lookup-new-module (or skk-lookup-search-modules
-					       '(("%SKK-EVERY" "")))))))
+            (mapcar 'skk-lookup-new-module (or skk-lookup-search-modules
+                                               '(("%SKK-EVERY" "")))))))
 (defun skk-lookup-new-module (spec)
   (let ((name (car spec))
-	(id-list (cdr spec))
-	module agents match start)
+        (id-list (cdr spec))
+        module agents match start)
     ;; get agent list
     (lookup-foreach (lambda (id)
-		      ;; get the list of agents matched with ID
-		      (setq match (concat "^" (regexp-quote id))
-			    start agents)
-		      (lookup-foreach
-		       (lambda (e)
-			 (when (string-match match (lookup-agent-id e))
-			   (setq agents (cons e agents))))
-		       (skk-lookup-agent-list))
-		      (when (eq start agents)
-			(error "No match agent: %s" id)))
-		    ;; get a list of agent-IDs
-		    (lookup-nunique
-		     (mapcar (lambda (id)
-			       (string-match "^[^:]*" id)
-			       (substring id 0 (match-end 0)))
-			     id-list)))
+                      ;; get the list of agents matched with ID
+                      (setq match (concat "^" (regexp-quote id))
+                            start agents)
+                      (lookup-foreach
+                       (lambda (e)
+                         (when (string-match match (lookup-agent-id e))
+                           (setq agents (cons e agents))))
+                       (skk-lookup-agent-list))
+                      (when (eq start agents)
+                        (error "No match agent: %s" id)))
+                    ;; get a list of agent-IDs
+                    (lookup-nunique
+                     (mapcar (lambda (id)
+                               (string-match "^[^:]*" id)
+                               (substring id 0 (match-end 0)))
+                             id-list)))
     (setq agents (nreverse (lookup-nunique agents 'eq)))
     ;; construct module
     (setq module (lookup-make-module name nil))
@@ -392,21 +392,21 @@
 (defun skk-lookup-agent-list ()
   (or skk-lookup-agent-list
       (progn
-	(unless skk-lookup-search-agents
-	  ;; copy-list is a C primitive of XEmacs, but FSFmacs has it
-	  ;; in cl.el.
-	  (setq skk-lookup-search-agents
-		(let ((agents (copy-sequence lookup-search-agents))
-		      e)
-		  ;; use `skk-kakasi.el' instead of ndkks.
-		  (setq agents (delete '(ndkks) agents))
-		  (while (setq e (assq 'ndcookie agents))
-		    (setq agents (delq e agents)))
-		  (while (setq e (assq 'ndnmz agents))
-		    (setq agents (delq e agents)))
-		  agents)))
-	(setq skk-lookup-agent-list
-	      (mapcar 'lookup-new-agent skk-lookup-search-agents)))))
+        (unless skk-lookup-search-agents
+          ;; copy-list is a C primitive of XEmacs, but FSFmacs has it
+          ;; in cl.el.
+          (setq skk-lookup-search-agents
+                (let ((agents (copy-sequence lookup-search-agents))
+                      e)
+                  ;; use `skk-kakasi.el' instead of ndkks.
+                  (setq agents (delete '(ndkks) agents))
+                  (while (setq e (assq 'ndcookie agents))
+                    (setq agents (delq e agents)))
+                  (while (setq e (assq 'ndnmz agents))
+                    (setq agents (delq e agents)))
+                  agents)))
+        (setq skk-lookup-agent-list
+              (mapcar 'lookup-new-agent skk-lookup-search-agents)))))
 
 ;; the following two are to check dictionary output of heading for
 ;; creating new regexp.
@@ -419,39 +419,39 @@
   "Search PATTERN by METHOD.
 METHOD は変数`lookup-search-methods'を参照のこと."
   (let ((module (skk-lookup-default-module))
-	(lookup-gaiji-alternate "")
-	;;lookup-enable-gaiji ;  not to put out gaiji.
-	var)
+        (lookup-gaiji-alternate "")
+        ;;lookup-enable-gaiji ;  not to put out gaiji.
+        var)
     (lookup-module-setup module)
     (lookup-foreach
      (lambda (dictionary)
        (lookup-foreach
-	(lambda (entry)
-	  (setq var
-		(nconc
-		 (list
-		  (list (lookup-dictionary-name dictionary)
-			(lookup-dictionary-id dictionary)
-			(lookup-entry-heading entry)
-			;;(lookup-dictionary-command dictionary 'content entry)
-			))
-		 var)))
-	(lookup-vse-search-query
-	 dictionary (lookup-make-query method pattern))))
+        (lambda (entry)
+          (setq var
+                (nconc
+                 (list
+                  (list (lookup-dictionary-name dictionary)
+                        (lookup-dictionary-id dictionary)
+                        (lookup-entry-heading entry)
+                        ;;(lookup-dictionary-command dictionary 'content entry)
+                        ))
+                 var)))
+        (lookup-vse-search-query
+         dictionary (lookup-make-query method pattern))))
      (lookup-module-dictionaries module))
     var))
 
 (defun skk-lookup-map-prefix-and-kana ()
   (let ((lenv (length skk-lookup-kana-vector))
-	(n 0) kana prefix prefix-kana alist)
+        (n 0) kana prefix prefix-kana alist)
     (while (> lenv n)
       (setq kana (aref skk-lookup-kana-vector n)
-	    prefix (aref skk-kana-rom-vector n)
-	    prefix-kana (assoc prefix alist)
-	    n (1+ n))
+            prefix (aref skk-kana-rom-vector n)
+            prefix-kana (assoc prefix alist)
+            n (1+ n))
       (if prefix-kana
-	  (setcdr prefix-kana (cons kana (cdr prefix-kana)))
-	(setq alist (cons (cons prefix (list kana)) alist))))
+          (setcdr prefix-kana (cons kana (cdr prefix-kana)))
+        (setq alist (cons (cons prefix (list kana)) alist))))
     alist))
 
 
@@ -460,10 +460,10 @@ METHOD は変数`lookup-search-methods'を参照のこと."
   (let ((module (skk-lookup-default-module)))
     (lookup-module-setup module)
     (setq skk-lookup-get-content-default-dic-name
-	  (lookup-dictionary-name
-	   (setq skk-lookup-get-content-default-dic
-		 (nth skk-lookup-get-content-nth-dic
-		      (lookup-module-dictionaries module))))))
+          (lookup-dictionary-name
+           (setq skk-lookup-get-content-default-dic
+                 (nth skk-lookup-get-content-nth-dic
+                      (lookup-module-dictionaries module))))))
   (message "skk-lookup-get-content: %s" skk-lookup-get-content-default-dic-name))
 
 ;;;###autoload
@@ -471,23 +471,27 @@ METHOD は変数`lookup-search-methods'を参照のこと."
   (unless skk-lookup-get-content-default-dic
     (skk-lookup-get-content-setup-dic))
   (let* ((query (lookup-vse-search-query skk-lookup-get-content-default-dic
-					(lookup-make-query 'exact word)))
-	 (content (if query
-		      (lookup-dictionary-command
-		       skk-lookup-get-content-default-dic
-		       'content (car query))
-		    nil)))
+                                         (lookup-make-query 'exact word)))
+         (content (if query
+                      (lookup-dictionary-command
+                       skk-lookup-get-content-default-dic
+                       'content (car query))
+                    nil)))
     (when content
       (setq content (replace-regexp-in-string
-		     "<[^>]*>" "" 
-		     (if listing-p
-			 (nth 1 (split-string content "\n"))
-		       content))
-	    content (format "%s [%s]"
-			    content
-			    skk-lookup-get-content-default-dic-name)))
+                     "<[^>]*>" ""
+                     (if listing-p
+                         (nth 1 (split-string content "\n"))
+                       content))
+            content (format "%s [%s]"
+                            content
+                            skk-lookup-get-content-default-dic-name)))
     content))
 
 (provide 'skk-lookup)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; skk-lookup.el ends here

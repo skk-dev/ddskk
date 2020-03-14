@@ -23,3 +23,9 @@
           (search-forward "/" nil 'noerror)
           (should (equal (skk-compute-henkan-lists okurigana)
                          expected)))))))
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
+
+;;; skk-test.el ends here

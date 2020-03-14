@@ -7,8 +7,9 @@
 
 (define-package "ddskk" "17.0.50"
   "Simple Kana to Kanji conversion program."
-  '((ccc "1.43") (cdb "20141201.754")))		; REQUIREMENTS
+  '((ccc "1.43") (cdb "20141201.754")))     ; REQUIREMENTS
 
 ;; Local Variables:
 ;; no-byte-compile: t
+;; indent-tabs-mode: nil
 ;; End:

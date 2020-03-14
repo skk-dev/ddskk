@@ -53,29 +53,33 @@
     (when skk-comp-first
       (setq skk-pre-henkan-candidates (skk-pre-henkan-make-candidates)))
     (prog1
-	(car (skk-treat-strip-note-from-word (car skk-pre-henkan-candidates)))
+        (car (skk-treat-strip-note-from-word (car skk-pre-henkan-candidates)))
       (setq skk-pre-henkan-candidates (cdr skk-pre-henkan-candidates)))))
 
 (defun skk-pre-henkan-make-candidates ()
   "`skk-comp-key' をキー（先頭一致）として、候補のリストを返す."
   (let ((list-jisyo '(skk-jisyo skk-large-jisyo))
-	;; skk-comp-key は buffer-local なので with-current-buffer() 内では nil になる。
-	(key (format "^%s.* /" (car (split-string skk-comp-key "*" t))))
-	(i 0)
-	candidates)
+        ;; skk-comp-key は buffer-local なので with-current-buffer() 内では nil になる。
+        (key (format "^%s.* /" (car (split-string skk-comp-key "*" t))))
+        (i 0)
+        candidates)
     (dolist (jisyo list-jisyo)
       (with-current-buffer (skk-get-jisyo-buffer (symbol-value jisyo) 'nomsg)
-	(goto-char skk-okuri-nasi-min)
-	  (while (and (re-search-forward key nil t)
-		      (< i 100))
-	    (setq candidates (concat candidates
-				     (buffer-substring-no-properties (point)
-								     (progn (end-of-line)
-									    (point)))))
-	    (setq i (1+ i)))))
+        (goto-char skk-okuri-nasi-min)
+        (while (and (re-search-forward key nil t)
+                    (< i 100))
+          (setq candidates (concat candidates
+                                   (buffer-substring-no-properties (point)
+                                                                   (progn (end-of-line)
+                                                                          (point)))))
+          (setq i (1+ i)))))
     (when candidates
       (split-string candidates "/" t))))
 
 (provide 'skk-pre-henkan)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; skk-pre-henkan.el ends here

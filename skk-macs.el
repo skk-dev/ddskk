@@ -37,44 +37,44 @@
 This is like `defadvice', but warns if FUNCTION is a subr command and advice
 doesn't give arguments of `interactive'. See `interactive' for details."
   (let ((origfunc (and (fboundp function)
-		       (if (ad-is-advised function)
-			   (ad-get-orig-definition function)
-			 (symbol-function function))))
-	interactive)
+                       (if (ad-is-advised function)
+                           (ad-get-orig-definition function)
+                         (symbol-function function))))
+        interactive)
     (unless
-	(or (not origfunc)
-	    (not (subrp origfunc))
-	    (memq function ; XXX possibilly Emacs version dependent
-		  ;; built-in commands which do not have interactive specs.
-		  '(abort-recursive-edit
-		    bury-buffer
-		    delete-frame
-		    delete-window
-		    exit-minibuffer)))
+        (or (not origfunc)
+            (not (subrp origfunc))
+            (memq function ; XXX possibilly Emacs version dependent
+                  ;; built-in commands which do not have interactive specs.
+                  '(abort-recursive-edit
+                    bury-buffer
+                    delete-frame
+                    delete-window
+                    exit-minibuffer)))
       ;; check if advice definition has a interactive call or not.
       (setq interactive
-	    (cond
-	     ((and (stringp (nth 1 everything-else)) ; have document
-		   (eq 'interactive (car-safe (nth 2 everything-else))))
-	      (nth 2 everything-else))
-	     ((eq 'interactive (car-safe (nth 1 everything-else)))
-	      (nth 1 everything-else))))
+            (cond
+             ((and (stringp (nth 1 everything-else)) ; have document
+                   (eq 'interactive (car-safe (nth 2 everything-else))))
+              (nth 2 everything-else))
+             ((eq 'interactive (car-safe (nth 1 everything-else)))
+              (nth 1 everything-else))))
       (cond
        ((and (commandp origfunc)
-	     (not interactive))
-	(message
-	 "\
+             (not interactive))
+        (message
+         "\
 *** WARNING: Adding advice to subr %s\
  without mirroring its interactive spec ***"
-		 function))
+         function))
        ((and (not (commandp origfunc))
-	     interactive)
-	(setq everything-else (delq interactive everything-else))
-	(message
-	 "\
+             interactive)
+        (setq everything-else (delq interactive everything-else))
+        (message
+         "\
 *** WARNING: Deleted interactive call from %s advice\
  as %s is not a subr command ***"
-	 function function))))
+         function function))))
     `(defadvice ,function ,@everything-else)))
 
 ;;;###autoload
@@ -84,8 +84,8 @@ doesn't give arguments of `interactive'. See `interactive' for details."
 (defmacro skk-save-point (&rest body)
   `(let ((skk-save-point (point-marker)))
      (unwind-protect
-	 (progn
-	   ,@body)
+         (progn
+           ,@body)
        (goto-char skk-save-point)
        (skk-set-marker skk-save-point nil))))
 
@@ -99,11 +99,11 @@ doesn't give arguments of `interactive'. See `interactive' for details."
   (append
    (if arg
        `(message (if skk-japanese-message-and-error
-		     ,japanese
-		   ,english))
+                     ,japanese
+                   ,english))
      `(message "%s" (if skk-japanese-message-and-error
-			,japanese
-		      ,english)))
+                        ,japanese
+                      ,english)))
    arg))
 
 (defmacro skk-error (japanese english &rest arg)
@@ -114,11 +114,11 @@ doesn't give arguments of `interactive'. See `interactive' for details."
   (append
    (if arg
        `(error (if skk-japanese-message-and-error
-		   ,japanese
-		 ,english))
+                   ,japanese
+                 ,english))
      `(error "%s" (if skk-japanese-message-and-error
-		      ,japanese
-		    ,english)))
+                      ,japanese
+                    ,english)))
    arg))
 
 (defmacro skk-yes-or-no-p (japanese english)
@@ -129,14 +129,14 @@ doesn't give arguments of `interactive'. See `interactive' for details."
 使うよりもオリジナルの `yes-or-no-p' を使用した方がコードが複雑にならない場合
 がある。"
   `(yes-or-no-p (if skk-japanese-message-and-error
-		    ,japanese ,english)))
+                    ,japanese ,english)))
 
 (defmacro skk-y-or-n-p (japanese english)
   "ユーザに \"y or n\" を質問し、答えが \"y\" だったら t を返す。
 `skk-japanese-message-and-error' が non-nil であれば JAPANESE を、 nil であれ
 ば ENGLISH を PROMPT として `y-or-n-p' を実行する。"
   `(y-or-n-p (if skk-japanese-message-and-error
-		 ,japanese ,english)))
+                 ,japanese ,english)))
 
 (defmacro skk-set-marker (marker position &optional buffer)
   "マーカ MARKER を BUFFER の POSITION に移動する。
@@ -144,14 +144,14 @@ BUFFER のディフォルト値はカレントバッファである。
 MARKER が nil だったら、新規マーカーを作って代入する。"
   `(progn
      (if (not ,marker)
-	 (setq ,marker (make-marker)))
+         (setq ,marker (make-marker)))
      (set-marker ,marker ,position ,buffer)))
 
 (defmacro skk-with-point-move (&rest form)
   "ポイントを移動するがフックを実行してほしくない場合に使う。"
   `(unwind-protect
        (progn
-	 ,@form)
+         ,@form)
      (setq skk-previous-point (point))))
 
 (def-edebug-spec skk-with-point-move t)
@@ -159,13 +159,13 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 (defmacro skk-face-on (object start end face &optional priority)
   `(let ((inhibit-quit t))
      (if (not (overlayp ,object))
-	 (progn
-	   (setq ,object (make-overlay ,start ,end))
-	   (when ,priority
-	     (overlay-put ,object 'priority ,priority))
-	   (overlay-put ,object 'face ,face)
-	   ;;(overlay-put (, object) 'evaporate t)
-	   )
+         (progn
+           (setq ,object (make-overlay ,start ,end))
+           (when ,priority
+             (overlay-put ,object 'priority ,priority))
+           (overlay-put ,object 'face ,face)
+           ;;(overlay-put (, object) 'evaporate t)
+           )
        (move-overlay ,object ,start ,end))))
 
 ;;;###autoload
@@ -175,8 +175,8 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
   `(save-current-buffer
      (dolist (buf ,buffers)
        (when (buffer-live-p buf)
-	 (set-buffer buf)
-	 ,@body))))
+         (set-buffer buf)
+         ,@body))))
 
 (defmacro skk-delete-overlay (list)
   ;; skk-dcomp-multiple-hide と skk-inline-hide を統合した。
@@ -187,12 +187,12 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 
 (defmacro skk-help-make-usage (symbol arglist)
   (cond ((fboundp 'help--make-usage)
-	 ;; GNU Emacs 25.1 から
-	 `(help--make-usage ,symbol ,arglist))
+         ;; GNU Emacs 25.1 から
+         `(help--make-usage ,symbol ,arglist))
 
-	(t
-	 ;; GNU Emacs 24.1 まで
-	 `(help-make-usage ,symbol ,arglist))))
+        (t
+         ;; GNU Emacs 24.1 まで
+         `(help-make-usage ,symbol ,arglist))))
 
 ;;; functions.
 
@@ -207,16 +207,16 @@ If the event isn't a keypress, this returns nil."
     ;; mask is (BASE-TYPE MODIFIER-BITS) or nil.
     (let ((mask (get event 'event-symbol-element-mask)))
       (if mask
-	  (let ((base (get (car mask) 'ascii-character)))
-	    (if base
-		(logior base (cadr mask)))))))
+          (let ((base (get (car mask) 'ascii-character)))
+            (if base
+                (logior base (cadr mask)))))))
    ((integerp event)
     event)))
 
 (defun cancel-undo-boundary ()
   "Cancel undo boundary."
   (if (and (consp buffer-undo-list)
-	   (null (car buffer-undo-list)))
+           (null (car buffer-undo-list)))
       (setq buffer-undo-list (cdr buffer-undo-list))))
 
 ;; For GNU Emacs.
@@ -245,9 +245,9 @@ If the event isn't a keypress, this returns nil."
 
 (defun skk-jisx0213-p (char)
   (memq (char-charset char skk-charset-list)
-	'(japanese-jisx0213-1
-	  japanese-jisx0213.2004-1
-	  japanese-jisx0213-2)))
+        '(japanese-jisx0213-1
+          japanese-jisx0213.2004-1
+          japanese-jisx0213-2)))
 
 (defun skk-split-char (ch)
   ;; http://mail.ring.gr.jp/skk/200908/msg00006.html
@@ -256,12 +256,12 @@ If the event isn't a keypress, this returns nil."
   ;; これは例えば、japanese-jisx0208 の文字が unicode-bmp に属する、
   ;; と判定されるような状況を回避する。
   (let* ((charset (char-charset ch skk-charset-list))
-	 (code (encode-char ch charset))
-	 (dimension (charset-dimension charset))
-	 val)
+         (code (encode-char ch charset))
+         (dimension (charset-dimension charset))
+         val)
     (while (> dimension 0)
       (setq val (cons (logand code 255) ;; 0xFF
-		      val))
+                      val))
       (setq code (lsh code -8))
       (setq dimension (1- dimension)))
     (cons charset val)))
@@ -270,16 +270,16 @@ If the event isn't a keypress, this returns nil."
   "SKK インジケータ型オブジェクト INDICATOR を文字列に変換する。"
   (if no-properties
       (with-temp-buffer
-	(insert indicator)
-	(buffer-substring-no-properties (point-min) (point-max)))
+        (insert indicator)
+        (buffer-substring-no-properties (point-min) (point-max)))
     indicator))
 
 (defun skk-mode-string-to-indicator (mode string)
   "文字列 STRING を SKK インジケータ型オブジェクトに変換する。"
   (if (and window-system
-	   (not (eq mode 'default)))
+           (not (eq mode 'default)))
       (apply 'propertize string
-	     (cdr (assq mode skk-emacs-property-alist)))
+             (cdr (assq mode skk-emacs-property-alist)))
     string))
 
 (defun skk-face-proportional-p (face)
@@ -289,9 +289,9 @@ If the event isn't a keypress, this returns nil."
 (defun skk-event-key (event)
   "イベント EVENT を発生した入力の情報を取得する。"
   (let ((char (event-to-character event))
-	keys)
+        keys)
     (if char
-	(vector char)
+        (vector char)
       (setq keys (recent-keys))
       (vector (aref keys (1- (length keys)))))))
 
@@ -300,22 +300,22 @@ If the event isn't a keypress, this returns nil."
   (let ((variable 'last-command-event))
     `(let ((,variable ,char))
        (progn
-	 ,@body))))
+         ,@body))))
 
 ;;; version independent
 
 (defsubst skk-char-octet (ch &optional n)
   (or (nth (if n
-	       (1+ n)
-	     1)
-	   (skk-split-char ch))
+               (1+ n)
+             1)
+           (skk-split-char ch))
       0))
 
 (defun skk-cursor-set (&optional color force)
   (unless (skk-color-cursor-display-p)
     (setq skk-use-color-cursor nil))
   (when (or skk-use-color-cursor
-	    force)
+            force)
     (skk-cursor-set-1 color)))
 
 (defun skk-cursor-off ()
@@ -326,7 +326,7 @@ If the event isn't a keypress, this returns nil."
 
 (defun skk-modify-indicator-alist (mode string)
   (setcdr (assq mode skk-indicator-alist)
-	  (cons string (skk-mode-string-to-indicator mode string))))
+          (cons string (skk-mode-string-to-indicator mode string))))
 
 (defun skk-update-modeline (&optional mode string)
   (unless mode
@@ -337,20 +337,20 @@ If the event isn't a keypress, this returns nil."
   ;;
   (let ((indicator (cdr (assq mode skk-indicator-alist))))
     (setq skk-modeline-input-mode
-	  (if (eq skk-status-indicator 'left)
-	      (cdr indicator)
-	    (car indicator)))
+          (if (eq skk-status-indicator 'left)
+              (cdr indicator)
+            (car indicator)))
     (force-mode-line-update)))
 
 ;; ツリーにアクセスするためのインターフェース
 (defun skk-make-rule-tree (char prefix nextstate kana branch-list)
   (list char
-	prefix
-	(if (string= nextstate "")
-	    nil
-	  nextstate)
-	kana
-	branch-list))
+        prefix
+        (if (string= nextstate "")
+            nil
+          nextstate)
+        kana
+        branch-list))
 
 (defsubst skk-get-prefix (tree)
   (nth 1 tree))
@@ -390,35 +390,35 @@ If the event isn't a keypress, this returns nil."
   ;; 表示されている skk-prefix は削除したいが、変数としての skk-prefix は
   ;; null 文字にしたくない。
   (when (overlayp skk-prefix-overlay)
-	(condition-case nil
-	    (delete-overlay skk-prefix-overlay)
-	  (error
-	   (skk-set-marker skk-kana-start-point nil)
-	   (setq skk-prefix ""
-		 skk-current-rule-tree nil))))
+    (condition-case nil
+        (delete-overlay skk-prefix-overlay)
+      (error
+       (skk-set-marker skk-kana-start-point nil)
+       (setq skk-prefix ""
+             skk-current-rule-tree nil))))
   (when clean
     (setq skk-prefix ""
-	  skk-current-rule-tree nil))) ; fail safe
+          skk-current-rule-tree nil))) ; fail safe
 
 (defun skk-kana-cleanup (&optional force)
   (let ((data (cond
-	       ((and skk-current-rule-tree
-		     (null (skk-get-nextstate skk-current-rule-tree)))
-		(skk-get-kana skk-current-rule-tree))
-	       (skk-kana-input-search-function
-		(car (funcall skk-kana-input-search-function)))))
-	kana)
+               ((and skk-current-rule-tree
+                     (null (skk-get-nextstate skk-current-rule-tree)))
+                (skk-get-kana skk-current-rule-tree))
+               (skk-kana-input-search-function
+                (car (funcall skk-kana-input-search-function)))))
+        kana)
     (when (or force data)
       (skk-erase-prefix 'clean)
       (setq kana (if (functionp data)
-		     (funcall data nil)
-		   data))
+                     (funcall data nil)
+                   data))
       (when (consp kana)
-	(setq kana (if skk-katakana
-		       (car kana)
-		     (cdr kana))))
+        (setq kana (if skk-katakana
+                       (car kana)
+                     (cdr kana))))
       (when (stringp kana)
-	(skk-insert-str kana))
+        (skk-insert-str kana))
       (skk-set-marker skk-kana-start-point nil)
       (or data t)))) ; skk-prefix に対応するデータがあったならそれを返す
 
@@ -449,13 +449,13 @@ If the event isn't a keypress, this returns nil."
 
 (defun skk-mode-off ()
   (setq skk-mode nil
-	skk-abbrev-mode nil
-	skk-latin-mode nil
-	skk-j-mode nil
-	skk-jisx0208-latin-mode nil
-	skk-jisx0201-mode nil
-	;; sub mode of skk-j-mode.
-	skk-katakana nil)
+        skk-abbrev-mode nil
+        skk-latin-mode nil
+        skk-j-mode nil
+        skk-jisx0208-latin-mode nil
+        skk-jisx0201-mode nil
+        ;; sub mode of skk-j-mode.
+        skk-katakana nil)
   ;; initialize
   (skk-update-modeline)
   (skk-cursor-off)
@@ -463,61 +463,61 @@ If the event isn't a keypress, this returns nil."
 
 (defun skk-j-mode-on (&optional katakana)
   (setq skk-mode t
-	skk-abbrev-mode nil
-	skk-latin-mode nil
-	skk-j-mode t
-	skk-jisx0208-latin-mode nil
-	skk-jisx0201-mode nil
-	;; sub mode of skk-j-mode.
-	skk-katakana katakana)
+        skk-abbrev-mode nil
+        skk-latin-mode nil
+        skk-j-mode t
+        skk-jisx0208-latin-mode nil
+        skk-jisx0201-mode nil
+        ;; sub mode of skk-j-mode.
+        skk-katakana katakana)
   (skk-setup-keymap)
   (skk-update-modeline (if skk-katakana
-			   'katakana
-			 'hiragana))
+                           'katakana
+                         'hiragana))
   (skk-cursor-set))
 
 (defun skk-latin-mode-on ()
   (setq skk-mode t
-	skk-abbrev-mode nil
-	skk-latin-mode t
-	skk-j-mode nil
-	skk-jisx0208-latin-mode nil
-	skk-jisx0201-mode nil
-	;; sub mode of skk-j-mode.
-	skk-katakana nil)
+        skk-abbrev-mode nil
+        skk-latin-mode t
+        skk-j-mode nil
+        skk-jisx0208-latin-mode nil
+        skk-jisx0201-mode nil
+        ;; sub mode of skk-j-mode.
+        skk-katakana nil)
   (skk-setup-keymap)
   (skk-update-modeline 'latin)
   (skk-cursor-set))
 
 (defun skk-jisx0208-latin-mode-on ()
   (setq skk-mode t
-	skk-abbrev-mode nil
-	skk-latin-mode nil
-	skk-j-mode nil
-	skk-jisx0208-latin-mode t
-	skk-jisx0201-mode nil
-	;; sub mode of skk-j-mode.
-	skk-katakana nil)
+        skk-abbrev-mode nil
+        skk-latin-mode nil
+        skk-j-mode nil
+        skk-jisx0208-latin-mode t
+        skk-jisx0201-mode nil
+        ;; sub mode of skk-j-mode.
+        skk-katakana nil)
   (skk-setup-keymap)
   (skk-update-modeline 'jisx0208-latin)
   (skk-cursor-set))
 
 (defun skk-abbrev-mode-on ()
   (setq skk-mode t
-	skk-abbrev-mode t
-	skk-latin-mode nil
-	skk-j-mode nil
-	skk-jisx0208-latin-mode nil
-	skk-jisx0201-mode nil
-	;; skk-abbrev-mode は一時的な ascii 文字による変換なので、変換後は元の
-	;; 入力モード (かなモードかカナモード) に戻ることが期待される。
-	;; skk-katakana は minor-mode フラグではなく、skk-j-mode マイナーモード
-	;; の中でこのフラグにより入力文字を決定するポインタを変更するだけなので
-	;; skk-abbrev-mode マイナーモード化するのに skk-katakana フラグを初期化
-	;; しなければならない必然性はない。
-	;; sub mode of skk-j-mode.
-	;;skk-katakana nil
-	)
+        skk-abbrev-mode t
+        skk-latin-mode nil
+        skk-j-mode nil
+        skk-jisx0208-latin-mode nil
+        skk-jisx0201-mode nil
+        ;; skk-abbrev-mode は一時的な ascii 文字による変換なので、変換後は元の
+        ;; 入力モード (かなモードかカナモード) に戻ることが期待される。
+        ;; skk-katakana は minor-mode フラグではなく、skk-j-mode マイナーモード
+        ;; の中でこのフラグにより入力文字を決定するポインタを変更するだけなので
+        ;; skk-abbrev-mode マイナーモード化するのに skk-katakana フラグを初期化
+        ;; しなければならない必然性はない。
+        ;; sub mode of skk-j-mode.
+        ;;skk-katakana nil
+        )
   (skk-setup-keymap)
   (skk-update-modeline 'abbrev)
   (skk-cursor-set))
@@ -532,16 +532,16 @@ If the event isn't a keypress, this returns nil."
 されている場合にも対応する。"
   (- (current-column)
      (save-excursion
-       (vertical-motion 0)		;スクリーン行の行頭に移動する
-       (current-column))))		;↑この結果、スクリーン行の行頭なのか
-					;テキスト行の行頭なのか
+       (vertical-motion 0)      ;スクリーン行の行頭に移動する
+       (current-column))))      ;↑この結果、スクリーン行の行頭なのか
+                                        ;テキスト行の行頭なのか
 
 (defun skk-move-to-screen-column (col)
   "スクリーン行から見た COL 桁位置にポイントを移動する。
 テキスト行（改行文字で区切られたテキスト）がウィンドウ幅を越えて折り返して表示
 されている場合にも対応するが、改行文字を越える移動は行わない。"
-  (move-to-column (+ (current-column)	;テキスト行から見た桁数
-		     (- col (skk-screen-column))))
+  (move-to-column (+ (current-column)   ;テキスト行から見た桁数
+                     (- col (skk-screen-column))))
   (skk-screen-column))
 
 (defun skk-max-string-width (list)
@@ -556,19 +556,19 @@ If the event isn't a keypress, this returns nil."
     (setq skk-prefix-overlay (make-overlay (point) (point)))
     (let ((prefix (or char skk-prefix)))
       (when (and skk-use-face (not skk-henkan-mode))
-	(setq prefix
-	      (propertize prefix 'face
-			  (cond ((and skk-j-mode (not skk-katakana))
-				 'skk-prefix-hiragana-face)
-				(skk-katakana
-				 'skk-prefix-katakana-face)
-				(skk-jisx0201-mode
-				 'skk-prefix-jisx0201-face)))))
+        (setq prefix
+              (propertize prefix 'face
+                          (cond ((and skk-j-mode (not skk-katakana))
+                                 'skk-prefix-hiragana-face)
+                                (skk-katakana
+                                 'skk-prefix-katakana-face)
+                                (skk-jisx0201-mode
+                                 'skk-prefix-jisx0201-face)))))
       (overlay-put skk-prefix-overlay 'after-string prefix))))
 
 (defsubst skk-string-lessp-in-coding-system (str1 str2 coding-system)
   (string< (encode-coding-string str1 coding-system)
-	   (encode-coding-string str2 coding-system)))
+           (encode-coding-string str2 coding-system)))
 
 (defun skk-string< (str1 str2)
   "STR1 と STR2 とを比較する。
@@ -593,16 +593,16 @@ If the event isn't a keypress, this returns nil."
 
 (defsubst skk-current-input-mode ()
   (cond (skk-abbrev-mode 'abbrev)
-	(skk-latin-mode 'latin)
-	(skk-jisx0208-latin-mode 'jisx0208-latin)
-	(skk-katakana 'katakana)
-	(skk-j-mode 'hiragana)))
+        (skk-latin-mode 'latin)
+        (skk-jisx0208-latin-mode 'jisx0208-latin)
+        (skk-katakana 'katakana)
+        (skk-j-mode 'hiragana)))
 
 (defsubst skk-get-current-candidate-1 (&optional count)
   (setq count (or count skk-henkan-count))
   (when (> 0 count)
     (skk-error "候補を取り出すことができません"
-	       "Cannot get current candidate"))
+               "Cannot get current candidate"))
   ;; (nth -1 '(A B C)) は、A を返すので、負でないかどうかチェックする。
   (nth count skk-henkan-list))
 
@@ -624,7 +624,7 @@ If the event isn't a keypress, this returns nil."
 (defsubst skk-unread-event (event)
   "Unread single EVENT."
   (setq unread-command-events
-	(nconc unread-command-events (list event))))
+        (nconc unread-command-events (list event))))
 
 (defsubst skk-get-last-henkan-datum (key)
   (cdr (assq key skk-last-henkan-data)))
@@ -633,56 +633,56 @@ If the event isn't a keypress, this returns nil."
   (let (e)
     (dolist (kv alist)
       (if (setq e (assq (car kv) skk-last-henkan-data))
-	  (setcdr e (cdr kv))
-	(push (cons (car kv) (cdr kv))
-	      skk-last-henkan-data)))))
+          (setcdr e (cdr kv))
+        (push (cons (car kv) (cdr kv))
+              skk-last-henkan-data)))))
 
 (defun skk-find-coding-system (code)
   "CODE が、Emacs が解釈する coding-system シンボル表現であればそのまま返し、
 文字列であれば連想リスト `skk-coding-system-alist' を用いてシンボル表現へ変換する。
 これら以外（nil を含む）であればシンボル euc-jis-2004 を返す。"
   (cond ((and code (coding-system-p code))
-	 code)
+         code)
 
-	((and code (stringp code))
-	 (cdr (assoc code skk-coding-system-alist)))
+        ((and code (stringp code))
+         (cdr (assoc code skk-coding-system-alist)))
 
-	(t
-	 (cdr (assoc "euc" skk-coding-system-alist)))))
+        (t
+         (cdr (assoc "euc" skk-coding-system-alist)))))
 
 (defsubst skk-lisp-prog-p (string)
   "STRING が Lisp プログラムであれば、t を返す。"
   (let ((l (length string)))
     (and (> l 2)
-	 (eq (aref string 0) ?\()
-	 ;; second character is ascii or not.
-	 (skk-ascii-char-p (aref string 1))
-	 (eq (aref string (1- l)) ?\))      ; この行、もう不要かも
-	 (ignore-errors
-	   (= l (cdr (read-from-string string)))))))
+         (eq (aref string 0) ?\()
+         ;; second character is ascii or not.
+         (skk-ascii-char-p (aref string 1))
+         (eq (aref string (1- l)) ?\))      ; この行、もう不要かも
+         (ignore-errors
+           (= l (cdr (read-from-string string)))))))
 
 (defun skk-eval-string (string)
   "Eval STRING as a lisp program and return the result."
   (cond ((string-match ";" string)
-	 (concat (skk-eval-string (substring string 0 (match-beginning 0)))
-		 (substring string (match-beginning 0) (match-end 0))
-		 (skk-eval-string (substring string (match-end 0)))))
-	((skk-lisp-prog-p string)
-	 (let (func face)
-	   ;; (^_^;) のような文字列に対し、read-from-string を呼ぶと
-	   ;; エラーになるので、ignore-errors で囲む。
-	   (ignore-errors
-	     (setq func (car (read-from-string string)))
-	     (when (and (listp func)
-			(functionp (car func)))
-	       (setq face (get-text-property 0 'face string))
-	       (setq string (if face
-				(propertize (format "%s" (eval func))
-					    'face face)
-			      (format "%s" (eval func))))))
-	   string))
-	(t
-	 string)))
+         (concat (skk-eval-string (substring string 0 (match-beginning 0)))
+                 (substring string (match-beginning 0) (match-end 0))
+                 (skk-eval-string (substring string (match-end 0)))))
+        ((skk-lisp-prog-p string)
+         (let (func face)
+           ;; (^_^;) のような文字列に対し、read-from-string を呼ぶと
+           ;; エラーになるので、ignore-errors で囲む。
+           (ignore-errors
+             (setq func (car (read-from-string string)))
+             (when (and (listp func)
+                        (functionp (car func)))
+               (setq face (get-text-property 0 'face string))
+               (setq string (if face
+                                (propertize (format "%s" (eval func))
+                                            'face face)
+                              (format "%s" (eval func))))))
+           string))
+        (t
+         string)))
 
 ;;;; from dabbrev.el.  Welcome!
 ;; 判定間違いを犯す場合あり。要改良。
@@ -691,10 +691,10 @@ If the event isn't a keypress, this returns nil."
 
 (defun skk-quote-char-1 (word alist)
   (mapconcat (lambda (char)
-	       (or (cdr (assq char alist))
-		   (char-to-string char)))
-   ;; 文字列を対応する char のリストに分解する。
-	     (append word nil) ""))
+               (or (cdr (assq char alist))
+                   (char-to-string char)))
+             ;; 文字列を対応する char のリストに分解する。
+             (append word nil) ""))
 
 (defun skk-key-binding-member (key commands &optional map)
   "入力 KEY が発動するコマンドが、COMMANDS に含まれれば non-nil を返す。
@@ -706,15 +706,15 @@ MAP は入力が書かれているキーマップを指定するが、指定されなければ
   (let (keys)
     (dolist (command commands)
       (setq keys (nconc keys
-			(where-is-internal command map))))
+                        (where-is-internal command map))))
     (member (key-description key)
-	    (mapcar #'key-description
-		    keys))))
+            (mapcar #'key-description
+                    keys))))
 
 (defun skk-update-minor-mode-map-alist (mode map)
   (let ((element (assq mode minor-mode-map-alist)))
     (if element
-	(setcdr element map)
+        (setcdr element map)
       (add-to-list 'minor-mode-map-alist (cons mode map)))))
 
 ;; Functions from alist.el (APEL)
@@ -724,9 +724,9 @@ If there is no such element, create a new pair (KEY . VALUE) and
 return a new alist whose car is the new pair and cdr is ALIST."
   (let ((elm (assoc key alist)))
     (if elm
-	(progn
-	  (setcdr elm value)
-	  alist)
+        (progn
+          (setcdr elm value)
+          alist)
       (cons (cons key value) alist))))
 
 (defun skk-del-alist (key alist)
@@ -734,7 +734,7 @@ return a new alist whose car is the new pair and cdr is ALIST."
 Return the modified ALIST."
   (let ((pair (assoc key alist)))
     (if pair
-	(delq pair alist)
+        (delq pair alist)
       alist)))
 
 (defun skk-remove-alist (symbol key)
@@ -747,9 +747,9 @@ Return the modified ALIST."
   ;; ▼モードのまま候補一覧の手前に戻るときは 4
   (setq skk-henkan-count count)
   (skk-unread-event (aref (car (where-is-internal
-				'skk-previous-candidate
-				skk-j-mode-map))
-			  0)))
+                                'skk-previous-candidate
+                                skk-j-mode-map))
+                          0)))
 
 (defun skk-escape-from-show-candidates (count)
   ;; skk-henkan まで一気に throw する。
@@ -767,30 +767,30 @@ Return the modified ALIST."
    (t
     (save-match-data
       (let ((list2 y) list1 origlist1 e1 e2)
-	(while list2
-	  (setq list1 (cons nil x)
-		e2 (car list2)
-		origlist1 list1)
-	  (catch 'found
-	    (while (setq e1 (cadr list1))
-	      (cond
-	       ((equal e1 e2)
-		(throw 'found nil))
-	       ((and (stringp e1)
-		     (stringp e2)
-		     (string-match ";" e1))
-		(setq e1 (substring e1 0 (match-beginning 0)))
-		(when (or (equal e1 e2)
-			  (and
-			   (string-match ";" e2)
-			   (equal (substring e2 0 (match-beginning 0))
-				  e1)))
-		  (throw 'found nil))))
-	      (setq list1 (cdr list1)))
-	    (setcdr list1 (list e2))
-	    (setq x (cdr origlist1)))
-	  (setq list2 (cdr list2)))
-	x)))))
+        (while list2
+          (setq list1 (cons nil x)
+                e2 (car list2)
+                origlist1 list1)
+          (catch 'found
+            (while (setq e1 (cadr list1))
+              (cond
+               ((equal e1 e2)
+                (throw 'found nil))
+               ((and (stringp e1)
+                     (stringp e2)
+                     (string-match ";" e1))
+                (setq e1 (substring e1 0 (match-beginning 0)))
+                (when (or (equal e1 e2)
+                          (and
+                           (string-match ";" e2)
+                           (equal (substring e2 0 (match-beginning 0))
+                                  e1)))
+                  (throw 'found nil))))
+              (setq list1 (cdr list1)))
+            (setcdr list1 (list e2))
+            (setq x (cdr origlist1)))
+          (setq list2 (cdr list2)))
+        x)))))
 
 (defun skk-splice-in (org offset spliced)
   ;; ORG := '(A B C), SPLICED := '(X Y), OFFSET := 1
@@ -799,11 +799,11 @@ Return the modified ALIST."
     (unless (> offset 0)
       (error "%s" "Cannot splice in!"))
     (setq tmp (nthcdr (1- offset) org)
-	  tail (cdr tmp))
+          tail (cdr tmp))
     (setcdr tmp nil) ;cut off
     (setcdr tmp (if tail
-		    (nconc spliced tail)
-		  spliced))
+                    (nconc spliced tail)
+                  spliced))
     org))
 
 (defun skk-detach-extent (object)
@@ -822,5 +822,9 @@ Return the modified ALIST."
 
 
 (provide 'skk-macs)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; skk-macs.el ends here
