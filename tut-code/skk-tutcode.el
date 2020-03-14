@@ -80,9 +80,9 @@
 ;; `skk-tutcode-'.
 ;;;###autoload
 (defcustom skk-tutcode-use-touch16+ nil
- "*Non-nil であれば、Touch16+ 拡張コードを利用する。"
- :type 'boolean
- :group 'skk-tutcode)
+  "*Non-nil であれば、Touch16+ 拡張コードを利用する。"
+  :type 'boolean
+  :group 'skk-tutcode)
 
 ;;;###autoload
 (defun skk-tutcode-mode-off (foo)
@@ -96,7 +96,7 @@
   (interactive "P")
   (if (eobp)
       (skk-error "カーソルがバッファの終端にあります"
-		 "Cursor is at the end of the buffer")
+                 "Cursor is at the end of the buffer")
     (skk-tutcode-display-code-1
      (buffer-substring-no-properties
       (point)
@@ -106,57 +106,61 @@
 
 (defun skk-tutcode-display-code-1 (str)
   (let* ((char (string-to-char str))
-	 (charset (char-charset char))
-	 (charset-list (if (charsetp 'japanese-jisx0213-1)
-			   '(japanese-jisx0213-1
-			     japanese-jisx0213-2
-			     japanese-jisx0208
-			     japanese-jisx0208-1978)
-			 '(japanese-jisx0208
-			   japanese-jisx0208-1978))))
+         (charset (char-charset char))
+         (charset-list (if (charsetp 'japanese-jisx0213-1)
+                           '(japanese-jisx0213-1
+                             japanese-jisx0213-2
+                             japanese-jisx0208
+                             japanese-jisx0208-1978)
+                         '(japanese-jisx0208
+                           japanese-jisx0208-1978))))
     (cond
      ((memq charset charset-list)
       (let* ((char1-j (skk-char-octet char 0))
-	     (char1-k (- char1-j 32))
-	     (char1-e (+ char1-j 128))
-	     (char2-j (skk-char-octet char 1))
-	     (char2-k (- char2-j 32))
-	     (char2-e (+ char2-j 128))
-	     (char3 (skk-tutcode-get-code str)))
-	(message
-	 "『%s』  EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d), KUTEN: (%2d, %2d), TUT: `%s'"
-	 str char1-e char2-e char1-e char2-e
-	 char1-j char2-j char1-j char2-j char1-k char2-k char3)))
+             (char1-k (- char1-j 32))
+             (char1-e (+ char1-j 128))
+             (char2-j (skk-char-octet char 1))
+             (char2-k (- char2-j 32))
+             (char2-e (+ char2-j 128))
+             (char3 (skk-tutcode-get-code str)))
+        (message
+         "『%s』  EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d), KUTEN: (%2d, %2d), TUT: `%s'"
+         str char1-e char2-e char1-e char2-e
+         char1-j char2-j char1-j char2-j char1-k char2-k char3)))
      ((memq charset '(ascii latin-jisx0201))
       (message "\"%s\"  %2x (%3d)"
-	       str (skk-char-octet char 0)  (skk-char-octet char 0)))
+               str (skk-char-octet char 0)  (skk-char-octet char 0)))
      (t
       (skk-error "判別できない文字です"
-		 "Cannot understand this character")))))
+                 "Cannot understand this character")))))
 
 ;; some new stuff
 (defun skk-tutcode-get-code (key)
   (let ((srkr-list skk-rom-kana-rule-list) (cont t) (val nil))
     (while cont
       (if (null srkr-list)
-	  (setq cont nil)
-	(if (listp (car (cdr (cdr (car srkr-list)))))
-	    (cond
-	     ((string= key (car (car (cdr (cdr (car srkr-list))))))
-	      (setq cont nil
-		    val (car (car srkr-list))))
-	     ((string= key (cdr (car (cdr (cdr (car srkr-list))))))
-	      (setq cont nil
-		    val (car (car srkr-list))))
-	     (t (setq srkr-list (cdr srkr-list))))
-	  (cond
-	   ((string= key (car (cdr (cdr (car srkr-list)))))
-	    (setq cont nil
-		  val (car (car srkr-list))))
-	   (t  (setq srkr-list (cdr srkr-list)))))))
+          (setq cont nil)
+        (if (listp (car (cdr (cdr (car srkr-list)))))
+            (cond
+             ((string= key (car (car (cdr (cdr (car srkr-list))))))
+              (setq cont nil
+                    val (car (car srkr-list))))
+             ((string= key (cdr (car (cdr (cdr (car srkr-list))))))
+              (setq cont nil
+                    val (car (car srkr-list))))
+             (t (setq srkr-list (cdr srkr-list))))
+          (cond
+           ((string= key (car (cdr (cdr (car srkr-list)))))
+            (setq cont nil
+                  val (car (car srkr-list))))
+           (t  (setq srkr-list (cdr srkr-list)))))))
 
     val))
 
 (provide 'skk-tutcode)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; skk-tutcode.el ends here

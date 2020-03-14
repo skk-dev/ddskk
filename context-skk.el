@@ -52,12 +52,12 @@
 ;;    "〜" や ;; 〜
 
 ;;    といった個所でだけ日本語入力が必要となります。
-;; 
+;;
 ;;    現在の文字列とコメントの「外」で編集開始と同時に
 ;;    (skk がオンであれば) skk の入力モードを latin に切り替えます。
 ;;    「外」での編集を開始するにあたって、日本語入力が on になっていたた
 ;;    めに発生する入力誤りとその修正操作を回避することができます。
-;;    
+;;
 ;; (1)-C. キーマップが登録されているかどうかを判定
 ;; -------------------------------------------
 ;;    ポイント下に `keymap' あるいは `local-map' の属性を持つ文字あるいは
@@ -102,10 +102,10 @@
 ;;     (lambda ()
 ;;       (require 'context-skk)))
 
-;; - todo 
+;; - todo
 ;; Handling the prefix arguments
 
-;;; Code: 
+;;; Code:
 
 (require 'skk)
 
@@ -129,34 +129,34 @@
   :group 'context-skk)
 
 (make-obsolete-variable 'context-skk-custumize-functions
-			'context-skk-customize-functions
-			"DDSKK 16.2")
+                        'context-skk-customize-functions
+                        "DDSKK 16.2")
 
 ;;;###autoload
 (defcustom context-skk-customize-functions
   '(context-skk-customize-kutouten)
   "*skk による入力開始直前に、入力をカスタマイズする関数を登録する。
-関数は以下の形式のデータを要素とするリストを返すものとする: 
+関数は以下の形式のデータを要素とするリストを返すものとする:
 
   \(VARIABLE VALUE\)
 
 `skk-insert' を囲む `let' によって VARIABLE は VALUE に束縛される。
 特にその場でカスタマイズすべき変数がない場合 `nil' を返せば良い。
 関数には何も引数が渡されない。"
-  :type 'hook				; hook? list of function?
+  :type 'hook               ; hook? list of function?
   :group 'context-skk)
 
 ;;;###autoload
 (defcustom context-skk-programming-mode
   '(ada-mode antlr-mode asm-mode autoconf-mode awk-mode
-    c-mode objc-mode java-mode idl-mode pike-mode cperl-mode
-    ;;?? dcl-mode
-    delphi-mode f90-mode fortran-mode
-    icon-mode idlwave-mode inferior-lisp-mode lisp-mode m4-mode makefile-mode
-    metafont-mode modula-2-mode octave-mode pascal-mode perl-mode
-    prolog-mode ps-mode postscript-mode ruby-mode scheme-mode sh-mode simula-mode
-    ;; sql-mode
-    tcl-mode vhdl-mode emacs-lisp-mode)
+             c-mode objc-mode java-mode idl-mode pike-mode cperl-mode
+             ;;?? dcl-mode
+             delphi-mode f90-mode fortran-mode
+             icon-mode idlwave-mode inferior-lisp-mode lisp-mode m4-mode makefile-mode
+             metafont-mode modula-2-mode octave-mode pascal-mode perl-mode
+             prolog-mode ps-mode postscript-mode ruby-mode scheme-mode sh-mode simula-mode
+             ;; sql-mode
+             tcl-mode vhdl-mode emacs-lisp-mode)
   "*context-skk にて「プログラミングモード」と見做すモードのリスト"
   :type '(repeat (symbol))
   :group 'context-skk)
@@ -192,7 +192,7 @@
 ;;;###autoload (autoload 'context-skk-mode "context-skk" "文脈に応じて自動的にskkの入力モードをlatinに切り換えるマイナーモード。" t)
 (define-minor-mode context-skk-mode
   "文脈に応じて自動的に skk の入力モードを latin に切り換えるマイナーモード。"
-  t 
+  t
   :lighter " ;▽")
 
 ;;
@@ -202,10 +202,10 @@
   `(defadvice ,target (around ,(intern (concat (symbol-name target) "-ctx-switch")) activate)
      "文脈に応じて自動的に skk の入力モードを latin にする。"
      (if context-skk-mode
-	 (if (context-skk-context-check)
-	     (context-skk-insert) 
-	   (eval `(let ,(context-skk-customize)
-		    ad-do-it)))
+         (if (context-skk-context-check)
+             (context-skk-insert)
+           (eval `(let ,(context-skk-customize)
+                    ad-do-it)))
        ad-do-it)))
 
 (define-context-skk-advice skk-insert)
@@ -223,9 +223,9 @@
   (let (customized-pairs)
     (dolist (func context-skk-customize-functions)
       (setq customized-pairs
-	    (append 
-	     (save-excursion (funcall func))
-	     customized-pairs)))
+            (append
+             (save-excursion (funcall func))
+             customized-pairs)))
     customized-pairs))
 
 (defun context-skk-dump-customize ()
@@ -240,11 +240,11 @@
   (message "%s" context-skk-mode-off-message)
   (skk-latin-mode t)
   (let* ((keys (this-command-keys))
-	 ;; `this-command-keys' が tab を返したときなど function-key-map や
-	 ;; key-translation-map に依存している場合はそれらの keymap を参照する
-	 (binding (or (key-binding keys)
-		      (key-binding (lookup-key function-key-map keys))
-		      (key-binding (lookup-key key-translation-map keys)))))
+         ;; `this-command-keys' が tab を返したときなど function-key-map や
+         ;; key-translation-map に依存している場合はそれらの keymap を参照する
+         (binding (or (key-binding keys)
+                      (key-binding (lookup-key function-key-map keys))
+                      (key-binding (lookup-key key-translation-map keys)))))
     (when binding
       (call-interactively binding))))
 
@@ -265,10 +265,10 @@
   buffer-read-only)
 
 (defun context-skk-in-read-only-area-p ()
-  (or 
+  (or
    (and (get-char-property (point) 'read-only)
-	(get-char-property (point) 'front-sticky))
-   (and 
+        (get-char-property (point) 'front-sticky))
+   (and
     (< (point-min) (point))
     (get-char-property (1- (point)) 'read-only)
     (not (get-char-property (1- (point)) 'rear-nonsticky)))))
@@ -282,13 +282,13 @@
   "プログラミングモードにあって文字列あるいはコメントの外にいれば non-nil を返す。
 プログラミングモードにいない場合は nil を返す。
 プログラミングモードにあって文字列あるいはコメントの中にいる場合 nil を返す。"
-  (and (context-skk-in-programming-mode-p) 
+  (and (context-skk-in-programming-mode-p)
        (not (or (context-skk-in-string-p)
-		(context-skk-in-comment-p)))))
+                (context-skk-in-comment-p)))))
 
 (defun context-skk-in-programming-mode-p ()
   (memq major-mode
-	context-skk-programming-mode))
+        context-skk-programming-mode))
 
 (defun context-skk-in-string-p ()
   (nth 3 (parse-partial-sexp (point) (point-min))))
@@ -307,10 +307,10 @@
     (when map
       ;; "あいうえお" を入力することを想定してチェックする。
       (or (lookup-key map "a")
-	  (lookup-key map "i")
-	  (lookup-key map "u")
-	  (lookup-key map "e")
-	  (lookup-key map "o")))))
+          (lookup-key map "i")
+          (lookup-key map "u")
+          (lookup-key map "e")
+          (lookup-key map "o")))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -321,37 +321,41 @@
 ;;
 ;; 句読点 (skk-kutouten-type)
 ;;
-;; Based on a post to skk ml by 
+;; Based on a post to skk ml by
 ;; Kenichi Kurihara (kenichi_kurihara at nifty dot com)
 ;; Message-ID: <m2y85qctw6.wl%kurihara@mi.cs.titech.ac.jp>
 ;;
 (defun context-skk-customize-kutouten ()
   (let ((kuten-jp  (context-skk-customize-regexp-scan "。" 'forward 0 nil))
-	(kuten-en  (context-skk-customize-regexp-scan "．" 'forward 0 nil))
-	(touten-jp (context-skk-customize-regexp-scan "、" 'forward 0 nil))
-	(touten-en (context-skk-customize-regexp-scan "，" 'forward 0 nil)))
+        (kuten-en  (context-skk-customize-regexp-scan "．" 'forward 0 nil))
+        (touten-jp (context-skk-customize-regexp-scan "、" 'forward 0 nil))
+        (touten-en (context-skk-customize-regexp-scan "，" 'forward 0 nil)))
     (if (or (eq kuten-jp kuten-en)
-	    (eq touten-jp touten-en))
-	nil ;; Nothing to customize
-      `((skk-kutouten-type 
-	 ',(if kuten-jp
-	      (if touten-jp 
-		  'jp
-		'jp-en)
-	    (if touten-jp 
-		'en-jp
-	      'en)))))))
-      
+            (eq touten-jp touten-en))
+        nil ;; Nothing to customize
+      `((skk-kutouten-type
+         ',(if kuten-jp
+               (if touten-jp
+                   'jp
+                 'jp-en)
+             (if touten-jp
+                 'en-jp
+               'en)))))))
+
 (defun context-skk-customize-regexp-scan (regexp direction from limit)
   (let ((func (if (eq direction 'forward)
-		  're-search-forward
-		're-search-backward)))
+                  're-search-forward
+                're-search-backward)))
     (save-excursion
       (goto-char from)
-      (if (funcall func regexp limit t) 
-	  t
-	nil))))
+      (if (funcall func regexp limit t)
+          t
+        nil))))
 
 (provide 'context-skk)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;; context-skk.el ends here

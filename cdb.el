@@ -42,30 +42,30 @@
 ;;    Represents little endian uint32 value as a 4-byte string.
 ;;    We need them for making up with Emacs' 30-bit integer system.
 ;;    This should work on 64-bit machines, but I haven't tested yet.
-;; 
+;;
 (defun uint32le (x)
   "creates uint32le string from an integer."
   (string (% x 256)
-	  (% (lsh x -8) 256)
-	  (% (lsh x -16) 256)
-	  (% (lsh x -24) 256)))
+          (% (lsh x -8) 256)
+          (% (lsh x -16) 256)
+          (% (lsh x -24) 256)))
 
 (defun uint32le-int (v)
   "converts uint32le string v into an integer (if they can fit)."
   (logior (aref v 0)
-	  (lsh (aref v 1) 8)
-	  (lsh (aref v 2) 16)
-	  (lsh (aref v 3) 24)))
+          (lsh (aref v 1) 8)
+          (lsh (aref v 2) 16)
+          (lsh (aref v 3) 24)))
 
 (defun uint32le-int8l (v)
   "returns the lower 8 bits of the value."
   (aref v 0))
 
-(defun uint32le-int24u (v) 
+(defun uint32le-int24u (v)
   "returns the upper 8 bits of the value."
   (logior (aref v 1)
-	  (lsh (aref v 2) 8)
-	  (lsh (aref v 3) 16)))
+          (lsh (aref v 2) 8)
+          (lsh (aref v 3) 16)))
 
 (defun uint32le-eq (v1 v2)
   "returns true of the two uint32le values are equal."
@@ -73,11 +73,11 @@
        (= (aref v1 1) (aref v2 1))
        (= (aref v1 2) (aref v2 2))
        (= (aref v1 3) (aref v2 3))))
-       
+
 (defun uint32le-add (v1 v2)
   "adds two uint32le values v1 and v2."
   (let ((a (string 0 0 0 0))
-	(x (+ (aref v1 0) (aref v2 0))))
+        (x (+ (aref v1 0) (aref v2 0))))
     (aset a 0 (% x 256))
     (setq x (+ (aref v1 1) (aref v2 1) (/ x 256)))
     (aset a 1 (% x 256))
@@ -90,7 +90,7 @@
 (defun uint32le-lsh (v n)
   "left-shifts the value v by n bits."
   (let ((a (string 0 0 0 0))
-	(x (lsh (aref v 0) n)))
+        (x (lsh (aref v 0) n)))
     (aset a 0 (% x 256))
     (setq x (logior (lsh (aref v 1) n) (/ x 256)))
     (aset a 1 (% x 256))
@@ -103,9 +103,9 @@
 (defun uint32le-xor (v1 v2)
   "computes the exclusive-or of v1 and v2."
   (string (logxor (aref v1 0) (aref v2 0))
-	  (logxor (aref v1 1) (aref v2 1))
-	  (logxor (aref v1 2) (aref v2 2))
-	  (logxor (aref v1 3) (aref v2 3))))
+          (logxor (aref v1 1) (aref v2 1))
+          (logxor (aref v1 2) (aref v2 2))
+          (logxor (aref v1 3) (aref v2 3))))
 
 
 ;;  cdb functions
@@ -126,7 +126,7 @@
   "computes an uint32le hash value for string s."
   (let ((h (uint32le cdb-hash-initvalue)))
     (mapc (lambda (c) (setq h (uint32le-xor (uint32le-add h (uint32le-lsh h 5)) (uint32le c))))
-	  s)
+          s)
     h))
 
 (defun cdb-buffer-name (path)
@@ -145,10 +145,10 @@
   (let ((buffer-name (cdb-buffer-name path)))
     (unless (get-buffer buffer-name)
       (with-current-buffer (get-buffer-create buffer-name)
-	(set-buffer-multibyte nil)  ; necessary to handle binary bits.
-	(buffer-disable-undo)
-	(auto-save-mode -1)
-	(setq cdb-header (cdb-read-file path 0 cdb-header-size))))
+        (set-buffer-multibyte nil)  ; necessary to handle binary bits.
+        (buffer-disable-undo)
+        (auto-save-mode -1)
+        (setq cdb-header (cdb-read-file path 0 cdb-header-size))))
     buffer-name))
 
 (defun cdb-uninit (path)
@@ -159,35 +159,35 @@
 (defun cdb-get (path key)
   "obtains the value that is associated with a key, or nil if not found."
   (let ((buffer (get-buffer (cdb-buffer-name path)))
-	(hashval (cdb-hash key)))
+        (hashval (cdb-hash key)))
     (unless buffer (error "cdb not initialized: %s" path))
     (with-current-buffer buffer
       (let* ((boffset (* 8 (uint32le-int8l hashval)))
-	     (foffset (uint32le-int (cdb-sget cdb-header boffset 4)))
-	     (nents (uint32le-int (cdb-sget cdb-header (+ 4 boffset) 4))))
-	;; get the subtable associated with the lower 8 bits of the hash value.
-	(let ((ents (cdb-read-file path foffset (* nents 8)))
-	      (o (uint32le-int24u hashval))
-	      (n 0))
-	  (catch 'found
-	    (while (< n nents)
-	      ;; check each hash value in the subtable.
-	      (let ((i (% (+ o n) nents)))
-		(when (uint32le-eq hashval (cdb-sget ents (* i 8) 4))
-		  (let ((foffset (uint32le-int (cdb-sget ents (+ 4 (* i 8)) 4))))
-		    (unless (zerop foffset)
-		      ;; hash value matches, now look into the actual key.
-		      (let ((keylen (uint32le-int (cdb-read-file path foffset 4))))
-			(when (equal key (cdb-read-file path (+ 8 foffset) keylen))
-			  ;; got it. get the value associated with the key.
-			  (let ((vallen (uint32le-int (cdb-read-file path (+ 4 foffset) 4))))
-			    (throw 'found (cdb-read-file path (+ keylen 8 foffset) vallen))
-			    )))) ; unless
-		    )) ; when
-		) ; let
-	      (setq n (1+ n))
-	      )) ; catch
-	  )))))
+             (foffset (uint32le-int (cdb-sget cdb-header boffset 4)))
+             (nents (uint32le-int (cdb-sget cdb-header (+ 4 boffset) 4))))
+        ;; get the subtable associated with the lower 8 bits of the hash value.
+        (let ((ents (cdb-read-file path foffset (* nents 8)))
+              (o (uint32le-int24u hashval))
+              (n 0))
+          (catch 'found
+            (while (< n nents)
+              ;; check each hash value in the subtable.
+              (let ((i (% (+ o n) nents)))
+                (when (uint32le-eq hashval (cdb-sget ents (* i 8) 4))
+                  (let ((foffset (uint32le-int (cdb-sget ents (+ 4 (* i 8)) 4))))
+                    (unless (zerop foffset)
+                      ;; hash value matches, now look into the actual key.
+                      (let ((keylen (uint32le-int (cdb-read-file path foffset 4))))
+                        (when (equal key (cdb-read-file path (+ 8 foffset) keylen))
+                          ;; got it. get the value associated with the key.
+                          (let ((vallen (uint32le-int (cdb-read-file path (+ 4 foffset) 4))))
+                            (throw 'found (cdb-read-file path (+ keylen 8 foffset) vallen))
+                            )))) ; unless
+                    )) ; when
+                ) ; let
+              (setq n (1+ n))
+              )) ; catch
+          )))))
 
 (defun cdb-mapc (path func)
   "apply the function to each key/value pair in the database."
@@ -195,28 +195,28 @@
     (unless buffer (error "cdb not initialized: %s" path))
     (with-current-buffer buffer
       (let ((nkeys 0)
-	    (foffset cdb-header-size)
-	    (foffset-end (uint32le-int (cdb-read-file path 0 4))))
-	;; read until it reaches the beginning of the first subtable.
-	(while (< foffset foffset-end)
-	  (let ((keylen (uint32le-int (cdb-read-file path foffset 4)))
-		(vallen (uint32le-int (cdb-read-file path (+ 4 foffset) 4))))
-	    ;; get a key and value.
-	    (funcall func
-		     (cdb-read-file path (+ 8 foffset) keylen)
-		     (cdb-read-file path (+ keylen 8 foffset) vallen))
-	    (setq foffset (+ keylen vallen 8 foffset))
-	    ) ; let
-	  (setq nkeys (1+ nkeys))
-	  ) ; while
-	nkeys))))
+            (foffset cdb-header-size)
+            (foffset-end (uint32le-int (cdb-read-file path 0 4))))
+        ;; read until it reaches the beginning of the first subtable.
+        (while (< foffset foffset-end)
+          (let ((keylen (uint32le-int (cdb-read-file path foffset 4)))
+                (vallen (uint32le-int (cdb-read-file path (+ 4 foffset) 4))))
+            ;; get a key and value.
+            (funcall func
+                     (cdb-read-file path (+ 8 foffset) keylen)
+                     (cdb-read-file path (+ keylen 8 foffset) vallen))
+            (setq foffset (+ keylen vallen 8 foffset))
+            ) ; let
+          (setq nkeys (1+ nkeys))
+          ) ; while
+        nkeys))))
 
 (defun cdb-keys (path)
   "returns all keys in the database."
   (let (keys)
     (cdb-mapc path (lambda (key value) (setq keys (cons key keys))))
     (nreverse keys)))
-  
+
 (defun cdb-values (path)
   "returns all values in the database."
   (let (values)
@@ -226,18 +226,18 @@
 (provide 'cdb)
 
 ;;  Simplistic test suite
-;; 
+;;
 (defun cdb-test-simple (path)
   ;; test.cdb should be:
-  ;;	+2,8:de->00596d84
-  ;;	+2,8:eD->00596d84
-  ;;	+2,8:dE->00596da4
-  ;;	+3,8:xxx->0b8791dd
-  ;;	+5,8:xxxxx->0bb36ddd
-  ;;	+6,8:xxxxxx->82212905
-  ;;	+7,8:xxxxxxx->c64649dd
-  ;;	+3,8:abc->0b873285
-  ;;	+2,2:\xa4\xa2->\xa4\xa4
+  ;;    +2,8:de->00596d84
+  ;;    +2,8:eD->00596d84
+  ;;    +2,8:dE->00596da4
+  ;;    +3,8:xxx->0b8791dd
+  ;;    +5,8:xxxxx->0bb36ddd
+  ;;    +6,8:xxxxxx->82212905
+  ;;    +7,8:xxxxxxx->c64649dd
+  ;;    +3,8:abc->0b873285
+  ;;    +2,2:\xa4\xa2->\xa4\xa4
   ;;
   (cdb-init path)
   (cl-assert (string= (cdb-get path "de") "00596d84"))
@@ -254,11 +254,15 @@
   (cl-assert (not (cdb-get path "bbbb")))
   (cl-assert (not (cdb-get path "dd")))
   (cl-assert (string= (cdb-get path "\244\242") "\244\244"))
-  (cl-assert (equal (cdb-keys path) 
-		 '("de" "eD" "dE" "xxx" "xxxxx" "xxxxxx" 
-		   "xxxxxxx" "abc" "\244\242")))
+  (cl-assert (equal (cdb-keys path)
+                    '("de" "eD" "dE" "xxx" "xxxxx" "xxxxxx"
+                      "xxxxxxx" "abc" "\244\242")))
   (cdb-uninit path)
   )
-;(cdb-test-simple "test.cdb")
+                                        ;(cdb-test-simple "test.cdb")
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; cdb.el ends here

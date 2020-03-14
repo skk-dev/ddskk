@@ -44,7 +44,7 @@
 (defun skk-cursor-current-color ()
   ;; カレントバッファの SKK のモードから、カーソルの色を取得する。
   (cond ((not (and skk-use-color-cursor
-	           skk-mode))
+                   skk-mode))
          (skk-cursor-default-color))
 
         ;; `skk-start-henkan' の中では、skk-j-mode フラグを立てながら、
@@ -63,12 +63,16 @@
 (defun skk-cursor-set-1 (color)
   (when ccc-default-cursor-color
     (ccc-set-buffer-local-cursor-color (or color
-	                                   (skk-cursor-current-color)))))
+                                           (skk-cursor-current-color)))))
 
 ;;;###autoload
 (defun skk-cursor-off-1 ()
   (ccc-set-cursor-color-buffer-local nil))
 
 (provide 'skk-cursor)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; skk-cursor.el ends here

@@ -120,28 +120,28 @@
   (autoload 'ispell-parse-output "ispell"))
 
 (when (and skk-look-command
-	   (null (member '(skk-look)
-			 (default-value 'skk-search-prog-list))))
+           (null (member '(skk-look)
+                         (default-value 'skk-search-prog-list))))
   (let ((pl (default-value 'skk-search-prog-list))
-	(n 0)
-	dic mark)
+        (n 0)
+        dic mark)
     (while pl
       (setq dic (car pl))
       (if (memq (nth 1 dic) '(skk-jisyo skk-rdbms-private-jisyo-table))
-	  (setq mark n
-		pl nil)
-	(setq pl (cdr pl)
-	      n (1+ n))))
+          (setq mark n
+                pl nil)
+        (setq pl (cdr pl)
+              n (1+ n))))
     (cond
      (mark
       (skk-splice-in (default-value 'skk-search-prog-list)
-		     (1+ mark)
-		     '((skk-look))))
+                     (1+ mark)
+                     '((skk-look))))
      (t
       (setq-default skk-search-prog-list
-		    (skk-nunion
-		     (default-value 'skk-search-prog-list)
-		     '((skk-look))))))))
+                    (skk-nunion
+                     (default-value 'skk-search-prog-list)
+                     '((skk-look))))))))
 
 ;; program
 ;;;###autoload
@@ -159,64 +159,64 @@ words ファイルにある全ての見出しが対象となる。
 `skk-look-use-ispell' を一時的に変更したい場合には
 `let' により束縛して使う事。"
   (when (and (not (memq skk-use-look '(nil completion)))
-	     (or not-abbrev-only
-		 skk-abbrev-mode)
-	     (or expand-null
-		 (not (string= skk-henkan-key "*")))
-	     (eq (aref skk-henkan-key (1- (length skk-henkan-key)))
-		 ?*))
+             (or not-abbrev-only
+                 skk-abbrev-mode)
+             (or expand-null
+                 (not (string= skk-henkan-key "*")))
+             (eq (aref skk-henkan-key (1- (length skk-henkan-key)))
+                 ?*))
     (let* ((skk-look-conversion-arguments (or conversion-arguments
-					      skk-look-conversion-arguments))
-	   (substr (substring skk-henkan-key 0 (1- (length skk-henkan-key))))
-	   (v (if (and (not (memq skk-look-use-ispell '(nil completion)))
-		       (> (length substr) 0))
-		  (skk-look-ispell substr 'conversion)
-		(skk-look-1 substr 'conversion)))
-	   skk-henkan-key
-	   skk-use-look
-	   v2 v3)
+                                              skk-look-conversion-arguments))
+           (substr (substring skk-henkan-key 0 (1- (length skk-henkan-key))))
+           (v (if (and (not (memq skk-look-use-ispell '(nil completion)))
+                       (> (length substr) 0))
+                  (skk-look-ispell substr 'conversion)
+                (skk-look-1 substr 'conversion)))
+           skk-henkan-key
+           skk-use-look
+           v2 v3)
       (cond
        ((not skk-look-recursive-search)
-	v)
+        v)
        (t
-	(dolist (key v)
-	  (let ((skk-current-search-prog-list
-		 (copy-sequence skk-search-prog-list)))
-	    (setq skk-henkan-key key)
-	    (while skk-current-search-prog-list
-	      (setq v3 (let (skk-use-numeric-conversion)
-			 (skk-search))
-		    v2 (if (or (not skk-look-expanded-word-only)
-			       v3)
-			   (skk-nunion v2 (cons key v3))
-			 v2)))))
-	v2)))))
+        (dolist (key v)
+          (let ((skk-current-search-prog-list
+                 (copy-sequence skk-search-prog-list)))
+            (setq skk-henkan-key key)
+            (while skk-current-search-prog-list
+              (setq v3 (let (skk-use-numeric-conversion)
+                         (skk-search))
+                    v2 (if (or (not skk-look-expanded-word-only)
+                               v3)
+                           (skk-nunion v2 (cons key v3))
+                         v2)))))
+        v2)))))
 
 (defun skk-look-1 (word situation)
   ;; core search engine
   (let ((format-string (cond ((eq situation 'conversion)
-			      skk-look-conversion-arguments)
-			     ((eq situation 'completion)
-			      skk-look-completion-arguments)
-			     (t
-			      "%s")))
-	 args preargs postargs)
+                              skk-look-conversion-arguments)
+                             ((eq situation 'completion)
+                              skk-look-completion-arguments)
+                             (t
+                              "%s")))
+        args preargs postargs)
     (if (string= format-string "%s")
-	(setq args (list word))
+        (setq args (list word))
       (save-match-data
-	(when (string-match "%s" format-string)
-	  (setq preargs (substring format-string 0 (match-beginning 0))
-		postargs (substring format-string (match-end 0))
-		args (append
-		      (delete "" (split-string preargs " "))
-		      (list word)
-		      (delete "" (split-string postargs " ")))))))
+        (when (string-match "%s" format-string)
+          (setq preargs (substring format-string 0 (match-beginning 0))
+                postargs (substring format-string (match-end 0))
+                args (append
+                      (delete "" (split-string preargs " "))
+                      (list word)
+                      (delete "" (split-string postargs " ")))))))
     (with-temp-buffer
       (when (and (zerop (apply #'call-process skk-look-command nil t nil args))
-		 (> (buffer-size) 0))
-	(delete word (split-string (buffer-substring-no-properties
-				    (point-min) (1- (point-max)))
-				   "\n"))))))
+                 (> (buffer-size) 0))
+        (delete word (split-string (buffer-substring-no-properties
+                                    (point-min) (1- (point-max)))
+                                   "\n"))))))
 
 ;;;###autoload
 (defun skk-look-completion (&optional completion-arguments not-abbrev-only expand-null)
@@ -230,42 +230,42 @@ words ファイルにある全ての見出しを返す。
 `skk-look-use-ispell' を一時的に変更したい場合には
 `let' により束縛して使う事。"
   (let* ((numericp (and skk-use-numeric-conversion
-			(save-match-data
-			  (string-match "[0-9０-９]" skk-comp-key))))
-	 (conv-key (and numericp
-			(skk-num-compute-henkan-key skk-comp-key)))
-	 (comp-key (or conv-key skk-comp-key))
-	 word)
+                        (save-match-data
+                          (string-match "[0-9０-９]" skk-comp-key))))
+         (conv-key (and numericp
+                        (skk-num-compute-henkan-key skk-comp-key)))
+         (comp-key (or conv-key skk-comp-key))
+         word)
     (when (and (not (memq skk-use-look '(nil conversion)))
-	       (or not-abbrev-only
-		   skk-abbrev-mode)
-	       (or expand-null
-		   (not (string= comp-key ""))))
+               (or not-abbrev-only
+                   skk-abbrev-mode)
+               (or expand-null
+                   (not (string= comp-key ""))))
       (let ((skk-look-completion-arguments (or completion-arguments
-					       skk-look-completion-arguments)))
-	(when skk-comp-first
-	  ;; look は複数の候補を吐くので、一旦貯めておいて、
-	  ;; 一つずつ complete する。
-	  (setq skk-look-completion-words
-		(if (and (not (memq skk-look-use-ispell '(nil conversion)))
-			 (> (length comp-key) 0))
-		    (skk-look-ispell comp-key 'completion)
-		  (skk-look-1 comp-key 'completion))))
-	(setq word (pop skk-look-completion-words))
-	(when (and skk-comp-use-prefix
-		   (not (string= skk-comp-prefix "")))
-	  (save-match-data
-	    (let ((regexp-key (concat "^"
-				      (regexp-quote comp-key)
-				      (skk-comp-get-regexp skk-comp-prefix))))
-	      (while (and word
-			  (not (string-match regexp-key word)))
-		(setq word (pop skk-look-completion-words))))))
-	(when word
-	  (if numericp
-	      (concat skk-comp-key
-		      (substring word (length comp-key)))
-	    word))))))
+                                               skk-look-completion-arguments)))
+        (when skk-comp-first
+          ;; look は複数の候補を吐くので、一旦貯めておいて、
+          ;; 一つずつ complete する。
+          (setq skk-look-completion-words
+                (if (and (not (memq skk-look-use-ispell '(nil conversion)))
+                         (> (length comp-key) 0))
+                    (skk-look-ispell comp-key 'completion)
+                  (skk-look-1 comp-key 'completion))))
+        (setq word (pop skk-look-completion-words))
+        (when (and skk-comp-use-prefix
+                   (not (string= skk-comp-prefix "")))
+          (save-match-data
+            (let ((regexp-key (concat "^"
+                                      (regexp-quote comp-key)
+                                      (skk-comp-get-regexp skk-comp-prefix))))
+              (while (and word
+                          (not (string-match regexp-key word)))
+                (setq word (pop skk-look-completion-words))))))
+        (when word
+          (if numericp
+              (concat skk-comp-key
+                      (substring word (length comp-key)))
+            word))))))
 
 ;;;###autoload
 (defun skk-look-ispell (word &optional situation)
@@ -275,46 +275,50 @@ words ファイルにある全ての見出しを返す。
   (process-send-string ispell-process "%\n") ;put in verbose mode
   (process-send-string ispell-process (concat "^" word "\n"))
   (while (progn
-	   (accept-process-output ispell-process)
-	   (not (string= "" (car ispell-filter)))))
+           (accept-process-output ispell-process)
+           (not (string= "" (car ispell-filter)))))
   (setq ispell-filter (cdr ispell-filter)) ; remove extra \n
   (let ((poss (when (and ispell-filter
-			 (listp ispell-filter))
-		;; 1: t for an exact match.
-		;; 2: A string containing the root word matched via suffix
-		;;    removal.
-		;; 3: A list of possible correct spellings of the format:
-		;;    (ORIGINAL-WORD OFFSET MISS-LIST GUESS-LIST)
-		;;    ORIGINAL-WORD is a string of the possibly misspelled
-		;;    word.
-		;;    OFFSET is an integer giving the line offset of the word.
-		;;    MISS-LIST and GUESS-LIST are possibly null lists of
-		;;    guesses and misses.
-		;; 4: Nil when an error has occurred."
-		(or (ispell-parse-output (car ispell-filter))
-		    'error)))
-	ret var)
+                         (listp ispell-filter))
+                ;; 1: t for an exact match.
+                ;; 2: A string containing the root word matched via suffix
+                ;;    removal.
+                ;; 3: A list of possible correct spellings of the format:
+                ;;    (ORIGINAL-WORD OFFSET MISS-LIST GUESS-LIST)
+                ;;    ORIGINAL-WORD is a string of the possibly misspelled
+                ;;    word.
+                ;;    OFFSET is an integer giving the line offset of the word.
+                ;;    MISS-LIST and GUESS-LIST are possibly null lists of
+                ;;    guesses and misses.
+                ;; 4: Nil when an error has occurred."
+                (or (ispell-parse-output (car ispell-filter))
+                    'error)))
+        ret var)
     (setq ispell-filter nil)
     (cond
      ((eq poss 'error)
       (skk-message "ispell process でエラーが発生しました"
-		   "error in ispell process")
+                   "error in ispell process")
       (sit-for 1)
       (message "")
       nil)
      ((or (eq poss t)
-	  ;; root word に対して skk-look-1 かけちゃおうか？
-	  ;; でもちっとも補完ぢゃなくなっちまいますね... (^^;;。
-	  (stringp poss)
-	  (null (or (nth 2 poss) (nth 3 poss))))
+          ;; root word に対して skk-look-1 かけちゃおうか？
+          ;; でもちっとも補完ぢゃなくなっちまいますね... (^^;;。
+          (stringp poss)
+          (null (or (nth 2 poss) (nth 3 poss))))
       (skk-look-1 word situation))
      (t
       (setq var (nconc (nth 2 poss) (nth 3 poss)))
       (dolist (key var)
-	;; call look command by each candidate put out by ispell.
-	(setq ret (skk-nunion ret (cons key (skk-look-1 key situation)))))
+        ;; call look command by each candidate put out by ispell.
+        (setq ret (skk-nunion ret (cons key (skk-look-1 key situation)))))
       (delete word (skk-nunion (skk-look-1 word situation) ret))))))
 
 (provide 'skk-look)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; skk-look.el ends here

@@ -67,7 +67,7 @@
 
 ;;   "無変換" のような表示を伴わないキーの場合は
 
-;;     (setq skk-sticky-key [muhenkan])	; Windows 環境だと [noconvert]
+;;     (setq skk-sticky-key [muhenkan]) ; Windows 環境だと [noconvert]
 
 ;;   のようにそのキーを表わす vector を設定して下さい。
 
@@ -105,12 +105,12 @@
 ;;; 初期設定
 (cond ((stringp skk-sticky-key)
        (let ((orig-rule (assoc skk-sticky-key
-			       (append skk-rom-kana-rule-list
-				       skk-rom-kana-base-rule-list))))
-	 (setq skk-sticky-key-orig-output (car (cddr orig-rule)))
-	 (setq skk-rom-kana-rule-list
-	       (cons `(,skk-sticky-key nil skk-sticky-set-henkan-point)
-		     (delete orig-rule skk-rom-kana-rule-list)))))
+                               (append skk-rom-kana-rule-list
+                                       skk-rom-kana-base-rule-list))))
+         (setq skk-sticky-key-orig-output (car (cddr orig-rule)))
+         (setq skk-rom-kana-rule-list
+               (cons `(,skk-sticky-key nil skk-sticky-set-henkan-point)
+                     (delete orig-rule skk-rom-kana-rule-list)))))
       ((vectorp skk-sticky-key)
        (define-key skk-j-mode-map skk-sticky-key 'skk-sticky-set-henkan-point)))
 
@@ -119,16 +119,16 @@
   "`point' の直前の文字が `*' ならば t を返す。"
   (and (not (bobp))
        (string= "*" (buffer-substring-no-properties
-		     (1- (point)) (point)))))
+                     (1- (point)) (point)))))
 
 (defun skk-sticky-set-okuri-mark ()
   "送り開始点を `*' を挿入することで標識し、送りあり変換の待ち状態に入る。"
   (when (eq skk-henkan-mode 'on)
     (unless (and skk-sticky-okuri-flag
-		 (skk-sticky-looking-back-okuri-mark))
+                 (skk-sticky-looking-back-okuri-mark))
       (when (and skk-dcomp-activate
-		 (skk-dcomp-marked-p))
-	(skk-dcomp-before-kakutei))
+                 (skk-dcomp-marked-p))
+        (skk-dcomp-before-kakutei))
       (insert-and-inherit "*")
       (setq skk-sticky-okuri-flag t)
       nil)))
@@ -137,23 +137,23 @@
   "変換開始位置もしくは送り開始位置を指定する。"
   (interactive "*P")
   (cond ((not (eq skk-henkan-mode 'on))
-	 (skk-set-henkan-point-subr))
-	((eq (point) (marker-position skk-henkan-start-point))
-	 (let ((data skk-sticky-key-orig-output))
-	   (when data
-	     (skk-kakutei)
-	     (when (functionp data)
-	       (setq data (funcall data (skk-make-raw-arg arg))))
-	     (when (stringp (if (consp data)
-				(car data)
-			      data))
-	       (if (consp data)
-		   (if skk-katakana
-		       (car data)
-		     (cdr data))
-		 data)))))
-	(t
-	 (skk-sticky-set-okuri-mark))))
+         (skk-set-henkan-point-subr))
+        ((eq (point) (marker-position skk-henkan-start-point))
+         (let ((data skk-sticky-key-orig-output))
+           (when data
+             (skk-kakutei)
+             (when (functionp data)
+               (setq data (funcall data (skk-make-raw-arg arg))))
+             (when (stringp (if (consp data)
+                                (car data)
+                              data))
+               (if (consp data)
+                   (if skk-katakana
+                       (car data)
+                     (cdr data))
+                 data)))))
+        (t
+         (skk-sticky-set-okuri-mark))))
 
 (defadvice skk-kakutei (after skk-sticky-ad activate)
   "`skk-sticky-okuri-flag' をクリアする。"
@@ -166,17 +166,17 @@
 (defadvice skk-insert (before skk-sticky-ad activate)
   "`*' の直後であれば入力を大文字に変換する。"
   (when (and skk-sticky-okuri-flag
-	     (skk-sticky-looking-back-okuri-mark)
-	     (string= "" skk-prefix))
+             (skk-sticky-looking-back-okuri-mark)
+             (string= "" skk-prefix))
     (let ((pair (rassq last-command-event skk-downcase-alist)))
       (set 'last-command-event (if pair
-				     (car pair)
-				   (upcase last-command-event))))))
+                                   (car pair)
+                                 (upcase last-command-event))))))
 
 (defadvice skk-set-henkan-point (before skk-sticky-ad activate)
   "`point' 直前の `*' を消す。"
   (when (and skk-sticky-okuri-flag
-	     (skk-sticky-looking-back-okuri-mark))
+             (skk-sticky-looking-back-okuri-mark))
     (delete-backward-char 1)))
 
 ;; `skk-kana-input' は通常 `cancel-undo-boundary' を呼ぶが、
@@ -188,43 +188,47 @@
 ;;; (defadvice skk-kana-input (around skk-sticky-ad activate)
 ;;;   "▽直後の `skk-sticky-key' の入力の際 `cancel-undo-boundary' を呼ばないように。"
 ;;;   (if (and (stringp skk-sticky-key)
-;;; 	   (eq (skk-last-command-char) (string-to-char skk-sticky-key))
-;;; 	   (eq skk-henkan-mode 'on)
-;;; 	   (eq (point) (marker-position skk-henkan-start-point)))
+;;;        (eq (skk-last-command-char) (string-to-char skk-sticky-key))
+;;;        (eq skk-henkan-mode 'on)
+;;;        (eq (point) (marker-position skk-henkan-start-point)))
 ;;;       (progn
-;;; 	(let ((skk-self-insert-non-undo-count 20))
-;;; 	  ad-do-it)
-;;; 	(setq skk-self-insert-non-undo-count (1+ skk-self-insert-non-undo-count)))
+;;;     (let ((skk-self-insert-non-undo-count 20))
+;;;       ad-do-it)
+;;;     (setq skk-self-insert-non-undo-count (1+ skk-self-insert-non-undo-count)))
 ;;;     ad-do-it))
 
 ;;; 同時打鍵関連
 (defun skk-sticky-double-p (first next)
   "FIRST と NEXT が同時打鍵であれば non-nil を返す。"
   (let ((char (if (characterp first)
-		  first
-		last-command-event)))
+                  first
+                last-command-event)))
     (and (not (eq char next))
-	 (memq char skk-sticky-key)
-	 (memq next skk-sticky-key))))
+         (memq char skk-sticky-key)
+         (memq next skk-sticky-key))))
 
 (defadvice skk-insert (around skk-sticky-ad-double activate)
   "同時打鍵を検出して処理する。"
   (cond ((not (consp skk-sticky-key))
-	 ad-do-it)
-	((not (memq last-command-event skk-sticky-key))
-	 ad-do-it)
-	((sit-for skk-sticky-double-interval t)
-	 ;; No input in the interval.
-	 ad-do-it)
-	(t
-	 ;; Some key's pressed.
-	 (let ((next-event (read-event)))
-	   (if (skk-sticky-double-p this-command
-				    (aref (skk-event-key next-event) 0))
-	       (skk-sticky-set-henkan-point)
-	     ad-do-it
-	     (skk-unread-event next-event))))))
+         ad-do-it)
+        ((not (memq last-command-event skk-sticky-key))
+         ad-do-it)
+        ((sit-for skk-sticky-double-interval t)
+         ;; No input in the interval.
+         ad-do-it)
+        (t
+         ;; Some key's pressed.
+         (let ((next-event (read-event)))
+           (if (skk-sticky-double-p this-command
+                                    (aref (skk-event-key next-event) 0))
+               (skk-sticky-set-henkan-point)
+             ad-do-it
+             (skk-unread-event next-event))))))
 
 (provide 'skk-sticky)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; skk-sticky.el ends here

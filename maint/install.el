@@ -1,7 +1,7 @@
 ;;; install.el --- Emacs Lisp package install utility
 
 ;; Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2006
-;; 	Free Software Foundation, Inc.
+;;  Free Software Foundation, Inc.
 
 ;; Author: MORIOKA Tomohiko <tomo@m17n.org>
 ;; Created: 1996/08/18
@@ -35,10 +35,10 @@ subdirectory under load-path.")
 (defun compile-elisp-module (module &optional path every-time)
   (setq module (expand-file-name (symbol-name module) path))
   (let ((el-file (concat module ".el"))
-	(elc-file (concat module ".elc")))
+        (elc-file (concat module ".elc")))
     (if (or every-time
-	    (file-newer-than-file-p el-file elc-file))
-	(byte-compile-file el-file))))
+            (file-newer-than-file-p el-file elc-file))
+        (byte-compile-file el-file))))
 
 (defun compile-elisp-modules (modules &optional path every-time)
   (mapcar
@@ -58,21 +58,21 @@ subdirectory under load-path.")
       (princ (format "%s -> %s\n" file dest))
     (let ((src-file (expand-file-name file src)))
       (if (file-exists-p src-file)
-	  (let ((full-path (expand-file-name file dest)))
-	    (if (and (file-exists-p full-path) overwrite)
-		(delete-file full-path))
-	    (copy-file src-file full-path t t)
-	    (set-file-modes full-path install-overwritten-file-modes)
-	    (if move
-		(catch 'tag
-		  (while (and (file-exists-p src-file)
-			      (file-writable-p src-file))
-		    (condition-case err
-			(progn
-			  (delete-file src-file)
-			  (throw 'tag nil))
-		      (error (princ (format "%s\n" (nth 1 err))))))))
-	    (princ (format "%s -> %s\n" file dest)))))))
+          (let ((full-path (expand-file-name file dest)))
+            (if (and (file-exists-p full-path) overwrite)
+                (delete-file full-path))
+            (copy-file src-file full-path t t)
+            (set-file-modes full-path install-overwritten-file-modes)
+            (if move
+                (catch 'tag
+                  (while (and (file-exists-p src-file)
+                              (file-writable-p src-file))
+                    (condition-case err
+                        (progn
+                          (delete-file src-file)
+                          (throw 'tag nil))
+                      (error (princ (format "%s\n" (nth 1 err))))))))
+            (princ (format "%s -> %s\n" file dest)))))))
 
 (defun install-files (files src dest &optional move overwrite just-print)
   (or just-print
@@ -95,38 +95,38 @@ subdirectory under load-path.")
       (setq elc-file (concat name ".elc")))
     (let ((src-file (expand-file-name el-file src)))
       (if (not (file-exists-p src-file))
-	  nil 
-	(if just-print
-	    (princ (format "%s -> %s\n" el-file dest))
-	  (let ((full-path (expand-file-name el-file dest)))
-	    (if (file-exists-p full-path)
-		(delete-file full-path))
-	    (copy-file src-file full-path t t)
-	    (set-file-modes full-path install-overwritten-file-modes)
-	    (princ (format "%s -> %s\n" el-file dest)))))
-      (setq src-file (expand-file-name elc-file src))
-      (if (not (file-exists-p src-file))
-	  (let ((full-path (expand-file-name elc-file dest)))
-	    (if (and del-elc (file-exists-p full-path))
-		(if just-print
-		    (princ (format "%s -> to be deleted\n" full-path))
-		  (delete-file full-path)
-		  (princ (format "%s -> deleted\n" full-path)))))
-	(if just-print
-	    (princ (format "%s -> %s\n" elc-file dest))
-	  (let ((full-path (expand-file-name elc-file dest)))
+          nil
+        (if just-print
+            (princ (format "%s -> %s\n" el-file dest))
+          (let ((full-path (expand-file-name el-file dest)))
             (if (file-exists-p full-path)
                 (delete-file full-path))
-	    (copy-file src-file full-path t t)
-	    (set-file-modes full-path install-overwritten-file-modes)
-	    (catch 'tag
-	      (while (file-exists-p src-file)
-		(condition-case err
-		    (progn
-		      (delete-file src-file)
-		      (throw 'tag nil))
-		  (error (princ (format "%s\n" (nth 1 err)))))))
-	    (princ (format "%s -> %s\n" elc-file dest))))))))
+            (copy-file src-file full-path t t)
+            (set-file-modes full-path install-overwritten-file-modes)
+            (princ (format "%s -> %s\n" el-file dest)))))
+      (setq src-file (expand-file-name elc-file src))
+      (if (not (file-exists-p src-file))
+          (let ((full-path (expand-file-name elc-file dest)))
+            (if (and del-elc (file-exists-p full-path))
+                (if just-print
+                    (princ (format "%s -> to be deleted\n" full-path))
+                  (delete-file full-path)
+                  (princ (format "%s -> deleted\n" full-path)))))
+        (if just-print
+            (princ (format "%s -> %s\n" elc-file dest))
+          (let ((full-path (expand-file-name elc-file dest)))
+            (if (file-exists-p full-path)
+                (delete-file full-path))
+            (copy-file src-file full-path t t)
+            (set-file-modes full-path install-overwritten-file-modes)
+            (catch 'tag
+              (while (file-exists-p src-file)
+                (condition-case err
+                    (progn
+                      (delete-file src-file)
+                      (throw 'tag nil))
+                  (error (princ (format "%s\n" (nth 1 err)))))))
+            (princ (format "%s -> %s\n" elc-file dest))))))))
 
 (defun install-elisp-modules (modules src dest &optional just-print del-elc)
   (or just-print
@@ -145,10 +145,10 @@ subdirectory under load-path.")
 ;; install to shared directory (maybe "/usr/local")
 (defvar install-prefix
   (if (or (<= emacs-major-version 18)
-	  (featurep 'xemacs)
-	  (featurep 'meadow) ; for Meadow
-	  (and (eq system-type 'windows-nt) ; for NTEmacs
-	       (>= emacs-major-version 20)))
+          (featurep 'xemacs)
+          (featurep 'meadow) ; for Meadow
+          (and (eq system-type 'windows-nt) ; for NTEmacs
+               (>= emacs-major-version 20)))
       (expand-file-name "../../.." exec-directory)
     (expand-file-name "../../../.." data-directory)))
 
@@ -162,62 +162,62 @@ subdirectory under load-path.")
 (eval-when-compile (autoload 'replace-in-string "subr"))
 
 (defun install-detect-elisp-directory (&optional prefix elisp-prefix
-						 allow-version-specific)
+                                                 allow-version-specific)
   (or prefix
       (setq prefix install-prefix))
   (or elisp-prefix
       (setq elisp-prefix install-elisp-prefix))
   (or (catch 'tag
-	(let ((rest (delq nil (copy-sequence default-load-path)))
-	      (regexp
-	       (concat "^"
-		       (regexp-quote (if (featurep 'xemacs)
-					 ;; Handle backslashes (Windows)
-					 (replace-in-string
-					  (file-name-as-directory
-					   (expand-file-name prefix))
-					  "\\\\" "/")
-				       (file-name-as-directory
-					(expand-file-name prefix))))
-		       ".*/"
-		       (regexp-quote
-			(if (featurep 'xemacs)
-			    ;; Handle backslashes (Windows)
-			    (replace-in-string elisp-prefix "\\\\" "/")
-			  elisp-prefix))
-		       "/?$"))
-	      dir)
-	  (while rest
-	    (setq dir (if (featurep 'xemacs)
-			  ;; Handle backslashes (Windows)
-			  (replace-in-string (car rest) "\\\\" "/")
-			(car rest)))
-	    (if (string-match regexp dir)
-		(if (or allow-version-specific
-			(not (string-match (format "/%d\\.%d"
-						   emacs-major-version
-						   emacs-minor-version)
-					   dir)))
-		    (throw 'tag (car rest))))
-	    (setq rest (cdr rest)))))
+        (let ((rest (delq nil (copy-sequence default-load-path)))
+              (regexp
+               (concat "^"
+                       (regexp-quote (if (featurep 'xemacs)
+                                         ;; Handle backslashes (Windows)
+                                         (replace-in-string
+                                          (file-name-as-directory
+                                           (expand-file-name prefix))
+                                          "\\\\" "/")
+                                       (file-name-as-directory
+                                        (expand-file-name prefix))))
+                       ".*/"
+                       (regexp-quote
+                        (if (featurep 'xemacs)
+                            ;; Handle backslashes (Windows)
+                            (replace-in-string elisp-prefix "\\\\" "/")
+                          elisp-prefix))
+                       "/?$"))
+              dir)
+          (while rest
+            (setq dir (if (featurep 'xemacs)
+                          ;; Handle backslashes (Windows)
+                          (replace-in-string (car rest) "\\\\" "/")
+                        (car rest)))
+            (if (string-match regexp dir)
+                (if (or allow-version-specific
+                        (not (string-match (format "/%d\\.%d"
+                                                   emacs-major-version
+                                                   emacs-minor-version)
+                                           dir)))
+                    (throw 'tag (car rest))))
+            (setq rest (cdr rest)))))
       (expand-file-name (concat (if (and (not (featurep 'xemacs))
-					 (or (>= emacs-major-version 20)
-					     (and (= emacs-major-version 19)
-						  (> emacs-minor-version 28))))
-				    "share/"
-				  "lib/")
-				(cond
-				 ((featurep 'xemacs)
-				  (if (featurep 'mule)
-				      "xmule/"
-				    "xemacs/"))
-				 ;; unfortunately, unofficial mule based on
-				 ;; 19.29 and later use "emacs/" by default.
-				 ((boundp 'MULE) "mule/")
-				 ((boundp 'NEMACS) "nemacs/")
-				 (t "emacs/"))
-				elisp-prefix)
-			prefix)))
+                                         (or (>= emacs-major-version 20)
+                                             (and (= emacs-major-version 19)
+                                                  (> emacs-minor-version 28))))
+                                    "share/"
+                                  "lib/")
+                                (cond
+                                 ((featurep 'xemacs)
+                                  (if (featurep 'mule)
+                                      "xmule/"
+                                    "xemacs/"))
+                                 ;; unfortunately, unofficial mule based on
+                                 ;; 19.29 and later use "emacs/" by default.
+                                 ((boundp 'MULE) "mule/")
+                                 ((boundp 'NEMACS) "nemacs/")
+                                 (t "emacs/"))
+                                elisp-prefix)
+                        prefix)))
 
 (defvar install-default-elisp-directory
   (install-detect-elisp-directory))
@@ -228,15 +228,19 @@ subdirectory under load-path.")
 
 (defun install-just-print-p ()
   (let ((flag (getenv "MAKEFLAGS"))
-	(case-fold-search nil))
+        (case-fold-search nil))
     (princ (format "%s\n" flag))
     (if flag
-	(string-match "^\\(\\(--[^ ]+ \\)+-\\|[^ =-]\\)*n" flag))))
+        (string-match "^\\(\\(--[^ ]+ \\)+-\\|[^ =-]\\)*n" flag))))
 
 
 ;;; @ end
 ;;;
 
 (provide 'install)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; install.el ends here

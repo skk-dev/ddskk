@@ -71,4 +71,8 @@
 
 (provide 'skk-leim)
 
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
+
 ;;; skk-leim.el ends here

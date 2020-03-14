@@ -30,49 +30,53 @@
 
 ;;;###autoload
 (add-hook 'skk-mode-hook
-	  #'(lambda ()
-	      (when (and (featurep 'skk-dcomp)
-			 (featurep 'skk-nicola))
-		(require 'skk-nicola-dcomp))))
+          #'(lambda ()
+              (when (and (featurep 'skk-dcomp)
+                         (featurep 'skk-nicola))
+                (require 'skk-nicola-dcomp))))
 
 (defadvice skk-nicola-self-insert-lshift-1 (around skk-nicola-dcomp activate)
   (cond
    ((or (not skk-dcomp-activate)
-	skk-hint-inhibit-dcomp
-	(eq skk-henkan-mode 'active))
+        skk-hint-inhibit-dcomp
+        (eq skk-henkan-mode 'active))
     ad-do-it)
    (t
     (let (pos)
       (cond
        ((or (eq skk-henkan-mode 'active)
-	    (skk-get-prefix skk-current-rule-tree)
-	    (not skk-comp-stack))
-	(skk-set-marker skk-dcomp-start-point nil)
-	(skk-set-marker skk-dcomp-end-point nil))
+            (skk-get-prefix skk-current-rule-tree)
+            (not skk-comp-stack))
+        (skk-set-marker skk-dcomp-start-point nil)
+        (skk-set-marker skk-dcomp-end-point nil))
        ((skk-dcomp-marked-p)
-	(skk-dcomp-face-off)
-	(unless (member (this-command-keys) skk-dcomp-keep-completion-keys)
-	  ;;
-	  (if (eq this-command 'skk-nicola-self-insert-rshift)
-	      (setq pos (point))
-	    (ignore-errors
-	      (delete-region skk-dcomp-start-point skk-dcomp-end-point))))))
+        (skk-dcomp-face-off)
+        (unless (member (this-command-keys) skk-dcomp-keep-completion-keys)
+          ;;
+          (if (eq this-command 'skk-nicola-self-insert-rshift)
+              (setq pos (point))
+            (ignore-errors
+              (delete-region skk-dcomp-start-point skk-dcomp-end-point))))))
       ad-do-it
       ;;
       (when (and (eq this-command 'skk-nicola-self-insert-rshift)
-		 (eq skk-henkan-mode 'on))
-	(when (and (markerp skk-dcomp-start-point)
-		   (marker-position skk-dcomp-start-point)
-		   pos
-		   (< (marker-position skk-dcomp-start-point) pos))
-	  (delete-region skk-dcomp-start-point pos))
-	(when (and (markerp skk-dcomp-end-point)
-		   (marker-position skk-dcomp-end-point)
-		   (< (point) (marker-position skk-dcomp-end-point)))
-	  (delete-region skk-dcomp-end-point (point))))
+                 (eq skk-henkan-mode 'on))
+        (when (and (markerp skk-dcomp-start-point)
+                   (marker-position skk-dcomp-start-point)
+                   pos
+                   (< (marker-position skk-dcomp-start-point) pos))
+          (delete-region skk-dcomp-start-point pos))
+        (when (and (markerp skk-dcomp-end-point)
+                   (marker-position skk-dcomp-end-point)
+                   (< (point) (marker-position skk-dcomp-end-point)))
+          (delete-region skk-dcomp-end-point (point))))
       ;;
       (skk-dcomp-do-completion (point))))))
 
 (provide 'skk-nicola-dcomp)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; skk-nicola-dcomp.el ends here

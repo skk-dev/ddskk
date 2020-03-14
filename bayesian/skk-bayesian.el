@@ -208,7 +208,7 @@
   (if (memq key (list 'word 'okurigana 'midasi 'buffer 'henkan-point 'context))
       (cdr (assq key skk-bayesian-pending-data-alist))
     (error (concat "Error; invalid key=" (prin1-to-string 'key)))))
-  
+
 (defsubst skk-bayesian-read-process-output (input)
   "INPUT を `skk-bayesian-process' に送る。その後、\\n が `skk-bayesian-process' のバッファに出力されるまで待ち、\\n が出力された時点で、バッファを評価し返す。"
   (when input
@@ -242,27 +242,27 @@
                        (point-min))
                   kakutei-symbol-point))))))
     (if raw-text
-      (with-temp-buffer
-        (let ((min (point-min)))
-          (insert raw-text)
-          ;; 文字列から改行を join-line で除く。
-          ;; 但し、日本語の中の改行は空白が入るので、それを除く。
-          (while (not (eq min (point)))
-            (goto-char (point-max))
-            (join-line)
-            ;; from skk-viper.el
-            (let ((char-after (char-after (progn (skip-chars-forward " ")
-                                                 (point))))
-                  (char-before (char-before (progn (skip-chars-backward " ")
-                                                   (point)))))
-              (when (and char-after char-before
-                         (or (skk-jisx0208-p char-after)
-                             (skk-jisx0213-p char-after))
-                         (or (skk-jisx0208-p char-before)
-                             (skk-jisx0213-p char-before)))
-                (while (looking-at " ")
-                  (delete-char 1))))))
-        (buffer-string))
+        (with-temp-buffer
+          (let ((min (point-min)))
+            (insert raw-text)
+            ;; 文字列から改行を join-line で除く。
+            ;; 但し、日本語の中の改行は空白が入るので、それを除く。
+            (while (not (eq min (point)))
+              (goto-char (point-max))
+              (join-line)
+              ;; from skk-viper.el
+              (let ((char-after (char-after (progn (skip-chars-forward " ")
+                                                   (point))))
+                    (char-before (char-before (progn (skip-chars-backward " ")
+                                                     (point)))))
+                (when (and char-after char-before
+                           (or (skk-jisx0208-p char-after)
+                               (skk-jisx0213-p char-after))
+                           (or (skk-jisx0208-p char-before)
+                               (skk-jisx0213-p char-before)))
+                  (while (looking-at " ")
+                    (delete-char 1))))))
+          (buffer-string))
       nil)))
 
 (defun skk-bayesian-search (henkan-buffer midasi okurigana entry)
@@ -281,8 +281,8 @@
       ;; send context to skk-bayesian-process
       (setq sorted-entry
             (skk-bayesian-read-process-output (concat skk-bayesian-command-sort
-						      entry-str "\n"
-						      context "\n")))
+                                                      entry-str "\n"
+                                                      context "\n")))
       ;; send debugging messages
       (skk-bayesian-debug-message "Search: entry-str=%s" entry-str)
       (skk-bayesian-debug-message "Search: context=%s" context)
@@ -302,8 +302,8 @@
              skk-bayesian-corpus-last-sorted-entry
              (not (string= word (car skk-bayesian-corpus-last-sorted-entry))))
         ;; 第一候補が間違いだった時
-        (skk-bayesian-corpus-append 'bad-inference 
-                                    skk-bayesian-last-context 
+        (skk-bayesian-corpus-append 'bad-inference
+                                    skk-bayesian-last-context
                                     midasi
                                     okurigana
                                     (car skk-bayesian-corpus-last-sorted-entry)))
@@ -315,7 +315,7 @@
     (skk-bayesian-debug-message "Update: pending... word=%s" word)
     (setq skk-bayesian-number-of-command-after-kakutei -1);; 確定に 1 回かかるので -1
     (skk-bayesian-make-pending-data-alist
-     word 
+     word
      okurigana
      midasi
      henkan-buffer
@@ -328,13 +328,13 @@
          (save-excursion
            (skk-bayesian-debug-message (prin1-to-string (point-marker)))
            (forward-char
-	    (- 0
-	       (length okurigana)
-	       ;; word が注釈を含んでいる際、バッファに挿入される文字列の
-	       ;; 長さよりも長くなってしまうので、point の位置によっては
-	       ;; beginning-of-buffer のエラーとなる。ここで注釈を切り捨てた
-	       ;; word の長さを取得しておけばその問題はない。
-	       (length (car (skk-treat-strip-note-from-word word)))))
+            (- 0
+               (length okurigana)
+               ;; word が注釈を含んでいる際、バッファに挿入される文字列の
+               ;; 長さよりも長くなってしまうので、point の位置によっては
+               ;; beginning-of-buffer のエラーとなる。ここで注釈を切り捨てた
+               ;; word の長さを取得しておけばその問題はない。
+               (length (car (skk-treat-strip-note-from-word word)))))
            (point-marker))))
      skk-bayesian-last-context)))
 
@@ -368,7 +368,7 @@
              (midasi (skk-bayesian-get-pending-data-alist 'midasi))
              ;; henkan-point は、送り仮名がある場合は、送り仮名の point
              (start (marker-position (skk-bayesian-get-pending-data-alist
-                                    'henkan-point)))
+                                      'henkan-point)))
              (end (+ start word-len))
              (current-word (if (and (<= (point-min) start) (<= end (point-max)))
                                (buffer-substring-no-properties start end)))
@@ -383,8 +383,8 @@
           (skk-bayesian-debug-message "Add: context=%s" context)
           (skk-bayesian-debug-message "Add: kakutei-word=%s" kakutei-word)
           (if (skk-bayesian-read-process-output (concat skk-bayesian-command-add
-							kakutei-word "\n"
-							context "\n"))
+                                                        kakutei-word "\n"
+                                                        context "\n"))
               (skk-bayesian-debug-message "Add: done")
             (skk-bayesian-debug-message "Add: failed"))
           (if skk-bayesian-corpus-make
@@ -399,8 +399,8 @@
       ;; pending していたのを保存
       (skk-bayesian-add-to-history))
   (when (skk-bayesian-process-live-p)
-    (skk-message "skk-bayesian の履歴を保存しています..." 
-		 "saving skk-bayesian history...")
+    (skk-message "skk-bayesian の履歴を保存しています..."
+                 "saving skk-bayesian history...")
     (if (skk-bayesian-read-process-output skk-bayesian-command-save)
         (skk-message "skk-bayesian の履歴を保存しています...完了"
                      "saving skk-bayesian history...done")
@@ -410,9 +410,9 @@
 (defun skk-bayesian-restart-process ()
   (if (skk-bayesian-process-live-p) (skk-bayesian-kill-process))
   (let ((proc-buf (get-buffer-create (if skk-bayesian-debug
-					 "*skk-bayesian*"
-				       " *skk-bayesian*")))
-	(proc-name "skk-bayesian"))
+                                         "*skk-bayesian*"
+                                       " *skk-bayesian*")))
+        (proc-name "skk-bayesian"))
     (skk-message "プロセス bskk を起動しています..."
                  "Launching a process, bskk...")
     (setq skk-bayesian-process
@@ -430,12 +430,12 @@
                   (start-process proc-name
                                  proc-buf
                                  "ruby" "-S" "bskk"
-				 "-f" skk-bayesian-history-file
+                                 "-f" skk-bayesian-history-file
                                  "-v" "-d")
                 (start-process proc-name
                                proc-buf
                                "ruby" "-S" "bskk"
-			       "-f" skk-bayesian-history-file))))
+                               "-f" skk-bayesian-history-file))))
     (if skk-bayesian-process
         (skk-message "プロセス bskk を起動しています...完了"
                      "Launching a process, bskk...done")
@@ -453,13 +453,13 @@
   (interactive)
   (when skk-bayesian-process
     (let ((status (process-status skk-bayesian-process))
-	  msg)
+          msg)
       (cond ((memq status '(open connect))
-	     (delete-process skk-bayesian-process)
-	     (setq msg "close connection"))
-	    ((eq status 'run)
-	     (signal-process (process-id skk-bayesian-process) 15)
-	     (setq msg "send SIGTERM=15")))
+             (delete-process skk-bayesian-process)
+             (setq msg "close connection"))
+            ((eq status 'run)
+             (signal-process (process-id skk-bayesian-process) 15)
+             (setq msg "send SIGTERM=15")))
       (message "Killed skk-bayesian process. %s" msg))
     (setq skk-bayesian-process nil)))
 
@@ -473,7 +473,7 @@
 
 (add-to-list 'skk-search-end-function 'skk-bayesian-search)
 (add-to-list 'skk-update-end-function 'skk-bayesian-update)
-(add-hook 'kill-emacs-hook 
+(add-hook 'kill-emacs-hook
           (function (lambda ()
                       (skk-bayesian-save-history)
                       (skk-bayesian-corpus-save)
@@ -499,10 +499,10 @@
     (with-current-buffer skk-bayesian-corpus-buffer
       (goto-char (point-max))
       (insert (concat (cond ((eq flag 'positive) "+")
-			    ((eq flag 'modified) "m")
-			    ((eq flag 'bad-inference) "-")
-			    (t (error (concat "Error; invalid flag="
-					      (prin1-to-string flag)))))
+                            ((eq flag 'modified) "m")
+                            ((eq flag 'bad-inference) "-")
+                            (t (error (concat "Error; invalid flag="
+                                              (prin1-to-string flag)))))
                       midasi " ["
                       okurigana "/"
                       word "/]"
@@ -527,5 +527,10 @@
       (write-region (point-min) (point-max) skk-bayesian-corpus-file 'append)
       (delete-region (point-min) (point-max)))))
 
+(require 'skk-bayesian)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; skk-bayesian.el ends here

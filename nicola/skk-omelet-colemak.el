@@ -4,7 +4,7 @@
 ;;   Itsushi Minoura <minoura@eva.hi-ho.ne.jp>
 
 ;; Author: Itsushi Minoura <minoura@eva.hi-ho.ne.jp>
-;;      Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
+;;         Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 ;; Keywords: hardware, japanese, mule, input method
 
 ;; This file is part of Daredevil SKK.
@@ -202,9 +202,13 @@
 
 (when skk-nicola-use-koyubi-functions
   (add-hook 'skk-mode-hook
-	    #'(lambda ()
-		(define-key skk-j-mode-map "'" 'skk-kanagaki-bs))))
+            #'(lambda ()
+                (define-key skk-j-mode-map "'" 'skk-kanagaki-bs))))
 
 (provide 'skk-omelet-colemak)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; skk-omelet-colemak.el ends here

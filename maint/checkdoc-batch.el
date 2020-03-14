@@ -11,12 +11,12 @@
 ;; modify it under the terms of the GNU General Public License as published
 ;; by the Free Software Foundation; either version 3, or (at your option)
 ;; any later version.
-;;
+
 ;; checkdoc-batch.el is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
 ;; Public License for more details.
-;;
+
 ;; You can get a copy of the GNU General Public License online at
 ;; <http://www.gnu.org/licenses/>.
 
@@ -26,11 +26,11 @@
 ;; interactive and doesn't change anything but instead presents a report of
 ;; problems found using a compilation-mode buffer.  `M-x next-error' can
 ;; step through the problems in the usual compilation-mode style.
-;;
+
 ;; An accompanying script "emacs-checkdoc-batch" can run checkdoc-batch on
 ;; .el files from the command line.  It can be run under M-x compile if
 ;; desired.
-;;
+
 ;; See the `checkdoc-batch' docstring below for more.
 
 ;;; Emacsen:
@@ -93,7 +93,7 @@
 
     ;; xemacs21
     (defun checkdoc-batch--replace-regexp-in-string
-      (regexp rep string fixedcase literal)
+        (regexp rep string fixedcase literal)
       "`replace-regexp-in-string' made available in xemacs.
 The FIXEDCASE argument is ignored, case is always fixed."
       (replace-in-string string regexp rep literal))))
@@ -449,15 +449,15 @@ Generate a report for the current temp buffer contents."
     (setq buffer-read-only nil)
 
     (checkdoc-batch--with-buffer-file-name
-        (and checkdoc-batch-filename
-             (concat "/tmp/checkdoc-batch/mangled/"
-                     (file-name-nondirectory checkdoc-batch-filename)))
-      (let ((checkdoc-autofix-flag 'automatic))
-        (unwind-protect
-            (progn
-              (checkdoc-batch-advice 'ad-enable-advice)
-              (checkdoc))
-          (checkdoc-batch-advice 'ad-disable-advice))))))
+     (and checkdoc-batch-filename
+          (concat "/tmp/checkdoc-batch/mangled/"
+                  (file-name-nondirectory checkdoc-batch-filename)))
+     (let ((checkdoc-autofix-flag 'automatic))
+       (unwind-protect
+           (progn
+             (checkdoc-batch-advice 'ad-enable-advice)
+             (checkdoc))
+         (checkdoc-batch-advice 'ad-disable-advice))))))
 
 ;;;###autoload
 (defun checkdoc-batch ()
@@ -611,5 +611,9 @@ this line."
 ;; LocalWords: modtimes foo
 
 (provide 'checkdoc-batch)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; checkdoc-batch.el ends here

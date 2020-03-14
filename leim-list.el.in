@@ -38,4 +38,8 @@
   ;; Doubt.  This is a matter of preference.
   (require 'skk-setup))
 
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
+
 ;;; skk/leim-list.el ends here
