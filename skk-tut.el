@@ -964,44 +964,27 @@ SKK チュートリアルはこれで終りです。
 
 %s に関する質問、コメント、bug report 等は
 
-\t%s
-
-迄お送り下さい。このアドレスは SKK Ring Server Openlab Mailing List
-のアドレスです。
-ただし、投稿できるのはメンバーに限られます。投稿する前に ML に参加し
-てください。ML に参加するには、本文と Subject が空のメールを
-
-\t%s
-
-迄お送りください。
+https://github.com/skk-dev 迄お送りください。
 
 !! 最後に <return> キーを押してください。"
 
         "\
 Now we end the SKK tutorial.
 
-Please send comments, questions and bug reports on %s to:
+Please post comments, questions and bug reports on %s to:
 
-\t%s
-
-This is the address of the SKK Ring Server Openlab Mailing list.
-Note that only members can post to the ML.  So, if you are not an
-ML member, please subscribe to the ML first, by sending email to:
-
-\t%s
-
-with both the subject and the body empty.
+https://github.com/skk-dev
 
 !! Hit <return> key when you are ready.")
-      (skk-version t)
-      skk-ml-address
-      skk-ml-command-address))
+      (skk-version t)))
+
     (when skk-tut-use-face
       (save-match-data
         (goto-char (point-min))
         (re-search-forward "^!!.+" nil t nil)
         (put-text-property (match-beginning 0) (match-end 0)
                            'face skk-tut-do-it-face)))
+
     (while (not skktut-tutorial-end)
       (ignore-errors
         (let* ((event (read-event))
