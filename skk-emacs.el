@@ -82,11 +82,8 @@
       ["Customize SKK" skk-customize-group-skk t]
       ["Customize SKK (simple)" skk-customize t]
       "--"
-      ["Send a Bug Report"
-       (let (skk-japanese-message-and-error)
-         (skk-submit-bug-report)) t]
       ["About Daredevil SKK.." skk-version t]
-      ["Visit Daredevil Web Site" skk-emacs-visit-openlab t])))
+      ["Visit Web Site" skk-emacs-visit-website t])))
 
 (defvar skk-emacs-menu-resource-ja
   '(("Daredevil SKK Menu" . "Daredevil SKK メニュー")
@@ -121,9 +118,8 @@
     ("Show list of characters" . "文字コード表")
     ("SKK Clock" . "SKK 時計")
     ("Lookup word in region or at point" . "領域またはポイントの語句を調べる")
-    ("Send a Bug Report" . "バグを報告する")
     ("About Daredevil SKK.." . "Daredevil SKK について..")
-    ("Visit Daredevil Web Site" . "Daredevil SKK のサイトへ")))
+    ("Visit Web Site" . "SKK のサイトへ")))
 
 (defvar skk-emacs-max-tooltip-size '(80 . 40)
   "Not used if `x-max-tooltip-size' is bound.")
@@ -252,9 +248,9 @@
   (interactive)
   (customize-group "skk"))
 
-(defun skk-emacs-visit-openlab ()
+(defun skk-emacs-visit-website ()
   (interactive)
-  (browse-url "http://openlab.jp/skk/index-j.html"))
+  (browse-url "https://github.com/skk-dev"))
 
 ;;;###autoload
 (defun skk-emacs-prepare-modeline-properties ()

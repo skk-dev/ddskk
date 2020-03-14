@@ -32,69 +32,6 @@
   (require 'url)
   (defvar skk-exserv-list))
 
-;;;###autoload
-(defun skk-submit-bug-report ()
-  "SKK のバグレポートを書くメールバッファを用意する。
-mail-user-agent を設定することにより好みのメールインターフェイスを使用すること
-ができる。例えば、Wanderlust を使用したい場合は下記のように設定する。
-
-    \(setq mail-user-agent 'wl-user-agent\) "
-  (interactive)
-  (require 'reporter)
-  (when (skk-y-or-n-p
-         "SKK についてのバグレポートを書きますか？ "
-         "Do you really want to write a bug report on SKK? ")
-    (reporter-submit-bug-report
-     skk-ml-address
-     (concat (skk-version 'with-codename)
-             ", "
-             (cond
-              ((or (and (boundp 'skk-servers-list)
-                        skk-servers-list)
-                   (or (and (boundp 'skk-server-host)
-                            skk-server-host)
-                       (getenv "SKKSERVER"))
-                   ;; refer to DEFAULT_JISYO when skk-server-jisyo is nil.
-                   ;;(or (and (boundp 'skk-server-jisyo) skk-server-jisyo)
-                   ;;    (getenv "SKK_JISYO"))))
-                   )
-               (require 'skk-server)
-               (concat "skkserv; "
-                       (skk-server-version)
-                       (when (getenv "SKKSERVER")
-                         (concat ",\nSKKSERVER; "
-                                 (getenv "SKKSERVER")))
-                       (when (getenv "SKKSERV")
-                         (concat ", SKKSERV; "
-                                 (getenv "SKKSERV")))))
-              ((and (boundp 'skk-exserv-list)
-                    skk-exserv-list)
-               (require 'skk-exserv)
-               (skk-server-version))))
-     (let ((base (list 'window-system
-                       'isearch-mode-hook
-                       'isearch-mode-end-hook
-                       'skk-auto-okuri-process
-                       'skk-auto-start-henkan
-                       'skk-egg-like-newline
-                       'skk-henkan-okuri-strictly
-                       'skk-henkan-strict-okuri-precedence
-                       'skk-kakutei-early
-                       'skk-process-okuri-early
-                       'skk-search-prog-list
-                       'skk-share-private-jisyo
-                       'skk-use-viper)))
-       (when (boundp 'skk-server-host)
-         (setq base (append base '(skk-server-host))))
-       (when (boundp 'skk-server-prog)
-         (setq base (append base '(skk-server-prog))))
-       (when (boundp 'skk-servers-list)
-         (setq base (append base '(skk-servers-list))))
-       (when (boundp 'skk-exserv-list)
-         (setq base (append base '(skk-exserv-list))))
-       base)))
-  (message ""))
-
 (defvar skk-get-files '("SKK-JISYO.JIS2.gz"
                         "SKK-JISYO.JIS2004.gz"
                         "SKK-JISYO.JIS3_4.gz"

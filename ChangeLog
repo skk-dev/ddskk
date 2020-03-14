@@ -1,3 +1,12 @@
+2020-03-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-develop.el (skk-submit-bug-report): Remove function.
+	* skk-emacs.el (skk-emacs-visit-website): Rename from skk-emacs-visit-openlab.
+	(skk-emacs-modeline-menu-items, skk-emacs-menu-resource-ja): Modify.
+
+	* skk-vars.el (skk-ml-address, skk-ml-command-address): Remove Variables.
+	* skk-tut.el (skktut-end-tutorial): Remove it.
+
 2020-03-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-jisyo): New function.

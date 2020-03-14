@@ -70,9 +70,6 @@ CODING が non-nil であれば、個人辞書に適用される CODING を返す
        (defvar ,symbol ,initvalue)
        (make-variable-buffer-local ',symbol))))
 
-(defconst skk-ml-address "skk@ring.gr.jp")
-(defconst skk-ml-command-address "skk-subscribe@ring.gr.jp")
-
 ;;;; Custom group definitions
 
 (defgroup skk nil "日本語入力システム SKK のカスタマイズ"
