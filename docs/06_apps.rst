@@ -3797,6 +3797,23 @@ skk の初期設定では、変換、選択された候補は、次回の変換�
    個人辞書。DDSKK を一番最初に起動したとき、変数 :el:defvar:`skk-jisyo` が指すファイルが
    存在しなければ自動的に作られます。
 
+   .. code:: emacs-lisp
+
+       (setq skk-jisyo "/your/path/to/jisyofile")
+
+   個人辞書は、変数 @code{skk-jisyo-code} で指定された文字コードで取り扱われます。ところで、
+   変数 @code{skk-jisyo-code} の指定は、個人辞書だけに限らず共有辞書などにも影響しますので、
+   もし、個人辞書だけを変数 :el:defvar:`skk-jisyo-code` の指定とは異なる文字コードで取り扱
+   いたいときは、次のとおりコンス・セルを設定します。
+
+   .. code:: emacs-lisp
+
+      (setq skk-jisyo (cons "/your/path/to/jisyofile" 'utf-8))
+
+   この設定は :file:`~/.emacs.d/init.el` で行ってください。同時に、Emacs を起動する前に個人
+   辞書ファイルの文字コードを変換しておく必要があります。配布物の :file:`etc/dot.emacs` に
+   設定例が記載されていますので、参考にしてください。
+
 .. el:defvar:: skk-backup-jisyo
 
    個人辞書の予備（バックアップ）です。検索の対象ではなく、あくまで個人辞書のバッ

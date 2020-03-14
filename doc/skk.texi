@@ -6928,6 +6928,24 @@ Emacs のバッファに読み込んで検索を行います。
 @defvr {ユーザ変数} skk-jisyo
 個人辞書。DDSKK を一番最初に起動したとき、変数 @code{skk-jisyo} が指すフ
 ァイルが存在しなければ自動的に作られます。
+
+@lisp
+(setq skk-jisyo "/your/path/to/jisyofile")
+@end lisp
+
+個人辞書は、変数 @code{skk-jisyo-code} で指定された文字コードで取り扱われます。
+ところで、変数 @code{skk-jisyo-code} の指定は、個人辞書だけに限らず共有辞書などに
+も影響しますので、もし、個人辞書だけを変数 @code{skk-jisyo-code} の指定とは異なる
+文字コードで取り扱いたいときは、次のとおりコンス・セルを設定します。
+
+@lisp
+(setq skk-jisyo (cons "/your/path/to/jisyofile" 'utf-8))
+@end lisp
+
+この設定は @file{~/.emacs.d/init.el} で行ってください。同時に、Emacs を起動する前
+に個人辞書ファイルの文字コードを変換しておく必要があります。
+配布物の @file{etc/dot.emacs} に設定例が記載されていますので、参考にしてください。
+
 @end defvr
 
 @defvr {ユーザ変数} skk-backup-jisyo
