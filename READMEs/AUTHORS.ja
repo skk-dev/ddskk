@@ -466,6 +466,8 @@ skk-num.el, skk-kcode.el, skk-isearch.el, skk-cursor.el,
 
 *** experimental/skk-pre-henkan.el
 
+*** skk-decor.el
+
 *** 以下のプログラムへの改変
 
 **** context-skk.el, skk-annotation.el, skk-gadget.el, skk-hint.el, skk-inline.el,
@@ -485,6 +487,12 @@ ddskk-pkg.el, makeit.bat, make1.bat, Makefile
 http://mail.ring.gr.jp/skk/201412/msg00061.html
 
 ** XEmacs のサポートを廃止 2020.2
+
+** SKK 辞書開発
+
+*** SKK-JISYO.emoji
+
+*** SKK-JISYO.edict2
 
 
 * Fumihiko MACHIDA
@@ -573,6 +581,7 @@ skk-server.el, skk.el, skk-study.el, bayesian/bskk
 
 *** SKK-JISYO.lisp
 
+
 * Yuhei Maeda
 
 ** インストール環境の整備
@@ -585,6 +594,7 @@ skk-server.el, skk.el, skk-study.el, bayesian/bskk
 
 **** skk.el
 
+
 * Takenari Shinohara
 
 ** インストール環境の整備
@@ -595,6 +605,7 @@ skk-server.el, skk.el, skk-study.el, bayesian/bskk
 
 **** cdb.el
 
+
 * Yasushi Abe
 
 ** elisp 著作・アイデア
@@ -602,6 +613,15 @@ skk-server.el, skk.el, skk-study.el, bayesian/bskk
 *** 以下のプログラムへの改変
 
 **** skk.el, .travis.yml
+
+
+* Naoya Yamashita
+
+** (#136) Distribute DDSKK under GPLv3.
+
+** (#137) Fix header and footer.
+
+** and more.
 
 
 
