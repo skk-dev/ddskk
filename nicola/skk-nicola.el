@@ -457,7 +457,7 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
     (skk-nicola-insert arg parg))
    (t
     (unless last-command-event
-      (set 'last-command-event ?\ ))
+      (set 'last-command-event ?\s))
     (call-interactively 'skk-insert))))
 
 ;;;###autoload
@@ -470,7 +470,7 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
       (skk-bind-last-command-char
           (if (characterp (event-to-character last-command-event))
               (event-to-character last-command-event)
-            ?\ )
+            ?\s)
         (call-interactively 'self-insert-command t))
     ;; else
     (let ((last last-command-event)
@@ -482,7 +482,7 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
               (if (characterp (event-to-character
                                last-command-event))
                   (event-to-character last-command-event)
-                ?\ )
+                ?\s)
             (call-interactively 'self-insert-command t)
             (call-interactively 'self-insert-command t))
         ;; else
@@ -514,7 +514,7 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
                    (if (characterp (event-to-character
                                     last-command-event))
                        (event-to-character last-command-event)
-                     ?\ )
+                     ?\s)
                  (call-interactively 'self-insert-command t))
                (skk-bind-last-command-char char
                  (call-interactively 'self-insert-command
@@ -690,7 +690,7 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
        (cl-case command
          (skk-nicola-self-insert-rshift
           ;; [$B1&(B $B1&(B]
-          (skk-bind-last-command-char ?\
+          (skk-bind-last-command-char ?\s
            (cond (skk-henkan-mode
                   ;;
                   (skk-kanagaki-insert arg)
@@ -998,7 +998,7 @@ ARG $B$rM?$($i$l$?>l9g$O$=$N?t$@$1J8;zNs$rO"7k$7$FF~NO$9$k!#(B"
 
 (defun skk-nicola-space-function (&optional arg parg)
   "$B?F;X1&%-!<C1FHBG80;~$N5sF0$r7h$a$k4X?t!#(B"
-  (skk-bind-last-command-char ?\
+  (skk-bind-last-command-char ?\s
    (cond
     ((eq skk-henkan-mode 'active)
      (call-interactively 'skk-insert))
