@@ -507,7 +507,10 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
                     (format "%3d" (skk-char-octet char 0)))))
      ;;
      ((eq (char-charset char) 'unicode)
-      (setq mesg (format "UNICODE: U+%04x" char))) ;要mule-ucs(emacs22)対応
+      (setq mesg (concat (propertize (char-to-string char)
+                                     'face 'skk-display-code-char-face)
+                         "\t"
+                         (format "UNICODE: U+%04x" char))))
      ;;
      (t
       (setq mesg (format (if skk-japanese-message-and-error

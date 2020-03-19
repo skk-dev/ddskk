@@ -1,3 +1,7 @@
+2020-03-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-kcode.el (skk-display-code): Apply face when Unicode.
+
 2020-03-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-develop.el (skk-submit-bug-report): Remove function.
