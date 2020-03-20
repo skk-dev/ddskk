@@ -1,3 +1,7 @@
+2020-03-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* dot.skk (skk-itaiji-henkan): New function.
+
 2020-03-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* dot.emacs (skk-jisyo): skk-jisyo accept '(PATH . CODING) cons-cell.

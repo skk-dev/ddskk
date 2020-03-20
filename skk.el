@@ -3972,7 +3972,7 @@ FILE には辞書ファイルだけでなく、
     candidates))
 
 (defun skk-search-itaiji ()
-  ;; http://mail.ring.gr.jp/skk/200303/msg00071.html
+  ;; skk-search-prog-list の要素として使用する
   (and (= (length skk-henkan-key) 1)
        skk-itaiji-jisyo
        (skk-search-jisyo-file skk-itaiji-jisyo 0 t)))

@@ -479,8 +479,22 @@
 ;;   上記の SKK-JISYO.JIS3_4 の例をご覧ください。
 
 ;; 異体字の候補を表示する
-;; http://mail.ring.gr.jp/skk/200303/msg00071.html
-;; (setq skk-itaiji-jisyo "/usr/share/skk/SKK-JISYO.itaiji")
+;; skk マニュアル「異体字へ変換する」
+(setq skk-itaiji-jisyo
+      ;; "/usr/share/skk/SKK-JISYO.itaiji"
+      "/usr/share/skk/SKK-JISYO.ivd")
+
+;; TODO: following-char() が find-composition() で composition である文字のとき
+(defun skk-itaiji-henkan (&optional arg)
+  (interactive "p")
+  (let ((c (following-char))
+        (skk-search-prog-list '((skk-search-itaiji))))
+    (forward-char)
+    (skk-set-henkan-point-subr)
+    (insert c)
+    (skk-start-henkan arg)))
+
+(define-key skk-j-mode-map (kbd "C-c v") 'skk-itaiji-henkan)
 
 ;; look コマンドを使った検索を行う
 (setq skk-use-look t)
