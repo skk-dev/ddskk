@@ -1,3 +1,7 @@
+2020-03-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-search-itaiji): Fix comment.
+
 2020-03-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-kcode.el (skk-display-code): Apply face when Unicode.
