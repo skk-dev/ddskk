@@ -484,12 +484,14 @@
       ;; "/usr/share/skk/SKK-JISYO.itaiji"
       "/usr/share/skk/SKK-JISYO.ivd")
 
-;; TODO: following-char() が find-composition() で composition である文字のとき
 (defun skk-itaiji-henkan (&optional arg)
   (interactive "p")
   (let ((c (following-char))
         (skk-search-prog-list '((skk-search-itaiji))))
     (forward-char)
+    (skip-chars-forward (format "[%s-%s]"
+                                (char-to-string #xE0100)
+                                (char-to-string #xE01EF)))
     (skk-set-henkan-point-subr)
     (insert c)
     (skk-start-henkan arg)))
