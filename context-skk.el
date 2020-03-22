@@ -358,4 +358,4 @@
 ;; indent-tabs-mode: nil
 ;; End:
 
-;; context-skk.el ends here
+;;; context-skk.el ends here
