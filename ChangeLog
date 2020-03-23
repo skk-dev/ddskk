@@ -1,3 +1,7 @@
+2020-03-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* experimental/rdbms/*: Remove files. no longer maintained.
+
 2020-03-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-auto-paren-string-alist): Remove whitespace.
