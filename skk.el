@@ -2229,7 +2229,7 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
                       (if (string= background-color skk-candidate-buffer-background-color)
                           skk-candidate-buffer-background-color-odd
                         skk-candidate-buffer-background-color)))
-              (overlay-put ovl 'face `(:background ,background-color)))
+              (overlay-put ovl 'face `(:background ,background-color :extend t)))
             (forward-line))))
 
       (goto-char (point-min)))
