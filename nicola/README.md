@@ -114,8 +114,8 @@ http://www.eva.hi-ho.ne.jp/%7Eminoura/kbd/keymap.html
 
 # 6. 使用法
 
-親指シフト入力についての詳しいことは、README.NICOLA.ja をご一読くださ
-い。
+親指シフト入力についての詳しいことは、[README.NICOLA.md](README.NICOLA.md) を
+ご一読ください。
 
 それ以外の仮名入力について詳しいことは skk-kanagaki.el の冒頭のコメン
 トをご一読ください。

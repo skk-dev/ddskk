@@ -38,7 +38,7 @@
 ;; を目的とします。 NICOLA や旧 JIS 配列に対応します。
 
 ;; なお、以下は「親指シフト入力」以外の例です。親指シフト入力の例については、
-;; README.NICOLA.ja と skk-nicola.el を御覧ください。
+;; README.NICOLA.md と skk-nicola.el を御覧ください。
 
 ;;  -*- 問題点 -*-
 
