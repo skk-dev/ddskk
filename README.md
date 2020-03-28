@@ -19,8 +19,8 @@ https://github.com/skk-dev/ddskk
 If you want to join the SKK Openlab Mailing list, see a description
 below.
 
-Daredevil SKK is under the GNU General Public License.  See COPYING
-for its details.
+Daredevil SKK is under the GNU GENERAL PUBLIC LICENSE Version 3.
+See LICENSE for its details.
 
 Thank you.
 
