@@ -1,3 +1,8 @@
+2020-03-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* README.NICOLA.md: Rename from README.NICOLA.ja.
+	* README.URIs.md: Rename from README.URIs.ja.
+
 2020-03-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* Makefile: Add top directory to load-path. Use long options.
