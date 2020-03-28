@@ -70,7 +70,7 @@ Daredevil SKK の為に加筆修正した部分については、塚本が著作
 
 本プログラムはフリーソフトウェアです。再配布および改変が認められますが、
 その際には Free Software Foundation が公表する GNU General Public
-Licence の第 2 バージョン以降 (の任意の 1 つのバージョン) の条件に従う
+Licence の第 3 バージョン以降 (の任意の 1 つのバージョン) の条件に従う
 必要があります。
 
 本プログラムは有用であると思われますが、その配布は無保証です。市場性ま
@@ -78,10 +78,8 @@ Licence の第 2 バージョン以降 (の任意の 1 つのバージョン) �
 ません。GNU General Public License を参照すればより詳しいことが分かり
 ます。
 
-Daredevil SKK とともに GNU General Public License が収録されているはず
-です。COPYING という名前のファイルを見てください。もしこれがなければ、
-次の宛先に手紙を送ってください。Free Software Foundation Inc., 59
-Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+Daredevil SKK とともに GNU General Public License が収録されています。
+LICENSE という名前のファイルを見てください。
 
 
 【インストール】
