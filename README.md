@@ -2,10 +2,8 @@ ddskk  [![Build Status](https://travis-ci.org/skk-dev/ddskk.svg?branch=master)](
 =====
 
 Daredevil SKK is a version of SKK (Simple Kana to Kanji conversion
-program, an input method of Japanese) maintained by the SKK
-development team at
-
-http://openlab.jp/skk
+program, an input method of Japanese) on GNU Emacs maintained by
+the skk-dev team.
 
 It consists of a simple core and many optional programs which provide
 extensive features.  Though it has been well developed, our target is
@@ -22,30 +20,13 @@ below.
 Daredevil SKK is under the GNU GENERAL PUBLIC LICENSE as published
 by the Free Software Foundation, either version 3 of the License,
 or (at your option) any later version.
-See LICENSE file for its details.
+See [LICENSE](LICENSE) file for its details.
 
 Thank you.
 
 ## How to use
 
 https://ddskk.readthedocs.io/ja/latest/
-
-## How to join the SKK Openlab Mailing list
-
-### Subscribe request
-
-  To: skk-subscribe@ring.gr.jp
-  Mail body or subject: empty
-  And follow en ezmlm's instruction automatically responded.
-
-### Unsubscribe request
-
-  To: skk-unsubscribe@ring.gr.jp
-  Mail body or subject: empty
-  And follow en ezmlm's instruction automatically responded.
-
-### Post
-  To: skk@ring.gr.jp
 
 ## Contributing
   1. Fork it ( https://github.com/skk-dev/ddskk/fork )
@@ -56,11 +37,9 @@ https://ddskk.readthedocs.io/ja/latest/
   6. Push to the branch (`git push origin my-new-feature`)
   7. Create a new Pull Request
 
-**If you want to commit something to skk-dev/ddskk repository, please join the [ddskk-committers team](https://github.com/orgs/skk-dev/teams/ddskk-committers)**.
-
 <!--
 Local variables:
-mode: markdown
-fill-column: 72
+  mode: markdown
+  fill-column: 72
 end:
 -->
