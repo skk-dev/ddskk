@@ -430,10 +430,6 @@
     ;; (text . (x . y))
     (cons text (cons columns lines))))
 
-(defun skk-tooltip-relative-p ()
-  (and (featurep 'ns)
-       (< emacs-major-version 24)))
-
 (defun skk-tooltip-show-at-point (text &optional situation)
   "TEXT を tooltip で表示する。"
   (require 'tooltip)
@@ -528,25 +524,21 @@
             ;; x 座標 (左からの)
             left (+ (car tip-destination)
                     (nth 0 (window-inside-pixel-edges win))
-                    (if (skk-tooltip-relative-p)
-                        0
-                      (eval (frame-parameter (selected-frame) 'left)))
+                    (eval (frame-parameter (selected-frame) 'left))
                     skk-tooltip-x-offset)
             ;; y 座標 (上からの)
             top  (+ (cdr tip-destination)
                     (nth 1 (window-inside-pixel-edges win))
-                    (if (skk-tooltip-relative-p)
-                        0
-                      (+ (if tool-bar-mode
-                             skk-emacs-tool-bar-height
-                           0)
-                         (if (and menu-bar-mode
-                                  (not (or (boundp 'mac-carbon-version-string)
-                                           (featurep 'ns))))
-                             skk-emacs-menu-bar-height
-                           0)
-                         (eval (frame-parameter (selected-frame) 'top))
-                         (+ fontsize spacing)))
+                    (+ (if tool-bar-mode
+                           skk-emacs-tool-bar-height
+                         0)
+                       (if (and menu-bar-mode
+                                (not (or (boundp 'mac-carbon-version-string)
+                                         (featurep 'ns))))
+                           skk-emacs-menu-bar-height
+                         0)
+                       (eval (frame-parameter (selected-frame) 'top))
+                       (+ fontsize spacing))
                     skk-tooltip-y-offset)
             tooltip-info (skk-tooltip-resize-text text)
             text (car tooltip-info)
@@ -558,29 +550,28 @@
             screen-width (display-pixel-width)
             screen-height (display-pixel-height))
       ;;
-      (unless (skk-tooltip-relative-p)
-        (when (> (+ left text-width) screen-width)
-          ;; 右に寄りすぎて欠けてしまわないように
-          (setq left (- left (- (+ left text-width
-                                   ;; 少し余計に左に寄せないと avoid
-                                   ;; したマウスポインタと干渉する
-                                   (* 2 fontsize))
-                                screen-width))))
-        (when (> (+ top text-height) screen-height)
-          ;; 下に寄りすぎて欠けてしまわないように
-          (setq top (- top
-                       ;; 十分上げないとテキストと重なるので、
-                       ;; いっそテキストの上にしてみる
-                       text-height (* 2 (+ fontsize spacing))))
-          ;; さらに X 座標を...
-          (let ((right (+ left
-                          text-width
-                          skk-tooltip-x-offset))
-                (mouse-x (+ (frame-parameter (selected-frame) 'left)
-                            (* (frame-pixel-width)))))
-            (when (and (<= left mouse-x) (<= mouse-x right))
-              ;; マウスポインタと被りそうなとき
-              (setq left (- left (- right mouse-x) fontsize))))))
+      (when (> (+ left text-width) screen-width)
+        ;; 右に寄りすぎて欠けてしまわないように
+        (setq left (- left (- (+ left text-width
+                                 ;; 少し余計に左に寄せないと avoid
+                                 ;; したマウスポインタと干渉する
+                                 (* 2 fontsize))
+                              screen-width))))
+      (when (> (+ top text-height) screen-height)
+        ;; 下に寄りすぎて欠けてしまわないように
+        (setq top (- top
+                     ;; 十分上げないとテキストと重なるので、
+                     ;; いっそテキストの上にしてみる
+                     text-height (* 2 (+ fontsize spacing))))
+        ;; さらに X 座標を...
+        (let ((right (+ left
+                        text-width
+                        skk-tooltip-x-offset))
+              (mouse-x (+ (frame-parameter (selected-frame) 'left)
+                          (* (frame-pixel-width)))))
+          (when (and (<= left mouse-x) (<= mouse-x right))
+            ;; マウスポインタと被りそうなとき
+            (setq left (- left (- right mouse-x) fontsize)))))
       )) ; END **マウスポインタに依存せず tooptip の位置を決定する**
     ;;
     (setq parameters (if (eq skk-tooltip-mouse-behavior 'follow)
