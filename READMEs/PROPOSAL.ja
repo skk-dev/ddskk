@@ -82,13 +82,18 @@ skk-auto.el) というファイルに分割して下さい。特殊機能を使�
 
 各ファイルの冒頭にある `;;; Code:' の直後に
 
+  (require 'skk)
+
+と書いて下さい。skk.el では、
+
   (require 'skk-autoloads)
   (require 'skk-macs)
-  (require 'skk-vars))
+  (require 'skk-vars)
+  (require 'skk-emacs)
 
-と書いて下さい。SKK 共通のマクロやインライン関数、primary
-variables/constants が skk-macs.el に、全ての変数が skk-vars.el に含ま
-れています。
+が順に実行されます。
+
+** skk-autoloads
 
 skk-autoloads は、make 時にバイトコンパイルに先立って生成されます。
 各ファイルでオートロード化したい関数の宣言の直前の行に、
@@ -98,9 +103,20 @@ skk-autoloads は、make 時にバイトコンパイルに先立って生成さ�
       (defun skk-completion (first)
          ...)
 
-これで skk-autoload が自動的に設定されます。
+これで make 時に skk-autoload が自動的に設定されます。
 
-また、ファイルの末尾は、例えば skk-abbrev.el の場合は下記のように記述
+** skk-macs.el
+
+skk-macs.el には、 SKK 共通のマクロやインライン関数、primary
+variables/constants が収めされています。
+
+** skk-vars.el
+
+skk-vars.el には、全ての変数が含まれています。
+
+** ファイルの末尾
+
+ファイルの末尾は、例えば skk-abbrev.el の場合は下記のように記述
 します。
 
      (require 'product)
