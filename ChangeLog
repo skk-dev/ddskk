@@ -1,3 +1,8 @@
+2020-03-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-emacs.el (skk-tooltip-relative-p): Remove function for GNU Emacs 23.
+	(skk-tooltip-show-at-point): Do not use it.
+
 2020-03-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* README.md: Remove Openlab-mailing-list.
