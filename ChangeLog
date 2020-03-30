@@ -1,3 +1,7 @@
+2020-03-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-emacs.el (skk-jis2sjis2): Move function to skk-kcode.el.
+
 2020-03-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-emacs.el (skk-tooltip-relative-p): Remove function for GNU Emacs 23.
