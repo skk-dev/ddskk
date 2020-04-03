@@ -1,3 +1,7 @@
+2020-04-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-rom-kana-base-rule-list): Add new rule `zn'.
+
 2020-03-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-emacs.el (skk-jis2sjis2): Move function to skk-kcode.el.
