@@ -48,6 +48,16 @@
 ;; モードラインに SKK アイコンを表示する。
 (setq skk-show-icon t)
 
+;; マーカー（▼と▽）を変更する
+;; https://github.com/skk-dev/ddskk/issues/162
+(defun skk-set-display-table ()
+  (walk-windows (lambda (w)
+                  (let ((disptab (make-display-table)))
+                    (aset disptab ?\▼ (vector (make-glyph-code ?# 'escape-glyph)))
+                    (aset disptab ?\▽ (vector (make-glyph-code ?@ 'escape-glyph)))
+                    (set-window-display-table w disptab)))))
+(add-hook 'window-configuration-change-hook #'skk-set-display-table)
+
 ;; カーソル付近にモード切り替えを表示する
 ;; (setq skk-show-mode-show t)		; M-x skk-show-mode でトグル可。
 ;; (setq skk-show-mode-style 'tooltip)	;デフォルトは 'inline
