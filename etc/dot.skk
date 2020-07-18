@@ -57,6 +57,7 @@
                     (aset disptab ?\▽ (vector (make-glyph-code ?@ 'escape-glyph)))
                     (set-window-display-table w disptab)))))
 (add-hook 'window-configuration-change-hook #'skk-set-display-table)
+(add-hook 'after-init-hook #'skk-set-display-table)
 
 ;; カーソル付近にモード切り替えを表示する
 ;; (setq skk-show-mode-show t)		; M-x skk-show-mode でトグル可。
