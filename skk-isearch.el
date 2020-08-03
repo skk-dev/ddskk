@@ -566,8 +566,7 @@ If the current mode is different from previous, remove it first."
                            (substring oldmsg (match-end 0)))))
             ((or msg (null alist))
              (setq newmsg (concat prompt (or msg oldmsg)))
-             (aset cmd 2 newmsg)
-             ))))
+             (aset cmd 2 newmsg)))))
     (isearch-delete-char)))
 
 (defun skk-isearch-kakutei (isearch-function)

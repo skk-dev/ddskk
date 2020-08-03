@@ -691,19 +691,19 @@ abbrev $B$HF1$8%-!<$K$9$k>l9g$O(B skk-nicola-prefix-suffix-abbrev-chars $B$r;
          (skk-nicola-self-insert-rshift
           ;; [$B1&(B $B1&(B]
           (skk-bind-last-command-char ?\s
-           (cond (skk-henkan-mode
-                  ;;
-                  (skk-kanagaki-insert arg)
-                  (unless (>= skk-nicola-interval
-                              1)
-                    ;; $BC1FHBG80$rF10l%-!<O"B3BG80$GBeMQ$9$k!#(B
-                    (skk-kanagaki-insert arg)))
-                 (t
-                  (self-insert-command
-                   (if (< 1 skk-nicola-interval)
-                       ;; $BC1FHBG80$rF10l%-!<O"B3BG80$GBeMQ$9$k!#(B
-                       arg
-                     (1+ arg)))))))
+            (cond (skk-henkan-mode
+                   ;;
+                   (skk-kanagaki-insert arg)
+                   (unless (>= skk-nicola-interval
+                               1)
+                     ;; $BC1FHBG80$rF10l%-!<O"B3BG80$GBeMQ$9$k!#(B
+                     (skk-kanagaki-insert arg)))
+                  (t
+                   (self-insert-command
+                    (if (< 1 skk-nicola-interval)
+                        ;; $BC1FHBG80$rF10l%-!<O"B3BG80$GBeMQ$9$k!#(B
+                        arg
+                      (1+ arg)))))))
          (skk-nicola-self-insert-lshift
           ;; [$B:8(B $B1&(B]
           (skk-nicola-double-shift))
@@ -999,13 +999,13 @@ ARG $B$rM?$($i$l$?>l9g$O$=$N?t$@$1J8;zNs$rO"7k$7$FF~NO$9$k!#(B"
 (defun skk-nicola-space-function (&optional arg parg)
   "$B?F;X1&%-!<C1FHBG80;~$N5sF0$r7h$a$k4X?t!#(B"
   (skk-bind-last-command-char ?\s
-   (cond
-    ((eq skk-henkan-mode 'active)
-     (call-interactively 'skk-insert))
-    ((eq skk-henkan-mode 'on)
-     (skk-kanagaki-insert arg parg))
-    (t
-     (self-insert-command arg)))))
+    (cond
+     ((eq skk-henkan-mode 'active)
+      (call-interactively 'skk-insert))
+     ((eq skk-henkan-mode 'on)
+      (skk-kanagaki-insert arg parg))
+     (t
+      (self-insert-command arg)))))
 
 (defun skk-nicola-lshift-function (&optional arg)
   "$B?F;X:8%-!<C1FHBG80;~$N5sF0$r7h$a$k4X?t!#(B"

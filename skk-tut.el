@@ -52,8 +52,7 @@
     (skk-mode . before)
     (skk-create-file . around)
     (skk-save-jisyo-original . around)
-    (skk-get-jisyo-buffer . around)
-    )
+    (skk-get-jisyo-buffer . around))
   "SKK チュートリアルで advice が付けられる関数と advice class のエーリスト。")
 
 (defvar skktut-question-numbers nil "SKK チュートリアルの問題数。")

@@ -380,7 +380,7 @@ XFree86 上で使用する場合、 例えばこの値を [henkan]
         ;; C-u ではない場合
         (not (and parg (listp parg))))
     (skk-bind-last-command-char ?\s
-     (skk-insert arg parg)))
+      (skk-insert arg parg)))
    (t
     ;; C-u [SPC] で送りあり変換をする。
     (when (featurep 'skk-dcomp)

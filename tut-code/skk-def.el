@@ -278,14 +278,11 @@
         ("/" nil skk-abbrev-mode)
         ("$" nil skk-display-code-for-char-at-point)
         ("@" nil skk-today)
-        ("\\" nil skk-input-by-code-or-menu)
-        ))
+        ("\\" nil skk-input-by-code-or-menu)))
 
 (setq skk-rom-kana-rule-list
-      '(
-        ("hh" "h" ("ッ" . "っ"))
-        ("mm" "m" ("ン" . "ん"))
-        ))
+      '(("hh" "h" ("ッ" . "っ"))
+        ("mm" "m" ("ン" . "ん"))))
 
 (setq skk-try-completion-char ?\011)
 

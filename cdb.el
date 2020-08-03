@@ -181,13 +181,8 @@
                         (when (equal key (cdb-read-file path (+ 8 foffset) keylen))
                           ;; got it. get the value associated with the key.
                           (let ((vallen (uint32le-int (cdb-read-file path (+ 4 foffset) 4))))
-                            (throw 'found (cdb-read-file path (+ keylen 8 foffset) vallen))
-                            )))) ; unless
-                    )) ; when
-                ) ; let
-              (setq n (1+ n))
-              )) ; catch
-          )))))
+                            (throw 'found (cdb-read-file path (+ keylen 8 foffset) vallen)))))))))
+              (setq n (1+ n)))))))))
 
 (defun cdb-mapc (path func)
   "apply the function to each key/value pair in the database."
@@ -205,10 +200,8 @@
             (funcall func
                      (cdb-read-file path (+ 8 foffset) keylen)
                      (cdb-read-file path (+ keylen 8 foffset) vallen))
-            (setq foffset (+ keylen vallen 8 foffset))
-            ) ; let
-          (setq nkeys (1+ nkeys))
-          ) ; while
+            (setq foffset (+ keylen vallen 8 foffset)))
+          (setq nkeys (1+ nkeys)))
         nkeys))))
 
 (defun cdb-keys (path)
@@ -257,8 +250,7 @@
   (cl-assert (equal (cdb-keys path)
                     '("de" "eD" "dE" "xxx" "xxxxx" "xxxxxx"
                       "xxxxxxx" "abc" "\244\242")))
-  (cdb-uninit path)
-  )
+  (cdb-uninit path))
                                         ;(cdb-test-simple "test.cdb")
 
 ;; Local Variables:

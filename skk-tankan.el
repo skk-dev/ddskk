@@ -1789,8 +1789,7 @@ METHOD が 2 であれば数値 NUM は総画数として検索を実行する。
    (skk-search-by-stroke-or-radical-sub ?\x2c ?\x2f ?\x21 ?\x7e
                                         num method 'japanese-jisx0213-2)
    (skk-search-by-stroke-or-radical-sub ?\x6e ?\x7e ?\x21 ?\x7e
-                                        num method 'japanese-jisx0213-2)
-   ))
+                                        num method 'japanese-jisx0213-2)))
 
 (defun skk-tankan-bushu-compread ()
   "配列 `skk-tankan-radical-vector' の内容を一覧表示して選択する。
@@ -2003,8 +2002,7 @@ METHOD が 2 であれば数値 NUM は総画数として検索を実行する。
                                     (aref skk-tankan-radical-vector
                                           (nth 2 cell))
                                     (nth 3 cell)
-                                    (or (nth 1 cell) "")
-                                    ))))
+                                    (or (nth 1 cell) "")))))
                 (if (zerop (length anno))
                     (char-to-string (car cell))
                   (concat (char-to-string (car cell)) ";" anno))))
@@ -2692,9 +2690,7 @@ METHOD が 2 であれば数値 NUM は総画数として検索を実行する。
              (?遙 "83追加入替え(遥)")
              (?瑤 "83追加入替え(瑶)")
              (?凜 "90追加")
-             (?熙 "90追加")
-
-             )))
+             (?熙 "90追加"))))
     (dolist (x l)
       (aset skk-tankan-annotation-table (car x) (nth 1 x)))))
 
@@ -3372,9 +3368,7 @@ METHOD が 2 であれば数値 NUM は総画数として検索を実行する。
              (94 91 "2003追加")
              (94 92 "2003追加")
              (94 93 "2003追加")
-             (94 94 "2003追加")
-
-             )))
+             (94 94 "2003追加"))))
     (dolist (x l)
       (aset skk-tankan-annotation-table
             (make-char 'japanese-jisx0213-1 (+ 32 (car x)) (+ 32 (nth 1 x)))

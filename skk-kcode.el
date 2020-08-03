@@ -495,8 +495,7 @@ To find a character in `%s', type 7/8 bits JIS code (00nn),\
                                   (propertize
                                    anno
                                    'face
-                                   'skk-display-code-tankan-annotation-face)))
-                      ))))
+                                   'skk-display-code-tankan-annotation-face)))))))
      ;;
      ((memq charset '(ascii latin-jisx0201))
       (setq mesg
