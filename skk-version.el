@@ -60,8 +60,7 @@ the codename."
               (get 'skk-version 'version-string)
               (if skk-version-codename-ja
                   (get 'skk-version 'codename-ja)
-                (get 'skk-version 'codename))
-              ))))
+                (get 'skk-version 'codename))))))
 
 (provide 'skk-version)
 

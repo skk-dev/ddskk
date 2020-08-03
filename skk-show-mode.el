@@ -142,8 +142,7 @@ tooltip / inline 表示する."
           ;; その face を 'default に指定しておく
           (setq base-ol (make-overlay (point) (1+ (point))))
           (overlay-put base-ol 'face 'default)
-          (push base-ol skk-show-mode-inline-overlays)
-          )))
+          (push base-ol skk-show-mode-inline-overlays))))
 
     (overlay-put ol 'invisible t)
     (overlay-put ol 'after-string str)

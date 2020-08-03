@@ -656,8 +656,7 @@ dependent."
                                 (skk-search-hankaku-katakana . "半角カナ")
                                 (skk-search-jisx0208-romaji . "全角ローマ")
                                 (skk-search-romaji . "ローマ")
-                                (nil . "未定義"))
-                              )))
+                                (nil . "未定義")))))
                     '(5 6 7 8 9 0))) "  "))
           new) ; END varlist
       ;; BODY
@@ -669,8 +668,7 @@ dependent."
                             (propertize (concat s1 "]") 'face
                                         'skk-verbose-kbd-face)
                             s2 " "))))
-      (setq skk-henkan-on-message new))
-    ))
+      (setq skk-henkan-on-message new))))
 
 (defun skk-compile-init-file-maybe ()
   "必要なら `skk-init-file' をバイトコンパイルする。

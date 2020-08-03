@@ -69,10 +69,10 @@ this function is based on `tar-summarize-buffer'."
 (defun tar-file-descriptor (buffer file)
   "Return descriptor Structure for match FILE in BUFFER.
 BUFFER is made by function `tar-raw-buffer'."
-;; (tar-file-descriptor (tar-raw-buffer "/temp/ddskk-16.0.52.tar") "ann")
-;; => [tar-header #<marker at 1025 in ddskk-16.0.52.tar>
-;;    "ddskk-16.0.52/skk-annotation.el" 436 1000 1000 64715 (22169 36584) 7124 nil
-;;    "" "ustar " "brutus" "brutus" 0 0 nil]
+  ;; (tar-file-descriptor (tar-raw-buffer "/temp/ddskk-16.0.52.tar") "ann")
+  ;; => [tar-header #<marker at 1025 in ddskk-16.0.52.tar>
+  ;;    "ddskk-16.0.52/skk-annotation.el" 436 1000 1000 64715 (22169 36584) 7124 nil
+  ;;    "" "ustar " "brutus" "brutus" 0 0 nil]
   (let ((descriptor (tar-make-descriptor buffer)))
     (catch 'match
       (dolist (d descriptor)
