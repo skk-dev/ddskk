@@ -5,7 +5,10 @@
 
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Maintainer: SKK Development Team <skk@ring.gr.jp>
-;; Keywords: japanese, mule, input method
+;; Keywords: i18n japanese mule input-method
+;; Version: 17.0.50
+;; URL: https://github.com/skk-dev/ddskk
+;; Package-Requires: ((ccc "1.43") (cdb "0.1"))
 
 ;; This file is part of Daredevil SKK.
 
