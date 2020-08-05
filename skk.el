@@ -73,13 +73,13 @@
   ;; SKK common.
 
 
-  ;; skk の起動時、*-autoloads は下記の２種類のうちどちらかに限って存在する。
-  ;; MELPA経由の場合、 autoload は package.el によって管理されるため、
-  ;; skk-autoloadsがロードできない場合、単に無視する。
-  ;;                | make でインストール     | MELPA 経由でインストール
-  ;;   ファイル名     | skk-autoloads.el     | ddskk-autoloads.el
-  ;;   provide 宣言  | あり (SKK-MK が生成)   | なし
-  (require 'skk-autoloads nil 'noerror)
+  ;; skk の起動時、*-autoloads は下記の3種類のうちいづれかに限って存在する。
+  ;; provide宣言がないファイルはrequireできないので、loadによって読み込む。
+  ;;              | make でインストール  | MELPA (ddskk)      | MELPA (skk)      |
+  ;; ファイル名   | skk-autoloads.el     | ddskk-autoloads.el | skk-autoloads.el |
+  ;; provide 宣言 | あり (SKK-MK が生成) | なし               | なし             |
+  (load "skk-autoloads" 'noerror)
+  (load "ddskk-autoloads" 'noerror)
 
   (provide 'skk)                        ; workaround for recursive require
   (require 'skk-vars)
