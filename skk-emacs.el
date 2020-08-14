@@ -670,8 +670,8 @@ TEXT には `skk-tooltip-face' が適用される。"
 ただし、SKK-JISYO.L のような英数変換、数値変換などはできない。"
   (require 'ja-dic-utl)
   ;; Mostly from ja-dic-utl.el.
-  (when (and (locate-library "ja-dic/ja-dic")
-             (not skkdic-okuri-nasi))
+  (when (and (not skkdic-okuri-nasi)
+             (locate-library "ja-dic/ja-dic"))
     (ignore-errors
       (load-library "ja-dic/ja-dic")))
   (when skkdic-okuri-nasi
