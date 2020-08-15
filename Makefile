@@ -3,7 +3,7 @@
 # Maintainer: SKK Development Team <skk@ring.gr.jp>
 
 
-VERSION = 17.0.50
+VERSION = 17.1
 
 BZIP2     = bzip2 -9
 CD	  = cd
