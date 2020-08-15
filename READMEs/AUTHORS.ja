@@ -481,6 +481,7 @@ ddskk-pkg.el, makeit.bat, make1.bat, Makefile
 *** skk.texi の整備
 
 *** sphinx 形式のドキュメント（docs/）を新規作成
+https://ddskk.readthedocs.io/ja/latest/
 
 ** 開発環境を github へ移行
 
