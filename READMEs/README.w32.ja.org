@@ -25,13 +25,21 @@ DDSKK 15.1 以降は Meadow 3(Emacs 21) はサポート対象外です。 Meadow
 
 なお、Meadow は現在開発が止まっており、すでに Meadow を利用中でない限りは、最新の Emacs を使用することを推奨します。
 
-** Emacs 22 以降
+** Emacs 22
 
-DDSKK 16.2 以降は Emacs 22 はサポート対象外です。 Emacs 22 のユーザは DDSKK 16.1 をお使いください。
+Emacs 22 のユーザは DDSKK 16.1 をお使いください（DDSKK 16.2 から Emacs 22 サポートを廃止しました）。
+
+** Emacs 23
+
+Emacs 23 のユーザは DDSKK 16.3 をお使いください（DDSKK 17.1 から Emacs 23 サポートを廃止しました）。
+
+** Emacs 24.1, 24.2
+
+これらの Emacs ユーザは DDSKK 16.3 をお使いください（DDSKK 17.1 から Emacs 24.1, 24.2 サポートを廃止しました）。
 
 ** Emacs 24.3 以降
 
-DDSKK 14.4 では isearch の不具合があります。DDSKK 15.1 をインストールしてください。
+DDSKK 15.1 をインストールしてください（DDSKK 14.4 では isearch 使用時に不具合が生じます）。
 
 ** Emacs 24.4 以降
 
