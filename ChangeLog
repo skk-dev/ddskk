@@ -1,3 +1,7 @@
+2020-08-16  Tatsuya Kinoshita  <tats@debian.org>
+
+	* skk-cursor.el (skk-cursor-off-1): Check for ccc-default-cursor-color.
+
 2020-08-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* Version 17.1 Neppu Released.

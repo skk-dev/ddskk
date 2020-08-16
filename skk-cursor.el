@@ -67,7 +67,8 @@
 
 ;;;###autoload
 (defun skk-cursor-off-1 ()
-  (ccc-set-cursor-color-buffer-local nil))
+  (when ccc-default-cursor-color
+    (ccc-set-cursor-color-buffer-local nil)))
 
 (provide 'skk-cursor)
 
