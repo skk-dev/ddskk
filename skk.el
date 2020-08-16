@@ -556,7 +556,7 @@ dependent."
                mode-string-list)))))
 
 (defun skk-make-indicator-alist-1 (mode base)
-  (skk-mode-string-to-indicator 'mode-line
+  (skk-mode-string-to-indicator mode
                                 (concat "--" base
                                         (cond ((skk-face-proportional-p 'mode-line)
                                                ":")

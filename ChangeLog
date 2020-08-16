@@ -1,5 +1,8 @@
 2020-08-16  Tatsuya Kinoshita  <tats@debian.org>
 
+	* skk.el (skk-make-indicator-alist-1): Correct the mode argument for
+	skk-mode-string-to-indicator.
+
 	* skk-cursor.el (skk-cursor-off-1): Check for ccc-default-cursor-color.
 
 2020-08-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
