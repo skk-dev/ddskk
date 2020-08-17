@@ -12,9 +12,9 @@
 	* SKK 10.62 released.
 
 	* doc/skk.texi (EDITION): Updated to 1.5.
-	($B1QC18l$r$"$$$^$$$KJQ49$7$F<h$j=P$9(B): Simplified sample.
+	(英単語をあいまいに変換して取り出す): Simplified sample.
 
-	* READMEs/README.win (APEL $B$N(B byte-compile): Doc fixed.
+	* READMEs/README.win (APEL の byte-compile): Doc fixed.
 
 	* READMEs/INSTALL: Ditto.
 
@@ -22,42 +22,42 @@
 
 2000-10-27  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
-	* doc/skk.texi: "$B<-=q$NF~<j(B", "skk-look", "skk-lookup"
-	$B$K$D$$$F2CI.!#(B
+	* doc/skk.texi: "辞書の入手", "skk-look", "skk-lookup"
+	について加筆。
 
 2000-10-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* READMEs/FAQ.txt (Emacs 20 $B$K(B SKK 9.6 $B$,%$%s%9%H!<%k$G$-$^$;$s!#(B,
-	$BA4$/4A;z$,=P$F$-$^$;$s!#(B, $B%A%e!<%H%j%"%k$,5/F0$G$-$^$;$s!#(B, $B%9%Z!<(B
-	$B%9$r2!$7$F$bJQ49$G$-$^$;$s!#(B): New questions.
+	* READMEs/FAQ.txt (Emacs 20 に SKK 9.6 がインストールできません。,
+	全く漢字が出てきません。, チュートリアルが起動できません。, スペー
+	スを押しても変換できません。): New questions.
 
 	* READMEs/NEWS: Add description.
 
-	* doc/skk-faq.texi (Emacs 20 $B$K(B SKK 9.6 $B$,%$%s%9%H!<%k$G$-$^$;$s!#(B,
-	$BA4$/4A;z$,=P$F$-$^$;$s!#(B, $B%A%e!<%H%j%"%k$,5/F0$G$-$^$;$s!#(B, $B%9%Z!<(B
-	$B%9$r2!$7$F$bJQ49$G$-$^$;$s!#(B): New subsections.
+	* doc/skk-faq.texi (Emacs 20 に SKK 9.6 がインストールできません。,
+	全く漢字が出てきません。, チュートリアルが起動できません。, スペー
+	スを押しても変換できません。): New subsections.
 
 2000-10-25  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
-	* doc/skk-faq.texi (Q.1-4 SKK $B$O$I$s$J%*%Z%l!<%F%#%s%0%7%9%F%`$G;H(B
-	$B$($^$9$+!)(B): Add cross reference to `Q.2-4 APEL $B$C$F2?$G$9$+!)(B'.
-	(Q.1-7 APEL $B$K0MB8$;$:$K(B SKK $B$@$1$G:Q$`$h$&$K3+H/$7$F$b$i$($^$;$s(B
-	$B$+!)(B): Ditto.
-	(Q.2-5 $B?'!9JL$KF~<j$9$k$b$N$,$"$C$F%$%s%9%H!<%k$,Fq$7$$$G$9$M!#(B):
+	* doc/skk-faq.texi (Q.1-4 SKK はどんなオペレーティングシステムで使
+	えますか？): Add cross reference to `Q.2-4 APEL って何ですか？'.
+	(Q.1-7 APEL に依存せずに SKK だけで済むように開発してもらえません
+	か？): Ditto.
+	(Q.2-5 色々別に入手するものがあってインストールが難しいですね。):
 	Ditto.
 
 2000-10-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* READMES/FAQ.txt ($B:8<j$N>.;X$r(B SHIFT $B$G9s;H$7$?$/$"$j$^$;$s!#(B):
+	* READMES/FAQ.txt (左手の小指を SHIFT で酷使したくありません。):
 	New question.
 
-	* doc/skk-faq.texi ($B:8<j$N>.;X$r(B SHIFT $B$G9s;H$7$?$/$"$j$^$;$s!#(B):
+	* doc/skk-faq.texi (左手の小指を SHIFT で酷使したくありません。):
 	New subsection.
 
 2000-10-23  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
-	* READMEs/README.win: Maintrunk $BMQ$N@_Dj$KJQ99!#(BMule for Windows
-	$B$G$O(B SKK-CFG $B$rJT=8$9$k$3$H$rDI2C!#(B
+	* READMEs/README.win: Maintrunk 用の設定に変更。Mule for Windows
+	では SKK-CFG を編集することを追加。
 
 2000-10-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -72,16 +72,16 @@
 
 	* doc/skk.texi: Call `texinfo-every-node-update' and
 	`texinfo-all-menus-update'.
-	(APEL $B$N%$%s%9%H!<%k(B): Add reference to $B!V(BQ.2-4
-	APEL $B$C$F2?$G$9$+!)!W(B.
+	(APEL のインストール): Add reference to 「Q.2-4
+	APEL って何ですか？」.
 
 	* doc/skk-faq.texi: Use `@code', `@file' `@samp' `@kbd' `@key',
 	`@example', `@enumerate' commands.
 	Add cindex, vindex and kindex.
 	Call `texinfo-every-node-update' and `texinfo-all-menus-update'.
-	([Q.4-4] SKK $B7A<0$N1QOB<-=q$r:n$kJ}K!$,$"$k!"$HJ9$$$?$N$G$9$,!#(B):
-	Change node name to `[Q.4-4] SKK $B7A<0$N1QOB<-=q$,$"$k$HJ9$$$?$N$G(B
-	$B$9$,!#(B  'Add description about how to get `SKK-JISYO.edict'.
+	([Q.4-4] SKK 形式の英和辞書を作る方法がある、と聞いたのですが。):
+	Change node name to `[Q.4-4] SKK 形式の英和辞書があると聞いたので
+	すが。  'Add description about how to get `SKK-JISYO.edict'.
 
 	* skk.el (skk-abbrev-comma): Bug fixed.
 
@@ -95,38 +95,38 @@
 
 2000-10-21  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
-	* doc/skk.texi: Unify the words $B!V%G%#%l%/%H%j%#!W(Bto$B!V%G%#%l%/%H%j!W(B
-	and $B!V%(%s%H%j!<!W(B to $B!V%(%s%H%j!W(B.
-	(APEL $B$N%$%s%9%H!<%k(B): Add description about what APEL is.
+	* doc/skk.texi: Unify the words 「ディレクトリィ」to「ディレクトリ」
+	and 「エントリー」 to 「エントリ」.
+	(APEL のインストール): Add description about what APEL is.
 	Recommend using latest version of APEL.
-	($B<-=q$NJ]B8(B): Put on @vindex skk-backup-jisyo and skk-jisyo.
+	(辞書の保存): Put on @vindex skk-backup-jisyo and skk-jisyo.
 	Add description about how to change filename "~/.skk-jisyo" or
 	"~/.skk-jisyo.BAK".
-	($B:G$b4pK\E*$J@_Dj(B): Add note for XEmacs/package-install.
-	Remove referece to $B!V3HD%%"%$%G%#%"!W(B (there's no mentioning about
+	(最も基本的な設定): Add note for XEmacs/package-install.
+	Remove referece to 「拡張アイディア」 (there's no mentioning about
 	key bindings).
-	($B%$%s%/%j%a%s%H8!:w$N@_Dj(B): Put on @vindex isearch-mode-hook and
+	(インクリメント検索の設定): Put on @vindex isearch-mode-hook and
 	isearch-mode-end-hook.
 	Change the latter form for isearch-mode-end-hook in order to set
 	cursor color.
 	Add description about forms for isearch-mode-end-hook if cursor
 	color feature is not used.
-	($B5/F0$H=*N;(B): Add reference to $B!VF~NO%b!<%I$r<($9%+!<%=%k?'$K4X$9(B
-	$B$k@_Dj!W(B.
-	($B<-=q$NJ]B8(B): Change xref node $B!V<-=q$N7A<0!W(B to $B!V<-=q$N<oJL!W(B.
-	($BAw$j2>L>$,L5$$>l9g$N<-=qEPO?(B): Ditto.
-	($BAw$j2>L>$,L5$$>l9g(B): Change reference node $B!V<-=q$N7A<0!W(B to $B!VAw(B
-	$B$j$"$j%(%s%H%j$HAw$j$J$7%(%s%H%j!W(B.
-	($BAw$j2>L>$,M-$k>l9g(B): Change reference node $B!V<-=qEPO?%b!<%I!W(B to
-	$B!V%5JQF0;l$N<-=qEPO?$K4X$9$kCm0U!W(B.
-	(SKK Ring Server Openlab $B%a!<%j%s%0%j%9%H(B): Do not use the word
-	$B!V9VFI!W(B.
+	(起動と終了): Add reference to 「入力モードを示すカーソル色に関す
+	る設定」.
+	(辞書の保存): Change xref node 「辞書の形式」 to 「辞書の種別」.
+	(送り仮名が無い場合の辞書登録): Ditto.
+	(送り仮名が無い場合): Change reference node 「辞書の形式」 to 「送
+	りありエントリと送りなしエントリ」.
+	(送り仮名が有る場合): Change reference node 「辞書登録モード」 to
+	「サ変動詞の辞書登録に関する注意」.
+	(SKK Ring Server Openlab メーリングリスト): Do not use the word
+	「講読」.
 	Add description about how to read news via http.
 	(skkdic-expr): Add description about `skkdic-sort', put on cindex
 	skkdic-sort and reference to skkdic-sort.
 	(skkdic-sort): Add description about `skkdic-expr', put on cindex
 	skkdic-expr and reference to skkdic-expr.
-	($B%W%m%0%i%`:n@.J}K!(B): Use `@file' for skkdic-expr, `@code' for
+	(プログラム作成方法): Use `@file' for skkdic-expr, `@code' for
 	ndbm and gdbm, and @var for TMPDIR
 	Use `@var' for CFLAGS instead of `@code'.
 
@@ -160,12 +160,12 @@
 
 	* doc/skk-faq.texi: Sync with FAQ.txt.
 
-	* doc/skk.texi ($B$h$/$"$k<ALd$H$=$N2sEz(B): $BI|3h!#(B
+	* doc/skk.texi (よくある質問とその回答): 復活。
 
 2000-10-13  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
-	* SKK-MK (SKK_LISPDIR): "make PREFIX=dir install" $B$G(B PREFIX $B$N$H(B
-	$B$*$j$K(B elisp $B$,%$%s%9%H!<%k$5$l$k$h$&$K=$@5(B.
+	* SKK-MK (SKK_LISPDIR): "make PREFIX=dir install" で PREFIX のと
+	おりに elisp がインストールされるように修正.
 
 2000-10-12  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -186,16 +186,16 @@
 2000-10-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi: Fix links.
-	(Perl $B$K$h$k%D!<%k(B): Fix.
+	(Perl によるツール): Fix.
 
 2000-10-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* doc/skk.texi ($B$I$N$h$&$KJQ49$5$l$k$+(B): Use `@samp'.
+	* doc/skk.texi (どのように変換されるか): Use `@samp'.
 
 2000-10-09  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
-	* doc/skk.texi: "$B%5!<%P!<(B" $B$r(B "$B%5!<%P(B" $B$KE}0l!#(B
-	"$B%$%s%9%H!<%k(B" $B$N>O$rDI2C!#(B
+	* doc/skk.texi: "サーバー" を "サーバ" に統一。
+	"インストール" の章を追加。
 
 2000-10-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -205,14 +205,14 @@
 
 2000-10-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* doc/skk.texi ($B<-=q%D!<%k(B, $B3HD%%"%$%G%#%"(B, SKK$B%a!<%j%s%0%j%9%H(B,
-	SKK$B4XO"%=%U%H%&%'%"(B): $B!V$G$9$^$9!WD4$KJQ99!#(B
+	* doc/skk.texi (辞書ツール, 拡張アイディア, SKKメーリングリスト,
+	SKK関連ソフトウェア): 「ですます」調に変更。
 
 2000-10-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* doc/skk.texi ($B>~$j$D$1(B, VIP/VIPER$B$H$NJ;MQ(B, I-search$B4XO"(B,
-	skk-init-file$B$N%3%s%Q%$%k(B, picture-mode$B$H$NJ;MQ(B, $B%5!<%P!<4XO"(B):
-	$B!V$G$9$^$9!WD4$KJQ99!#(B
+	* doc/skk.texi (飾りつけ, VIP/VIPERとの併用, I-search関連,
+	skk-init-fileのコンパイル, picture-modeとの併用, サーバー関連):
+	「ですます」調に変更。
 
 	* skk.el (skk-count-jisyo-candidates): Show "candidates", not
 	"entries".
@@ -221,9 +221,9 @@
 
 2000-10-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* doc/skk.texi ($BAw$j2>L>4XO"(B, $B<+F0JQ493+;O(B, $BFC<lJQ49(B, $B@\F,<-!&@\Hx(B
-	$B<-(B, $B0EL[$N3NDj$N%?%$%_%s%0(B, $BNN0h0l3gJQ49(B, $B4A;z%3!<%I4XO"(B, $B"'%b!<%I(B
-	$B$NFC<l%-!<(B, $B<-=q4XO"(B): $B!V$G$9$^$9!WD4$KJQ99!#(B
+	* doc/skk.texi (送り仮名関連, 自動変換開始, 特殊変換, 接頭辞・接尾
+	辞, 暗黙の確定のタイミング, 領域一括変換, 漢字コード関連, ▼モード
+	の特殊キー, 辞書関連): 「ですます」調に変更。
 
 2000-10-03  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
@@ -232,23 +232,23 @@
 
 2000-10-03  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* doc/skk.texi ($BF~NO%b!<%I$N0l;~JQ99(B, $B"#%b!<%I$K$*$1$kJ8;zF~NO(B, $B%](B
-	$B%$%s%H$rLa$7$F"&%b!<%I$X(B, $B3NDjJQ49$H$=$N<h$j>C$7(B, $B3NDj%"%s%I%%(B, $B8+(B
-	$B=P$78l4XO"(B): $B!V$G$9$^$9!WD4$KJQ99!#(B
-	($B5l%P!<%8%g%s$+$i$NJQ99E@(B): New chapter.
+	* doc/skk.texi (入力モードの一時変更, ■モードにおける文字入力, ポ
+	イントを戻して▽モードへ, 確定変換とその取り消し, 確定アンドゥ, 見
+	出し語関連): 「ですます」調に変更。
+	(旧バージョンからの変更点): New chapter.
 
 2000-10-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* doc/skk.texi ($B%U%!%$%k9=@.(B, $B%f!<%6!<%*%W%7%g%s$N@_DjJ}K!(B, $B<-=q$N(B
-	$B7A<0(B, $B<-=q$K4X$9$k@_Dj(B): $B!V$G$9$^$9!WD4$KJQ99!#(B
+	* doc/skk.texi (ファイル構成, ユーザーオプションの設定方法, 辞書の
+	形式, 辞書に関する設定): 「ですます」調に変更。
 
 2000-10-01  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
-	* doc/skk.texi: "$B<-=q%5!<%P$r;H$$$?$$$H$-$N@_Dj(B" typo fix.
-	"$B%A%e!<%H%j%"%k(B" $B1Q8l$N%A%e!<%H%j%"%k%U%!%$%k$K$D$$$F5-=R(B.
-	"$B%U%!%$%k9=@.(B" $B%U%!%$%kL>$r(B sort $B$7$?=gHV$KJQ99$7(B,
-	skk-cursor.el, skk-develop $B$N5-=R$rDI2C(B.
-	"$B8+=P$78l$NJd40(B" $B8+0W$$$h$&$K(B space $B$rDI2C(B.
+	* doc/skk.texi: "辞書サーバを使いたいときの設定" typo fix.
+	"チュートリアル" 英語のチュートリアルファイルについて記述.
+	"ファイル構成" ファイル名を sort した順番に変更し,
+	skk-cursor.el, skk-develop の記述を追加.
+	"見出し語の補完" 見易いように space を追加.
 
 2000-10-01  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
@@ -259,17 +259,17 @@
 
 2000-09-29  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
-	* READMEs/FAQ.txt: Fixed a description about $B!V8!:w$9$k<-=q$rA}$d(B
-	$B$7$?$$$N$G$9$,!W(B.
+	* READMEs/FAQ.txt: Fixed a description about 「検索する辞書を増や
+	したいのですが」.
 
 2000-09-29  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
-	* READMEs/FAQ.txt: Add an answer about $B!VM9JXHV9f<-=q!W(B.
+	* READMEs/FAQ.txt: Add an answer about 「郵便番号辞書」.
 
 2000-09-29  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
-	* READMEs/FAQ.txt: Add a description about $B!V8!:w$9$k<-=q$rA}$d$7(B
-	$B$?$$$N$G$9$,!W(B.
+	* READMEs/FAQ.txt: Add a description about 「検索する辞書を増やし
+	たいのですが」.
 
 	* READMEs/skk-faq.txt: Rename to FAQ.txt.
 
@@ -280,34 +280,34 @@
 
 2000-09-28  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
-	* ptexinfmt.el: @multitable bug fix (TAKAHASHI Kaoru $B$5$sDs6!(B,
+	* ptexinfmt.el: @multitable bug fix (TAKAHASHI Kaoru さん提供,
 	Thanks).
 
-	* doc/skk.texi: SKK$B%*!<%H%U%#%k%b!<%I(B , SKK Ring Server
-	Openlab $B%a!<%j%s%0%j%9%H(B typo fix. skk-lookup.el $B$N5-=R$rDI2C(B.
-	tools $B$NF~<jJ}K!$rDI2C(B.
+	* doc/skk.texi: SKKオートフィルモード , SKK Ring Server
+	Openlab メーリングリスト typo fix. skk-lookup.el の記述を追加.
+	tools の入手方法を追加.
 
-	* READMEs/README.win: Mule for Windows $B$G$O(B, SKK-CFG $B$G(B APEL $B$N%Q(B
-	$B%9$r@_Dj$9$k$3$H$r5-=R(B. MAKE.BAT info-mule-for-win $B$N5-=R:o=|(B.
+	* READMEs/README.win: Mule for Windows では, SKK-CFG で APEL のパ
+	スを設定することを記述. MAKE.BAT info-mule-for-win の記述削除.
 
-	* Makefile: info-mule-for-win $B$r:o=|(B.
+	* Makefile: info-mule-for-win を削除.
 
-	* make.bat: $BF1MM(B.
+	* make.bat: 同様.
 
-	* SKK-MK: SKK-MK-compile-info-for-mule4win32 $B$r:o=|(B.
+	* SKK-MK: SKK-MK-compile-info-for-mule4win32 を削除.
 
 2000-09-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* doc/skk.texi (SKK 9 $B$H(B SKK 10 $B$N0c$$(B): New section.
-	(SKK$B$NF~<jJ}K!(B): Modify for SKK OpenLab.
-	(SKK$B$N:n<T(B): Ditto.
+	* doc/skk.texi (SKK 9 と SKK 10 の違い): New section.
+	(SKKの入手方法): Modify for SKK OpenLab.
+	(SKKの作者): Ditto.
 
 	* skk-num.el (skk-num-type3-kanji-1, skk-num-type5-kanji-1): Don't
-	miss "$BK|(B" {"$Bh_(B"}, "$B2/(B", "$BC{(B", "$B5~(B".
+	miss "万" {"萬"}, "億", "兆", "京".
 
 2000-09-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* doc/skk.texi ($B4pK\E*$J;HMQJ}K!(B): $B!V$G$9$^$9!WD4$r:NMQ!#(B
+	* doc/skk.texi (基本的な使用方法): 「ですます」調を採用。
 	Don't use concept index for variables and functions.
 	Fix node dependencies.
 
@@ -322,30 +322,30 @@
 
 2000-09-22  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
-	* doc/skk.texi: `$B%A%e!<%H%j%"%k(B'$B$rDI2C(B. `stack-m.el' $B$N5-=R:o=|(B.
-	`SKK Ring Server Openlab $B%a!<%j%s%0%j%9%H(B'$B$rDI2C(B. `$B:G?7>pJs(B'$B$rDI2C(B.
-	`$B$=$NB>(B'$B$r(B`$B:G?7>pJs$J$I(B'$B$KJQ99(B.
+	* doc/skk.texi: `チュートリアル'を追加. `stack-m.el' の記述削除.
+	`SKK Ring Server Openlab メーリングリスト'を追加. `最新情報'を追加.
+	`その他'を`最新情報など'に変更.
 
 2000-09-21  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
 	* skk-tut.el (skktut-end-tutorial): Change address to
 	skk@ring.gr.jp.
 
-	* doc/skk.texi ($B:G$b4pK\E*$J@_Dj(B): typo fix.
+	* doc/skk.texi (最も基本的な設定): typo fix.
 
-	* SKK-MK: Mule for Windows$BBP:v$H$7$F(B,
-	SKK-MK-compile-info-for-mule4win32 $B$rDI2C(B.
+	* SKK-MK: Mule for Windows対策として,
+	SKK-MK-compile-info-for-mule4win32 を追加.
 
-	* make.bat: info-mule-for-win $B%(%s%H%j$rDI2C(B. del $B$G$N%U%!%$%k:o=|(B
-	$B$rJ,$1$k(B.
+	* make.bat: info-mule-for-win エントリを追加. del でのファイル削除
+	を分ける.
 
 	* Makefile (info-mule-for-win): New target.
 
-	* READMEs/README.win: MAKE.BAT info-mule-for-win $B$N5-=RDI2C(B.
+	* READMEs/README.win: MAKE.BAT info-mule-for-win の記述追加.
 
 2000-09-18  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
-	* doc/skk.texi ($B$O$8$a$K(B): New chapter.
+	* doc/skk.texi (はじめに): New chapter.
 
 2000-09-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -359,9 +359,9 @@
 
 	* READMEs/CVS_on_Windows: Update.
 
-	* doc/skk.texi ($BG[I[>r7o(B, $B35MW(B): Remove these chapters.
-	($B$O$8$a$N@_Dj(B): <= chapter `$B%$%s%9%H!<%k(B'. Simplify.
-	($B$=$NB>(B): <= chapter `$B<U<-$H$*4j$$(B'. Add section `SKK$B$N:n<T(B'.
+	* doc/skk.texi (配布条件, 概要): Remove these chapters.
+	(はじめの設定): <= chapter `インストール'. Simplify.
+	(その他): <= chapter `謝辞とお願い'. Add section `SKKの作者'.
 
 2000-09-15  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
@@ -377,21 +377,21 @@
 
 2000-09-14  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
-	* doc/skk.texi: $B%a%K%e!<$K(B $BG[I[>r7o(B $B$rDI2C(B.
+	* doc/skk.texi: メニューに 配布条件 を追加.
 
-	* skk-gadget.el: eval-when-compile $B$r:o=|(B.
+	* skk-gadget.el: eval-when-compile を削除.
 
-	* skk-kakasi.el: (require 'skk-cursor)$B$r:o=|(B.
-	(skk-set-cursor-properly) $B$r;H$&A0$K(B, (featurep 'skk-cursor) $B$G(B
-	skk-cursor $B$,(B load $B$5$l$F$$$k$+(B check $B$9$k(B.
+	* skk-kakasi.el: (require 'skk-cursor)を削除.
+	(skk-set-cursor-properly) を使う前に, (featurep 'skk-cursor) で
+	skk-cursor が load されているか check する.
 
-	* experimental/skk-hankaku-mode.el: $BF1>e(B.
+	* experimental/skk-hankaku-mode.el: 同上.
 
-	* experimental/rdbms/skk-rdbms.el: $BF1>e(B.
+	* experimental/rdbms/skk-rdbms.el: 同上.
 
-	* experimental/skk-jisx0201.el: $BF1>e(B. skk-set-cursor-color $B$r;H$&(B
-	$BA0$K(B, (featurep 'skk-cursor) $B$G(B skk-cursor $B$,(B load $B$5$l$F$$$k$+(B
-	check $B$9$k(B.
+	* experimental/skk-jisx0201.el: 同上. skk-set-cursor-color を使う
+	前に, (featurep 'skk-cursor) で skk-cursor が load されているか
+	check する.
 
 2000-09-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -437,7 +437,7 @@
 
 	* skk-faq.txt: New file.
 
-	* doc/skk.texi ($BF~NO%b!<%I$N0l;~JQ99(B): Typo fixed.
+	* doc/skk.texi (入力モードの一時変更): Typo fixed.
 
 	* skk-look.el: Modify comment.
 
@@ -447,18 +447,18 @@
 
 2000-09-08  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
-	* skk.el (skk-get-jisyo-buffer):skk-jisyo-code $B$,%7%s%\%k$+(B check
-	$B$9$k!#(B
-	(skk-save-jisyo-1):$BF1>e(B
+	* skk.el (skk-get-jisyo-buffer):skk-jisyo-code がシンボルか check
+	する。
+	(skk-save-jisyo-1):同上
 
-	* doc/skk.texi:dbskkd-cdb $BG[I[@h(B, KAKASI, $B3HD%%"%$%G%#%"(B, $B5/F0$H=*(B
-	$BN;(B, $B4pK\E*$J;HMQJ}K!(B, $B:G$b4pK\E*$J@_Dj(B update & $B<-=q%P%C%U%!$NJ8;z(B
-	$B%3!<%I$N@_Dj(B typo fix
+	* doc/skk.texi:dbskkd-cdb 配布先, KAKASI, 拡張アイディア, 起動と終
+	了, 基本的な使用方法, 最も基本的な設定 update & 辞書バッファの文字
+	コードの設定 typo fix
 
-	* skk-kakasi.el:(require 'skk) $B$G(B eval-when-compile $B$r;H$o$J$$!#(B
-	(require 'skk-cursor)$B$rDI2C!#(B
+	* skk-kakasi.el:(require 'skk) で eval-when-compile を使わない。
+	(require 'skk-cursor)を追加。
 
-	* skk.el (skk-use-fase):DOCSTRING $B$r(B info $B$HF1$8$/%O%$%i%$%H$H=q$/(B.
+	* skk.el (skk-use-fase):DOCSTRING を info と同じくハイライトと書く.
 
 2000-09-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -481,8 +481,8 @@
 
 2000-08-30  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* doc/skk.texi ($B4pK\E*$J;HMQJ}K!(B, $BJXMx$J1~MQ5!G=$H%f!<%6!<%*%W%7%g(B
-	$B%s(B): Misc updates.
+	* doc/skk.texi (基本的な使用方法, 便利な応用機能とユーザーオプショ
+	ン): Misc updates.
 
 2000-08-29  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -498,7 +498,7 @@
 
 2000-08-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* doc/skk.texi ($B"#%b!<%I$K$*$1$kJ8;zJQ49(B, $B?t;z$d5-9fJ8;z$NF~NO(B,
+	* doc/skk.texi (■モードにおける文字変換, 数字や記号文字の入力,
 	etc): Update for SKK 10.
 	(SKKIME): New section.
 
@@ -956,5 +956,5 @@
 	(skk-setup-modeline): Change mode indicator to `jisx0201'.
 
 ;; Local Variables:
-;; coding: iso-2022-jp
+;; coding: utf-8
 ;; End:

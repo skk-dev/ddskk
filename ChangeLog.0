@@ -527,7 +527,7 @@
 	`skk-setup-minibuffer'.
 	(minibuffer-exit-hook): Remove `skk-j-mode-on' from
 	`minibuffer-setup-hook'.
-	(skk-set-henkan-point): `TaSSi' --> $B!VC#$C$7!W(B, `TasSi' -> $B!VC#$7!W(B
+	(skk-set-henkan-point): `TaSSi' --> 「達っし」, `TasSi' -> 「達し」
 
 	* skk-tut.el (skktut-init-variables-alist): Add
 	`skk-search-excluding-word-pattern-function'.
@@ -1141,7 +1141,7 @@
 	skk-zenkaku-region, skk-ascii-region, skk-previous-candidate, skk-insert-new-word,
 	skk-undo-kakutei): Use `skk-insert-and-inherit' instead of `insert'.
 	* (skk-mode): Append `skk-rom-kana-rule-list' to
-	`skk-rom-kana-base-rule-list'.  Replace `$B!V(B' and `$B!W(B' in the doc
+	`skk-rom-kana-base-rule-list'.  Replace `「' and `」' in the doc
 	string with `"' since we could not indent properly.  Compile
 	skk-rule-tree every time when skk-mode is invoked.
 
@@ -1775,47 +1775,47 @@
 
 1997-05-04  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
-	* skk.el, skk-num.el: ($B$$$-$J$jF|K\8l$G$9$,(B f(^_^;;;...) $B?tCMJQ49(B
-	$B$K4X$9$kBg2~B$$r9T$J$C$?!#(B
+	* skk.el, skk-num.el: (いきなり日本語ですが f(^_^;;;...) 数値変換
+	に関する大改造を行なった。
 
-	SKK $B$G$O!"(B"#1", #2" $B$J$I$N?tCMI=8=$rMQ$$$k$3$H$G!"?tCMJQ49$r9T$J$C(B
-	$B$F$$$k$,!"0JA0$O!"0[$J$k?tCMI=8=$G$bJQ497k2L$,F1$8?tCM$r=EJ#$7$F=P(B
-	$BNO$7$J$$$h$&!"(B~/.skk-jisyo $B$K8uJd$,8+$D$+$C$F$b(B
-	skk-current-search-prog-list $B$,(B null $B$K$J$k$^$G8uJd$rC5$7!"$=$l$+(B
-	$B$i(B uniq $B$r9T$J$C$F$$$?$?$a$K!"?tCMJQ49$K$+$+$k%*!<%P!<%X%C%I$,Bg$-(B
-	$B$+$C$?$,!"0lJ}!"(B
+	SKK では、"#1", #2" などの数値表現を用いることで、数値変換を行なっ
+	ているが、以前は、異なる数値表現でも変換結果が同じ数値を重複して出
+	力しないよう、~/.skk-jisyo に候補が見つかっても
+	skk-current-search-prog-list が null になるまで候補を探し、それか
+	ら uniq を行なっていたために、数値変換にかかるオーバーヘッドが大き
+	かったが、一方、
 
-	  $B8!:w(B -> uniq -> $B?tCMJQ49(B
+	  検索 -> uniq -> 数値変換
 
-        $B$H$$$&:n6H$,(B 1 $B2s$G:Q$s$G$$$?$?$a!"(Bskk-henkan-list $B$N07$$$,4JC1$G(B
-	$B$"$C$?(B (uniq $B8e$N(B skk-henkan-list $B$r(B copy $B$7$F(B
-	skk-noconv-henkan-list $B$r:n$j!"(Bskk-henkan-list $B$N3FMWAG$K$O?tCMJQ(B
-	$B498e$NJ8;zNs$KF~$lBX$($F$$$?!#<-=q$N99?7$N$?$a$K$O?tCMJQ49$NFbItI=(B
-	$B8=$H!"?tCMJQ498e$NJ8;zNs$rGD0.$9$kI,MW$,$"$k(B)$B!#(B
+        という作業が 1 回で済んでいたため、skk-henkan-list の扱いが簡単で
+	あった (uniq 後の skk-henkan-list を copy して
+	skk-noconv-henkan-list を作り、skk-henkan-list の各要素には数値変
+	換後の文字列に入れ替えていた。辞書の更新のためには数値変換の内部表
+	現と、数値変換後の文字列を把握する必要がある)。
 
-	$B:#2s$N2~B$$G!"8uJd$,(B "#4" $B$N?tCMI=8=$r4^$^$J$$$H$-$O!"0l5$$K(B
-	skk-current-search-prog-list $B$NA4$F$r8!:w$7$F$7$^$o$:$K!"DL>o$NJQ(B
-	$B49$HF1$8$h$&$K8!:w$r9T$J$&$h$&$K$7$?!#JQ49$N$?$a$K(B 1 $B2s%9%Z!<%9$r(B
-	$B2!$9Kh$K(B
+	今回の改造で、候補が "#4" の数値表現を含まないときは、一気に
+	skk-current-search-prog-list の全てを検索してしまわずに、通常の変
+	換と同じように検索を行なうようにした。変換のために 1 回スペースを
+	押す毎に
 
-	  $B8!:w(B -> uniq -> $B?tCMJQ49(B
+	  検索 -> uniq -> 数値変換
 
-	$B$H$$$&0lO"$N:n6H$r9T$J$&$h$&$K$J$C$F$$$k$N$G!"2?EY$b%9%Z!<%9$r2!$7(B
-	$B$FJQ49$7$^$/$k$H!"(Buniq $B$NEY$K(B skk-henkan-list $B$H(B
-	skk-noconv-henkan-list $B$r%7%s%/%m$5$;$k$N$,Fq$7$/$J$C$F$/$k!#$=$3(B
-	$B$G!"(B
+	という一連の作業を行なうようになっているので、何度もスペースを押し
+	て変換しまくると、uniq の度に skk-henkan-list と
+	skk-noconv-henkan-list をシンクロさせるのが難しくなってくる。そこ
+	で、
 
-	  $B?tCMJQ49A0$N(B skk-henkan-list;
+	  数値変換前の skk-henkan-list;
 
 	      ("#2" "#1" ...)
 
-	  $B?tCMJQ498e$N(B skk-henkan-list;
+	  数値変換後の skk-henkan-list;
 
-	      (("#2 . "$B0l(B") ("#1" . "1") ...)
+	      (("#2 . "一") ("#1" . "1") ...)
 
-	$B$H$$$&Iw$K!"(Bskk-henkan-list $B$KD>IU$1$G?tCMJQ49$NFbItI=8=!"$=$N?tCM(B
-	$BJQ49J8;zNs$rI=8=$9$k$h$&$K$7$?(B (uniq $B<+BN$N%3%9%H$O$+$J$j>e$,$C$F(B
-	$B$$$k$O$:(B)$B!#(B
+	という風に、skk-henkan-list に直付けで数値変換の内部表現、その数値
+	変換文字列を表現するようにした (uniq 自体のコストはかなり上がって
+	いるはず)。
 
 	* skk.el, skk-auto.el: Change
 	(progn (search-forward "xxx") (point)) to (search-forward "xxx").
@@ -1891,9 +1891,9 @@
 
 1997-04-28  Murata Shuuichirou  <mrt@mickey.ai.kyutech.ac.jp>
 
-	* skk.el (skk-kana-input): skk-echo $B$,(B t $B$N$H$-(B
-	$B"&%b!<%I$G!":G=i$N0lJ8;z$K%*CJ$NJ8;z$rF~NO$7$?D>8e$KF~NO$7$?BgJ8(B
-        $B;z$,BgJ8;z$H$7$FG'<1$5$l$J$$%P%0$r=$@5!#(B
+	* skk.el (skk-kana-input): skk-echo が t のとき
+	▽モードで、最初の一文字にオ段の文字を入力した直後に入力した大文
+        字が大文字として認識されないバグを修正。
 
 1997-03-23  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
@@ -1936,15 +1936,15 @@
 	`w' using forward-word or backward-word only when the
 	following/previous character is JISX0208,
 
-	   -!-Davies$B$5$s$O!"8@$$$^$7$?!#(B
+	   -!-Daviesさんは、言いました。
 
 	the point would be there,
 
-	      Davies$B$5$s$O(B-!-$B!"8@$$$^$7$?!#(B
+	      Daviesさんは-!-、言いました。
 
 	but should be here.
 
-	      Davies-!-$B!"$5$s$O!"8@$$$^$7$?!#(B
+	      Davies-!-、さんは、言いました。
 
 1997-03-18  SAKAI Kiyotaka  <ksakai@netwk.ntt-at.co.jp>
 
@@ -2007,75 +2007,75 @@
 	* skk-foreword.el (skk-deflocalvar, skk-defunsoft): New macro.  From
 	viper-util.el and emu.el (tm package).
 
-	* skk.el: $B%M%9%H$7$F$$$J$$(B defmacro $B$K(B eval-and-compile $B$r;H$&$N$r(B
-	$B;_$a$?!#0JA0$O$3$3$K(B eval-when-compile $B$r;H$C$F$$$?$,!">.NS(B@JAIST
-	$B$5$s$N$4;XE&$G!"(B
+	* skk.el: ネストしていない defmacro に eval-and-compile を使うのを
+	止めた。以前はここに eval-when-compile を使っていたが、小林@JAIST
+	さんのご指摘で、
 
-	  eval-when-compile $B$r;H$&(B -> skk.el $BFb$K$"$k%^%/%m$O>e<j$/%3%s%Q(B
-	  $B%$%k$G$-$k(B -> $B$G$b(B skk-*.el $BFb$N%^%/%m$O>e<j$/%3%s%Q%$%k$G$-$J$$(B
+	  eval-when-compile を使う -> skk.el 内にあるマクロは上手くコンパ
+	  イルできる -> でも skk-*.el 内のマクロは上手くコンパイルできない
 
-	$B$3$H$K5$$,IU$$$?!#%3%s%Q%$%k;~$@$1Dj5A$7$h$&$H$9$k$J$i!"(B
-	skk-macro.el $B$J$I$NJL%U%!%$%k$K%^%/%m$r=8Cf$5$;!"(Bskk.el, skk-*.el
-	$B$NCf$G!"(B(eval-when-compile (require 'skk-macro)) $B$7$J$1$l$P$J$i$J(B
-	$B$$!#$G$b:#$O!"%^%/%m$N?t$,$=$s$J$KB?$/$J$$$N$G!"$3$l$GNI$7$H$7$^$7$g(B
-	$B$&!#(B
+	ことに気が付いた。コンパイル時だけ定義しようとするなら、
+	skk-macro.el などの別ファイルにマクロを集中させ、skk.el, skk-*.el
+	の中で、(eval-when-compile (require 'skk-macro)) しなければならな
+	い。でも今は、マクロの数がそんなに多くないので、これで良しとしましょ
+	う。
 
-	* skk-viper.el (vip-join-lines): adviced.  $B%9%Z!<%9$NN>B&$NJ8;z%;%C(B
-	$B%H$,(B JISX0208 $B$@$C$?$i%9%Z!<%9$r<h$j=|$/!#(B
+	* skk-viper.el (vip-join-lines): adviced.  スペースの両側の文字セッ
+	トが JISX0208 だったらスペースを取り除く。
 
 1997-03-14  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* skk-menu.el: New file.
 
-	* skk-viper.el: Viper -> SKK $B$N=g$K5/F0$5$l$?$H$-$O!"4{B8$N%P%C%U%!(B
-	$B$rA4$FD4::$7$F(B localized minor-mode-map-alist $B$G(B SKK $B2=$5$l$F$$$J(B
-	$B$$$b$N$r(B SKK $B$9$k$h$&$K$7$?!#(B
+	* skk-viper.el: Viper -> SKK の順に起動されたときは、既存のバッファ
+	を全て調査して localized minor-mode-map-alist で SKK 化されていな
+	いものを SKK するようにした。
 
-	* skk-viper.el (vip-intercept-ESC-key): adviced. $BJQ49Cf$K(B ESC $B%-!<(B
-	$B$r2!$9$H3NDj$9$k!#(B
+	* skk-viper.el (vip-intercept-ESC-key): adviced. 変換中に ESC キー
+	を押すと確定する。
 
-	* skk-vip.el: revival. Emacs 19.28 $B$G$O(B Viper $B$OAGD>$KF0$+$J$$(B...$B!#(B
-	VIP $B$r;H$$$^$7$g$&!#(B
+	* skk-vip.el: revival. Emacs 19.28 では Viper は素直に動かない...。
+	VIP を使いましょう。
 
 	* skk.el (skk-j-mode-map, skk-abbrev-mode-map,
-	skk-zenkaku-mode-map): skk-use-vip $B$,(B non-nil $B$N$H$-$O!"(BM- $B%W%l%U%#%C(B
-	$B%/%9$G;O$^$k%-!<%P%$%s%I$rDj5A$7$J$$$h$&$K$7$?!#(B
-	(skk-setup-special-midashi-char): minor-mode-map-alist $B$r;HMQ$7$?(B
-	$B%-!<Dj5A$G$bM-8z$K$J$k$h$&$K$7$?!#(B
-	(skk-jisx0208-to-ascii): New function. Mule-3 $B$G!"(BJISX0208 $B$N1Q?t(B
-	$B;z$d5-9fN`$r(B ASCII $B$KJQ49$9$k%3!<%I$,<BAu$5$l$F$$$J$+$C$?$N$G!"BP(B
-	$B1~(B (XEmacs $BL$BP1~(B! $B5_1g5a$`(B)$B!#(B
-	(skk-search-jisyo-file-1): enable-multibyte-characters $B$r(B nil $B$K%P(B
-	$B%$%s%I$9$k$N$r;_$a$?!#(B
-	* skk-comp.el (skk-completion): $B!V$@$$(B6$B!W$J$I?t;z$r4^$`JQ49$G$b8+(B
-	$B=P$78l$NJd40$,8z$/$h$&$K$7$?!#Nc$($P!"(B
+	skk-zenkaku-mode-map): skk-use-vip が non-nil のときは、M- プレフィッ
+	クスで始まるキーバインドを定義しないようにした。
+	(skk-setup-special-midashi-char): minor-mode-map-alist を使用した
+	キー定義でも有効になるようにした。
+	(skk-jisx0208-to-ascii): New function. Mule-3 で、JISX0208 の英数
+	字や記号類を ASCII に変換するコードが実装されていなかったので、対
+	応 (XEmacs 未対応! 救援求む)。
+	(skk-search-jisyo-file-1): enable-multibyte-characters を nil にバ
+	インドするのを止めた。
+	* skk-comp.el (skk-completion): 「だい6」など数字を含む変換でも見
+	出し語の補完が効くようにした。例えば、
 
-	   $B!V"&$@$$(B6$B!W(B-> TAB -> $B!V"&$@$$(B6$B$1$$$d$/$M$s$I!W(B
+	   「▽だい6」-> TAB -> 「▽だい6けいやくねんど」
 
-	$B$J$I!#(B
+	など。
 
 	* skk-num.el (skk-compute-numeric-henkan-key):
-        (enable-multibyte-characters $B$r(B t $B$K%P%$%s%I$9$k$h$&$K$7$?!#(B
-	$B$3$NJQ?t$,(B nil $B$@$HNc$($P(B (string-match "[0-9]" "$B$@$$(B6") $B$,(B
-	non-nil (0) $B$rJV$7$F$7$^$&!#(B
+        (enable-multibyte-characters を t にバインドするようにした。
+	この変数が nil だと例えば (string-match "[0-9]" "だい6") が
+	non-nil (0) を返してしまう。
 
 1997-03-13  Hideki Sakurada  <sakurada@kuis.kyoto-u.ac.jp>
 
-	* skk-forword.el XEmacs $B$G(B skk-unread-event $B$r(B dispatch-event $B$N(B
-	defalias $B$H$7$F$$$?$N$r;_$a!"(Bunread-command-events $B$X(B append $B$9$k(B
-	$B7A$G!"%$%s%i%$%s4X?t$H$7$F<BAu!#(B
+	* skk-forword.el XEmacs で skk-unread-event を dispatch-event の
+	defalias としていたのを止め、unread-command-events へ append する
+	形で、インライン関数として実装。
 
 1997-03-11  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
-	* skk-viper.el (vip-del-backward-char-in-insert): adviced. $B"&%b!<(B
-	$B%I!""'%b!<%I$G$NF0$-$r(B SKK $B2=!#(B
+	* skk-viper.el (vip-del-backward-char-in-insert): adviced. ▽モー
+	ド、▼モードでの動きを SKK 化。
 
-        $B%-!<%^%C%W$ND4@0$N$?$a$K(B vip-normalize-minor-mode-map-alist $B$H(B
-        (setq-default minor-mode-map-alist minor-mode-map-alist) $B$r;HMQ!#(B
+        キーマップの調整のために vip-normalize-minor-mode-map-alist と
+        (setq-default minor-mode-map-alist minor-mode-map-alist) を使用。
 
-	* skk.el (skk-middle-list): New function. $BNc$($P!"(B'(A B C D) $B$N(B B
-	$B$N8e$K(B '(X Y Z) $B$H$$$&%j%9%H$rA^F~$7!"(B'(A B X Y Z C D) $B$K$9$k!"$H(B
-	$B$$$&:n6H$rI{:nMQ$rMxMQ$7$F8zN(NI$/9T$J$&!#(B
+	* skk.el (skk-middle-list): New function. 例えば、'(A B C D) の B
+	の後に '(X Y Z) というリストを挿入し、'(A B X Y Z C D) にする、と
+	いう作業を副作用を利用して効率良く行なう。
 
 	* skk-num.el (skk-numeric-convert), skk-auto.el
 	(skk-adjust-search-prog-list-for-auto-okuri): Use skk-middle-list.
@@ -2083,114 +2083,114 @@
 
 1997-03-03   Murata Shuuichirou  <mrt@mickey.ai.kyutech.ac.jp>
 
-	* skk.el: Viper $B$r(B SKK $B$h$j@h$K%m!<%I$7$F$$$F$b(B VIPER $B$,J;MQ$G$-$k(B
-	$B$h$&$K$7$?!#(B
+	* skk.el: Viper を SKK より先にロードしていても VIPER が併用できる
+	ようにした。
 
 1997-03-02   Hideki Sakurada  <sakurada@kuis.kyoto-u.ac.jp>
 
-	* skk-forword.el skk-read-event $B$K(B next-event $B$G$J$/(B
-	next-command-event $B$r;H$&$h$&$K$7$?!#(B
+	* skk-forword.el skk-read-event に next-event でなく
+	next-command-event を使うようにした。
 
-	* skk-forword.el (skk-this-command-key): $BGQ;_!#(B
+	* skk-forword.el (skk-this-command-key): 廃止。
 
-	* skk-isearchl.el: XEmacs $B$G!V$H$j$"$($:F0$/!W$h$&$KJQ99(B ($B$A$c$s$H(B
-	isearch-exit $B$GH4$1$J$$$H$*$+$7$/$J$j$^$9!#(B)
+	* skk-isearchl.el: XEmacs で「とりあえず動く」ように変更 (ちゃんと
+	isearch-exit で抜けないとおかしくなります。)
 
 1997-03-02   Murata Shuuichirou  <mrt@mickey.ai.kyutech.ac.jp>
 
-	* skk-viper.el: minor-mode-map-alist $B$r;H$&(B SKK 10.x $B$r(B Viper $B$KBP(B
-	$B1~$5$;$?!#(B
+	* skk-viper.el: minor-mode-map-alist を使う SKK 10.x を Viper に対
+	応させた。
 
-	* skk.el: XEmacs $B$G$N(B face $BBP1~!#(B
+	* skk.el: XEmacs での face 対応。
 
 1997-03-01  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
-	* skk.el $BC18lEPO?;~$K(B skk-abbrev-mode $B$d(B eval-expression $B$,;H$($J(B
-	$B$$IT6q9g$r=$@5!#(B
+	* skk.el 単語登録時に skk-abbrev-mode や eval-expression が使えな
+	い不具合を修正。
 
-	skk-yes-or-no-p $B$d(B skk-message $B$r;H$($k$N$K;H$C$F$$$J$+$C$?8D=j$r(B
-	$B=$@5!#(B
+	skk-yes-or-no-p や skk-message を使えるのに使っていなかった個所を
+	修正。
 
-	$B%^%/%m$O%3%s%Q%$%k;~$N$_;HMQ$7!"%m!<%I;~$ODj5A$7$J$$$h$&$KJQ99(B ($B%P(B
-	$B%$%H%3%s%Q%$%k$7$J$$$G;H$&$3$H$O$G$-$J$/$J$j$^$7$?(B)$B!#(B
+	マクロはコンパイル時のみ使用し、ロード時は定義しないように変更 (バ
+	イトコンパイルしないで使うことはできなくなりました)。
 
-	* skk-tut.el (skk-tutorial) : (string< "9.4" "10.1") $B$,0U$KH?$7$F(B
-	nil $B$rJV$9$N$G!"(Bskk-version $B$NHf3S$r?tCM$G9T$J$&$h$&$K$7$?!#(B
+	* skk-tut.el (skk-tutorial) : (string< "9.4" "10.1") が意に反して
+	nil を返すので、skk-version の比較を数値で行なうようにした。
 
 1997-02-26  Shuhei KOBAYASHI  <shuhei-k@jaist.ac.jp>
 
-	* skk.el: XEmacs + window-system $BBP1~!#(B
+	* skk.el: XEmacs + window-system 対応。
 
-	  (skk-background-mode): BackgroundMode $B$H$$$&(B resource $B$O(B XEmacs
-	  $B$K$O$"$j$^$;$s$N$G(B, default $B$N(B face $B$N(B 'background property $B$r;H(B
-	  $B$&$3$H$K$7$^$7$?(B. $B$^$?(B, x-color-values $B$KAjEv$9$k4X?t$O(B
-	  color-rgb-components $B$J$N$G$9$,(B, $B$3$N0z?t$O(B color-name (string)
-	  $B$G$O$J$/(B color-specifier (first-class object) $B$K$J$C$F$$$^$9(B.
+	  (skk-background-mode): BackgroundMode という resource は XEmacs
+	  にはありませんので, default の face の 'background property を使
+	  うことにしました. また, x-color-values に相当する関数は
+	  color-rgb-components なのですが, この引数は color-name (string)
+	  ではなく color-specifier (first-class object) になっています.
 
 	  (skk-default-cursor-color): frame-parameters (frame-properties)
-	  $B$G$O$J$<$+(B cursor-color $B$,F@$i$l$^$;$s$N$G(B, frame-property $B$r;H(B
-	  $BMQ$7$F$$$^$9(B.
+	  ではなぜか cursor-color が得られませんので, frame-property を使
+	  用しています.
 
 	  (set-cursor-color): New function.
 
-	  (skk-change-cursor-when-ovwrt): bar-cursor $BJQ?t$K(B ovwrt-mode $B$N(B
-	  $BCM$rBeF~$9$k7A$K$7$?!#(B
+	  (skk-change-cursor-when-ovwrt): bar-cursor 変数に ovwrt-mode の
+	  値を代入する形にした。
 
 1997-02-28  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
-	* skk.el (skk-toggle-kana): $B%+%l%s%H%P%C%U%!$G:G=i$KJQ49$r9T$J$&$^(B
-	$B$G$K"&%b!<%I$G(B skk-toggle-kana $B$r;H$C$FJ?2>L>(B -> $B%+%?%+%JJQ49$r9T(B
-	$B$J$&$H!"%+%l%s%H%P%C%U%!$NA4$F$NJ?2>L>$,%+%?%+%J$KJQ49$5$l$F$7$^$&(B
-	$B%P%0$r%U%#%C%/%9!#(B
+	* skk.el (skk-toggle-kana): カレントバッファで最初に変換を行なうま
+	でに▽モードで skk-toggle-kana を使って平仮名 -> カタカナ変換を行
+	なうと、カレントバッファの全ての平仮名がカタカナに変換されてしまう
+	バグをフィックス。
 
 1997-02-26  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
-	* skk-isearch.el: GNU Emacs $B$GF0$+$J$+$C$?IT6q9g$r=$@5!#(B
+	* skk-isearch.el: GNU Emacs で動かなかった不具合を修正。
 
 1997-02-25  Hideki Sakurada  <sakurada@kuis.kyoto-u.ac.jp>
 
-	* skk.el (skk-henkan-in-minibuff): read-from-minibuffer $B$r8F$V$H$3(B
-	$B$m$G!"%-!<%^%C%W$H$7$F(B skk-j-mode-map $B$rEO$7$F$$$^$9$,!"$3$l$OB?J,(B
-	$B%^%:$$$H;W$$$^$9!#<B:]!"(BMule3 $B$G$OC18lEPO?;~$K1Q?t;z$rF~NO$G$-$^$;(B
-	$B$s$G$7$?!#(B ($B$3$N1~5^=hCV$b%Q%C%A$K4^$a$F$*$-$^$7$?(B)
+	* skk.el (skk-henkan-in-minibuff): read-from-minibuffer を呼ぶとこ
+	ろで、キーマップとして skk-j-mode-map を渡していますが、これは多分
+	マズいと思います。実際、Mule3 では単語登録時に英数字を入力できませ
+	んでした。 (この応急処置もパッチに含めておきました)
 
-	* XEmacs $B$GF0$/$h$&$K$J$C$?(B ($BC"$7(B window-system $B$r(B nil $B$K$7$F$*$+(B
-	$B$J$$$HF0$+$J$$(B)$B!#2?$b<j$rIU$1$F$$$J$$!"Kt$OCfESH>C<$J$^$^$J$N$O!"(B
-	$B?'$rIU$1$kItJ,$H(B isearch$B!#(B
+	* XEmacs で動くようになった (但し window-system を nil にしておか
+	ないと動かない)。何も手を付けていない、又は中途半端なままなのは、
+	色を付ける部分と isearch。
 
 1997-02-2?  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
-	* skk.el: skk-e19.el $B$r(B skk.el $B$KE}9g!#$3$NE}9g$K$h$jMW$i$J$/$J$C(B
-	$B$?(B advice $BC#$O%*%j%8%J%k$NCf$X%^!<%8$7$^$7$?!#F1;~$K(B Emacs 18 $BBP1~(B
-	$B%3!<%I$r=|5n!#(B
+	* skk.el: skk-e19.el を skk.el に統合。この統合により要らなくなっ
+	た advice 達はオリジナルの中へマージしました。同時に Emacs 18 対応
+	コードを除去。
 
-	(skk-search-excluding-word-pattern-func): $BFCDj$NJ8;zNs$r8D?M<-=q$K(B
-	$B<h$j9~$^$J$$5!G=$r:n$j$^$7$?!#(B
+	(skk-search-excluding-word-pattern-func): 特定の文字列を個人辞書に
+	取り込まない機能を作りました。
 
-        easymenu.el $B$r;H$C$F%a%K%e!<4XO"$N%3!<%I$rFI$_0W$/4JC1$K$7$^$7$?(B
-	($B$G$b(B lambda $B$r;H$C$?L5L>4X?t$O%a%K%e!<$+$i>e<j$/<B9T$G$-$J$$(B...)$B!#(B
+        easymenu.el を使ってメニュー関連のコードを読み易く簡単にしました
+	(でも lambda を使った無名関数はメニューから上手く実行できない...)。
 
-	Ovwrt $B%^%$%J!<%b!<%I$G%+!<%=%k$NI}$r>.$5$/$9$k5!G=$rIU$1$^$7$?!#$3(B
-	$B$N5!G=$O!"$*9%$_$G%*%s(B/$B%*%U$G$-$^$9!#(B
+	Ovwrt マイナーモードでカーソルの幅を小さくする機能を付けました。こ
+	の機能は、お好みでオン/オフできます。
 
-	$B%^%/%m$G$J$-$c:$$k$b$N$@$1%^%/%m$G;D$7!"C1$K%$%s%i%$%s2=$rA@$C$?$b(B
-	$B$N$O(B defsubst $B$r;H$&$h$&$K$7$^$7$?!#(B
+	マクロでなきゃ困るものだけマクロで残し、単にインライン化を狙ったも
+	のは defsubst を使うようにしました。
 
-	skk-isearch.el: SKK-8.x $BBP1~%3!<%I$,;D$C$F$$$?$N$G>C$7$^$7$?!#(B
+	skk-isearch.el: SKK-8.x 対応コードが残っていたので消しました。
 
-	Mule 3 $B$G$O(B select-window-hook $B$NGQ;_$,M-NO$J$N$G!"0l1~$3$l$K$J$i(B
-	$B$$!"(Bselect-window-hook $B$rMxMQ$7$F$$$k%3!<%I$rGQ;_$7$^$7$?!#(B
+	Mule 3 では select-window-hook の廃止が有力なので、一応これになら
+	い、select-window-hook を利用しているコードを廃止しました。
 
-	$B%P%0%l%]MQ$N4X?t$N%"%I%l%9$,(B SKK ML (for user) $B$K$J$C$F$^$7$?$N$G!"(B
-	$B$3$l$r=$@5$7$^$7$?!#(B
+	バグレポ用の関数のアドレスが SKK ML (for user) になってましたので、
+	これを修正しました。
 
-	SKK $B$r%3%s%Y%s%7%g%J%k$J%^%$%J!<%b!<%I2=$9$k$3$H$K0l1~@.8y$7$^$7$?!#(B
+	SKK をコンベンショナルなマイナーモード化することに一応成功しました。
 
-	$B;EAH$r4JC1$K8@$$$^$9$H!"(Bskk-mode $B$H$$$&%@%_!<$N%^%$%J!<%b!<%I(B (SKK
-	$B$,5/F0$5$l$k$H!"4X?t$HF1L>$NJQ?t$,F~NO%b!<%I$K$+$+$o$i$:(B t $B$K$J$C(B
-	$B$F$*$j!"FH<+$N%^%$%J!<%b!<%I%^%C%W$O;}$?$J$$$,!"%b!<%I%i%$%s$rA`:n(B
-	$B$9$k%-!<JQ?t(B skk-input-mode-string $B$r;}$D(B) $B$rD:E@$K!"(B4 $B$D$N<B%^%$(B
-	$B%J!<%b!<%I%^%C%W$,$"$j$^$9!#(B
+	仕組を簡単に言いますと、skk-mode というダミーのマイナーモード (SKK
+	が起動されると、関数と同名の変数が入力モードにかかわらず t になっ
+	ており、独自のマイナーモードマップは持たないが、モードラインを操作
+	するキー変数 skk-input-mode-string を持つ) を頂点に、4 つの実マイ
+	ナーモードマップがあります。
 
 	+----------------------+----- skk-mode ------+-------------------+
       |                      |                     |                   |
@@ -2207,34 +2207,34 @@ skk-j-mode-map
  skk-katakana: t
   KATAKANA
 
-	$B$3$N<B%^%$%J!<%b!<%I$O!"$=$l$>$lFH<+$N%^%$%J!<%b!<%I%^%C%W$r;}$C$F(B
-	$B$*$j!"$=$l$>$l$N4X?tL>$HF1L>$NJQ?t$,(B t $B$K$J$C$?$H$-$K$=$l$>$l$N%^(B
-	$B%$%J!<%b!<%I$,M-8z$K$J$j$^$9!#%b!<%I%i%$%s$rA`:n$9$kJQ?t$OFH<+$K;}(B
-	$B$?$:!"Be$j$K(B skk-input-mode-string $B$K<+J,$NF~NO%b!<%I$r<($9J8;zNs(B
-	$B$rBeF~$7!"(Bforce-mode-line-update $B$r8F$s$G%b!<%I%i%$%s$NI=<($r99?7(B
-	$B$9$k$h$&$K$J$C$F$$$^$9!#(B
+	この実マイナーモードは、それぞれ独自のマイナーモードマップを持って
+	おり、それぞれの関数名と同名の変数が t になったときにそれぞれのマ
+	イナーモードが有効になります。モードラインを操作する変数は独自に持
+	たず、代りに skk-input-mode-string に自分の入力モードを示す文字列
+	を代入し、force-mode-line-update を呼んでモードラインの表示を更新
+	するようになっています。
 
-	skk-j-mode $B$O$+$J!&%+%J%b!<%I$NN>J}$KBP1~$9$k%^%$%J!<%b!<%I%-!<%^%C(B
-	$B%W$r;}$C$F$$$^$9!#$3$l$O!"(Bskk-katakana $B$H$$$&JQ?t$r%-!<$K$7$F!"%-!<(B
-	$B%\!<%IF~NOD>8e$KF~NO$5$l$kJ8;zNs$r7hDj$7$F$*$j!"%-!<%P%$%s%I$H$7$F(B
-	$B$O0l<oN`$G$9!#(B
+	skk-j-mode はかな・カナモードの両方に対応するマイナーモードキーマッ
+	プを持っています。これは、skk-katakana という変数をキーにして、キー
+	ボード入力直後に入力される文字列を決定しており、キーバインドとして
+	は一種類です。
 
-	{VIP|VIPER}$B$K$OBP1~$7$J$$$J$I$NIT6q9g$b$"$j$^$9$,!"(B
-	skk-emulate-original-map $B$d(B skk-isearch-* $BN`$O!"=gD4$KF0$$$F$*$j!"(B
-	$B4pACE*$J$H$3$m$OBg>fIW$H;W$o$l$^$9!#(B
+	{VIP|VIPER}には対応しないなどの不具合もありますが、
+	skk-emulate-original-map や skk-isearch-* 類は、順調に動いており、
+	基礎的なところは大丈夫と思われます。
 
-	minor-mode-map-alist $B$rMxMQ$9$k$3$H$G!"(Buse-local-map $B$K(B defadvice
-	$B$9$k!"$H$$$&$h$&$J%H%j%C%-!<$J$3$H$r$;$:$K:Q$`$h$&$K$J$j$^$7$?$7!"(B
-	skk-emulate-original-map $B$,4JC1$K$J$C$?$j$H!"7k9=%=!<%9$O4JAG2=$5(B
-	$B$l$?$h$&$J5$$,$7$^$9!#(B
+	minor-mode-map-alist を利用することで、use-local-map に defadvice
+	する、というようなトリッキーなことをせずに済むようになりましたし、
+	skk-emulate-original-map が簡単になったりと、結構ソースは簡素化さ
+	れたような気がします。
 
-	$B$=$NB>!"(BEmacs Lisp Manual $B$rFI$s$G!"(BEmacs $B$N%3%s%Y%s%7%g%J%k$J%M!<(B
-	$B%_%s%05,B'$K$G$-$k$@$1$J$i$&$h$&$K$7!"$^$?!"$=$l0J30$G$b$G$-$k$@$1(B
-	$BE}0lE*$J%M!<%_%s%0$rIU$1$k$h$&$K$7$F$$$k$N$G!"JQ?tL>!"4X?tL>$O!"=>(B
-	$BMh$N$b$N$HJQ99$5$l$F$k$b$N$,?'!9$"$j$^$9!#$3$l$O$*<j?t$G$9$,!"%=!<(B
-	$B%9$r8+$F$$$?$@$/$H$$$&$3$H$G4*J[$7$F2<$5$$!#%M!<%_%s%0$,JQ$@!"$H$$(B
-	$B$&$h$&$J$4;XE&$,$"$j$^$7$?$i!"$I$s$I$s$*4j$$$$$?$7$^$9!#(B
+	その他、Emacs Lisp Manual を読んで、Emacs のコンベンショナルなネー
+	ミング規則にできるだけならうようにし、また、それ以外でもできるだけ
+	統一的なネーミングを付けるようにしているので、変数名、関数名は、従
+	来のものと変更されてるものが色々あります。これはお手数ですが、ソー
+	スを見ていただくということで勘弁して下さい。ネーミングが変だ、とい
+	うようなご指摘がありましたら、どんどんお願いいたします。
 
 ;; Local Variables:
-;; coding: iso-2022-jp
+;; coding: utf-8
 ;; End:

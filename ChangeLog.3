@@ -128,7 +128,7 @@
 
 	New variables.
 
-	* skk.el (skk-setup-verbose-messages): Show "$BC14A;z(B" for C-5.
+	* skk.el (skk-setup-verbose-messages): Show "単漢字" for C-5.
 
 2007-08-02  Eiji Obata  <e-obata@zero.ad.jp>
 
@@ -696,8 +696,8 @@
 	browse wikipedia/wiktionary URL for SOURCES. Workaround for XEmacs
 	event handling.
 
-	(skk-annotation-wikipedia-1): Support "$B1Q8l(B", "$BA0CV;l(B" and
-	"$B@\B3;l(B" for ja.wiktionary.  Use
+	(skk-annotation-wikipedia-1): Support "英語", "前置詞" and
+	"接続詞" for ja.wiktionary.  Use
 	`skk-annotation-wikipedia-remove-nested' for removing uls, dls,
 	and tables.
 
@@ -1756,7 +1756,7 @@
 2006-01-04  Eiji Obata  <e-obata@zero.ad.jp>
 
 	* skk.el (skk-insert): Don't call `skk-process-prefix-or-suffix'
-	when point is immediately following `$B"&(B'.
+	when point is immediately following `▽'.
 
 	(skk-restart): Use `set-default' to re-initialize variables.
 
@@ -2161,7 +2161,7 @@
 	minibuff mode, bind it to 0, otherwise increment it.
 
 	(skk-henkan-in-minibuff): When skk-show-inline is non-nil, modify
-	the inline prompt to "$B"-<-=qEPO?Cf"-(B".
+	the inline prompt to "↓辞書登録中↓".
 	Create prompt so that it have `skk-henkan-in-minibuff-nest-level
 	+ 1' pairs of parens, i.e. number of pairs of parens shows the
 	recursive depth of the word registration mode in progress.
@@ -2433,7 +2433,7 @@
 
 2005-11-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* doc/skk.texi: Update for $BF|IUF~NO(B.
+	* doc/skk.texi: Update for 日付入力.
 
 	* skk-gadget.el (skk-current-date): The 3rd argument for
 	PP-FUNCTION should be (not skk-date-ad), not skk-date-ad.
@@ -2474,7 +2474,7 @@
 2005-10-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk.el (skk-henkan-in-minibuff): Modify prompt in
-	skk-show-inline, "[$B"-<-=qEPO?(B]" -> "Echo area $B$r8+$F(B!".
+	skk-show-inline, "[↓辞書登録]" -> "Echo area を見て!".
 
 2005-10-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -2489,7 +2489,7 @@
 	car of it.
 	(skk-current-touten): If skk-kutouten-type is a cons cell, return
 	cdr of it.
-	(skk-what-char-type): Recognize $B%t(B, $B%u(B, $B%v(B, $B!3(B and $B!4(B as katakana.
+	(skk-what-char-type): Recognize ヴ, ヵ, ヶ, ヽ and ヾ as katakana.
 	(skk-toggle-characters): Set VEXPAND for `skk-hiragana-region'.
 
 2005-10-05  Masatake YAMATO  <jet@gyve.org>
@@ -2827,7 +2827,7 @@
 
 2004-04-08  Masatake YAMATO  <jet@gyve.org>
 
-	* skk.el (skk-henkan-in-minibuff): Prepend "[$B<-=qEPO?(B]"
+	* skk.el (skk-henkan-in-minibuff): Prepend "[辞書登録]"
 	on the prompt.
 
 2004-04-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
@@ -3046,7 +3046,7 @@
 
 	* doc/skk.texi: Add description(
 	skk-kutouten-type, skk-toggle-kutouten) in
-	"Q.3-2 $B!V!%!W!"!V!$!W(B $B$,F~NO$G$-$k$h$&$K%+%9%?%^%$%:$7$?$$$N$G$9$,!#(B"
+	"Q.3-2 「．」、「，」 が入力できるようにカスタマイズしたいのですが。"
 
 2003-07-21  NAKAJIMA Mikio  <minakaji@namazu.org>
 
@@ -3217,7 +3217,7 @@
 2003-03-30  YAGI Tatsuya <ynyaaa@ybb.ne.jp>
 
 	* experimental/skk-tankan.el: Update annotations in accordance
-	with JIS X0213 $B2~@50F(B.
+	with JIS X0213 改正案.
 
 2003-03-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -3298,14 +3298,14 @@
 	* doc/skk.texi:
 	To avoid texinfo error on Emacs 21, following changes.
 
-	Modify stirng from "$B>e5-$NNc$G$O!"(B" to "$B>e5-$NNc$O!"(B".
-	Delete a space before @samp{$BN)$A>e$2$k(B}.
+	Modify stirng from "上記の例では、" to "上記の例は、".
+	Delete a space before @samp{立ち上げる}.
 
 2003-02-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi:
 
-	Insert a space before @samp{$BN)$A>e$2$k(B}. This is a workaround for
+	Insert a space before @samp{立ち上げる}. This is a workaround for
 	Emacs 21.4.
 
 	* skk-viper.el (viper-toggle-case):
@@ -3382,18 +3382,18 @@
 2002-10-28  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
 
 	* doc/skk.texi
-	($BM=HwCN<1(B): remove.
-	($B%U%!%$%k9=@.(B & $B%f!<%6!<%*%W%7%g%s$N@_DjJ}K!(B): move from
-	($BM=HwCN<1(B) to ($BJXMx$J1~MQ5!G=(B).
-	($B<-=q$N7A<0(B & $B<-=q$K4X$9$k@_Dj(B): move from ($BM=HwCN<1(B) to ($B<-=q4XO"(B).
-	($B<-=q$K4X$9$k@_Dj(B): Add subsubsection($BJ#?t<-=q$N8!:wJ}K!(B).
-	($B5l%P!<%8%g%s$+$i$NJQ99E@(B): Add section(SKK 11 $B$+$i$NJQ99E@(B).
+	(予備知識): remove.
+	(ファイル構成 & ユーザーオプションの設定方法): move from
+	(予備知識) to (便利な応用機能).
+	(辞書の形式 & 辞書に関する設定): move from (予備知識) to (辞書関連).
+	(辞書に関する設定): Add subsubsection(複数辞書の検索方法).
+	(旧バージョンからの変更点): Add section(SKK 11 からの変更点).
 
 2002-10-22  Yano Keisuke <yano@moon.email.ne.jp>
 
 	* skk-kcode.el (skk-display-code): Modified for JISX0213.
-	Change display of KUTEN code in accordance with `$B5,3J6(2q!V(BJIS$B4A;z(B
-	$B;zE5!W(B.
+	Change display of KUTEN code in accordance with `規格協会「JIS漢字
+	字典」.
 	(skk-jis2sjis2): New function.
 
 2002-09-05  Akihiro MOTOKI  <amotoki@dd.iij4u.or.jp>
@@ -3529,8 +3529,8 @@
 	`kakutei-word' and the current `kakutei-word', and record the
 	combined word in the private dictionary.
 
-	E.g. "$B$+$s$I$&(B /$B46F0(B/" + ">$B$F$-(B /$BE*(B/"
-	===> "$B$+$s$I$&$F$-(B /$B46F0E*(B/"
+	E.g. "かんどう /感動/" + ">てき /的/"
+	===> "かんどうてき /感動的/"
 
 	(skk-update-kakutei-history):
 	Record the buffer where the kakutei is performed.
@@ -3620,12 +3620,12 @@
 
 	* skk.el:
 	(skk-kakutei-cleanup-buffer):
-	Fix bug that kakutei in $B"&(B mode inserts junk characters to the
+	Fix bug that kakutei in ▽ mode inserts junk characters to the
 	current bufffer when `skk-undo-kakutei-word-only' is t.
 
 	(skk-set-henkan-point-subr):
 	(skk-change-marker-to-white):
-	Bind `skk-henkan-end-point' to nil after entering $B"&(B mode.
+	Bind `skk-henkan-end-point' to nil after entering ▽ mode.
 
 	(skk-undo-kakutei):
 	Do nothing when `skk-henkan-end-point' is nil.
@@ -3838,8 +3838,8 @@
 
 2002-01-29  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
-	* doc/skk.texi (Q.5-2 abbrev $B%b!<%I$G$b$C$H1QC18l$rMxMQ$7$?JQ49$,(B
-	$B$G$-$^$;$s$+(B?): Write about `skk-look-use-ispell'.
+	* doc/skk.texi (Q.5-2 abbrev モードでもっと英単語を利用した変換が
+	できませんか?): Write about `skk-look-use-ispell'.
 
 2002-01-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -4261,7 +4261,7 @@
 
 	* READMEs/NEWS : Update.
 
-	* doc/skk.texi (SKK$B$NNr;K(B): Update.
+	* doc/skk.texi (SKKの歴史): Update.
 
 2001-12-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -4291,7 +4291,7 @@
 2001-12-15  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
 
 	* skk.texi (SKK-VERSION): Updated to 11.6.0.
-	Add ($BAw$j2>L>$NM%@hE*$J%^%C%A(B).
+	Add (送り仮名の優先的なマッチ).
 
 2001-12-10  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
 
@@ -4334,8 +4334,8 @@
 
 2001-12-05  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
-	* doc/skk.texi (FTP$B$rMxMQ$7$FF~<j$9$kJ}K!(B): Add new section.
-	(WWW$B$rMxMQ$7$FF~<j$9$kJ}K!(B): Add mirroring URL.
+	* doc/skk.texi (FTPを利用して入手する方法): Add new section.
+	(WWWを利用して入手する方法): Add mirroring URL.
 
 2001-12-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -4397,29 +4397,29 @@
 	* Makefile (version): Change to 11.5.2.
 
 	* doc/skk.texi
-	(SKK$B$NNr;K(B): Update.
-	(SKK 9 $B$+$i$NJQ99E@(B): Update.
+	(SKKの歴史): Update.
+	(SKK 9 からの変更点): Update.
 
 2001-12-02  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
 
 	* doc/skk.texi
-	(XEmacs & Emacs 21 $B$N%b!<%I%i%$%s(B): Doc fixed.
+	(XEmacs & Emacs 21 のモードライン): Doc fixed.
 
 2001-12-02  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
 
 	* skk-annotation.el(skk-annotation-show): Fixed.
 
-	* doc/skk.texi: Add $B<-=q$N%"%N%F!<%7%g%s(B($BCp<a(B).
-	Add XEmacs & Emacs 21 $B$N%b!<%I%i%$%s(B.
+	* doc/skk.texi: Add 辞書のアノテーション(註釈).
+	Add XEmacs & Emacs 21 のモードライン.
 	(skk-lookup): Update.
-	($B1QC18l$r$"$$$^$$$KJQ49$7$F<h$j=P$7$?8e!"99$K:F5"E*$J1QOBJQ49$r9T$&(B): Update.
-	($B%5!<%P4XO"(B): Update.
+	(英単語をあいまいに変換して取り出した後、更に再帰的な英和変換を行う): Update.
+	(サーバ関連): Update.
 
 2001-12-01  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
-	* doc/skk.texi ($B"&%b!<%I$K$*$1$k<+F0%@%$%J%_%C%/%3%s%W%j!<%7%g%s(B):
+	* doc/skk.texi (▽モードにおける自動ダイナミックコンプリーション):
 	Update.
-	($B%5!<%P4XO"(B): Add description about
+	(サーバ関連): Add description about
 	`skk-server-inhibit-startup-server'.
 
 2001-12-01  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
@@ -4450,29 +4450,29 @@
 
 2001-11-25  Tsuyoshi AKIHO  <akiho@kawachi.zaq.ne.jp>
 
-	* doc/skk.texi (APEL $B$N%$%s%9%H!<%k(B): Doc fixed.
-	($B:G$b4pK\E*$J@_Dj(B): Add doc about
+	* doc/skk.texi (APEL のインストール): Doc fixed.
+	(最も基本的な設定): Add doc about
 	sample(etc/dot.emacs,etc/dot.skk) files.
-	($BAw$j2>L>$,M-$k>l9g$N<-=qEPO?(B): Add doc about
+	(送り仮名が有る場合の辞書登録): Add doc about
 	skk-check-okurigana-on-touroku.
-	($B%U%!%$%k9=@.(B): Update doc.
-	($B%f!<%6!<%*%W%7%g%s$N@_DjJ}K!(B): Coment out skk-viper-load-hook.
-	(skk-rom-kana-rule-list$B$NMxMQNc(B): Sample code fixed.
-	($B%+%?%+%J$N8+=P$78l(B): Update doc.
-	($B<-=qEPO?$N:]$KCm0U$9$Y$-$3$H(B): Update doc.
-	($B%W%m%0%i%`<B9TJQ49(B): Doc fixed.
-	($BNN0h0l3gJQ49(B): Add doc about menu-bar with kakasi. Update doc.
-	($B4A;z%3!<%I$rCN$kJ}K!(B): Update doc.
-	($B"'%b!<%I$G$N(BBS): Doc fixed.
-	($B8D?M<-=q$NJ]B8F0:n(B): Doc fixed.
-	($BJQ495Z$S8D?M<-=q$K4X$9$kE}7W(B): Update doc.
-	($BF~NO%b!<%I$r<($9%b!<%I%i%$%s$NJ8;zNs$NJQ99(B): Doc fixed.
-	($BF~NO%b!<%I$r<($9%+!<%=%k?'$K4X$9$k@_Dj(B): Doc fixed.
-	($B5/F0;~$NF~NO%b!<%I$N;XDj(B): Doc fixed.
-	(WWW$B$rMxMQ$7$FF~<j$9$kJ}K!(B): Doc fixed.
-	(SKK$B$NNr;K(B): Update doc.
-	(Q.1-4 DDSKK $B$O$I$N%P!<%8%g%s$N(B Emacs $B$G;H$($^$9$+(B?): Update doc.
-	(Q.1-6 Emacs $B$KIUB0$N(B SKK $B$r;H$C$F$$$k$N$G$9$,(B): Update doc.
+	(ファイル構成): Update doc.
+	(ユーザーオプションの設定方法): Coment out skk-viper-load-hook.
+	(skk-rom-kana-rule-listの利用例): Sample code fixed.
+	(カタカナの見出し語): Update doc.
+	(辞書登録の際に注意すべきこと): Update doc.
+	(プログラム実行変換): Doc fixed.
+	(領域一括変換): Add doc about menu-bar with kakasi. Update doc.
+	(漢字コードを知る方法): Update doc.
+	(▼モードでのBS): Doc fixed.
+	(個人辞書の保存動作): Doc fixed.
+	(変換及び個人辞書に関する統計): Update doc.
+	(入力モードを示すモードラインの文字列の変更): Doc fixed.
+	(入力モードを示すカーソル色に関する設定): Doc fixed.
+	(起動時の入力モードの指定): Doc fixed.
+	(WWWを利用して入手する方法): Doc fixed.
+	(SKKの歴史): Update doc.
+	(Q.1-4 DDSKK はどのバージョンの Emacs で使えますか?): Update doc.
+	(Q.1-6 Emacs に付属の SKK を使っているのですが): Update doc.
 
 2001-11-25  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
@@ -4516,8 +4516,8 @@
 2001-11-25  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* experimental/skk-w3m.el
-	(skk-w3m-get-candidates-from-goo-daijirin): Filter out "$B!T(B" and
-	"$B!U(B " from a candidate.  Check if a candidate is redundant or not.
+	(skk-w3m-get-candidates-from-goo-daijirin): Filter out "《" and
+	"》 " from a candidate.  Check if a candidate is redundant or not.
 	Update comments.
 
 	* skk-dcomp.el: Update comments.
@@ -4628,10 +4628,10 @@
 
 	* doc/skk.texi (EDITION): Updated to 1.7.
 	(SKK-VERSION) : Updated to 11.5.2.
-	($B$O$8$a$K(B) : Add support for GNU Emacs 21.
-	($B<-=q$NF~<j(B): Update doc.
-	(SKK $B$N%$%s%9%H!<%k(B) : Change make.bat to makeit.bat.
-	(SKK Ring Server Openlab $B%a!<%j%s%0%j%9%H(B) : Change ring.etl.go.jp
+	(はじめに) : Add support for GNU Emacs 21.
+	(辞書の入手): Update doc.
+	(SKK のインストール) : Change make.bat to makeit.bat.
+	(SKK Ring Server Openlab メーリングリスト) : Change ring.etl.go.jp
 	to news.ring.gr.jp.
 
 2001-11-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
@@ -4727,7 +4727,7 @@
 
 2001-11-11  Eiji Obata  <obata@suzuki.kuee.kyoto-u.ac.jp>
 
-	* doc/skk.texi ($B5/F0$H=*N;(B): Doc fixed.
+	* doc/skk.texi (起動と終了): Doc fixed.
 
 2001-11-11  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -5607,7 +5607,7 @@
 	(skk-num-get-kanji): New function.
 
 	* skk-vars.el (skk-num-alist-type3): New variable.
-	(skk-num-alist-type5): Add "$BNm(B".
+	(skk-num-alist-type5): Add "零".
 
 	* READMEs/NEWS: Update.
 
@@ -5625,7 +5625,7 @@
 
 2001-09-10  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
-	* READMEs/CVS_digest (cvs $B$NF~<jJ}K!(B): Add note about pcvs of GNU
+	* READMEs/CVS_digest (cvs の入手方法): Add note about pcvs of GNU
 	Emacs 21.
 
 2001-09-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
@@ -5638,7 +5638,7 @@
 
 	* patch/e18: Ditto.
 
-	* doc/skk.texi (SKK$B$NNr;K(B): New chapter.
+	* doc/skk.texi (SKKの歴史): New chapter.
 
 	* skk.el (skk-kakutei): Always return nil.
 
@@ -5857,41 +5857,41 @@
 
 2001-07-22  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
-	* doc/skk.texi (Q.5-2 abbrev $B%b!<%I$G$b$C$H1QC18l$rMxMQ$7$?JQ49$,(B
-	$B$G$-$^$;$s$+(B?): Typo fixed.
-	(Q.1-1 $B:G?7$N%P!<%8%g%s$O(B?): Sync up with
+	* doc/skk.texi (Q.5-2 abbrev モードでもっと英単語を利用した変換が
+	できませんか?): Typo fixed.
+	(Q.1-1 最新のバージョンは?): Sync up with
 	skk/main/READMEs/FAQ.txt.
-	(Q.1-3 SKK $B$O$I$N%P!<%8%g%s$N(B Emacs $B$G;H$($^$9$+(B?): Ditto.
-	(Q.1-6 $B3+H/HG$O2?8N!"(BDaredevil $B$H8@$&$N$G$9$+(B?): Ditto.
-	(Q.1-7 APEL $B$K0MB8$;$:$K(B SKK $B$@$1$G:Q$`$h$&$K3+H/$7$F$b$i$($^$;$s(B
-	$B$+(B?): Ditto.
-	(Q.1-6 $B3+H/HG$O2?8N!"(BDaredevil $B$H8@$&$N$G$9$+(B?): Change section
-	name to `Daredevil SKK $B$C$F(B SKK $B$H$O0c$&$N$G$9$+(B?' and move to
+	(Q.1-3 SKK はどのバージョンの Emacs で使えますか?): Ditto.
+	(Q.1-6 開発版は何故、Daredevil と言うのですか?): Ditto.
+	(Q.1-7 APEL に依存せずに SKK だけで済むように開発してもらえません
+	か?): Ditto.
+	(Q.1-6 開発版は何故、Daredevil と言うのですか?): Change section
+	name to `Daredevil SKK って SKK とは違うのですか?' and move to
 	Q.1-2.
-	(Q.1-4 SKK $B$O$I$N%P!<%8%g%s$N(B Emacs $B$G;H$($^$9$+(B?): Change section
-	name to `Q.1-4 DDSKK $B$O$I$N%P!<%8%g%s$N(B Emacs $B$G;H$($^$9$+(B?'.
-	(Q.1-5 SKK $B$O$I$s$J%*%Z%l!<%F%#%s%0%7%9%F%`$G;H$($^$9$+(B?): Change
-	section name to `Q.1-5 DDSKK $B$O$I$s$J%*%Z%l!<%F%#%s%0%7%9%F%`$G;H(B
-	$B$($^$9$+(B?' and sync up with skk/main/READMEs/FAQ.txt.
-	(Q.2-6 Emacs 20 $B$K(B SKK 9.6 $B$,%$%s%9%H!<%k$G$-$^$;$s!#(B): Sync up
+	(Q.1-4 SKK はどのバージョンの Emacs で使えますか?): Change section
+	name to `Q.1-4 DDSKK はどのバージョンの Emacs で使えますか?'.
+	(Q.1-5 SKK はどんなオペレーティングシステムで使えますか?): Change
+	section name to `Q.1-5 DDSKK はどんなオペレーティングシステムで使
+	えますか?' and sync up with skk/main/READMEs/FAQ.txt.
+	(Q.2-6 Emacs 20 に SKK 9.6 がインストールできません。): Sync up
 	with skk/main/READMEs/FAQ.txt.
 
-	* READMEs/FAQ.txt ([Q.] $B:G?7$N%P!<%8%g%s$O(B?): Updated.
-	([Q.] SKK $B$O$I$N%P!<%8%g%s$N(B Emacs $B$G;H$($^$9$+(B?): Ditto.
-	([Q.] $B:G?7HG$N(B SKK $B$O$I$3$+$iF~<j$G$-$^$9$+(B?): Ditto.
-	([Q.] $B3+H/HG$N(B SKK $B$O2?8N!"(B`Daredevil SKK' $B$J$I$H8@$&L>$,$D$$$F$$(B
-	$B$k$N$G$9$+(B?): Ditto.
-	($B3+H/HG$N(B SKK $B$O2?8N!"(B`Daredevil SKK' $B$J$I$H8@$&L>$,$D$$$F$$$k$N$G$9$+(B?):
-	Change section name to `Daredevil SKK $B$C$F(B SKK $B$H$O0c$&$N$G$9$+(B?'.
-	([Q.] SKK $B$O$I$s$J%*%Z%l!<%F%#%s%0%7%9%F%`$G;H$($^$9$+(B?): Change
-	section name to `[Q.] DDSKK $B$O$I$s$J%*%Z%l!<%F%#%s%0%7%9%F%`$G;H$((B
-	$B$^$9$+(B?'
-	([Q.] Emacs 20 $B$K(B SKK 9.6 $B$,%$%s%9%H!<%k$G$-$^$;$s!#(B): Change URL.
-	([Q.] SKK $B$O$I$s$J%*%Z%l!<%F%#%s%0%7%9%F%`$G;H$($^$9$+(B?): Change
-	section name to `[Q.] DDSKK $B$O$I$s$J%*%Z%l!<%F%#%s%0%7%9%F%`$G;H$((B
-	$B$^$9$+(B?' and update sentences.
+	* READMEs/FAQ.txt ([Q.] 最新のバージョンは?): Updated.
+	([Q.] SKK はどのバージョンの Emacs で使えますか?): Ditto.
+	([Q.] 最新版の SKK はどこから入手できますか?): Ditto.
+	([Q.] 開発版の SKK は何故、`Daredevil SKK' などと言う名がついてい
+	るのですか?): Ditto.
+	(開発版の SKK は何故、`Daredevil SKK' などと言う名がついているのですか?):
+	Change section name to `Daredevil SKK って SKK とは違うのですか?'.
+	([Q.] SKK はどんなオペレーティングシステムで使えますか?): Change
+	section name to `[Q.] DDSKK はどんなオペレーティングシステムで使え
+	ますか?'
+	([Q.] Emacs 20 に SKK 9.6 がインストールできません。): Change URL.
+	([Q.] SKK はどんなオペレーティングシステムで使えますか?): Change
+	section name to `[Q.] DDSKK はどんなオペレーティングシステムで使え
+	ますか?' and update sentences.
 
-	* READMEs/PROPOSAL (Emacs $B$N%P!<%8%g%s4V:90[$N5[<}$O(B?): Updated.
+	* READMEs/PROPOSAL (Emacs のバージョン間差異の吸収は?): Updated.
 
 	* READMEs/INSTALL (APEL): Updated.
 
@@ -5901,11 +5901,11 @@
 
 2001-07-20  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
-	* READMEs/PROPOSAL ($BJ,3d$7$?%U%!%$%k$KI,?\$N5-=R(B): Updated.
-	Change section name to `skk.el $B0J30$N%U%!%$%k$KI,?\$N5-=R(B'.
-	(SKK 10 $B$,F0:n$9$k(B Emacs $B$N%P!<%8%g%s$O(B?): Change section name to
-	`Daredevil skk 11 $B$,F0:n$9$k(B Emacs $B$N%P!<%8%g%s$O(B?'.
-	(Emacs $B$N%P!<%8%g%s4V:90[$N5[<}$O(B?): Updated.
+	* READMEs/PROPOSAL (分割したファイルに必須の記述): Updated.
+	Change section name to `skk.el 以外のファイルに必須の記述'.
+	(SKK 10 が動作する Emacs のバージョンは?): Change section name to
+	`Daredevil skk 11 が動作する Emacs のバージョンは?'.
+	(Emacs のバージョン間差異の吸収は?): Updated.
 
 	* READMEs/README: Updated.
 
@@ -5942,9 +5942,9 @@
 	* READMEs/README.Mac: New file (its original file is written by
 	Yuh Ohmura <yutopia@t3.rim.or.jp>).
 
-	* READMEs/FAQ.txt ([Q.] SKK $B$O$I$s$J%*%Z%l!<%F%#%s%0%7%9%F%`$G;H$((B
-	$B$^$9$+(B?): Updated.
-	([Q.] APEL $B$K0MB8$;$:$K(B SKK $B$@$1$G:Q$`$h$&$K3+H/$7$F$b$i$($^$;$s$+(B?):
+	* READMEs/FAQ.txt ([Q.] SKK はどんなオペレーティングシステムで使え
+	ますか?): Updated.
+	([Q.] APEL に依存せずに SKK だけで済むように開発してもらえませんか?):
 	Updated.
 
 2001-07-10  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
@@ -6102,7 +6102,7 @@
 	(skk-current-date-function): Removed.
 	(skk-GYMDWHMS-list): Removed.
 
-	* skk-viper.el (sentence-end): Add "$B!%(B".
+	* skk-viper.el (sentence-end): Add "．".
 
 	* skk-auto.el: Remove unnecessary spaces between parens.
 
@@ -6179,9 +6179,9 @@
 
 	* READMEs/Contributors: Update akiho's mail-address.
 
-	* doc/skk.texi (SKK Ring Server Openlab $B%a!<%j%s%0%j%9%H(B): Update
+	* doc/skk.texi (SKK Ring Server Openlab メーリングリスト): Update
 	for ml program change to ezmlm.
-	(SKK$B$N:n<T(B) : Update akiho's mail-address.
+	(SKKの作者) : Update akiho's mail-address.
 
 2001-05-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -6222,7 +6222,7 @@
 	* experimental/skk-w3m.el (skk-w3m-get-candidates): Removed.
 	(skk-w3m-get-candidates-from-goo-daijirin): Do not use
 	`skk-w3m-get-candidates'.
-	Filter out "$B!R(B" and "$B!S(B".
+	Filter out "〈" and "〉".
 
 2001-04-28  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
@@ -6243,7 +6243,7 @@
 	(skk-w3m-get-candidates-from-goo-exceed-eiwa-1): New function.
 	(skk-w3m-get-candidates-from-goo-exceed-eiwa): Use
 	`skk-w3m-get-candidates-from-goo-exceed-eiwa-1'.
-	Call `w3m-view-this-url' when regexp "[0-9]+  $B?75,$G3+$/(B" is found
+	Call `w3m-view-this-url' when regexp "[0-9]+  新規で開く" is found
 	in a *w3m* buffer.
 
 2001-04-14  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
@@ -6291,11 +6291,11 @@
 
 2001-03-30  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
-	* doc/skk.texi ($B1QC18l$r$"$$$^$$$KJQ49$7$F<h$j=P$7$?8e!"99$K:F5"E*(B
-	$B$J1QOBJQ49$r9T$&(B): Remove obsolete footnote.
-	(SKK $B0J30$N%D!<%k$rMQ$$$?<-=q8uJd(B): Change the node name to
-	`look $B%3%^%s%I$rMQ$$$?<-=qJQ49(B'.
-	($B"&%b!<%I$K$*$1$k<+F0%@%$%J%_%C%/%3%s%W%j!<%7%g%s(B): Add new
+	* doc/skk.texi (英単語をあいまいに変換して取り出した後、更に再帰的
+	な英和変換を行う): Remove obsolete footnote.
+	(SKK 以外のツールを用いた辞書候補): Change the node name to
+	`look コマンドを用いた辞書変換'.
+	(▽モードにおける自動ダイナミックコンプリーション): Add new
 	section.
 
 	* READMEs/Contributors (Contributors): Add Satoshi Harauchi's
@@ -6307,7 +6307,7 @@
 
 2001-03-28  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
-	* doc/skk.texi (SKK$B$N:n<T(B): Add Satoshi Harauchi's email address.
+	* doc/skk.texi (SKKの作者): Add Satoshi Harauchi's email address.
 
 2001-03-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -6333,7 +6333,7 @@
 
 2001-03-21  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
-	* doc/skk.texi ($B%f!<%6!<%a!<%j%s%0%j%9%H(B): Removed.
+	* doc/skk.texi (ユーザーメーリングリスト): Removed.
 
 2001-03-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -6407,10 +6407,10 @@
 	each regexp of "KOJIEN" and "KOUJIEN".
 	As to "KOUJIEN" and "KOJIEN", use number list for `match-string'
 	argument in order to pick up a pattern like
-	`$B%"%j%9%H%F%l%9!>$7$e$.!Z!=<g5A![(B'.
+	`アリストテレス‐しゅぎ【—主義】'.
 	Set to nil 7th element of "KOUJIEN" and "KOJIEN".
 	Add a regexp to 5th element of "KOJIEN" in order to pick up a
-	pattern like `$B$G$s$7!>%V%C%/!ZEE;R!=![(B'.
+	pattern like `でんし‐ブック【電子—】'.
 
 2001-02-03  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
@@ -6473,7 +6473,7 @@
 	* Daredevil SKK 11.4 released.
 
 	* Makefile (VERSION): Change to 11.4.
-	* READMEs/Codename ($BJQ998D=j(B): Updated.
+	* READMEs/Codename (変更個所): Updated.
 
 2000-12-30  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
@@ -6546,7 +6546,7 @@
 	bug}.
 
 	* skk-vars.el (skk-kana-rom-vector): Modify the value so that
-	`skk-okurigana-prefix' returns "t" for "$B$C(B".
+	`skk-okurigana-prefix' returns "t" for "っ".
 
 	* skk.el (skk-mode-invoke): Call `skk-e18-advise-skk-functions'
 	under Emacs 18.
@@ -7146,8 +7146,8 @@
 	* doc/skk.texi (skk-lookup): Replace VERSION_SPECIFIC_LISPDIR with
 	ADDITIONAL_LISPDIR.
 
-	* READMEs/FAQ.txt ([Q.] SKK $B$N8!:w$G!";THN$N(B CD-ROM $B<-=q$d%M%C%H%o!<(B
-	$B%/$N<-=q%5!<%P$,MxMQ$G$-$^$9$+!)(B): Replace
+	* READMEs/FAQ.txt ([Q.] SKK の検索で、市販の CD-ROM 辞書やネットワー
+	クの辞書サーバが利用できますか？): Replace
 	VERSION_SPECIFIC_LISPDIR with ADDITIONAL_LISPDIR.
 
 	* experimental/skk-annotation.el (skk-annotation-quote): Bug
@@ -7280,8 +7280,8 @@
 	* doc/skk.texi: Call `texinfo-every-node-update' and
 	`texinfo-all-menus-update'.
 
-	* doc/skk.texi ($BAw$j$"$jJQ49Cf$N(BC-g): Doc fixed.
-	($B%+%J%b!<%I$G$NJQ49$NAw$j2>L>$N=hM}(B): Removed.
+	* doc/skk.texi (送りあり変換中のC-g): Doc fixed.
+	(カナモードでの変換の送り仮名の処理): Removed.
 
 2000-11-11  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
@@ -7407,11 +7407,11 @@
 2000-10-31  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* doc/skk.texi: Add 2000 year to Copyright notice.
-	($B1QC18l$r$"$$$^$$$KJQ49$7$F<h$j=P$9(B): Remove unnecessary sentence.
+	(英単語をあいまいに変換して取り出す): Remove unnecessary sentence.
 
-	* READMEs/README.win (APEL $B$N(B byte-compile): Doc fixed.
+	* READMEs/README.win (APEL の byte-compile): Doc fixed.
 
-	* READMEs/CVS_digest (Tagify): Change section name to `tag $BIU$1(B'
+	* READMEs/CVS_digest (Tagify): Change section name to `tag 付け'
 	and update sentences.
 
 	* READMEs/INSTALL (APEL): Modify sentence slightly.
@@ -7421,5 +7421,5 @@
 	* Sync up with daredevil.
 
 ;; Local Variables:
-;; coding: iso-2022-jp
+;; coding: utf-8
 ;; End:

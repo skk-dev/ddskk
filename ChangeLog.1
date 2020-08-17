@@ -17,7 +17,7 @@
 	skk-hankaku-region, skk-hiragana-to-hankaku-region,
 	skk-katakana-to-hankaku-region): New function.
 	(skk-toggle-zenkaku-hankaku): Convert hiragana/katakana in midasi
-	into hankaku katakana in $B"&(B mode.
+	into hankaku katakana in ▽ mode.
 
 1999-10-30  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
 
@@ -25,7 +25,7 @@
 
 1999-10-27  FUKANO Masaaki <fukano-m@alp.cs.uec.ac.jp>
 
-	* doc/skk.texi ($BF~NO%b!<%I$r<($9%+!<%=%k?'$K4X$9$k@_Dj(B): typo
+	* doc/skk.texi (入力モードを示すカーソル色に関する設定): typo
 	fixed.
 
 1999-10-25  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
@@ -239,7 +239,7 @@
 
 	* skk-vars.el: Update autoloads.
 
-	* doc/skk.texi ($B$*4j$$(B): Add skk-dic ML e-mail address.
+	* doc/skk.texi (お願い): Add skk-dic ML e-mail address.
 
 	* experimental/skk-lookup.el (skk-lookup-pickup-headings): Bind
 	`lookup-gaiji-alternate' to null string and not bind
@@ -309,7 +309,7 @@
 	* skk-num.el: Require cl only when compiling.
 
 	* experimental/skk-lookup.el: Require cl when compiling.
-	(skk-lookup-pickup-pattern): Change regexp for multiple `$B!Z(B' and `$B![(B'
+	(skk-lookup-pickup-pattern): Change regexp for multiple `【' and `】'
 	pair.
 	(skk-lookup-process-heading): New function.
 	(skk-lookup-search): Use `skk-lookup-process-heading'.
@@ -326,7 +326,7 @@
 
 1999-09-28  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
-	* doc/skk.texi (SKK$B4XO"%=%U%H%&%'%"(B): Add `skkfep$BFbB"(Bjvim' node.
+	* doc/skk.texi (SKK関連ソフトウェア): Add `skkfep内蔵jvim' node.
 
 1999-09-27  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
@@ -342,7 +342,7 @@
 
 1999-09-26  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
-	* doc/skk.texi (SKK$B4XO"%=%U%H%&%'%"(B): Add `SKK95' node.
+	* doc/skk.texi (SKK関連ソフトウェア): Add `SKK95' node.
 
 1999-09-25  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
@@ -386,7 +386,7 @@
 	* SKK-MK (SKK-MK-config): Recalc `SKK_LISPDIR' variable when
 	`PREFIX' is specified in command line.
 
-	* doc/skk.texi (SKK$B4XO"%=%U%H%&%'%"(B): Add `dbskkd-cdb' node.
+	* doc/skk.texi (SKK関連ソフトウェア): Add `dbskkd-cdb' node.
 
 1999-09-23  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
@@ -651,69 +651,69 @@
 
 1999-08-29  Masahiko Sato  <masahiko@gojo.kuis.kyoto-u.ac.jp>
 
-	* vip.el (vip-delete-backward-char): skk-mode $B$,(B t $B$N$H$-$N=hM}$r(B
-	$B2~NI!#(B
+	* vip.el (vip-delete-backward-char): skk-mode が t のときの処理を
+	改良。
 
 1999-08-28  Masahiko Sato  <masahiko@gojo.kuis.kyoto-u.ac.jp>
 
-	* vip.el (skk-pre-command): defadvice $B$G(B skk-foreword.el $B$G$NDj5A(B
-	$B$rJQ99!#(B
+	* vip.el (skk-pre-command): defadvice で skk-foreword.el での定義
+	を変更。
 
-	* skk-foreword.el (skk-pre-command): this-command $B$,(B
-	vip-delete-backward-char $B$N>l9g$N=hM}$r(B vip.el $B$K0\$7$?!#(B
+	* skk-foreword.el (skk-pre-command): this-command が
+	vip-delete-backward-char の場合の処理を vip.el に移した。
 
 1999-08-27  Masahiko Sato  <masahiko@gojo.kuis.kyoto-u.ac.jp>
 
 	* vip.el (vip-skk-mode-on):
 	(add-hook 'pre-command-hook 'skk-pre-command nil 'local)
-	$B$rDI2C!#(B
-	(vip-skk-mode-off): $B0J2<$N9T$r:o=|(B
+	を追加。
+	(vip-skk-mode-off): 以下の行を削除
 
 	  (setq skk-mode nil)
 	  (vip-skk-mode-off):
 
-	(if skk-abbrev-mode (skk-j-mode-on)) $B$r@hF,$KDI2C!#JQ?t(B
-	vip-skk-abbrev-mode $B$,ITMW$K$J$C$?!#(B
+	(if skk-abbrev-mode (skk-j-mode-on)) を先頭に追加。変数
+	vip-skk-abbrev-mode が不要になった。
 
-	* skk-foreword.el (skk-pre-command): skk-pre-command $B$r<B9T$7$J$$(B
-	$B%3%^%s%I$N%j%9%H$K(B vip-delete-backward-char $B$rDI2C!#(B
+	* skk-foreword.el (skk-pre-command): skk-pre-command を実行しない
+	コマンドのリストに vip-delete-backward-char を追加。
 
-	* skk.el (abort-recursive-edit): pre-command-hook $B$KBP$9$k(B
-	add-hook $B$,(B local $B$K$J$k$h$&$K$7$?!#(Bskk.el $BA4BN$GF1MM$NJQ99$r$7$?!#(B
+	* skk.el (abort-recursive-edit): pre-command-hook に対する
+	add-hook が local になるようにした。skk.el 全体で同様の変更をした。
 
 1999-08-25  Masahiko Sato  <masahiko@kuis.kyoto-u.ac.jp>
 
-	* skk.el: vip $B4XO"$N%3!<%I$r$9$Y$F:o=|!#(B
-	(skk-mode): $B:G=i$K(B skk-mode $B$KF~$C$?$H$-!'(B
+	* skk.el: vip 関連のコードをすべて削除。
+	(skk-mode): 最初に skk-mode に入ったとき：
 
 	    (require 'skk-autoloads)
 	    (if skk-use-numeric-conversion (require 'skk-num))
 
-	$B$rDI2C(B.
-	(skk-input-mode-string): buffer local $B$K$7$?!#M}M3$OJ#?t$N(B mode
-	line $B$,$"$k$H$-!"B>$N(B mode line $B$K1F6A$7$J$$$h$&$K$9$k$?$a!#(B
-	(skk-update-jisyo-original): $BCzEY(B skk-jisyo-save-count $B2s$@$1<-=q(B
-	$B$r99?7$7$?$H$-$K%;!<%V$9$k$h$&$K$7$?!#$3$l$^$G$O!"Nc$($P!"(B
-	skk-jisyo-save-count $B$,(B 50 $B$J$i$P(B 51 $B2s99?7$7$?$H$-$K<-=q$,%;!<%V(B
-	$B$5$l$F$$$?!#(B
+	を追加.
+	(skk-input-mode-string): buffer local にした。理由は複数の mode
+	line があるとき、他の mode line に影響しないようにするため。
+	(skk-update-jisyo-original): 丁度 skk-jisyo-save-count 回だけ辞書
+	を更新したときにセーブするようにした。これまでは、例えば、
+	skk-jisyo-save-count が 50 ならば 51 回更新したときに辞書がセーブ
+	されていた。
 
-	* skk-foreword.el (skk-erase-prefix): skk-kana-start-point $B$,(B
-	(point-max) $B$+$I$&$+$r%A%'%C%/$9$k$h$&$K$7$?!#(B
+	* skk-foreword.el (skk-erase-prefix): skk-kana-start-point が
+	(point-max) かどうかをチェックするようにした。
 
-	* skk-autoloads.el: (provide 'skk-autoloads) $B$rDI2C!#(B
-	(autoload 'skk-version "skk" nil t nil) $B$r(B comment out$B!#(B
+	* skk-autoloads.el: (provide 'skk-autoloads) を追加。
+	(autoload 'skk-version "skk" nil t nil) を comment out。
 
-	* vip.el: minor mode $B$H$7$F<BAu!#(Bminor-mode-map-alist $B$N@hF,$K(B
-	vip-vi-mode, vip-insert-mode $B$N%-!<%^%C%W$,$/$k$h$&$K$7$?!#(Bvip $B$N(B
-	vi$B%b!<%I$G$O(B vip-vi-mode $B$N%-!<%^%C%W$r;HMQ$7!"(Binsert$B%b!<%I$G$O(B
-	vip-insert-mode $B$N%-!<%^%C%W$r;HMQ$9$k!#(Blocal-map $B$r;H$o$J$$$h$&$K(B
-	$B$7$?!#(B
-	skk $B4XO"$N%3!<%I$O$9$Y$F(B vip.el $B$K5[<}!#(B
-	viper.el $B$,(B vip-mode $B$r(B autoload $B$G$-$J$/$7$F$$$k$N$G!"(BVip-mode $B$rDI2C!#(B
-	(provide 'vip) $B$rDI2C!#(B
+	* vip.el: minor mode として実装。minor-mode-map-alist の先頭に
+	vip-vi-mode, vip-insert-mode のキーマップがくるようにした。vip の
+	viモードでは vip-vi-mode のキーマップを使用し、insertモードでは
+	vip-insert-mode のキーマップを使用する。local-map を使わないように
+	した。
+	skk 関連のコードはすべて vip.el に吸収。
+	viper.el が vip-mode を autoload できなくしているので、Vip-mode を追加。
+	(provide 'vip) を追加。
 	(vip-change-mode-line): 17b -> 12b
-	(vip-info-on-file): line number $B$N7W;;$r=$@5!#(B
-	(vip-delete-backward-char): $B:G8e$NItJ,$r0J2<$N$h$&$KJQ99!#(B
+	(vip-info-on-file): line number の計算を修正。
+	(vip-delete-backward-char): 最後の部分を以下のように変更。
 
 	   (if (and skk-mode (skk-get-prefix skk-current-rule-tree))
 	      (skk-erase-prefix 'clean)
@@ -722,9 +722,9 @@
 1999-08-19  Yuh Ohmura  <yutopia@t3.rim.or.jp>
 
 	* lisp/skk.el (skk-rom-kana-base-rule-list): Remove
-	`("mm" "c" ("$B%C(B" . "$B$C(B"))' entry.
-	* (skk-rom-kana-rule-list): Add `("mm" "m" ("$B%s(B" . "$B$s(B"))' entry
-	to insert $B!V$,$s$^!W(B by "gamma".
+	`("mm" "c" ("ッ" . "っ"))' entry.
+	* (skk-rom-kana-rule-list): Add `("mm" "m" ("ン" . "ん"))' entry
+	to insert 「がんま」 by "gamma".
 
 1999-08-19  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
@@ -1020,7 +1020,7 @@
 	* lisp/skk-kcode.el (skk-display-code-for-char-at-point): Bug
 	fixed.
 
-1999-02-20  $B>>0f9'M:(B/MATUI Takao  <mat@nuis.ac.jp>
+1999-02-20  松井孝雄/MATUI Takao  <mat@nuis.ac.jp>
 
 	* lisp/skk-isearch.el
 	(skk-isearch-breakable-character-p-function): Bug fixed.
@@ -1130,5 +1130,5 @@
 	* experimental/dbm/skk-dbm.el: Add new experimental program.
 
 ;; Local Variables:
-;; coding: iso-2022-jp
+;; coding: utf-8
 ;; End:

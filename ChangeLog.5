@@ -28,7 +28,7 @@
 2014-10-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-annotation-browser-function): New variable.
-	`browse-url' $B$N$[$+(B `eww-browse-url' $B$b;HMQ2DG=$K(B.
+	`browse-url' のほか `eww-browse-url' も使用可能に.
 
 	* skk-annotation.el (skk-annotation-wait-for-input): Use it.
 
@@ -40,18 +40,18 @@
 
 2014-10-09  Ken Okada  <keno.ss57@gmail.com>
 
-	* skk.el (skk-setup-modeline): [skk 7790] `mode-line-format' $B$r(B nil $B$H$7$?(B
-	$B>l9g$NBP:v(B.
+	* skk.el (skk-setup-modeline): [skk 7790] `mode-line-format' を nil とした
+	場合の対策.
 
 2014-10-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-annotation.el (skkannot-emacs-24_3-or-later): Around eval-and-compile()
-	for XEmacs (thanks $BLZ2<C#Li(B).
+	for XEmacs (thanks 木下達也).
 
 2014-10-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-emacs.el (skk-tooltip-show-1): tooltip-set-param() $B$KBe$($F(B
-	skk-put-alist() $B$r;HMQ(B.
+	* skk-emacs.el (skk-tooltip-show-1): tooltip-set-param() に代えて
+	skk-put-alist() を使用.
 
 2014-09-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -60,17 +60,17 @@
 2014-09-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-show-mode-enable): New variable.
-	$B%A%e!<%H%j%"%k<B9TCf$K(B skk-show-mode $B$,5/F0$7$F$7$^$&$3$H$rKI$0(B.
+	チュートリアル実行中に skk-show-mode が起動してしまうことを防ぐ.
 
-	* skk-tut.el (skktut-init-variables-alist): $B%A%e!<%H%j%"%k<B9TCf$O(B
-	skk-show-mode-enable $B$r(B nil $B$H$9$k(B.
+	* skk-tut.el (skktut-init-variables-alist): チュートリアル実行中は
+	skk-show-mode-enable を nil とする.
 
 	* skk.el (skk-toggle-characters): Use it.
 
 2014-09-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-tut.el (skktut-next-answer-buffer): scroll-other-window()
-	$B$rDI2C(B.
+	を追加.
 
 2014-09-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -82,10 +82,10 @@
 
 2014-09-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* SKK-MK (SKK_DATADIR): 2014-09-07 $B$ND{@5(B.
-	data-directory $B$N(B /skk $B%G%#%l%/%H%j(B.
+	* SKK-MK (SKK_DATADIR): 2014-09-07 の訂正.
+	data-directory の /skk ディレクトリ.
 
-	* doc/skk.texi: $BJQ?t(B skk-icon $B$K$D$$$F5-:\(B.
+	* doc/skk.texi: 変数 skk-icon について記載.
 
 2014-09-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -94,14 +94,14 @@
 2014-09-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* SKK-MK (install-prefix, SKK_DATADIR, SKK_INFODIR):
-	NTEmacs 24.4 $B8~$1$ND4@0(B (see Emacs News: Changes in Emacs 24.2 on
+	NTEmacs 24.4 向けの調整 (see Emacs News: Changes in Emacs 24.2 on
 	Non-Free Opetating System).
 
 2014-09-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.el (skk-save-jisyo): $B8D?M<-=q$,$J$1$l$P%(%i!<$H$J$j!"FC$K(B
-	kill-emacs-hook $B$+$i8F$P$l$?>l9g$O(B emacs $B$r=*N;$G$-$J$/$J$k$?$a(B
-	$B8D?M<-=q$NB8H](B (file-exists-p skk-jisyo) $B$rDI2C(B.
+	* skk.el (skk-save-jisyo): 個人辞書がなければエラーとなり、特に
+	kill-emacs-hook から呼ばれた場合は emacs を終了できなくなるため
+	個人辞書の存否 (file-exists-p skk-jisyo) を追加.
 
 2014-06-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -158,7 +158,7 @@
 2013-11-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-rom-kana-base-rule-list): Add new rule.
-	`z:' to `$(O!,(B' $BH>ByE@(B(1$B6h(B12$BE@(B), `z;' to `$(O!+(B' $BByE@(B(1$B6h(B11$BE@(B).
+	`z:' to `゜' 半濁点(1区12点), `z;' to `゛' 濁点(1区11点).
 
 2013-11-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -169,9 +169,9 @@
 	* doc/skk.texi: Update.
 
 	* skk-isearch.el (skk-isearch-setup-keymap, skk-isearch-start-henkan):
-	fboundp() $B$G(B isearch-other-control-char $B$rH=CG$9$k$h$&JQ99(B.
-	isearch-other-control-char / isearch-other-meta-char $B$O(B GNU Emacs 24.3
-	$B$^$G(B[ChangeLog 2013-10-08].
+	fboundp() で isearch-other-control-char を判断するよう変更.
+	isearch-other-control-char / isearch-other-meta-char は GNU Emacs 24.3
+	まで[ChangeLog 2013-10-08].
 
 2013-10-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -180,19 +180,19 @@
 2013-10-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-isearch.el (skk-isearch-redo-function):
-	$BJQ?t(B skk-dcomp-multiple-activate $B$r(B $B0l;~E*$K(B nil $B$H$9$k(B.
-	isearch $BCf$N$+$J4A;zJQ49$O!"(Bskk-isearch-redo-function() $BFb$N(B
-	command-execute() $B$K$F(B skk-insert() $B7PM3$G(B skk-dcomp-multiple-show()
-	$B$KC)$jCe$/(B. skk-dcomp-multiple-show() $B$O=>A0$+$i(B minibuffer $BH=CG(B
-	skk-in-minibuffer-p() $B$,9MN8$5$l$F$$$k$,!"8F$S=P$785$N(B
-	skk-isearch-redo-function() $B$G$O(B with-current-buffer skk-isearch-working-buffer
-	$B4D6-2<$G$"$k$?$a(B skk-in-minibuffer-p() $B$O(B nil $B$G$"$k(B.
-	$B7k2L$H$7$F(B minibuffer $B$G$"$k$K$b4X$o$i$:(B skk-dcomp-multiple-show()
-	$B$r<B9T$9$k$3$H$H$J$j%(%i!<$,@8$8$F$$$?(B.
+	変数 skk-dcomp-multiple-activate を 一時的に nil とする.
+	isearch 中のかな漢字変換は、skk-isearch-redo-function() 内の
+	command-execute() にて skk-insert() 経由で skk-dcomp-multiple-show()
+	に辿り着く. skk-dcomp-multiple-show() は従前から minibuffer 判断
+	skk-in-minibuffer-p() が考慮されているが、呼び出し元の
+	skk-isearch-redo-function() では with-current-buffer skk-isearch-working-buffer
+	環境下であるため skk-in-minibuffer-p() は nil である.
+	結果として minibuffer であるにも関わらず skk-dcomp-multiple-show()
+	を実行することとなりエラーが生じていた.
 
-	(skk-isearch-delete-char): isearch-cmds $B$,(B nil $B$G$"$k$H$-$N9MN8$rDI2C(B.
-	$BC5:wJ8;zNs$r(B Backspace $B$G>C5n$7?T$7$?$H$-!"$9$J$o$A(B isearch-cmds $B$,(B nil
-	$B$H$J$C$?$H$-$N9MN8ITB-$G%(%i!<$,@8$8$F$$$?(B.
+	(skk-isearch-delete-char): isearch-cmds が nil であるときの考慮を追加.
+	探索文字列を Backspace で消去し尽したとき、すなわち isearch-cmds が nil
+	となったときの考慮不足でエラーが生じていた.
 
 2013-10-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -207,7 +207,7 @@
 
 2013-10-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-develop.el: lisp-font-lock-keywords-2 $B$K4X$9$k%3%a%s%H(B.
+	* skk-develop.el: lisp-font-lock-keywords-2 に関するコメント.
 
 2013-09-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -219,8 +219,8 @@
 
 2013-09-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-vars.el (skk-azik-keyboard-type): $B%3%a%s%H$rHy=$@5(B.
-	* doc/skk.texi: $BF1>e(B.
+	* skk-vars.el (skk-azik-keyboard-type): コメントを微修正.
+	* doc/skk.texi: 同上.
 
 2013-08-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -228,8 +228,8 @@
 
 2013-08-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-vars.el (skk-rom-kana-base-rule-list): Add key stroke z* to `$B"((B',
-	z0 to `$B!{(B' and z@ to `$B!}(B'.
+	* skk-vars.el (skk-rom-kana-base-rule-list): Add key stroke z* to `※',
+	z0 to `○' and z@ to `◎'.
 
 2013-08-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -248,17 +248,17 @@
 	(skk-dcomp-multiple-selected-face, skk-display-code-prompt-face)
 	(skk-display-code-char-face, skk-tut-section-face)
 	(skk-tut-do-it-face, skk-tut-question-face)
-	(skk-tut-key-bind-face, skk-tut-hint-face): defface() $B$NI=5-$rE}0l(B.
+	(skk-tut-key-bind-face, skk-tut-hint-face): defface() の表記を統一.
 
 2013-08-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.el (skk-toggle-characters): $B%H%0%kJQ49$N>l9g$O(B skk-show-mode $B$r(B
-	$BI=<($7$J$$(B.
+	* skk.el (skk-toggle-characters): トグル変換の場合は skk-show-mode を
+	表示しない.
 
 2013-08-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.el (skk-mode-exit): skk-mode-exit() $B<B9T$N:]$K$O(B
-	skk-show-mode-show $B$r(B nil $B$H$9$k(B.
+	* skk.el (skk-mode-exit): skk-mode-exit() 実行の際には
+	skk-show-mode-show を nil とする.
 
 2013-08-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -287,8 +287,8 @@
 	(skk-candidate-buffer-fringe-width): New variable.
 
 	* skk.el (skk-henkan-show-candidates-buffer): Use it.
-	`skk-candidate-buffer-display-fringes' $B$,(B nil $B$J$i$P!"8uJd%P%C%U%!$N(B
-	fringe $B$r>C$9!#(B
+	`skk-candidate-buffer-display-fringes' が nil ならば、候補バッファの
+	fringe を消す。
 
 	* doc/skk.texi: Update.
 
@@ -301,8 +301,8 @@
 
 	* skk.el (skk-auto-kutouten): New function.
 
-	* skk-vars.el (skk-rom-kana-base-rule-list): "." $B$H(B "," $B$H(B "-" $B$K$D$$$F!"(B
-	skk-auto-kutouten() $B$r8F$S=P$9$h$&JQ99(B.
+	* skk-vars.el (skk-rom-kana-base-rule-list): "." と "," と "-" について、
+	skk-auto-kutouten() を呼び出すよう変更.
 	(skk-use-auto-kutouten): New variable.
 
 	* doc/skk.texi: Update.
@@ -323,8 +323,8 @@
 	(skk-comp-arrange-kana-list, skk-comp-re-search-current-buffer)
 	(skk-smart-find): Add autoload cookie.
 
-	* skk-act.el: warning $BBP:v$N$?$a!"(Bskk-jisx0201{-base}-rule-list
-	$B$r(B defvar $B$9$k!#(B
+	* skk-act.el: warning 対策のため、skk-jisx0201{-base}-rule-list
+	を defvar する。
 	* skk-azik.el: Ditto.
 
 2013-07-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
@@ -380,8 +380,8 @@
 
 2013-03-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-macs.el (skk-face-proportional-p): 2013-03-26 $B$N=$@5$r<h>C(B.
-	$B85$N>uBV$XLa$7$?(B.
+	* skk-macs.el (skk-face-proportional-p): 2013-03-26 の修正を取消.
+	元の状態へ戻した.
 
 	* skk-macs.el (skk-facep): New macro.
 	* skk.el (skk-make-indicator-alist-1): Use skk-facep() for XEmacs.
@@ -391,7 +391,7 @@
 	* SKK-MK (SKK-MK-what-where, SKK-MK-what-where-package):
 	Display emacsen version in ddskk installation.
 
-	* skk-macs.el (skk-face-proportional-p): $B0z?t$N%A%'%C%/$rDI2C(B.
+	* skk-macs.el (skk-face-proportional-p): 引数のチェックを追加.
 
 2013-03-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -402,12 +402,12 @@
 	* skk-macs.el (int-char): Add comment.
 	* skk.el (skk-compute-henkan-lists): ditto.
 
-	* skk-macs.el (string-to-char-list): $BGQ;_(B. $B$3$l$,=P8=$9$k$N$O(B
-	"defalias 'string-to-int-list 'string-to-char-list" $B$N$_(B.
-	$B$7$?$,$C$F(B string-to-int-list $B$G<BBNDj5A$9$l$P:Q$`(B.
+	* skk-macs.el (string-to-char-list): 廃止. これが出現するのは
+	"defalias 'string-to-int-list 'string-to-char-list" のみ.
+	したがって string-to-int-list で実体定義すれば済む.
 
-	* skk-macs.el (string-to-int-list): GNU Emacs $B$H(B XEmacs $B$GJL!9$K(B
-	$BDj5A$5$l$F$$$?$b$N$rE}9g(B.
+	* skk-macs.el (string-to-int-list): GNU Emacs と XEmacs で別々に
+	定義されていたものを統合.
 
 2013-03-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -417,19 +417,19 @@
 	* skk.el (skk-kill-emacs-without-saving-jisyo)
 	(skk-remove-redundant-okurigana, skk-purge-from-jisyo)
 	(skk-reread-private-jisyo, skk-remove-common):
-	yes-or-no-p() $B$H(B y-or-no-p() $B$N%W%m%s%W%H$NKvHx$K6uGr$rA^F~(B.
+	yes-or-no-p() と y-or-no-p() のプロンプトの末尾に空白を挿入.
 
 	* skk-macs.el (skk-message, skk-error, skk-yes-or-no-p)
 	(skk-y-or-n-p, skk-set-marker):
 	* skk-tut.el (skktut-message, skktut-error, skktut-yes-or-no-p):
-	$B%P%C%/%/%*!<%H7A<0$K=q$-D>$7$?(B.
+	バッククオート形式に書き直した.
 
 2013-03-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.
 
-	* skk-macs.el (skk-put-last-henkan-datum): $B$I$3$+$i$b;2>H$5$l$F(B
-	$B$$$J$$$N$G!"$$$C$?$s:o=|(B.
+	* skk-macs.el (skk-put-last-henkan-datum): どこからも参照されて
+	いないので、いったん削除.
 
 2013-03-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -534,19 +534,19 @@
 
 2013-01-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.el (skk-require-module): skk-show-mode-inline() $B$OFbIt$G(B
-	skk-dcomp-multiple-show() $B$rMxMQ$7$F$$$k$?$a!"(B'skk-show-mode $B$N(B
-	require $B$HF1;~$K(B 'skk-dcomp $B$b(B require $B$9$k(B.
+	* skk.el (skk-require-module): skk-show-mode-inline() は内部で
+	skk-dcomp-multiple-show() を利用しているため、'skk-show-mode の
+	require と同時に 'skk-dcomp も require する.
 
-	* skk-show-mode.el: comment $B$rDI2C(B.
+	* skk-show-mode.el: comment を追加.
 
-	* skk-vars.el (skk-show-mode-show): docstring $B$r=$@5(B.
+	* skk-vars.el (skk-show-mode-show): docstring を修正.
 
 2013-01-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.el (skk-henkan-list-filter): comment $B$rDI2C(B.
+	* skk.el (skk-henkan-list-filter): comment を追加.
 	(newline, newline-and-indent, exit-minibuffer)
-	(skk-wrap-newline-command): docstring $B$rHy=$@5(B.
+	(skk-wrap-newline-command): docstring を微修正.
 
 2013-01-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -559,7 +559,7 @@
 	* skk-vars.el (skk-show-annotation): Update.
 
 	* skk-annotation.el (skk-annotation-display-p)
-	(skk-annotation-toggle-display-p): (eq FOO nil) $B$KBe$($F(B (null FOO).
+	(skk-annotation-toggle-display-p): (eq FOO nil) に代えて (null FOO).
 
 2012-12-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -579,9 +579,9 @@
 
 2012-12-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-gadget.el (skk-current-date, skk-clock): docstring $B$rHy=$@5(B.
+	* skk-gadget.el (skk-current-date, skk-clock): docstring を微修正.
 
-	* skk-develop.el (skk-submit-bug-report): `n' $B$HEz$($?$H$-$N%a%C%;!<%8>C5n(B.
+	* skk-develop.el (skk-submit-bug-report): `n' と答えたときのメッセージ消去.
 
 2012-12-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -589,22 +589,22 @@
 
 2012-12-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-isearch.el (skk-isearch-delete-char): isearch-cmds $B$N;EMMJQ99$KBP1~(B.
+	* skk-isearch.el (skk-isearch-delete-char): isearch-cmds の仕様変更に対応.
 
 2012-12-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-show-inline, skk-dcomp-multiple-activate):
 	Update Docstring.
 
-	* skk-isearch.el (skk-isearch-delete-char): GNU Emacs 21 $B8~$1$N%3!<%I$r:o=|(B.
+	* skk-isearch.el (skk-isearch-delete-char): GNU Emacs 21 向けのコードを削除.
 
 2012-11-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-kcode.el (skk-display-code): UNICODE $BI=<($N;CDjBP1~(B.
+	* skk-kcode.el (skk-display-code): UNICODE 表示の暫定対応.
 
 2012-11-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-kcode.el (skk-display-code): composition $BI=<($rDI2C(B.
+	* skk-kcode.el (skk-display-code): composition 表示を追加.
 
 	* doc/skk.texi: Update.
 
@@ -625,7 +625,7 @@
 2012-10-21  Tatsuya Kinoshita <tats@vega.ocn.ne.jp>
 
 	* ccc.el (ccc-setup-current-colors, enable-theme, disable-theme):
-	M-x load-theme $BBP1~(B.
+	M-x load-theme 対応.
 
 2012-10-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -633,21 +633,21 @@
 
 2012-10-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-show-mode.el (skk-show-mode-inline): Byte compile $B;~$N(B warning $BBP:v$N(B
-	$B$?$a(B declare-function() $B$rDI2C(B.
+	* skk-show-mode.el (skk-show-mode-inline): Byte compile 時の warning 対策の
+	ため declare-function() を追加.
 	* skk-dcomp.el (skk-dcomp-multiple-get-candidates): Ditto.
 	* skk-annotation.el (skkannot-py-send-string)
 	(skkannot-py-send-command): Ditto.
 
 2012-10-13  Yuhei Maeda <yuhei.maeda@gmail.com>
 
-	* skk.el (skk-make-indicator-alist-1): $B:o=|$5$l$?(B face 'modeline $B$KBe$($F(B
-	'mode-line $B$r;HMQ!#(B
+	* skk.el (skk-make-indicator-alist-1): 削除された face 'modeline に代えて
+	'mode-line を使用。
 
 2012-09-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* bayesian/skk-bayesian.el (skk-bayesian-restart-process):
-	skk-running-gnu-emacs $B$KBe$($F(B (featurep 'emacs) $B$r;HMQ(B.
+	skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
 
 	* skk-vars.el (skk-annotation-show-as-message): Update docstring.
 	* doc/skk.texi: Update.
@@ -660,8 +660,8 @@
 
 2012-09-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* experimental/skk-search-web.el (skk-google-suggest): json $B%l%9%]%s%9$,GQ;_(B
-	$B$5$l$F$$$k$h$&$G$"$k$?$a!"(Bxml $B%l%9%]%s%9$r;HMQ$9$k$h$&$KJQ99(B.
+	* experimental/skk-search-web.el (skk-google-suggest): json レスポンスが廃止
+	されているようであるため、xml レスポンスを使用するように変更.
 
 2012-09-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -679,8 +679,8 @@
 
 2012-08-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-tut.el (skk-kakutei, skk-mode): interactive-p() $B$KBe$($F(B
-	skk-called-interactively-p() $B$r;HMQ(B.
+	* skk-tut.el (skk-kakutei, skk-mode): interactive-p() に代えて
+	skk-called-interactively-p() を使用.
 
 2012-08-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -782,16 +782,16 @@
 
 	* doc/skk.texi: Update.
 
-	* skk-emacs.el (skk-tooltip-show-at-point): tooltip-use-echo-area $B$r(B
-	$BIT;HMQ$H$7$?(B.
+	* skk-emacs.el (skk-tooltip-show-at-point): tooltip-use-echo-area を
+	不使用とした.
 
 2012-06-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-macs.el (skk-yes-or-no-p, skk-y-or-n-p): $B%=!<%9%3!<%I$N%$%s%G%s%H$r=$@5(B.
+	* skk-macs.el (skk-yes-or-no-p, skk-y-or-n-p): ソースコードのインデントを修正.
 
-	* skk-emacs.el (skk-tooltip-show-at-point): $B%3%a%s%H$rDI2C(B.
+	* skk-emacs.el (skk-tooltip-show-at-point): コメントを追加.
 
-	* doc/skk.texi ($BJ8L.$K1~$8$?<+F0%b!<%I@Z$jBX$((B): Update.
+	* doc/skk.texi (文脈に応じた自動モード切り替え): Update.
 
 2012-06-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -832,8 +832,8 @@
 
 2012-01-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-kcode.el (skk-display-code): $BJ8;z=89g$,(B jisx0213, jisx0208, ascii
-	$B0J30$N>l9g$KI=<($9$k%a%C%;!<%8$rJQ99(B.
+	* skk-kcode.el (skk-display-code): 文字集合が jisx0213, jisx0208, ascii
+	以外の場合に表示するメッセージを変更.
 
 2012-01-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -845,76 +845,76 @@
 
 2012-01-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-macs.el (skk-sit-for): Emacs 21 $B8~$1%3!<%I$r:o=|$7$?$3$H$KH<$C$F(B
-	GNU Emacs 22 $B0J9_$N(B sit-for() $B$H(B XEmacs $B$N(B sit-for() $B$K:90[$,$J$/$J$C$?(B
-	$B$3$H$+$i!"(Bskk-sit-for() $B$rGQ;_$7$?(B.
+	* skk-macs.el (skk-sit-for): Emacs 21 向けコードを削除したことに伴って
+	GNU Emacs 22 以降の sit-for() と XEmacs の sit-for() に差異がなくなった
+	ことから、skk-sit-for() を廃止した.
 
 	* skk.el (skk-henkan-on-message):
 	* skk-gadget.el (skk-clock):
 	* skk-annotation.el (skkannot-sit-for, skk-annotation-message):
-	skk-sit-for() $B$KBe$($F(B sit-for() $B$r;HMQ(B.
+	skk-sit-for() に代えて sit-for() を使用.
 
 2012-01-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-vars.el (skk-running-gnu-emacs): $B:o=|(B.
-	(skk-init-file): docstring $B$r99?7(B.
+	* skk-vars.el (skk-running-gnu-emacs): 削除.
+	(skk-init-file): docstring を更新.
 	(skkannot-url-installed-p, skk-isearch-breakable-character-p-function):
-	skk-running-gnu-emacs $B$KBe$($F(B (featurep 'emacs) $B$r;HMQ(B.
+	skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
 
-	* skk-viper.el: skk-running-gnu-emacs $B$KBe$($F(B (featurep 'emacs) $B$r;HMQ(B.
+	* skk-viper.el: skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
 
-	* SKK-MK (SKK-MK-server-installed-p): Emacs 21 $B8~$1%3!<%I$r:o=|(B.
+	* SKK-MK (SKK-MK-server-installed-p): Emacs 21 向けコードを削除.
 
 	* skk-kcode.el (skk-display-code):
-	skk-running-gnu-emacs $B$KBe$($F(B (featurep 'emacs) $B$r;HMQ(B.
+	skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
 
 	* skk-tankan.el (skk-tankan-get-char-data, skk-search-by-stroke-or-radical):
-	skk-running-gnu-emacs $B$KBe$($F(B (featurep 'emacs) $B$r;HMQ(B.
+	skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
 
 	* skk-isearch.el (skk-isearch-mode-setup, skk-isearch-mode-cleanup):
-	skk-running-gnu-emacs $B$KBe$($F(B (featurep 'emacs) $B$r;HMQ(B.
+	skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
 
 	* skk-annotation.el (skk-annotation-wait-for-input, skkannot-py-send-command):
-	Emacs 21 $B8~$1%3!<%I$r:o=|(B.
+	Emacs 21 向けコードを削除.
 
-	* doc/skk.texi: $B99?7(B.
+	* doc/skk.texi: 更新.
 
 2012-01-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-tut.el (skktut-init-variables-alist):
-	skk-running-gnu-emacs $B$KBe$($F(B (featurep 'emacs) $B$r;HMQ(B.
+	skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
 
-	* skk-study.el (skk-study-save): $B<g=hM}$r(B skk-study-save-1() $B$XJ,N%(B.
-	(skk-study-save-1): skk-study-save $B$N<g=hM}(B.
+	* skk-study.el (skk-study-save): 主処理を skk-study-save-1() へ分離.
+	(skk-study-save-1): skk-study-save の主処理.
 
-	* skk-inline.el (skk-add-background-color): Emacs 21 $B8~$1%3!<%I$r:o=|(B.
+	* skk-inline.el (skk-add-background-color): Emacs 21 向けコードを削除.
 	* skk-jisx0201.el:
-	$B%(%9%1!<%W%7!<%1%s%9(B 1b 24 41 $B$,:.:_$7$F$$$k$3$H$,H=L@!#$3$l$r:o=|(B.
+	エスケープシーケンス 1b 24 41 が混在していることが判明。これを削除.
 
 2012-01-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-cus.el (skk-cus-set): Emacs 21 $B8~$1%3!<%I$r:o=|(B.
+	* skk-cus.el (skk-cus-set): Emacs 21 向けコードを削除.
 
-	* skk-cursor.el: skk-running-gnu-emacs $B$KBe$($F(B (featurep 'emacs) $B$r;HMQ(B.
+	* skk-cursor.el: skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
 
 2012-01-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-emacs.el (skk-emacs-prepare-menu)
 	(skk-emacs-prepare-modeline-properties)
-	(skk-tooltip-show-at-point, skk-search-ja-dic): Emacs 21 $B8~$1%3!<%I$r:o=|(B.
+	(skk-tooltip-show-at-point, skk-search-ja-dic): Emacs 21 向けコードを削除.
 
 2012-01-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-macs.el (characterp): Emacs 21 $B8~$1%3!<%I$r:o=|(B.
-	* skk-emacs.el: Emacs 21 $B8~$1$N%3!<%I$r:o=|(B.$B6qBNE*$K$O<!$N#3$D!#(B
+	* skk-macs.el (characterp): Emacs 21 向けコードを削除.
+	* skk-emacs.el: Emacs 21 向けのコードを削除.具体的には次の３つ。
   	  - defalias 'window-inside-pixel-edges 'ignore
 	  - defalias 'posn-at-point 'ignore
 	  - require 'poe
 
 2012-01-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* SKK-MK: $B%$%s%9%H!<%k;~$N%P!<%8%g%s%A%'%C%/(B
-	string-lessp(emacs-version "22.0") $B$K(B (featurep 'emacs) $B$rDI2C(B.
+	* SKK-MK: インストール時のバージョンチェック
+	string-lessp(emacs-version "22.0") に (featurep 'emacs) を追加.
 
 2012-01-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -925,46 +925,46 @@
 	(skk-ascii-char-p, skk-jisx0208-p, skk-jisx0213-p)
 	(skk-split-char, skk-char-charset, skk-region-active-p)
 	(skk-process-kill-without-query, skk-string<):
-	skk-running-gnu-emacs $B$KBe$($F(B (featurep 'emacs) $B$r;HMQ(B.
+	skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
 
 	(skk-indicator-to-string, substring-no-properties):
-	Emacs 21 $B8~$1%3!<%I$r:o=|(B.
+	Emacs 21 向けコードを削除.
 
-	* skk-vars.el (skk-find-window-system): $B%3%a%s%H$r=$@5(B.
+	* skk-vars.el (skk-find-window-system): コメントを修正.
 	(skk-deflocalvar, skk-show-japanese-menu):
-	Emacs 21 $B8~$1%3!<%I$r:o=|(B.
+	Emacs 21 向けコードを削除.
 
 2012-01-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (find-coding-system, skk-find-window-system)
 	(skk-coding-system-alist):
-	skk-running-gnu-emacs $B$KBe$($F(B (featurep 'emacs) $B$r;HMQ(B.
+	skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
 
 	* skk.el (skk-henkan-show-candidate-subr, skk-search-function-usage)
 	(skk-mode-invoke, skk-setup-j-mode-map-options)
 	(skk-multiple-line-message):
-	skk-running-gnu-emacs $B$KBe$($F(B (featurep 'emacs) $B$r;HMQ(B.
+	skk-running-gnu-emacs に代えて (featurep 'emacs) を使用.
 
-	* skk-macs.el (ignore-errors): Emacs 21 $B8~$1%3!<%I$r:o=|(B.
-	docstring $B$r=$@5(B.
+	* skk-macs.el (ignore-errors): Emacs 21 向けコードを削除.
+	docstring を修正.
 	(skk-called-interactively-p, skk-sit-for, skk-window-body-height):
-	Emacs 21 $B8~$1%3!<%I$r:o=|(B.
+	Emacs 21 向けコードを削除.
 
-	* skk-kcode.el (skk-display-code): char-to-ucs() $B$,L$Dj5A$N>l9g$O(B
-	encode-char() $B$r;HMQ(B.
+	* skk-kcode.el (skk-display-code): char-to-ucs() が未定義の場合は
+	encode-char() を使用.
 
 2012-01-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-kcode-method, skk-kcode-charset-list): skk-running-gnu-emacs
-	$B$KBe$($F(B (featurep 'emacs) $B$r;HMQ(B.
+	に代えて (featurep 'emacs) を使用.
 	(skk-tooltip-mouse-behavior, skk-large-jisyo, skk-aux-large-jisyo):
-	(skk-use-face, skk-cdb-large-jisyo): Emacs 21 $B8~$1%3!<%I$r:o=|(B.
+	(skk-use-face, skk-cdb-large-jisyo): Emacs 21 向けコードを削除.
 
-	* SKK-MK (166$B9TL\(B): `;; After determining APEL installed dirctory.' $B$N(B
-	$BItJ,$+$i(B Emacs 21 $B8~$1%3!<%I$r:o=|(B.
-	(VERSION-STRING): Interactive Installer $B5/F0;~$K(B skk-version $B$rI=<((B.
+	* SKK-MK (166行目): `;; After determining APEL installed dirctory.' の
+	部分から Emacs 21 向けコードを削除.
+	(VERSION-STRING): Interactive Installer 起動時に skk-version を表示.
 
-	* Makefile (VERSION): 14.4.50 $B$X$H=$@5(B.
+	* Makefile (VERSION): 14.4.50 へと修正.
 
 2012-01-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -973,7 +973,7 @@
 
 2012-01-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi: GNU Emacs 21 $B$K8@5Z$9$k5-=R$r:o=|(B.
+	* doc/skk.texi: GNU Emacs 21 に言及する記述を削除.
 
 2012-01-04  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
 
@@ -992,5 +992,5 @@
 	* doc/skk.texi, Makefile, skk-version.el: Bump SKK version to 15.0.50.
 
 ;; Local Variables:
-;; coding: iso-2022-7bit-ss2
+;; coding: utf-8
 ;; End:
