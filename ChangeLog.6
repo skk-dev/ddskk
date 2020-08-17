@@ -1,0 +1,794 @@
+2020-02-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Version 16.3 Kuromatsunai Released.
+
+	* skk-version.el, docs/conf.py, ddskk-pkg.el, Makefile: Bump SKK version to 16.3.
+
+2020-02-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* README.md : update.
+
+	* SKK-MK (SKK-MK-export-to-html, SKK-MK-edit-texi):
+	(SKK-MK-export-to-texinfo): Remove function.
+
+	* docs/* : Add sphinx-format document.
+
+2019-04-23  Tetsuo Tsukamoto <>
+
+	* skk-annotation.el (skk-annotation-start-python): Bug Fix #72.
+	Function `set-process-coding-system' takes BUFFER as the 1st arg.
+
+2019-04-13  Tatsuya Kinoshita  <tats@debian.org>
+
+	* skk-gadget.el (skk-default-current-date, skk-ad-to-gengo-1)
+	(skk-gengo-to-ad-1): Support 昭和64年, 大正15年 and 明治45年.
+
+	* skk-gadget.el (skk-default-current-date, skk-ad-to-gengo-1)
+	(skk-gengo-to-ad-1): Support 令和元年(2019/5-) and 平成31年(-2019/4).
+	* skk-vars.el (skk-gengo-alist): Add Japan's new era 令和 (Reiwa).
+
+2019-02-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-develop.el (skk-get-download): Change URL skk-dev.github.io/dict/.
+
+	* make1.bat: Ditto.
+
+2019-01-09  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
+
+	* skk-macs.el (skk-char-to-unibyte-string): Bug Fix.
+
+2019-01-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-macs.el (skk-char-to-unibyte-string): 2017-02-11 の変更が間違いであるため
+	元に戻す.
+
+2018-12-20  Takeshi Abe  <tabe@fixedpoint.jp>
+
+	* doc/skk.org, doc/skk.texi, tar-util.el: Fix typo.
+
+	* doc/obsolete-doc/obsolete-skk.texi: Ditto.
+
+2018-07-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-annotation.el (skk-annotation-start-python): Use function
+	set-process-coding-system instead of set-buffer-process-coding-system.
+
+	* SKK-MK (SKK-MK-install-info-1): Fix install-info.
+
+2017-07-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (SKK-MK-export-to-texinfo): Use linkcolor and urlcolor.
+
+2017-07-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-annotation.el (skk-annotation-wait-for-input): Fix indent.
+	(skk-annotation-wait-for-input): Fix #58.
+
+	* skk.el (skk-compile-rule-list): Fix indent.
+
+2017-07-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (SKK-MK-export-to-texinfo): `{' と `}' に 接頭辞 `@' を追加.
+
+	* Makefile: ターゲット `mobi' を追加.
+
+2017-07-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Makefile (PDFTEX): Use macro TEXI2PDF.
+
+2017-07-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Makefile: ターゲット `pdf' を追加. PDF の生成方法を texi2pdf へ変更.
+
+	* SKK-MK (SKK-MK-edit-texi): New functionfor pdf.
+
+	* .gitignore: 無視する拡張子を追加.
+
+2017-07-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (SKK-MK-export-to-html): `RET' と `SPC' を class (span.key) とした.
+
+	* .gitignore: Add `skk.html'.
+
+2017-06-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Makefile, SKK-MK: 新たなターゲット texi, html を追加.
+	skk.texi から skk.org への移行.
+
+2017-06-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-annotation.el (eval-and-compile): make 時の Warning 対策のため
+	python-shell-internal-get-or-create-process と
+	python-shell-get-process-name を追加.
+
+2017-06-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-search-ja-dic-maybe): Add argument.
+	(skk-mode): Call skk-search-ja-dic-maybe() with argument.
+
+2017-05-31  Tetsuo Tsukamoto  <tt.tetsuo.tsukamoto@gmail.com>
+
+	* skk-annotation.el (skkannot-py-check-comint-prompt)
+	(skk-annotation-start-python, skk-annotation-start-python): Update
+	for GNU Emacs 25.
+	* skk-vars.el (skk-annotation-python-program): Default to "python”.
+
+2017-03-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-previous-candidate-char): Remove obsolete variable.
+
+	* skk.el (skk-setup-j-mode-map-options): Remove `skk-previous-candidate-char'.
+
+2017-03-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-dcomp.el (defadvice skk-kana-input): skk-pre-henkan 対応.
+	候補の確定操作を不要とする.
+
+	* SKK-MK (SKK_MODULES): Add skk-pre-henkan.
+
+2017-03-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* experimental/skk-pre-henkan.el (skk-pre-henkan-make-candidates): modify.
+
+2017-03-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* experimental/skk-pre-henkan.el (skk-pre-henkan-make-candidates):
+	Remove debug code.
+
+2017-03-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-search-web.el (skk-comp-google-candidates): New internal variable.
+	(skk-comp-google, skk-comp-google-make-candidates): New functions.
+
+	* experimental/skk-pre-henkan.el (skk-pre-henkan-make-candidates):
+	let*() から let() へ変更.
+	skk-dcomp-activate を nil へ.
+
+2017-03-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* experimental/skk-pre-henkan.el: Add new file.
+
+	* skk-dcomp.el (skk-dcomp-multiple-get-candidates): コメントを追加.
+
+	* skk-comp.el (skk-comp-do): インデントを修正.
+	(skk-comp-get-candidate): コメントを追加.
+
+	* skk.el (skk-treat-strip-note-from-word): 引数が nil の場合にエラーと
+	なることを防ぐ.
+
+2017-03-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Makefile, ddskk-pkg.el, skk-version.el: Bump SKK version to 16.2.50.
+
+2017-03-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Version 16.2 Warabitai Released.
+
+	* Makefile, ddskk-pkg.el, skk-version.el: Bump SKK version to 16.2.
+
+2017-03-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-develop.el (skk-get): GNU Emacs 24.3 以下は tar 非対応.
+	関数 tar--extract() は 24.4 から.
+
+2017-03-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* context-skk.el (context-skk-custumize-functions): Obsolete.
+
+2017-03-03  Masatake YAMATO <yamato@redhat.com>
+
+	* context-skk.el: fix typos (s/custumize/customize/g).
+
+2017-03-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* experimental/GUIDELINE, experimental/dbm/README.dbm:
+	* experimental/dbm/skk-dbm.el, experimental/rdbms/README.rdbms:
+	* experimental/rdbms/awk/busyu_base.awk, experimental/rdbms/awk/busyu_data.awk:
+	* experimental/rdbms/awk/dicconv.awk, experimental/rdbms/awk/kcode.awk:
+	* experimental/rdbms/awk/stroke.awk, experimental/rdbms/skk-rdbms.el:
+	* experimental/rdbms/sql/busyu.sql, experimental/rdbms/sql/createtbl.sql:
+	* experimental/rdbms/sql/hinsi.sql, experimental/rdbms/sql/kcode.sql:
+	* experimental/rdbms/sql/stroke.sql:
+	* make1.bat, makeit.bat:
+	* tut-code/README.tut:
+ 	delete lines that contains RCS KEYWORD `Version: $Id$: ' or
+	`Last Modified: $Date$: '.
+
+2017-02-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* experimental/rdbms/README.rdbms: convert to utf-8.
+
+	* experimental/dbm/README.dbm : convert to utf-8.
+
+2017-02-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* bayesian/README.ja.md: Update.
+
+2017-02-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-tut.el (skktut-init-variables-alist): Bug fix fb3c01.
+
+2017-02-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* bayesian/bskk (Distribution#decrement): Ruby 2.4 対応.
+
+	* bayesian/README.ja.md: Update.
+
+2017-02-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* bayesian/bskk (#debug_log): Display Time#now log message.
+	(#serve): Display recieved strings from skk-bayesian-read-process-output().
+
+2017-02-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* bayesian/skk-bayesian.el: Modify indent for coding style.
+
+	* bayesian/bskk: Insert some whitespace for coding style.
+
+2017-02-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* bayesian/skk-bayesian.el (skk-bayesian-process-live-p)
+	(skk-bayesian-restart-process): Remove unnecessary whitespace.
+	Remove code for GNU Emacs 22.
+
+2017-02-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* bayesian/skk-bayesian.el: Update docstring.
+
+2017-02-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el: obsolete variable `skk-henkan-show-candidates-rows' and
+	new variable `skk-henkan-number-to-display-candidates'.
+
+	* skk.el (skk-henkan-show-candidates, skk-henkan-show-candidate-subr):
+	* skk-tut.el (skktut-init-variables-alist):
+	* skk-inline.el (skk-inline-show-vertically):
+	Use `skk-henkan-number-to-display-candidates' instead of
+	`skk-henkan-show-candidates-rows'.
+
+2017-02-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-tut.el (skktut-init-variables-alist):
+	`skk-start-henkan-key' を `skk-start-henkan-char' へ訂正。ChangeLog.0:275.
+	`skk-show-candidates-nth-henkan-char' の初期化.
+
+2017-02-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-show-candidates-nth-henkan-char): New variable.
+	* skk.el (skk-henkan-1, skk-henkan-show-candidates): Use it.
+
+2017-02-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* bayesian/README.ja.md: Rename from README.ja.
+
+2017-02-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-macs.el (skk-char-to-unibyte-string): Use `encode-coding-string'
+	for GNU Emacs 26. `string-make-unibyte' is an obsolete function as of 26.1.
+
+2016-11-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-annotation.el (skk-annotation-show-buffer):
+	Remove function split-window-vertically().
+
+	* skk-vars.el (skk-candidate-buffer-delete-other-windows): New variable.
+	* skk.el (skk-henkan-show-candidates-buffer): Use it.
+
+2016-11-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (SKK_MODULES): XEmacs は skk-search-web は対象外.
+
+2016-10-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-annotation.el (skkannot-url-installed-p): Update comment.
+
+	* skk-vars.el (skk-jisyo-code): docstring 中の Emacs 22 に関する記載を削除.
+	* skk-macs.el (skk-find-coding-system): Ditto.
+
+	* SKK-MK, skk-jisx0213.el, skk-tut.el: Add comment `Mule-UCS'.
+
+2016-10-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-mode-invoke): Remove code for GNU Emacs 22.
+	* skk-kcode.el (skk-display-code): Ditto.
+	* skk-tankan.el (skk-tankan-get-char-data)
+	(skk-search-by-stroke-or-radical): Ditto.
+	* skk-vars.el (skk-coding-system-alist): Ditto
+
+	* skk-develop.el (skk-get-delete-files): Update comment.
+	* skk-annotation.el (skkannot-url-installed-p): Update comment.
+
+	* skk-vars.el (skkannot-url-installed-p): Remove code for GNU Emacs 22.
+	(skk-find-window-system): Remove code for GNU Emacs 22.
+	* skk-emacs.el (skk-search-ja-dic): Remove code for GNU Emacs 22.
+	(skk-called-interactively-p): Update comment.
+	* skk-macs.el (ignore-errors): Remove code for GNU Emacs 22.
+	(characterp, skk-split-char, skk-region-active-p): Ditto.
+	(skk-char-to-unibyte-string, skk-ascii-char-p): Ditto.
+	(skk-jisx0208-p, skk-jisx0213-p, skk-string<): Ditto.
+
+	* SKK-CFG: Update comment for GNU Emacs 25.
+
+2016-10-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Version 16.1 Futamata Released.
+
+2016-10-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* experimental/.cvsignore: Remove file.
+
+2016-09-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (noninteractive): Add message.
+
+2016-08-20  Masaya TANIGUCHI <ta2gch@gmail.com>
+
+	* skk-develop.el (skk-get): Change the default behavior.
+
+2016-02-25  Syohei YOSHIDA <syohex@gmail.com>
+
+	* skk.el (skk-search-and-replace): Don't overwrite match data.
+
+2016-02-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.ex: add exclude files.
+
+	* Makefile (tar): Rename target `snapshot' to `tar'.
+	(release): Add new target.
+
+2016-02-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Makefile (tar): use command `git archive'.
+
+	* .gitattributes: New file.
+
+	* doc/.cvsignore, experimental/.cvsignore, nicola/.cvsignore: Remove file.
+
+2016-02-08  Yuh Ohmura <yutopia@y6.dion.ne.jp>
+
+	* .travis.yml: remove test for Emacs 22.
+
+2016-02-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* .cvsignore: Remove file.
+
+	* ChangeLog.1.daredevil: Remove file.
+	ChangeLog.2.daredevil と同内容.
+
+2016-01-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-CFG: meadow に関する記述を削除.
+
+2016-01-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK: version check when installation. Emacs 22 is not supported by
+	this version of SKK.
+
+2016-01-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi, Makefile, skk-version.el, ddskk-pkg.el:
+	Bump SKK version to 16.1.50.
+
+2016-01-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-cursor-default-color): Add type.
+	emacs commit c3a2ed.
+
+2016-01-26  Yuh Ohmura <yutopia@y6.dion.ne.jp>
+
+	* .travis.yml: add test for emacs-snapshot and xemacs21(commented).
+
+2016-01-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* tar-util.el (tar-raw-buffer): Use `zlib-decompress-region'.
+
+2016-01-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* tar-util.el (tar-salvage-file): fix `kill- buffer' for emacs 22.
+
+2016-01-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* tar-util.el (tar-salvage-file, tar-make-descriptor, tar-file-descriptor):
+	(tar-raw-buffer, tar-list-files): Add autoload cookie.
+	declare some functions for shut up compiler warning.
+
+	* skk-develop.el: require tar-util when compile.
+	(skk-get): Return nil.
+	* SKK-MK (SKK_MODULES): Add tar-util.
+
+2016-01-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Makefile (get): Load tar-util.el.
+	* make1.bat (get): Ditto.
+	* skk-develop.el (skk-get-expand-tar): Use function `tar-salvage-file'
+	instead of tar command.
+
+2016-01-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* tar-util.el: Add new file.
+
+2016-01-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-use-search-web): New variable.
+	* skk.el (skk-require-module): Use it.
+	* skk-search-web.el: Remove comment.
+
+2016-01-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* dic/README: modify.
+
+2016-01-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-develop.el (skk-get-expand-tar): bug fix.
+	copy jisyo files from zipcode/.
+
+	* make1.bat: Add target `get'.
+
+2016-01-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-develop.el (skk-get): modify interactive prompt.
+	* skk-search-web.el: mv experimental/skk-search-web.el .
+
+2016-01-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-develop.el (skk-get-delete-files): Not use &optional RECURSIVE
+	for GNU Emacs22.
+
+2016-01-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-develop.el (skk-get-mkdir): use make-directory instead of mkdir
+	for emacs22.
+
+2016-01-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-develop.el (skk-get-generate-gzip-d, skk-get-generate-gzip-d-1):
+	Windows OS のための 即席 `gzip -d'.
+	(skk-get, skk-get-expand-gzip): Use it.
+
+2016-01-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (SKK-MK-what-where): Display dictionaries install path when
+	files exist ./DIC directory.
+	(Interactive Installer): Can be downloaded jisyo files during the
+	installation process.
+
+	* Makefile (get): add new target.
+
+	* skk-develop.el (skk-get-files): New variable.
+	(skk-get-download): Use `skk-get-files'.
+	(skk-get-delete-files): New function.
+	(skk-get-mkdir): Use `skk-get-delete-files'.
+	(skk-get-expand-gzip): rename from skk-get-gzip.
+	(skk-get-expand-tar): rename from skk-get-tar.
+
+	* skk-vars.el: fix comment.
+
+2016-01-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-get-jisyo-direcroty): New variable.
+
+	* skk-develop.el (skk-get-mkdir, skk-get-download, skk-get-gzip)
+	(skk-get-tar); New internal functions.
+	(skk-get): New command.
+
+2015-12-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-henkan): fix comment, indent.
+	remove unnecessary let().
+	(skk-henkan-1): fix indent. add comment.
+	(skk-search): modify comment.
+
+2015-12-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi, Makefile, skk-version.el, ddskk-pkg.el:
+	Bump SKK version to 16.0.52.
+
+2015-12-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-henkan): Add comment.
+	(skk-henkan-1, skk-search): Fix indent.
+
+2015-12-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* experimental/skk-correct.el, experimental/skk-dinsert.el:
+	* experimental/skk-exsearch.el, experimental/skk-exserv.el:
+	* experimental/skk-search-web.el, experimental/skk-w3m.el:
+	* bayesian/bskk, bayesian/skk-bayesian.el:
+	* etc/NICOLA-SKK.tut, etc/SKK.tut, etc/SKK.tut.E:
+	* tut-code/skk-def.el, tut-code/skk-mkmgk.el:
+	* tut-code/skk-tutcdef.el, tut-code/skk-tutcode.el:
+	delete lines that contains RCS KEYWORD `Version: $Id$: ' or
+	`Last Modified: $Date$: '.
+
+2015-12-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* Makefile, SKK-CFG, SKK-MK, ccc.el, cdb.el, context-skk.el:
+	* skk-abbrev.el, skk-annotation.el, skk-auto.el, skk-azik.el:
+	* skk-comp.el, skk-cursor.el, skk-dcomp.el, skk-develop.el:
+	* skk-gadget.el, skk-isearch.el, skk-jisx0213.el, skk-kakasi.el:
+	* skk-kcode.el, skk-leim.el, skk-look.el, skk-lookup.el, skk-macs.el:
+	* skk-num.el, skk-server.el, skk-setup.el.in, skk-show-mode.el:
+	* skk-sticky.el, skk-study.el, skk-tankan.el, skk-tut.el, skk-vars.el:
+	* skk-version.el, skk-viper.el, skk.el, vip.el: delete lines that
+	contains RCS KEYWORD `Version: $Id$: ' or `Last Modified: $Date$: '.
+
+2015-12-03  Yuh Ohmura <yutopia@y6.dion.ne.jp>
+
+        * skk.el: not use ccc-setup on XEmacs.
+
+2015-12-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-save-jisyo-original, skk-compute-henkan-lists): Fix comment.
+	* skk-vars.el: Remove comment.
+
+2015-11-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-compute-henkan-lists, skk-search-jisyo)
+	(skk-update-jisyo-original): Update comment.
+	(skk-search-jisyo): Update docstring.
+	(skk-update-shared-jisyo, skk-update-jisyo-1): Fix indent.
+
+	(skk-update-jisyo-2): New function.
+	(skk-update-jisyo-1): Use it.
+
+2015-11-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-search-excluding-word-pattern-function): Update docstring.
+
+2015-11-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-macs.el (skk-cannot-be-undone): Remove unused macro.
+
+2015-09-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-comp.el (skk-smart-find): smart-find-file-all() を fboundp で判定.
+
+2015-06-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el: Wrapped org-return() in skk-wrap-newline-command().
+
+2015-06-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-macs.el (skk-help-make-usage): New macro.
+	`help-make-usage' is an obsolete function (as of 25.1).
+
+	* skk.el (skk-search-function-usage): Use it.
+
+	* skk-vars.el (skk-completion-prog-list): Update docstring.
+
+
+2015-03-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-gadget.el: Modify comment.
+
+2015-02-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi, Makefile, skk-version.el, ddskk-pkg.el:
+	Bump SKK version to 16.0.51.
+
+2015-02-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* experimental/skk-search-web.el: Update comment.
+
+2015-02-05  Yuhei Maeda  <yuhei.maeda@gmail.com>
+
+	* skk.el: Fix bug for delete-selection-mode
+	This bug is related to cdcd50bbf7bffbddbaf681ecb596b78fab648c6b
+
+2015-01-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el, skk-setup.el.in: add-hook 'after-init-hook skk-preload()
+	を skk-setup.el から skk.el (skk-autoloads.el) へ移動.
+	2014-11-30 の変更を復元. http://mail.ring.gr.jp/skk/201501/msg00047.html
+
+2015-01-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (SKK-MK-uninstall): Display message when deleted file
+	or directory.
+
+2015-01-11  Yuhei Maeda  <yuhei.maeda@gmail.com>
+
+	* ccc.el: Fix comment header
+
+2015-01-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-get-jisyo-buffer): Fix docstring.
+	* skk-vars.el (skk-jisyo-code): Fix docstring.
+
+	* Makefile: add target uninstall.
+	* make1.bat: ditto.
+	* SKK-MK (SKK-MK-uninstall): add function SKK-MK-uninstall.
+
+	* skk-setup.el.in (after-init-hook): correct indent.
+
+2015-01-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el: modify comment.
+
+2015-01-11  Yuhei Maeda  <yuhei.maeda@gmail.com>
+
+	* ccc.el: Add prefix "ccc-".
+	* ccc.el: Fix comment header.
+
+2015-01-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-version.el (skk-version): Add mepla version to propname
+	`version-string' in 'skk-version.
+
+	* SKK-MK (VERSION-STRING): If noninteractive, set nil.
+
+	* make1.bat: Add target `test'.
+
+2015-01-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-emacs.el (skk-emacs-prepare-modeline-properties):
+	Add load-path for locate skk.xpm.
+
+2015-01-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-jisyo-code): Fix docstring.
+
+2015-01-06  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
+
+	* README.md: Typo fix.
+
+2015-01-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* README.md: Add message line about join ddskk-commiter team.
+
+2015-01-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-search-extra-jisyo-files): Add comment.
+
+2015-01-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-jisyo-code): Fix docstring.
+
+	* skk-macs.el (skk-find-coding-system): Fix docstring.
+
+	* SKK-MK (SKK-MK-texinfo-pre-format): Add Comment.
+
+2015-01-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* README.md: Change major mode from text to markdown.
+
+	* ddskk-pkg.el: Add comment.
+
+2014-12-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (SKK-MK-texinfo-pre-format): function disabled.
+	(SKK-MK-texinfo-post-format): Enable all emacsen.
+
+2014-12-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* SKK-MK (SKK_DICTIONARIES): Add SKK-JISYO.lisp.
+
+	* skk.ex: ditto.
+
+2014-12-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* makeit.bat: Fix Comment.
+
+2014-12-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* context-skk.el, skk-abbrev.el, skk-dcomp.el, skk-look.el:
+	* skk-vars.el, skk.el: Replace ~/.emacs in comment to ~/.emacs.d/init.el.
+
+2014-12-24  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
+
+	* README.md: Typo fix.
+
+2014-12-23  Keisuke Kawahara  <kyohsuke@conafie.jp>
+
+	* README.md: add Contributing.
+
+2014-12-23  Yuh Ohmura  <yutopia@y6.dion.ne.jp>
+
+	* READMEs/TODO.ja: add discription about texi document for package.el.
+
+2014-12-22  myuhe  <yuhei.maeda@gmail.com>
+
+	* README.md: Add MELPA badge.
+
+	* ddskk-pkg.el, skk-pkg.el: Rename skk-pkg.el to ddskk-pkg.el.
+
+2014-12-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* README.md: rename from READMEs/README.
+
+2014-12-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* bayesian/README.ja, dic/README, experimental/GUIDELINE:
+	* patches/README.ja, tut-code/README.tut: convert to utf-8.
+
+2014-12-21  myuhe  <yuhei.maeda@gmail.com>
+
+	* README.md: Add Travis badge.
+
+2014-12-21  Yasushi Abe  <yasushi.abe@gmail.com>
+
+	* SKK-MK, doc/skk.texi, queue-m.el, skk.el: Use list instead of
+	queue-m.
+	* .gitignore, test/all-test.el, test/skk-test.el, Makefile: Add ERT
+	tests.
+	* .travis.yml: Add new file.
+
+2014-12-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* README.md: modify message.
+
+2014-12-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* README.md: change message.
+
+	* .gitignore: new file.  無視するファイルを追加.
+
+2014-12-18  Yuh Ohmura  <yutopia@y6.dion.ne.jp>
+
+	* Makefile: modify make snapshot, correct make tar.
+
+2014-12-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* README.md: modify message.
+
+2014-12-17  Yuh Ohmura  <yutopia@y6.dion.ne.jp>
+
+	* makeit.bat, make1.bat: new mail address.
+
+	* doc/skk.texi: correct typo
+
+2014-12-17  Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
+
+	* README.md: Create README.md.
+
+2014-12-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-annotation-browser-function): Remove variable.
+	(skk-annotation-browse-key): Fix docstring.
+
+	* skk-annotation.el (skk-annotation-wait-for-input): Use function browse-url.
+
+	* doc/skk.texi: Update.
+
+2014-12-06  Takenari Shinohara  <takenari.shinohara@gmail.com>
+
+	* skk-pkg.el: Add requirements (cdb package).
+
+2014-12-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi, Makefile, skk-version.el, skk-pkg.el:
+	Bump SKK version to 16.0.50.
+
+2014-12-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* doc/skk.texi (skk-kanagaki-keyboard-type): Add follow symbols.
+	nicola-us, nicola-dvorak, nicola-colemak, omelet-us,
+	omelet-dvorak, omelet-colemak and oasys.
+
+2014-12-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el: MELPA 対策のため、featurep で確認してから
+	require skk-autoloads するよう変更.
+	Thanks to Yuhei Maeda.
+
+	* skk.ex: .git を追加.
+
+2014-12-01  Takenari Shinohara  <takenari.shinohara@gmail.com>
+
+	* cdb.el: ヘッダ行などファイルの体裁を整備.
+
+2014-11-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-emacs.el (skk-emacs-modeline-property):
+	メッセージに改行文字を挿入.
+
+	* skk.el, skk-setup.el.in: add-hook 'after-init-hook skk-preload()
+	を skk.el (skk-autoloads.el) から skk-setup.el へ移動.
+
+2014-11-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-pkg.el: Add new file.
+
+;; Local Variables:
+;; coding: utf-8
+;; End:
