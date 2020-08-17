@@ -1,5 +1,8 @@
 2020-08-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* ChangeLog.0, ChangeLog.1, ChangeLog.2, ChangeLog.2.daredevil:
+	* ChangeLog.3, ChangeLog.4, ChangeLog.5: Change coding-system to utf-8.
+
 	* ChangeLog.6: Add new file.
 
 	* ChangeLog: Split file to ChangeLog.6.

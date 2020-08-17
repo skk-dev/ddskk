@@ -6,24 +6,24 @@
 
 2011-12-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi (skk-verbose-intention-face): $B!V$I$N(Bwiki$B!W$r!V$I$l$r;2>H!W(B
-	$B$H=$@0(B.
-	(skk-check-okurigana-on-touroku): footnote $B$+$i(B defvr $B$XJQ99(B.
+	* doc/skk.texi (skk-verbose-intention-face): 「どのwiki」を「どれを参照」
+	と修整.
+	(skk-check-okurigana-on-touroku): footnote から defvr へ変更.
 
-	* skk-vars.el (skk-verbose-intention-face): $B!V$I$N(Bwiki$B!W$r!V$I$l$r;2>H!W(B
-	$B$H=$@0(B.
-	(skk-undo-kakutei-return-previous-point): docstring $B$r=$@0(B.
+	* skk-vars.el (skk-verbose-intention-face): 「どのwiki」を「どれを参照」
+	と修整.
+	(skk-undo-kakutei-return-previous-point): docstring を修整.
 
 2011-12-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi ($BJ8;z%3!<%I$rCN$kJ}K!(B): M-x skk-display-code-for-char-at-point
-	$B$r5-:\(B.
+	* doc/skk.texi (文字コードを知る方法): M-x skk-display-code-for-char-at-point
+	を記載.
 
 	* skk-macs.el (skk-split-char): Add comment.
 
 2011-12-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi ($B>iD9$J0FFb%a%C%;!<%8$NI=<((B): $B99?7(B.
+	* doc/skk.texi (冗長な案内メッセージの表示): 更新.
 
 2011-12-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -34,25 +34,25 @@
 
 2011-12-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi: @documentlanguage $B$rDI2C(B.
-	@subsection $B9T$NCf$G;H$o$l$F$$$?(B @code{}, @key{}, @kbd{} $B$r:o=|(B.
-	@subsubsection $B9T$bF1MM(B.
+	* doc/skk.texi: @documentlanguage を追加.
+	@subsection 行の中で使われていた @code{}, @key{}, @kbd{} を削除.
+	@subsubsection 行も同様.
 
 2011-12-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-tut.el (skktut-init-variables-alist): Add skk-show-mode-show.
 
 	* skk-vars.el (skk-show-mode-invoked): New variable.
-	(skk-show-mode-show): $B%f!<%6%*%W%7%g%s2=(B.
-	(skk-show-mode-style): docstring $B$rJQ99(B.
+	(skk-show-mode-show): ユーザオプション化.
+	(skk-show-mode-style): docstring を変更.
 
-	* skk-show-mode.el (skk-cursor-set): $BH=Dj$K(B skk-show-mode-invoked $B$r(B
-	$B2C$($?(B.
-	(skk-show-mode): $B?7$?$J%3%^%s%I(B.
+	* skk-show-mode.el (skk-cursor-set): 判定に skk-show-mode-invoked を
+	加えた.
+	(skk-show-mode): 新たなコマンド.
 
-	* skk.el (skk-require-module): skk-show-mode $B$r(B require.
+	* skk.el (skk-require-module): skk-show-mode を require.
 
-	* doc/skk.texi: $B99?7(B.
+	* doc/skk.texi: 更新.
 
 2011-12-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -60,8 +60,8 @@
 
 2011-12-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-kcode.el (skk-kcode-read-code-string): RET $B$N%?%$%W$G(B
-	char-list $B$,5/F0$9$k$N$+(B menu $B$,5/F0$9$k$N$+$r!"$"$i$+$8$aI=<((B.
+	* skk-kcode.el (skk-kcode-read-code-string): RET のタイプで
+	char-list が起動するのか menu が起動するのかを、あらかじめ表示.
 
 2011-12-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -99,7 +99,7 @@
 
 2011-12-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-kcode.el (skk-list-chars): $B%3!<%I$r@0M}(B.
+	* skk-kcode.el (skk-list-chars): コードを整理.
 
 2011-12-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -116,9 +116,9 @@
 	* skk-annotation.el (skkannot-wikipedia-format-buffer): Remove uls
 	in ja.wiktionary.
 	* skk-vars.el (skk-annotation-wiktionary-preferred-lang-alist):
-	Add "$B8EE5F|K\8l(B".
-	(skkannot-ja-wiktionary-part-of-speech-regexp): Add "$BOB8l$N4A;zI=(B
-	$B5-(B".
+	Add "古典日本語".
+	(skkannot-ja-wiktionary-part-of-speech-regexp): Add "和語の漢字表
+	記".
 	* skk-emacs.el (skk-emacs-modeline-menu-items): Add new items for
 	skk-tankan, skk-list-chars,
 	skk-annotation-lookup-region-or-at-point, and skk-clock.
@@ -145,13 +145,13 @@
 	* skk-lookup.el (skk-lookup-get-content): Remove message().
 	(skk-lookup-get-content-setup-dic): Add message() and interactive().
 
-	* doc/skk.texi: $B99?7(B.
+	* doc/skk.texi: 更新.
 
 2011-12-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-tankan.el (skk-tankan-name-radical-alist): $B?7$?$J%j%9%H(B.
-	(skk-tankan-yomi-compread): $B?7$?$J4X?t(B.
-	(skk-tankan): $BIt<s$NFI$_$K4p$E$$$FC14A;zJQ49$r<B9T(B.
+	* skk-tankan.el (skk-tankan-name-radical-alist): 新たなリスト.
+	(skk-tankan-yomi-compread): 新たな関数.
+	(skk-tankan): 部首の読みに基づいて単漢字変換を実行.
 
 2011-12-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -180,13 +180,13 @@
 
 2011-12-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-vars.el (skk-tankan-radical-name-face): $B?7$?$J(B FACE.
+	* skk-vars.el (skk-tankan-radical-name-face): 新たな FACE.
 
-	* skk-tankan.el (skk-tankan-radical-name): $B?7$?$JG[Ns(B.
-	(skk-tankan-bushu-compread): skk-tankan-radical-name $B$H(B
-	skk-tankan-radical-name-face $B$r;HMQ(B.
+	* skk-tankan.el (skk-tankan-radical-name): 新たな配列.
+	(skk-tankan-bushu-compread): skk-tankan-radical-name と
+	skk-tankan-radical-name-face を使用.
 
-	* doc/skk.texi: $B99?7(B.
+	* doc/skk.texi: 更新.
 
 2011-12-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -207,8 +207,8 @@
 
 2011-11-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-show-mode.el (skk-cursor-set): $B%$%s%/%j%a%s%?%k!&%5!<%ACf$N(B
-	$BF~NO%b!<%I@Z$jBX$(;~$K$OI=<($7$J$$!#JQ?t(B skk-isearch-switch $B$GH=CG(B.
+	* skk-show-mode.el (skk-cursor-set): インクリメンタル・サーチ中の
+	入力モード切り替え時には表示しない。変数 skk-isearch-switch で判断.
 
 2011-11-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -244,21 +244,21 @@
 
 2011-11-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-vars.el (skk-annotation-delay): $BC10L$,IC$G$"$k;]$r5-:\(B.
+	* skk-vars.el (skk-annotation-delay): 単位が秒である旨を記載.
 
-	* doc/skk.texi (skk-annotation-delay): $BDI2C(B.
-	(VIP/VIPER$B$H$NJ;MQ(B): $B!V(BI-search$B4XO"!W$H=g$rF~$lBX$((B.
+	* doc/skk.texi (skk-annotation-delay): 追加.
+	(VIP/VIPERとの併用): 「I-search関連」と順を入れ替え.
 
-	* skk.el (skk-check-size-and-do-save-jisyo): skk-yes-or-no-p() $B$N(B
-	$B0z?t(B JAPANESE $B$H(B ENGLISH $B$N@8@.$,0[$J$C$F$$$?$N$r=$@5(B.
+	* skk.el (skk-check-size-and-do-save-jisyo): skk-yes-or-no-p() の
+	引数 JAPANESE と ENGLISH の生成が異なっていたのを修正.
 
 2011-11-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi (skk-show-mode-style): $B99?7(B.
-	($BJ8;z%3!<%I4XO"(B): $B99?7(B.
+	* doc/skk.texi (skk-show-mode-style): 更新.
+	(文字コード関連): 更新.
 
-	* experimental/skk-search-web.el: $BDI2C(B.
-	* SKK-MK (SKK_MODULES): skk-search-web $B$rDI2C(B.
+	* experimental/skk-search-web.el: 追加.
+	* SKK-MK (SKK_MODULES): skk-search-web を追加.
 
 2011-11-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -270,15 +270,15 @@
 	internal variables.
 	(skk-show-mode-style): New user option.
 
-	* doc/skk.texi (skk-show-mode-style): $BDI2C(B.
+	* doc/skk.texi (skk-show-mode-style): 追加.
 
 2011-11-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi (SKK$B$H$O$J$K$+(B): $B99?7(B.
+	* doc/skk.texi (SKKとはなにか): 更新.
 
-	* skk-inline.el (skk-add-background-color): docstring $B$r=$@5(B.
-	(skk-inline-show-vertically): $B%=!<%9%3!<%I>e$N%$%s%G%s%HI}8m$j(B
-	$B$r=$@5(B.
+	* skk-inline.el (skk-add-background-color): docstring を修正.
+	(skk-inline-show-vertically): ソースコード上のインデント幅誤り
+	を修正.
 
 2011-11-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -313,8 +313,8 @@
 
 2011-11-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-vars.el (skk-lookup-get-content-nth-dic): docstring $B$r=$@5(B.
-	* doc/skk.texi ($B%"%N%F!<%7%g%s$H$7$F(BEPWING$B<-=q$rI=<($9$k(B): $BDI2C(B.
+	* skk-vars.el (skk-lookup-get-content-nth-dic): docstring を修正.
+	* doc/skk.texi (アノテーションとしてEPWING辞書を表示する): 追加.
 
 2011-11-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -412,7 +412,7 @@
 
 2011-11-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi: $BHy=$@5(B.
+	* doc/skk.texi: 微修正.
 
 2011-11-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -437,9 +437,9 @@
 
 2011-11-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi ($BNN0h$NA`:n(B): skk-romaji-*-by-hepburn $B$r(B @defvr.
-	($BF0E*Jd40(B): skk-dcomp-multiple-activate $B$r99?7(B.
-	($B30It%3%^%s%I$+$i%"%N%F!<%7%g%s$r<hF@$9$k(B): $B?7@_(B.
+	* doc/skk.texi (領域の操作): skk-romaji-*-by-hepburn を @defvr.
+	(動的補完): skk-dcomp-multiple-activate を更新.
+	(外部コマンドからアノテーションを取得する): 新設.
 
 2011-11-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -482,10 +482,10 @@
 
 2011-11-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi ($B$3$N%P!<%8%g%s$N(BSKK$B$K$D$$$F(B, skk-tut-lang)
-	(skk-tooltip-mouse-behavior): $B99?7(B.
+	* doc/skk.texi (このバージョンのSKKについて, skk-tut-lang)
+	(skk-tooltip-mouse-behavior): 更新.
 	(skk-tut-use-face, skk-show-num-type-info)
-	(skk-tooltip-parameters): $BDI2C(B.
+	(skk-tooltip-parameters): 追加.
 
 2011-11-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -493,32 +493,32 @@
 
 2011-11-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-vars.el (skk-share-private-jisyo): doc string $B$r99?7(B.
+	* skk-vars.el (skk-share-private-jisyo): doc string を更新.
 
-	* doc/skk.texi ($BFI$_$NJd40(B): $B99?7(B.
+	* doc/skk.texi (読みの補完): 更新.
 
 2011-11-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (skk-extra-jisyo-file-list)
-	($B<-=q8!:w$N@_Dj$N6qBNNc(B): $B99?7(B.
+	(辞書検索の設定の具体例): 更新.
 
 2011-11-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.el (skk-kana-input): $B%$%s%G%s%H$r=$@5(B.
+	* skk.el (skk-kana-input): インデントを修正.
 
 2011-11-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (skk-read-from-minibuffer-function)
-	($B%5JQF0;l$N<-=qEPO?$K4X$9$kCm0U(B, $B:F5"E*<-=qEPO?(B)
-	($B3NDj<-=q(B, $BJQ49$N3X=,(B): $B99?7(B.
+	(サ変動詞の辞書登録に関する注意, 再帰的辞書登録)
+	(確定辞書, 変換の学習): 更新.
 
 2011-11-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi: $B99?7(B.
+	* doc/skk.texi: 更新.
 
 2011-10-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi: $B99?7(B.
+	* doc/skk.texi: 更新.
 
 2011-10-30  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -527,78 +527,78 @@
 
 2011-10-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi: $B99?7(B.
+	* doc/skk.texi: 更新.
 
 2011-10-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-cus.el (skk-cus-params-visual): docstring $B$N(B "$B=u8@E*(B" $B$r(B "$B>iD9$J(B" $B$X(B.
+	* skk-cus.el (skk-cus-params-visual): docstring の "助言的" を "冗長な" へ.
 
-	* doc/skk.texi (skk-server-portnum): $B5-=R8m$j$r=$@5(B.
-	(skk-customize$B$K$h$k@_DjJQ99(B): @subsection $B2=$7$?(B.
-	(skk-gyakubiki-jisyo-list, $BF0E*Jd40(B): $B=$@5(B.
+	* doc/skk.texi (skk-server-portnum): 記述誤りを修正.
+	(skk-customizeによる設定変更): @subsection 化した.
+	(skk-gyakubiki-jisyo-list, 動的補完): 修正.
 
 2011-10-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-var.el (skk-verbose, skk-verbose-wait)
 	(skk-verbose-message-interval, skk-verbose-intention-face)
 	(skk-verbose-kbd-face, skk-henkan-on-message): Replace in
-	docstrings "$B=u8@E*(B" to "$B>iD9$J(B" to be more accurate.
+	docstrings "助言的" to "冗長な" to be more accurate.
 	{These are rather reversions than modifications.}
 
 2011-10-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi: $B99?7(B.
+	* doc/skk.texi: 更新.
 
 2011-10-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-tut.el (skktut-init-variables-alist): $B%A%e!<%H%j%"%k$N5/F0(B
-	$B;~$K(B skk-kcode-method $B$r=i4|2=(B.
+	* skk-tut.el (skktut-init-variables-alist): チュートリアルの起動
+	時に skk-kcode-method を初期化.
 
 2011-10-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi (skk-isearch-use-previous-mode): $B5-=R$r99?7(B.
+	* doc/skk.texi (skk-isearch-use-previous-mode): 記述を更新.
 
-	* skk.el (skk-setup-shared-private-jisyo): $B%$%s%G%s%H$r@0M}(B.
+	* skk.el (skk-setup-shared-private-jisyo): インデントを整理.
 
-	* skk-vars.el (skk-record-file): docstring $B$r99?7(B.
+	* skk-vars.el (skk-record-file): docstring を更新.
 
 2011-10-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-init-file, skk-count-private-jisyo-candidates-exactly)
 	(skk-auto-insert-paren, skk-auto-start-henkan-keyword-list)
-	(skk-delete-implies-kakutei, skk-verbose): docstring $B$r99?7(B.
+	(skk-delete-implies-kakutei, skk-verbose): docstring を更新.
 
-	* doc/skk.texi (skk-jisyo-fix-order): $B5-=R$r99?7(B.
+	* doc/skk.texi (skk-jisyo-fix-order): 記述を更新.
 
-	* skk-annotation.el (skk-annotation-message): (split-string ...) $B$r(B
-	 (delete "" (split-string ...)) $B$XJQ99(B [skk 7513].
-
-2011-10-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
-
-	* SKK-MK (SKK-MK-what-where): interactive-p() $B$KBe$($F(B noninteractive
-	$B$r;HMQ(B.
+	* skk-annotation.el (skk-annotation-message): (split-string ...) を
+	 (delete "" (split-string ...)) へ変更 [skk 7513].
 
 2011-10-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-hint.el (skk-hint-setup-hint): $B%a%C%;!<%8$NFbMF$r=$@5(B.
+	* SKK-MK (SKK-MK-what-where): interactive-p() に代えて noninteractive
+	を使用.
 
-	* skk-kakasi.el (skk-kakasi-region): $BF1>e(B.
+2011-10-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.el (skk-record-jisyo-data): docstring $B$r=$@5(B.
+	* skk-hint.el (skk-hint-setup-hint): メッセージの内容を修正.
 
-	* doc/skk.texi: $BHy=$@5(B.
+	* skk-kakasi.el (skk-kakasi-region): 同上.
+
+	* skk.el (skk-record-jisyo-data): docstring を修正.
+
+	* doc/skk.texi: 微修正.
 
 2011-10-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi: $BHy=$@5(B.
+	* doc/skk.texi: 微修正.
 
 2011-10-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi: $BHy=$@5(B.
+	* doc/skk.texi: 微修正.
 
 2011-10-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi: $BHy=$@5(B.
+	* doc/skk.texi: 微修正.
 
 2011-08-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -607,58 +607,58 @@
 
 2011-08-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* bayesian/README.ja: $B%I%-%e%a%s%H$NHy=$@5(B.
-	* bayesian/bskk: $B%I%-%e%a%s%H$NHy=$@5(B.
-	RCS $B$N%-!<%o!<%IE83+(B Id $B$H(B Date $B$rA^F~(B.
+	* bayesian/README.ja: ドキュメントの微修正.
+	* bayesian/bskk: ドキュメントの微修正.
+	RCS のキーワード展開 Id と Date を挿入.
 
 2011-07-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-study.el (skk-study-remove-theme): skk-error() $B$KBe$($F(B
-	skk-message() $B$r;HMQ(B.
+	* skk-study.el (skk-study-remove-theme): skk-error() に代えて
+	skk-message() を使用.
 
 2011-07-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-azik.el (skk-azik-additional-rom-kana-rule-list):
-	$B!V;R2;(B + $B%T%j%*%I!W$NAH$_9g$;!"6qBNE*$K$O<!$N(B4$B$D$r:o=|(B.
-	"b." nil ("$B%V(B" . "$B$V(B")
-	"m." nil ("$B%`(B" . "$B$`(B")
-	"n." nil ("$B%L(B" . "$B$L(B")
-	"z." nil ("$B%:(B" . "$B$:(B")
+	「子音 + ピリオド」の組み合せ、具体的には次の4つを削除.
+	"b." nil ("ブ" . "ぶ")
+	"m." nil ("ム" . "む")
+	"n." nil ("ヌ" . "ぬ")
+	"z." nil ("ズ" . "ず")
 
-	yuu <sleepboy.zzz@gmail.com> $B$5$s!"(BTeika Kazura <teika@lavabit.com>
-	$B$5$s$+$i$NDs0F(B [skk 7485].
+	yuu <sleepboy.zzz@gmail.com> さん、Teika Kazura <teika@lavabit.com>
+	さんからの提案 [skk 7485].
 
 2011-07-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-tut.el (skktut-make-windows, skktut-end-tutorial):
-	switch-to-buffer() $B$KBe$($F(B pop-to-buffer() $B$r;HMQ(B.
-	(skktut-end-tutorial): $B=*N;;~%a%C%;!<%8$NJ88@$rHy=$@5(B.
+	switch-to-buffer() に代えて pop-to-buffer() を使用.
+	(skktut-end-tutorial): 終了時メッセージの文言を微修正.
 
 2011-07-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-tankan-mode-original-window-configuration):
-	$B?7$?$JJQ?t(B.
+	新たな変数.
 
-	* skk-tankan.el (skk-tankan): M-x skk-tankan $B<B9T;~$N(B
-	window-configuration $B$rJ]B8(B.
-	(skk-tankan-mode-quit): window-configuration $B$rI|5"(B.
+	* skk-tankan.el (skk-tankan): M-x skk-tankan 実行時の
+	window-configuration を保存.
+	(skk-tankan-mode-quit): window-configuration を復帰.
 
 	* skk-cus.el (skk-customize, skk-customize-done): switch-to-buffer()
-	$B$KBe$($F(B set-window-buffer() $B$r;HMQ(B.
+	に代えて set-window-buffer() を使用.
 
-	* skk-annotation.el (skk-annotation-add): switch-to-buffer() $B$KBe$($F(B
-	pop-to-buffer() $B$r;HMQ(B.
+	* skk-annotation.el (skk-annotation-add): switch-to-buffer() に代えて
+	pop-to-buffer() を使用.
 
 2011-07-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-update-jisyo-function)
-	(skk-save-jisyo-function): docstring $B$r99?7(B.
+	(skk-save-jisyo-function): docstring を更新.
 
 2011-07-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.el (skk-kakutei, skk-search-jisyo): $B%3%a%s%H$rDI2C(B.
+	* skk.el (skk-kakutei, skk-search-jisyo): コメントを追加.
 
-	* doc/skk.texi (skk-search-jisyo-file): $B99?7(B.
+	* doc/skk.texi (skk-search-jisyo-file): 更新.
 
 2011-07-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -669,32 +669,32 @@
 
 	* skk.el (skk-save-jisyo-original, skk-create-file)
 	(skk-get-jisyo-buffer, skk-search-jisyo-file)
-	(skk-compose-ignore-word): $B%3%a%s%H$d(B docstring $B$K5-:\$N$"$C$?C18l(B
-	$B!V%*%W%7%g%s0z?t!W$r!V%*%W%7%g%J%k0z?t!W$XE}0l$7$?(B.
+	(skk-compose-ignore-word): コメントや docstring に記載のあった単語
+	「オプション引数」を「オプショナル引数」へ統一した.
 
-	* skk-macs.el (skk-erase-prefix): $BF1>e(B.
+	* skk-macs.el (skk-erase-prefix): 同上.
 
-	* skk-jisyo-edit-mode.el (skk-edit-private-jisyo): $BF1>e(B.
+	* skk-jisyo-edit-mode.el (skk-edit-private-jisyo): 同上.
 
-	* skk-gadget.el (skk-ad-to-gengo, skk-gengo-to-ad): $BF1>e(B.
+	* skk-gadget.el (skk-ad-to-gengo, skk-gengo-to-ad): 同上.
 
 2011-07-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-server.el (skk-server-version): skk-error() $B$N0z?t$N=g=x$,5U$G(B
-	$B$"$C$?$?$a!"$3$l$r=$@5(B.
+	* skk-server.el (skk-server-version): skk-error() の引数の順序が逆で
+	あったため、これを修正.
 
 2011-07-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi: $B99?7(B.
+	* doc/skk.texi: 更新.
 
 	* skk-kcode.el (skk-display-code-for-char-at-point):
-	if() $B$K$D$$$F!"(Bthen $B$G$b(B else $B$G$b(B t $B$rJV$9%3!<%I$G$"$k$?$a!"(Bif() $B$r(B
-	$BH4$1$?$"$H$K(B t $B$rI>2A$9$k$h$&$K$7$?(B.
-	(skk-display-code): "$BH=JL$G$-$J$$J8;z$G$9(B" $B$K$D$$$F!"(Bskk-error() $B$r(B
-	$B$d$a$F%a%C%;!<%82=$7$?(B.
-	$B$3$l$^$G$NI=<(J}K!!J%D!<%k%A%C%W$^$?$O%(%3!<%(%j%"!K$K2C$(!"JL%&%#%s(B
-	$B%I%&$G$NI=<($r%5%]!<%H$7$?(B. skk-show-candidates-always-pop-to-buffer
-	$B$HO"F0$9$k(B.
+	if() について、then でも else でも t を返すコードであるため、if() を
+	抜けたあとに t を評価するようにした.
+	(skk-display-code): "判別できない文字です" について、skk-error() を
+	やめてメッセージ化した.
+	これまでの表示方法（ツールチップまたはエコーエリア）に加え、別ウィン
+	ドウでの表示をサポートした. skk-show-candidates-always-pop-to-buffer
+	と連動する.
 
 2011-07-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -709,15 +709,15 @@
 
 2011-06-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-tankan.el (skk-tankan-get-char-data-internal): let $B$G:Q$`2U=j(B
-	$B$r(B let* $B$+$i(B let $B$XJQ99(B.
+	* skk-tankan.el (skk-tankan-get-char-data-internal): let で済む箇所
+	を let* から let へ変更.
 
-	* skk-look.el (skk-look-1): $BF1>e(B.
+	* skk-look.el (skk-look-1): 同上.
 
 	* skk-kcode.el (skk-display-code) 
-	(skk-list-chars-find-char-string-for-code): $BF1>e(B.
+	(skk-list-chars-find-char-string-for-code): 同上.
 
-	* skk-jisx0201.el (skk-set-okurigana): $BF1>e(B.
+	* skk-jisx0201.el (skk-set-okurigana): 同上.
 
 	* skk.el (newline, newline-and-indent):
 	use skk-called-interactively-p instead of interactive-p.
@@ -731,13 +731,13 @@
 2011-06-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi (skk-server-version):
-	($B%5!<%P%3%s%W%j!<%8%g%s(B): $BDI2C(B.
+	(サーバコンプリージョン): 追加.
 
-	* skk-vars.el (skk-kcode-method): 'this-key $B$rDI2C(B.
-	(skk-server-report-response): docstring $B$r=$@5(B.
+	* skk-vars.el (skk-kcode-method): 'this-key を追加.
+	(skk-server-report-response): docstring を修正.
 
-	* skk-kcode.el (skk-input-by-code-or-menu): skk-kcode-method $B$NF0:n$K(B
-	'this-key $B$rDI2C(B.
+	* skk-kcode.el (skk-input-by-code-or-menu): skk-kcode-method の動作に
+	'this-key を追加.
 
 2011-06-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -750,15 +750,15 @@
 
 2011-06-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi (skk-henkan-face): $B2CI.(B.
-	(skk-make-face): $B=$@5(B.
+	* doc/skk.texi (skk-henkan-face): 加筆.
+	(skk-make-face): 修正.
 
 2011-06-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi (skk-kcode-method): $BDI2C(B.
+	* doc/skk.texi (skk-kcode-method): 追加.
 
 	* skk-kcode.el (skk-list-chars-next-line) 
-	(skk-list-chars-previous-line): $B%3!<%I$N8+D>$7(B.
+	(skk-list-chars-previous-line): コードの見直し.
 
 2011-06-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -789,15 +789,15 @@
 2011-06-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-tooltip-x-offset, skk-tooltip-y-offset) 
-	(skk-tut-lang): docstring $B$r=$@5(B.
+	(skk-tut-lang): docstring を修正.
 
 	* doc/skk.texi (skk-tut-lang, skk-hint-start-char)
-	(skk-tooltip-hide-delay): $BDI2C(B.
-	($BJQ490LCV$N;XDjJ}K!(B): $B99?7(B.
+	(skk-tooltip-hide-delay): 追加.
+	(変換位置の指定方法): 更新.
 
 2011-06-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi (skk-annotation-browse-key): $BDI2C(B.
+	* doc/skk.texi (skk-annotation-browse-key): 追加.
 
 2011-06-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -825,10 +825,10 @@
 
 2011-06-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-jisyo-edit-mode.el (skk-edit-private-jisyo):$B<g=hM}$r(B
-	skk-edit-private-jisyo-1 $B$XJ,N%(B. $B<+8J@UG$$N$b$H:n6H$r9T$&$h$&(B
-	skk-yes-or-no-p $B$rDI2C(B.
-	(skk-edit-private-jisyo-1): $B85$N(B skk-edit-private-jisyo $B$N<g=hM}(B.
+	* skk-jisyo-edit-mode.el (skk-edit-private-jisyo):主処理を
+	skk-edit-private-jisyo-1 へ分離. 自己責任のもと作業を行うよう
+	skk-yes-or-no-p を追加.
+	(skk-edit-private-jisyo-1): 元の skk-edit-private-jisyo の主処理.
 
 2011-06-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -838,45 +838,45 @@
 
 2011-06-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-setup.el.in: 2011-05-20 $B$N!V%-!<%P%$%s%I(B C-f10 $B$K(B
-	skk-edit-private-jisyo $B$r3d$jEv$F!W$O<h$j>C$7$^$9(B.
+	* skk-setup.el.in: 2011-05-20 の「キーバインド C-f10 に
+	skk-edit-private-jisyo を割り当て」は取り消します.
 
-	* skk-vars.el (skk-tooltip-face): docstring $B$r=$@5(B.
+	* skk-vars.el (skk-tooltip-face): docstring を修正.
 	(skk-display-code-tankan-radical-face) 
 	(skk-display-code-tankan-annotation-face)
 	(skk-list-chars-face, skk-list-chars-table-header-face): New face.
-	(skk-verbose-kbd-face): $BB0@-(B inverse-video $B$r<h$j>C$7!"%G%U%)%k%H(B
-	$B?'$rM?$($?(B.
-	(skk-verbose-intention-face): $BB0@-(B bold $B$r(B t $B$H$7$F$_$?(B.
+	(skk-verbose-kbd-face): 属性 inverse-video を取り消し、デフォルト
+	色を与えた.
+	(skk-verbose-intention-face): 属性 bold を t としてみた.
 
-	* skk-kcode.el: require font-lock $B$rL58z2=(B($B%3%a%s%H2=(B).
+	* skk-kcode.el: require font-lock を無効化(コメント化).
 	(skk-display-code): skk-display-code-tankan-radical-face,
-	skk-display-code-tankan-annotation-face $B$rF3F~(B.
-	(skk-list-chars-sub): skk-list-chars-table-header-face $B$rF3F~(B.
-	(skk-list-chars): skk-list-chars-face $B$rF3F~(B.
+	skk-display-code-tankan-annotation-face を導入.
+	(skk-list-chars-sub): skk-list-chars-table-header-face を導入.
+	(skk-list-chars): skk-list-chars-face を導入.
 
 	* doc/skk.texi: skk-jisyo-registration-badge-face,
 	skk-display-code-tankan-radical-face,
 	skk-display-code-tankan-annotation-face,
 	skk-list-chars-face, skk-list-chars-table-header-face
-	$B$K4X$9$k5-=R$rDI2C(B.
-	skk-input-by-code-or-menu $B$K4X$9$k5-=R$rI|3h(B.
+	に関する記述を追加.
+	skk-input-by-code-or-menu に関する記述を復活.
 
 2011-06-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-jisyo-registration-badge-face) :New face.
-	(skk-verbose-kbd-face): $BB0@-(B inverse-video $B$r(B t $B$H$7$F$_$?(B.
+	(skk-verbose-kbd-face): 属性 inverse-video を t としてみた.
 
 	* skk.el (skk-henkan-in-minibuff): Use skk-jisyo-registration-badge-face.
 	
-	* context-skk.el (context-skk-insert): message $B4X?t$N;H$$J}$r=$@5(B.
+	* context-skk.el (context-skk-insert): message 関数の使い方を修正.
 
-	* skk-vars.el (skk-rom-kana-base-rule-list): 2010-12-09 $B$N(B commit
-	$B$rD{@5!#(B\ $B$N%?%$%W$O(B skk-input-by-code-or-menu $B$N5/F0$KLa$9(B.
+	* skk-vars.el (skk-rom-kana-base-rule-list): 2010-12-09 の commit
+	を訂正。\ のタイプは skk-input-by-code-or-menu の起動に戻す.
 
 2011-06-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk.el (skk-toggle-isearch-mode): message $B4X?t$N;H$$J}$r=$@5(B.
+	* skk.el (skk-toggle-isearch-mode): message 関数の使い方を修正.
 	[skk 7438].
 
 2011-06-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
@@ -894,15 +894,15 @@
 
 	* skk.el (skk-setup-verbose-messages): Use new face.
 
-	* doc/skk.texi: $B>e5-(B face $B$K4X$9$k5-=R$rDI2C(B.
+	* doc/skk.texi: 上記 face に関する記述を追加.
 
-	* skk.el (skk-toggle-isearch-mode): $B4X?t(B message $B$NBh(B1$B0z?t$K(B "%s" $B$r(B
-	$BIU2C(B.
+	* skk.el (skk-toggle-isearch-mode): 関数 message の第1引数に "%s" を
+	付加.
 
 	* skk-annotation.el (skk-annotation-save-and-quit) 
-	(skk-annotation-quote): $BF1>e(B.
+	(skk-annotation-quote): 同上.
 
-	* skk-macs.el (ignore-errors): 2011-06-04 $B$NJQ99$r<h$j>C$7(B.
+	* skk-macs.el (ignore-errors): 2011-06-04 の変更を取り消し.
 	[skk 7427].
 
 2011-06-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
@@ -916,17 +916,17 @@
 2011-06-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-kakutei-jisyo, skk-search-prog-list) 
-	(skk-jisyo-updated, skk-rom-kana-rule-list): docstring $B$r=$@5(B.
+	(skk-jisyo-updated, skk-rom-kana-rule-list): docstring を修正.
 
 2011-06-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-inline.el (skk-add-background-color): $B0z?t(B COLOR $B$N%A%'%C%/$r(B
-	$B873J$K$9$k$?$a(B color-defined-p $B$rDI2C(B.
+	* skk-inline.el (skk-add-background-color): 引数 COLOR のチェックを
+	厳格にするため color-defined-p を追加.
 
 2011-06-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-annotation.el (skk-annotation-save-and-quit) 
-	(skk-annotation-quote): $BM>J,$J(B %s $B$r:o=|(B.
+	(skk-annotation-quote): 余分な %s を削除.
 
 	* skk-macs.el (skk-message, skk-error, skk-yes-or-no-p) 
 	(skk-y-or-n-p): Update docstring.
@@ -937,7 +937,7 @@
 
 2011-06-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi (skk-search-excluding-word-pattern-function): $BDI2C(B.
+	* doc/skk.texi (skk-search-excluding-word-pattern-function): 追加.
 
 	* skk-vars.el (skk-search-excluding-word-pattern-function):
 	Update docstring.
@@ -946,19 +946,19 @@
 
 2011-06-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-macs.el (ignore-errors): GNU Emacs 22 $B0J2<$N>l9g$K(B defmacro
-	$B$7$F$$$^$7$?$,!"(BGNU Emacs 21.4 (cl-macs.el) $B$K$bB8:_$7$F$*$jIaDL$K(B
-	$B;H$($k$3$H$+$i!"(Bskk-macs.el $B$+$i$O:o=|$7$?!#(B
+	* skk-macs.el (ignore-errors): GNU Emacs 22 以下の場合に defmacro
+	していましたが、GNU Emacs 21.4 (cl-macs.el) にも存在しており普通に
+	使えることから、skk-macs.el からは削除した。
 
 	* skk-vars.el (skk-read-from-minibuffer-function): Update docstring.
 
 	* skk-macs.el (skk-downcase): Update docstring.
 
-	* doc/skk.texi (skk-read-from-minibuffer-function): $BDI2C(B.
+	* doc/skk.texi (skk-read-from-minibuffer-function): 追加.
 
 	* skk-tut.el (skktut-init-variables-alist):
-	$B=i4|2=BP>]$NJQ?t$H$7$F(B skk-dcomp-multiple-activate, 
-	skk-read-from-minibuffer-function, skk-verbose, debug-on-error $B$rDI2C(B.
+	初期化対象の変数として skk-dcomp-multiple-activate, 
+	skk-read-from-minibuffer-function, skk-verbose, debug-on-error を追加.
 
 	* skk.el (skk-ovwrt-len, skk-compute-henkan-lists):
 	Use line-end-position instead of (progn (end-of-line) (point)).
@@ -974,19 +974,19 @@
 
 	* skk-auto.el, skk-isearch.el, skk-lookup.el, skk-num.el, skk-study.el:
 	* skk-tankan.el, skk-vars.el, skk.el:
-	function foo $B$r(B #'foo $B$X$H=q$-49$((B.
+	function foo を #'foo へと書き換え.
 
 	* skk-annotation.el, skk-comp.el, skk-cursor.el, skk-cus.el:
 	* skk-develop.el, skk-gadget.el:
 	* skk-isearch.el, skk-jisx0201.el, skk-jisyo-edit-mode.el:
 	* skk-kcode.el, skk-macs.el, skk-num.el, skk-server-completion.el:
 	* skk-tankan.el, skk-tut.el, skk-vars.el, skk.el:
-	lambda $B$O%^%/%mE83+$G(B function $BIU2C$5$l$k$?$a(B #' $B$OITMW(B.
+	lambda はマクロ展開で function 付加されるため #' は不要.
 
 2011-06-02  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-emacs.el (skk-emacs-menu-replace, skk-tooltip-resize-text):
-	$B%3!<%I$N@0M}(B.
+	コードの整理.
 
 	* skk-tankan.el (skk-tankan-select-tankanji-kouho): Use cddr
 	instead of cdr cdr.
@@ -1043,10 +1043,10 @@
 
 2011-05-31  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-macs.el (skk-key-binding-member): $BITMW$J(B lambda $B$r:o=|(B.
+	* skk-macs.el (skk-key-binding-member): 不要な lambda を削除.
 
 	* skk-tankan.el (skk-tankan-select-tankanji-kouho): 
-	lambda $B$r(B #'lambda $B$XJQ99(B.
+	lambda を #'lambda へ変更.
 
 2011-05-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -1066,29 +1066,29 @@
 
 2011-05-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-develop.el (before-init-hook): $BITI,MW$J%-!<%o!<%I$r:o=|(B.
+	* skk-develop.el (before-init-hook): 不必要なキーワードを削除.
 
 	* skk-comp.el (skk-comp-search-current-buffer)
-	(skk-comp-re-search-current-buffer): $B%$%s%G%s%H$r@07A(B.
+	(skk-comp-re-search-current-buffer): インデントを整形.
 	(skk-comp-by-history): Use function skk-remove-duplicates.
 
 	* skk-emacs.el (skk-emacs-prepare-menu)
-	(skk-emacs-prepare-modeline-properties): $B%$%s%G%s%H$r@07A(B.
+	(skk-emacs-prepare-modeline-properties): インデントを整形.
 
 	* skk-vars.el (skk-list-chars-original-window-configuration):
 	New Variable.
 
 	* skk-kcode.el (skk-list-chars-quit): Use
 	skk-list-chars-original-window-configuration.
-	(skk-list-chars-insert): $BA^F~@h%P%C%U%!$r(B buffer-live-p $B$G3NG'(B.
+	(skk-list-chars-insert): 挿入先バッファを buffer-live-p で確認.
 
-	* skk-annotation.el (skk-annotation-message): $B=u8@E*%a%C%;!<%8$r(B
-	face $B$G?'IU$1$7$?(B.
-	(skk-annotation-insert): docstring $B$rIU2C$7$?(B.
-	(skk-annotation-get): $B%3!<%I8+D>$7(B.
+	* skk-annotation.el (skk-annotation-message): 助言的メッセージを
+	face で色付けした.
+	(skk-annotation-insert): docstring を付加した.
+	(skk-annotation-get): コード見直し.
 
-	* skk.el (skk-setup-verbose-messages): $B=u8@E*%a%C%;!<%8$r(B
-	face $B$G?'IU$1$7$?(B.
+	* skk.el (skk-setup-verbose-messages): 助言的メッセージを
+	face で色付けした.
 
 2011-05-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -1098,69 +1098,69 @@
 
 2011-05-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-vars.el (XXX workaround): while $B$+$i(B dolist $B$XJQ99(B.
+	* skk-vars.el (XXX workaround): while から dolist へ変更.
 
-	* skk-tankan.el (skk-tankan): while $B$+$i(B dolist $B$XJQ99(B.
+	* skk-tankan.el (skk-tankan): while から dolist へ変更.
 
-	* skk-num.el (skk-num-flatten-list): while $B$+$i(B dolist $B$XJQ99(B.
+	* skk-num.el (skk-num-flatten-list): while から dolist へ変更.
 
-	* skk-kcode.el (skk-list-chars): while $B$+$i(B dotimes $B$XJQ99(B.
+	* skk-kcode.el (skk-list-chars): while から dotimes へ変更.
 
-	* skk-gadget.el (skk-today-execute-char): while $B$+$i(B dolist $B$XJQ99(B.
+	* skk-gadget.el (skk-today-execute-char): while から dolist へ変更.
 
 	* skk.el (skk-remove-minibuffer-setup-hook, skk-setup-auto-paren)
 	(skk-kill-local-variables, skk-search-extra-jisyo-files)
-	(skk-remove-duplicates): while $B$+$i(B dolist $B$XJQ99(B.
+	(skk-remove-duplicates): while から dolist へ変更.
 	(skk-define-j-mode-map, skk-define-jisx0208-latin-mode-map)
-	(skk-define-abbrev-mode-map): while $B$+$i(B dotimes $B$XJQ99(B.
+	(skk-define-abbrev-mode-map): while から dotimes へ変更.
 	(skk-mode-exit, skk-setup-charset-list, skk-setup-verbose-messages):
-	$B%3!<%I8+D>$7(B.
+	コード見直し.
 
 2011-05-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.el (skk-get-jisyo-buffer): $B%$%s%G%s%H$r@07A(B.
+	* skk.el (skk-get-jisyo-buffer): インデントを整形.
 	(skk-search, skk-numeric-program-p, skk-search-server)
-	(skk-update-jisyo-original, skk-quote-char): docstring $B$r=$@5(B.
-	(skk-undo-kakutei): skk-error $B$r=|5n(B.
-	(skk-mode-exit): $B%3!<%I8+D>$7(B.
+	(skk-update-jisyo-original, skk-quote-char): docstring を修正.
+	(skk-undo-kakutei): skk-error を除去.
+	(skk-mode-exit): コード見直し.
 
 2011-05-25  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.el (skk-mode-exit): $B%3!<%I8+D>$7(B.
-	(skk-ovwrt-len): $BITMW$J(B let $B$r:o=|(B.
-	(skk-insert-str): skk-ovwrt-len $B$N8F$S=P$7J}K!$rJQ99(B.
-	(skk-kakutei-cleanup-buffer): skk-ovwrt-len $B$N8F$S=P$7J}K!$rJQ99(B.
+	* skk.el (skk-mode-exit): コード見直し.
+	(skk-ovwrt-len): 不要な let を削除.
+	(skk-insert-str): skk-ovwrt-len の呼び出し方法を変更.
+	(skk-kakutei-cleanup-buffer): skk-ovwrt-len の呼び出し方法を変更.
 	(skk-show-num-type-info): Use fit-window-to-buffer except XEmacs 21.4.
 
 2011-05-24  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.el (skk-toggle-kutouten): $B%a%C%;!<%8=g$r!V6gE@(B $BFIE@!W$+$i(B
-	$B!VFIE@(B $B6gE@!W$X(B	$BJQ99(B.
-	(skk-search-jisyo): $BITMW$J(B progn $B$r:o=|(B.
-	(skk-mode-exit): skk-mode $B$rH4$1$?:]$O(B *$B8uJd(B*$B%P%C%U%!$H(B
-	*SKK annotation*$B%P%C%U%!$r:o=|$9$k$h$&JQ99$7$?(B.
+	* skk.el (skk-toggle-kutouten): メッセージ順を「句点 読点」から
+	「読点 句点」へ	変更.
+	(skk-search-jisyo): 不要な progn を削除.
+	(skk-mode-exit): skk-mode を抜けた際は *候補*バッファと
+	*SKK annotation*バッファを削除するよう変更した.
 
 2011-05-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-macs.el (skk-multiple-line-string-width): $B:o=|(B.
+	* skk-macs.el (skk-multiple-line-string-width): 削除.
 
 	* skk.el (skk-henkan-show-candidate-subr):
-	skk-multiple-line-string-width $B$KBe$($F(B skk-max-string-width $B$r;HMQ(B.
+	skk-multiple-line-string-width に代えて skk-max-string-width を使用.
 
 2011-05-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.el (skk-multiple-line-string-width): skk-macs.el $B$X0\F0(B.
-	(skk-kakutei-cleanup-buffer): $B%$%s%G%s%H$r@07A(B.
+	* skk.el (skk-multiple-line-string-width): skk-macs.el へ移動.
+	(skk-kakutei-cleanup-buffer): インデントを整形.
 
 	* skk-macs.el (skk-max-string-width): New function.
-	(skk-multiple-line-string-width): skk.el $B$+$i0\F0(B.
+	(skk-multiple-line-string-width): skk.el から移動.
 
 	* skk-inline.el (skk-inline-show-vertically): Use skk-max-string-width.
-	(skk-inline-show-vertically): $B%$%s%G%s%H$r@07A(B.
+	(skk-inline-show-vertically): インデントを整形.
 
 	* skk-dcomp.el (skk-dcomp-multiple-show): Use skk-max-string-width.
 	(skk-dcomp-do-completion, skk-kana-input, skk-comp-previous)
-	(skk-comp, skk-comp-do): $B%$%s%G%s%H$r@07A(B.
+	(skk-comp, skk-comp-do): インデントを整形.
 
 	* skk-kcode.el (skk-display-code): Use replace-regexp-in-string.
 
@@ -1172,47 +1172,47 @@
 
 2011-05-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi (skk-tooltip-face): $B5-=R$r=$@5(B.
+	* doc/skk.texi (skk-tooltip-face): 記述を修正.
 
-	* skk-vars.el (skk-tooltip-face): docstring $B$r=$@5(B.
+	* skk-vars.el (skk-tooltip-face): docstring を修正.
 
 	* skk-emacs.el (skk-tooltip-show-at-point, skk-tooltip-show-1):
-	docstring $B$rDI2C(B.
+	docstring を追加.
 
 	* skk.el (skk-henkan-show-candidates)
 	(skk-henkan-show-candidate-subr, skk-henkan-in-minibuff)
 	(skk-show-num-type-info, skk-kakutei-initialize):
-	$B%=!<%9%3!<%I$N%$%s%G%s%H$r=$@5(B.
+	ソースコードのインデントを修正.
 
 2011-05-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-dcomp.el (skk-dcomp-multiple-show): $B%3%a%s%H$r=$@5(B.
+	* skk-dcomp.el (skk-dcomp-multiple-show): コメントを修正.
 
-	* skk.el (skk-kill-emacs-without-saving-jisyo): docstring $B$H(B
-	$B%a%C%;!<%8$r=$@5(B.
-	(skk-multiple-line-string-width): $B5!G=$OJQ$($:%=!<%9%3!<%I$r8+D>$7$?(B.
+	* skk.el (skk-kill-emacs-without-saving-jisyo): docstring と
+	メッセージを修正.
+	(skk-multiple-line-string-width): 機能は変えずソースコードを見直した.
 
 2011-05-20  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-vars.el (skk-auto-okuri-process): docstring $B$r99?7(B.
+	* skk-vars.el (skk-auto-okuri-process): docstring を更新.
 
-	* skk-jisyo-edit-mode.el (skk-jisyo-edit-mode): docstring $B$r99?7(B.
-	(skk-edit-private-jisyo): $B4J0W$J%,%$%@%s%9$rI=<((B.
+	* skk-jisyo-edit-mode.el (skk-jisyo-edit-mode): docstring を更新.
+	(skk-edit-private-jisyo): 簡易なガイダンスを表示.
 
-	* skk-setup.el.in: $B%-!<%P%$%s%I(B C-f10 $B$K(B skk-edit-private-jisyo $B$r(B
-	$B3d$jEv$F(B.
+	* skk-setup.el.in: キーバインド C-f10 に skk-edit-private-jisyo を
+	割り当て.
 
 2011-05-19  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.el (skk-mode): docstring $B$r99?7(B.
+	* skk.el (skk-mode): docstring を更新.
 
-	* skk-vars.el (skk-background-mode): docstring $B$r99?7(B.
-	(skk-auto-start-henkan-keyword-list): docstring $B$r99?7(B.
+	* skk-vars.el (skk-background-mode): docstring を更新.
+	(skk-auto-start-henkan-keyword-list): docstring を更新.
 
 2011-05-18  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* SKK-MK (SKK-MK-generate-autoloads-el): kill-buffer $B$NA0$K(B
-	set-buffer-modified-p $B$r(B nil $B$H$7$?(B.
+	* SKK-MK (SKK-MK-generate-autoloads-el): kill-buffer の前に
+	set-buffer-modified-p を nil とした.
 
 2011-05-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -1228,9 +1228,9 @@
 
 2011-05-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi: $B?7JQ?t(B context-skk-mode-off-message $B$K4X$9$k5-=R(B.
+	* doc/skk.texi: 新変数 context-skk-mode-off-message に関する記述.
 
-	* context-skk.el: RCS $B$N%-!<%o!<%IE83+(B Id $B$H(B Date $B$rA^F~(B.
+	* context-skk.el: RCS のキーワード展開 Id と Date を挿入.
 	(context-skk-mode-off-message): New variable.
 
 2011-05-08  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
@@ -1248,40 +1248,40 @@
 	(skk-previous-candidate, skk-kakutei, skk-update-jisyo-1)
 	(skk-katakana-region, skk-hiragana-region)
 	(skk-jisx0208-latin-region, skk-latin-region)
-	(skk-henkan-skk-region-by-func): $B%=!<%9%3!<%I$N%$%s%G%s%H$r=$@5(B.
-	(skk-make-face): $B5!G=$OJQ$($:!"%=!<%9%3!<%I$r8+D>$7$?(B.
+	(skk-henkan-skk-region-by-func): ソースコードのインデントを修正.
+	(skk-make-face): 機能は変えず、ソースコードを見直した.
 
 2011-05-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-inhibit-ja-dic-search, skk-jisyo-save-count)
-	(skk-jisyo-updated, skk-kuten-touten-alist): docstring $B$r99?7(B.
+	(skk-jisyo-updated, skk-kuten-touten-alist): docstring を更新.
 
 	* skk-tankan.el (skk-tankan-search, skk-tankan-bushu-compread):
-	docstring $B$r99?7(B.
+	docstring を更新.
 
-	* skk-server.el (skk-search-server-1): docstring $B$r99?7(B.
+	* skk-server.el (skk-search-server-1): docstring を更新.
 
-	* skk-macs.el (skk-string<=): docstring $B$r99?7(B.
+	* skk-macs.el (skk-string<=): docstring を更新.
 
-	* skk-kcode.el (skk-make-string): docstring $B$r99?7(B.
+	* skk-kcode.el (skk-make-string): docstring を更新.
 
-	* skk-kakasi.el (skk-hurigana-1): $B%$%s%G%s%H$r@07A(B.
-	(skk-romaji-region, skk-romaji-message): docstring $B$r99?7(B.
+	* skk-kakasi.el (skk-hurigana-1): インデントを整形.
+	(skk-romaji-region, skk-romaji-message): docstring を更新.
 
-	* skk-gadget.el (skk-clock): docstring $B$r99?7(B.
+	* skk-gadget.el (skk-clock): docstring を更新.
 	(skk-ad-to-gengo-1): typo (Unkown -> Unknown).
 
-	* doc/skk.texi: skk-comp-lisp-symbol $B$N5-=R$rDI2C(B.
+	* doc/skk.texi: skk-comp-lisp-symbol の記述を追加.
 
 	* skk-comp.el (skk-comp-lisp-symbol, skk-search-smart-find)
-	(skk-search-lisp-symbol): docstring $B$r99?7(B.
+	(skk-search-lisp-symbol): docstring を更新.
 
 	* skk-annotation.el (skk-annotation-add)
-	(skk-annotation-wikipedia-region-or-at-point): docstring $B$r99?7(B.
+	(skk-annotation-wikipedia-region-or-at-point): docstring を更新.
 
 2011-05-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi ($BJQ495Z$S8D?M<-=q$K4X$9$kE}7W(B): $B99?7(B.
+	* doc/skk.texi (変換及び個人辞書に関する統計): 更新.
 
 	* skk-vars.el (skk-dcomp-multiple-activate, skk-gengo-alist)
 	(skk-month-alist, skk-day-of-week-alist, skk-isearch-mode-enable)
@@ -1293,16 +1293,16 @@
 	(skk-record-file, skk-preload, skk-status-indicator)
 	(skk-latin-mode-string, skk-hiragana-mode-string)
 	(skk-katakana-mode-string, skk-jisx0208-latin-mode-string)
-	(skk-abbrev-mode-string, skk-emacs-id): docstring $B$r99?7(B.
+	(skk-abbrev-mode-string, skk-emacs-id): docstring を更新.
 
 2011-05-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi: skk-share-private-jisyo $B$N5-=R$rDI2C(B.
+	* doc/skk.texi: skk-share-private-jisyo の記述を追加.
 
-	* skk-vars.el: docstring $BFb$NMQ8l!V<-=q%5!<%P!<!W$r!V<-=q%5!<%P!W$X(B
-	$BE}0l(B.
-	* skk-server.el: $BF1>e(B.
-	* skk-server-completion.el: $BF1>e(B.
+	* skk-vars.el: docstring 内の用語「辞書サーバー」を「辞書サーバ」へ
+	統一.
+	* skk-server.el: 同上.
+	* skk-server-completion.el: 同上.
 
 2011-04-30  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -1310,16 +1310,16 @@
 
 2011-04-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-vars.el (skk-inhibit-ja-dic-search): docstring $B$r99?7(B.
+	* skk-vars.el (skk-inhibit-ja-dic-search): docstring を更新.
 
-	* doc/skk.texi: $BJQ?t(B skk-inhibit-ja-dic-search $B$H(B
-	$B4X?t(B skk-search-ja-dic $B$K$D$$$F!"5-=R$rDI2C(B.
-	docstring $B$+$i@Z$jE=$j$7$?$@$1$G$9$N$G!"$b$&>/$78+D>$7$^$9!#(B
+	* doc/skk.texi: 変数 skk-inhibit-ja-dic-search と
+	関数 skk-search-ja-dic について、記述を追加.
+	docstring から切り貼りしただけですので、もう少し見直します。
 
 2011-04-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-server.el (skk-server-version): skk-called-interactively-p
-	$B$N0z?t$r(B 'any $B$+$i(B 'interactive $B$X$HJQ99(B [skk 7420].
+	の引数を 'any から 'interactive へと変更 [skk 7420].
 
 	* skk-tut.el (kill-buffer-hook): Ditto.
 
@@ -1418,13 +1418,13 @@
 
 2011-01-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi: $B8m;z$N=$@5!"%=!<%9$N@07A(B.
+	* doc/skk.texi: 誤字の修正、ソースの整形.
 
 2011-01-15  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.el (skk-insert-str): Docstring $B$r=$@5(B.
-	(skk-auto-start-henkan): Docstring $B$r=$@5(B.
-	(skk-what-char-type): Docstring $B$r=$@5(B.
+	* skk.el (skk-insert-str): Docstring を修正.
+	(skk-auto-start-henkan): Docstring を修正.
+	(skk-what-char-type): Docstring を修正.
 
 2010-01-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -1458,7 +1458,7 @@
 
 	* SKK-CFG: Update comment.
 
-	* doc/skk.texi: Add $BBPOCE*$J%$%s%9%H!<%k(B.
+	* doc/skk.texi: Add 対話的なインストール.
 
 	* SKK-MK (SKK_INFO_DIR_FILE): New variable.
 	(SKK-MK-install-info-1): Separate from SKK-MK-install-info.
@@ -1466,9 +1466,9 @@
 
 2011-01-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* SKK-MK (SKK-MK-make-setup-file): search-forward $B<:GT$N860x$G$"$C$?(B
-	STRING $B0c$$(B "Initial setup for SKK" $B$r(B "initial setup for SKK" $B$X=$@5(B.
-	skk-setup.el.in $B$H$N@09g@-$r?^$C$?(B.
+	* SKK-MK (SKK-MK-make-setup-file): search-forward 失敗の原因であった
+	STRING 違い "Initial setup for SKK" を "initial setup for SKK" へ修正.
+	skk-setup.el.in との整合性を図った.
 	(SKK-MK-install-info): Fix indent.
 
 2011-01-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
@@ -1560,7 +1560,7 @@
 
 2010-12-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-vars.el (skk-search-prog-list): $BI8=`$K(B skk-tankan-search $B$r2C$($?(B.
+	* skk-vars.el (skk-search-prog-list): 標準に skk-tankan-search を加えた.
 
 	* doc/skk.texi: Add skk-save-jisyo-instantly.
 	Update FAQ.
@@ -1589,7 +1589,7 @@
 	* skk-tankan.el (skk-search-by-stroke-or-radical): Update Docstring.
 
 	* skk-kcode.el (skk-list-chars-mode): Update comment.
-	(skk-list-chars-other-charset): intern $B$KBe$($F(B intern-soft $B$r;HMQ(B.
+	(skk-list-chars-other-charset): intern に代えて intern-soft を使用.
 
 2010-12-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -1613,13 +1613,13 @@
 
 2010-12-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi: Update for $BJ8;z%3!<%IF~NO(B.
+	* doc/skk.texi: Update for 文字コード入力.
 
-	* skk-tankan.el (skk-search-by-stroke-or-radical): $BIt<sJQ49(B
-	$B5Z$S(B $BAm2h?tJQ49$N(B JIS X 0213-[12] $BBP1~(B.
+	* skk-tankan.el (skk-search-by-stroke-or-radical): 部首変換
+	及び 総画数変換の JIS X 0213-[12] 対応.
 
-	* skk-kcode.el (skk-list-chars-sub): $B6h@Z$j9T$K6hHV9f$rI=<((B.
-	(skk-list-chars-code-input-1): $BJ8;z%3!<%IF~NO8e!"Ev3:J8;z$r(B search-forward.
+	* skk-kcode.el (skk-list-chars-sub): 区切り行に区番号を表示.
+	(skk-list-chars-code-input-1): 文字コード入力後、当該文字を search-forward.
 
 	* skk-vars.el (skk-list-chars-buffer-name, skk-list-chars-destination-buffer)
 	(skk-list-chars-skip-chars, skk-list-chars-point, skk-list-chars-mode-map):
@@ -1628,23 +1628,23 @@
 
 2010-12-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-tankan.el (skk-tankan): $B%3!<%I8+D>$7!#(B
+	* skk-tankan.el (skk-tankan): コード見直し。
 
 	* skk-kcode.el (skk-list-chars-code-input): New function.
 	(skk-list-chars-code-input-1): New function.
-	(skk-list-chars): C-u \ $B$G(B $B%+!<%=%k0LCV$NJ8;z$r0z?t$K(B skk-list-chars $B$r<B9T(B.
+	(skk-list-chars): C-u \ で カーソル位置の文字を引数に skk-list-chars を実行.
 
 2010-12-09  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-vars.el (skk-rom-kana-base-rule-list): \ $B$N<B9T$r(B
-	skk-input-by-code-or-menu $B$+$i(B skk-list-chars $B$XJQ99(B.
+	* skk-vars.el (skk-rom-kana-base-rule-list): \ の実行を
+	skk-input-by-code-or-menu から skk-list-chars へ変更.
 
-	* skk-kcode.el (skk-display-code-for-char-at-point): C-u $ $B$G$N(B skk-list-chars
-	$B8F$S=P$7$r$$$C$?$s:o=|!#(B
+	* skk-kcode.el (skk-display-code-for-char-at-point): C-u $ での skk-list-chars
+	呼び出しをいったん削除。
 	(skk-list-chars-destination-buffer): New variable.
 	(skk-list-chars-insert): New function.
 	(skk-list-chars-other-charset): New function.
-	(skk-list-chars): $B5!G=DI2C(B.
+	(skk-list-chars): 機能追加.
 
 2010-12-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -1652,18 +1652,18 @@
 
 2010-12-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-kcode.el (skk-input-by-code-or-menu): $B7ZHy$J=$@5!#(B
-	(skk-display-code): $B7ZHy$J=$@5!#(B
+	* skk-kcode.el (skk-input-by-code-or-menu): 軽微な修正。
+	(skk-display-code): 軽微な修正。
 
 2010-12-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* doc/skk.texi: Replace string from $B4A;z%3!<%I(B to $BJ8;z%3!<%I(B.
+	* doc/skk.texi: Replace string from 漢字コード to 文字コード.
 
-	* skk-kcode.el (skk-input-by-code-or-menu): JIS X 0213 $B$N#2LL$N6hE@(B
-	$BHV9f$rF~NO2DG=$H$7$?!#7A<0(B 00-00-00 $B$r#2LL$H$_$J$9!#(B
-	Unicode $B$NId9f0LCV$rF~NO2DG=$H$7$?!#7A<0(B U+nnnnn $B!#(B
-	(skk-char-to-hex): $B%3!<%I8+D>$7!#(B
-	(skk-display-code): $B?'IU$1(B (font-lock-keyword-face) $B$7$F8+$d$9$/$7$?!#(B
+	* skk-kcode.el (skk-input-by-code-or-menu): JIS X 0213 の２面の区点
+	番号を入力可能とした。形式 00-00-00 を２面とみなす。
+	Unicode の符号位置を入力可能とした。形式 U+nnnnn 。
+	(skk-char-to-hex): コード見直し。
+	(skk-display-code): 色付け (font-lock-keyword-face) して見やすくした。
 
 2010-12-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -1722,7 +1722,7 @@
 
 	* doc/skk.texi: Update.
 
-	* skk-gadget.el (skk-today): $B%3!<%I8+D>$7!#(B
+	* skk-gadget.el (skk-today): コード見直し。
 
 	* skk-kakasi.el (skk-gyakubiki-and-henkan): Typo function name.
 
@@ -1731,7 +1731,7 @@
 	* skk-kakasi.el (skk-gyakubiki-and-hankan): New command.
 
 	* skk-gadget.el (skk-today-execute-char): New function.
-	(skk-today): Return this-command-keys's value if skk-henkan-mode on ($B"&(Bmode).
+	(skk-today): Return this-command-keys's value if skk-henkan-mode on (▽mode).
 	Use function skk-today-execute-char.
 
 2010-11-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
@@ -1761,15 +1761,15 @@
 2010-11-24  Kiyoka Nishiyama  <kiyoka@sumibi.org>
 
 	* skk-azik.el (skk-azik-additional-rom-kana-rule-list): 
-	$BJQ49%k!<%k$r=$@5(B [skk 7327]$B!#(B
+	変換ルールを修正 [skk 7327]。
 
 2010-11-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* doc/skk.texi: Update.
 
-	* skk.el (skk-henkan-show-candidate-subr): 2010-11-14 $B$N(B commit
-	$B!J%D!<%k%F%#%C%W$G$N(B [$B;D$j(B99++] $B$N1&4s$;I=<(!K$O!"(BXEmacs $B$G$OL58z(B
-	$B$H$7$^$7$?!#(B
+	* skk.el (skk-henkan-show-candidate-subr): 2010-11-14 の commit
+	（ツールティップでの [残り99++] の右寄せ表示）は、XEmacs では無効
+	としました。
 
 2010-11-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -1791,8 +1791,8 @@
 2010-11-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-henkan-show-candidates-buffer): little modify.
-	(skk-undo-kakutei): skk-mode $B$G$O$J$$$H$-$K3NDj%"%s%I%%$r<B9T$7$?>l9g!"(B
-	$B3NDj%"%s%I%%$NK\=hM}$NA0$K(B skk-j-mode-on $B$rDI2C$7$?!#(B[skk 7319]$B!#(B
+	(skk-undo-kakutei): skk-mode ではないときに確定アンドゥを実行した場合、
+	確定アンドゥの本処理の前に skk-j-mode-on を追加した。[skk 7319]。
 
 	* skk-vars.el: Update docstring.
 
@@ -1845,9 +1845,9 @@
 
 2010-11-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.el (skk-henkan-show-candidate-subr): $B%D!<%k%F%#%C%W$G$b(B
-	$B%$%s%8%1!<%?!J(B[$B;D$j(B99++]$B!K$r1&4s$;I=<(2DG=$H$7$?!#(B
-	$B$[$+!"(Bdocstring $B$NHy=$@5!#(B
+	* skk.el (skk-henkan-show-candidate-subr): ツールティップでも
+	インジケータ（[残り99++]）を右寄せ表示可能とした。
+	ほか、docstring の微修正。
 
 	* doc/skk.texi (skk-previous-candidate-keys): Add description.
 
@@ -1959,7 +1959,7 @@
 
 	* SKK-MK (SKK_MODULES): remove skk-obsolete.
 
-	* skk-emacs.el (skk-tooltip-resize-text): $B6XB'=hM}$N<BAu$r8+D>$7$?!#(B
+	* skk-emacs.el (skk-tooltip-resize-text): 禁則処理の実装を見直した。
 
 	* skk-vars.el (skk-previous-completion-backtab): New variable.
 
@@ -1979,7 +1979,7 @@
 2010-11-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-emacs.el (skk-tooltip-resize-text):
-	skk-auto-start-henkan-keyword-list $B$rN.MQ$7$?6XB'=hM}!#(B
+	skk-auto-start-henkan-keyword-list を流用した禁則処理。
 
 	* doc/skk.texi: Remove description with reference to skk-obsolete.el.
 
@@ -2026,8 +2026,8 @@
 
 2010-10-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-emacs.el (skk-tooltip-resize-text): $BF~NO$,D9Bg$J>l9g!"(B
-	$BE,EY$K2~9T$rA^F~$9$k(B [skk 7291].
+	* skk-emacs.el (skk-tooltip-resize-text): 入力が長大な場合、
+	適度に改行を挿入する [skk 7291].
 
 2010-10-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -2107,7 +2107,7 @@
 
 	* skk-vars.el (skk-verbose, skk-verbose-wait)
 	(skk-verbose-message-interval, skk-henkan-on-message):
-	Unified from $B$-$b$AB?$a$J%a%C%;!<%8(B to $B=u8@E*%a%C%;!<%8(B.
+	Unified from きもち多めなメッセージ to 助言的メッセージ.
 
 	* skk-annotation.el (skk-annotation-show-buffer): 
 	Use fit-window-to-buffer except XEmacs 21.4.
@@ -2137,7 +2137,7 @@
 
 2010-09-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-setup.el.in: 2010-09-12 $B$N(B commit $B$O<h$j2<$2$^$9!#(B
+	* skk-setup.el.in: 2010-09-12 の commit は取り下げます。
 
 	* skk-version.el (skk-startup-screen): ditto.
 
@@ -2269,14 +2269,14 @@
 2010-09-08  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-tankan.el (skk-tankan-get-char-data, skk-tankan-encode-0213-2):
-	GNU Emacs 23 $B8~$1(B japanese-jisx0213-2 $BBP1~!#(B
+	GNU Emacs 23 向け japanese-jisx0213-2 対応。
 
-	* skk-kcode.el (skk-display-code): tooltip $B;~$N(B `$' $B%a%C%;!<%8FbMF(B
-	$B$KE,592~9T$r2C$($?!#(B
+	* skk-kcode.el (skk-display-code): tooltip 時の `$' メッセージ内容
+	に適宜改行を加えた。
 
 2010-09-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-kcode.el (skk-display-code): `$' $B$NI=<($r(B tooltip $B2=(B.
+	* skk-kcode.el (skk-display-code): `$' の表示を tooltip 化.
 
 2010-09-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -2343,7 +2343,7 @@
 
 2010-08-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-tankan.el (skk-tankan-search): $BAm2h?tJQ49$HIt<sJQ49$rDI2C(B.
+	* skk-tankan.el (skk-tankan-search): 総画数変換と部首変換を追加.
 
 	* doc/skk.texi: Update.
 
@@ -2361,8 +2361,8 @@
 
 2010-08-27  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-kcode.el (skk-display-code): $B%-!<(B `$' $B$r%?%$%W$7$?:]$N%a%C%;!<%8(B
-	$B$K(B "$BAm(B%d$B2h(B(%s$BIt(B%d$B2h(B)" $B$rDI2C!#(B
+	* skk-kcode.el (skk-display-code): キー `$' をタイプした際のメッセージ
+	に "総%d画(%s部%d画)" を追加。
 
 2010-08-26  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -2730,7 +2730,7 @@
 
 2010-07-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-vars.el: $BMQ8l$NE}0l!#$=$N$[$+(B.
+	* skk-vars.el: 用語の統一。そのほか.
 	* make1.bat (install-info): new argument.
 
 2010-07-03  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
@@ -2739,8 +2739,8 @@
 
 2010-05-15  Kazuhiro NISHIYAMA  <zn@mbf.nifty.com>
 
-	* SKK-MK: EMU_DIR $B$N(B load-path $B$X$NDI2C$r(B
-	(requre 'install) $B$NA0$K0\F0(B.
+	* SKK-MK: EMU_DIR の load-path への追加を
+	(requre 'install) の前に移動.
 
 2010-03-07  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -2753,7 +2753,7 @@
 
 2010-02-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk.el: s/(SKK)?($B<-=q(B)?$B%5!<%P(B/$B<-=q%5!<%P(B/g
+	* skk.el: s/(SKK)?(辞書)?サーバ/辞書サーバ/g
 	* skk-vars.el: ditto.
 	* skk-server.el: ditto.
 	* skk-server-completion.el: ditto
@@ -2761,11 +2761,11 @@
 	
 2010-02-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-vars.el: s/$B%f!<%6<-=q(B/$B8D?M<-=q(B/g
+	* skk-vars.el: s/ユーザ辞書/個人辞書/g
 
 2010-02-21  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
-	* skk-macs.el: s/$BHs(Bnil/non-nil/g
+	* skk-macs.el: s/非nil/non-nil/g
 	* skk.el: ditto.
 	* doc/skk.texi: ditto.
 
@@ -2802,8 +2802,8 @@
 
 2010-02-06  Teika Kazura  <teika@lavabit.com>
 
-	* doc/skk.texi: $B%j%s%/@Z$l$r=$@5!#(Bmakeinfo $B$K$h$k%3%s%Q%$%k$NJ}K!!#(B
-	$B$3$N%U%!%$%k$K4^$^$l$kHs(B Unicode $BJ8;z$K$D$$$F%3%a%s%H!#(B
+	* doc/skk.texi: リンク切れを修正。makeinfo によるコンパイルの方法。
+	このファイルに含まれる非 Unicode 文字についてコメント。
 
 2010-02-01  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
@@ -2828,7 +2828,7 @@
 2010-01-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* doc/skk.texi: Move footnote for Viper with skk-annotation to
-	subsection "$B%"%N%F!<%7%g%s$N;HMQ(B".
+	subsection "アノテーションの使用".
 	* skk-annotation.el (skk-annotation-wikipedia): Do not call
 	`upcase-initials' for wikipedia here.
 	* skk-jisyo-edit-mode.el: Add "SKK-JISYO" to the last of
@@ -2851,8 +2851,8 @@
 
 2009-12-26  Teika Kazura  <teika@lavabit.com>
 
-	* doc/skk.texi: Major rewritements, mostly in the chapter $BJXMx$J(B
-	$B1~MQ5!G=(B. Reorganizations. Improvements in various descriptions.
+	* doc/skk.texi: Major rewritements, mostly in the chapter 便利な
+	応用機能. Reorganizations. Improvements in various descriptions.
 
 2009-12-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -3056,11 +3056,11 @@
 
 	(skk-comp-do@before@skk-dcomp-ad): New advice.
 
-	* doc/skk.texi ($B"&%b!<%I$K$*$1$kF0E*Jd40(B): Fix.
+	* doc/skk.texi (▽モードにおける動的補完): Fix.
 
 2008-10-31  Kazuhiro NISHIYAMA  <zn@mbf.nifty.com>
 
-	* doc/skk.texi ($B5/F0$H=*N;(B, $B@_Dj%U%!%$%k(B): Fix.
+	* doc/skk.texi (起動と終了, 設定ファイル): Fix.
 
 2008-10-08  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
@@ -3076,8 +3076,8 @@
 
 2008-09-15  IRIE Tetsuya  <irie@t.email.ne.jp>
 
-	* doc/skk.texi ($B<-=q$N%"%N%F!<%7%g%s(B($BCm<a(B)):
-	`skk-annotation-update-jisyo-format' $B$K4X$9$k5-=R$r:o=|!#(B
+	* doc/skk.texi (辞書のアノテーション(注釈)):
+	`skk-annotation-update-jisyo-format' に関する記述を削除。
 
 	* skk-annotation.el: Add 2008 to copyright years.
 	Update commentary.
@@ -3105,7 +3105,7 @@
 
 2008-08-09  IRIE Tetsuya  <irie@t.email.ne.jp>
 
-	* doc/skk.texi (Q.3-4 $B:8<j$N>.;X$r(B SHIFT $B$G9s;H$7$?$/$"$j$^$;$s!#(B):
+	* doc/skk.texi (Q.3-4 左手の小指を SHIFT で酷使したくありません。):
 	Tiny fix.
 
 2008-05-05  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
@@ -3144,8 +3144,8 @@
 
 2008-04-28  IRIE Tetsuya  <irie@t.email.ne.jp>
 
-	* doc/skk.texi ($B"&%b!<%I$K$*$1$kF0E*Jd40(B): $B%U%'%$%9$,%j%;%C%H$5$l(B
-	$B$F$7$^$&@)Ls$r5SCm$KDI5-!#(B
+	* doc/skk.texi (▽モードにおける動的補完): フェイスがリセットされ
+	てしまう制約を脚注に追記。
 
 2008-04-27  IRIE Tetsuya  <irie@t.email.ne.jp>
 
@@ -3154,7 +3154,7 @@
 
 2008-04-26  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
-	* doc/skk.texi (Top, $B1QC18l$r$"$$$^$$$KJQ49$7$F<h$j=P$9(B): Typo.
+	* doc/skk.texi (Top, 英単語をあいまいに変換して取り出す): Typo.
 
 2008-04-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -3174,7 +3174,7 @@
 
 2008-04-18  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
-	* doc/skk.texi ($BBP$K$J$kJ8;zNs$N0l3gF~NO(B): Typo.
+	* doc/skk.texi (対になる文字列の一括入力): Typo.
 
 2008-04-21  IRIE Tetsuya  <irie@t.email.ne.jp>
 
@@ -3183,10 +3183,10 @@
 
 2008-04-13  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
-	* doc/skk.texi ($B<-=qEPO?%b!<%I(B, $BAw$j2>L>$,L5$$>l9g$N<-=qEPO?(B)
-	($BAw$j2>L>$,M-$k>l9g$N<-=qEPO?(B, $B:F5"E*<-=qEPO?(B)
-	($B<-=qEPO?$N:]$KCm0U$9$Y$-$3$H(B, $BJ#?t<-=q$N8!:wJ}K!(B): $B%W%m%s%W%H$NI=(B
-	$B<($r8=>u$K9g$o$;$?!#(B
+	* doc/skk.texi (辞書登録モード, 送り仮名が無い場合の辞書登録)
+	(送り仮名が有る場合の辞書登録, 再帰的辞書登録)
+	(辞書登録の際に注意すべきこと, 複数辞書の検索方法): プロンプトの表
+	示を現状に合わせた。
 
 2008-04-13  IRIE Tetsuya  <irie@t.email.ne.jp>
 
@@ -3207,8 +3207,8 @@
 
 2008-03-20  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
-	* doc/skk.texi ($B"&%b!<%I$K$*$1$kF0E*Jd40(B): $BJd408uJd$NJ#?tI=<($K$D(B
-	$B$$$FDI2C!#(B
+	* doc/skk.texi (▽モードにおける動的補完): 補完候補の複数表示につ
+	いて追加。
 
 2008-04-13  IRIE Tetsuya  <irie@t.email.ne.jp>
 
@@ -3365,9 +3365,9 @@
 
 2008-02-02  IRIE Tetsuya  <irie@t.email.ne.jp>
 
-	* doc/skk.texi ($BJQ490LCV$N;XDjJ}K!(B): $B!V%"%9%-!<%b!<%I!W$KMQ8l$rB7(B
-	$B$($?!#(B
-	$B6uGrA^F~!#(B
+	* doc/skk.texi (変換位置の指定方法): 「アスキーモード」に用語を揃
+	えた。
+	空白挿入。
 
 2008-01-27  IRIE Tetsuya  <irie@t.email.ne.jp>
 
@@ -3385,10 +3385,10 @@
 
 2008-01-26  IRIE Tetsuya  <irie@t.email.ne.jp>
 
-	* doc/skk.texi ($BJQ490LCV$N;XDjJ}K!(B): $B?75,%N!<%I!#(B
-	(Top, $BJXMx$J1~MQ5!G=(B)
-	(Q.3-4 $B:8<j$N>.;X$r(B SHIFT $B$G9s;H$7$?$/$"$j$^$;$s!#(B): $B>e5-$rDI2C!#(B
-	($B%U%!%$%k9=@.(B): $BF1>e!#=EJ#$7$F$$$k(B @cindex $B%?%0$r:o=|!#(B
+	* doc/skk.texi (変換位置の指定方法): 新規ノード。
+	(Top, 便利な応用機能)
+	(Q.3-4 左手の小指を SHIFT で酷使したくありません。): 上記を追加。
+	(ファイル構成): 同上。重複している @cindex タグを削除。
 
 2008-01-21  IRIE Tetsuya  <irie@t.email.ne.jp>
 
@@ -3409,8 +3409,8 @@
 
 2008-01-19  IRIE Tetsuya  <irie@t.email.ne.jp>
 
-	* doc/skk.texi ($B8e$+$i"&%b!<%I$KF~$kJ}K!(B)
-	($B%]%$%s%H$rLa$7$F"&%b!<%I$X(B): Tiny change.
+	* doc/skk.texi (後から▽モードに入る方法)
+	(ポイントを戻して▽モードへ): Tiny change.
 
 2008-01-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -3518,7 +3518,7 @@
 
 2007-10-24  IRIE Tetsuya  <irie@t.email.ne.jp>
 
-	* doc/skk.texi ($B2>L>J8;z$N%m!<%^;z%W%l%U%#%C%/%9$N%(%3!<(B): Add
+	* doc/skk.texi (仮名文字のローマ字プレフィックスのエコー): Add
 	about `skk-prefix-{hiragana,katakana,jisx0201}-face'.
 
 	* skk-vars.el (skk-katakana): Fix typo in docstring.
@@ -3530,25 +3530,25 @@
 
 2007-10-07  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
-	* doc/skk.texi ($B%f!<%6%,%$%@%s%94XO"(B): New node.
-	($B%(%i!<$J$I$NF|K\8lI=<((B): $B!V%f!<%6%,%$%@%s%94XO"!W$N2<$K0\F0!#(B
-	($B=u8@E*0FFb%a%C%;!<%8$NI=<((B): New node.  Add description on
+	* doc/skk.texi (ユーザガイダンス関連): New node.
+	(エラーなどの日本語表示): 「ユーザガイダンス関連」の下に移動。
+	(助言的案内メッセージの表示): New node.  Add description on
 	`skk-verbose' and `skk-verbose-wait'.
 
 2007-10-21  IRIE Tetsuya  <irie@t.email.ne.jp>
 
-	* doc/skk.texi ($B<-=q$N%"%N%F!<%7%g%s(B($BCm<a(B)): Insert white space.
+	* doc/skk.texi (辞書のアノテーション(注釈)): Insert white space.
 
 2007-10-20  IRIE Tetsuya  <irie@t.email.ne.jp>
 
-	* doc/skk.texi ($B@Q6KE*$J3NDjJQ49(B): Add description on
+	* doc/skk.texi (積極的な確定変換): Add description on
 	`skk-kakutei-when-unique-candidate' and
 	`skk-kakutei-search-prog-limit'.
-	($B<-=q$N%"%N%F!<%7%g%s(B($BCm<a(B), $BJQ498uJd0lMw$NI=<(J}K!(B): Tiny fix.
+	(辞書のアノテーション(注釈), 変換候補一覧の表示方法): Tiny fix.
 
 2007-10-08  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
-	* doc/skk.texi ($BJQ498uJd$N99$J$kAu>~(B): Add description on
+	* doc/skk.texi (変換候補の更なる装飾): Add description on
 	`skk-treat-candidate-appearance-function'.
 
 2007-10-19  IRIE Tetsuya  <irie@t.email.ne.jp>
@@ -3598,7 +3598,7 @@
 
 2007-10-07  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
-	* doc/skk.texi (SKK$B%a!<%j%s%0%j%9%H(B): Insert blank line between
+	* doc/skk.texi (SKKメーリングリスト): Insert blank line between
 	urls for DVI.
 
 2007-10-10  IRIE Tetsuya  <irie@t.email.ne.jp>
@@ -3610,7 +3610,7 @@
 
 2007-10-09  IRIE Tetsuya  <irie@t.email.ne.jp>
 
-	* doc/skk.texi ($B@_Dj%U%!%$%k(B): Update.
+	* doc/skk.texi (設定ファイル): Update.
 
 	* skk-vars.el (skk-init-file): Rename default value to "init" from
 	"init.el".
@@ -3629,25 +3629,25 @@
 
 2007-10-06  IRIE Tetsuya  <irie@t.email.ne.jp>
 
-	* doc/skk.texi ($B3NDj%"%s%I%%(B): Fix last change.
-	($BJQ49%b!<%I(B, $B%"%9%-!<J8;z$r8+=P$78l$H$7$?JQ49(B): Add spaces.
-	($BJQ498uJd0lMw$NI=<(J}K!(B): Add `skk-inline-show-face',
+	* doc/skk.texi (確定アンドゥ): Fix last change.
+	(変換モード, アスキー文字を見出し語とした変換): Add spaces.
+	(変換候補一覧の表示方法): Add `skk-inline-show-face',
 	`skk-inline-show-background-color' and `skk-tooltip-face'.
-	($B5/F0$H=*N;(B, $B"#%b!<%I$K4XO"$9$k$=$NB>$NJQ?t(B, $B%W%m%0%i%`<B9TJQ49(B)
-	($BJQ498uJd0lMw$NI=<(J}K!(B, AZIK, ACT, $B$+$JF~NO$H?F;X%7%U%H(B)
-	(Q.3-3 $B8!:w$9$k<-=q$rA}$d$7$?$$$N$G$9$,!#(B): Delete @findex,
+	(起動と終了, ■モードに関連するその他の変数, プログラム実行変換)
+	(変換候補一覧の表示方法, AZIK, ACT, かな入力と親指シフト)
+	(Q.3-3 検索する辞書を増やしたいのですが。): Delete @findex,
 	@vindex if keyword defined by @defun or @defvr.
 
 2007-10-04  IRIE Tetsuya  <irie@t.email.ne.jp>
 
-	* doc/skk.texi ($B3NDjJQ49$H$=$N<h$j>C$7(B): $B%"%C%W%G!<%H!#!V0EL[$N3NDj(B
-	$B$N%?%$%_%s%0!W$N8e$K0\F0!#(B
-	($B3NDj%"%s%I%%(B): `skk-undo-kakutei-return-previous-point' $B$N5-=R$rDI(B
-	$B2C!#(B
+	* doc/skk.texi (確定変換とその取り消し): アップデート。「暗黙の確定
+	のタイミング」の後に移動。
+	(確定アンドゥ): `skk-undo-kakutei-return-previous-point' の記述を追
+	加。
 
 2007-10-02  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
-	* doc/skk.texi ($B4A;z%3!<%I4XO"(B): add $B6hE@%3!<%I$K$h$kF~NOJ}K!(B.
+	* doc/skk.texi (漢字コード関連): add 区点コードによる入力方法.
 
 2007-10-01  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
@@ -3669,7 +3669,7 @@
 
 2007-09-23  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
-	* doc/skk.texi: Unifies ASCII to $B%"%9%-!<(B.
+	* doc/skk.texi: Unifies ASCII to アスキー.
 	Add description on skk-user-directory.
 
 	* skk-vars.el (skk-user-directory): Docstring typo.
@@ -3678,7 +3678,7 @@
 
 	* skk.el (skk-inline-show-vertical): Fix auto scroll.
 
-	* doc/skk.texi ($BJQ498uJd0lMw$NI=<(J}K!(B): Update.
+	* doc/skk.texi (変換候補一覧の表示方法): Update.
 
 	* skk-vars.el (skk-show-inline): Allow vertical value.  Update
 	docstring about supported Emacs.
@@ -3761,8 +3761,8 @@
 
 2007-09-16  IRIE Tetsuya  <irie@t.email.ne.jp>
 
-	* doc/skk.texi (SKK$B%*!<%H%U%#%k%b!<%I(B, skk-isearch$B$NA`:n@-(B)
-	($B%"%9%-!<J8;z$r8+=P$78l$H$7$?JQ49(B, $B<-=q%U%!%$%k$r;XDj$9$kJQ?t(B):
+	* doc/skk.texi (SKKオートフィルモード, skk-isearchの操作性)
+	(アスキー文字を見出し語とした変換, 辞書ファイルを指定する変数):
 	Add period after @ref command if arg is 2 and over.
 
 	* skk-vars.el (skk-kakutei-when-unique-candidate): Allow to set
@@ -3803,19 +3803,19 @@
 
 2007-09-16  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
-	* doc/skk.texi: $BH>3Q%9%Z!<%9$ND4@0(B.
-	$BJQ?t(B skk-cursor-abbrev-color $B$N@bL@$rDI2C(B.
+	* doc/skk.texi: 半角スペースの調整.
+	変数 skk-cursor-abbrev-color の説明を追加.
 
 2007-09-14  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
-	* doc/skk.texi: $BMQ8l$NE}0l!"H>3Q%9%Z!<%9$ND4@0(B.
-	$B!V;HMQ<T!W$r!V%f!<%6!W$KCV49(B.
-	$B8D?M<-=q$K4X$9$kItJ,$G!"!V<-=q!W$r!V8D?M<-=q!W$HL@<((B.
-	skk-study.el $B$K78$kJQ?t$N@bL@=q$-ItJ,$r!"B>$N2U=j$HF1$8$/(B @table
-	$B2=(B.
-	skk-dcomp-face $B$N5-=R$rDI2C(B.
-	$BJQ?t(B skk-show-japanese-menu, skk-show-icon, skk-icon $B$rDI2C(B.
-	M-x customize-group $B$H(B skk-cus.el $B$K4X$9$k5-=R(B.
+	* doc/skk.texi: 用語の統一、半角スペースの調整.
+	「使用者」を「ユーザ」に置換.
+	個人辞書に関する部分で、「辞書」を「個人辞書」と明示.
+	skk-study.el に係る変数の説明書き部分を、他の箇所と同じく @table
+	化.
+	skk-dcomp-face の記述を追加.
+	変数 skk-show-japanese-menu, skk-show-icon, skk-icon を追加.
+	M-x customize-group と skk-cus.el に関する記述.
 
 2007-09-14  IRIE Tetsuya  <irie@t.email.ne.jp>
 
@@ -3908,7 +3908,7 @@
 
 2007-09-04  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
-	* doc/skk.texi: Modify $B4A;z%3!<%I4XO"(B and more.
+	* doc/skk.texi: Modify 漢字コード関連 and more.
 
 2007-09-03  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
@@ -4045,8 +4045,8 @@
 
 2007-08-18  Kitamoto Tsuyoshi  <lisp_interaction@yahoo.co.jp>
 
-	* doc/skk.texi: Type $B!VCp<a!W(Bas$B!VCm<a!W(B.
+	* doc/skk.texi: Type 「註釈」as「注釈」.
 
 ;; Local Variables:
-;; coding: iso-2022-jp
+;; coding: utf-8
 ;; End:

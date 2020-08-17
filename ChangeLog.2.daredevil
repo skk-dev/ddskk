@@ -6,7 +6,7 @@
 2000-10-30  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* skk-vars.el (skk-lookup-option-alist): Use "MYPAEDIA" spec of
-	$B!V<-!&E5!&HW!W(B version MYPAEDIA.
+	「辞・典・盤」 version MYPAEDIA.
 
 	* skk-annotation.el (skk-nunion): New advice.
 
@@ -14,8 +14,8 @@
 
 	* skk-vars.el (skk-lookup-option-alist): Doc updated.
 	Created new element "CHIEZO".
-	Specified 7th element of "IWAKOKU" in order to remove "$B!R(B", "$B!S(B",
-	"$B!P(B", "$B!Q(B", "( and ")".
+	Specified 7th element of "IWAKOKU" in order to remove "〈", "〉",
+	"｛", "｝", "( and ")".
 	Specified 5th element of "MYPAEDIA" in order to pick up necessary
 	strings between parens and/or blackets.
 	(skk-lookup-default-option-list): Doc updated.
@@ -91,9 +91,9 @@
 
 2000-10-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* READMEs/FAQ.txt (Emacs 20 $B$K(B SKK 9.6 $B$,%$%s%9%H!<%k$G$-$^$;$s!#(B,
-	$BA4$/4A;z$,=P$F$-$^$;$s!#(B, $B%A%e!<%H%j%"%k$,5/F0$G$-$^$;$s!#(B, $B%9%Z!<(B
-	$B%9$r2!$7$F$bJQ49$G$-$^$;$s!#(B): New questions.
+	* READMEs/FAQ.txt (Emacs 20 に SKK 9.6 がインストールできません。,
+	全く漢字が出てきません。, チュートリアルが起動できません。, スペー
+	スを押しても変換できません。): New questions.
 
 	* READMEs/NEWS: Add description.
 
@@ -116,7 +116,7 @@
 
 2000-10-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* READMES/FAQ.txt ($B:8<j$N>.;X$r(B SHIFT $B$G9s;H$7$?$/$"$j$^$;$s!#(B):
+	* READMES/FAQ.txt (左手の小指を SHIFT で酷使したくありません。):
 	New question.
 
 2000-10-25  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
@@ -154,7 +154,7 @@
 
 2000-10-22  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
-	* doc/skk-faq.texi ([Q.1-4] SKK $B$O$I$s$J%*%Z%l!<%F%#%s%0%7%9%F%`$G;H$($^$9$+!)(B):
+	* doc/skk-faq.texi ([Q.1-4] SKK はどんなオペレーティングシステムで使えますか？):
 
 	* skk.el (skk-abbrev-comma): Bug fixed.
 
@@ -209,7 +209,7 @@
 
 2000-10-19  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
-	* READMEs/NEWS: $B?75!G=$dGQ;_$5$l$?4X?t$K$D$$$F2CI.!#(B
+	* READMEs/NEWS: 新機能や廃止された関数について加筆。
 
 2000-10-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -222,8 +222,8 @@
 
 2000-10-19  Tsuyoshi AKIHO  <akiho@media.osaka-cu.ac.jp>
 
-	* SKK-MK (SKK_LISPDIR): "make PREFIX=dir install" $B$G(B PREFIX $B$N$H(B
-	$B$*$j$K(B elisp $B$,%$%s%9%H!<%k$5$l$k$h$&$K=$@5(B.
+	* SKK-MK (SKK_LISPDIR): "make PREFIX=dir install" で PREFIX のと
+	おりに elisp がインストールされるように修正.
 
 2000-10-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
@@ -232,13 +232,13 @@
 
 2000-10-18  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
-	* READMEs/README.win: Move $B!V(B`MAKE.BAT'$B$NJT=8$H%$%s%9%H!<%k(B
-	(Windows 95,98/NT)$B!W(B to header (change to non-section).
+	* READMEs/README.win: Move 「`MAKE.BAT'の編集とインストール
+	(Windows 95,98/NT)」 to header (change to non-section).
 	Section structer rearranged (change `****' section to `***', `***'
 	to `**' and `**' section to `*').
-	New sections $B!V(B* Windows $B>e$GF0$/%5!<%P$K$D$$$F!W(B,$B!V(Bwskkserve$B!W(B,
-	$B!V(B cygwin $B$rMxMQ$7$F%=!<%9$+$i%3%s%Q%$%k$7$FMxMQ$9$k!W(B,$B!V(Bscript $B8@(B
-	$B8l$G<BAu$5$l$?%5!<%P!W(Bcreated.
+	New sections 「* Windows 上で動くサーバについて」,「wskkserve」,
+	「 cygwin を利用してソースからコンパイルして利用する」,「script 言
+	語で実装されたサーバ」created.
 
 2000-10-17  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
@@ -250,8 +250,8 @@
 2000-10-16  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* READMEs/README.win (SKK95 (Windows 95/98/NT)): Remove the
-	sentence $B!V(BWindows 95 $B$G$O>e5-$N(B SKKIME $B$,F0:n$7$J$$$?$a$3$A$i$r;H(B
-	$BMQ$7$^$9!#!W(B.  SKKIME98 now works on Windows 95 (using Winsock
+	sentence 「Windows 95 では上記の SKKIME が動作しないためこちらを使
+	用します。」.  SKKIME98 now works on Windows 95 (using Winsock
 	version 1).
 	Updated the link to kmc.
 	(wskkserve): Merged into "skkserve on Windows".
@@ -448,13 +448,13 @@
 
 2000-09-29  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
-	* READMEs/FAQ.txt: Fixed a description about $B!V8!:w$9$k<-=q$rA}$d(B
-	$B$7$?$$$N$G$9$,!W(B.
-	Sync up with a description about $B!V(BWnn $B$G$b(B Canna $B$G$bM9JXHV9f<-=q(B
-	$B$,;H$($k$1$l$I!"(BSKK $B$G$O;H$($J$$$N(B ?$B!W(B
+	* READMEs/FAQ.txt: Fixed a description about 「検索する辞書を増や
+	したいのですが」.
+	Sync up with a description about 「Wnn でも Canna でも郵便番号辞書
+	が使えるけれど、SKK では使えないの ?」
 
-	* READMEs/FAQ.txt: Add a description about $B!V8!:w$9$k<-=q$rA}$d$7(B
-	$B$?$$$N$G$9$,!W(B.
+	* READMEs/FAQ.txt: Add a description about 「検索する辞書を増やし
+	たいのですが」.
 
 	* READMEs/skk-faq.txt: Rename to FAQ.txt.
 
@@ -510,7 +510,7 @@
 2000-09-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-num.el (skk-num-type3-kanji-1, skk-num-type5-kanji-1): Don't
-	miss "$BK|(B" {"$Bh_(B"}, "$B2/(B", "$BC{(B", "$B5~(B".
+	miss "万" {"萬"}, "億", "兆", "京".
 
 2000-09-25  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
@@ -593,7 +593,7 @@
 	* READMEs/Contributors (Contributors): Change Akiho san's e-mail
 	address.
 
-	* doc/skk.texi ($B$*4j$$(B): Change `skk-jisyo@kuis.kyoto-u.ac.jp' to
+	* doc/skk.texi (お願い): Change `skk-jisyo@kuis.kyoto-u.ac.jp' to
 	`skk@ring.gr.jp'.
 
 2000-09-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
@@ -685,7 +685,7 @@
 	* skk-setup.el.in (isearch-mode-end-hook): Remove
 	skk-set-cursor-properly from the hook.
 
-	* doc/skk.texi ($BF~NO%b!<%I$N0l;~JQ99(B): Typo fixed.
+	* doc/skk.texi (入力モードの一時変更): Typo fixed.
 
 	* skk-look.el (skk-look-ispell): Call `skk-look-1' for a word
 	originally handed to when ispell puts miss and guess out.
@@ -909,7 +909,7 @@
 
 2000-08-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* doc/skk.texi ($B"#%b!<%I$K$*$1$kJ8;zJQ49(B, $B?t;z$d5-9fJ8;z$NF~NO(B,
+	* doc/skk.texi (■モードにおける文字変換, 数字や記号文字の入力,
 	etc):Update for SKK 10 and lator.
 	(SKKIME): New section.
 
@@ -1183,7 +1183,7 @@
 
 	* skk-macs.el (skk-jisx0213-p): New inline function.
 
-	* doc/skk.texi (Makefile$B$NJT=8$H%$%s%9%H!<%k(B): Change required
+	* doc/skk.texi (Makefileの編集とインストール): Change required
 	APEL version 9.22 to 10.2.
 
 	* skk.el (skk-version): Use `apel-version'.
@@ -1420,8 +1420,8 @@
 
 	* READMEs/INSTALL: Add description about dictionaries.
 
-	* doc/skk.texi (Makefile$B$NJT=8$H%$%s%9%H!<%k(B): Ditto.
-	(.emacs$B$N@_Dj(B): Add description about `skk-setup.el', and change
+	* doc/skk.texi (Makefileの編集とインストール): Ditto.
+	(.emacsの設定): Add description about `skk-setup.el', and change
 	description about isearch-mode-end-hook.
 	Change open parens to closed ones.
 	Change `SKK 10' to `Daredevil SKK'.
@@ -1765,9 +1765,9 @@
 	(skk-in-minibuffer-p): Ditto.
 	(skk-str-length): New inline function.
 	(skk-str-ref): Ditto.
-	(search-backward): New advice -- by $BCfEg$5$s(B.
+	(search-backward): New advice -- by 中島さん.
 	(re-search-backward): Ditto.
-	(window-minibuffer-p): New function -- by $BCfEg$5$s(B.
+	(window-minibuffer-p): New function -- by 中島さん.
 	(skk-e18-define-j-mode-map): Abolish.
 	(insert-file-contents-as-coding-system): Work arond for Mule 1.
 	(skk-make-string): This is only for Nemacs.
@@ -2040,7 +2040,7 @@
 	* skk.el (kill-buffer): Doc fixed.
 	(minibuffer-keyboard-quit): Add advice only for XEmacs.
 
-	* READMEs/PROPOSAL ($BJ,3d$7$?%U%!%$%k$KI,?\$N5-=R(B): Modify for
+	* READMEs/PROPOSAL (分割したファイルに必須の記述): Modify for
 	Daredevil.
 
 	* READMEs/README.win (Message-ID): Ditto.
@@ -2288,18 +2288,18 @@
 	* skk.el (skk-mode): Call `skk-cursor-set-properly` if
 	`skk-use-color-cursor' or `skk-cursor-change-width' is non-nil.
 
-	Not required skk-num.el expressly. (skk-num-list $B$H$$$&(B buffer
-	local $BJQ?t$K4X$9$k%(%i!<$r2sHr$9$k$?$a$K(B
-	skk-use-numeric-conversion $B$,(B non-nil $B$G$"$l$P(B skk-mode $BFb$G@h$K(B
-	skk-num.el $B$r(B require $B$7$F$$$?$N$@$,!">e5-$NLdBj$O(B daredevil $B$K8B$C(B
-	$B$F$O5/$3$k2DG=@-$,$J$$$N$G!"L@<(E*$J(B require $B$r;_$a$?(B ($BI,MW$H$J$C(B
-	$B$?$H$-$K(B autoload $B$5$l$k(B)$B!#(B
-	skk-use-numeric-conversion $B$,(B non-nil $B$G!"(Bskk-num.el $B$N(B load $BA0$K(B
-	let $B$G(B temporary $BJQ?t$H$7$F(B bind $B$7!"$=$N(B let $BFb$G(B skk-num.el $B$r(B
-	require $B$7$?$H$-!"(Blet $B$r=P$?8e$K(B skk-num-list $B$,(B void $B$K$J$k$H$$$&(B
-	$B%(%i!<$,$"$C$?!#(BDaredevil $B$G$OJQ?t$OA4$F(B skk-vars.el $B$KF~$C$F$*$j!"(B
-	$B$3$l$r(B skk.el $B$,(B require $B$7$F$$$k$N$G!"(Bskk-num-list $BJQ?t$O(B skk.el
-	$B$N(B load $BD>8e$+$iB8:_$7$F$$$k$N$G!"$3$NLdBj$OH/@8$7$J$$!#(B
+	Not required skk-num.el expressly. (skk-num-list という buffer
+	local 変数に関するエラーを回避するために
+	skk-use-numeric-conversion が non-nil であれば skk-mode 内で先に
+	skk-num.el を require していたのだが、上記の問題は daredevil に限っ
+	ては起こる可能性がないので、明示的な require を止めた (必要となっ
+	たときに autoload される)。
+	skk-use-numeric-conversion が non-nil で、skk-num.el の load 前に
+	let で temporary 変数として bind し、その let 内で skk-num.el を
+	require したとき、let を出た後に skk-num-list が void になるという
+	エラーがあった。Daredevil では変数は全て skk-vars.el に入っており、
+	これを skk.el が require しているので、skk-num-list 変数は skk.el
+	の load 直後から存在しているので、この問題は発生しない。
 
 	* skk-vars.el (skk-completion-function): Add descriptions to doc
 	string.
@@ -2338,7 +2338,7 @@
 	* skk-vars.el (skk-cursor-color-before-entering-minibuffer): New
 	internal buffer local variable.
 
-	* doc/skk.texi ($B8+=P$78l$NJd40(B): Moved @footnote outside @group block.
+	* doc/skk.texi (見出し語の補完): Moved @footnote outside @group block.
 
 1999-12-08  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
 
@@ -2385,7 +2385,7 @@
 1999-12-06  Tsukamoto Tetsuo  <czkmt@remus.dti.ne.jp>
 
 	* READMEs/CVS_00readme: New file, whose contents written by
-	$B<r0f(B $B@6N4(B <ksakai@kso.netwk.ntt-at.co.jp>
+	酒井 清隆 <ksakai@kso.netwk.ntt-at.co.jp>
 
 1999-12-05  Takao KAWAMURA  <kawamura@debian.org>
 
@@ -2646,7 +2646,7 @@
 	(SKK-MK-install-package): Remove SKK_PACKAGE_NOT_USE and
 	SKK_DAREDEVIL_NOT_USE from SKK_MODULES and delete related files.
 
-	* doc/skk.texi (Makefile$B$NJT=8$H%$%s%9%H!<%k(B): Doc fixed.
+	* doc/skk.texi (Makefileの編集とインストール): Doc fixed.
 
 	* skk-tut.el (skktut-end-tutorial): Refer to `skk-branch-name',
 	`skk-ml-command-address' and `skk-ml-address'. Doc fixed.
@@ -2955,6 +2955,6 @@
 	(skk-jisyo-update-vector): Ditto.
 
 ;; Local Variables:
-;; coding: iso-2022-jp
+;; coding: utf-8
 ;; mode: change-log
 ;; End:
