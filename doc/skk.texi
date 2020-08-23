@@ -9557,6 +9557,7 @@ skk abbrev モードであることを示すカーソル色。標準は、royalb
 
 @menu
 * インジケータ::
+* インジケータの装飾::
 * アイコン::
 @end menu
 
@@ -9595,6 +9596,23 @@ Emacs 21 以上 @footnote{変数 @code{mule-version} の値が 5.0 以上の Ema
 @end itemize
 
 なお、インジケータを右クリックするとポップアップメニューが表示されます。
+
+@node インジケータの装飾
+@subsubsection インジケータの装飾
+
+インジケータを装飾することができます。
+
+@defvr {ユーザ変数} skk-indicator-prefix
+
+インジケータの接頭辞とする文字列を指定します。
+
+@end defvr
+
+@defvr {ユーザ変数} skk-indicator-suffix-func
+
+インジケータの接尾語とする文字列を返す関数を指定します。
+
+@end defvr
 
 @node アイコン
 @subsubsection アイコン

@@ -557,13 +557,8 @@ dependent."
 
 (defun skk-make-indicator-alist-1 (mode base)
   (skk-mode-string-to-indicator mode
-                                (concat "--" base
-                                        (cond ((skk-face-proportional-p 'mode-line)
-                                               ":")
-                                              ((memq mode '(latin abbrev))
-                                               "::")
-                                              (t
-                                               ":")))))
+                                (format "%s%s%s" skk-indicator-prefix base
+                                        (funcall skk-indicator-suffix-func mode))))
 
 (defun skk-setup-modeline ()
   "モードラインへのステータス表示を準備する。"

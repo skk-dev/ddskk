@@ -1950,6 +1950,20 @@ left であれば左端に表示する。
   :type 'boolean
   :group 'skk-visual)
 
+(defcustom skk-indicator-prefix "--"
+  "*インジケータの接頭辞とする文字列"
+  :type 'string
+  :group 'skk-visual)
+
+(defcustom skk-indicator-suffix-func #'(lambda (mode)
+                                         (cond ((memq mode '(latin abbrev))
+                                                "::")
+                                               (t
+                                                ":")))
+  "*インジケータの接尾語とする文字列を返す関数"
+  :type 'function
+  :group 'skk-visual)
+
 (defvar skk-icon nil
   "SKK アイコンの画像ファイル skk.xpm のパス。")
 

@@ -107,6 +107,13 @@
 ;; インジケータに色を付けない
 ;; (setq skk-indicator-use-cursor-color nil)
 
+;; インジケータをシンプルにする
+(setq skk-indicator-prefix "")
+(setq skk-indicator-suffix-func #'(lambda (mode)
+                                    (if (memq mode '(latin abbrev))
+                                        " "
+                                      "")))
+
 ;; ;; [残り 99++]
 ;; 表示を右端へ寄せてみる
 ;; (setq skk-henkan-rest-indicator t)
