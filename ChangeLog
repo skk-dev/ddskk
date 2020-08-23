@@ -1,3 +1,8 @@
+2020-08-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk-vars.el (skk-indicator-prefix, skk-indicator-suffix-func): New variables.
+	* skk.el (skk-make-indicator-alist-1): Use it.
+
 2020-08-17  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* ChangeLog.0, ChangeLog.1, ChangeLog.2, ChangeLog.2.daredevil:
