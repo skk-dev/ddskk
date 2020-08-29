@@ -1,5 +1,6 @@
 language: generic
-sudo: false
+os: linux
+dist: xenial
 env:
   - EVM_EMACS=emacs-24.3-travis
   - EVM_EMACS=emacs-24.4-travis
