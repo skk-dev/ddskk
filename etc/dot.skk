@@ -801,8 +801,4 @@
   (skk-delete-backward-char N)
   ad-do-it)
 
-;;; markdown-mode
-(skk-wrap-newline-command markdown-enter-key)
-
-
 ;;; dot.skk ends here
