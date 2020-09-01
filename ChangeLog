@@ -1,3 +1,8 @@
+2020-09-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el: Wrapped org-meta-return() and markdown-enter-key() in
+	skk-wrap-newline-command().
+
 2020-08-23  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk-vars.el (skk-indicator-prefix, skk-indicator-suffix-func): New variables.
