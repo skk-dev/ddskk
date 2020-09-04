@@ -1,3 +1,7 @@
+2020-09-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* make1.bat: Remove e-mail address for SKK Development Team. Add URL for github.
+
 2020-03-28  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* README.NICOLA.md: Rename from README.NICOLA.ja.

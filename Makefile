@@ -1,6 +1,7 @@
 # Makefile: makefile for SKK.
 #
-# Maintainer: SKK Development Team <skk@ring.gr.jp>
+# Maintainer: SKK Development Team
+# URL: https://github.com/skk-dev/ddskk
 
 
 VERSION = 17.1

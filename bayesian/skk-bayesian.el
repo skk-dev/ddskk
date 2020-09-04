@@ -3,7 +3,8 @@
 ;; Copyright (C) 2004 Kenichi Kurihara <kenichi_kurihara@nifty.com>
 
 ;; Author: Kenichi Kurihara <kenichi_kurihara@nifty.com>
-;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Maintainer: SKK Development Team
+;; URL: https://github.com/skk-dev/ddskk
 ;; Keywords: japanese, mule, input method, bayesian estimation
 
 ;; This file is part of Daredevil SKK.

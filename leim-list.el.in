@@ -1,8 +1,9 @@
 ;;; skk/leim-list.el --- list of LEIM for SKK  -*- emacs-lisp -*-
 
-;; Copyright (C) 2000 SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 2000 SKK Development Team
 
-;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Maintainer: SKK Development Team
+;; URL: https://github.com/skk-dev/ddskk
 ;; Keywords: japanese, mule, input method
 
 ;; This file is part of Daredevil SKK.

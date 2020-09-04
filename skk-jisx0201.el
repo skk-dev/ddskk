@@ -1,9 +1,10 @@
 ;;; skk-jisx0201.el --- JIS X 0201 ｶﾅ, Roman -*- coding: iso-2022-7bit -*-
 
-;; Copyright (C) 1999-2007  SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 1999-2007  SKK Development Team
 
 ;; Author: Tsukamoto Tetsuo <czkmt@remus.dti.ne.jp>
-;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Maintainer: SKK Development Team
+;; URL: https://github.com/skk-dev/ddskk
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 30, 1999.
 

@@ -1,3 +1,18 @@
+2020-09-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* bayesian/bskk, bayesian/skk-bayesian.el:
+	* experimental/skk-correct.el, experimental/skk-dinsert.el, experimental/skk-exsearch.el:
+	* experimental/skk-ja-names.el, experimental/skk-pre-henkan.el, experimental/skk-w3m.el:
+	* tut-code/skk-def.el, tut-code/skk-mkmgk.el, tut-code/skk-tutcdef.el, tut-code/skk-tutcode.el:
+	* Makefile, SKK-CFG, SKK-MK, ccc.el, cdb.el, leim-list.el.in, make1.bat:
+	* skk-abbrev.el, skk-annotation.el, skk-auto.el, skk-azik.el, skk-cdb.el, skk-comp.el:
+	* skk-cursor.el, skk-cus.el, skk-dcomp.el, skk-decor.el, skk-develop.el, skk-emacs.el:
+	* skk-gadget.el, skk-inline.el, skk-isearch.el, skk-jisx0201.el, skk-jisx0213.el, skk-jisyo-edit-mode.el:
+	* skk-kakasi.el, skk-kcode.el, skk-leim.el, skk-look.el, skk-lookup.el, skk-macs.el, skk-num.el:
+	* skk-search-web.el, skk-server.el, skk-setup.el.in, skk-show-mode.el, skk-study.el, skk-tankan.el:
+	* skk-tut.el, skk-vars.el, skk-version.el, skk-viper.el, skk.el, tar-util.el:
+	Remove e-mail address for SKK Development Team. Add URL for github.
+
 2020-09-01  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el: Wrapped org-meta-return() and markdown-enter-key() in

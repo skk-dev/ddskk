@@ -3,7 +3,8 @@
 ;; Copyright (C) 2016 Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
 
 ;; Author: Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
-;; Maintainer: skk@ring.gr.jp
+;; Maintainer: SKK Development Team
+;; URL: https://github.com/skk-dev/ddskk
 ;; Created: 22 Jan 2016
 
 ;; This file is part of Daredevil SKK.
