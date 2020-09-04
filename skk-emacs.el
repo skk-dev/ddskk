@@ -1,9 +1,10 @@
 ;;; skk-emacs.el --- GNU Emacs support for SKK -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2004 Masatake YAMATO <jet@gyve.org>
-;; Copyright (C) 2004-2010 SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 2004-2010 SKK Development Team
 
-;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Maintainer: SKK Development Team
+;; URL: https://github.com/skk-dev/ddskk
 ;; Keywords: japanese, mule, input method
 
 ;; This file is part of Daredevil SKK.

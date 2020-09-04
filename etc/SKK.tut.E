@@ -2,10 +2,11 @@
 ;; Copyright (C) 1992, 1996, 1998
 ;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
 ;; Copyright (C) 1999, 2000, 2001, 2002
-;; SKK Development Team <skk@ring.gr.jp>
+;; SKK Development Team
 ;;
 ;; Author: Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
-;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Maintainer: SKK Development Team
+;; URL: https://github.com/skk-dev/ddskk
 ;; Keywords: japanese
 ;;
 ;; This is the tutorial text for Daredevil SKK version 11.1 and and later

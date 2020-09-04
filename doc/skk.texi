@@ -30,7 +30,8 @@
 @c          Tsuyoshi AKIHO <akiho@sky.email.ne.jp>
 @c          SAKAI Kiyotaka <ksakai@kso.netwk.ntt-at.co.jp>
 @c          Satoshi Harauchi <satoshi@sys.sdl.melco.co.jp>
-@c  Maintainer: SKK Development Team <skk@ring.gr.jp>
+@c  Maintainer: SKK Development Team
+@c  URL: https://github.com/skk-dev/ddskk
 @c  Keywords: japanese
 @c
 @set SKK-VERSION 17.1

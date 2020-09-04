@@ -3,7 +3,8 @@
 ;; Copyright (C) 2005 Masatake YAMATO <jet@gyve.org>
 ;; Copyright (C) 2007 IRIE Tetsuya <irie@t.email.ne.jp>
 
-;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Maintainer: SKK Development Team
+;; URL: https://github.com/skk-dev/ddskk
 ;; Keywords: japanese, mule, input method
 
 ;; This file is part of Daredevil SKK.

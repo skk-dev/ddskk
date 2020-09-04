@@ -3,7 +3,8 @@ rem MAKE1.BAT for SKK.
 rem Copyright (C) 1999 Yuh Ohmura, mailto:yutopia@y6.dion.ne.jp
 rem
 rem Author: Yuh Ohmura, mailto:yutopia@y6.dion.ne.jp
-rem Maintainer: SKK Development Team mailto:skk@ring.gr.jp
+rem Maintainer: SKK Development Team
+rem URL: https://github.com/skk-dev/ddskk
 rem Created: March 23, 1999
 
 rem ---  modified 2017/03/12, Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>

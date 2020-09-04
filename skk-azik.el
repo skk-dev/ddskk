@@ -3,7 +3,8 @@
 ;; Copyright (C) 2002 ONODA Arata <onoto@ma.nma.ne.jp>
 
 ;; Author: ONODA Arata <onoto@ma.nma.ne.jp>
-;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Maintainer: SKK Development Team
+;; URL: https://github.com/skk-dev/ddskk
 ;; Keywords: japanese, mule, input method
 ;; Created: Jan. 9, 2002
 

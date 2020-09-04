@@ -3,7 +3,8 @@
 ;; Copyright (C) 2010 Yusuke Shinyama <yusuke at cs . nyu . edu>
 
 ;; Author: Yusuke Shinyama <yusuke at cs . nyu . edu>
-;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Maintainer: SKK Development Team
+;; URL: https://github.com/skk-dev/ddskk
 ;; Keywords: cdb
 
 ;; This file is not part of GNU Emacs.

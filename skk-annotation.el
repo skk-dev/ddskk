@@ -1,10 +1,11 @@
 ;;; skk-annotation.el --- SKK annotation 関連プログラム -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2000, 2001 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
-;; Copyright (C) 2000-2010  SKK Development Team <skk@ring.gr.jp>
+;; Copyright (C) 2000-2010  SKK Development Team
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
-;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Maintainer: SKK Development Team
+;; URL: https://github.com/skk-dev/ddskk
 ;; Keywords: japanese, mule, input method
 ;; Created: Oct. 27, 2000.
 
