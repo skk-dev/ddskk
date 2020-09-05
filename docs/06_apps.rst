@@ -5779,14 +5779,6 @@ Google CGI API for Japanese Input を利用したかな漢字変換
 
    候補バッファの背景色（奇数ライン）を指定します。
 
-.. el:defvar:: skk-candidate-buffer-delete-other-windows
-
-   nil であれば、候補バッファ表示に際して window 配置を変更しない。
-   window 配置を popwin や shackle にまかせている場合は nil とすべき。
-
-   - `popwin: Popup Window Manager for Emacs <https://github.com/m2ym/popwin-el>`_
-   - `shackle: Enforce rules for popup windows <https://github.com/wasamasa/shackle>`_
-
 エコーエリアに表示する
 ----------------------
 

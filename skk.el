@@ -2234,23 +2234,10 @@ KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
         (if window
             (select-window window)
           (other-window 1)))
-      (unless (eq (next-window) (selected-window))
-        ;; *候補* バッファを見易くする。
-        ;; `save-window-excursion' の中なので大丈夫なはず。
-        (and skk-candidate-buffer-delete-other-windows
-             (delete-other-windows)))
-      (save-selected-window
+      (let ((w (selected-window)))
         (pop-to-buffer buff)
-        (let ((lines (count-lines (point-min) (point-max))))
-          ;; window-height() includes mode-line
-          (when (> lines (1- (window-height)))
-            (enlarge-window (- lines (1- (window-height))))))
-        (unless (pos-visible-in-window-p)
-          (recenter '(1)))
         (fit-window-to-buffer)
-        (apply 'set-window-fringes (if skk-candidate-buffer-display-fringes
-                                       skk-candidate-buffer-fringe-width
-                                     '(nil 0 0))))
+        (select-window w))
       (when minibuf-p
         (select-window (minibuffer-window))))))
 
@@ -2434,13 +2421,10 @@ auto に設定するとユーザに確認しない。
           (if window
               (select-window window)
             (other-window 1)))
-        (unless (eq (next-window) (selected-window))
-          (delete-other-windows))
-        (save-selected-window
+        (let ((w (selected-window)))
           (pop-to-buffer buff)
           (fit-window-to-buffer)
-          (unless (pos-visible-in-window-p)
-            (recenter '(1))))
+          (select-window w))
         (when minibuf-p
           (select-window (minibuffer-window)))))))
 

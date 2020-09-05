@@ -1,3 +1,7 @@
+2020-09-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.texi: Remove variable `skk-candidate-buffer-delete-other-windows'.
+
 2020-09-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.texi: Remove e-mail address for SKK Development Team. Add URL for github.

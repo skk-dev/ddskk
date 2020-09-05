@@ -1,3 +1,10 @@
+2020-09-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk.el (skk-henkan-show-candidates-buffer, skk-show-num-type-info): Remove code for window management.
+	* skk-annotation.el (skk-annotation-add): Ditto.
+	* skk-vars.el (skk-candidate-buffer-display-fringesl, skk-candidate-buffer-fringe-width)
+	(skk-candidate-buffer-delete-other-windows): Remove variables.
+
 2020-09-04  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* bayesian/bskk, bayesian/skk-bayesian.el:
