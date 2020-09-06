@@ -9400,10 +9400,6 @@ skk abbrev モードであることを示すカーソル色。標準は、royalb
  *候補*バッファの背景色（奇数ライン）を指定します。
 @end defvr
 
-@defvr {ユーザ変数} skk-candidate-buffer-delete-other-windows
- nil であれば、*候補*バッファ表示に際して window 配置を変更しない。
-@end defvr
-
 @end cartouche
 @end defvr
 

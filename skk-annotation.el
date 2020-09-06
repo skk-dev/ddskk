@@ -523,10 +523,6 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
                          nil)))
       (setq skk-annotation-original-window-configuration
             (current-window-configuration))
-      (delete-other-windows)
-      ;;       (split-window-vertically)
-      ;;       (other-window 1)
-      ;;       (switch-to-buffer (get-buffer-create skk-annotation-buffer))
       (pop-to-buffer skk-annotation-buffer)
 
       (setq buffer-read-only nil

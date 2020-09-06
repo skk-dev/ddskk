@@ -1455,24 +1455,6 @@ nil であれば、送り仮名を含めた見出し語をそのまま残して▽モードに入る。
   :group 'skk-henkan
   :group 'skk-visual)
 
-(defcustom skk-candidate-buffer-display-fringes t
-  "*nil であれば、\"*候補*バッファ\" の fringe を消す."
-  :type 'boolean
-  :group 'skk-henkan
-  :group 'skk-visual)
-
-(defvar skk-candidate-buffer-fringe-width
-  (list nil
-        (cdr (assoc 'left-fringe (frame-parameters)))
-        (cdr (assoc 'right-fringe (frame-parameters))))
-  "skk 起動時の fringe の幅")
-
-(defcustom skk-candidate-buffer-delete-other-windows t
-  "*nil であれば、\"*候補*バッファ\" 表示と同時に他の window を一時非表示とする."
-  :type 'boolean
-  :group 'skk-henkan
-  :group 'skk-visual)
-
 (defcustom skk-search-katakana nil
   "*かなを単純にカタカナ変換した候補を表示するかどうかを決めるオプション。
 nil ならば含めない。t ならば全角カナ候補を含める。
