@@ -1,0 +1,37 @@
+name: CI
+
+on: [pull_request, push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        emacs-version:
+          - 24.3
+          - 24.4 
+          - 24.5 
+          - 25.1 
+          - 25.2 
+          - 25.3 
+          - 26.1 
+          - 26.2 
+          - 26.3
+          - 27.1
+          - snapshot
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Emacs
+        uses: purcell/setup-emacs@master
+        with:
+          version: ${{ matrix.emacs-version }}
+
+      - name: Download if Emacs version is 24.3
+        run: make downloads
+        if: ${{ matrix.emacs-version == '24.3' }}
+
+      - name: Run tests
+        run: make elc test
