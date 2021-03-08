@@ -6,6 +6,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         emacs-version:
           - 24.3
@@ -17,6 +18,7 @@ jobs:
           - 26.1 
           - 26.2 
           - 26.3
+          - 27.1
           - snapshot
     steps:
       - name: Checkout
