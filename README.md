@@ -1,4 +1,4 @@
-ddskk  [![Build Status](https://travis-ci.org/skk-dev/ddskk.svg?branch=master)](https://travis-ci.org/skk-dev/ddskk) [![MELPA](https://melpa.org/packages/ddskk-badge.svg)](https://melpa.org/#/ddskk)
+ddskk  [![CI](https://github.com/skk-dev/ddskk/actions/workflows/ci.yml/badge.svg)](https://github.com/skk-dev/ddskk/actions/workflows/ci.yml) [![MELPA](https://melpa.org/packages/ddskk-badge.svg)](https://melpa.org/#/ddskk)
 =====
 
 Daredevil SKK is a version of SKK (Simple Kana to Kanji conversion
