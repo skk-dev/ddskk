@@ -35,6 +35,8 @@
 
 ;;; Code:
 
+(require 'faces)                        ; read-color
+
 (eval-when-compile
   (require 'advice))
 
@@ -112,7 +114,7 @@
 
 ;; Functions.
 (defsubst ccc-read-color (prompt)
-  (list (facemenu-read-color prompt)))
+  (list (read-color prompt)))
 
 (defsubst ccc-color-equal (a b)
   (facemenu-color-equal a b))
