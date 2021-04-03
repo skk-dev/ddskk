@@ -35,7 +35,7 @@
 
 ;;; Code:
 
-(require 'faces)                        ; read-color
+(require 'faces)                        ; read-color, color-values
 
 (eval-when-compile
   (require 'advice))
@@ -117,7 +117,16 @@
   (list (read-color prompt)))
 
 (defsubst ccc-color-equal (a b)
-  (facemenu-color-equal a b))
+  "Return t if colors A and B are the same color.
+A and B should be strings naming colors.
+This function queries the display system to find out what the color
+names mean.  It returns nil if the colors differ or if it can't
+determine the correct answer.
+
+This function is the same as `facemenu-color-equal'"
+  (cond
+   ((equal a b) t)
+   ((equal (color-values a) (color-values b)))))
 
 (defun ccc-setup-new-frame (frame)
   (ccc-set-frame-cursor-color frame (or (ccc-default-cursor-color)
