@@ -528,8 +528,6 @@
       (write-region (point-min) (point-max) skk-bayesian-corpus-file 'append)
       (delete-region (point-min) (point-max)))))
 
-(require 'skk-bayesian)
-
 ;; Local Variables:
 ;; indent-tabs-mode: nil
 ;; End:
