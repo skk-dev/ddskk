@@ -117,7 +117,7 @@
                      "gzip -d")
                     ((file-exists-p ps)
                      (message "skk-get: Use powershell version of the simple gzip.")
-                     (format "powershell -executionpolicy remotesigned %s" ps))
+                     (format "powershell.exe -executionpolicy remotesigned %s" ps))
                     (t
                      (error "skk-get: gzip command could not be found. Aborts.")))))
     (dolist (f (directory-files dir t ".gz"))
