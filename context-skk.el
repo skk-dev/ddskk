@@ -291,9 +291,9 @@
         context-skk-programming-mode))
 
 (defun context-skk-in-string-p ()
-  (nth 3 (parse-partial-sexp (point) (point-min))))
+  (nth 3 (parse-partial-sexp (point-min) (point))))
 (defun context-skk-in-comment-p ()
-  (nth 4 (parse-partial-sexp (point) (point-min))))
+  (nth 4 (parse-partial-sexp (point-min) (point))))
 
 ;;
 ;; 現在のポイント下に keymap が定義されているかどうか？
