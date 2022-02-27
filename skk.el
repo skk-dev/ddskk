@@ -5153,6 +5153,13 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
   "$B"'%b!<%I$G$"$l$P!"8uJd$NI=<($r$d$a$F"&%b!<%I$KLa$9(B ($B8+=P$78l$O;D$9(B)$B!#(B
 $B"&%b!<%I$G$"$l$P!"8+=P$78l$r:o=|$9$k!#(B
 $B>e5-$N$I$A$i$N%b!<%I$G$b$J$1$l$P(B `keyboard-quit' $B$HF1$8F0:n$r$9$k!#(B"
+
+  ;; Emacs 27 $B$^$G$O(B $BHs(B interactive $B$G$"$C$?$,!"(B
+  ;; Emacs 28 $B$+$i(B WARNING: Adding advice to subr keyboard-quit
+  ;;   without mirroring its interactive spec $B$H$J$C$?$?$a(B interactive $B$H$7$?!#(B
+  ;; SRC/lisp/emacs-lisp/advoce.el $B$N(B @@ Advising interactive subrs: $B$,;29M$K$J$k!#(B
+  (interactive)
+
   (if (not skk-mode)
       ad-do-it
     (cond
