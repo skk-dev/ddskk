@@ -200,7 +200,9 @@ AND-TIME は時刻も表示するかどうか \(boolean\)。"
 
 ;;;###autoload
 (cl-defun skk-relative-date (pp-function format and-time &key (yy 0) (mm 0) (dd 0))
-  "`skk-current-date' の拡張版。PP-FUNCTION, FORMAT, AND-TIME は `skk-current-date' を参照のこと。
+  "`skk-current-date' の拡張版。引数である PP-FUNCTION, FORMAT 及び AND-TIME
+ は `skk-current-date' を参照のこと。
+
 実行例
  (skk-relative-date) => \"平成25年2月03日(日)\"
  (skk-relative-date (lambda (arg) body) nil nil :dd -1) => \"平成25年2月02日(土)\"
