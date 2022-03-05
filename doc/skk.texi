@@ -10795,14 +10795,7 @@ X Window System 上では、@command{xmodmap} というプログラムを使っ�
 これは 1, 2 とはかなり違ったアプローチです。SKK 本来のローマ字的入力を捨
 てて、富士通のワープロ OASYS のような親指シフト入力を修得します。
 @footnote{親指シフト入力の詳細については、ここでは述べません。興味がある
-場合は、日本語入力コンソーシアムの Web サイト
-
-@display
-@url{http://nicola.sunicom.co.jp/}
-@end display
-
-@noindent
-を訪れてください。}
+場合は、日本語入力コンソーシアムの Web サイト @url{http://nicola.sunicom.co.jp/} を訪れてください。}
 @cindex OASYS
 @cindex NICOLA
 @cindex 日本語入力コンソーシアム
