@@ -117,13 +117,13 @@
                      "gzip -d")
                     ((file-exists-p ps)
                      (message "skk-get: Use powershell version of the simple gzip.")
-                     (format "powershell.exe -executionpolicy remotesigned %s" ps))
+                     (format "powershell.exe -executionpolicy remotesigned -file %s" (shell-quote-argument ps)))
                     (t
                      (error "skk-get: gzip command could not be found. Aborts.")))))
     (dolist (f (directory-files dir t ".gz"))
       (let ((fn (convert-standard-filename f)))
         (message "skk-get: expand %s..." fn)
-        (shell-command (format "%s %s" cmd fn))
+        (shell-command (format "%s %s" cmd (shell-quote-argument fn)))
         (when (file-exists-p fn)
           (delete-file fn))))))
 
