@@ -86,6 +86,26 @@ BUFFER is made by function `tar-raw-buffer'."
 Return buffer object."
   (let* ((path (expand-file-name archive))
          (buffer (file-name-nondirectory path)))
+
+    ;; バッファ名にtarの拡張子がある場合、バッファのコーディングが適切
+    ;; に設定されない。この結果、以下の2つのskk-getでダウンロードした
+    ;; 以下の2つのファイルが展開されない。
+    ;; 対処として、拡張子を``tar''→``archive''に変更する。
+    ;; - SKK-JISYO.edict.tar
+    ;; - zipcode.tar
+
+    ;; 参考
+    ;; バッファのコーディングの自動設定は、以下のルートで否決。
+    ;; (tar--extract desc)
+    ;;   (funcall set-auto-coding-function name (- end start))
+    ;;     (set-auto-coding filename size)
+    ;;       (find-auto-coding filename size)
+    ;;         (setq head-end (set-auto-mode-1))
+    ;;           (inhibit-local-variables-p)
+
+    (if (string-match "\\.tar\\b" buffer)
+        (setq buffer (replace-match "archive" t t buffer)))
+
     (when (get-buffer buffer)
       (kill-buffer buffer))
     (set-buffer (get-buffer-create buffer))
