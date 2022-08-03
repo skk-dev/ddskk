@@ -572,6 +572,11 @@
   ad-do-it
   (skk-dcomp-after-delete-backward-char))
 
+(defadvice abort-minibuffers (around skk-dcomp-ad activate)
+  (skk-dcomp-before-kakutei)
+  ad-do-it
+  (skk-dcomp-after-delete-backward-char))
+
 ;; (defadvice skk-henkan (before skk-dcomp-ad activate)
 (defadvice skk-start-henkan (before skk-dcomp-ad activate)
   (skk-dcomp-cleanup-buffer))
