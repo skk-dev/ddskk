@@ -5173,6 +5173,22 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
           (skk-erase-prefix 'clean)
         ad-do-it)))))
 
+(skk-defadvice abort-minibuffers (around skk-ad activate preactivate)
+  "$BF1>e(B"
+  (interactive)
+
+  (if (not skk-mode)
+      ad-do-it
+    (cond
+     ((eq skk-henkan-mode 'active)
+      (skk-henkan-inactivate))
+     ((eq skk-henkan-mode 'on)
+      (skk-henkan-off-by-quit))
+     (t
+      (if (skk-get-prefix skk-current-rule-tree)
+          (skk-erase-prefix 'clean)
+        ad-do-it)))))
+
 (skk-defadvice abort-recursive-edit (around skk-ad activate preactivate)
   "$B"'%b!<%I$G$"$l$P!"8uJd$NI=<($r$d$a$F"&%b!<%I$KLa$9(B ($B8+=P$78l$O;D$9(B)$B!#(B
 $B"&%b!<%I$G$"$l$P!"8+=P$78l$r:o=|$9$k!#(B
