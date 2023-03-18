@@ -497,8 +497,8 @@ PREDICATE $B$K0z?t(B 1 $B8D$N4X?t$r;XDj$9$l$P!"(BPREDICATE $B$rK~$?$9%7%s%\
 $B$J$I$,;XDj$G$-$k!#;XDj$7$J$1$l$P4X?t$^$?$OJQ?t$K8B$C$FJd40$9$k!#(B
 
 `skk-completion-prog-list' $B$XDI2C$9$k$HM-8z$H$J$k!#(B
-\(add-to-list 'skk-completion-prog-list
-         '\(skk-comp-lisp-symbol\) t\)"
+\(add-to-list \\='skk-completion-prog-list
+         \\='\(skk-comp-lisp-symbol\) t\)"
   (cond (skk-abbrev-mode
          (when skk-comp-first
            (let (temp)
@@ -533,8 +533,8 @@ NOT-ABBREV-ONLY $B$r;XDj$9$k;v$G>o$KM-8z$H$J$k!#(B
 
 
 $B@_DjNc(B
-\(add-to-list 'skk-search-prog-list
-         '\(skk-search-lisp-symbol\) t\)"
+\(add-to-list \\='skk-search-prog-list
+         \\='\(skk-search-lisp-symbol\) t\)"
   (when (and (or not-abbrev-only
                  skk-abbrev-mode))
     (skk-completion-search `((skk-comp-lisp-symbol ',predicate))
@@ -546,7 +546,7 @@ NOT-ABBREV-ONLY $B$r;XDj$9$k;v$G>o$KM-8z$H$J$k!#(B
   "$BJd40%W%m%0%i%`$K$h$jF@$i$l$?8uJd$r(B `skk-comp-prefix' $B$G9J$j9~$`!#(B
 `skk-comp-prefix' $B$KBP1~$7$F$$$J$$Jd40%W%m%0%i%`$r<j7Z$KBP1~$5$;$k:]$K;H$&!#(B
 
-  (skk-comp-restrict-by-prefix '(your-completion-program))
+  (skk-comp-restrict-by-prefix \\='(your-completion-program))
 $B$N$h$&$J$b$N$r(B `skk-completion-prog-list' $B$NMWAG$K;XDj$9$k!#(B"
   (save-match-data
     (let ((regexp-key (concat "^"

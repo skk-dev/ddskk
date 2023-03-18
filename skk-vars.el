@@ -419,7 +419,7 @@ DDSKK 14.2 $B$h$j!V(Bja-dic.el $B8!:w5!G=(B `skk-search-ja-dic'$B!W$,DI2C$5
 $B$$$:$l$N<-=q$b!"8+=P$78l$O%=!<%H$5$l$F$$$J$1$l$P$J$i$J$$!#(B
 
   (setq skk-extra-jisyo-file-list
-        (list '(\"/usr/share/skk/SKK-JISYO.JIS3_4\" . euc-jisx0213)
+        (list \\='(\"/usr/share/skk/SKK-JISYO.JIS3_4\" . euc-jisx0213)
              \"/usr/share/skk/SKK-JISYO.zipcode\"))
 
 SKK $B<-=q$K$O(B SKK OpenLab $B$GG[I[$7$F$$$k$b$N!"Bh;0<T$K$h$k$b$N$J$IB??t$"$k$,!"(B
@@ -620,7 +620,7 @@ SKK $B$G$O!"$+$J4A;zJQ49!&3NDj$r9T$C$?J8;zNs$OA4$F8D?M<-=q$K<h$j9~$^$l$k$,!"(B
 $B$C$F(B (SKK abbrev mode $B$G$NJQ49$r=|$/(B) $B%+%?%+%J$N$_$+$i@.$kJ8;zNs$rF@$F3N(B
 $BDj$7$F$b!"$=$l$r8D?M<-=q$K<h$j9~$^$J$$!#(B
 
- (add-hook 'skk-search-excluding-word-pattern-function
+ (add-hook \\='skk-search-excluding-word-pattern-function
        (lambda (kakutei-word)
            ;; $B$3$N4X?t$,(B non-nil $B$rJV$7$?$H$-$O!"$=$NJ8;zNs$O8D?M(B
            ;; $B<-=q$K<h$j9~$^$l$J$$!#(B
@@ -1038,7 +1038,7 @@ NEXT-STATE $B$K>uBV$r0\$7$?$&$($G!"F~NOBT$A>uBV$H$J$k!#(B
 $B%f!<%6$O!"DI2C$7$?$$5,B'$r!"Nc$($P(B
 
     (setq skk-rom-kana-rule-list
-      '(
+      \\='(
     (\"hh\" \"h\" (\"$B%C(B\" . \"$B$C(B\"))
     (\"@\" nil \"$B!w(B\")
     ...))
@@ -1590,23 +1590,23 @@ SKK-JISYO.[SML] $B$NAw$j2>L>%(%s%H%j$O>e5-$N7A<0$K$J$C$F$$$J$$$N$G!"(B`skk-jis
 $B2<5-$N<0$rI>2A$9$k$3$H$G!"C18lEPO?$KF~$C$?$H$-$@$1(B
 $B0l;~E*$K$3$N%*%W%7%g%s$rL58z$K$9$k$3$H$,$G$-$k!#(B
 
-    (add-hook 'minibuffer-setup-hook
+    (add-hook \\='minibuffer-setup-hook
               (function
                (lambda ()
-                 (if (and (boundp 'skk-henkan-okuri-strictly)
+                 (if (and (boundp \\='skk-henkan-okuri-strictly)
                           skk-henkan-okuri-strictly
-                          (not (eq last-command 'skk-purge-from-jisyo)))
+                          (not (eq last-command \\='skk-purge-from-jisyo)))
                      (progn
                        (setq skk-henkan-okuri-strictly nil)
-                       (put 'skk-henkan-okuri-strictly 'temporary-nil t))))))
+                       (put \\='skk-henkan-okuri-strictly \\='temporary-nil t))))))
 
-    (add-hook 'minibuffer-exit-hook
+    (add-hook \\='minibuffer-exit-hook
               (function
                (lambda ()
-                 (if (and (get 'skk-henkan-okuri-strictly 'temporary-nil)
+                 (if (and (get \\='skk-henkan-okuri-strictly \\='temporary-nil)
                           (<= (minibuffer-depth) 1))
                      (progn
-                       (put 'skk-henkan-okuri-strictly 'temporary-nil nil)
+                       (put \\='skk-henkan-okuri-strictly \\='temporary-nil nil)
                        (setq skk-henkan-okuri-strictly t))))))
 
 $B$3$N%*%W%7%g%sMxMQ;~$O!"(B`skk-process-okuri-early' $B$NCM$O(B nil $B$G$J$1$l$P(B
@@ -1699,7 +1699,7 @@ car $B$K!V<B:]$N%-!<F~NO$K$h$k$+$J(B prefix $BJ8;zNs!W!"(Bcdr $B$K!V(BSKK 
 
 $BNc$($P!"$+9T$NAw$j2>L>F~NO$K(B \"c\" $B$N(B prefix $B$r;H$&$N$G$"$l$P!"(B
 
-  (setq skk-okuri-char-alist '((\"c\" . \"k\")))
+  (setq skk-okuri-char-alist \\='((\"c\" . \"k\")))
 
 $B$N$h$&$K=q$/!#(B"
   :type '(repeat (cons string string))
@@ -1994,7 +1994,7 @@ left $B$G$"$l$P:8C<$KI=<($9$k!#(B
 Emacs $BI8=`$N%U%'%$%9$N$[$+!"?7$?$K(B face $B$r:n$C$F;XDj$9$k$3$H$b2DG=!#(B
 $B?7$?$J(B face $B$r:n$C$F;XDj$9$k$K$O!"(B
 
-      (setq skk-henkan-face (skk-make-face 'DimGray/PeachPuff1))
+      (setq skk-henkan-face (skk-make-face \\='DimGray/PeachPuff1))
 
 $B$N$h$&$K(B skk-make-face() $B$rMxMQ$9$k$N$,<j7Z!#(B
 foreground $B$H(B background $B$N?';XDj$@$1$G$J$$6E$C$?(B face $B$r:n$k>l9g$O!"(B`skk-make-face' $B$G(B
@@ -2072,13 +2072,13 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
      (cond
       ((string-match \";\" candidate)
        (put-text-property 0 (match-beginning 0)
-                  'face (if listing-p 'tooltip 'underline)
+                  \\='face (if listing-p \\='tooltip \\='underline)
                   candidate)
        (put-text-property (match-beginning 0)
-                  (length candidate) 'face 'shadow candidate))
+                  (length candidate) \\='face \\='shadow candidate))
       (t
        (put-text-property 0 (length candidate)
-                  'face (if listing-p 'tooltip 'underline)
+                  \\='face (if listing-p \\='tooltip \\='underline)
                   candidate)))
       candidate))
 
@@ -2709,9 +2709,9 @@ Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!
 
 (defcustom skk-azik-keyboard-type 'jp106
   "*AZIK $B$G;H$&$H$-$N%-!<%\!<%I$N%?%$%W$r%7%s%\%k$G;XDj$9$k!#(B
-o 'jp106    $BF|K\8l(B 106 $B%-!<%\!<%I(B ($B%G%U%)%k%H(B)
-o 'jp-pc98  NEC PC-98 $B%-!<%\!<%I(B
-o 'us101    $B1Q8l%-!<%\!<%I(B  $B"((B jp106 $B5Z$S(B jp-pc98 $B0J30$N%7%s%\%k(B
+o \\='jp106    $BF|K\8l(B 106 $B%-!<%\!<%I(B ($B%G%U%)%k%H(B)
+o \\='jp-pc98  NEC PC-98 $B%-!<%\!<%I(B
+o \\='us101    $B1Q8l%-!<%\!<%I(B  $B"((B jp106 $B5Z$S(B jp-pc98 $B0J30$N%7%s%\%k(B
 
 nil $B$,;XDj$5$l$?>l9g$O!"%-!<%\!<%I$N%?%$%W$N0c$$$r5[<}$9$k3dEv$F$r9T$$$^$;$s!#(B"
   :type '(radio (const :tag "$BF|K\8l(B 106 $B%-!<%\!<%I(B" jp106)
@@ -4241,7 +4241,7 @@ LOCATION $B$K$O!"%(!<%8%'%s%H$N=j:_$rJ8;zNs$G;XDj$9$k!#(B
 KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#(B
 
 $BNc(B: (setq skk-lookup-search-agents
-          '((ndtp \"dserver\" :port 2010)
+          \\='((ndtp \"dserver\" :port 2010)
             (ndeb \"/cdrom\" :enable (\"EIWA\"))))"
   :type '(repeat (sexp :tag "Agent"))   ; type $B$O$A$g$C$H$d$d$3$7$9$.!&!&(B
   :group 'skk-lookup)
@@ -4407,7 +4407,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
        cdr $BIt$NI>2A7k2L$,?t;z$N%j%9%H$K$J$k$H$-$O!"$=$N?t;z$r=g$K(B `match-string'
        $B$KEO$7$FJ8;zNs$r@Z$j=P$7!"$=$l$iO"7k$7$?J8;zNs$r8uJd$H$7$FJV$9!#Nc$($P!"(B
 
-          (cond ((match-beginning 5) '(6 5)))
+          (cond ((match-beginning 5) \\='(6 5)))
 
        $B$H;XDj$9$k$H!"(B(match-beginning 5) $B$,(B non-nil $B$K$J$C$?>l9g!"(B
        (match-string 6) $B$H(B (match-string 5) $B$r$=$N=g$KO"7k$7$?J8;zNs$r8uJd$H$7(B
@@ -4426,7 +4426,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 `lookup-entry-heading' $B$,<+J,$N;HMQ$9$k<-=q$+$i$I$N$h$&$JJ8;zNs$r<h$j=P$9$N$+(B
 $B3N$+$a$?$$$H$-$O!"(B`skk-lookup-pickup-headings' $B$r;HMQ$9$k!#Nc$($P!"(B
 
- (skk-lookup-pickup-headings \"$B$3$7$g$&(B\" 'exact)"
+ (skk-lookup-pickup-headings \"$B$3$7$g$&(B\" \\='exact)"
   ;; for checking.
   ;; (pp (mapcar (lambda (e)(cons (car e) (length e)))
   ;;    skk-lookup-option-alist))
@@ -4498,7 +4498,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
        cdr $BIt$NI>2A7k2L$,?t;z$N%j%9%H$K$J$k$H$-$O!"$=$N?t;z$r=g$K(B `match-string'
        $B$KEO$7$FJ8;zNs$r@Z$j=P$7!"$=$l$iO"7k$7$?J8;zNs$r8uJd$H$7$FJV$9!#Nc$($P!"(B
 
-          (cond ((match-beginning 5) '(6 5)))
+          (cond ((match-beginning 5) \\='(6 5)))
 
        $B$H;XDj$9$k$H!"(B(match-beginning 5) $B$,(B non-nil $B$K$J$C$?>l9g!"(B
        (match-string 6) $B$H(B (match-string 5) $B$r$=$N=g$KO"7k$7$?J8;zNs$r8uJd$H$7(B
@@ -4522,7 +4522,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 `lookup-entry-heading' $B$,<+J,$N;HMQ$9$k<-=q$+$i$I$N$h$&$JJ8;zNs$r<h$j=P$9$N$+(B
 $B3N$+$a$?$$$H$-$O!"(B`skk-lookup-pickup-headings' $B$r;HMQ$9$k!#Nc$($P!"(B
 
- (skk-lookup-pickup-headings \"$B$3$7$g$&(B\" 'exact)"
+ (skk-lookup-pickup-headings \"$B$3$7$g$&(B\" \\='exact)"
   :type '(list (choice :tag "Search method for okuri nasi"
                        (const exact) (const prefix)
                        (const suffix) (const substring)
@@ -4631,7 +4631,7 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
  ($B@_DjNc(B)
 
  (setq skk-non-numeric-prog-list
-       '(skk-look
+       \\='(skk-look
      skk-tankan-search
      (skk-search-jisyo-file \"/usr/share/skk/SKK-JISYO.jinmei\" 10000)))
 "
@@ -4800,7 +4800,7 @@ Microsoft Windows $B$G$O%G%U%)%k%HCM$H$7$F(B 1178 $B$,@_Dj$5$l$k!#(B"
 $B<-=q%5!<%P$,;HMQ$9$k%]!<%HHV9f$r=q$-!"@_Dj$r$9$k$3$H$,$G$-$k!#(B
 
    (setq skk-servers-list
-         '((\"host1\" \"/path/to/skkserv\" \"/path/to/SKK-JISYO.L\" 1178)
+         \\='((\"host1\" \"/path/to/skkserv\" \"/path/to/SKK-JISYO.L\" 1178)
            (\"host2\" \"/path/to/skkserv\")))
 
 $B$3$N>l9g!":G=i$K;XDj$7$?<-=q%5!<%P$K%"%/%;%9$G$-$J$/$J$k$H!"<+F0E*$K=g<!%j%9%H$K$"(B
@@ -4810,7 +4810,7 @@ Microsoft Windows $B$G$O%G%U%)%k%HCM$H$7$F(B 1178 $B$,@_Dj$5$l$k!#(B"
 
 $B$J$*!"%f!<%6!<<+?H$K<B9T8"8B$N$J$$<-=q%5!<%P$r;XDj$9$k>l9g$O!"(B
 
-   (setq skk-servers-list '((\"host1\") (\"host2\")))
+   (setq skk-servers-list \\='((\"host1\") (\"host2\")))
 
 $B$N$h$&$K!"%[%9%HL>$@$1$r=q$/$3$H$,$G$-$k!#>e5-$N@_DjNc$G$O!"(Bhost1, host2 $B$K$*(B
 $B$1$k(B skkserv $B%5!<%S%9$N(B TCP $B@\B3$N3+;O$N$_;n$_!"<-=q%5!<%P$N5/F0$O;n$_$J$$!#(B"
@@ -4905,7 +4905,7 @@ Microsoft Windows $B$G$O%G%U%)%k%HCM$H$7$F(B 1178 $B$,@_Dj$5$l$k!#(B"
   2$B$D$N%-!<$rF1;~$KBG80$9$k$3$H$G$bJQ490LCV$r;XDj$G$-$^$9!#Nc$($P(B
   \"f\" $B$H(B \"j\" $B$NF1;~BG80$G;XDj$9$k>l9g$O(B
 
-    (setq skk-sticky-key '(?f ?j))
+    (setq skk-sticky-key \\='(?f ?j))
 
   $B$N$h$&$K(B character $B$N%j%9%H$r@_Dj$7$F2<$5$$!#(B"
   :type '(radio (string :tag "$BI=<(2DG=$J%-!<(B")
@@ -5065,7 +5065,7 @@ ring.el $B$rMxMQ$7$F$*$j!"6qBNE*$K$O!"2<5-$N$h$&$J9=B$$K$J$C$F$$$k!#(B
 
  ($B@_DjNc(B)
 
- (setq skk-tooltip-face 'font-lock-doc-face)"
+ (setq skk-tooltip-face \\='font-lock-doc-face)"
   :type '(radio (face :tag "$B%U%'%$%9$r;XDj(B" tooltip)
                 (const :tag "$B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;HMQ(B" nil))
   :group 'skk-henkan
@@ -5077,7 +5077,7 @@ ring.el $B$rMxMQ$7$F$*$j!"6qBNE*$K$O!"2<5-$N$h$&$J9=B$$K$J$C$F$$$k!#(B
  ($B@_DjNc(B)
 
  (setq skk-tooltip-parameters
-       '((foreground-color . \"navy blue\")
+       \\='((foreground-color . \"navy blue\")
      (background-color . \"alice blue\")
      (border-color . \"royal blue\")
      (border-width . 1)))
