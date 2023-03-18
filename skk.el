@@ -3268,7 +3268,7 @@ TYPE (文字の種類) に応じた文字をスキップしてバッファの先頭方向へ戻る。
 (defun skk-what-char-type ()
   "$B現在のポイントにある文字の種類を判別する。
 文字の種類に応じて、次のいずれかのシンボルを返す。
-'hiragana 'katakana 'jisx0208-latin 'ascii 'unknown"
+\\='hiragana \\='katakana \\='jisx0208-latin \\='ascii \\='unknown"
   (save-match-data
     (cond ((looking-at "[ぁ-ん]")
            'hiragana)

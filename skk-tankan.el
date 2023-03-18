@@ -1944,7 +1944,7 @@ METHOD が 2 であれば数値 NUM は総画数として検索を実行する。
 (defun skk-tankan-search (func &rest args)
   "変数 `skk-henkan-key' で指定された「読み」に基づいて単漢字変換を実行する。
 通常は `skk-search-prog-list' の１要素として次の形式で指定される。
-'(skk-tankan-search 'skk-search-jisyo-file
+\\='(skk-tankan-search \\='skk-search-jisyo-file
                     skk-large-jisyo 10000))"
   (when (string-match (format "%s$" (regexp-quote
                                      (char-to-string skk-tankan-search-key)))
