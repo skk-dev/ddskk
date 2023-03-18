@@ -263,7 +263,7 @@ If the event isn't a keypress, this returns nil."
     (while (> dimension 0)
       (setq val (cons (logand code 255) ;; 0xFF
                       val))
-      (setq code (lsh code -8))
+      (setq code (ash code -8))
       (setq dimension (1- dimension)))
     (cons charset val)))
 
@@ -818,7 +818,7 @@ Return the modified ALIST."
   ;; Use addition rather than logand since that is more robust; the low 16
   ;; bits of the seconds might have been incremented, making it more than 16
   ;; bits wide.
-  (+ (lsh (- (car b) (car a)) 16)
+  (+ (ash (- (car b) (car a)) 16)
      (- (nth 1 b) (nth 1 a))))
 
 
