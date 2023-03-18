@@ -47,16 +47,16 @@
 (defun uint32le (x)
   "creates uint32le string from an integer."
   (string (% x 256)
-          (% (lsh x -8) 256)
-          (% (lsh x -16) 256)
-          (% (lsh x -24) 256)))
+          (% (ash x -8) 256)
+          (% (ash x -16) 256)
+          (% (ash x -24) 256)))
 
 (defun uint32le-int (v)
   "converts uint32le string v into an integer (if they can fit)."
   (logior (aref v 0)
-          (lsh (aref v 1) 8)
-          (lsh (aref v 2) 16)
-          (lsh (aref v 3) 24)))
+          (ash (aref v 1) 8)
+          (ash (aref v 2) 16)
+          (ash (aref v 3) 24)))
 
 (defun uint32le-int8l (v)
   "returns the lower 8 bits of the value."
@@ -65,8 +65,8 @@
 (defun uint32le-int24u (v)
   "returns the upper 8 bits of the value."
   (logior (aref v 1)
-          (lsh (aref v 2) 8)
-          (lsh (aref v 3) 16)))
+          (ash (aref v 2) 8)
+          (ash (aref v 3) 16)))
 
 (defun uint32le-eq (v1 v2)
   "returns true of the two uint32le values are equal."
@@ -91,13 +91,13 @@
 (defun uint32le-lsh (v n)
   "left-shifts the value v by n bits."
   (let ((a (string 0 0 0 0))
-        (x (lsh (aref v 0) n)))
+        (x (ash (aref v 0) n)))
     (aset a 0 (% x 256))
-    (setq x (logior (lsh (aref v 1) n) (/ x 256)))
+    (setq x (logior (ash (aref v 1) n) (/ x 256)))
     (aset a 1 (% x 256))
-    (setq x (logior (lsh (aref v 2) n) (/ x 256)))
+    (setq x (logior (ash (aref v 2) n) (/ x 256)))
     (aset a 2 (% x 256))
-    (setq x (logior (lsh (aref v 3) n) (/ x 256)))
+    (setq x (logior (ash (aref v 3) n) (/ x 256)))
     (aset a 3 (% x 256))
     a))
 

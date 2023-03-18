@@ -1690,7 +1690,7 @@
   (let ((v (aref skk-tankan-stroke-for-radical-vector radical)))
     (if (integerp v)
         v
-      (nth (lsh dat -6) v))))
+      (nth (ash dat -6) v))))
 
 ;;; get char's radical, strokes in radical, total strokes
 (defun skk-tankan-get-char-data (char)
