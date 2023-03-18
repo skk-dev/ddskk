@@ -1063,7 +1063,7 @@ information etc.  If PROC is non-nil, check the buffer for that process."
          (when (>= pt (point))
            (forward-line 1)
            (end-of-line))
-         (when (eq (point-at-bol) (point-at-eol))
+         (when (eq (line-beginning-position) (line-end-position))
            (forward-line -1)
            (end-of-line))
          (buffer-substring-no-properties pt (point)))
