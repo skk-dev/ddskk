@@ -61,20 +61,22 @@ The files contained install package are described on recipe of MELPA.
 
 Refer the detailed recipe on https://github.com/milkypostman/melpa/blob/master/recipes/ddskk
 
-## 3. Setting of DDSKK
+## 3. Configuring DDSKK
 
-`leim-list.el` and `skk-setup.el` are absent, different from Makefile to install, therefor
-you should set a key bind on `~/.emacs.d/init.el` as follows;
+Unlike a Makefile installation, the MELPA package does not provide `leim-list.el` and `skk-setup.el`
+You should set a key binding on `~/.emacs.d/init.el` as follows.
 
 ```
 (global-set-key (kbd "C-x C-j") 'skk-mode)
 ```
 
-After running skk-mode, Emacs read `~/.skk`, skk initializing file , so 
-set such like dictionary place.
+Please also refer to `skk-setup.el` for settings related to incremental search (`isearch`) if necessary.
 
-After installed DDSKK, put `M-x skk-get` and the dictionaries are automatically downloaded.
-The dictionary files are in the directory indicated by `skk-get-jisyo-directory`, which default is `~/.emacs.d/skk-get-jisyo`.
+After starting `skk-mode`, Emacs will read the settings file `skk-init-file`, which is `~/.skk` by default.
+You should configure settings like dictionary files here.
+
+After it's installed, DDSKK can automatically download dictionaries by invoking `M-x skk-get`.
+The dictionary files will be placed the directory indicated by `skk-get-jisyo-directory`, which by default is `~/.emacs.d/skk-get-jisyo`.
 
 ## 4. Upgrading DDSKK
 
