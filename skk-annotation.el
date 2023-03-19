@@ -986,7 +986,7 @@ information etc.  If PROC is non-nil, check the buffer for that process."
       (goto-char (point-max))
       (compilation-forget-errors)
       (skkannot-py-send-string command)
-      (setq compilation-last-buffer (current-buffer)))))
+      (setq next-error-last-buffer (current-buffer)))))
 
 ;;;###autoload
 (defun skk-annotation-start-python (&optional wait)
