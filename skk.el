@@ -319,6 +319,7 @@ dependent."
   (skk-emacs-prepare-menu)
   (skk-setup-charset-list)
   (skk-setup-delete-selection-mode)
+  (skk-setup-melpa-isearch)
   (when skk-annotation-lookup-DictionaryServices
     (skk-annotation-start-python))
   (setq skk-mode-invoked t))
@@ -832,6 +833,15 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
     (forward-line 1)
     (backward-char 1)
     (setq skk-okuri-nasi-min (point-marker))))
+
+(defun skk-setup-melpa-isearch ()
+  (and (string-match "melpa" (skk-version))
+       ;; FIXME
+       (null (car (mapcar #'(lambda (e)
+                              (string-match "skk" (symbol-name e)))
+                          isearch-mode-hook)))
+       (skk-message "skk-setup.el $B$r;29M$K$7$F!"(Bisearch-mode-hook $B$r@_Dj$7$F$/$@$5$$!#(B"
+                    "Please refer to the source file `skk-setup.el' and setup isearch-mode-hook.") ))
 
 ;;;###autoload
 (defun skk-emulate-original-map (arg)
