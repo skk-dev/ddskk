@@ -31,14 +31,14 @@
 (put 'skk-version 'product-name "Daredevil SKK")
 (put 'skk-version 'version-string
      (let ((ver "17.1")
-           (mepla "mepla")
+           (melpa "melpa")
            (path (catch 'exit
                    (dolist (p load-path)
                      ;; ;; ~/.emacs.d/elpa/ddskk-20150107.409/
                      (when (string-match "ddskk-[0-9]+\.[0-9]+" p)
                        (throw 'exit p))))))
        (if path
-           (format "%s/%s-%s" ver mepla
+           (format "%s/%s-%s" ver melpa
                    (car (cdr (split-string path "ddskk-"))))
          ver)))
 (put 'skk-version 'codename "Neppu") ; See also `READMEs/CODENAME.ja'
