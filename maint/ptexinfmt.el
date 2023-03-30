@@ -163,7 +163,7 @@ DOCSTRING will be printed if ASSERTION is nil and
                            "`texinfo-multitable-widths' unsupport wide-char."
                            (if (fboundp 'texinfo-multitable-widths)
                                (with-temp-buffer
-                                 (let ((str "$BI}9-J8;z(B"))
+                                 (let ((str "幅広文字"))
                                    (texinfo-mode)
                                    (insert (format " {%s}\n" str))
                                    (goto-char (point-min))
@@ -228,7 +228,7 @@ DOCSTRING will be printed if ASSERTION is nil and
                          (texinfo-parse-arg-discard)
                          (insert " "))
 
-
+
 ;;; Directory File
 ;; @direcategory
 (put 'dircategory 'texinfo-format 'texinfo-format-dircategory)
@@ -331,7 +331,7 @@ DOCSTRING will be printed if ASSERTION is nil and
                                         (progn (re-search-forward "@end ifdocbook[ \t]*\n")
                                                (point))))
 
-
+
 ;;; Marking
 ;; @indicateurl, @url, @env, @command,
 (put 'env 'texinfo-format 'texinfo-format-code)
@@ -400,7 +400,7 @@ For example, @verb\{|@|\} results in @ and
                            (error "Not found: @verb end brace"))
                          (delete-char 1))
 
-
+
 ;;; @LaTeX, @registeredsymbol{}
 (put 'LaTeX 'texinfo-format 'texinfo-format-LaTeX)
 (ptexinfmt-defun-if-void texinfo-format-LaTeX ()
@@ -597,7 +597,7 @@ For example, @verb\{|@|\} results in @ and
 (ptexinfmt-defun-if-void texinfo-format-\/ ()
                          (texinfo-discard-command))
 
-
+
 ;;; Cross References
 ;; @ref, @xref
 (put 'ref 'texinfo-format 'texinfo-format-xref)
@@ -647,7 +647,7 @@ otherwise, insert URL-TITLE followed by URL in parentheses."
   (put 'anchor 'texinfo-format 'texinfo-discard-command-and-arg))
 
 
-
+
 ;;; New command definition
 ;; @alias NEW=EXISTING
 (put 'alias 'texinfo-format 'texinfo-alias)
@@ -666,7 +666,7 @@ otherwise, insert URL-TITLE followed by URL in parentheses."
                                     texinfo-alias-list))
                              (texinfo-discard-command))))
 
-
+
 ;;; Indent
 ;; @exampleindent INDENT  (makeinfo 4.0 or later)
 
@@ -677,7 +677,7 @@ otherwise, insert URL-TITLE followed by URL in parentheses."
 ;; WORD: none, insert
 
 
-
+
 ;;; Special
 ;; @image{FILENAME [, WIDTH] [, HEIGHT]}
 (put 'image 'texinfo-format 'texinfo-format-image)
@@ -704,7 +704,7 @@ otherwise, insert URL-TITLE followed by URL in parentheses."
                          (setq texinfo-command-end (point))
                          (delete-region texinfo-command-start texinfo-command-end))
 
-
+
 ;;; @multitable ... @end multitable
 (ptexinfmt-defvar-if-void texinfo-extra-inter-column-width 0
                           "*Number of extra spaces between entries (columns) in @multitable.")
@@ -942,7 +942,7 @@ This command is executed when texinfmt sees @item inside @multitable."
                            (kill-buffer texinfo-multitable-buffer-name)
                            (setq fill-column existing-fill-column)))
 
-
+
 (ptexinfmt-defun-if-broken texinfo-format-printindex ()
                            (let ((indexelts (symbol-value
                                              (cdr (assoc (texinfo-parse-arg-discard)

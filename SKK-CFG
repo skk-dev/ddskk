@@ -9,37 +9,37 @@
 
 ;;; Commentary:
 
-;; SKK-MK $B$N<B9T2aDx$G$3$N%U%!%$%k(B (SKK-CFG) $B$,(B load $B$5$l$^$9!#(B
+;; SKK-MK の実行過程でこのファイル (SKK-CFG) が load されます。
 
-;; Emacs $B$N%U%!%$%kG[CV$,I8=`E*$G$J$$4D6-$K(B skk $B$r%$%s%9%H!<%k$9$k>l9g!"$3$N%U%!(B
-;; $B%$%k(B (SKK-CFG) $B$rJT=8$9$k$3$H$K$h$C$F$*;H$$$N4D6-$K9g$o$;$?@_Dj$r$9$k$3$H$,$G(B
-;; $B$-$^$9!#$3$3$G$O@_Dj$G$-$kJQ?t$r>R2p$7!"<!$K@_DjNc$r<($7$^$9!#(B
+;; Emacs のファイル配置が標準的でない環境に skk をインストールする場合、このファ
+;; イル (SKK-CFG) を編集することによってお使いの環境に合わせた設定をすることがで
+;; きます。ここでは設定できる変数を紹介し、次に設定例を示します。
 
-;; SKK $B$N%$%s%9%H!<%i$O!"I8=`E*$J4D6-$G$O(B make install $B$H<B9T$9$k$@$1$G%$%s%9%H!<(B
-;; $B%k$G$-$k$h$&$K:n$i$l$F$$$^$9$,!"$b$7!"$"$J$?$N4D6-$G$&$^$/$$$+$J$$$H$-$O!"0J2<(B
-;; $B$N@_Dj$rJQ99$7$F$_$F2<$5$$!#(B
+;; SKK のインストーラは、標準的な環境では make install と実行するだけでインストー
+;; ルできるように作られていますが、もし、あなたの環境でうまくいかないときは、以下
+;; の設定を変更してみて下さい。
 
-;; $B$^$?!"%$%s%9%H!<%i$,(B SKK $B$N3F%U%!%$%k$r$I$3$K%$%s%9%H!<%k$7$h$&$H$7$F$$$k$+(B
-;; $BCN$j$?$$>l9g$O!"(B
+;; また、インストーラが SKK の各ファイルをどこにインストールしようとしているか
+;; 知りたい場合は、
 ;;
-;; ($BNc(B)% make what-where
+;; (例)% make what-where
 
-;; $B$r<B9T$7$F$_$F$/$@$5$$!#(B
+;; を実行してみてください。
 
-;; make what-where $B$,<($9>l=j$,ITE,@Z$J>l9g!"$3$N%U%!%$%k$G%$%s%9%H!<%k@h$r@_Dj(B
-;; $B$7$?8e!":FEY(B make what-where $B$r<B9T$7$F$/$@$5$$!#@_Dj$,H?1G$5$l$F$$$k$+$I$&(B
-;; $B$+3NG'$G$-$^$9!#3NG'$G$-$?$i(B make install $B$r<B9T$7$F$/$@$5$$!#(B
+;; make what-where が示す場所が不適切な場合、このファイルでインストール先を設定
+;; した後、再度 make what-where を実行してください。設定が反映されているかどう
+;; か確認できます。確認できたら make install を実行してください。
 
-;; $B$J$*!"(BEmacs $B$N<B9T7A<0%U%!%$%kL>$@$1$O$3$N%U%!%$%k$G$O@_Dj$G$-$:!"FC$K;XDj(B
-;; $B$7$?$$>l9g$O%3%^%s%I%i%$%s$+$i;XDj$9$kI,MW$,$"$j$^$9!#(B
+;; なお、Emacs の実行形式ファイル名だけはこのファイルでは設定できず、特に指定
+;; したい場合はコマンドラインから指定する必要があります。
 ;;
-;; ($BNc(B 1)% make install EMACS=c:/emacs-24.5/bin/emacs.exe
+;; (例 1)% make install EMACS=c:/emacs-24.5/bin/emacs.exe
 ;;
-;; ($BNc(B 2)% make install EMACS=/Applications/Emacs.app/Contents/MacOS/Emacs
+;; (例 2)% make install EMACS=/Applications/Emacs.app/Contents/MacOS/Emacs
 ;;
 
-;; $BHs(B UNIX $BE*$J(B Emacs $B4D6-$G$OFC$K%$%s%9%H!<%k@h$,E,@Z$K7hDj$5$l$J$$$3$H$,(B
-;; $B$"$jF@$^$9$N$G!"$3$N%U%!%$%k$r3hMQ$7$F@_Dj$7$F$/$@$5$$!#(B
+;; 非 UNIX 的な Emacs 環境では特にインストール先が適切に決定されないことが
+;; あり得ますので、このファイルを活用して設定してください。
 
 ;;; Explanation:
 
@@ -48,70 +48,70 @@
 ;;
 
 ;; PREFIX:
-;;   $BA4$F$N%U%!%$%k$,%$%s%9%H!<%k$5$l$k%G%#%l%/%H%j$N(B root $B%G%#%l%/%H%j!#(B
-;;   $B$3$NJQ?t$KCM$r@_Dj$7$J$+$C$?>l9g$O!"(BEmacs $B$,%$%s%9%H!<%k$5$l$F$$$k%Q%9(B
-;;   $B$+$i<+F0E*$K@_Dj$5$l$k!#(B
+;;   全てのファイルがインストールされるディレクトリの root ディレクトリ。
+;;   この変数に値を設定しなかった場合は、Emacs がインストールされているパス
+;;   から自動的に設定される。
 
 ;; LISPDIR:
 ;; ADDITIONAL_LISPDIR:
-;;   $BDI2C$G(B load-path $B$r@_Dj$7$?$$%G%#%l%/%H%j$r;XDj$9$k!#(B
-;;   $BNc$($P(B skk-lookup.el $B$r%$%s%9%H!<%k$9$k:]$O!"%$%s%9%H!<%k;~$K(B lookup.el $B$r(B
-;;   require $B$9$k$N$G!"(Blookup $B$,%$%s%9%H!<%k$5$l$F$$$k%G%#%l%/%H%j$,%G%#%U%)%k(B
-;;   $B%H$G(B (emacs $B$,(B -q $B%*%W%7%g%sIU$-$G5/F0$5$l$?$H$-(B) load-path $B$K2C$($i$l$F$$(B
-;;   $B$J$$>l9g$O!"$=$N%G%#%l%/%H%j$rL@<(E*$K(B load-path $B$KDI2C$9$kI,MW$,$"$k!#$=(B
-;;   $B$N:]!"$3$NJQ?t$rMxMQ$7$F2<5-$N$h$&$K@_Dj$9$k!#(B
+;;   追加で load-path を設定したいディレクトリを指定する。
+;;   例えば skk-lookup.el をインストールする際は、インストール時に lookup.el を
+;;   require するので、lookup がインストールされているディレクトリがディフォル
+;;   トで (emacs が -q オプション付きで起動されたとき) load-path に加えられてい
+;;   ない場合は、そのディレクトリを明示的に load-path に追加する必要がある。そ
+;;   の際、この変数を利用して下記のように設定する。
 ;;
 ;;   (setq ADDITIONAL_LISPDIR "/usr/local/lib/emacs/site-lisp/lookup")
 ;;
 
 ;; VERSION_SPECIFIC_LISPDIR:
-;;   Emacs $B$N(B version specific $B$J(B Lisp program $B$,%$%s%9%H!<%k$5$l$F$$$k%G%#%l%/(B
-;;   $B%H%j!#$3$N%G%#%l%/%H%j$,;XDj$5$l$k$H(B SKK_MODULES $B$N%3%s%Q%$%k$N:]$K(B
-;;   load-path $B$,DL$5$l!"$^$?(B SKK $B$OI8=`$G$O$3$N%G%#%l%/%H%j0J2<$K%$%s%9%H!<%k(B
-;;   $B$5$l$k!#(B
+;;   Emacs の version specific な Lisp program がインストールされているディレク
+;;   トリ。このディレクトリが指定されると SKK_MODULES のコンパイルの際に
+;;   load-path が通され、また SKK は標準ではこのディレクトリ以下にインストール
+;;   される。
 
 ;; SKK_DATADIR:
-;;   $B%A%e!<%H%j%"%k$J$I$N%$%s%9%H!<%k@h!#(B
-;;   $B$3$NJQ?t$KCM$r@_Dj$7$J$+$C$?>l9g$O!"(BPREFIX $B$NCM$+$i4D6-$K1~$8$F<+F0E*$K(B
-;;   $B@_Dj$5$l$k!#(B
+;;   チュートリアルなどのインストール先。
+;;   この変数に値を設定しなかった場合は、PREFIX の値から環境に応じて自動的に
+;;   設定される。
 
 ;; SKK_INFODIR:
-;;   skk.info ($B%X%k%W(B) $B$N%$%s%9%H!<%k@h!#(B
-;;   $B$3$NJQ?t$KCM$r@_Dj$7$J$+$C$?>l9g$O!"(BPREFIX $B$NCM$+$i4D6-$K1~$8$F<+F0E*$K(B
-;;   $B@_Dj$5$l$k!#(B
+;;   skk.info (ヘルプ) のインストール先。
+;;   この変数に値を設定しなかった場合は、PREFIX の値から環境に応じて自動的に
+;;   設定される。
 
 ;; SKK_LISPDIR:
-;;   SKK $B$N(B Emacs Lisp $B$N%$%s%9%H!<%k@h!#(B
-;;   $B$3$NJQ?t$KCM$r@_Dj$7$J$+$C$?>l9g$O!"(BVERSION_SPECIFIC_LISPDIR $B0J2<$N(B
-;;   "skk" $B$H$$$&%5%V%G%#%l%/%H%j$,A*Br$5$l$k!#(B
+;;   SKK の Emacs Lisp のインストール先。
+;;   この変数に値を設定しなかった場合は、VERSION_SPECIFIC_LISPDIR 以下の
+;;   "skk" というサブディレクトリが選択される。
 
 ;; SKK_SET_JISYO:
-;;   skk-large-jisyo $B$NCM$r<+F0@_Dj$9$k$+$I$&$+7h$a$k!#(B
-;;   t $B$J$I(B non-nil $B$J$i<+F0@_Dj$9$k!#(Bnil $B$J$i$7$J$$!#(B
-;;   $B$3$NJQ?t$KCM$r@_Dj$7$J$+$C$?>l9g$O!"(BSKK $B%5!<%P$,MxMQ$G$-$J$$>l9g$K(B
-;;   $B8B$C$F(B skk-large-jisyo $B$NCM$,<+F0@_Dj$5$l$k!#(B
+;;   skk-large-jisyo の値を自動設定するかどうか決める。
+;;   t など non-nil なら自動設定する。nil ならしない。
+;;   この変数に値を設定しなかった場合は、SKK サーバが利用できない場合に
+;;   限って skk-large-jisyo の値が自動設定される。
 
 ;;; Example:
 ;; (setq SKK-MK-debugging nil)
 
-;;; NTEmacs $B$N@_DjNc(B:
+;;; NTEmacs の設定例:
 ;; (setq SKK_DATADIR "C:/usr/emacs-25.1/share/emacs/25.1/etc")
 ;; (setq SKK_INFODIR "C:/usr/emacs-25.1/share/info")
 ;; (setq SKK_LISPDIR "C:/usr/emacs-25.1/share/emacs/site-lisp/skk")
 ;; (setq SKK_SET_JISYO t)
 ;;
-;; *[$BCm(B] Microsoft Windows $BMQ$N(B Emacs $B$O%P!<%8%g%s$d%S%k%I!"%G%#%9%H%j%S%e!<%7%g%s(B
-;; $B$K$h$C$F%U%!%$%kG[CV$K:90[$,$"$k$3$H$,$"$j$^$9!#(B
-;; make what-where $B$N=PNO$KCm0U$7$F$/$@$5$$!#(B
+;; *[注] Microsoft Windows 用の Emacs はバージョンやビルド、ディストリビューション
+;; によってファイル配置に差異があることがあります。
+;; make what-where の出力に注意してください。
 
-;;; Apple OS X $B$K$*$1$k(B self-contained $B$J(B Carbon/Cocoa Emacs $B$N@_DjNc(B:
+;;; Apple OS X における self-contained な Carbon/Cocoa Emacs の設定例:
 ;; (setq SKK_DATADIR "/Applications/Emacs.app/Contents/Resources/etc/skk")
 ;; (setq SKK_INFODIR "/Applications/Emacs.app/Contents/Resources/info")
 ;; (setq SKK_LISPDIR "/Applications/Emacs.app/Contents/Resources/site-lisp/skk")
 ;; (setq SKK_SET_JISYO t)
 ;;
-;; *[$BCm(B] Carbon/Cocoa Emacs $B$O%3%s%Q%$%k;~$N@_Dj$K$h$j(B self-contained $B$+$I$&$+(B
-;; $B@_Dj$G$-$^$9!#(Bself-contained $B$G$J$$>l9g$ODL>o$N(B UNIX $BE*%U%!%$%kG[CV$K$J$j$^(B
-;; $B$9!#(B
+;; *[注] Carbon/Cocoa Emacs はコンパイル時の設定により self-contained かどうか
+;; 設定できます。self-contained でない場合は通常の UNIX 的ファイル配置になりま
+;; す。
 
 ;;; SKK-CFG ends here

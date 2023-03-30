@@ -1,4 +1,4 @@
-;;; skk-cus.el --- SKK $B$N4JC1$+$9$?$^$$$:;n:nIJ(B -*- coding: iso-2022-jp -*-
+;;; skk-cus.el --- SKK の簡単かすたまいず試作品 -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2001 SKK Development Team
 
@@ -23,7 +23,7 @@
 
 ;;; Commentary:
 
-;; SKK $B5/F08e(B M-x skk-customize $B$G@_Dj$9$k!#(B
+;; SKK 起動後 M-x skk-customize で設定する。
 
 ;;; Code:
 
@@ -44,89 +44,89 @@
 
 (defconst skk-cus-params-visual
   '((skk-use-face
-     (const :tag "$BJQ49Cf$K?'$r$D$1$k(B" t) "")
+     (const :tag "変換中に色をつける" t) "")
     (skk-use-color-cursor
-     (const :tag "$B%+!<%=%k$K?'$r$D$1$k(B" t) "")
+     (const :tag "カーソルに色をつける" t) "")
     (skk-japanese-message-and-error
-     (const :tag "$B%a%C%;!<%8$OF|K\8l$GDLCN$9$k(B" t) "")
+     (const :tag "メッセージは日本語で通知する" t) "")
     (skk-verbose
-     (const :tag "$B>iD9$J%a%C%;!<%8$rI=<($9$k(B" t) "")
+     (const :tag "冗長なメッセージを表示する" t) "")
     (skk-show-japanese-menu
-     (const :tag "$B%a%K%e!<%P!<$rF|K\8l$GI=<($9$k(B" t) "")
+     (const :tag "メニューバーを日本語で表示する" t) "")
     (skk-show-annotation
-     (radio :tag "$BJQ49;~$KCp<a$rI=<($9$k!)(B"
-            (const :tag "$B>o$KI=<((B" t)
-            (const :tag "$B8uJd0lMw$G$OHsI=<((B" (not list))
-            (const :tag "$B%_%K%P%C%U%!$G$OHsI=<((B" (not minibuf))
-            (const :tag "$B8uJd0lMw$H%_%K%P%C%U%!$G$OHsI=<((B"
+     (radio :tag "変換時に註釈を表示する？"
+            (const :tag "常に表示" t)
+            (const :tag "候補一覧では非表示" (not list))
+            (const :tag "ミニバッファでは非表示" (not minibuf))
+            (const :tag "候補一覧とミニバッファでは非表示"
                    (not list minibuf))
-            (const :tag "$BHsI=<((B" nil))
+            (const :tag "非表示" nil))
      "")
     (skk-show-inline
-     (radio :tag "$B8uJd0lMw$r%$%s%i%$%sI=<($9$k!)(B"
-            (const :tag "$B=D$KJB$Y$FI=<((B" vertical)
-            (const :tag "$B0lNs$KI=<((B" t)
-            (const :tag "$B%$%s%i%$%sI=<($7$J$$(B" nil))
+     (radio :tag "候補一覧をインライン表示する？"
+            (const :tag "縦に並べて表示" vertical)
+            (const :tag "一列に表示" t)
+            (const :tag "インライン表示しない" nil))
      "")
     (skk-show-tooltip
-     (const :tag "$B8uJd0lMw!&Cm<a$r%D!<%k%F%#%C%W$GI=<($9$k(B" t) "")
+     (const :tag "候補一覧・注釈をツールティップで表示する" t) "")
     (skk-show-candidates-always-pop-to-buffer
-     (const :tag "$B8uJd0lMw$rJL%&%$%s%I%&$rMQ0U$7$FI=<($9$k(B" t) "")))
+     (const :tag "候補一覧を別ウインドウを用意して表示する" t) "")))
 
 (defconst skk-cus-params-ui
   '((skk-egg-like-newline
-     (const :tag "$B"'%b!<%I$G$N(B Return [Enter] $B%-!<$O3NDj$N$_$G2~9T$O$7$J$$(B" t)
+     (const :tag "▼モードでの Return [Enter] キーは確定のみで改行はしない" t)
      "")
     (skk-kakutei-early
-     (const :tag "$BL@<(E*$J3NDj$r>JN,2DG=$K$9$k(B" t) "")
+     (const :tag "明示的な確定を省略可能にする" t) "")
     (skk-delete-implies-kakutei
-     (const :tag "$B"'%b!<%I$G(B BS $B$r2!$7$?$i3NDj$9$k(B" t) "")
+     (const :tag "▼モードで BS を押したら確定する" t) "")
     (skk-auto-insert-paren
-     (const :tag "$BJD3g8L$r<+F0E*$KA^F~$9$k(B" t) "")))
+     (const :tag "閉括弧を自動的に挿入する" t) "")))
 
 (defconst skk-cus-params-henkan
   '((skk-auto-start-henkan
-     (const :tag "$BFCDj$NJ8;z$NF~NO;~$K<+F0E*$KJQ49$r3+;O$9$k(B" t) "")
+     (const :tag "特定の文字の入力時に自動的に変換を開始する" t) "")
     (skk-henkan-okuri-strictly
-     (const :tag "$BAw$j2>L>$,87L)$K@5$7$$8uJd$N$_I=<($9$k(B" t) "")
+     (const :tag "送り仮名が厳密に正しい候補のみ表示する" t) "")
     (skk-henkan-strict-okuri-precedence
-     (const :tag "$BAw$j2>L>$,87L)$K@5$7$$8uJd$rM%@h$7$FI=<($9$k(B" t) "")
+     (const :tag "送り仮名が厳密に正しい候補を優先して表示する" t) "")
     (skk-check-okurigana-on-touroku
-     (radio :tag "$B<-=qEPO?;~$NM>7W$JAw$j2>L>$N<+F0=hM}$O!)(B"
-            (const :tag "$B<+F0=hM}$9$k(B" auto)
-            (const :tag "$B%f!<%6$N;X<($K$h$k(B" ask)
-            (const :tag "$B<+F0=hM}$7$J$$(B" nil))
+     (radio :tag "辞書登録時の余計な送り仮名の自動処理は？"
+            (const :tag "自動処理する" auto)
+            (const :tag "ユーザの指示による" ask)
+            (const :tag "自動処理しない" nil))
      "")
     (skk-j-mode-function-key-usage
-     (radio :tag "$B$+$J%b!<%I$G%U%!%s%/%7%g%s%-!<$r;H$&!)(B"
-            (const :tag "$BFC<lJQ49$K3d$jEv$F$k(B" conversion)
-            (const :tag "$B;H$o$J$$(B" nil))
+     (radio :tag "かなモードでファンクションキーを使う？"
+            (const :tag "特殊変換に割り当てる" conversion)
+            (const :tag "使わない" nil))
      "")))
 
 (defconst skk-cus-params-search
   '((skk-use-look
-     (const :tag "$BJd40$N;~$K(B look $B%3%^%s%I$r;H$&(B" t) "")
+     (const :tag "補完の時に look コマンドを使う" t) "")
     (skk-auto-okuri-process
-     (const :tag "$BAw$j$J$7JQ49$GAw$j$"$j8uJd$b8!:w$9$k(B" t) "")
+     (const :tag "送りなし変換で送りあり候補も検索する" t) "")
     (skk-use-numeric-conversion
-     (const :tag "$B?tCMJQ495!G=$r;H$&(B" t) "")))
+     (const :tag "数値変換機能を使う" t) "")))
 
 (defconst skk-cus-params-input
   '((skk-use-jisx0201-input-method
-     (const :tag "$BH>3Q%+%J$rF~NO2DG=$K$9$k(B" t) "")))
+     (const :tag "半角カナを入力可能にする" t) "")))
 
 (defconst skk-cus-params-misc
   '((skk-share-private-jisyo
-     (const :tag "$BJ#?t$N(B SKK $B$,8D?M<-=q$r6&M-$9$k(B" t) "")
+     (const :tag "複数の SKK が個人辞書を共有する" t) "")
     (skk-show-icon
-     (const :tag "SKK $B$N%"%$%3%s$rI=<($9$k(B" t) "")
+     (const :tag "SKK のアイコンを表示する" t) "")
     (skk-preload
-     (const :tag "SKK $B$r$"$i$+$8$a%m!<%I$7$F=i2s5/F0$r9bB.$K$9$k(B" t) "")))
+     (const :tag "SKK をあらかじめロードして初回起動を高速にする" t) "")))
 
 (defun skk-custom-mode ()
   (kill-all-local-variables)
   (setq major-mode 'skk-custom-mode
-        mode-name "SKK $B$N@_Dj(B")
+        mode-name "SKK の設定")
   (use-local-map skk-custom-map)
   (when (and (facep 'custom-button-face)
              (facep 'custom-button-pressed-face))
@@ -216,27 +216,27 @@
                (skk-cus-info skk-cus-params-search)
                (skk-cus-info skk-cus-params-input)
                (skk-cus-info skk-cus-params-misc))))
-    (kill-buffer (get-buffer-create "*SKK $B$N4pK\@_Dj(B*"))
-    ;;     (switch-to-buffer (get-buffer-create "*SKK $B$N4pK\@_Dj(B*"))
+    (kill-buffer (get-buffer-create "*SKK の基本設定*"))
+    ;;     (switch-to-buffer (get-buffer-create "*SKK の基本設定*"))
     (set-window-buffer (selected-window)
-                       (get-buffer-create "*SKK $B$N4pK\@_Dj(B*"))
-    (set-buffer "*SKK $B$N4pK\@_Dj(B*")
+                       (get-buffer-create "*SKK の基本設定*"))
+    (set-buffer "*SKK の基本設定*")
 
     (skk-custom-mode)
-    (widget-insert "SKK $B$N4pK\@_Dj!#=*$o$C$?$i(B ")
+    (widget-insert "SKK の基本設定。終わったら ")
     (widget-create 'push-button
                    :tag "done"
-                   :help-echo "$B=*$o$C$?$i%\%/$r2!$7$F!#(B"
+                   :help-echo "終わったらボクを押して。"
                    :action 'skk-customize-done)
-    (widget-insert " $B$r2!$7$F$/$@$5$$!#(B\n\n")
-    (widget-insert "$BCm0U(B: $B$$$/$D$+$N@_Dj$O:F5/F0$,I,MW$G$9!#(B\n\n")
+    (widget-insert " を押してください。\n\n")
+    (widget-insert "注意: いくつかの設定は再起動が必要です。\n\n")
     (setq skk-custom-params
           (list
            (widget-create 'group
                           :value info
                           `(set :inline t
                                 :greedy t
-                                :tag "$BI=<($K4X$9$k@_Dj(B"
+                                :tag "表示に関する設定"
                                 :format "%t:\n%h%v"
                                 :doc ""
                                 ,@visual))
@@ -244,7 +244,7 @@
                           :value info
                           `(set :inline t
                                 :greedy t
-                                :tag "$B4pK\E*$J%f!<%6!&%$%s%?!<%U%'!<%9(B"
+                                :tag "基本的なユーザ・インターフェース"
                                 :format "%t:\n%h%v"
                                 :doc ""
                                 ,@ui))
@@ -252,7 +252,7 @@
                           :value info
                           `(set :inline t
                                 :greedy t
-                                :tag "$BJQ49$K4X$9$k@_Dj(B"
+                                :tag "変換に関する設定"
                                 :format "%t:\n%h%v"
                                 :doc ""
                                 ,@henkan))
@@ -260,7 +260,7 @@
                           :value info
                           `(set :inline t
                                 :greedy t
-                                :tag "$B<-=q8!:w$K4X$9$k@_Dj(B"
+                                :tag "辞書検索に関する設定"
                                 :format "%t:\n%h%v"
                                 :doc ""
                                 ,@search))
@@ -268,7 +268,7 @@
                           :value info
                           `(set :inline t
                                 :greedy t
-                                :tag "$BF~NOJ}<0$K4X$9$k@_Dj(B"
+                                :tag "入力方式に関する設定"
                                 :format "%t:\n%h%v"
                                 :doc ""
                                 ,@input))
@@ -276,7 +276,7 @@
                           :value info
                           `(set :inline t
                                 :greedy t
-                                :tag "$B$=$NB>$N@_Dj(B"
+                                :tag "その他の設定"
                                 :format "%t:\n%h%v"
                                 :doc ""
                                 ,@misc))))

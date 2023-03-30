@@ -150,7 +150,7 @@ The MODE should be canonical."
     (t
      (skk-isearch-turn-off-skk-mode))))
 
-
+
 (defun skk-isearch-symbolic-mode (mode)
   "Return symbolic skk isearch mode for given numerical MODE."
   (car (rassq mode skk-isearch-mode-canonical-alist)))
@@ -297,7 +297,7 @@ Optional argument PREFIX is appended if given."
                                  skk-isearch-incomplete-message
                                  prefix)))
     (isearch-message)))
-
+
 ;;
 ;; define keymap
 ;;
@@ -383,7 +383,7 @@ Optional argument PREFIX is appended if given."
   ;;
   map)
 
-
+
 ;;
 ;; wrapper functions
 ;;
@@ -450,7 +450,7 @@ If the conversion is in progress and no string is fixed, just return nil."
       ;; update echo area.
       (skk-isearch-incomplete-message))))
 
-
+
 ;;
 ;; regexp search supports.
 ;;
@@ -492,7 +492,7 @@ If the current mode is different from previous, remove it first."
    (skk-isearch-search-string-regexp string)
    string))
 
-
+
 ;;
 ;; interactive functions.
 ;;
@@ -678,7 +678,7 @@ If the current mode is different from previous, remove it first."
            (if (fboundp 'isearch-other-control-char) ; 2013-10-08 Remove functions.
                (isearch-other-control-char))))))     ; GNU Emacs 24.4 から廃止
 
-
+
 ;;
 ;; advices.
 ;;

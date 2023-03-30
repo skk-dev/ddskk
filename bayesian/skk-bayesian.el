@@ -24,67 +24,67 @@
 
 ;;; Commentary:
 
-;; skk-study $B$,D>A0$NMzNr$N$_$r;HMQ$9$k$N$G!"$3$l$r3HD%$7$?$$$H;W$C$?$N(B
-;; $B$,A4$F$NF05!$G$9!#(BSKK $B$H$=$N%3%_%e%K%F%#$K46<U$7$^$9!#(B
+;; skk-study が直前の履歴のみを使用するので、これを拡張したいと思ったの
+;; が全ての動機です。SKK とそのコミュニティに感謝します。
 
 
-;; <$BF0:n(B>
-;; $BNc(B: (skk-bayesian-context-len = 5 $B$N;~(B)
-;; $B!V$=$NI~$r!"!W$N8e$K!"$-(Br $B$rJQ49$9$k>u67$K$*$$$F!"(B
-;; entry $B$,!"(B("$B@Z(B" "$BCe(B" "$B;B(B") $B$G$"$k>u67$r9M$($k!#(B
-;; $B$3$N(B enrty $B$r0J2<$N3NN($r7W;;$9$k$3$H$G!"%=!<%H$9$k!#(B
+;; <動作>
+;; 例: (skk-bayesian-context-len = 5 の時)
+;; 「その服を、」の後に、きr を変換する状況において、
+;; entry が、("切" "着" "斬") である状況を考える。
+;; この enrty を以下の確率を計算することで、ソートする。
 
-;; Prob( word="$B@Z(B" | p_1="$B!"(B", p_2="$B$r(B", p_3="$BI~(B", p_4="$B$N(B", p_5="$B$=(B" )
-;; Prob( word="$BCe(B" | p_1="$B!"(B", p_2="$B$r(B", p_3="$BI~(B", p_4="$B$N(B", p_5="$B$=(B" )
-;; Prob( word="$B;B(B" | p_1="$B!"(B", p_2="$B$r(B", p_3="$BI~(B", p_4="$B$N(B", p_5="$B$=(B" )
+;; Prob( word="切" | p_1="、", p_2="を", p_3="服", p_4="の", p_5="そ" )
+;; Prob( word="着" | p_1="、", p_2="を", p_3="服", p_4="の", p_5="そ" )
+;; Prob( word="斬" | p_1="、", p_2="を", p_3="服", p_4="の", p_5="そ" )
 
-;; $B3X=,$9$Y$-%Q%i%a!<%?$N?t$r8:$i$9$?$a!"$3$N3NN(%b%G%k$r0J2<$N$h$&$J(B
-;; $B:.9gJ,I[$G$"$k$H2>Dj$9$k!#(B
+;; 学習すべきパラメータの数を減らすため、この確率モデルを以下のような
+;; 混合分布であると仮定する。
 
-;; Prob( word="$B@Z(B" | p_1="$B!"(B", p_2="$B$r(B", p_3="$BI~(B", p_4="$B$N(B", p_5="$B$=(B" )
-;;   ~= \sum_{i=1}^5 w_i * Prob( word="$B@Z(B" | p_i )
+;; Prob( word="切" | p_1="、", p_2="を", p_3="服", p_4="の", p_5="そ" )
+;;   ~= \sum_{i=1}^5 w_i * Prob( word="切" | p_i )
 
-;; $B$?$@$7!"(Bw_i $B$O:.9gJ,I[$N=E$_$G$"$k!#(B
+;; ただし、w_i は混合分布の重みである。
 
 
-;; <$B2]Bj(B>
-;; 1. bskk $B$,C1=c$K:n$i$l$F$$$k$N$G!"JQ49$NMzNr$,Bg$-$/$J$C$?;~$K!"F0:n(B
-;;    $BB.EY$HI,MW$J%a%b%j$NNL$,?4G[!#(B
-;; 2. $B:.9gJ,I[$N=E$_(B w_i $B$O8=:_!"(Bw_1, w_2, ..., w_n $B$KBP$7$F!"(B
+;; <課題>
+;; 1. bskk が単純に作られているので、変換の履歴が大きくなった時に、動作
+;;    速度と必要なメモリの量が心配。
+;; 2. 混合分布の重み w_i は現在、w_1, w_2, ..., w_n に対して、
 ;;    w_i : w_j = (n-i) : (n-j)
-;;    $B$H$J$k$h$&$KCM$r7h$a$F$$$k!#K\Mh!"$$$:$l$b1#$lJQ?t$H$7$F!"(BEM$B%"%k(B
-;;    $B%4%j%:%`(B, VBA $BEy$K$h$j3X=,$9$Y$-$+$b$7$l$J$$!#(B
-;; 3. skk-bayesian-context-len $B$OJQ?t$K$7$F$$$k$N$G!"%f!<%6$,7hDj$G$-$k(B
-;;    $B$,!"M}A[E*$K$O%b%G%k$N?dDjLdBj$H$H$i$($F!"3X=,%G!<%?$+$i7hDj$9$Y(B
-;;    $B$-$@$m$&!#$^$?!"$"$kDxEY!"3X=,$7$?8e$K(B skk-bayesian-context-len$B$r(B
-;;    $BBg$-$$CM$KJQ99$9$k$N$O!"?dDj$K0-1F6A$rM?$($=$&!#(B
-;; 4. 2$B$H(B3$B$K=E$J$k$,!"Cx:n8"$N?4G[$r$7$J$/$F$b$h$$%3!<%Q%9$+$i!"3X=,$r9T$$(B
-;;    skk-bayesian-context-len $B$H(B $B:.9gJ,I[$N=E$_$r7hDj$7$?$$!#(B
-;; 5. bskk $B$H$N%W%m%H%3%k$,AG?M=-$$!#(B
+;;    となるように値を決めている。本来、いずれも隠れ変数として、EMアル
+;;    ゴリズム, VBA 等により学習すべきかもしれない。
+;; 3. skk-bayesian-context-len は変数にしているので、ユーザが決定できる
+;;    が、理想的にはモデルの推定問題ととらえて、学習データから決定すべ
+;;    きだろう。また、ある程度、学習した後に skk-bayesian-context-lenを
+;;    大きい値に変更するのは、推定に悪影響を与えそう。
+;; 4. 2と3に重なるが、著作権の心配をしなくてもよいコーパスから、学習を行い
+;;    skk-bayesian-context-len と 混合分布の重みを決定したい。
+;; 5. bskk とのプロトコルが素人臭い。
 
 
-;; <$B;H$$J}(B>
-;; ~/.skk $B$K!"(B(require 'skk-bayesian) $B$H=q$$$F2<$5$$!#(B
-;; skk-study $B$H$NJ;MQ$O5!G=$,=E$J$k$N$G!"$*4+$a$G$-$^$;$s!#(B
+;; <使い方>
+;; ~/.skk に、(require 'skk-bayesian) と書いて下さい。
+;; skk-study との併用は機能が重なるので、お勧めできません。
 
-;; $B$^$?!"(Bbskk $B$O!"%5%V%W%m%;%9$+%5!<%P$H$7$F;HMQ$7$^$9!#(B
-;; *$B%5%V%W%m%;%9(B
-;;   $B%5%V%W%m%;%9$H$7$F;HMQ$9$k$K$O!"(Bbskk $B$r4D6-JQ?t(B PATH $B$NDL$C$?>l=j$K(B
-;;   $BCV$/$@$1$G$9!#(B
-;;   $BLdBj$O!"$$$/$D$b(B emacs $B$r5/F0$9$k$H(B ~/.skk-bayesian $B$O:G8e$K99?7$7$?(B
-;;   emacs $B$K0M$k$N$G!"B>$N(B emacs $B$G$N3X=,%G!<%?$OJ]B8$5$l$^$;$s!#(B
-;; *$B%5!<%P(B
-;;   bskk $B$r%5!<%P$H$7$F;HMQ$9$k$K$O!"(Bemacs $B$,(B skk-bayesian.el $B$rFI$_9~(B
-;;   $B$`A0$K!"(B
+;; また、bskk は、サブプロセスかサーバとして使用します。
+;; *サブプロセス
+;;   サブプロセスとして使用するには、bskk を環境変数 PATH の通った場所に
+;;   置くだけです。
+;;   問題は、いくつも emacs を起動すると ~/.skk-bayesian は最後に更新した
+;;   emacs に依るので、他の emacs での学習データは保存されません。
+;; *サーバ
+;;   bskk をサーバとして使用するには、emacs が skk-bayesian.el を読み込
+;;   む前に、
 ;;     % bskk -f ~/.skk-bayesian -s
-;;   $B$H<B9T$7$F!"5/F0$7$F$*$/I,MW$,$"$j$^$9!#(B
-;;   $B%5!<%P$r=*N;$5$;$kJ}K!$O!"(B
-;;     % kill -TERM {bskk $B$N(B PID}
-;;   $B$G$9!#(B
-;;   ~/.skk $B$K$O!"(B(setq skk-bayesian-prefer-server t) $B$r=q$$$F2<$5$$!#(B
+;;   と実行して、起動しておく必要があります。
+;;   サーバを終了させる方法は、
+;;     % kill -TERM {bskk の PID}
+;;   です。
+;;   ~/.skk には、(setq skk-bayesian-prefer-server t) を書いて下さい。
 
-;; <$B;EMM$N3P$(=q$-(B>
-;; $B3F4X?t$H!"(Bbskk $B$N%3%a%s%HFb$N(B Specifications $B$K=q$+$l$F$$$k!#(B
+;; <仕様の覚え書き>
+;; 各関数と、bskk のコメント内の Specifications に書かれている。
 
 
 ;;; Code:
@@ -101,24 +101,24 @@
 ;;; variables for skk-bayesian
 ;;;
 (defcustom skk-bayesian-prefer-server nil
-  "*non-nil $B$J$i$P!"(B`skk-bayesian-host' $B$N(B `skk-bayesian-port' $B$K@\B3$9$k!#(B
-$B$=$&$G$J$1$l$P!"(Bbskk $B$r%5%V%W%m%;%9$H$7$FN)$A>e$2$k!#(B"
+  "*non-nil ならば、`skk-bayesian-host' の `skk-bayesian-port' に接続する。
+そうでなければ、bskk をサブプロセスとして立ち上げる。"
   :type 'boolean
   :group 'skk-bayesian)
 
 (defcustom skk-bayesian-port 51178
-  "*`skk-bayesian-host' $B$K@\B3$9$k%]!<%HHV9f!#(B
-$B%5!<%P$K@\B3$9$k$K$O(B `skk-bayesian-prefer-server' $B$,(B non-nil $B$G$"$kI,MW$,$"$k!#(B"
+  "*`skk-bayesian-host' に接続するポート番号。
+サーバに接続するには `skk-bayesian-prefer-server' が non-nil である必要がある。"
   :type 'integer
   :group 'skk-bayesian)
 
 (defcustom skk-bayesian-host "localhost"
-  "*`skk-bayesian-prefer-server' $B$,(B non-nil $B$N;~$K@\B3$9$k%[%9%HL>!#(B"
+  "*`skk-bayesian-prefer-server' が non-nil の時に接続するホスト名。"
   :type 'string
   :group 'skk-bayesian)
 
 (defcustom skk-bayesian-context-len 20
-  "*$B3X=,$dM=B,$K;HMQ$9$k!"JQ498l$ND>A0$NJ8;z?t!#(B"
+  "*学習や予測に使用する、変換語の直前の文字数。"
   :type 'integer
   :group 'skk-bayesian)
 
@@ -126,28 +126,28 @@
   (if skk-user-directory
       (expand-file-name "bayesian" skk-user-directory)
     (convert-standard-filename "~/.skk-bayesian"))
-  "*$BMzNr$r5-O?$9$k%U%!%$%kL>!#(B
-`skk-bayesian-prefer-server' $B$,(B non-nil $B$N;~$K$N$_;HMQ$5$l$k!#(B"
+  "*履歴を記録するファイル名。
+`skk-bayesian-prefer-server' が non-nil の時にのみ使用される。"
   :type 'file
   :group 'skk-bayesian)
 
 (defcustom skk-bayesian-debug nil
-  "*non-nil $B$J$i$P!"%G%P%C%0MQ$N%a%C%;!<%8$rI=<($9$k!#(B"
-  ;; bskk $B$N%m%0(B = $HOME/tmp/bskk.log
+  "*non-nil ならば、デバッグ用のメッセージを表示する。"
+  ;; bskk のログ = $HOME/tmp/bskk.log
   :type 'boolean
   :group 'skk-bayesian)
 
 (defcustom skk-bayesian-max-commands-to-wait-for 15
-  "*$B3NDj8l$r3X=,$9$k$^$G$KBT$D%3%^%s%I$N?t!#(B
-$B3NDj$N8e$K(B `skk-bayesian-max-commands-to-wait-for' $B2s$N%3%^%s%I(B
-$B$N$&$A$K3NDj8l(B($BAw$j2>L>$r4^$`(B)$B$,JQ99$5$l$J$1$l$P!"$=$N3NDj8l$rJ]B8(B
-$B$9$k!#(B`skk-bayesian-max-commands-to-wait-for' $B$,%<%m0J2<$J$i$P!"3NDj8e!"(B
-$BD>$A$KMzNr$KJ]B8$9$k!#(B"
+  "*確定語を学習するまでに待つコマンドの数。
+確定の後に `skk-bayesian-max-commands-to-wait-for' 回のコマンド
+のうちに確定語(送り仮名を含む)が変更されなければ、その確定語を保存
+する。`skk-bayesian-max-commands-to-wait-for' がゼロ以下ならば、確定後、
+直ちに履歴に保存する。"
   :type 'integer
   :group 'skk-bayesian)
 
 (defcustom skk-bayesian-corpus-make nil
-  "*nin-nil $B$J$i$P!"(Bcorpus $B$r(B `skk-bayesian-corpus-file' $B$K:n@.$9$k!#(B"
+  "*nin-nil ならば、corpus を `skk-bayesian-corpus-file' に作成する。"
   :type 'boolean
   :group 'skk-bayesian)
 
@@ -155,19 +155,19 @@
   (if skk-user-directory
       (expand-file-name "corpus" skk-user-directory)
     (convert-standard-filename "~/.skk-corpus"))
-  "*corpus $B$rJ]B8$9$k%U%!%$%k!#(B"
+  "*corpus を保存するファイル。"
   :type 'file
   :group 'skk-bayesian)
 
 ;; internal variables
-(defvar skk-bayesian-last-context nil "*$B3NDj8l$ND>A0$NJ8;zNs!#(B")
+(defvar skk-bayesian-last-context nil "*確定語の直前の文字列。")
 (defvar skk-bayesian-number-of-command-after-kakutei 0
-  "*$BA02s$N3NDj$+$i8=:_$^$G$N%3%^%s%I$N2s?t!#(B")
-(defvar skk-bayesian-pending-data-alist nil "*non-nil $B$J$i$P(B pending $BCf!#(B")
+  "*前回の確定から現在までのコマンドの回数。")
+(defvar skk-bayesian-pending-data-alist nil "*non-nil ならば pending 中。")
 (defvar skk-bayesian-process nil)
 (defvar skk-bayesian-corpus-buffer nil)
 (defvar skk-bayesian-corpus-last-sorted-entry nil
-  "*$BA02s(B skk-bayesian-search $B$GJV$7$?(B entry")
+  "*前回 skk-bayesian-search で返した entry")
 
 ;; constants
 (defconst skk-bayesian-command-sort "#sort\n")
@@ -185,19 +185,19 @@
        (message ,STRING ,@ARGS)))
 
 (defsubst skk-bayesian-process-live-p ()
-  "`skk-bayesian-process' $B$,(B non-nil $B$+$D$=$N%W%m%;%9$,<B9TCf$J$i(B t $B$rJV$9!#(B"
+  "`skk-bayesian-process' が non-nil かつそのプロセスが実行中なら t を返す。"
   (and skk-bayesian-process
-       ;; $B%M%C%H%o!<%/%W%m%;%9$J$i!"(Bopen, $BDL>o$N%5%V%W%m%;%9$J$i!"(Brun$B!#(B
-       ;; $B$3$l$i$O!"GSB>E*!#(B
+       ;; ネットワークプロセスなら、open, 通常のサブプロセスなら、run。
+       ;; これらは、排他的。
        (memq (process-status skk-bayesian-process) '(open run))))
 
 (defsubst skk-bayesian-make-pending-data-alist
-  ;; henkan-point $B$O3NDj8l$N:G=i$NJ8;z$N0LCV$N(B marker
+  ;; henkan-point は確定語の最初の文字の位置の marker
   (word okurigana midasi buffer henkan-point context)
   (setq skk-bayesian-pending-data-alist
         (if (and word midasi buffer henkan-point context)
-            ;; $BFC$K(B henkan-point $B$,(B nil $B$K$J$j0W$$$h$&$@!#(B
-            ;; okurigana $B$O!"(Bnil $B$G$b$h$$!#(B
+            ;; 特に henkan-point が nil になり易いようだ。
+            ;; okurigana は、nil でもよい。
             (list (cons 'word word)
                   (cons 'okurigana okurigana)
                   (cons 'midasi midasi)
@@ -211,7 +211,7 @@
     (error (concat "Error; invalid key=" (prin1-to-string 'key)))))
 
 (defsubst skk-bayesian-read-process-output (input)
-  "INPUT $B$r(B `skk-bayesian-process' $B$KAw$k!#$=$N8e!"(B\\n $B$,(B `skk-bayesian-process' $B$N%P%C%U%!$K=PNO$5$l$k$^$GBT$A!"(B\\n $B$,=PNO$5$l$?;~E@$G!"%P%C%U%!$rI>2A$7JV$9!#(B"
+  "INPUT を `skk-bayesian-process' に送る。その後、\\n が `skk-bayesian-process' のバッファに出力されるまで待ち、\\n が出力された時点で、バッファを評価し返す。"
   (when input
     (skk-bayesian-init)
     (with-current-buffer (process-buffer skk-bayesian-process)
@@ -224,19 +224,19 @@
       (condition-case err
           (read (current-buffer))
         (error (skk-message "Error while reading the out put of bskk; %s"
-                            "bskk $B$N=PNO$NFI$_9~$_Cf$K%(%i!<(B; %s"
+                            "bskk の出力の読み込み中にエラー; %s"
                             (error-message-string err))
                nil)))))
 
 (defun skk-bayesian-make-context (henkan-buffer)
-  ;; $B$b$7(B"$B"'(B"$B$,$"$l$P!"(B`skk-bayesian-context-len' $B$ND9$5$NJ8;zNs$rJV$9!#(B
-  ;; $B$J$1$l$P!"(Bnil$B!#(B
+  ;; もし"▼"があれば、`skk-bayesian-context-len' の長さの文字列を返す。
+  ;; なければ、nil。
   (let ((raw-text
          (with-current-buffer henkan-buffer
            (let ((kakutei-symbol-point
                   (save-excursion
-                    ;; 100 $BJ8;zA0$^$G$7$+"'$r8!:w$7$J$$(B
-                    (search-backward "$B"'(B" (max (point-min) (- (point) 100)) t))))
+                    ;; 100 文字前までしか▼を検索しない
+                    (search-backward "▼" (max (point-min) (- (point) 100)) t))))
              (if kakutei-symbol-point
                  (buffer-substring-no-properties
                   (max (- kakutei-symbol-point skk-bayesian-context-len)
@@ -246,8 +246,8 @@
         (with-temp-buffer
           (let ((min (point-min)))
             (insert raw-text)
-            ;; $BJ8;zNs$+$i2~9T$r(B join-line $B$G=|$/!#(B
-            ;; $BC"$7!"F|K\8l$NCf$N2~9T$O6uGr$,F~$k$N$G!"$=$l$r=|$/!#(B
+            ;; 文字列から改行を join-line で除く。
+            ;; 但し、日本語の中の改行は空白が入るので、それを除く。
             (while (not (eq min (point)))
               (goto-char (point-max))
               (join-line)
@@ -267,16 +267,16 @@
       nil)))
 
 (defun skk-bayesian-search (henkan-buffer midasi okurigana entry)
-  ;; $B%=!<%H$7$?!"(Bentry $B$rJV$9(B
-  ;; $B0z?t$NNc(B
-  ;; entry : ("$B;B(B" "$B@Z(B" "$BCe(B")
-  ;; midasi: $B$-(Br
-  ;; okurigana: $B$k(B
+  ;; ソートした、entry を返す
+  ;; 引数の例
+  ;; entry : ("斬" "切" "着")
+  ;; midasi: きr
+  ;; okurigana: る
   (setq skk-bayesian-last-context nil)
   (if (= 1 (length entry))
       entry
     (let ((context (skk-bayesian-make-context henkan-buffer))
-          ;; $BKvHx$N(B "/" $B$OB?J,ITMW$@$,(B
+          ;; 末尾の "/" は多分不要だが
           (entry-str (concat (mapconcat #'identity entry "/") "/"))
           sorted-entry)
       ;; send context to skk-bayesian-process
@@ -298,11 +298,11 @@
         entry))))
 
 (defun skk-bayesian-update (henkan-buffer midasi okurigana word purge)
-  (when skk-bayesian-last-context ;; entry $B$NMWAG$,(B 1 $B$N;~$O!"(Bnil
+  (when skk-bayesian-last-context ;; entry の要素が 1 の時は、nil
     (if (and skk-bayesian-corpus-make
              skk-bayesian-corpus-last-sorted-entry
              (not (string= word (car skk-bayesian-corpus-last-sorted-entry))))
-        ;; $BBh0l8uJd$,4V0c$$$@$C$?;~(B
+        ;; 第一候補が間違いだった時
         (skk-bayesian-corpus-append 'bad-inference
                                     skk-bayesian-last-context
                                     midasi
@@ -310,20 +310,20 @@
                                     (car skk-bayesian-corpus-last-sorted-entry)))
     (add-hook 'post-command-hook 'skk-bayesian-check-modification-after-kakutei)
     (if skk-bayesian-pending-data-alist
-        ;; pending $B$7$F$$$?$N$rJ]B8(B
+        ;; pending していたのを保存
         (skk-bayesian-add-to-history))
-    ;; pending $B3+;O(B
+    ;; pending 開始
     (skk-bayesian-debug-message "Update: pending... word=%s" word)
-    (setq skk-bayesian-number-of-command-after-kakutei -1);; $B3NDj$K(B 1 $B2s$+$+$k$N$G(B -1
+    (setq skk-bayesian-number-of-command-after-kakutei -1);; 確定に 1 回かかるので -1
     (skk-bayesian-make-pending-data-alist
      word
      okurigana
      midasi
      henkan-buffer
      (with-current-buffer henkan-buffer
-       ;; skk-get-last-henkan-datum $B$O!"(Bbuffer-local $B$JJQ?t$rMQ$$$F$$$k!#(B
-       ;; skk-get-last-henkan-datum $B$O!"(Bskk-update-end-function $B$rFI$s(B
-       ;; $B$@8e$K99?7$5$l$k!#$3$3$G$O;H$($J$$!#(B
+       ;; skk-get-last-henkan-datum は、buffer-local な変数を用いている。
+       ;; skk-get-last-henkan-datum は、skk-update-end-function を読ん
+       ;; だ後に更新される。ここでは使えない。
        (if skk-undo-kakutei-word-only
            (point-marker)
          (save-excursion
@@ -331,17 +331,17 @@
            (forward-char
             (- 0
                (length okurigana)
-               ;; word $B$,Cm<a$r4^$s$G$$$k:]!"%P%C%U%!$KA^F~$5$l$kJ8;zNs$N(B
-               ;; $BD9$5$h$j$bD9$/$J$C$F$7$^$&$N$G!"(Bpoint $B$N0LCV$K$h$C$F$O(B
-               ;; beginning-of-buffer $B$N%(%i!<$H$J$k!#$3$3$GCm<a$r@Z$j<N$F$?(B
-               ;; word $B$ND9$5$r<hF@$7$F$*$1$P$=$NLdBj$O$J$$!#(B
+               ;; word が注釈を含んでいる際、バッファに挿入される文字列の
+               ;; 長さよりも長くなってしまうので、point の位置によっては
+               ;; beginning-of-buffer のエラーとなる。ここで注釈を切り捨てた
+               ;; word の長さを取得しておけばその問題はない。
                (length (car (skk-treat-strip-note-from-word word)))))
            (point-marker))))
      skk-bayesian-last-context)))
 
 (defun skk-bayesian-check-modification-after-kakutei ()
-  ;; skk-bayesian-max-commands-to-wait-for $B2s?t%3%^%s%I$,<B9T$5$l$l$P!"(B
-  ;; skk-bayesian-add-to-history $B$r<B9T$9$k!#(B
+  ;; skk-bayesian-max-commands-to-wait-for 回数コマンドが実行されれば、
+  ;; skk-bayesian-add-to-history を実行する。
   (when skk-bayesian-pending-data-alist
     (setq skk-bayesian-number-of-command-after-kakutei
           (1+ skk-bayesian-number-of-command-after-kakutei))
@@ -350,13 +350,13 @@
       (skk-bayesian-add-to-history))))
 
 (defun skk-bayesian-add-to-history ()
-  "`skk-bayesian-last-kakutei-word' $B$r!"(Bbskk $B$NMzNr$KDI2C$9$k!#$b(B
-$B$7!"(B`skk-bayesian-last-kakutei-word' $B$,JQ498e$K=$@5$5$l$F$$$?>l9g(B
-$B$ODI2C$7$J$$!#;29M(B:`skk-bayesian-max-commands-to-wait-for'$B!#(B"
-  ;; $B0MB8$7$F$$$kJQ?t(B
+  "`skk-bayesian-last-kakutei-word' を、bskk の履歴に追加する。も
+し、`skk-bayesian-last-kakutei-word' が変換後に修正されていた場合
+は追加しない。参考:`skk-bayesian-max-commands-to-wait-for'。"
+  ;; 依存している変数
   ;; skk-bayesian-pending-data-alist
-  ;; $BCm0U(B
-  ;; skk-get-last-henkan-datum $B$O!"?7$7$$3NDj$,(B pending $BCf$K5/$3$k$N$G!";H$($J$$!#(B
+  ;; 注意
+  ;; skk-get-last-henkan-datum は、新しい確定が pending 中に起こるので、使えない。
   (if (not (skk-bayesian-process-live-p))
       (setq skk-bayesian-pending-data-alist nil))
   (when (and skk-bayesian-pending-data-alist
@@ -367,14 +367,14 @@
              (kakutei-with-okuri (concat kakutei-word okurigana))
              (word-len (length kakutei-with-okuri))
              (midasi (skk-bayesian-get-pending-data-alist 'midasi))
-             ;; henkan-point $B$O!"Aw$j2>L>$,$"$k>l9g$O!"Aw$j2>L>$N(B point
+             ;; henkan-point は、送り仮名がある場合は、送り仮名の point
              (start (marker-position (skk-bayesian-get-pending-data-alist
                                       'henkan-point)))
              (end (+ start word-len))
              (current-word (if (and (<= (point-min) start) (<= end (point-max)))
                                (buffer-substring-no-properties start end)))
              (context (skk-bayesian-get-pending-data-alist 'context)))
-        ;; kakutei-word $B$,JQ99$5$l$F$$$k$+(B
+        ;; kakutei-word が変更されているか
         (if (not (string= current-word kakutei-with-okuri))
             (progn
               (skk-bayesian-debug-message "Add: kakutei-word has been modified")
@@ -397,15 +397,15 @@
   "Save skk-bayesian history to `skk-bayesian-history-file'."
   (interactive)
   (if skk-bayesian-pending-data-alist
-      ;; pending $B$7$F$$$?$N$rJ]B8(B
+      ;; pending していたのを保存
       (skk-bayesian-add-to-history))
   (when (skk-bayesian-process-live-p)
-    (skk-message "skk-bayesian $B$NMzNr$rJ]B8$7$F$$$^$9(B..."
+    (skk-message "skk-bayesian の履歴を保存しています..."
                  "saving skk-bayesian history...")
     (if (skk-bayesian-read-process-output skk-bayesian-command-save)
-        (skk-message "skk-bayesian $B$NMzNr$rJ]B8$7$F$$$^$9(B...$B40N;(B"
+        (skk-message "skk-bayesian の履歴を保存しています...完了"
                      "saving skk-bayesian history...done")
-      (skk-message "skk-bayesian $B$NMzNr$rJ]B8$7$F$$$^$9(B...$B<:GT(B"
+      (skk-message "skk-bayesian の履歴を保存しています...失敗"
                    "saving skk-bayesian history...failed"))))
 
 (defun skk-bayesian-restart-process ()
@@ -414,7 +414,7 @@
                                          "*skk-bayesian*"
                                        " *skk-bayesian*")))
         (proc-name "skk-bayesian"))
-    (skk-message "$B%W%m%;%9(B bskk $B$r5/F0$7$F$$$^$9(B..."
+    (skk-message "プロセス bskk を起動しています..."
                  "Launching a process, bskk...")
     (setq skk-bayesian-process
           (or (and skk-bayesian-prefer-server
@@ -438,9 +438,9 @@
                                "ruby" "-S" "bskk"
                                "-f" skk-bayesian-history-file))))
     (if skk-bayesian-process
-        (skk-message "$B%W%m%;%9(B bskk $B$r5/F0$7$F$$$^$9(B...$B40N;(B"
+        (skk-message "プロセス bskk を起動しています...完了"
                      "Launching a process, bskk...done")
-      (skk-message "$B%W%m%;%9(B bskk $B$r5/F0$7$F$$$^$9(B...$B<:GT(B"
+      (skk-message "プロセス bskk を起動しています...失敗"
                    "Launching a process, bskk...failed")))
   (set-process-coding-system skk-bayesian-process
                              skk-bayesian-coding-system
@@ -513,8 +513,8 @@
   "Save corpus to `skk-bayesian-corpus-file'."
   (interactive)
   (if (let ((attrs (file-attributes skk-bayesian-corpus-file)))
-        (or (not attrs) ;; $B%U%!%$%k$,B8:_$7$J$1$l$P!"(Battrs $B$O!"(Bnil
-            (eq (nth 8 attrs) 0))) ;; $B%U%!%$%k%5%$%:$,(B 0
+        (or (not attrs) ;; ファイルが存在しなければ、attrs は、nil
+            (eq (nth 8 attrs) 0))) ;; ファイルサイズが 0
       (with-temp-buffer
         (insert ";; + means positive
 ;; m means modified after henkan

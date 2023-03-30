@@ -54,16 +54,16 @@
     (skk-create-file . around)
     (skk-save-jisyo-original . around)
     (skk-get-jisyo-buffer . around))
-  "SKK $B%A%e!<%H%j%"%k$G(B advice $B$,IU$1$i$l$k4X?t$H(B advice class $B$N%(!<%j%9%H!#(B")
+  "SKK チュートリアルで advice が付けられる関数と advice class のエーリスト。")
 
-(defvar skktut-question-numbers nil "SKK $B%A%e!<%H%j%"%k$NLdBj?t!#(B")
+(defvar skktut-question-numbers nil "SKK チュートリアルの問題数。")
 
 (defconst skktut-tut-jisyo "~/skk-tut-jisyo"
-  "SKK $B%A%e!<%H%j%"%kMQ$N<-=q!#(B")
+  "SKK チュートリアル用の辞書。")
 
 (defconst skktut-init-variables-alist
   '((skk-cursor-abbrev-color . "royalblue")
-    (skk-abbrev-mode-string . " a$B$"(B")
+    (skk-abbrev-mode-string . " aあ")
     (skk-allow-spaces-newlines-and-tabs . t)
     (skk-auto-fill-mode-hook . nil)
     (skk-auto-insert-paren . nil)
@@ -95,14 +95,14 @@
      . (if (skk-tut-nicola-p)
            '("\C-p")
          '("\C-p" "x")))
-    (skk-hiragana-mode-string . " $B$+$J(B")
+    (skk-hiragana-mode-string . " かな")
     (skk-init-file . "")
     (skk-input-by-code-menu-keys1 . '(?a ?s ?d ?f ?g ?h ?q ?w ?e ?r ?t ?y))
     (skk-input-by-code-menu-keys2
      . '(?a ?s ?d ?f ?g ?h ?j ?k ?l ?q ?w ?e ?r ?t ?y ?u))
     (skk-japanese-message-and-error . nil)
     (skk-cursor-jisx0208-latin-color . "gold")
-    (skk-jisx0208-latin-mode-string . " $BA41Q(B")
+    (skk-jisx0208-latin-mode-string . " 全英")
     (skk-jisx0208-latin-vector . skk-default-jisx0208-latin-vector)
     (skk-jisyo . "~/skk-tut-jisyo")
     (skk-jisyo-save-count . nil)
@@ -116,12 +116,12 @@
                        "^h\\([bcdfghjklmnpqrstvwxz]\\)$"
                        skk-prefix)
                       (member (char-to-string (preceding-char))
-                              '("$B$*(B" "$B%*(B")))
-             (cons '("$B%*(B" . "$B$*(B") (match-string 1 skk-prefix))))))
-    (skk-katakana-mode-string . " $B%+%J(B")
+                              '("お" "オ")))
+             (cons '("オ" . "お") (match-string 1 skk-prefix))))))
+    (skk-katakana-mode-string . " カナ")
     (skk-kcode-load-hook . nil)
     (skk-keep-record . nil)
-    (skk-kuten-touten-alist . '((jp . ("$B!#(B" . "$B!"(B"))))
+    (skk-kuten-touten-alist . '((jp . ("。" . "、"))))
     (skk-kutouten-type . 'jp)
     (skk-cursor-latin-color . "ivory4")
     (skk-latin-mode-string . " SKK")
@@ -136,131 +136,131 @@
      . 'skk-public-jisyo-has-entry-p-original)
     (skk-rom-kana-base-rule-list
      .
-     '(("a" nil ("$B%"(B" . "$B$"(B")) ("bb" "b" ("$B%C(B" . "$B$C(B"))
-       ("ba" nil ("$B%P(B" . "$B$P(B")) ("be" nil ("$B%Y(B" . "$B$Y(B"))
-       ("bi" nil ("$B%S(B" . "$B$S(B")) ("bo" nil ("$B%\(B" . "$B$\(B"))
-       ("bu" nil ("$B%V(B" . "$B$V(B")) ("bya" nil ("$B%S%c(B" . "$B$S$c(B"))
-       ("bye" nil ("$B%S%'(B" . "$B$S$'(B")) ("byi" nil ("$B%S%#(B" . "$B$S$#(B"))
-       ("byo" nil ("$B%S%g(B" . "$B$S$g(B")) ("byu" nil ("$B%S%e(B" . "$B$S$e(B"))
-       ("cc" "c" ("$B%C(B" . "$B$C(B")) ("cha" nil ("$B%A%c(B" . "$B$A$c(B"))
-       ("che" nil ("$B%A%'(B" . "$B$A$'(B")) ("chi" nil ("$B%A(B" . "$B$A(B"))
-       ("cho" nil ("$B%A%g(B" . "$B$A$g(B")) ("chu" nil ("$B%A%e(B" . "$B$A$e(B"))
-       ("cya" nil ("$B%A%c(B" . "$B$A$c(B")) ("cye" nil ("$B%A%'(B" . "$B$A$'(B"))
-       ("cyi" nil ("$B%A%#(B" . "$B$A$#(B")) ("cyo" nil ("$B%A%g(B" . "$B$A$g(B"))
-       ("cyu" nil ("$B%A%e(B" . "$B$A$e(B")) ("dd" "d" ("$B%C(B" . "$B$C(B"))
-       ("da" nil ("$B%@(B" . "$B$@(B")) ("de" nil ("$B%G(B" . "$B$G(B"))
-       ("dha" nil ("$B%G%c(B" . "$B$G$c(B")) ("dhe" nil ("$B%G%'(B" . "$B$G$'(B"))
-       ("dhi" nil ("$B%G%#(B" . "$B$G$#(B")) ("dho" nil ("$B%G%g(B" . "$B$G$g(B"))
-       ("dhu" nil ("$B%G%e(B" . "$B$G$e(B")) ("di" nil ("$B%B(B" . "$B$B(B"))
-       ("do" nil ("$B%I(B" . "$B$I(B")) ("du" nil ("$B%E(B" . "$B$E(B"))
-       ("dya" nil ("$B%B%c(B" . "$B$B$c(B")) ("dye" nil ("$B%B%'(B" . "$B$B$'(B"))
-       ("dyi" nil ("$B%B%#(B" . "$B$B$#(B")) ("dyo" nil ("$B%B%g(B" . "$B$B$g(B"))
-       ("dyu" nil ("$B%B%e(B" . "$B$B$e(B")) ("e" nil ("$B%((B" . "$B$((B"))
-       ("ff" "f" ("$B%C(B" . "$B$C(B")) ("fa" nil ("$B%U%!(B" . "$B$U$!(B"))
-       ("fe" nil ("$B%U%'(B" . "$B$U$'(B")) ("fi" nil ("$B%U%#(B" . "$B$U$#(B"))
-       ("fo" nil ("$B%U%)(B" . "$B$U$)(B")) ("fu" nil ("$B%U(B" . "$B$U(B"))
-       ("fya" nil ("$B%U%c(B" . "$B$U$c(B")) ("fye" nil ("$B%U%'(B" . "$B$U$'(B"))
-       ("fyi" nil ("$B%U%#(B" . "$B$U$#(B")) ("fyo" nil ("$B%U%g(B" . "$B$U$g(B"))
-       ("fyu" nil ("$B%U%e(B" . "$B$U$e(B")) ("gg" "g" ("$B%C(B" . "$B$C(B"))
-       ("ga" nil ("$B%,(B" . "$B$,(B")) ("ge" nil ("$B%2(B" . "$B$2(B"))
-       ("gi" nil ("$B%.(B" . "$B$.(B")) ("go" nil ("$B%4(B" . "$B$4(B"))
-       ("gu" nil ("$B%0(B" . "$B$0(B")) ("gya" nil ("$B%.%c(B" . "$B$.$c(B"))
-       ("gye" nil ("$B%.%'(B" . "$B$.$'(B")) ("gyi" nil ("$B%.%#(B" . "$B$.$#(B"))
-       ("gyo" nil ("$B%.%g(B" . "$B$.$g(B")) ("gyu" nil ("$B%.%e(B" . "$B$.$e(B"))
-       ;;("h" "" ("$B%*(B" . "$B$*(B"))
-       ("ha" nil ("$B%O(B" . "$B$O(B")) ("he" nil ("$B%X(B" . "$B$X(B"))
-       ("hi" nil ("$B%R(B" . "$B$R(B")) ("ho" nil ("$B%[(B" . "$B$[(B"))
-       ("hu" nil ("$B%U(B" . "$B$U(B")) ("hya" nil ("$B%R%c(B" . "$B$R$c(B"))
-       ("hye" nil ("$B%R%'(B" . "$B$R$'(B")) ("hyi" nil ("$B%R%#(B" . "$B$R$#(B"))
-       ("hyo" nil ("$B%R%g(B" . "$B$R$g(B")) ("hyu" nil ("$B%R%e(B" . "$B$R$e(B"))
-       ("i" nil ("$B%$(B" . "$B$$(B")) ("jj" "j" ("$B%C(B" . "$B$C(B"))
-       ("ja" nil ("$B%8%c(B" . "$B$8$c(B")) ("je" nil ("$B%8%'(B" . "$B$8$'(B"))
-       ("ji" nil ("$B%8(B" . "$B$8(B")) ("jo" nil ("$B%8%g(B" . "$B$8$g(B"))
-       ("ju" nil ("$B%8%e(B" . "$B$8$e(B")) ("jya" nil ("$B%8%c(B" . "$B$8$c(B"))
-       ("jye" nil ("$B%8%'(B" . "$B$8$'(B")) ("jyi" nil ("$B%8%#(B" . "$B$8$#(B"))
-       ("jyo" nil ("$B%8%g(B" . "$B$8$g(B")) ("jyu" nil ("$B%8%e(B" . "$B$8$e(B"))
-       ("kk" "k" ("$B%C(B" . "$B$C(B")) ("ka" nil ("$B%+(B" . "$B$+(B"))
-       ("ke" nil ("$B%1(B" . "$B$1(B")) ("ki" nil ("$B%-(B" . "$B$-(B"))
-       ("ko" nil ("$B%3(B" . "$B$3(B")) ("ku" nil ("$B%/(B" . "$B$/(B"))
-       ("kya" nil ("$B%-%c(B" . "$B$-$c(B")) ("kye" nil ("$B%-%'(B" . "$B$-$'(B"))
-       ("kyi" nil ("$B%-%#(B" . "$B$-$#(B")) ("kyo" nil ("$B%-%g(B" . "$B$-$g(B"))
-       ("kyu" nil ("$B%-%e(B" . "$B$-$e(B")) ("mm" "c" ("$B%C(B" . "$B$C(B"))
-       ("ma" nil ("$B%^(B" . "$B$^(B")) ("me" nil ("$B%a(B" . "$B$a(B"))
-       ("mi" nil ("$B%_(B" . "$B$_(B")) ("mo" nil ("$B%b(B" . "$B$b(B"))
-       ("mu" nil ("$B%`(B" . "$B$`(B")) ("mya" nil ("$B%_%c(B" . "$B$_$c(B"))
-       ("mye" nil ("$B%_%'(B" . "$B$_$'(B")) ("myi" nil ("$B%_%#(B" . "$B$_$#(B"))
-       ("myo" nil ("$B%_%g(B" . "$B$_$g(B")) ("myu" nil ("$B%_%e(B" . "$B$_$e(B"))
-       ("n" nil ("$B%s(B" . "$B$s(B")) ("n'" nil ("$B%s(B" . "$B$s(B"))
-       ("na" nil ("$B%J(B" . "$B$J(B")) ("ne" nil ("$B%M(B" . "$B$M(B"))
-       ("ni" nil ("$B%K(B" . "$B$K(B")) ("nn" nil ("$B%s(B" . "$B$s(B"))
-       ("no" nil ("$B%N(B" . "$B$N(B")) ("nu" nil ("$B%L(B" . "$B$L(B"))
-       ("nya" nil ("$B%K%c(B" . "$B$K$c(B")) ("nye" nil ("$B%K%'(B" . "$B$K$'(B"))
-       ("nyi" nil ("$B%K%#(B" . "$B$K$#(B")) ("nyo" nil ("$B%K%g(B" . "$B$K$g(B"))
-       ("nyu" nil ("$B%K%e(B" . "$B$K$e(B")) ("o" nil ("$B%*(B" . "$B$*(B"))
-       ("pp" "p" ("$B%C(B" . "$B$C(B")) ("pa" nil ("$B%Q(B" . "$B$Q(B"))
-       ("pe" nil ("$B%Z(B" . "$B$Z(B")) ("pi" nil ("$B%T(B" . "$B$T(B"))
-       ("po" nil ("$B%](B" . "$B$](B")) ("pu" nil ("$B%W(B" . "$B$W(B"))
-       ("pya" nil ("$B%T%c(B" . "$B$T$c(B")) ("pye" nil ("$B%T%'(B" . "$B$T$'(B"))
-       ("pyi" nil ("$B%T%#(B" . "$B$T$#(B")) ("pyo" nil ("$B%T%g(B" . "$B$T$g(B"))
-       ("pyu" nil ("$B%T%e(B" . "$B$T$e(B")) ("rr" "r" ("$B%C(B" . "$B$C(B"))
-       ("ra" nil ("$B%i(B" . "$B$i(B")) ("re" nil ("$B%l(B" . "$B$l(B"))
-       ("ri" nil ("$B%j(B" . "$B$j(B")) ("ro" nil ("$B%m(B" . "$B$m(B"))
-       ("ru" nil ("$B%k(B" . "$B$k(B")) ("rya" nil ("$B%j%c(B" . "$B$j$c(B"))
-       ("rye" nil ("$B%j%'(B" . "$B$j$'(B")) ("ryi" nil ("$B%j%#(B" . "$B$j$#(B"))
-       ("ryo" nil ("$B%j%g(B" . "$B$j$g(B")) ("ryu" nil ("$B%j%e(B" . "$B$j$e(B"))
-       ("ss" "s" ("$B%C(B" . "$B$C(B")) ("sa" nil ("$B%5(B" . "$B$5(B"))
-       ("se" nil ("$B%;(B" . "$B$;(B")) ("sha" nil ("$B%7%c(B" . "$B$7$c(B"))
-       ("she" nil ("$B%7%'(B" . "$B$7$'(B")) ("shi" nil ("$B%7(B" . "$B$7(B"))
-       ("sho" nil ("$B%7%g(B" . "$B$7$g(B")) ("shu" nil ("$B%7%e(B" . "$B$7$e(B"))
-       ("si" nil ("$B%7(B" . "$B$7(B")) ("so" nil ("$B%=(B" . "$B$=(B"))
-       ("su" nil ("$B%9(B" . "$B$9(B")) ("sya" nil ("$B%7%c(B" . "$B$7$c(B"))
-       ("sye" nil ("$B%7%'(B" . "$B$7$'(B")) ("syi" nil ("$B%7%#(B" . "$B$7$#(B"))
-       ("syo" nil ("$B%7%g(B" . "$B$7$g(B")) ("syu" nil ("$B%7%e(B" . "$B$7$e(B"))
-       ("tt" "t" ("$B%C(B" . "$B$C(B")) ("ta" nil ("$B%?(B" . "$B$?(B"))
-       ("te" nil ("$B%F(B" . "$B$F(B")) ("tha" nil ("$B%F%!(B" . "$B$F$!(B"))
-       ("the" nil ("$B%F%'(B" . "$B$F$'(B")) ("thi" nil ("$B%F%#(B" . "$B$F$#(B"))
-       ("tho" nil ("$B%F%g(B" . "$B$F$g(B")) ("thu" nil ("$B%F%e(B" . "$B$F$e(B"))
-       ("ti" nil ("$B%A(B" . "$B$A(B")) ("to" nil ("$B%H(B" . "$B$H(B"))
-       ("tsu" nil ("$B%D(B" . "$B$D(B")) ("tu" nil ("$B%D(B" . "$B$D(B"))
-       ("tya" nil ("$B%A%c(B" . "$B$A$c(B")) ("tye" nil ("$B%A%'(B" . "$B$A$'(B"))
-       ("tyi" nil ("$B%A%#(B" . "$B$A$#(B")) ("tyo" nil ("$B%A%g(B" . "$B$A$g(B"))
-       ("tyu" nil ("$B%A%e(B" . "$B$A$e(B")) ("u" nil ("$B%&(B" . "$B$&(B"))
-       ("vv" "v" ("$B%C(B" . "$B$C(B")) ("va" nil ("$B%t%!(B" . "$B$&!+$!(B"))
-       ("ve" nil ("$B%t%'(B" . "$B$&!+$'(B")) ("vi" nil ("$B%t%#(B" . "$B$&!+$#(B"))
-       ("vo" nil ("$B%t%)(B" . "$B$&!+$)(B")) ("vu" nil ("$B%t(B" . "$B$&!+(B"))
-       ("ww" "w" ("$B%C(B" . "$B$C(B")) ("wa" nil ("$B%o(B" . "$B$o(B"))
-       ("we" nil ("$B%&%'(B" . "$B$&$'(B")) ("wi" nil ("$B%&%#(B" . "$B$&$#(B"))
-       ("wo" nil ("$B%r(B" . "$B$r(B")) ("wu" nil ("$B%&(B" . "$B$&(B"))
-       ("xx" "x" ("$B%C(B" . "$B$C(B")) ("xa" nil ("$B%!(B" . "$B$!(B"))
-       ("xe" nil ("$B%'(B" . "$B$'(B")) ("xi" nil ("$B%#(B" . "$B$#(B"))
-       ("xka" nil ("$B%u(B" . "$B$+(B")) ("xke" nil ("$B%v(B" . "$B$1(B"))
-       ("xo" nil ("$B%)(B" . "$B$)(B")) ("xtsu" nil ("$B%C(B" . "$B$C(B"))
-       ("xtu" nil ("$B%C(B" . "$B$C(B")) ("xu" nil ("$B%%(B" . "$B$%(B"))
-       ("xwa" nil ("$B%n(B" . "$B$n(B")) ("xwe" nil ("$B%q(B" . "$B$q(B"))
-       ("xwi" nil ("$B%p(B" . "$B$p(B")) ("xya" nil ("$B%c(B" . "$B$c(B"))
-       ("xyo" nil ("$B%g(B" . "$B$g(B")) ("xyu" nil ("$B%e(B" . "$B$e(B"))
-       ("yy" "y" ("$B%C(B" . "$B$C(B")) ("ya" nil ("$B%d(B" . "$B$d(B"))
-       ("ye" nil ("$B%$%'(B" . "$B$$$'(B")) ("yo" nil ("$B%h(B" . "$B$h(B"))
-       ("yu" nil ("$B%f(B" . "$B$f(B")) ("zz" "z" ("$B%C(B" . "$B$C(B"))
-       ("z," nil "$B!E(B") ("z-" nil "$B!A(B") ("z." nil "$B!D(B")
-       ("z/" nil "$B!&(B") ("z[" nil "$B!X(B") ("z]" nil "$B!Y(B")
-       ("za" nil ("$B%6(B" . "$B$6(B")) ("ze" nil ("$B%<(B" . "$B$<(B"))
-       ("zh" nil "$B"+(B") ("zi" nil ("$B%8(B" . "$B$8(B"))
-       ("zj" nil "$B"-(B") ("zk" nil "$B",(B") ("zl" nil "$B"*(B")
-       ("zo" nil ("$B%>(B" . "$B$>(B")) ("zu" nil ("$B%:(B" . "$B$:(B"))
-       ("zya" nil ("$B%8%c(B" . "$B$8$c(B")) ("zye" nil ("$B%8%'(B" . "$B$8$'(B"))
-       ("zyi" nil ("$B%8%#(B" . "$B$8$#(B")) ("zyo" nil ("$B%8%g(B" . "$B$8$g(B"))
-       ("zyu" nil ("$B%8%e(B" . "$B$8$e(B")) ("." nil skk-current-kuten)
-       ("," nil skk-current-touten) ("-" nil "$B!<(B")
-       (":" nil "$B!'(B") (";" nil "$B!((B") ("?" nil "$B!)(B")
-       ("[" nil "$B!V(B") ("]" nil "$B!W(B") ("l" nil skk-latin-mode)
+     '(("a" nil ("ア" . "あ")) ("bb" "b" ("ッ" . "っ"))
+       ("ba" nil ("バ" . "ば")) ("be" nil ("ベ" . "べ"))
+       ("bi" nil ("ビ" . "び")) ("bo" nil ("ボ" . "ぼ"))
+       ("bu" nil ("ブ" . "ぶ")) ("bya" nil ("ビャ" . "びゃ"))
+       ("bye" nil ("ビェ" . "びぇ")) ("byi" nil ("ビィ" . "びぃ"))
+       ("byo" nil ("ビョ" . "びょ")) ("byu" nil ("ビュ" . "びゅ"))
+       ("cc" "c" ("ッ" . "っ")) ("cha" nil ("チャ" . "ちゃ"))
+       ("che" nil ("チェ" . "ちぇ")) ("chi" nil ("チ" . "ち"))
+       ("cho" nil ("チョ" . "ちょ")) ("chu" nil ("チュ" . "ちゅ"))
+       ("cya" nil ("チャ" . "ちゃ")) ("cye" nil ("チェ" . "ちぇ"))
+       ("cyi" nil ("チィ" . "ちぃ")) ("cyo" nil ("チョ" . "ちょ"))
+       ("cyu" nil ("チュ" . "ちゅ")) ("dd" "d" ("ッ" . "っ"))
+       ("da" nil ("ダ" . "だ")) ("de" nil ("デ" . "で"))
+       ("dha" nil ("デャ" . "でゃ")) ("dhe" nil ("デェ" . "でぇ"))
+       ("dhi" nil ("ディ" . "でぃ")) ("dho" nil ("デョ" . "でょ"))
+       ("dhu" nil ("デュ" . "でゅ")) ("di" nil ("ヂ" . "ぢ"))
+       ("do" nil ("ド" . "ど")) ("du" nil ("ヅ" . "づ"))
+       ("dya" nil ("ヂャ" . "ぢゃ")) ("dye" nil ("ヂェ" . "ぢぇ"))
+       ("dyi" nil ("ヂィ" . "ぢぃ")) ("dyo" nil ("ヂョ" . "ぢょ"))
+       ("dyu" nil ("ヂュ" . "ぢゅ")) ("e" nil ("エ" . "え"))
+       ("ff" "f" ("ッ" . "っ")) ("fa" nil ("ファ" . "ふぁ"))
+       ("fe" nil ("フェ" . "ふぇ")) ("fi" nil ("フィ" . "ふぃ"))
+       ("fo" nil ("フォ" . "ふぉ")) ("fu" nil ("フ" . "ふ"))
+       ("fya" nil ("フャ" . "ふゃ")) ("fye" nil ("フェ" . "ふぇ"))
+       ("fyi" nil ("フィ" . "ふぃ")) ("fyo" nil ("フョ" . "ふょ"))
+       ("fyu" nil ("フュ" . "ふゅ")) ("gg" "g" ("ッ" . "っ"))
+       ("ga" nil ("ガ" . "が")) ("ge" nil ("ゲ" . "げ"))
+       ("gi" nil ("ギ" . "ぎ")) ("go" nil ("ゴ" . "ご"))
+       ("gu" nil ("グ" . "ぐ")) ("gya" nil ("ギャ" . "ぎゃ"))
+       ("gye" nil ("ギェ" . "ぎぇ")) ("gyi" nil ("ギィ" . "ぎぃ"))
+       ("gyo" nil ("ギョ" . "ぎょ")) ("gyu" nil ("ギュ" . "ぎゅ"))
+       ;;("h" "" ("オ" . "お"))
+       ("ha" nil ("ハ" . "は")) ("he" nil ("ヘ" . "へ"))
+       ("hi" nil ("ヒ" . "ひ")) ("ho" nil ("ホ" . "ほ"))
+       ("hu" nil ("フ" . "ふ")) ("hya" nil ("ヒャ" . "ひゃ"))
+       ("hye" nil ("ヒェ" . "ひぇ")) ("hyi" nil ("ヒィ" . "ひぃ"))
+       ("hyo" nil ("ヒョ" . "ひょ")) ("hyu" nil ("ヒュ" . "ひゅ"))
+       ("i" nil ("イ" . "い")) ("jj" "j" ("ッ" . "っ"))
+       ("ja" nil ("ジャ" . "じゃ")) ("je" nil ("ジェ" . "じぇ"))
+       ("ji" nil ("ジ" . "じ")) ("jo" nil ("ジョ" . "じょ"))
+       ("ju" nil ("ジュ" . "じゅ")) ("jya" nil ("ジャ" . "じゃ"))
+       ("jye" nil ("ジェ" . "じぇ")) ("jyi" nil ("ジィ" . "じぃ"))
+       ("jyo" nil ("ジョ" . "じょ")) ("jyu" nil ("ジュ" . "じゅ"))
+       ("kk" "k" ("ッ" . "っ")) ("ka" nil ("カ" . "か"))
+       ("ke" nil ("ケ" . "け")) ("ki" nil ("キ" . "き"))
+       ("ko" nil ("コ" . "こ")) ("ku" nil ("ク" . "く"))
+       ("kya" nil ("キャ" . "きゃ")) ("kye" nil ("キェ" . "きぇ"))
+       ("kyi" nil ("キィ" . "きぃ")) ("kyo" nil ("キョ" . "きょ"))
+       ("kyu" nil ("キュ" . "きゅ")) ("mm" "c" ("ッ" . "っ"))
+       ("ma" nil ("マ" . "ま")) ("me" nil ("メ" . "め"))
+       ("mi" nil ("ミ" . "み")) ("mo" nil ("モ" . "も"))
+       ("mu" nil ("ム" . "む")) ("mya" nil ("ミャ" . "みゃ"))
+       ("mye" nil ("ミェ" . "みぇ")) ("myi" nil ("ミィ" . "みぃ"))
+       ("myo" nil ("ミョ" . "みょ")) ("myu" nil ("ミュ" . "みゅ"))
+       ("n" nil ("ン" . "ん")) ("n'" nil ("ン" . "ん"))
+       ("na" nil ("ナ" . "な")) ("ne" nil ("ネ" . "ね"))
+       ("ni" nil ("ニ" . "に")) ("nn" nil ("ン" . "ん"))
+       ("no" nil ("ノ" . "の")) ("nu" nil ("ヌ" . "ぬ"))
+       ("nya" nil ("ニャ" . "にゃ")) ("nye" nil ("ニェ" . "にぇ"))
+       ("nyi" nil ("ニィ" . "にぃ")) ("nyo" nil ("ニョ" . "にょ"))
+       ("nyu" nil ("ニュ" . "にゅ")) ("o" nil ("オ" . "お"))
+       ("pp" "p" ("ッ" . "っ")) ("pa" nil ("パ" . "ぱ"))
+       ("pe" nil ("ペ" . "ぺ")) ("pi" nil ("ピ" . "ぴ"))
+       ("po" nil ("ポ" . "ぽ")) ("pu" nil ("プ" . "ぷ"))
+       ("pya" nil ("ピャ" . "ぴゃ")) ("pye" nil ("ピェ" . "ぴぇ"))
+       ("pyi" nil ("ピィ" . "ぴぃ")) ("pyo" nil ("ピョ" . "ぴょ"))
+       ("pyu" nil ("ピュ" . "ぴゅ")) ("rr" "r" ("ッ" . "っ"))
+       ("ra" nil ("ラ" . "ら")) ("re" nil ("レ" . "れ"))
+       ("ri" nil ("リ" . "り")) ("ro" nil ("ロ" . "ろ"))
+       ("ru" nil ("ル" . "る")) ("rya" nil ("リャ" . "りゃ"))
+       ("rye" nil ("リェ" . "りぇ")) ("ryi" nil ("リィ" . "りぃ"))
+       ("ryo" nil ("リョ" . "りょ")) ("ryu" nil ("リュ" . "りゅ"))
+       ("ss" "s" ("ッ" . "っ")) ("sa" nil ("サ" . "さ"))
+       ("se" nil ("セ" . "せ")) ("sha" nil ("シャ" . "しゃ"))
+       ("she" nil ("シェ" . "しぇ")) ("shi" nil ("シ" . "し"))
+       ("sho" nil ("ショ" . "しょ")) ("shu" nil ("シュ" . "しゅ"))
+       ("si" nil ("シ" . "し")) ("so" nil ("ソ" . "そ"))
+       ("su" nil ("ス" . "す")) ("sya" nil ("シャ" . "しゃ"))
+       ("sye" nil ("シェ" . "しぇ")) ("syi" nil ("シィ" . "しぃ"))
+       ("syo" nil ("ショ" . "しょ")) ("syu" nil ("シュ" . "しゅ"))
+       ("tt" "t" ("ッ" . "っ")) ("ta" nil ("タ" . "た"))
+       ("te" nil ("テ" . "て")) ("tha" nil ("テァ" . "てぁ"))
+       ("the" nil ("テェ" . "てぇ")) ("thi" nil ("ティ" . "てぃ"))
+       ("tho" nil ("テョ" . "てょ")) ("thu" nil ("テュ" . "てゅ"))
+       ("ti" nil ("チ" . "ち")) ("to" nil ("ト" . "と"))
+       ("tsu" nil ("ツ" . "つ")) ("tu" nil ("ツ" . "つ"))
+       ("tya" nil ("チャ" . "ちゃ")) ("tye" nil ("チェ" . "ちぇ"))
+       ("tyi" nil ("チィ" . "ちぃ")) ("tyo" nil ("チョ" . "ちょ"))
+       ("tyu" nil ("チュ" . "ちゅ")) ("u" nil ("ウ" . "う"))
+       ("vv" "v" ("ッ" . "っ")) ("va" nil ("ヴァ" . "う゛ぁ"))
+       ("ve" nil ("ヴェ" . "う゛ぇ")) ("vi" nil ("ヴィ" . "う゛ぃ"))
+       ("vo" nil ("ヴォ" . "う゛ぉ")) ("vu" nil ("ヴ" . "う゛"))
+       ("ww" "w" ("ッ" . "っ")) ("wa" nil ("ワ" . "わ"))
+       ("we" nil ("ウェ" . "うぇ")) ("wi" nil ("ウィ" . "うぃ"))
+       ("wo" nil ("ヲ" . "を")) ("wu" nil ("ウ" . "う"))
+       ("xx" "x" ("ッ" . "っ")) ("xa" nil ("ァ" . "ぁ"))
+       ("xe" nil ("ェ" . "ぇ")) ("xi" nil ("ィ" . "ぃ"))
+       ("xka" nil ("ヵ" . "か")) ("xke" nil ("ヶ" . "け"))
+       ("xo" nil ("ォ" . "ぉ")) ("xtsu" nil ("ッ" . "っ"))
+       ("xtu" nil ("ッ" . "っ")) ("xu" nil ("ゥ" . "ぅ"))
+       ("xwa" nil ("ヮ" . "ゎ")) ("xwe" nil ("ヱ" . "ゑ"))
+       ("xwi" nil ("ヰ" . "ゐ")) ("xya" nil ("ャ" . "ゃ"))
+       ("xyo" nil ("ョ" . "ょ")) ("xyu" nil ("ュ" . "ゅ"))
+       ("yy" "y" ("ッ" . "っ")) ("ya" nil ("ヤ" . "や"))
+       ("ye" nil ("イェ" . "いぇ")) ("yo" nil ("ヨ" . "よ"))
+       ("yu" nil ("ユ" . "ゆ")) ("zz" "z" ("ッ" . "っ"))
+       ("z," nil "‥") ("z-" nil "～") ("z." nil "…")
+       ("z/" nil "・") ("z[" nil "『") ("z]" nil "』")
+       ("za" nil ("ザ" . "ざ")) ("ze" nil ("ゼ" . "ぜ"))
+       ("zh" nil "←") ("zi" nil ("ジ" . "じ"))
+       ("zj" nil "↓") ("zk" nil "↑") ("zl" nil "→")
+       ("zo" nil ("ゾ" . "ぞ")) ("zu" nil ("ズ" . "ず"))
+       ("zya" nil ("ジャ" . "じゃ")) ("zye" nil ("ジェ" . "じぇ"))
+       ("zyi" nil ("ジィ" . "じぃ")) ("zyo" nil ("ジョ" . "じょ"))
+       ("zyu" nil ("ジュ" . "じゅ")) ("." nil skk-current-kuten)
+       ("," nil skk-current-touten) ("-" nil "ー")
+       (":" nil "：") (";" nil "；") ("?" nil "？")
+       ("[" nil "「") ("]" nil "」") ("l" nil skk-latin-mode)
        ("q" nil skk-toggle-characters) ("L" nil skk-jisx0208-latin-mode)
        ("Q" nil skk-set-henkan-point-subr)
        ("X" nil skk-purge-from-jisyo) ("/" nil skk-abbrev-mode)
        ("$" nil skk-display-code-for-char-at-point)
        ("\C-j" nil skk-kakutei)
        ("@" nil skk-today) ("\\" nil skk-input-by-code-or-menu)))
-    (skk-rom-kana-rule-list . '(("hh" "h" ("$B%C(B" . "$B$C(B"))))
+    (skk-rom-kana-rule-list . '(("hh" "h" ("ッ" . "っ"))))
     (skk-save-jisyo-function . 'skk-save-jisyo-original)
     (skk-search-excluding-word-pattern-function . nil)
     (skk-search-prog-list . '((skk-search-jisyo-buf
@@ -311,29 +311,29 @@
          skk-kanagaki-rule-tree
        (skk-compile-rule-list skk-rom-kana-base-rule-list
                               skk-rom-kana-rule-list))))
-  "skk.el $B$N%f!<%6!<JQ?t$N%j%9%H!#(B")
+  "skk.el のユーザー変数のリスト。")
 
 (defvar skktut-nicola-tut-file "NICOLA-SKK.tut"
-  "NICOLA-DDSKK $B$N$?$a$N%A%e!<%H%j%"%k%U%!%$%kL>!#(B
-$B%G%#%l%/%H%jL>$O4^$^$J$$!#(B")
+  "NICOLA-DDSKK のためのチュートリアルファイル名。
+ディレクトリ名は含まない。")
 
 (defvar skktut-japanese-tut nil
-  "Non-nil $B$G$"$l$P!"%A%e!<%H%j%"%k$,F|K\8l$G$"$k$3$H$r<($9!#(B")
-(defvar skktut-right-answer nil "$B@52r$NJ8;zNs!#(B")
-(defvar skktut-question-count 1 "$B%A%e!<%H%j%"%k$N8=:_$NLdBjHV9f!#(B")
-(defvar skktut-tutorial-end nil "$B%A%e!<%H%j%"%k$N=*N;$r<($9%U%i%0!#(B")
+  "Non-nil であれば、チュートリアルが日本語であることを示す。")
+(defvar skktut-right-answer nil "正解の文字列。")
+(defvar skktut-question-count 1 "チュートリアルの現在の問題番号。")
+(defvar skktut-tutorial-end nil "チュートリアルの終了を示すフラグ。")
 (defvar skktut-working-buffer " *skk-tutorial*")
-(defvar skktut-question-buffer "*$BLd(B*")
-(defvar skktut-answer-buffer "*$BEz(B*")
+(defvar skktut-question-buffer "*問*")
+(defvar skktut-answer-buffer "*答*")
 (defvar skktut-jisyo-buffer " *skk-tut-jisyo*")
 (defvar skktut-original-window-configuration nil)
 (defvar skktut-working-window-configuration nil)
 (defvar skktut-original-local-map nil)
 (defvar skktut-skk-mode-on nil
-  "Non-nil $B$J$i!"(Btutorial $B$r5/F0;~$K(B SKK $B$,4{$K5/F0$5$l$F$$$?$3$H$r<($9!#(B")
+  "Non-nil なら、tutorial を起動時に SKK が既に起動されていたことを示す。")
 
 (defvar skktut-latin-mode-map nil
-  "SKK $B%A%e!<%H%j%"%k(B ASCII $B%b!<%I%-!<%^%C%W!#(B")
+  "SKK チュートリアル ASCII モードキーマップ。")
 
 (unless skktut-latin-mode-map
   (let ((map (make-sparse-keymap)))
@@ -341,7 +341,7 @@
     (setq skktut-latin-mode-map map)))
 
 (defvar skktut-j-mode-map nil
-  "SKK $B%A%e!<%H%j%"%k$+$J(B/$B%+%J%b!<%I%-!<%^%C%W!#(B")
+  "SKK チュートリアルかな/カナモードキーマップ。")
 
 (unless skktut-j-mode-map
   (let ((map (make-sparse-keymap))
@@ -352,7 +352,7 @@
     (setq skktut-j-mode-map map)))
 
 (defvar skktut-jisx0208-latin-mode-map nil
-  "SKK $B%A%e!<%H%j%"%kA43Q1Q?t;z%b!<%I%-!<%^%C%W!#(B")
+  "SKK チュートリアル全角英数字モードキーマップ。")
 
 (unless skktut-jisx0208-latin-mode-map
   (let ((map (make-sparse-keymap))
@@ -365,7 +365,7 @@
     (setq skktut-jisx0208-latin-mode-map map)))
 
 (defvar skktut-abbrev-mode-map nil
-  "SKK $B%A%e!<%H%j%"%k(B Abbrev $B%b!<%I%-!<%^%C%W!#(B")
+  "SKK チュートリアル Abbrev モードキーマップ。")
 
 (unless skktut-abbrev-mode-map
   (let ((map (make-sparse-keymap)))
@@ -379,16 +379,16 @@
 
 ;; -- macros
 (defmacro skktut-message (japanese english &rest arg)
-  ;; skktut-japanese-tut $B$,(B non-nil $B$@$C$?$i(B JAPANESE $B$r(B nil $B$G$"$l$P(B ENGLISH
-  ;; $B$r%(%3!<%(%j%"$KI=<($9$k!#(B
-  ;; ARG $B$O(B message $B4X?t$NBh#20z?t0J9_$N0z?t$H$7$FEO$5$l$k!#(B
+  ;; skktut-japanese-tut が non-nil だったら JAPANESE を nil であれば ENGLISH
+  ;; をエコーエリアに表示する。
+  ;; ARG は message 関数の第２引数以降の引数として渡される。
   (append `(message (if skktut-japanese-tut ,japanese ,english))
           arg))
 
 (defmacro skktut-error (japanese english &rest arg)
-  ;; skktut-japanese-tut $B$,(B non-nil $B$@$C$?$i(B JAPANESE $B$r(B nil $B$G$"$l$P(B ENGLISH
-  ;; $B$r%(%3!<%(%j%"$KI=<($7!"%(%i!<$rH/@8$5$;$k!#(B
-  ;; ARG $B$O(B error $B4X?t$NBh#20z?t0J9_$N0z?t$H$7$FEO$5$l$k!#(B
+  ;; skktut-japanese-tut が non-nil だったら JAPANESE を nil であれば ENGLISH
+  ;; をエコーエリアに表示し、エラーを発生させる。
+  ;; ARG は error 関数の第２引数以降の引数として渡される。
   (append `(error (if skktut-japanese-tut ,japanese ,english))
           arg))
 
@@ -401,30 +401,30 @@
 (defadvice skk-save-jisyo-original (around skktut-ad disable))
 
 (defadvice skk-abbrev-mode (before skktut-ad disable)
-  "SKK $B%A%e!<%H%j%"%kMQ%"%I%P%$%9IU!#(B"
+  "SKK チュートリアル用アドバイス付。"
   (when (> 12 skktut-question-count)
-    (skktut-error "$B$3$N%-!<$O$^$@;H$($^$;$s(B"
+    (skktut-error "このキーはまだ使えません"
                   "Cannot use this key yet")))
 
 (defadvice skk-insert (before skktut-ad disable)
-  "SKK $B%A%e!<%H%j%"%kMQ%"%I%P%$%9IU!#(B"
+  "SKK チュートリアル用アドバイス付。"
   (when (and (memq last-command-event skk-set-henkan-point-key)
              (> 12 skktut-question-count))
-    (skktut-error "$B$+$J(B/$B%+%J%b!<%I$G$O!"1QBgJ8;z$O$^$@;H$($^$;$s(B"
+    (skktut-error "かな/カナモードでは、英大文字はまだ使えません"
                   "Cannot use upper case character in kana/katakana mode")))
 
 (defadvice skk-kakutei (before skktut-ad disable)
-  "SKK $B%A%e!<%H%j%"%kMQ%"%I%P%$%9IU!#(B"
+  "SKK チュートリアル用アドバイス付。"
   (when (and (called-interactively-p 'interactive)
              (= skktut-question-count 1))
-    (skktut-error "$B$3$N%-!<$O$^$@;H$($^$;$s(B"
+    (skktut-error "このキーはまだ使えません"
                   "Cannot use this key yet")))
 
 (defadvice skk-mode (before skktut-ad disable)
-  "SKK $B%A%e!<%H%j%"%kMQ%"%I%P%$%9IU!#(B"
+  "SKK チュートリアル用アドバイス付。"
   (when (and (called-interactively-p 'interactive)
              (= skktut-question-count 1))
-    (skktut-error "$B$3$N%-!<$O$^$@;H$($^$;$s(B"
+    (skktut-error "このキーはまだ使えません"
                   "Cannot use this key yet")))
 
 (defadvice skk-get-jisyo-buffer (around skktut-ad disable)
@@ -457,12 +457,12 @@ You can select English version by \\[universal-argument] \\[skk-tutorial]."
   (interactive "P")
   ;;
   (unless skk-mode-invoked
-    ;; SKK $B$r5/F0$;$:$K$$$-$J$j(B
-    ;; skk-tutorial $B$r<B9T$7$?$H$-$K(B skk-jisyo $B%P%C%U%!$,:n$i$l$J$$$N$G(B
-    ;; skk-setup-jisyo-buffer $B$G%(%i!<$H$J$j!"(BEmacs $B$N=*N;$,$G$-$J$/(B
-    ;; $B$J$k$N$G(B SKK $B%b!<%I$r0lEY5/$3$7$F$*$/!#(B
-    ;; ($BDI5-(B: $B%b!<%I9T$N@_Dj$J$I$K$b(B SKK $B$r5/F0$7$F$*$/$3$H$OI,MW$J$N$G!"(B
-    ;; $B$H$j$"$($:!"$J$k$Y$/Aa$$%?%$%_%s%0$KJQ99$7$^$9!#(B)
+    ;; SKK を起動せずにいきなり
+    ;; skk-tutorial を実行したときに skk-jisyo バッファが作られないので
+    ;; skk-setup-jisyo-buffer でエラーとなり、Emacs の終了ができなく
+    ;; なるので SKK モードを一度起こしておく。
+    ;; (追記: モード行の設定などにも SKK を起動しておくことは必要なので、
+    ;; とりあえず、なるべく早いタイミングに変更します。)
     (skk-mode 1)
     (skk-mode -1))
   ;;
@@ -517,27 +517,27 @@ You can select English version by \\[universal-argument] \\[skk-tutorial]."
                              skk-tut-file-suffix-alist))))))
 
 (defun skk-tutorial-again (&optional now)
-  "$B%f!<%6$NF10U$,$"$l$P(B SKK $B%A%e!<%H%j%"%k$r:G=i$+$i$d$jD>$9!#(B
-\\[universal-argument] \\[skk-tutorial-again] $B$9$k$HD>$A$K$d$jD>$9!#(B"
+  "ユーザの同意があれば SKK チュートリアルを最初からやり直す。
+\\[universal-argument] \\[skk-tutorial-again] すると直ちにやり直す。"
   (interactive "P")
   (when (or now
             (skktut-yes-or-no-p
-             "$B:G=i$+$i(B Tutorial $B$r$d$jD>$7$^$9!#$h$m$7$$$G$9$M!)(B "
+             "最初から Tutorial をやり直します。よろしいですね？ "
              "Quit tutorial and start from question 1 again? "))
     (skk-tutorial-quit 'now)
     (skk-tutorial)))
 
 (defun skk-tutorial-quit (&optional now)
-  "$B%f!<%6$NF10U$,$"$k>l9g(B SKK $B%A%e!<%H%j%"%k$r$d$a$k!#(B
-\\[universal-argument] \\[skk-tutorial-quit] $B$9$k$HD>$A$K$d$a$k!#(B"
+  "ユーザの同意がある場合 SKK チュートリアルをやめる。
+\\[universal-argument] \\[skk-tutorial-quit] すると直ちにやめる。"
   (interactive "P")
   (when (or now
             (skktut-yes-or-no-p
-             "$BK\Ev$K%A%e!<%H%j%"%k$r$d$a$^$9$+!)(B "
+             "本当にチュートリアルをやめますか？ "
              "Really quit tutorial? "))
     (let ((inhibit-quit t))
       (delete-other-windows)
-      ;; $B:FEY%A%e!<%H%j%"%k$r;H$($k$h$&$K!"FbItJQ?t$r=i4|2=$7$F$*$/!#(B
+      ;; 再度チュートリアルを使えるように、内部変数を初期化しておく。
       (setq skktut-japanese-tut nil
             skktut-question-count 1
             skktut-right-answer nil
@@ -553,8 +553,8 @@ You can select English version by \\[universal-argument] \\[skk-tutorial]."
       (kill-buffer skktut-answer-buffer)
       (kill-buffer skktut-question-buffer)
       (set-window-configuration skktut-original-window-configuration)
-      ;; $B%A%e!<%H%j%"%k5/F0D>A0$K3+$$$F$$$?%P%C%U%!$G!"(Bskk-mode $B$r5/F0$7$F(B
-      ;; $B$$$?$i!"$=$N>uBV$K$7$F!"%A%e!<%H%j%"%k$r=*N;$9$k!#(B
+      ;; チュートリアル起動直前に開いていたバッファで、skk-mode を起動して
+      ;; いたら、その状態にして、チュートリアルを終了する。
       (unless skktut-skk-mode-on
         (skk-mode -1)))))
 
@@ -576,7 +576,7 @@ You can select English version by \\[universal-argument] \\[skk-tutorial]."
         (setq user-ans (substring user-ans (match-end 0))))
       (if (not (string= skktut-right-answer user-ans))
           (progn
-            (skktut-message "$BEz$,0c$$$^$9!#$b$&0lEY$d$C$F$_$F2<$5$$(B"
+            (skktut-message "答が違います。もう一度やってみて下さい"
                             "Wrong.  Try again")
             (ding))
         (setq skktut-question-count (1+ skktut-question-count))
@@ -691,67 +691,67 @@ You can select English version by \\[universal-argument] \\[skk-tutorial]."
     (setq case-fold-search nil)
     (insert "\
 ;; okuri-ari entries.
-$B$[$C(Bs /$BM_(B/
-$B$D$+(Bt /$B;H(B/
-$B$?$C(Bs /$BC#(B/
-$B$7(Bt /$BCN(B/
-$B$&$4(Bk /$BF0(B/
+ほっs /欲/
+つかt /使/
+たっs /達/
+しt /知/
+うごk /動/
 ;; okuri-nasi entries.
-Cyrillic /$B'!(B/$B'"(B/$B'#(B/$B'$(B/$B'%(B/$B'&(B/$B''(B/$B'((B/$B')(B/$B'*(B/$B'+(B/$B',(B/$B'-(B/$B'.(B/$B'/(B/$B'0(B/$B'1(B/$B'2(B/$B'3(B/$B'4(B/$B'5(B/$B'6(B/\
-$B'7(B/$B'8(B/$B'9(B/$B':(B/$B';(B/$B'<(B/$B'=(B/$B'>(B/$B'?(B/$B'@(B/$B'A(B/
-Greek /$B&!(B/$B&"(B/$B&#(B/$B&$(B/$B&%(B/$B&&(B/$B&'(B/$B&((B/$B&)(B/$B&*(B/$B&+(B/$B&,(B/$B&-(B/$B&.(B/$B&/(B/$B&0(B/$B&1(B/$B&2(B/$B&3(B/$B&4(B/$B&5(B/$B&6(B/$B&7(B/\
-$B&8(B/
-cyrillic /$B'Q(B/$B'R(B/$B'S(B/$B'T(B/$B'U(B/$B'V(B/$B'W(B/$B'X(B/$B'Y(B/$B'Z(B/$B'[(B/$B'\(B/$B'](B/$B'^(B/$B'_(B/$B'`(B/$B'a(B/$B'b(B/$B'c(B/$B'd(B/$B'e(B/$B'f(B/\
-$B'g(B/$B'h(B/$B'i(B/$B'j(B/$B'k(B/$B'l(B/$B'm(B/$B'n(B/$B'o(B/$B'p(B/$B'q(B/
-greek /$B&A(B/$B&B(B/$B&C(B/$B&D(B/$B&E(B/$B&F(B/$B&G(B/$B&H(B/$B&I(B/$B&J(B/$B&K(B/$B&L(B/$B&M(B/$B&N(B/$B&O(B/$B&P(B/$B&Q(B/$B&R(B/$B&S(B/$B&T(B/$B&U(B/$B&V(B/$B&W(B/\
-$B&X(B/
-tutorial /$B%A%e!<%H%j%"%k(B/
-$B$$$A(B /$B0l(B/
-$B$$$A$*$/(B /$B0l2/(B/
-$B$*$*$5$+(B /$BBg:e(B/
-$B$*$/(B /$B2/(B/
-$B$+$J(B /$B2>L>(B/
-$B$+$s$8(B /$B4A;z(B/$B44;v(B/$B4F;v(B/
-$B$,$/(B /$B3X(B/
-$B$,$/$7$e$&(B /$B3X=,(B/
-$B$-(B /$B4p(B/$B5-(B/$B5$(B/$BLZ(B/$B5"(B/
-$B$-$4$&(B /$B5-9f(B/$B!&(B/$B!+(B/$B!,(B/$B!-(B/$B!.(B/$B!/(B/$B!1(B/$B!3(B/$B!4(B/$B!5(B/$B!6(B/$B!7(B/$B!8(B/$B!9(B/$B!:(B/$B!;(B/$B!=(B/$B!>(B/$B!B(B/$B!D(B/$B!E(B/\
-$B!H(B/$B!I(B/$B!L(B/$B!M(B/$B!R(B/$B!S(B/$B!T(B/$B!U(B/$B!X(B/$B!Y(B/$B!Z(B/$B![(B/$B!^(B/$B!_(B/$B!`(B/$B!b(B/$B!e(B/$B!f(B/$B!g(B/$B!h(B/$B!i(B/$B!j(B/$B!k(B/$B!l(B/$B!m(B/$B!n(B/\
-$B!o(B/$B!q(B/$B!r(B/$B!x(B/$B!y(B/$B!z(B/$B!{(B/$B!|(B/$B!}(B/$B!~(B/$B"!(B/$B""(B/$B"#(B/$B"$(B/$B"%(B/$B"&(B/$B"'(B/$B"((B/$B")(B/$B"*(B/$B"+(B/$B",(B/$B"-(B/$B".(B/
-$B$-$g$&$H(B /$B5~ET(B/
-$B$3$&(B /$B8}(B/
-$B$3$&$Y(B /$B?@8M(B/
-$B$4(B /$B8^(B/$B8_(B/$B8`(B/$B8a(B/$B8b(B/$B8c(B/$B8d(B/$B8e(B/$B8f(B/$B8g(B/$B8h(B/$B8i(B/$B8j(B/$B8k(B/$B8l(B/$B8m(B/$B8n(B/$B8o(B/
-$B$5$$(B /$B:Y(B/$B:G(B/$B:F(B/
-$B$5$$$7$g(B /$B:G=i(B/
-$B$5$$$H$&(B /$B:XF#(B/
-$B$5$H$&(B /$B:4F#(B/
-$B$7$e$&(B /$B=,(B/$B=*(B/
-$B$7$e$&$j$g$&(B /$B=*N;(B/
-$B$7$g(B /$B=q(B/
-$B$8(B /$B<-(B/$B;z(B/
-$B$8$7$g(B /$B<-=q(B/$BCO=j(B/
-$B$8$s(B /$B?M(B/
-$B$8$s$3$&(B /$B?M8}(B/
-$B$;$s(B /$BA*(B/$B@v(B/
-$B$;$s$?$/(B /$BA*Br(B/$B@vBu(B/
-$B$=$&(B /$BAv(B/
-$B$@$$(B /$BBg(B/$BBh(B/$BBe(B/
-$B$?$/(B /$BBr(B/$BBu(B/
-$B$F$-(B /$BE*(B/$BE((B/$BE)(B/$BE,(B/$BE&(B/
-$B$H$&(B /$BEl(B/$BEP(B/
-$B$H$&$[$/(B /$BElKL(B/
-$B$H$&$m$/(B /$BEPO?(B/
-$B$I$&(B /$BF0(B/
-$B$K$e$&$j$g$/(B /$BF~NO(B/
-$B$R$3$&$-(B /$BHt9T5!(B/
-$B$X$s$+$s(B /$BJQ49(B/
-$B$[$/(B /$BKL(B/
-$B$_$g$&(B /$BL>(B/
-$B$_$g$&$8(B /$BL>;z(B/
-$B$h$&$$(B /$BMF0W(B/$BMQ0U(B/
-$B$j$g$&(B /$BN;(B/
-$B$m$/(B /$BO?(B/
+Cyrillic /А/Б/В/Г/Д/Е/Ё/Ж/З/И/Й/К/Л/М/Н/О/П/Р/С/Т/У/Ф/\
+Х/Ц/Ч/Ш/Щ/Ъ/Ы/Ь/Э/Ю/Я/
+Greek /Α/Β/Γ/Δ/Ε/Ζ/Η/Θ/Ι/Κ/Λ/Μ/Ν/Ξ/Ο/Π/Ρ/Σ/Τ/Υ/Φ/Χ/Ψ/\
+Ω/
+cyrillic /а/б/в/г/д/е/ё/ж/з/и/й/к/л/м/н/о/п/р/с/т/у/ф/\
+х/ц/ч/ш/щ/ъ/ы/ь/э/ю/я/
+greek /α/β/γ/δ/ε/ζ/η/θ/ι/κ/λ/μ/ν/ξ/ο/π/ρ/σ/τ/υ/φ/χ/ψ/\
+ω/
+tutorial /チュートリアル/
+いち /一/
+いちおく /一億/
+おおさか /大阪/
+おく /億/
+かな /仮名/
+かんじ /漢字/幹事/監事/
+がく /学/
+がくしゅう /学習/
+き /基/記/気/木/帰/
+きごう /記号/・/゛/゜/´/｀/¨/￣/ヽ/ヾ/ゝ/ゞ/〃/仝/々/〆/〇/―/‐/∥/…/‥/\
+“/”/〔/〕/〈/〉/《/》/『/』/【/】/±/×/÷/≠/≦/≧/∞/∴/♂/♀/°/′/″/℃/\
+￥/￠/￡/§/☆/★/○/●/◎/◇/◆/□/■/△/▲/▽/▼/※/〒/→/←/↑/↓/〓/
+きょうと /京都/
+こう /口/
+こうべ /神戸/
+ご /五/互/伍/午/呉/吾/娯/後/御/悟/梧/檎/瑚/碁/語/誤/護/醐/
+さい /細/最/再/
+さいしょ /最初/
+さいとう /斎藤/
+さとう /佐藤/
+しゅう /習/終/
+しゅうりょう /終了/
+しょ /書/
+じ /辞/字/
+じしょ /辞書/地所/
+じん /人/
+じんこう /人口/
+せん /選/洗/
+せんたく /選択/洗濯/
+そう /走/
+だい /大/第/代/
+たく /択/濯/
+てき /的/敵/滴/適/摘/
+とう /東/登/
+とうほく /東北/
+とうろく /登録/
+どう /動/
+にゅうりょく /入力/
+ひこうき /飛行機/
+へんかん /変換/
+ほく /北/
+みょう /名/
+みょうじ /名字/
+ようい /容易/用意/
+りょう /了/
+ろく /録/
 ")
     (skk-setup-jisyo-buffer)))
 
@@ -796,8 +796,8 @@ tutorial /$B%A%e!<%H%j%"%k(B/
   (with-current-buffer (get-buffer-create skktut-answer-buffer)
     ;; users may use undo.
     ;; (buffer-disable-undo (current-buffer))
-    ;; skktut-answer-buffer $B$N(B skk.el $B$NJQ?t$r%P%C%U%!%m!<%+%k2=$7!"=i4|2=$9(B
-    ;; $B$k!#(B
+    ;; skktut-answer-buffer の skk.el の変数をバッファローカル化し、初期化す
+    ;; る。
     (skktut-localize-and-init-variables)
     (local-set-key "\C-xq" 'skk-tutorial-quit)
     (local-set-key "\C-xt" 'skk-tutorial-again)
@@ -807,8 +807,8 @@ tutorial /$B%A%e!<%H%j%"%k(B/
     (skktut-next-answer-buffer)))
 
 (defun skktut-localize-and-init-variables ()
-  ;; $B%f!<%6!<$,(B skk.el $B$NJQ?t$r%+%9%?%^%$%:$7$F$$$k2DG=@-$,$"$k$N$G!"%+%l%s%H(B
-  ;; $B%P%C%U%!$N(B skk.el $B$NJQ?t$r%P%C%U%!%m!<%+%k2=$7!"=i4|2=$9$k!#(B
+  ;; ユーザーが skk.el の変数をカスタマイズしている可能性があるので、カレント
+  ;; バッファの skk.el の変数をバッファローカル化し、初期化する。
   (let ((alist skktut-init-variables-alist)
         v)
     (dolist (cell alist)
@@ -823,9 +823,9 @@ tutorial /$B%A%e!<%H%j%"%k(B/
     (erase-buffer)))
 
 (defun skktut-colored ()
-  ;; face $B$r(B Text Property $B$K$7$F$*$/$H%F%-%9%H$r%3%T!<$7$?$H$-$K0l=o$K%3%T!<$G(B
-  ;; $B$-$k$N$G9%ET9g!#(B
-  (while (re-search-forward "$B"'(B\\([^$B![(B $B$!(B-$B$s%!(B-$B%s(B]+\\)" nil t nil)
+  ;; face を Text Property にしておくとテキストをコピーしたときに一緒にコピーで
+  ;; きるので好都合。
+  (while (re-search-forward "▼\\([^】 ぁ-んァ-ン]+\\)" nil t nil)
     (put-text-property (match-beginning 1) (match-end 1) 'face
                        'highlight))
   (goto-char (point-min))
@@ -877,11 +877,11 @@ tutorial /$B%A%e!<%H%j%"%k(B/
                (substitute-command-keys
                 (if skktut-japanese-tut
                     (concat
-                     "* $BEz$,$G$-$?$i(B" next "\n"
-                     "* $BESCf$G$d$a$k$K$O(B" quit "\n"
+                     "* 答ができたら" next "\n"
+                     "* 途中でやめるには" quit "\n"
                      (if (/= skktut-question-count skktut-question-numbers)
-                         (concat "* $B%9%-%C%W$9$k$K$O(B" skip "\n"))
-                     "* $B!ZLd![$r%9%/%m!<%k$9$k$K$O(B" sow)
+                         (concat "* スキップするには" skip "\n"))
+                     "* 【問】をスクロールするには" sow)
                   (concat
                    "* For next question" next "\n"
                    "* to quit " quit "\n"
@@ -924,12 +924,12 @@ tutorial /$B%A%e!<%H%j%"%k(B/
             (let (buffer-read-only)
               (insert str)
               (setq mode-line-buffer-identification
-                    (concat "$B#S#K#K%A%e!<%H%j%"%k(B: $B!NLd(B "
+                    (concat "ＳＫＫチュートリアル: ［問 "
                             (number-to-string page)
-                            "$B!O(B $B!J;D$j(B "
+                            "］ （残り "
                             (number-to-string
                              (- skktut-question-numbers page))
-                            "$BLd!K(B"))
+                            "問）"))
               (set-buffer-modified-p nil)
               (force-mode-line-update 'all))))))))
 
@@ -941,10 +941,10 @@ tutorial /$B%A%e!<%H%j%"%k(B/
       (let (p)
         (widen)
         (search-forward "\n>> ")
-        (when (re-search-forward "$B!V(B.*$B!W(B" (line-end-position) t)
+        (when (re-search-forward "「.*」" (line-end-position) t)
           (delete-region (match-beginning 0) (match-end 0)))
         (setq p (point))
-        (insert (concat "$B!V$-$g$&$O!"(B" (skk-current-date) "$B$G$9!#!W(B"))
+        (insert (concat "「きょうは、" (skk-current-date) "です。」"))
         (narrow-to-region (point-min) (point))
         (when skk-tut-use-face
           (put-text-property p (point) 'face skk-tut-question-face))))))
@@ -960,13 +960,13 @@ tutorial /$B%A%e!<%H%j%"%k(B/
      (format
       (if skktut-japanese-tut
           "\
-SKK $B%A%e!<%H%j%"%k$O$3$l$G=*$j$G$9!#(B
+SKK チュートリアルはこれで終りです。
 
-%s $B$K4X$9$k<ALd!"%3%a%s%H!"(Bbug report $BEy$O(B
+%s に関する質問、コメント、bug report 等は
 
-https://github.com/skk-dev $BKx$*Aw$j$/$@$5$$!#(B
+https://github.com/skk-dev 迄お送りください。
 
-!! $B:G8e$K(B <return> $B%-!<$r2!$7$F$/$@$5$$!#(B"
+!! 最後に <return> キーを押してください。"
 
         "\
 Now we end the SKK tutorial.
@@ -989,7 +989,7 @@ https://github.com/skk-dev
       (ignore-errors
         (let* ((event (read-event))
                (char (event-to-character event)))
-          (skktut-message "<return> $B%-!<$r2!$7$F$/$@$5$$(B"
+          (skktut-message "<return> キーを押してください"
                           "Hit <return> key")
           (if (and char (eq ?\C-m char))
               (setq skktut-tutorial-end t)))))

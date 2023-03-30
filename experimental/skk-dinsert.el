@@ -24,12 +24,12 @@
 
 ;;; Commentary:
 
-;; $B%+!<%=%k$NA08e$NJ8;zNs$d!"G$0U$N(B elisp $B$NI>2ACM$K$h$C$F%P%C%U%!$KA^(B
-;; $BF~$9$kJ8;z$rF0E*$K7hDj$9$k%W%m%0%i%`$G$9!#(B
+;; カーソルの前後の文字列や、任意の elisp の評価値によってバッファに挿
+;; 入する文字を動的に決定するプログラムです。
 
-;; skk-dinsert-rule-list $B$K!"%-!<F~NO$H$=$l$KBP1~$9$k>r7o$N%j%9%H$r=q(B
-;; $B$$$F$/$@$5$$!#?t;z$ND>8e$G$N$_(B [-,.]$B$r(B[$B!<!"!#(B]$B$G$J$/$=$N$^$^F~NO$7(B
-;; $B$?$$>l9g$K$O<!$N$h$&$K(B .skk $B$K=q$$$F$/$@$5$$!#(B
+;; skk-dinsert-rule-list に、キー入力とそれに対応する条件のリストを書
+;; いてください。数字の直後でのみ [-,.]を[ー、。]でなくそのまま入力し
+;; たい場合には次のように .skk に書いてください。
 
 ;;   (setq skk-dinsert-rule-list
 ;;         '(("." nil
@@ -40,10 +40,10 @@
 ;;             (t . skk-current-touten)))
 ;;           ("-" nil
 ;;            (("[0-9]" . "-")
-;;             (t . "$B!<(B")))))
+;;             (t . "ー")))))
 
-;; $B$^$?!"(BSKK $BK\BN$KE}9g$5$l$k$^$G$O!"(Bskk-dinsert-rule-list $B$N@_Dj$h$j(B
-;; $B$b2<$NJ}$K0J2<$N%3!<%I$rDI2C$7$F2<$5$$!#(B
+;; また、SKK 本体に統合されるまでは、skk-dinsert-rule-list の設定より
+;; も下の方に以下のコードを追加して下さい。
 
 ;;   (when (locate-library "skk-dinsert")
 ;;     (require 'skk-dinsert)
@@ -58,11 +58,11 @@
 ;;                                          (skk-dinsert arg ,count))))
 ;;                             skk-dinsert-rule-list)))))
 
-;; $B$5$i$K!"$3$N%U%!%$%k$r(B load-path $B$NDL$C$?%G%#%l%/%H%j$KCV$$$F2<$5$$!#(B
+;; さらに、このファイルを load-path の通ったディレクトリに置いて下さい。
 
-;; $BF0E*$JF~NO$rL58z$K$7$?$$;~$O!"(BM-x skk-toggle-dinsert $B$7$F2<$5$$!#(B
-;; $BKt!"0l;~E*$KL58z$K$7$?$$;~$O!"(BQ $B$NF~NO$K$h$j"&%b!<%I$KF~$C$F2<$5$$!#(B
-;; $BB3$/0lJ8;zL\$K$D$$$F$OL58z$K$J$j$^$9!#(B
+;; 動的な入力を無効にしたい時は、M-x skk-toggle-dinsert して下さい。
+;; 又、一時的に無効にしたい時は、Q の入力により▽モードに入って下さい。
+;; 続く一文字目については無効になります。
 
 ;;; Code:
 
@@ -71,99 +71,99 @@
   (require 'skk-vars))
 
 (defvar skk-dinsert-mode t
-  "*Non-nil $B$G$"$l$P!"(B`skk-dinsert' $B$K$h$kF0E*$JF~NO$rM-8z$K$9$k!#(B
-nil $B$G$"$l$P(B `skk-dinsert-rule-list' $B$G$N(B t $B$KBP1~$9$kCM$rMQ$$$k!#(B
+  "*Non-nil であれば、`skk-dinsert' による動的な入力を有効にする。
+nil であれば `skk-dinsert-rule-list' での t に対応する値を用いる。
 
-isearch $B$N:]$K$O!"$3$NJQ?t$NCM$K$h$i$:!"F0E*$JF~NO$OL58z$K$J$k!#Kt!"(B
-Q (skk-set-henkan-point-subr) $B$NF~NO$K$h$C$F"&%b!<%I$KF~$k$H!"D>8e$N(B
-$BF~NO$K8B$jL58z$K$J$k!#(B")
+isearch の際には、この変数の値によらず、動的な入力は無効になる。又、
+Q (skk-set-henkan-point-subr) の入力によって▽モードに入ると、直後の
+入力に限り無効になる。")
 
 (defvar skk-dinsert-ignore-lf t
-  "*Non-nil $B$G$"$l$P!"%+!<%=%k0JA0$NJ8;zNs$K$h$k>r7oH=Dj$r9TF,$G9T$J$C$?>l9g!"2~9T$rL5;k$9$k!#(B
-`skk-dinsert-rule-list' $B$K$FBP1~$9$k%*%W%7%g%s$,;XDj$7$F$"$k$H!"$=$A$i$,M%@h$5$l$k!#(B")
+  "*Non-nil であれば、カーソル以前の文字列による条件判定を行頭で行なった場合、改行を無視する。
+`skk-dinsert-rule-list' にて対応するオプションが指定してあると、そちらが優先される。")
 
 (defvar skk-dinsert-rule-list nil
-  "*`skk-dinsert' $B$K$h$kF0E*$JF~NO$N>r7o%j%9%H!#(B
+  "*`skk-dinsert' による動的な入力の条件リスト。
 
-$B%j%9%H$N3FMWAG$O!"$=$l$>$l$,0l$D$N5,B'$G$"$j!"2<5-$N7A<0$rK~$?$7$F$$$J$1$l$P(B
-$B$J$i$J$$!#(B
+リストの各要素は、それぞれが一つの規則であり、下記の形式を満たしていなければ
+ならない。
 
  (INPUT-STATE NEXT-STATE RULE-ALIST)
 
-INPUT-STATE, NEXT-STATE $B$N0UL#$O(B `skk-rom-kana-base-rule-list' $B$HF1$8$G$"$j!"(B
-SKK $B$O(B INPUT-STATE $B$r8!=P$9$k$H!"(BRULE-ALIST $B$K4p$E$$$F%P%C%U%!$KJ8;z$rA^F~$7!"(B
-$BB3$$$F(B NEXT-STATE $B$K>uBV$r0\$7$?$&$($G!"F~NOBT$A>uBV$H$J$k!#(B
+INPUT-STATE, NEXT-STATE の意味は `skk-rom-kana-base-rule-list' と同じであり、
+SKK は INPUT-STATE を検出すると、RULE-ALIST に基づいてバッファに文字を挿入し、
+続いて NEXT-STATE に状態を移したうえで、入力待ち状態となる。
 
-RULE-ALIST $B$O>r7o$H!"$=$l$,@.N)$7$?;~$K=PNO$5$l$kCM$NO"A[%j%9%H$G$"$k!#(B
-$B$=$l$>$l$N%k!<%k$O(B
+RULE-ALIST は条件と、それが成立した時に出力される値の連想リストである。
+それぞれのルールは
 
   (REGEXP looking-at b-regexp/ignore-lf limit s-exp . VAL)
 
-$BKt$O(B
+又は
 
   (S-EXP . VAL)
 
-$B$N7A<0$r$H$k!#(B(REGEXP, S-EXP, VAL $B0J30$O>JN,2DG=(B)
+の形式をとる。(REGEXP, S-EXP, VAL 以外は省略可能)
 
-$B=i$a$K!":G=i$NMWAG$,J8;zNs$G$"$k>l9g$K$D$$$F@bL@$9$k!#(B
-$B%j%9%H$N3FMWAG$N0UL#$O2<5-$NDL$j!#(B
+初めに、最初の要素が文字列である場合について説明する。
+リストの各要素の意味は下記の通り。
 
-  0th: $BJ8;zNs$r@55,I=8=$H$7$F07$$!"%+!<%=%k<~0O$NJ8;zNs$,$3$l$K%^%C%A$9$k$+H=Dj(B
-       $B$9$k!#(B
-  1th: Non-nil $B$G$"$l$P(B `looking-at' $B$rMQ$$$F%+!<%=%k0J8e$NJ8;zNs$,(B REGEXP $B$K%^%C(B
-       $B%A$9$k$+H=Dj$9$k!#(Bnil $B$G$"$l$P(B `re-search-backward' $B$K$h$j%+!<%=%kD>A0$N(B
-       $BJ8;zNs$,(B REGEXP $B$K%^%C%A$9$k$+H=Dj$9$k!#>JN,$9$k$H(B nil $B$H$7$F07$&!#(B
-  2th: 1th $B$N(B looking-at $B$NCM$K$h$j0[$J$k0UL#$r;}$D!#(B
-         looking-at $B$N;XDj$,(B Non-nil $B$N;~(B:
-           nil $B$G$"$l$P!"%+!<%=%kD>8e$NJ8;zNs$,(B REGEXP $B$K%^%C%A$9$k$+H=Dj$9$k!#(B
-           Non-nil $B$G$"$l$P!"$3$l$r@55,I=8=$H$7$F07$$!"(B`re-search-backward' $B$K$h$C(B
-           $B$F%+!<%=%k0\F0$r$9$k!#$=$N8e(B `looking-at' $B$r9T$J$$(B REGEXP $B$,J8;zNs$K(B
-           $B%^%C%A$9$k$+H=Dj$9$k!#$3$l$O%3%s%F%-%9%H$K1~$8$?F~NO$r$9$k>l9g$KM-8z(B
-           $B$G$"$k(B($B$H;W$o$l$k(B)$B!#(B
-         looking-at $B$N;XDj$,(B nil $B$N;~(B(`re-search-backward' $B$K$h$C$FH=Dj$9$k;~(B):
-           Non-nil $B$G$"$l$P!"9TF,$G$NF~NO$K$*$$$F!"$=$ND>A0$NJ8;z(B($B$9$J$o$A2~9T%3!<(B
-           $B%I(B)$B$rL5;k$7$F(B REGEXP $B$H%^%C%A$9$k$+H=Dj$9$k!#;XDj$,L5$1$l$P(B
-           `skk-dinsert-ignore-lf' $B$NCM$rMQ$$$k!#(B
-  3th: `re-search-backward' $B$r9T$J$&:]$N8!:wHO0O$r;XDj$9$k!#$3$l$O%^%C%A%s%0$N>r(B
-       $B7o$r9J$C$?$j!"%Q%U%)!<%^%s%9$NDc2<$rM^$($kL\E*$KMxMQ$5$l$k!#(B
-       $B?tCM$,;XDj$5$l$k$H!"8=:_$N%+!<%=%k0LCV$h$j(B limit $BJ8;zA0$^$G$rHO0O$H$7$F8!(B
-       $B:w$9$k!#6qBNE*$K$O(B (- (point) limit) $B$r(B `re-search-backward' $B$KEO$9!#(B
-       $B$=$l0J30$G$"$k$H!"(BS $B<0$H$7$FI>2A$7$?CM$rMQ$$$k!#(B
+  0th: 文字列を正規表現として扱い、カーソル周囲の文字列がこれにマッチするか判定
+       する。
+  1th: Non-nil であれば `looking-at' を用いてカーソル以後の文字列が REGEXP にマッ
+       チするか判定する。nil であれば `re-search-backward' によりカーソル直前の
+       文字列が REGEXP にマッチするか判定する。省略すると nil として扱う。
+  2th: 1th の looking-at の値により異なる意味を持つ。
+         looking-at の指定が Non-nil の時:
+           nil であれば、カーソル直後の文字列が REGEXP にマッチするか判定する。
+           Non-nil であれば、これを正規表現として扱い、`re-search-backward' によっ
+           てカーソル移動をする。その後 `looking-at' を行ない REGEXP が文字列に
+           マッチするか判定する。これはコンテキストに応じた入力をする場合に有効
+           である(と思われる)。
+         looking-at の指定が nil の時(`re-search-backward' によって判定する時):
+           Non-nil であれば、行頭での入力において、その直前の文字(すなわち改行コー
+           ド)を無視して REGEXP とマッチするか判定する。指定が無ければ
+           `skk-dinsert-ignore-lf' の値を用いる。
+  3th: `re-search-backward' を行なう際の検索範囲を指定する。これはマッチングの条
+       件を絞ったり、パフォーマンスの低下を抑える目的に利用される。
+       数値が指定されると、現在のカーソル位置より limit 文字前までを範囲として検
+       索する。具体的には (- (point) limit) を `re-search-backward' に渡す。
+       それ以外であると、S 式として評価した値を用いる。
          note:
-           * $B?tCM$r$=$N$^$^EO$7$?$$>l9g$K$O(B (quote 1) $BEy$H$9$kI,MW$,$"$k!#(B
-           * $BI>2A$7$?CM$,%+!<%=%k0LCV$N(B point $B$h$jBg$-$$$H%(%i!<$K$J$k!#(B
-  4th: REGEXP $B$K$h$k%^%C%A%s%0$,@.8y$7$?:]!"$3$N(B s-exp $B$rI>2A$9$k!#(B
-       S $B<0$NCf$G$O(B arg $B$H(B m-d $B$rMxMQ$9$k;v$,$G$-!"(Barg $B$K$O(B `skk-dinsert' $B$N0z?t(B
-       $B$,!"(Bm-d $B$K$O(B REGEXP $B$K$h$k%^%C%A%s%0$N:]$N(B (match-data) $B$NFbMF$,F~$C$F$$(B
-       $B$k!#(Bs-exp $B$NI>2ACM$,(B nil $B$G$"$k$H!"$3$N%k!<%k$OE,MQ$5$l$J$$!#(B
-  5th: REGEXP $B$K$h$k%^%C%A%s%0$,@.N)$7!"$+$D(B s-exp($B;XDj$5$l$F$$$l$P(B)$B$N(B
-       $BI>2ACM$,(B Non-nil $B$G$"$C$?;~!"$3$N(B VAL $B$,%P%C%U%!$KA^F~$5$l$k!#(B
+           * 数値をそのまま渡したい場合には (quote 1) 等とする必要がある。
+           * 評価した値がカーソル位置の point より大きいとエラーになる。
+  4th: REGEXP によるマッチングが成功した際、この s-exp を評価する。
+       S 式の中では arg と m-d を利用する事ができ、arg には `skk-dinsert' の引数
+       が、m-d には REGEXP によるマッチングの際の (match-data) の内容が入ってい
+       る。s-exp の評価値が nil であると、このルールは適用されない。
+  5th: REGEXP によるマッチングが成立し、かつ s-exp(指定されていれば)の
+       評価値が Non-nil であった時、この VAL がバッファに挿入される。
 
-$B<!$K:G=i$NMWAG$,J8;zNs0J30$N>l9g$G$"$k$,!"$3$l$O(B S $B<0$H$7$FI>2A$5$l$k!#(B
-$BI>2ACM$,(B Non-nil $B$G$"$l$P%k!<%k$,E,MQ$5$l!"BP1~$9$k(B VAL $B$,%P%C%U%!$KA^F~$5$l$k!#(B
+次に最初の要素が文字列以外の場合であるが、これは S 式として評価される。
+評価値が Non-nil であればルールが適用され、対応する VAL がバッファに挿入される。
 
-$B%k!<%k$O>e$+$i=g$K;n$5$l!":G=i$K@.N)$7$?$b$N$,E,MQ$5$l$k!#(B
+ルールは上から順に試され、最初に成立したものが適用される。
 
-VAL $B$K$O!"0J2<$N(B 3$B$D$N7A<0$r;XDj$G$-$k!#(B
+VAL には、以下の 3つの形式を指定できる。
 
-$BJ8;zNs(B -- $B$3$l$,%P%C%U%!$KA^F~$5$l$k!#(B
-$B4X?tL>%7%s%\%k(B
-       -- `skk-rom-kana-rule-list' $B$G;XDj$7$?>l9g$HF1MM!"0z?tIU$-$G8F$P$l$k!#(B
-          $BJV$jCM$,J8;zNs$G$"$l$P$=$l$,%P%C%U%!$KA^F~$5$l$k!#(B
-$BJQ?tL>%7%s%\%k(B
-       -- (`format' \"%S\" VAL) $B$7$?CM$,%P%C%U%!$KA^F~$5$l$k!#(B
+文字列 -- これがバッファに挿入される。
+関数名シンボル
+       -- `skk-rom-kana-rule-list' で指定した場合と同様、引数付きで呼ばれる。
+          返り値が文字列であればそれがバッファに挿入される。
+変数名シンボル
+       -- (`format' \"%S\" VAL) した値がバッファに挿入される。
 
-$BFCJL$J>l9g$H$7$F(B nil $B$r;XDj$9$k;v$,$G$-$k!#$3$N;~$K$O!"(BS-EXP $BKt$O(B s-exp $B$NI>2ACM(B
-$B$,MQ$$$i$l!"$3$l$O>e$N(B 3$B$D$N7A<0$N2?$l$+$G$"$kI,MW$,$"$k!#(B
+特別な場合として nil を指定する事ができる。この時には、S-EXP 又は s-exp の評価値
+が用いられ、これは上の 3つの形式の何れかである必要がある。
 
-`skk-rom-kana-rule-list' $B$H$O0[$J$j!"%"%H%`$G$J$$MWAG$O;XDj$G$-$J$$!#$3$N$?$a(B
-\(\"$B%+%J(B\" . \"$B$+$J(B\") $B$H$O;XDj$G$-$J$$!#$+$J%b!<%I!"%+%J%b!<%I$K$h$C$F>r7oJ,$1(B
-$B$7$?$$>l9g$K$O!"JQ?t(B `skk-hiragana', `skk-katakana' $B$K$h$C$FD4$Y$k;v$,$G$-$k!#(B
-  note: `skk-hiragana' $B$O(B `skk-dinsert' $B$NCf$K$*$$$F$N$_M-8z$J%m!<%+%kJQ?t$G$"$k!#(B")
+`skk-rom-kana-rule-list' とは異なり、アトムでない要素は指定できない。このため
+\(\"カナ\" . \"かな\") とは指定できない。かなモード、カナモードによって条件分け
+したい場合には、変数 `skk-hiragana', `skk-katakana' によって調べる事ができる。
+  note: `skk-hiragana' は `skk-dinsert' の中においてのみ有効なローカル変数である。")
 
 
 (defun skk-toggle-dinsert (&optional arg)
-  "$BF0E*$JF~NO$NM-8z(B/$BL58z$r@Z$jBX$($k!#(B"
+  "動的な入力の有効/無効を切り替える。"
   (interactive "P")
   (setq skk-dinsert-mode (cond ((null arg)
                                 (not skk-dinsert-mode))
@@ -174,8 +174,8 @@ VAL $B$K$O!"0J2<$N(B 3$B$D$N7A<0$r;XDj$G$-$k!#(B
 
 (defun skk-dinsert (arg idx)
   (let ((rule-alist (nth 2 (nth idx skk-dinsert-rule-list)))
-        ;; VAL $B$K(B ("$B%+%J(B" . "$B$+$J(B") $B$N7A<0$,=q$1$J$$$N$G(B
-        ;; $B$;$a$FJQ?t$rDs6!$7$F$_$k(B
+        ;; VAL に ("カナ" . "かな") の形式が書けないので
+        ;; せめて変数を提供してみる
         (skk-hiragana (and (not skk-katakana) skk-j-mode))
         val cnd)
     (if (or (not skk-dinsert-mode)
@@ -183,7 +183,7 @@ VAL $B$K$O!"0J2<$N(B 3$B$D$N7A<0$r;XDj$G$-$k!#(B
                  (= skk-henkan-start-point skk-kana-start-point))
             (and skk-isearch-switch
                  (buffer-live-p skk-isearch-current-buffer)))
-        ;; isearch $BKt$O(B $BF0E*$JF~NO$r$7$J$$$J$i(B t $B$KBP1~$9$kCM$r;H$&(B
+        ;; isearch 又は 動的な入力をしないなら t に対応する値を使う
         (setq val (cdr (assq t rule-alist)))
       (catch 'return
         (dolist (cur-rule rule-alist)
@@ -203,19 +203,19 @@ VAL $B$K$O!"0J2<$N(B 3$B$D$N7A<0$r;XDj$G$-$k!#(B
                                             r (cdr r)))
                                     r))
                                l-a i-lf b-regexp lim pos)
-                          ;; (0 1 2 3 4 . 5) $B$N7A<0$r:NMQ$7$F$$$k$N$G(B
-                          ;; (nth n LIST) $B$r$9$k$K$O(B i > n $B$G$"$k;v$,I,MW(B
+                          ;; (0 1 2 3 4 . 5) の形式を採用しているので
+                          ;; (nth n LIST) をするには i > n である事が必要
                           (ignore-errors
                             (setq l-a (nth 1 cur-rule)
                                   i-lf (nth 2 cur-rule)
                                   b-regexp i-lf
                                   lim (nth 3 cur-rule)
                                   s-exp (nth 4 cur-rule)))
-                          ;; re-search-backward $B$N(B limit $BD4@0(B
+                          ;; re-search-backward の limit 調整
                           (when lim
                             (setq lim
                                   (if (numberp lim)
-                                      (- (point) lim) ; $BIi$K$J$C$F$b(B ok
+                                      (- (point) lim) ; 負になっても ok
                                     (eval lim))))
                           (cond
                            (l-a     ; looking-at
@@ -239,9 +239,9 @@ VAL $B$K$O!"0J2<$N(B 3$B$D$N7A<0$r;XDj$G$-$k!#(B
                               (setq found t
                                     m-d (match-data))
                               v)))))))
-              ;; match-data $B$rMQ$$$F=PNO$r@8@.(B or $B>r7oH=Dj(B
-              ;; skk-dinsert $B<+?H$N0z?t$O(B arg
-              ;; match-data $B$NFbMF$O(B m-d
+              ;; match-data を用いて出力を生成 or 条件判定
+              ;; skk-dinsert 自身の引数は arg
+              ;; match-data の内容は m-d
               (when (and found
                          s-exp)
                 (setq val

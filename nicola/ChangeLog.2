@@ -4,98 +4,98 @@
 
 2000-08-26  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk-nicola.el: $B%$%s%8%1!<%?$NJQ99!#(B
-	(skk-nicola-insert-kana): Prefix Argument $B$KBP1~!#(B
+	* skk-nicola.el: インジケータの変更。
+	(skk-nicola-insert-kana): Prefix Argument に対応。
 
 2000-08-24  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk-*.el: $B%3!<%I$N@0M}!#(B
+	* skk-*.el: コードの整理。
 
 2000-08-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* NICOLA-DDSKK-MK: autoloads $B$r@8@.$9$k$h$&$K$7$?!#(B
+	* NICOLA-DDSKK-MK: autoloads を生成するようにした。
 
-	* skk-kanagaki-menu.el, skk-kanagaki-menu-oe.el: $B%a%K%e!<%5%]!<%H(B
-	$BDI2C!#(B
+	* skk-kanagaki-menu.el, skk-kanagaki-menu-oe.el: メニューサポート
+	追加。
 
 2000-08-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* skk-nicola.el (skk-nicola-set-henkan-point-chars,
 	skk-nicola-toggle-kana-chars,
-	skk-nicola-prefix-suffix-abbrev-chars): $B$3$l$^$G(B f+j, d+k, g+h $B$K(B
-	$B7h$aBG$A$5$l$F$$$?5!G=$K$D$$$F!"%-!<3dEv$F$r%+%9%?%^%$%:$G$-$k$h$&(B
-	$B$K$7$?!#$3$l$G(B ANSI Dvorak $BG[Ns$N%-!<%\!<%I$J$I$K$bG[N8$G$-$k$H;W(B
-	$B$&!#(B
+	skk-nicola-prefix-suffix-abbrev-chars): これまで f+j, d+k, g+h に
+	決め打ちされていた機能について、キー割当てをカスタマイズできるよう
+	にした。これで ANSI Dvorak 配列のキーボードなどにも配慮できると思
+	う。
 
-	* skk-kanagaki.el (skk-kanagaki-start-henkan-okuriari): $B%*%j%8%J%k(B
-	$B$r;29M$K$7$F!"%*%j%8%J%k$HF1$87A<0$NJQ49$,$G$-$k$h$&$K$7$?!#$3$l$K(B
-	$BH<$C$F!"(Bskk-nicola.el $B$G$O(B NICOLA-SKK $B<0$NAw$j2>L>$+(B SKK $B<0$NAw$j(B
-	$B2>L>$+$r%f!<%6%*%W%7%g%s$GA*$Y$k$h$&$K$7$?!#(B
+	* skk-kanagaki.el (skk-kanagaki-start-henkan-okuriari): オリジナル
+	を参考にして、オリジナルと同じ形式の変換ができるようにした。これに
+	伴って、skk-nicola.el では NICOLA-SKK 式の送り仮名か SKK 式の送り
+	仮名かをユーザオプションで選べるようにした。
 
 2000-08-19  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* (nicola-ddskk-0_1): New branch.
-	$B$3$l$^$G$N@.2L$O==J,$H$^$G$O8@$($J$$$+$bCN$l$J$$$,!"$R$H$D$NL\I8$K(B
-	$B$OC#$7$?$H;W$&$N$G!"?7$7$$<B83;^$KF~$k$3$H$K$7$?!#(B
+	これまでの成果は十分とまでは言えないかも知れないが、ひとつの目標に
+	は達したと思うので、新しい実験枝に入ることにした。
 
-	* skk-nicola.el (skk-nicola-insert): $B$3$l$^$G$3$N4X?t$r(B 2 $BEY<B9T$7(B
-	$B$F(B shift $BF~NO$r<B8=$7$F$$$?$,!"(B`next-command-event' $B$rMxMQ$9$k$3$H(B
-	$B$K$h$j(B 1 $BEY$G:Q$`$h$&$KJQ99$7$?!#(B
-	(skk-nicola-dispatch-event): New function. `next-command-event' $B$,(B
-	$BJV$7$?7k2L$r2r@O$9$k!#(B
-	(skk-nicola-insert-kana): $B!VC#(Bs$B!W$,JQ49$G$-$J$$%P%0$rD>$7$?!#(B
-	(skk-insert): $B8=:_$N(B point $B$,(B marker $B$HF1$8$+$h$j>.$5$+$C$?>l9g$O(B
-	marker $B$r%/%j%"$9$k$h$&$K$7$?!#(B
+	* skk-nicola.el (skk-nicola-insert): これまでこの関数を 2 度実行し
+	て shift 入力を実現していたが、`next-command-event' を利用すること
+	により 1 度で済むように変更した。
+	(skk-nicola-dispatch-event): New function. `next-command-event' が
+	返した結果を解析する。
+	(skk-nicola-insert-kana): 「達s」が変換できないバグを直した。
+	(skk-insert): 現在の point が marker と同じかより小さかった場合は
+	marker をクリアするようにした。
 
 2000-08-18  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk-nicola.el: $BAw$j$"$jJQ49$N<BAu$r8+D>$7$?!#(B
-	$B:8?F;X(B + $B1&?F;X(B $B$G(B latin $B%b!<%I(B $B"N(B $B$+$J%b!<%I(B $B$N%H%0%k$,$G$-$k$h$&(B
-	$B$K$7$?!#(B
+	* skk-nicola.el: 送りあり変換の実装を見直した。
+	左親指 + 右親指 で latin モード ⇔ かなモード のトグルができるよう
+	にした。
 
-	* skk-kanagaki.el (skk-kanagaki-start-henkan-okuriari): $B%H%j%C%-!<(B
-	$B$J$N$r=q$-D>$7$?!#$3$l$GL5MQ$J(B advice $B$,$R$H$D8:$C$?!#$G$b$^$@(B
-	skk-nicola.el $B$NCf$K$$$d$J(B advice $B$,$$$/$D$+$"$k!#(B
-	{$B8e5-(B} $B!D(B $B$*$*$`$M2r7h$9$k$b!"(BNemacs $B$NHs8_49@-$O5[<}$G$-$:!#(B
-	{$B8e!95-(B} $B!D(B Mule 1.1 $B$b%@%a$@$C$?(B...
-	{$B8e!9!95-(B} $B!D(B Daredevil $B$N(B `skk-okurigana-prefix' $B$r=$@5$7$?!#$3$l(B
-	$B$G(B Nemacs $B$G$b(B `skk-kana-rom-vector' $B$,;H$($k$h$&$K$J$C$?!#(B
+	* skk-kanagaki.el (skk-kanagaki-start-henkan-okuriari): トリッキー
+	なのを書き直した。これで無用な advice がひとつ減った。でもまだ
+	skk-nicola.el の中にいやな advice がいくつかある。
+	{後記} … おおむね解決するも、Nemacs の非互換性は吸収できず。
+	{後々記} … Mule 1.1 もダメだった...
+	{後々々記} … Daredevil の `skk-okurigana-prefix' を修正した。これ
+	で Nemacs でも `skk-kana-rom-vector' が使えるようになった。
 
 2000-08-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk-nicola.el: NICOLA-SKK $B$HF1$8$h$&$JJQ49$r$9$k$?$a$N%3!<%I$r=q(B
-	$B$-;O$a$?!#$^$@%P%0$,B?$$$,!"$H$j$"$($:F0$/$h$&$@!#(B
+	* skk-nicola.el: NICOLA-SKK と同じような変換をするためのコードを書
+	き始めた。まだバグが多いが、とりあえず動くようだ。
 
 2000-08-16  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk-nicola.el: $B$h$&$d$C$H(B isearch $B$N5!G=$,?M$K8+$;$i$l$k%l%Y%k$K(B
-	$B$J$C$?!"$h$&$J5$$,$9$k!#(B
+	* skk-nicola.el: ようやっと isearch の機能が人に見せられるレベルに
+	なった、ような気がする。
 
 2000-08-15  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* Makefile, NICOLA-DDSKK-CFG, NICOLA-DDSKK-ELS, NICOLA-DDSKK-MK:
-	$BC1BN$G$N%$%s%9%H!<%k$KBP1~$7$F$_$?!#(B
+	単体でのインストールに対応してみた。
 
-	* skk-nicola.el: f + g $B$G$NAw$j$"$jJQ49$K$H$j$"$($:BP1~!#(B
+	* skk-nicola.el: f + g での送りあり変換にとりあえず対応。
 
 2000-08-14  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk-*.el: $B%3!<%I$N@0M}!#(B
-	$B$3$3$K=q$/$3$H$G!"(BNICOLA $B$JF~NO$NN}=,$r$9$k!#(B
+	* skk-*.el: コードの整理。
+	ここに書くことで、NICOLA な入力の練習をする。
 
-	* skk-nicola.el (skk-nicola-self-insert-{r,l}shift): Isearch $B$NET(B
-	$B9g$r9M$(!"(Bread-only $B;~$N%(%i!<$r$d$a$k!#(B
+	* skk-nicola.el (skk-nicola-self-insert-{r,l}shift): Isearch の都
+	合を考え、read-only 時のエラーをやめる。
 
-	* skk-oasys.el: $B%-!<G[NsDI2C!#(B
+	* skk-oasys.el: キー配列追加。
 
-	* skk-*.el: $B$$$D$N$^$K$+(B NICOLA $B0l?'$K$J$C$F$$$?!#(BProduct $BL>$r(B
-	NICOLA-DDSKK $B$H$7$F$_$k!#(B
+	* skk-*.el: いつのまにか NICOLA 一色になっていた。Product 名を
+	NICOLA-DDSKK としてみる。
 
 2000-08-13  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk-*.el: $B%U%!%$%k9=@.$rJQ99!#(B1 $B%-!]G[Ns(B 1 $B%U%!%$%kJ}<0$G%b%8%e!<(B
-	$B%k2=$rB%?J!#(B
+	* skk-*.el: ファイル構成を変更。1 キ－配列 1 ファイル方式でモジュー
+	ル化を促進。
 
 2000-08-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skk-*.el: NICOLA-SKK $B$N5!G=$rF3F~!#(B
+	* skk-*.el: NICOLA-SKK の機能を導入。

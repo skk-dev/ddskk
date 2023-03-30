@@ -1,4 +1,4 @@
-;;; skk-kanagaki.el --- SKK $B$N2>L>F~NO%5%]!<%H(B -*- coding: iso-2022-jp -*-
+;;; skk-kanagaki.el --- SKK の仮名入力サポート -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2000 Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 
@@ -22,116 +22,116 @@
 
 ;;; Commentary:
 
-;; {$B$F$C$H$jAa$$;H$$$+$?(B ($B;CDj%P!<%8%g%s(B)}
+;; {てっとり早い使いかた (暫定バージョン)}
 
-;; ~/.skk $B$K(B
+;; ~/.skk に
 
 ;;   (setq skk-use-kana-keyboard t)
 ;;   (setq skk-kanagaki-keyboard-type '106-jis)
 
-;; $B$H=q$/!#(B
+;; と書く。
 
 
-;; {$B@bL@(B}
+;; {説明}
 
-;; $B$3$N%W%m%0%i%`$O(B SKK $B$K$*$$$F%m!<%^;zF~NO$J$i$L2>L>F~NO$r%5%]!<%H$9$k$3$H(B
-;; $B$rL\E*$H$7$^$9!#(B NICOLA $B$d5l(B JIS $BG[Ns$KBP1~$7$^$9!#(B
+;; このプログラムは SKK においてローマ字入力ならぬ仮名入力をサポートすること
+;; を目的とします。 NICOLA や旧 JIS 配列に対応します。
 
-;; $B$J$*!"0J2<$O!V?F;X%7%U%HF~NO!W0J30$NNc$G$9!#?F;X%7%U%HF~NO$NNc$K$D$$$F$O!"(B
-;; README.NICOLA.md $B$H(B skk-nicola.el $B$r8fMw$/$@$5$$!#(B
+;; なお、以下は「親指シフト入力」以外の例です。親指シフト入力の例については、
+;; README.NICOLA.md と skk-nicola.el を御覧ください。
 
-;;  -*- $BLdBjE@(B -*-
+;;  -*- 問題点 -*-
 
-;; 1. Emacs Lisp $B$N%l%Y%k$G$NLdBj(B
+;; 1. Emacs Lisp のレベルでの問題
 
-;; $B2>L>F~NO$K$*$$$F$O(B SHIFT $B%-!<$rMxMQ$7$FF~NO$5$l$k2>L>$b$"$k$?$a!"(B SKK $BK\Mh(B
-;; $B$N(BSHIFT $B$N;H$$J}$,$G$-$^$;$s!#$=$NB>$$$m$$$m(B SKK $B$i$7$/$J$$$N$G$9$,!"(B $B$H$j(B
-;; $B$"$($:!"(B
+;; 仮名入力においては SHIFT キーを利用して入力される仮名もあるため、 SKK 本来
+;; のSHIFT の使い方ができません。その他いろいろ SKK らしくないのですが、 とり
+;; あえず、
 
-;;   o $BJQ493+;OE@$N;XDj$O2>L>F~NO$H$OJL$K9T$&!#(B
-;;   o $BJQ49$N3+;O$ODL>oDL$j!"(B [SPC] $B$G;X<($9$k!#(B $B$?$@$7!"Aw$j$"$j$NJQ49$N$H$-(B
-;;     $B$O(B $BAw$j3+;OE@$r;XDj$9$k$?$a$NFC<l$JA`:n$r$9$k!#(B
+;;   o 変換開始点の指定は仮名入力とは別に行う。
+;;   o 変換の開始は通常通り、 [SPC] で指示する。 ただし、送りありの変換のとき
+;;     は 送り開始点を指定するための特殊な操作をする。
 
-;; $B$7$F$"$j$^$9!#Nc$($P!"!V4r$7$$!W$rF~NO$9$k$?$a$K$O(B
+;; してあります。例えば、「嬉しい」を入力するためには
 
-;; [fj] $B$&$l$7(B [fj] $B$$(B
+;; [fj] うれし [fj] い
 
-;; $B$N$h$&$KF~NO$7$^$9!#(B[fj] $B$H$O(B f $B$H(B j $B$r(B $BF1;~$KBG80$9$k$3$H$G$9!#(B
+;; のように入力します。[fj] とは f と j を 同時に打鍵することです。
 
-;; 2. $B%7%9%F%`%l%Y%k$G$NLdBj(B
+;; 2. システムレベルでの問題
 
-;; $BBh(B 2 $B$NLdBjE@$H$7$F!"(B $B%-!<G[Ns$N@_Dj$K$h$j9o0uDL$j$NF~NO$,$G$-$J$$>l9g$,$"(B
-;; $B$j$^$9!#Nc$($PF|K\8l(B 106 $B%-!<%\!<%I;HMQ;~!"(BXFree86 $B>e$G$O(B
+;; 第 2 の問題点として、 キー配列の設定により刻印通りの入力ができない場合があ
+;; ります。例えば日本語 106 キーボード使用時、XFree86 上では
 
-;;   o $B!V!o!W%-!<(B ($B2>A[%-!<%3!<%I(B 133)
-;;   o $B!V!@!W%-!<(B ($B2>A[%-!<%3!<%I(B 123)
+;;   o 「￥」キー (仮想キーコード 133)
+;;   o 「＼」キー (仮想キーコード 123)
 
-;; $B$O$$$:$l$b(B backslash $B$H$7$F07$o$l$^$9!#$7$+$72>L>F~NO$K$*$$$FA0<T$O(B $B!V!<!W!"(B
-;; $B8e<T$O!V$m!W(B $B$H$J$k$3$H$,K>$^$l$^$9!#$3$N>l9g$NBP1~:v$H$7$F!"Nc$($P(B
+;; はいずれも backslash として扱われます。しかし仮名入力において前者は 「ー」、
+;; 後者は「ろ」 となることが望まれます。この場合の対応策として、例えば
 
 ;;   % cat >> ~/.Xmodmap
 ;;   keycode 123 = underscore underscore
 ;;   % xmodmap ~/.Xmodmap
 
-;; $B$J$I$H$7$F$*$$$F$+$i!"(B~/.skk $B$K(B
+;; などとしておいてから、~/.skk に
 
 ;;   (setq skk-kanagaki-rule-list
-;;         '(("\\" nil "$B!<(B")))
+;;         '(("\\" nil "ー")))
 
-;; $B$H=q$/$3$H$J$I$,9M$($i$l$^$9!#(B
-;; ($BF1MM$N%"%$%G%"$O(B Canna $B$G2>L>F~NO$9$k:]$K$bM-8z$G$"$k$h$&$G$9!#(B)
+;; と書くことなどが考えられます。
+;; (同様のアイデアは Canna で仮名入力する際にも有効であるようです。)
 
-;;  -*- $B;H$$J}(B -*-
+;;  -*- 使い方 -*-
 
-;; 1. $BJQ493+;OE@$N;XDj(B
+;; 1. 変換開始点の指定
 
-;; $BDL>o$N(B SKK $B$K$*$$$F$O!"(B SHIFT $B$r2!$7$J$,$iF~NO$9$k$3$H$GJQ493+;O0LCV$rL@<((B
-;; $B$7$F$$$^$7$?$,!"2>L>F~NO$G$O$3$l$,$G$-$^$;$s!#$=$3$G!"JL$NJ}K!$GJQ493+;OE@(B
-;; $B$r;XDj$7$J$1$l$P$J$j$^$;$s!#$=$3$G!"!V(Bf $B$H(B j $B$rF1;~$K2!$9!W$H$$$&<jK!$r;H$$(B
-;; $B$^$9!#0J2<$N(B [fj] $B$O!"F1;~BG80$r0UL#$7$^$9!#(B
+;; 通常の SKK においては、 SHIFT を押しながら入力することで変換開始位置を明示
+;; していましたが、仮名入力ではこれができません。そこで、別の方法で変換開始点
+;; を指定しなければなりません。そこで、「f と j を同時に押す」という手法を使い
+;; ます。以下の [fj] は、同時打鍵を意味します。
 
-;;   [fj] $B$O$k(B $B"M(B $B"&$O$k(B [SPC] $B"M(B $B"'=U(B
+;;   [fj] はる ⇒ ▽はる [SPC] ⇒ ▼春
 
-;; $B$^$?$O(B
+;; または
 
-;;   $B$O$k(B ^B^B [fj] $B"M(B $B"&$O$k(B ^F^F [SPC] $B"M(B $B"'=U(B
-
-
-;; 2. $BAw$j$"$j$NJQ49$N$7$+$?(B
-
-;; $BDL>o$N(B SKK $B$K$*$$$F$O!"(B SHIFT $B$r2!$7$J$,$iF~NO$9$k$3$H$GAw$j2>L>$N0LCV$rL@(B
-;; $B<($7$F$$$^$7$?!#2>L>F~NO(B SKK $B$K$*$$$F$O$=$l$O$G$-$^$;$s!#$=$3$G(B
-
-;;   o [fj] $B$,2!$5$l$?$H$-$K!"(B $BD>A0$N(B 1 $BJ8;z$rAw$j2>L>$H8+Jo$7$FJQ49$r3+;O$9$k!#(B
-
-;; $B$H$$$&<jK!$r;H$$$^$9!#(B $BNc$($P!"!VC#$9!W$HF~NO$7$?$$>l9g$O(B
-
-;;   $B"&$?$C$9(B [fj]  $B"M(B $B"'C#$9(B
-
-;; $B$N$h$&$K$J$j$^$9!#!VBT$C$F!W$HF~NO$7$?$$>l9g$O(B
-
-;;   $B"&$^$C(B [fj] $B"M(B $B"'BT$C(B
-
-;; $B$H$7$F$+$i!V$F!W$rF~NO$7$^$9!#(B
+;;   はる ^B^B [fj] ⇒ ▽はる ^F^F [SPC] ⇒ ▼春
 
 
-;; 3. $B$$$/$D$+$N=EMW$J%-!<Dj5A$K$D$$$F(B
+;; 2. 送りありの変換のしかた
 
-;; $B%+%JF~NO$,(B $B!V(Bq$B!W!"(B abbrev $B%b!<%I$,(B $B!V(B/$B!W!"(Blatin $B%b!<%I$,(B $B!V(Bl$B!W$J$I$ODjHV$G(B
-;; $B$9$,!"2>L>F~NO$G$O$3$l$b;H$($^$;$s!#$=$N$?$a!"$3$l$i$N$&$A=EMW$H;W$o$l$k$b(B
-;; $B$N$rJL$N%-!<Dj5A$K$7$F$"$j$^$9!#(BC-h 3 $B$HF~NO$9$k$H!"8=:_$N%b!<%I$K$*$1$kFC(B
-;; $B<l$J%-!<Dj5A$r3NG'$G$-$^$9!#(B
-;; $B$J$*!"$3$l$i$OF1;~$K%U%!%s%/%7%g%s%-!<$KB`Hr$7$F$"$j$^$9!#(B
+;; 通常の SKK においては、 SHIFT を押しながら入力することで送り仮名の位置を明
+;; 示していました。仮名入力 SKK においてはそれはできません。そこで
 
-;;   [f2]  $B!D(B $BJQ493+;OE@$N;XDj(B
-;;   [f3]  $B!D(B $B@\F,<-$^$?$O@\Hx<-JQ49(B
-;;   [f5]  $B!D(B $B%3!<%IF~NO(B
-;;   [f6]  $B!D(B abbrev $B%b!<%I(B
-;;   [f7]  $B!D(B $B%+%J%b!<%I$^$?$O%+%JJQ49(B
-;;   [f8]  $B!D(B $BA41Q%b!<%I(B
-;;   [f9]  $B!D(B $BH>3Q%+%J%b!<%I$^$?$OH>3Q%+%JJQ49(B
-;;   [f10] $B!D(B latin $B%b!<%I(B
-;;   [f12] $B!D(B $B%m!<%^;zF~NO(B $B"N(B $B2>L>F~NO(B $B$N@Z$jBX$((B
+;;   o [fj] が押されたときに、 直前の 1 文字を送り仮名と見倣して変換を開始する。
+
+;; という手法を使います。 例えば、「達す」と入力したい場合は
+
+;;   ▽たっす [fj]  ⇒ ▼達す
+
+;; のようになります。「待って」と入力したい場合は
+
+;;   ▽まっ [fj] ⇒ ▼待っ
+
+;; としてから「て」を入力します。
+
+
+;; 3. いくつかの重要なキー定義について
+
+;; カナ入力が 「q」、 abbrev モードが 「/」、latin モードが 「l」などは定番で
+;; すが、仮名入力ではこれも使えません。そのため、これらのうち重要と思われるも
+;; のを別のキー定義にしてあります。C-h 3 と入力すると、現在のモードにおける特
+;; 殊なキー定義を確認できます。
+;; なお、これらは同時にファンクションキーに退避してあります。
+
+;;   [f2]  … 変換開始点の指定
+;;   [f3]  … 接頭辞または接尾辞変換
+;;   [f5]  … コード入力
+;;   [f6]  … abbrev モード
+;;   [f7]  … カナモードまたはカナ変換
+;;   [f8]  … 全英モード
+;;   [f9]  … 半角カナモードまたは半角カナ変換
+;;   [f10] … latin モード
+;;   [f12] … ローマ字入力 ⇔ 仮名入力 の切り替え
 
 ;;; Code:
 
@@ -150,10 +150,10 @@
 ;; Variables.
 
 (defcustom skk-kanagaki-keyboard-type '106-jis "\
-*$B2>L>F~NO$K;HMQ$9$k%-!<%\!<%I$N<oJL!#(B
-$BCM$OG$0U$N%7%s%\%k!#(B $B$?$@$7(B `skk-kanagaki-{$B%7%s%\%kL>(B}-base-rule-list' $B$H$$$&(B
-$BJQ?t$rMQ0U$7$J$1$l$P$J$i$J$$!#2?$b@_Dj$7$J$1$l$PF|K\8l(B 106 $B%-!<%\!<%IMQ$N@_Dj(B
-$B$rMQ0U$7!"$3$l$r;HMQ$9$k!#(B"
+*仮名入力に使用するキーボードの種別。
+値は任意のシンボル。 ただし `skk-kanagaki-{シンボル名}-base-rule-list' という
+変数を用意しなければならない。何も設定しなければ日本語 106 キーボード用の設定
+を用意し、これを使用する。"
   :type '(radio (const 106-jis)
                 (const nicola-jis)
                 (const nicola-us)
@@ -168,90 +168,90 @@
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-set-henkan-point-key [f2] "\
-*$B$3$N%-!<$r2!$9$3$H$GJQ493+;O0LCV$r@_Dj$9$k!#(B
-$BJQ493+;O0LCV$N@_Dj$O2>L>$rF~NO$9$kA0$K$*$3$J$C$F$b!"(B $BF~NO$7=*$o$C$?8e$G$*$3$J$C(B
-$B$F$b9=$o$J$$!#(B"
+*このキーを押すことで変換開始位置を設定する。
+変換開始位置の設定は仮名を入力する前におこなっても、 入力し終わった後でおこなっ
+ても構わない。"
   :type (if (get 'key-sequence 'widget-type)
             'key-sequence
           'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-abbrev-mode-key [f6] "\
-*$B$3$N%-!<$r2!$9$3$H$G(B abbrev $B%b!<%I$KF~$k!#(B"
+*このキーを押すことで abbrev モードに入る。"
   :type (if (get 'key-sequence 'widget-type)
             'key-sequence
           'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-katakana-mode-key [f7] "\
-*$B$3$N%-!<$r2!$9$3$H$G%+%J%b!<%I$H$+$J%b!<%I$r@Z$j$+$($k!#(B
-$BJQ493+;O0LCV$N@_Dj8e$K2!$9$3$H$GBP>]J8;zNs$r%+%J$KJQ49$9$k$3$H$b$G$-$k!#(B"
+*このキーを押すことでカナモードとかなモードを切りかえる。
+変換開始位置の設定後に押すことで対象文字列をカナに変換することもできる。"
   :type (if (get 'key-sequence 'widget-type)
             'key-sequence
           'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-latin-jisx0208-mode-key [f8] "\
-*$B$3$N%-!<$r2!$9$3$H$GA43Q1Q?t%b!<%I$KF~$k!#(B"
+*このキーを押すことで全角英数モードに入る。"
   :type (if (get 'key-sequence 'widget-type)
             'key-sequence
           'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-hankaku-mode-key [f9] "\
-*$B$3$N%-!<$r2!$9$3$H$GH>3Q%+%J%b!<%I$K@Z$j$+$($k!#(B
-$BJQ493+;O0LCV$N@_Dj8e$K2!$9$3$H$GBP>]J8;zNs$rH>3Q%+%J$KJQ49$9$k$3$H$b$G$-$k!#(B"
+*このキーを押すことで半角カナモードに切りかえる。
+変換開始位置の設定後に押すことで対象文字列を半角カナに変換することもできる。"
   :type (if (get 'key-sequence 'widget-type)
             'key-sequence
           'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-latin-mode-key [f10] "\
-*$B$3$N%-!<$r2!$9$3$H$G(B latin $B%b!<%I$KF~$k!#(B"
+*このキーを押すことで latin モードに入る。"
   :type (if (get 'key-sequence 'widget-type)
             'key-sequence
           'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-toggle-rom-kana-key [f12] "\
-*$B$3$N%-!<$r2!$9$3$H$G(B $B%m!<%^;zF~NO(B $B"N(B $B2>L>F~NO$N@Z$jBX$($,$G$-$k!#(B"
+*このキーを押すことで ローマ字入力 ⇔ 仮名入力の切り替えができる。"
   :type (if (get 'key-sequence 'widget-type)
             'key-sequence
           'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-code-input-key [f5] "\
-*$B$3$N%-!<$r2!$9$3$H$G%3!<%IF~NO$,$G$-$k!#(B"
+*このキーを押すことでコード入力ができる。"
   :type (if (get 'key-sequence 'widget-type)
             'key-sequence
           'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-midashi-henkan-key [f3] "\
-*$B$3$N%-!<$r2!$9$3$H$G@\F,<-$^$?$O@\Hx<-JQ49$r$9$k!#(B"
+*このキーを押すことで接頭辞または接尾辞変換をする。"
   :type (if (get 'key-sequence 'widget-type)
             'key-sequence
           'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-help-key "1" "\
-*\\[help] $B$K$*$$$F%X%k%W$rI=<($9$k%-!<!#(B"
+*\\[help] においてヘルプを表示するキー。"
   :type (if (get 'key-sequence 'widget-type)
             'key-sequence
           'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-previous-candidate-key "\C-p"
-  "*$BA08uJd$rI=<($9$k$?$a$N%-!<!#(B
-XFree86 $B>e$G;HMQ$9$k>l9g!"(B $BNc$($P$3$NCM$r(B [henkan]
-$B$K$9$l$P!"F|K\8l%-!<%\!<%I$N(B [$BA08uJd(B] $B%-!<$K3d$jEv$F$k$3$H$,$G$-$k!#(B"
+  "*前候補を表示するためのキー。
+XFree86 上で使用する場合、 例えばこの値を [henkan]
+にすれば、日本語キーボードの [前候補] キーに割り当てることができる。"
   :type (if (get 'key-sequence 'widget-type)
             'key-sequence
           'sexp)
   :group 'skk-kanagaki)
 
 (defcustom skk-kanagaki-start-henkan-key " " "\
-*$BJQ49$r3+;O$9$k$?$a$N%-!<!#(B"
+*変換を開始するためのキー。"
   :type (if (get 'key-sequence 'widget-type)
             'key-sequence
           'sexp)
@@ -259,23 +259,23 @@ XFree86 $B>e$G;HMQ$9$k>l9g!"(B $BNc$($P$3$NCM$r(B [henkan]
 
 (defcustom skk-kanagaki-rule-list
   '((skk-kakutei-key nil skk-kakutei)) "\
-*$B%-!<F~NO$KBP$9$kJQ49J8;z$N5,B'$G!";HMQ<T$NDI2C$N@_Dj$r9T$J$&$b$N!#(B
-$BNc$($P!"(B $B%-!<G[Ns$rFH<+$K@_Dj$7$F$$$k>l9g$J$I$O!"$3$NJQ?t$rMQ$$$F$=$l$KBP1~$7(B
-$B$?@_Dj$r$9$k$3$H$,$G$-$k!#(B"
+*キー入力に対する変換文字の規則で、使用者の追加の設定を行なうもの。
+例えば、 キー配列を独自に設定している場合などは、この変数を用いてそれに対応し
+た設定をすることができる。"
   :type '(repeat
-          (list :tag "$B%k!<%k%j%9%H(B"
-                (radio :tag "1 ($B%-!<F~NO(B)"
-                       (string :tag "$BJ8;zNs(B")
-                       (symbol :tag "$BJQ?tL>(B"))
-                (radio :tag "2 ($BB%2;$N>l9g!VJ8;zNs!W$rA*$S$^$9(B)"
-                       (string :tag "$BJ8;zNs(B")
+          (list :tag "ルールリスト"
+                (radio :tag "1 (キー入力)"
+                       (string :tag "文字列")
+                       (symbol :tag "変数名"))
+                (radio :tag "2 (促音の場合「文字列」を選びます)"
+                       (string :tag "文字列")
                        (const nil))
-                (radio :tag "3 ($B$$$:$l$+$rA*$V(B)"
-                       (symbol :tag "$B4X?t(B")
-                       (string :tag "$BJ8;zNs(B ($B%+%J(B/$B$+$J6&DL(B)")
-                       (cons :tag "$BJ8;zNs$NAH(B ($B%+%J(B . $B$+$J(B)"
-                             (string :tag "3-1 ($B%+%J(B)")
-                             (string :tag "3-2 ($B$+$J(B)")))))
+                (radio :tag "3 (いずれかを選ぶ)"
+                       (symbol :tag "関数")
+                       (string :tag "文字列 (カナ/かな共通)")
+                       (cons :tag "文字列の組 (カナ . かな)"
+                             (string :tag "3-1 (カナ)")
+                             (string :tag "3-2 (かな)")))))
   :group 'skk-kanagaki)
 
 ;; Internal constants and variables.
@@ -295,7 +295,7 @@ XFree86 $B>e$G;HMQ$9$k>l9g!"(B $BNc$($P$3$NCM$r(B [henkan]
 
 ;;;###autoload
 (defun skk-kanagaki-midashi-henkan (&optional arg)
-  "$B@\F,<-$^$?$O@\Hx<-JQ49$r$9$k!#(B"
+  "接頭辞または接尾辞変換をする。"
   (interactive "*p")
   (cond ((eq skk-henkan-mode 'active)
          (skk-kakutei)
@@ -303,7 +303,7 @@ XFree86 $B>e$G;HMQ$9$k>l9g!"(B $BNc$($P$3$NCM$r(B [henkan]
            (skk-set-henkan-point-subr))
          (insert-and-inherit ?>))
         ((eq skk-henkan-mode 'on)
-         ;; $B@\F,8l$N=hM}(B
+         ;; 接頭語の処理
          (skk-kana-cleanup 'force)
          (insert-and-inherit ?>)
          (skk-set-marker skk-henkan-end-point (point))
@@ -318,23 +318,23 @@ XFree86 $B>e$G;HMQ$9$k>l9g!"(B $BNc$($P$3$NCM$r(B [henkan]
 (defun skk-kanagaki-help ()
   (interactive)
   (skk-kanagaki-help-1
-   "* SKK $B2>L>F~NO(B $B%X%k%W(B*"
-   "$B8=:_$N2>L>F~NO%b!<%I$N<g$J%-!<Dj5A(B:"
+   "* SKK 仮名入力 ヘルプ*"
+   "現在の仮名入力モードの主なキー定義:"
    (append
-    '((skk-kanagaki-set-henkan-point-key . "$BJQ493+;OE@$r%;%C%H(B")
-      (skk-kanagaki-midashi-henkan-key . "$B@\F,<-(B or $B@\Hx<-JQ49(B")
-      (skk-kanagaki-code-input-key . "$B%3!<%IF~NO(B")
-      (skk-kanagaki-abbrev-mode-key . "abbrev $B%b!<%I(B")
-      (skk-kanagaki-katakana-mode-key . "$B%+%J%b!<%I(B or $B%+%JJQ49(B")
-      (skk-kanagaki-latin-jisx0208-mode-key . "$BA41Q%b!<%I(B")
-      (skk-kanagaki-hankaku-mode-key . "$BH>3Q%+%J%b!<%I(B or $BH>3Q%+%JJQ49(B")
-      (skk-kanagaki-latin-mode-key . "latin $B%b!<%I(B")
-      (skk-kanagaki-toggle-rom-kana-key . "$B%m!<%^;zF~NO(B $B"N(B $B2>L>F~NO(B")
-      (skk-kanagaki-previous-candidate-key . "$BA08uJdI=<((B")
-      (skk-kanagaki-start-henkan-key . "$BJQ49!&<!8uJdI=<((B"))
+    '((skk-kanagaki-set-henkan-point-key . "変換開始点をセット")
+      (skk-kanagaki-midashi-henkan-key . "接頭辞 or 接尾辞変換")
+      (skk-kanagaki-code-input-key . "コード入力")
+      (skk-kanagaki-abbrev-mode-key . "abbrev モード")
+      (skk-kanagaki-katakana-mode-key . "カナモード or カナ変換")
+      (skk-kanagaki-latin-jisx0208-mode-key . "全英モード")
+      (skk-kanagaki-hankaku-mode-key . "半角カナモード or 半角カナ変換")
+      (skk-kanagaki-latin-mode-key . "latin モード")
+      (skk-kanagaki-toggle-rom-kana-key . "ローマ字入力 ⇔ 仮名入力")
+      (skk-kanagaki-previous-candidate-key . "前候補表示")
+      (skk-kanagaki-start-henkan-key . "変換・次候補表示"))
     (list
      (cons (format "M-x help %s" skk-kanagaki-help-key)
-           "$B$3$N%X%k%W$rI=<((B"))
+           "このヘルプを表示"))
     ;;
     (list
      (cl-do ((spec (nth 4 skk-kanagaki-rule-tree)
@@ -347,7 +347,7 @@ XFree86 $B>e$G;HMQ$9$k>l9g!"(B $BNc$($P$3$NCM$r(B [henkan]
                         (nth 1 list))))
          ((or str (null spec))
           (when (stringp str)
-            (cons str "$BAw$j$"$jJQ493+;O(B"))))))))
+            (cons str "送りあり変換開始"))))))))
 
 (defun skk-kanagaki-adjust-rule-tree ()
   (unless skk-kanagaki-rule-tree
@@ -373,16 +373,16 @@ XFree86 $B>e$G;HMQ$9$k>l9g!"(B $BNc$($P$3$NCM$r(B [henkan]
 
 ;;;###autoload
 (defun skk-kanagaki-insert (&optional arg parg)
-  "SPC $B%-!<$@$1$3$l$r(B `skk-insert' $B$NBe$o$j$K;H$&!#(B"
+  "SPC キーだけこれを `skk-insert' の代わりに使う。"
   (interactive "*p")
   (cond
    ((or (integerp parg)
-        ;; C-u $B$G$O$J$$>l9g(B
+        ;; C-u ではない場合
         (not (and parg (listp parg))))
     (skk-bind-last-command-char ?\s
       (skk-insert arg parg)))
    (t
-    ;; C-u [SPC] $B$GAw$j$"$jJQ49$r$9$k!#(B
+    ;; C-u [SPC] で送りあり変換をする。
     (when (featurep 'skk-dcomp)
       (skk-dcomp-cleanup-buffer))
     (skk-kanagaki-set-okurigana-no-sokuon t))))
@@ -392,18 +392,18 @@ XFree86 $B>e$G;HMQ$9$k>l9g!"(B $BNc$($P$3$NCM$r(B [henkan]
 
 ;;;###autoload
 (defun skk-kanagaki-set-okurigana-no-sokuon (&optional arg)
-  "$B%]%$%s%H$ND>A0$NJ8;z$rAw$j2>L>$H8+Jo$7$F!"JQ49$r3+;O$9$k!#(B"
+  "ポイントの直前の文字を送り仮名と見倣して、変換を開始する。"
   (interactive "*p")
   (skk-kanagaki-set-okurigana
    (not (eq 4 (prefix-numeric-value arg)))))
 
 ;;;###autoload
 (defun skk-kanagaki-initialize ()
-  "SKK $B5/F0;~$NE,Ev$J%?%$%_%s%0$G2>L>F~NOMQ$N@_Dj$r9T$&!#(B"
-  ;; $B<B:]$K$O(B `skk-regularize' $B$N<B9T8e!"(BSKK $B$N4pK\%k!<%k$,(B compile $B$5$l$?8e(B
-  ;; $B$K8F$P$l$k!#(B
+  "SKK 起動時の適当なタイミングで仮名入力用の設定を行う。"
+  ;; 実際には `skk-regularize' の実行後、SKK の基本ルールが compile された後
+  ;; に呼ばれる。
 
-  ;; $BI,MW$J%b%8%e!<%k$r%m!<%I!#(B
+  ;; 必要なモジュールをロード。
   (when skk-kanagaki-keyboard-type
     (require (intern
               (format "skk-%s"
@@ -418,8 +418,8 @@ XFree86 $B>e$G;HMQ$9$k>l9g!"(B $BNc$($P$3$NCM$r(B [henkan]
   (add-hook 'skk-mode-hook
             (function skk-kanagaki-adjust-rule-tree)
             t)
-  ;; $B6gFIE@F~NO;~$NLdBj$r2sHr!#(B $BF|K\8l(B 106 $B%-!<%\!<%I$G$O(B "<" $B$H(B ">" $B$K$h$k@\(B
-  ;; $BHx<-$NF~NO$O$G$-$J$/$J$k!#(B "?" $B$K$h$k@\Hx<-$NF~NO$O$G$-$k!#(B
+  ;; 句読点入力時の問題を回避。 日本語 106 キーボードでは "<" と ">" による接
+  ;; 尾辞の入力はできなくなる。 "?" による接尾辞の入力はできる。
   (dolist (char skk-special-midashi-char-list)
     (when (and skk-use-kana-keyboard
                (memq (nth 2 (assoc
@@ -436,10 +436,10 @@ XFree86 $B>e$G;HMQ$9$k>l9g!"(B $BNc$($P$3$NCM$r(B [henkan]
 ;; Pieces of advice.
 
 (defadvice skk-setup-keymap (after skk-kanagaki-keys activate preactivate)
-  ;; $B%-!<%P%$%s%I!#$?$@$7$3$l$O!"$h$jE,@Z$J%-!<Dj5A$r8+$D$1$k$^$G$N;CDjE*=hCV!#(B
-  ;; $B$3$3$G8@$&!V$h$jE,@Z$J%-!<Dj5A!W$H$O!"F~NOJ}<0$K0MB8$9$k$?$a!"(BSKK $B$N=EMW(B
-  ;; $B$J%-!<Dj5A$r%U%!%s%/%7%g%s%-!<$K;D$7$F$*$/$3$H$O!"<BMQ$N$?$a$h$j$b$`$7$m(B
-  ;; $B;29M$N$?$a!#(B
+  ;; キーバインド。ただしこれは、より適切なキー定義を見つけるまでの暫定的処置。
+  ;; ここで言う「より適切なキー定義」とは、入力方式に依存するため、SKK の重要
+  ;; なキー定義をファンクションキーに残しておくことは、実用のためよりもむしろ
+  ;; 参考のため。
   (dolist (cell '((skk-kanagaki-set-henkan-point-key
                    . skk-set-henkan-point-subr)
                   (skk-kanagaki-abbrev-mode-key
@@ -470,12 +470,12 @@ XFree86 $B>e$G;HMQ$9$k>l9g!"(B $BNc$($P$3$NCM$r(B [henkan]
   (define-key help-map skk-kanagaki-help-key 'skk-kanagaki-help))
 
 (defadvice skk-insert (around skk-kanagaki-workaround activate compile)
-  "$B2>L>F~NOMQ$N(B work around $B!#(B"
+  "仮名入力用の work around 。"
   ;;
   (when (and skk-process-okuri-early
              (eq skk-kanagaki-state 'kana))
-    ;; `skk-process-okuri-early' $B$,I{:nMQ$r;}$D$+$bCN$l$J$$!#2>L>F~NO$G$O$=$b(B
-    ;; $B$=$b0UL#$N$J$$%*%W%7%g%s$J$N$G6/@)E*$K(B off $B$K$9$k!#(B
+    ;; `skk-process-okuri-early' が副作用を持つかも知れない。仮名入力ではそも
+    ;; そも意味のないオプションなので強制的に off にする。
     (setq skk-process-okuri-early nil))
   ;;
   (let ((skk-set-henkan-point-key
@@ -492,17 +492,17 @@ XFree86 $B>e$G;HMQ$9$k>l9g!"(B $BNc$($P$3$NCM$r(B [henkan]
                                                       activate compile)
   (cond
    (skk-use-kana-keyboard
-    ;; $B2>L>F~NOMQ$NFC<l=hM}(B
+    ;; 仮名入力用の特殊処理
     (let ((item (ad-get-arg 0))
           (okuri-key (ad-get-arg 1)))
       (setq ad-return-value
             (cond
              ((or (and (eq skk-kanagaki-state 'kana)
-                       ;; okuri-key $B$,(B "$B$C(B" $B$G(B item $B$,(B "$B$C$F(B" $B$J$I$@$C$?>l9g!#(B
+                       ;; okuri-key が "っ" で item が "って" などだった場合。
                        (string-match (concat "^" (regexp-quote okuri-key))
                                      item))
                   (and (eq skk-kanagaki-state 'rom)
-                       ;; okuri-key $B$,(B "$B$C$F(B" $B$G(B item $B$,(B "$B$C(B" $B$J$I$@$C$?>l9g!#(B
+                       ;; okuri-key が "って" で item が "っ" などだった場合。
                        (string-match (concat "^" (regexp-quote item))
                                      okuri-key)))
               okuri-key)

@@ -1,4 +1,4 @@
-;;; skk-study.el --- SKK $B3X=,8z2LDs6!%W%m%0%i%`(B -*- coding: iso-2022-jp -*-
+;;; skk-study.el --- SKK 学習効果提供プログラム -*- coding: iso-2022-jp -*-
 ;; Copyright (C) 1999, 2000, 2002, 2003 NAKAJIMA Mikio <minakaji@namazu.org>
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
@@ -24,24 +24,24 @@
 
 ;;; Commentary:
 
-;; $B$"$k8l(B A' $B$r3NDj$7$?>l9g$K!"(BA' $B5Z$S$=$N8+=P$78l(B A $B$KBP$7$F!"D>A0$K(B
-;; $BJQ49$7$?8l(B B' $B$H$=$N8+=P$78l(B B $B$r4XO"8l$H$7$FEPO?$7$F$*$-!":FEY(B A
-;; $B$NJQ49$r9T$C$?$H$-$K!"(BB $B5Z$S(B B' $B$N%Z%"$,D>A0$N2?2s$+$K3NDj$7$?8l$N(B
-;; $BCf$K8+$D$+$l$P!"(BA' $B$rM%@h$7$F=PNO$9$kC1=c$J3X=,8z2L$rDs6!$9$k%W%m%0(B
-;; $B%i%`$G$9!#(B
+;; ある語 A' を確定した場合に、A' 及びその見出し語 A に対して、直前に
+;; 変換した語 B' とその見出し語 B を関連語として登録しておき、再度 A
+;; の変換を行ったときに、B 及び B' のペアが直前の何回かに確定した語の
+;; 中に見つかれば、A' を優先して出力する単純な学習効果を提供するプログ
+;; ラムです。
 
-;; $B@N(B SKK ML $B$GOCBj$K$J$C$?C18l$NB0@-$NJ]B8$N$?$a$K!"(Bskk-attr.el $B$r:n(B
-;; $B$j$^$7$?$,!"5!G=$rM_D%$j$9$.$F$b$N$K$J$j$^$;$s$G$7$?!#D>A0$NJQ49$H(B
-;; $B$N4XO"@-$rJ]B8$9$k$?$a$@$1$K5!G=$r9J$C$F:F9=@.$7$?$N$,$3$N%W%m%0%i(B
-;; $B%`$G$9!#(B
+;; 昔 SKK ML で話題になった単語の属性の保存のために、skk-attr.el を作
+;; りましたが、機能を欲張りすぎてものになりませんでした。直前の変換と
+;; の関連性を保存するためだけに機能を絞って再構成したのがこのプログラ
+;; ムです。
 
 ;; <How to install>
 
-;; ~/.skk $B$K(B
+;; ~/.skk に
 
 ;;   (require 'skk-study)
 
-;; $B$H=q$$$F2<$5$$!#(B
+;; と書いて下さい。
 
 ;; <DATA STRUCTURE (SKK-STUDY-ALIST)>
 
@@ -53,15 +53,15 @@
 ;;  o examples
 
 ;; ((okuri-ari .
-;;           (("$B$-(Br" . ((("$B$U$/(B" . "$BI~(B") . ("$BCe(B"))
-;;                      (("$B$-(B" . "$BLZ(B") . ("$B@Z(B"))
-;;                      (("$B$($s(B" . "$B1o(B") . ("$B@Z(B"))))
-;;            ("$B$J(Bk" . ((("$B$3$I$b(B" . "$B;R6!(B") . ("$B5c(B"))
-;;                      (("$B$3$H$j(B" . "$B>.D;(B") . ("$BLD(B"))))
-;;            ("$B$+(Bk" . ((("$B$+$_(B" . "$B;f(B") . ("$B=q(B")) (("$B$R$s$+$/(B" . "$BIJ3J(B") . ("$B7g(B")))))
+;;           (("きr" . ((("ふく" . "服") . ("着"))
+;;                      (("き" . "木") . ("切"))
+;;                      (("えん" . "縁") . ("切"))))
+;;            ("なk" . ((("こども" . "子供") . ("泣"))
+;;                      (("ことり" . "小鳥") . ("鳴"))))
+;;            ("かk" . ((("かみ" . "紙") . ("書")) (("ひんかく" . "品格") . ("欠")))))
 ;;           ...)
 ;;  (okuri-nasi .
-;;            (("$B$+$_(B" . ((("$B$-(Br" . "$B@Z(B") . ("$B;f(B"))))
+;;            (("かみ" . ((("きr" . "切") . ("紙"))))
 ;;             ...)))
 ;; <TODO>
 
@@ -100,14 +100,14 @@
 
 ;;;###autoload
 (defun skk-study-search (henkan-buffer midasi okurigana entry)
-  "$B3X=,%G!<%?$r;2>H$7$F(B ENTRY $B$r2C9)$7!"4XO"@-$N$"$k8l$NM%@h=g0L$r>e$2$FJV$9!#(B"
+  "学習データを参照して ENTRY を加工し、関連性のある語の優先順位を上げて返す。"
   (or skk-study-data-ring
       (setq skk-study-data-ring (make-ring skk-study-search-times)))
   (when (and entry (cdr entry))
     (or skk-study-alist (skk-study-read))
     (with-current-buffer henkan-buffer
-      ;; (("$B$-(Br" . ((("$B$U$/(B" . "$BI~(B") . ("$BCe(B")) (("$B$-(B" . "$BLZ(B") . ("$B@Z(B"))))
-      ;;  ("$B$J(Bk" . ((("$B$3$I$b(B" . "$B;R6!(B") . ("$B5c(B")))))
+      ;; (("きr" . ((("ふく" . "服") . ("着")) (("き" . "木") . ("切"))))
+      ;;  ("なk" . ((("こども" . "子供") . ("泣")))))
       (let ((alist (cdr (assoc midasi (cdr (skk-study-get-current-alist))))))
         (when alist
           (setq entry (skk-study-search-1 alist midasi okurigana entry))))))
@@ -120,8 +120,8 @@
       ((or exit (zerop times)) entry)
     (and
      (setq last-data (skk-study-get-last-henkan-data index))
-     ;; ((("$B$U$/(B" . "$BI~(B") . ("$BCe(B")) (("$B$-(B" . "$BLZ(B") . ("$B@Z(B")))
-     ;; ("$BCe(B")
+     ;; ((("ふく" . "服") . ("着")) (("き" . "木") . ("切")))
+     ;; ("着")
      (setq associates (cdr (assoc last-data target-alist)))
      (setq associates (reverse associates))
      (setq exit t)
@@ -132,26 +132,26 @@
 
 ;;;###autoload
 (defun skk-study-update (henkan-buffer midasi okurigana word purge)
-  "MIDASI $B$H(B WORD $B$K$D$$$F(B `skk-study-data-ring' $B$N:G=i$N4XO"8l$r4XO"IU$1$F3X=,$9$k!#(B"
+  "MIDASI と WORD について `skk-study-data-ring' の最初の関連語を関連付けて学習する。"
   (or skk-study-data-ring
       (setq skk-study-data-ring (make-ring skk-study-search-times)))
   (let ((inhibit-quit t)
         last-data diff grandpa papa baby)
     (with-current-buffer henkan-buffer
       (when (and
-             ;; $BBh0l8uJd$G3NDj$7$?$+$I$&$+(B
+             ;; 第一候補で確定したかどうか
              (or skk-study-first-candidate
                  (not (string= word (car skk-henkan-list))))
-             ;; $BJQ49%P%C%U%!$,JQ$o$C$F$$$J$$$+$I$&$+(B
+             ;; 変換バッファが変わっていないかどうか
              (eq (skk-get-last-henkan-datum 'henkan-buffer) henkan-buffer)
              (or (not skk-study-max-distance)
                  (and (setq diff
                             (- (point)
                                (skk-get-last-henkan-datum 'henkan-point)))
-                      ;; $BD>A0$NJQ49$h$j%]%$%s%H$,A0$X0\F0$7$F$$$J$$$+$I$&$+(B
+                      ;; 直前の変換よりポイントが前へ移動していないかどうか
                       (> diff 0)
-                      ;; skk-study-max-distance $B$rD6$($FD>A0$NJQ49$H%]%$%s(B
-                      ;; $B%H$,N%$l$F$$$J$$$+$I$&$+!#(B
+                      ;; skk-study-max-distance を超えて直前の変換とポイン
+                      ;; トが離れていないかどうか。
                       (> skk-study-max-distance diff)))
              midasi word
              (setq last-data (if (not (ring-empty-p skk-study-data-ring))
@@ -161,27 +161,27 @@
                            (string= word (cdr last-data))))))
         (or skk-study-alist (skk-study-read))
         (setq grandpa (skk-study-get-current-alist)
-              ;; ((("$B$U$/(B" . "$BI~(B") . ("$BCe(B")) (("$B$-(B" . "$BLZ(B") . ("$B@Z(B")))
+              ;; ((("ふく" . "服") . ("着")) (("き" . "木") . ("切")))
               papa (assoc midasi (cdr grandpa)))
         (cond (
-               ;; car $B$K8+=P$78l$r;}$D(B cell $B$,$J$$(B
+               ;; car に見出し語を持つ cell がない
                (not (or papa purge))
                (setcdr grandpa
                        (nconc
                         (list (cons midasi (list (cons last-data (list word)))))
                         (cdr grandpa))))
-              ;; $B8+=P$78l$+$i;O$^$k(B cell $B$O$"$k$,!"(Bcdr $B$K(B (last-key . last-word) $B$r(B
-              ;; $B%-!<$K$7$?(B cell $B$,$J$$!#(B
+              ;; 見出し語から始まる cell はあるが、cdr に (last-key . last-word) を
+              ;; キーにした cell がない。
               ((not (or
-                     ;; (("$B$U$/(B" . "$BI~(B") . ("$BCe(B"))
+                     ;; (("ふく" . "服") . ("着"))
                      (setq baby (assoc last-data (cdr papa)))
                      purge))
                (setcdr papa (cons (cons last-data (list word)) (cdr papa))))
-              ;; $B8+=P$78l$r%-!<$H$7$?4{B8$N(B cell $B9=B$$,$G$-$"$,$C$F$$$k$N$G!"4XO"8l$@$1(B
-              ;; $B%"%C%W%G!<%H$9$k!#(B
+              ;; 見出し語をキーとした既存の cell 構造ができあがっているので、関連語だけ
+              ;; アップデートする。
               ((not purge)
-               ;; ring $B%G!<%?$NJ}$,$b$C$H8zN(E*$+!)(B  $B$G$b$3$3$NItJ,$N%G!<%?$N%"%C%W%G!<%H(B
-               ;; $B$,8zN(NI$/$G$-$J$$!#(B
+               ;; ring データの方がもっと効率的か？  でもここの部分のデータのアップデート
+               ;; が効率良くできない。
                (setcdr baby (cons word (delete word (cdr baby))))
                (if (> (1- (length (cdr baby))) skk-study-associates-number)
                    (skk-study-chomp (cdr baby) (1- skk-study-associates-number))))
@@ -189,8 +189,8 @@
 
 ;;;###autoload
 (defun skk-study-save (&optional nomsg)
-  "$B3X=,7k2L$r(B `skk-study-file' $B$XJ]B8$9$k!#(B
-$B%*%W%7%g%J%k0z?t$N(B NOMSG $B$,(B non-nil $B$G$"$l$P!"J]B8%a%C%;!<%8$rI=<($7$J$$!#(B"
+  "学習結果を `skk-study-file' へ保存する。
+オプショナル引数の NOMSG が non-nil であれば、保存メッセージを表示しない。"
   (interactive "P")
   (if (or (and (null skk-study-alist) (not nomsg))
           (not skk-study-last-read)
@@ -198,7 +198,7 @@
                (skk-study-time-lessp
                 skk-study-last-save skk-study-last-read)))
       (progn
-        (skk-message "SKK $B$N3X=,7k2L$r%;!<%V$9$kI,MW$O$"$j$^$;$s(B"
+        (skk-message "SKK の学習結果をセーブする必要はありません"
                      "No SKK study need saving")
         (sit-for 1))
     (skk-study-save-1 nomsg)))
@@ -207,7 +207,7 @@
   (let ((inhibit-quit t)
         e)
     (when (not nomsg)
-      (skk-message "SKK $B$N3X=,7k2L$r(B %s $B$K%;!<%V$7$F$$$^$9(B..."
+      (skk-message "SKK の学習結果を %s にセーブしています..."
                    "Saving SKK study to %s..." skk-study-file))
     (and skk-study-backup-file
          (file-exists-p (expand-file-name skk-study-file))
@@ -238,17 +238,17 @@
         (write-region (point-min) (point-max) skk-study-file)))
     (setq skk-study-last-save (current-time))
     (when (not nomsg)
-      (skk-message "SKK $B$N3X=,7k2L$r(B %s $B$K%;!<%V$7$F$$$^$9(B...$B40N;!*(B"
+      (skk-message "SKK の学習結果を %s にセーブしています...完了！"
                    "Saving SKK study to %s...done" skk-study-file)
       (sit-for 1)
       (message ""))))
 
 ;;;###autoload
 (defun skk-study-switch-current-theme (theme)
-  "$B%+%l%s%H%P%C%U%!$KBP$7$F(B skk-study $B$N3X=,%F!<%^(B THEME $B$r@_Dj$9$k!#(B
-$B3X=,%F!<%^L>(B THEME $B$K$OG$0U$NJ8;zNs$r;XDj$G$-$k!#(B
-$B%+%l%s%H%P%C%U%!$K3X=,%F!<%^$,@_Dj$5$l$J$$$H$-$O!"3X=,%F!<%^(B
-\"general\" $B$KBP$7$F3X=,$,9T$o$l$k!#(B"
+  "カレントバッファに対して skk-study の学習テーマ THEME を設定する。
+学習テーマ名 THEME には任意の文字列を指定できる。
+カレントバッファに学習テーマが設定されないときは、学習テーマ
+\"general\" に対して学習が行われる。"
   (interactive
    (list (completing-read
           "Theme of current buffer: (default: general) "
@@ -268,7 +268,7 @@
 
 ;;;###autoload
 (defun skk-study-remove-theme (theme)
-  "skk-study $B$N3X=,%F!<%^(B THEME $B$r:o=|$9$k!#(B"
+  "skk-study の学習テーマ THEME を削除する。"
   (interactive
    (list (completing-read
           "Remove skk-study theme: "
@@ -280,7 +280,7 @@
                       (mapcar 'car skk-study-alist))))
           nil 'require-match)))
   (if (string= theme "general")
-      (skk-message "$B3X=,%F!<%^(B `general' $B$O:o=|$G$-$^$;$s(B"
+      (skk-message "学習テーマ `general' は削除できません"
                    "Cannot remove skk-study theme `general'")
     (setq skk-study-alist (delq (assoc theme skk-study-alist)
                                 skk-study-alist))
@@ -290,8 +290,8 @@
 
 ;;;###autoload
 (defun skk-study-copy-theme (from to)
-  "skk-study $B$N3X=,%F!<%^(B FROM $B$r(B TO $B$K%3%T!<$9$k!#(B
-TO $B$N4{B8%G!<%?$OGK2u$5$l$k!#(B"
+  "skk-study の学習テーマ FROM を TO にコピーする。
+TO の既存データは破壊される。"
   (interactive
    (list (completing-read "Copy skk-study theme from: "
                           (when (or skk-study-alist (skk-study-read))
@@ -308,12 +308,12 @@ TO $B$N4{B8%G!<%?$OGK2u$5$l$k!#(B"
                                       (cons e n))
                                     (mapcar 'car skk-study-alist))))))
   (when (string= from to)
-    (skk-error "$B%3%T!<85$H%3%T!<@h$N%F!<%^$,F10l$G$9(B"
+    (skk-error "コピー元とコピー先のテーマが同一です"
                "FROM and TO is the same theme"))
   (let ((fromalist (copy-tree (cdr (assoc from skk-study-alist))))
         (toalist (assoc to skk-study-alist)))
     (unless fromalist
-      (skk-error "$B%3%T!<85$N3X=,%G!<%?$,$"$j$^$;$s(B"
+      (skk-error "コピー元の学習データがありません"
                  "FROM study data is null"))
     (if toalist
         (setcdr toalist fromalist)
@@ -321,21 +321,21 @@ TO $B$N4{B8%G!<%?$OGK2u$5$l$k!#(B"
 
 ;;;###autoload
 (defun skk-study-read (&optional nomsg force)
-  "`skk-study-file' $B$+$i3X=,7k2L$rFI$_9~$`!#(B
-$B%*%W%7%g%J%k0z?t$N(B FORCE $B$,(B non-nil $B$G$"$l$P!"GK4~$N3NG'$r$7$J$$!#(B"
+  "`skk-study-file' から学習結果を読み込む。
+オプショナル引数の FORCE が non-nil であれば、破棄の確認をしない。"
   (interactive "P")
   (skk-create-file skk-study-file
                    (if (not nomsg)
                        (if skk-japanese-message-and-error
-                           "SKK $B$N3X=,7k2L%U%!%$%k$r:n$j$^$7$?(B"
+                           "SKK の学習結果ファイルを作りました"
                          "I have created an SKK study file for you")))
   (when (or (null skk-study-alist)
             force
             (skk-yes-or-no-p
-             (format "%s $B$r:FFI$_9~$_$7$^$9$+!)(B " skk-study-file)
+             (format "%s を再読み込みしますか？ " skk-study-file)
              (format "Reread %s? " skk-study-file)))
     (unless nomsg
-      (skk-message "%s $B$N(B SKK $B3X=,7k2L$rE83+$7$F$$$^$9(B..."
+      (skk-message "%s の SKK 学習結果を展開しています..."
                    "Expanding SKK study of %s ..."
                    (file-name-nondirectory skk-study-file)))
     (when skk-study-check-alist-format
@@ -343,7 +343,7 @@ TO $B$N4{B8%G!<%?$OGK2u$5$l$k!#(B"
     (setq skk-study-alist (skk-study-read-1 skk-study-file))
     (setq skk-study-last-read (current-time))
     (when (and skk-study-alist (not nomsg))
-      (skk-message "%s $B$N(B SKK $B3X=,7k2L$rE83+$7$F$$$^$9(B...$B40N;!*(B"
+      (skk-message "%s の SKK 学習結果を展開しています...完了！"
                    "Expanding SKK study of %s ...done"
                    (file-name-nondirectory skk-study-file))
       (sit-for 1)
@@ -367,7 +367,7 @@ TO $B$N4{B8%G!<%?$OGK2u$5$l$k!#(B"
       (when (looking-at "^;;; skk-study-file format version \\([.0-9]+\\)\n")
         (setq version (match-string 1)))
       (cond ((not version)
-             (skk-error "skk-study-file $B$,2u$l$F$$$^$9(B"
+             (skk-error "skk-study-file が壊れています"
                         "Broken skk-study-file"))
             ((string= version skk-study-file-format-version)
              (read (current-buffer)))
@@ -376,17 +376,17 @@ TO $B$N4{B8%G!<%?$OGK2u$5$l$k!#(B"
              (list (cons "general" (read (current-buffer)))))))))
 
 (defun skk-study-check-alist-format (file)
-  "skk-study $B$N3X=,%G!<%?%U%!%$%k(B FILE $B$N%U%)!<%^%C%H$r%A%'%C%/$9$k!#(B"
+  "skk-study の学習データファイル FILE のフォーマットをチェックする。"
   (interactive
    (list (read-file-name
           (format "File to check: (default: %s) " skk-study-file)
           default-directory skk-study-file)))
-  (skk-message "%s $B$N%U%)!<%^%C%H$r%A%'%C%/$7$F$$$^$9(B..."
+  (skk-message "%s のフォーマットをチェックしています..."
                "Checking format of %s..." file)
   (or (skk-study-check-alist-format-1 (skk-study-read-1 file))
-      (skk-error "%s $B$N%U%)!<%^%C%H$O2u$l$F$$$^$9(B"
+      (skk-error "%s のフォーマットは壊れています"
                  "%s format is broken" file))
-  (skk-message "%s $B$N%U%)!<%^%C%H$r%A%'%C%/$7$F$$$^$9(B...$B40N;(B!"
+  (skk-message "%s のフォーマットをチェックしています...完了!"
                "Checking format of %s...done" file)
   (sit-for 1)
   (message ""))
@@ -419,14 +419,14 @@ TO $B$N4{B8%G!<%?$OGK2u$5$l$k!#(B"
               (while a2
                 (setq e (car a2))
                 (or (funcall func (car e))
-                    ;; $B8+=P$78l$N%A%'%C%/(B
+                    ;; 見出し語のチェック
                     (throw 'exit nil))
                 (setq f (cdr e))
                 (while f
                   (if (not (and
-                            ;; $BD>A0$NJQ49$N>pJs(B
+                            ;; 直前の変換の情報
                             (consp (caar f))
-                            ;; $B4XO"8l%j%9%H(B
+                            ;; 関連語リスト
                             (listp (cdar f))))
                       (throw 'exit nil))
                   (setq f (cdr f)))

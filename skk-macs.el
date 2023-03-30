@@ -93,10 +93,10 @@ doesn't give arguments of `interactive'. See `interactive' for details."
 (def-edebug-spec skk-save-point t)
 
 (defmacro skk-message (japanese english &rest arg)
-  "$B%a%C%;!<%8$rI=<($9$k!#(B
-`skk-japanese-message-and-error' $B$,(B non-nil $B$G$"$l$P(B JAPANESE $B$r!"(B nil $B$G(B
-$B$"$l$P(B ENGLISH $B$r%(%3!<%(%j%"$KI=<($9$k!#(B
- ARG $B$O(B `message' $B4X?t$NBh#20z?t0J9_$N0z?t$H$7$FEO$5$l$k!#(B"
+  "メッセージを表示する。
+`skk-japanese-message-and-error' が non-nil であれば JAPANESE を、 nil で
+あれば ENGLISH をエコーエリアに表示する。
+ ARG は `message' 関数の第２引数以降の引数として渡される。"
   (append
    (if arg
        `(message (if skk-japanese-message-and-error
@@ -108,10 +108,10 @@ doesn't give arguments of `interactive'. See `interactive' for details."
    arg))
 
 (defmacro skk-error (japanese english &rest arg)
-  "$B%a%C%;!<%8$rI=<($7$F!"%(%i!<$rH/@8$5$;$k!#(B
-`skk-japanese-message-and-error' $B$,(B non-nil $B$G$"$l$P(B JAPANESE $B$r!"(B nil $B$G(B
-$B$"$l$P(B ENGLISH $B$r%(%3!<%(%j%"$KI=<($7!"%(%i!<$rH/@8$5$;$k!#(B
- ARG $B$O(B `error' $B4X?t$NBh#20z?t0J9_$N0z?t$H$7$FEO$5$l$k!#(B"
+  "メッセージを表示して、エラーを発生させる。
+`skk-japanese-message-and-error' が non-nil であれば JAPANESE を、 nil で
+あれば ENGLISH をエコーエリアに表示し、エラーを発生させる。
+ ARG は `error' 関数の第２引数以降の引数として渡される。"
   (append
    (if arg
        `(error (if skk-japanese-message-and-error
@@ -123,33 +123,33 @@ doesn't give arguments of `interactive'. See `interactive' for details."
    arg))
 
 (defmacro skk-yes-or-no-p (japanese english)
-  "$B%f!<%6$K(B yes-or-no $B$r<ALd$7!"Ez$($,(B yes $B$@$C$?$i(B t $B$rJV$9!#(B
-`skk-japanese-message-and-error' $B$,(B non-nil $B$G$"$l$P(B JAPANESE $B$r!"(B nil $B$G$"$l(B
-$B$P(B ENGLISH $B$r(B PROMPT $B$H$7$F(B `yes-or-no-p' $B$r<B9T$9$k!#(B
-`yes-or-no-p' $B$N0z?t(B PROMPT $B$,J#;($KF~$l9~$s$G$$$k>l9g$O(B `skk-yes-or-no-p' $B$r(B
-$B;H$&$h$j$b%*%j%8%J%k$N(B `yes-or-no-p' $B$r;HMQ$7$?J}$,%3!<%I$,J#;($K$J$i$J$$>l9g(B
-$B$,$"$k!#(B"
+  "ユーザに yes-or-no を質問し、答えが yes だったら t を返す。
+`skk-japanese-message-and-error' が non-nil であれば JAPANESE を、 nil であれ
+ば ENGLISH を PROMPT として `yes-or-no-p' を実行する。
+`yes-or-no-p' の引数 PROMPT が複雑に入れ込んでいる場合は `skk-yes-or-no-p' を
+使うよりもオリジナルの `yes-or-no-p' を使用した方がコードが複雑にならない場合
+がある。"
   `(yes-or-no-p (if skk-japanese-message-and-error
                     ,japanese ,english)))
 
 (defmacro skk-y-or-n-p (japanese english)
-  "$B%f!<%6$K(B \"y or n\" $B$r<ALd$7!"Ez$($,(B \"y\" $B$@$C$?$i(B t $B$rJV$9!#(B
-`skk-japanese-message-and-error' $B$,(B non-nil $B$G$"$l$P(B JAPANESE $B$r!"(B nil $B$G$"$l(B
-$B$P(B ENGLISH $B$r(B PROMPT $B$H$7$F(B `y-or-n-p' $B$r<B9T$9$k!#(B"
+  "ユーザに \"y or n\" を質問し、答えが \"y\" だったら t を返す。
+`skk-japanese-message-and-error' が non-nil であれば JAPANESE を、 nil であれ
+ば ENGLISH を PROMPT として `y-or-n-p' を実行する。"
   `(y-or-n-p (if skk-japanese-message-and-error
                  ,japanese ,english)))
 
 (defmacro skk-set-marker (marker position &optional buffer)
-  "$B%^!<%+(B MARKER $B$r(B BUFFER $B$N(B POSITION $B$K0\F0$9$k!#(B
-BUFFER $B$N%G%#%U%)%k%HCM$O%+%l%s%H%P%C%U%!$G$"$k!#(B
-MARKER $B$,(B nil $B$@$C$?$i!"?75,%^!<%+!<$r:n$C$FBeF~$9$k!#(B"
+  "マーカ MARKER を BUFFER の POSITION に移動する。
+BUFFER のディフォルト値はカレントバッファである。
+MARKER が nil だったら、新規マーカーを作って代入する。"
   `(progn
      (if (not ,marker)
          (setq ,marker (make-marker)))
      (set-marker ,marker ,position ,buffer)))
 
 (defmacro skk-with-point-move (&rest form)
-  "$B%]%$%s%H$r0\F0$9$k$,%U%C%/$r<B9T$7$F$[$7$/$J$$>l9g$K;H$&!#(B"
+  "ポイントを移動するがフックを実行してほしくない場合に使う。"
   `(unwind-protect
        (progn
          ,@form)
@@ -172,7 +172,7 @@ MARKER $B$,(B nil $B$@$C$?$i!"?75,%^!<%+!<$r:n$C$FBeF~$9$k!#(B"
 ;;;###autoload
 (put 'skk-loop-for-buffers 'lisp-indent-function 1)
 (defmacro skk-loop-for-buffers (buffers &rest body)
-  "BUFFERS $B$,;XDj$9$k3F%P%C%U%!$K0\F0$7$F(B BODY $B$r<B9T$9$k!#(B"
+  "BUFFERS が指定する各バッファに移動して BODY を実行する。"
   `(save-current-buffer
      (dolist (buf ,buffers)
        (when (buffer-live-p buf)
@@ -180,7 +180,7 @@ MARKER $B$,(B nil $B$@$C$?$i!"?75,%^!<%+!<$r:n$C$FBeF~$9$k!#(B"
          ,@body))))
 
 (defmacro skk-delete-overlay (list)
-  ;; skk-dcomp-multiple-hide $B$H(B skk-inline-hide $B$rE}9g$7$?!#(B
+  ;; skk-dcomp-multiple-hide と skk-inline-hide を統合した。
   `(when ,list
      (dolist (o ,list)
        (delete-overlay o))
@@ -188,11 +188,11 @@ MARKER $B$,(B nil $B$@$C$?$i!"?75,%^!<%+!<$r:n$C$FBeF~$9$k!#(B"
 
 (defmacro skk-help-make-usage (symbol arglist)
   (cond ((fboundp 'help--make-usage)
-         ;; GNU Emacs 25.1 $B$+$i(B
+         ;; GNU Emacs 25.1 から
          `(help--make-usage ,symbol ,arglist))
 
         (t
-         ;; GNU Emacs 24.1 $B$^$G(B
+         ;; GNU Emacs 24.1 まで
          `(help-make-usage ,symbol ,arglist))))
 
 ;;; functions.
@@ -234,7 +234,7 @@ If the event isn't a keypress, this returns nil."
      ((eval-when-compile (>= emacs-major-version 26))
       (encode-coding-string (char-to-string char) 'iso-8859-1))
 
-     ;;  GNU Emacs 25 $B$^$G(B
+     ;;  GNU Emacs 25 まで
      (t
       (string-make-unibyte (char-to-string char))))))
 
@@ -252,10 +252,10 @@ If the event isn't a keypress, this returns nil."
 
 (defun skk-split-char (ch)
   ;; http://mail.ring.gr.jp/skk/200908/msg00006.html
-  ;; C $B$N(B split-char() $B$HF1MM$N5!G=$@$,!"(Bchar-charset() $B$N8F=P$7$K$*$$$F(B
-  ;; $BJ8;z=89g$NA*Br;h$r(B skk-charset-list $B$K4^$^$l$k$b$N$K@)8B$9$k!#(B
-  ;; $B$3$l$ONc$($P!"(Bjapanese-jisx0208 $B$NJ8;z$,(B unicode-bmp $B$KB0$9$k!"(B
-  ;; $B$HH=Dj$5$l$k$h$&$J>u67$r2sHr$9$k!#(B
+  ;; C の split-char() と同様の機能だが、char-charset() の呼出しにおいて
+  ;; 文字集合の選択肢を skk-charset-list に含まれるものに制限する。
+  ;; これは例えば、japanese-jisx0208 の文字が unicode-bmp に属する、
+  ;; と判定されるような状況を回避する。
   (let* ((charset (char-charset ch skk-charset-list))
          (code (encode-char ch charset))
          (dimension (charset-dimension charset))
@@ -268,7 +268,7 @@ If the event isn't a keypress, this returns nil."
     (cons charset val)))
 
 (defun skk-indicator-to-string (indicator &optional no-properties)
-  "SKK $B%$%s%8%1!<%?7?%*%V%8%'%/%H(B INDICATOR $B$rJ8;zNs$KJQ49$9$k!#(B"
+  "SKK インジケータ型オブジェクト INDICATOR を文字列に変換する。"
   (if no-properties
       (with-temp-buffer
         (insert indicator)
@@ -276,7 +276,7 @@ If the event isn't a keypress, this returns nil."
     indicator))
 
 (defun skk-mode-string-to-indicator (mode string)
-  "$BJ8;zNs(B STRING $B$r(B SKK $B%$%s%8%1!<%?7?%*%V%8%'%/%H$KJQ49$9$k!#(B"
+  "文字列 STRING を SKK インジケータ型オブジェクトに変換する。"
   (if (and window-system
            (not (eq mode 'default)))
       (apply 'propertize string
@@ -288,7 +288,7 @@ If the event isn't a keypress, this returns nil."
       (eq (face-attribute face :inherit) 'variable-pitch)))
 
 (defun skk-event-key (event)
-  "$B%$%Y%s%H(B EVENT $B$rH/@8$7$?F~NO$N>pJs$r<hF@$9$k!#(B"
+  "イベント EVENT を発生した入力の情報を取得する。"
   (let ((char (event-to-character event))
         keys)
     (if char
@@ -343,7 +343,7 @@ If the event isn't a keypress, this returns nil."
             (car indicator)))
     (force-mode-line-update)))
 
-;; $B%D%j!<$K%"%/%;%9$9$k$?$a$N%$%s%?!<%U%'!<%9(B
+;; ツリーにアクセスするためのインターフェース
 (defun skk-make-rule-tree (char prefix nextstate kana branch-list)
   (list char
         prefix
@@ -384,12 +384,12 @@ If the event isn't a keypress, this returns nil."
   (assq char (skk-get-branch-list tree)))
 
 (defun skk-erase-prefix (&optional clean)
-  "`skk-echo' $B$,(B non-nil $B$G$"$l$P8=:_I=<($5$l$F$$$k(B `skk-prefix' $B$r>C$9!#(B
-$B%*%W%7%g%J%k0z?t$N(B CLEAN $B$,;XDj$5$l$k$H!"JQ?t$H$7$F$N(B `skk-prefix' $B$r6uJ8;z$K!"(B
-`skk-current-rule-tree' $B$r(B nil $B$K=i4|2=$9$k!#(B"
-  ;; $B$+$JJ8;z$NF~NO$,$^$@40@.$7$F$$$J$$>l9g$K$3$N4X?t$,8F$P$l$?$H$-$J$I$O(B
-  ;; $BI=<($5$l$F$$$k(B skk-prefix $B$O:o=|$7$?$$$,!"JQ?t$H$7$F$N(B skk-prefix $B$O(B
-  ;; null $BJ8;z$K$7$?$/$J$$!#(B
+  "`skk-echo' が non-nil であれば現在表示されている `skk-prefix' を消す。
+オプショナル引数の CLEAN が指定されると、変数としての `skk-prefix' を空文字に、
+`skk-current-rule-tree' を nil に初期化する。"
+  ;; かな文字の入力がまだ完成していない場合にこの関数が呼ばれたときなどは
+  ;; 表示されている skk-prefix は削除したいが、変数としての skk-prefix は
+  ;; null 文字にしたくない。
   (when (overlayp skk-prefix-overlay)
     (condition-case nil
         (delete-overlay skk-prefix-overlay)
@@ -421,7 +421,7 @@ If the event isn't a keypress, this returns nil."
       (when (stringp kana)
         (skk-insert-str kana))
       (skk-set-marker skk-kana-start-point nil)
-      (or data t)))) ; skk-prefix $B$KBP1~$9$k%G!<%?$,$"$C$?$J$i$=$l$rJV$9(B
+      (or data t)))) ; skk-prefix に対応するデータがあったならそれを返す
 
 (defsubst skk-numeric-p ()
   (and skk-use-numeric-conversion
@@ -437,14 +437,14 @@ If the event isn't a keypress, this returns nil."
   (vectorp skk-jisyo-update-vector))
 
 (defsubst skk-lower-case-p (char)
-  "CHAR $B$,>.J8;z$N%"%k%U%!%Y%C%H$G$"$l$P!"(Bt $B$rJV$9!#(B"
+  "CHAR が小文字のアルファベットであれば、t を返す。"
   (and (<= ?a char)
        (>= ?z char)))
 
 (defsubst skk-downcase (char)
-  "$BO"A[%j%9%H(B `skk-downcase-alist' $B$K3:Ev$"$l$P(B (assq)$B!"MWAG(B($B;R%j%9%H(B)$B$N(B cdr $B$rJV$9!#(B
-$B3:Ev$J$1$l$P(B $B4X?t(B `downcase'$B$N7k2L$rJV$9!#(B
-$B4X?t(B `skk-set-henkan-point' $B$+$i8F$P$l$F$$$k!#(B"
+  "連想リスト `skk-downcase-alist' に該当あれば (assq)、要素(子リスト)の cdr を返す。
+該当なければ 関数 `downcase'の結果を返す。
+関数 `skk-set-henkan-point' から呼ばれている。"
   (or (cdr (assq char skk-downcase-alist))
       (downcase char)))
 
@@ -510,12 +510,12 @@ If the event isn't a keypress, this returns nil."
         skk-j-mode nil
         skk-jisx0208-latin-mode nil
         skk-jisx0201-mode nil
-        ;; skk-abbrev-mode $B$O0l;~E*$J(B ascii $BJ8;z$K$h$kJQ49$J$N$G!"JQ498e$O85$N(B
-        ;; $BF~NO%b!<%I(B ($B$+$J%b!<%I$+%+%J%b!<%I(B) $B$KLa$k$3$H$,4|BT$5$l$k!#(B
-        ;; skk-katakana $B$O(B minor-mode $B%U%i%0$G$O$J$/!"(Bskk-j-mode $B%^%$%J!<%b!<%I(B
-        ;; $B$NCf$G$3$N%U%i%0$K$h$jF~NOJ8;z$r7hDj$9$k%]%$%s%?$rJQ99$9$k$@$1$J$N$G(B
-        ;; skk-abbrev-mode $B%^%$%J!<%b!<%I2=$9$k$N$K(B skk-katakana $B%U%i%0$r=i4|2=(B
-        ;; $B$7$J$1$l$P$J$i$J$$I,A3@-$O$J$$!#(B
+        ;; skk-abbrev-mode は一時的な ascii 文字による変換なので、変換後は元の
+        ;; 入力モード (かなモードかカナモード) に戻ることが期待される。
+        ;; skk-katakana は minor-mode フラグではなく、skk-j-mode マイナーモード
+        ;; の中でこのフラグにより入力文字を決定するポインタを変更するだけなので
+        ;; skk-abbrev-mode マイナーモード化するのに skk-katakana フラグを初期化
+        ;; しなければならない必然性はない。
         ;; sub mode of skk-j-mode.
         ;;skk-katakana nil
         )
@@ -524,36 +524,36 @@ If the event isn't a keypress, this returns nil."
   (skk-cursor-set))
 
 (defsubst skk-in-minibuffer-p ()
-  "$B%+%l%s%H%P%C%U%!$,%_%K%P%C%U%!$G$"$l$P(B t $B$rJV$9!#(B"
+  "カレントバッファがミニバッファであれば t を返す。"
   (eq (current-buffer) (window-buffer (minibuffer-window))))
 
 (defun skk-screen-column ()
-  "$B%9%/%j!<%s9T$+$iF@$?%+!<%=%k0LCV$N7e?t$rJV$9!#(B
-$B%F%-%9%H9T!J2~9TJ8;z$G6h@Z$i$l$?%F%-%9%H!K$,%&%#%s%I%&I}$r1[$($F@^$jJV$7$FI=<((B
-$B$5$l$F$$$k>l9g$K$bBP1~$9$k!#(B"
+  "スクリーン行から得たカーソル位置の桁数を返す。
+テキスト行（改行文字で区切られたテキスト）がウィンドウ幅を越えて折り返して表示
+されている場合にも対応する。"
   (- (current-column)
      (save-excursion
-       (vertical-motion 0)      ;$B%9%/%j!<%s9T$N9TF,$K0\F0$9$k(B
-       (current-column))))      ;$B",$3$N7k2L!"%9%/%j!<%s9T$N9TF,$J$N$+(B
-                                        ;$B%F%-%9%H9T$N9TF,$J$N$+(B
+       (vertical-motion 0)      ;スクリーン行の行頭に移動する
+       (current-column))))      ;↑この結果、スクリーン行の行頭なのか
+                                        ;テキスト行の行頭なのか
 
 (defun skk-move-to-screen-column (col)
-  "$B%9%/%j!<%s9T$+$i8+$?(B COL $B7e0LCV$K%]%$%s%H$r0\F0$9$k!#(B
-$B%F%-%9%H9T!J2~9TJ8;z$G6h@Z$i$l$?%F%-%9%H!K$,%&%#%s%I%&I}$r1[$($F@^$jJV$7$FI=<((B
-$B$5$l$F$$$k>l9g$K$bBP1~$9$k$,!"2~9TJ8;z$r1[$($k0\F0$O9T$o$J$$!#(B"
-  (move-to-column (+ (current-column)   ;$B%F%-%9%H9T$+$i8+$?7e?t(B
+  "スクリーン行から見た COL 桁位置にポイントを移動する。
+テキスト行（改行文字で区切られたテキスト）がウィンドウ幅を越えて折り返して表示
+されている場合にも対応するが、改行文字を越える移動は行わない。"
+  (move-to-column (+ (current-column)   ;テキスト行から見た桁数
                      (- col (skk-screen-column))))
   (skk-screen-column))
 
 (defun skk-max-string-width (list)
-  "LIST $B$N3FMWAG$NCf$+$i!":GD9$N%3%i%`I}(B (string-width) $B$rJV$9!#(B"
+  "LIST の各要素の中から、最長のコラム幅 (string-width) を返す。"
   (apply 'max (mapcar 'string-width list)))
 
 (defun skk-insert-prefix (&optional char)
-  "`skk-echo' $B$,(B non-nil $B$G$"$l$P%+%l%s%H%P%C%U%!$K(B `skk-prefix' $B$rA^F~$9$k!#(B"
+  "`skk-echo' が non-nil であればカレントバッファに `skk-prefix' を挿入する。"
   (when skk-echo
-    ;; skk-prefix $B$O%"%s%I%%$NBP>]$H$J$i$J$$$N$G(B
-    ;; $B%P%C%U%!$KA^F~$5$l$kI,MW$,$J$$!#(B
+    ;; skk-prefix はアンドゥの対象とならないので
+    ;; バッファに挿入される必要がない。
     (setq skk-prefix-overlay (make-overlay (point) (point)))
     (let ((prefix (or char skk-prefix)))
       (when (and skk-use-face (not skk-henkan-mode))
@@ -572,23 +572,23 @@ If the event isn't a keypress, this returns nil."
            (encode-coding-string str2 coding-system)))
 
 (defun skk-string< (str1 str2)
-  "STR1 $B$H(B STR2 $B$H$rHf3S$9$k!#(B
-$BFbIt%3!<%I$,(B emacs-mule $B$G$J$$$J$I(B `stringp' $B$NJV$jCM$,0[$J$k(B Emacs $B$K(B
-$BBP$7$F(B emacs-mule $B$N(B encoded string $B$KJQ49$7$FHf3S$9$k!#(B
-$BHf3S$N7k2L(B str1 < str2 $B$J$i$P(B t $B$rJV$9!#(B"
-  ;; mule-version $B$,(B 6.0 $B0J>e$N(B GNU Emacs $B$O(B Emacs with coding system utf-8-emacs
+  "STR1 と STR2 とを比較する。
+内部コードが emacs-mule でないなど `stringp' の返り値が異なる Emacs に
+対して emacs-mule の encoded string に変換して比較する。
+比較の結果 str1 < str2 ならば t を返す。"
+  ;; mule-version が 6.0 以上の GNU Emacs は Emacs with coding system utf-8-emacs
   ;;   (emacs-version) => "GNU Emacs 28.0.50"
-  ;;   (stringp "$B4A(B") => t
-  ;;   (encode-coding-string "$B4A(B" 'emacs-mule) => "\222\264\301"
+  ;;   (stringp "漢") => t
+  ;;   (encode-coding-string "漢" 'emacs-mule) => "\222\264\301"
   (skk-string-lessp-in-coding-system str1 str2 'emacs-mule))
 
 (defsubst skk-string<= (str1 str2)
-  "STR1 $B$H(B STR2 $B$H$rHf3S$7$F!"(B`string<' $B$+(B `string=' $B$G$"$l$P!"(Bt $B$rJV$9!#(B"
+  "STR1 と STR2 とを比較して、`string<' か `string=' であれば、t を返す。"
   (or (skk-string< str1 str2)
       (string= str1 str2)))
 
 (defsubst skk-do-auto-fill ()
-  "`auto-fill-function' $B$KCM$,BeF~$5$l$F$$$l$P!"$=$l$r%3!<%k$9$k!#(B"
+  "`auto-fill-function' に値が代入されていれば、それをコールする。"
   (when auto-fill-function
     (funcall auto-fill-function)))
 
@@ -602,18 +602,18 @@ If the event isn't a keypress, this returns nil."
 (defsubst skk-get-current-candidate-1 (&optional count)
   (setq count (or count skk-henkan-count))
   (when (> 0 count)
-    (skk-error "$B8uJd$r<h$j=P$9$3$H$,$G$-$^$;$s(B"
+    (skk-error "候補を取り出すことができません"
                "Cannot get current candidate"))
-  ;; (nth -1 '(A B C)) $B$O!"(BA $B$rJV$9$N$G!"Ii$G$J$$$+$I$&$+%A%'%C%/$9$k!#(B
+  ;; (nth -1 '(A B C)) は、A を返すので、負でないかどうかチェックする。
   (nth count skk-henkan-list))
 
 ;; convert skk-rom-kana-rule-list to skk-rule-tree.
 ;; The rule tree follows the following syntax:
 ;; <branch-list>    ::= nil | (<tree> . <branch-list>)
 ;; <tree>         ::= (<char> <prefix> <nextstate> <kana> <branch-list>)
-;; <kana>         ::= (<$B$R$i$,$JJ8;zNs(B> . <$B%+%?%+%JJ8;zNs(B>) | nil
-;; <char>         ::= <$B1Q>.J8;z(B>
-;; <nextstate>    ::= <$B1Q>.J8;zJ8;zNs(B> | nil
+;; <kana>         ::= (<ひらがな文字列> . <カタカナ文字列>) | nil
+;; <char>         ::= <英小文字>
+;; <nextstate>    ::= <英小文字文字列> | nil
 
 (defsubst skk-make-raw-arg (arg)
   (cond ((eql arg '1) nil)
@@ -639,9 +639,9 @@ If the event isn't a keypress, this returns nil."
               skk-last-henkan-data)))))
 
 (defun skk-find-coding-system (code)
-  "CODE $B$,!"(BEmacs $B$,2r<a$9$k(B coding-system $B%7%s%\%kI=8=$G$"$l$P$=$N$^$^JV$7!"(B
-$BJ8;zNs$G$"$l$PO"A[%j%9%H(B `skk-coding-system-alist' $B$rMQ$$$F%7%s%\%kI=8=$XJQ49$9$k!#(B
-$B$3$l$i0J30!J(Bnil $B$r4^$`!K$G$"$l$P%7%s%\%k(B euc-jis-2004 $B$rJV$9!#(B"
+  "CODE が、Emacs が解釈する coding-system シンボル表現であればそのまま返し、
+文字列であれば連想リスト `skk-coding-system-alist' を用いてシンボル表現へ変換する。
+これら以外（nil を含む）であればシンボル euc-jis-2004 を返す。"
   (cond ((and code (coding-system-p code))
          code)
 
@@ -652,13 +652,13 @@ If the event isn't a keypress, this returns nil."
          (cdr (assoc "euc" skk-coding-system-alist)))))
 
 (defsubst skk-lisp-prog-p (string)
-  "STRING $B$,(B Lisp $B%W%m%0%i%`$G$"$l$P!"(Bt $B$rJV$9!#(B"
+  "STRING が Lisp プログラムであれば、t を返す。"
   (let ((l (length string)))
     (and (> l 2)
          (eq (aref string 0) ?\()
          ;; second character is ascii or not.
          (skk-ascii-char-p (aref string 1))
-         (eq (aref string (1- l)) ?\))      ; $B$3$N9T!"$b$&ITMW$+$b(B
+         (eq (aref string (1- l)) ?\))      ; この行、もう不要かも
          (ignore-errors
            (= l (cdr (read-from-string string)))))))
 
@@ -670,8 +670,8 @@ If the event isn't a keypress, this returns nil."
                  (skk-eval-string (substring string (match-end 0)))))
         ((skk-lisp-prog-p string)
          (let (func face)
-           ;; (^_^;) $B$N$h$&$JJ8;zNs$KBP$7!"(Bread-from-string $B$r8F$V$H(B
-           ;; $B%(%i!<$K$J$k$N$G!"(Bignore-errors $B$G0O$`!#(B
+           ;; (^_^;) のような文字列に対し、read-from-string を呼ぶと
+           ;; エラーになるので、ignore-errors で囲む。
            (ignore-errors
              (setq func (car (read-from-string string)))
              (when (and (listp func)
@@ -686,7 +686,7 @@ If the event isn't a keypress, this returns nil."
          string)))
 
 ;;;; from dabbrev.el.  Welcome!
-;; $BH=Dj4V0c$$$rHH$9>l9g$"$j!#MW2~NI!#(B
+;; 判定間違いを犯す場合あり。要改良。
 (defsubst skk-minibuffer-origin ()
   (nth 1 (buffer-list)))
 
@@ -694,14 +694,14 @@ If the event isn't a keypress, this returns nil."
   (mapconcat (lambda (char)
                (or (cdr (assq char alist))
                    (char-to-string char)))
-             ;; $BJ8;zNs$rBP1~$9$k(B char $B$N%j%9%H$KJ,2r$9$k!#(B
+             ;; 文字列を対応する char のリストに分解する。
              (append word nil) ""))
 
 (defun skk-key-binding-member (key commands &optional map)
-  "$BF~NO(B KEY $B$,H/F0$9$k%3%^%s%I$,!"(BCOMMANDS $B$K4^$^$l$l$P(B non-nil $B$rJV$9!#(B
-MAP $B$OF~NO$,=q$+$l$F$$$k%-!<%^%C%W$r;XDj$9$k$,!";XDj$5$l$J$1$l$P(B
-`skk-j-mode-map' $B$r;2>H$9$k!#(B
-$B$3$N4X?t$O!"F~NO(B KEY $B$,(B `lookup-key' $B$GC5$;$J$$7A<0$G$"$j$&$k>l9g$KMQ$$$k!#(B"
+  "入力 KEY が発動するコマンドが、COMMANDS に含まれれば non-nil を返す。
+MAP は入力が書かれているキーマップを指定するが、指定されなければ
+`skk-j-mode-map' を参照する。
+この関数は、入力 KEY が `lookup-key' で探せない形式でありうる場合に用いる。"
   (unless map
     (setq map skk-j-mode-map))
   (let (keys)
@@ -744,8 +744,8 @@ Return the modified ALIST."
        (set symbol (skk-del-alist key (symbol-value symbol)))))
 
 (defun skk-reset-henkan-count (count)
-  ;; $B"&%b!<%I$KLa$k$H$-$O(B 0
-  ;; $B"'%b!<%I$N$^$^8uJd0lMw$N<jA0$KLa$k$H$-$O(B 4
+  ;; ▽モードに戻るときは 0
+  ;; ▼モードのまま候補一覧の手前に戻るときは 4
   (setq skk-henkan-count count)
   (skk-unread-event (aref (car (where-is-internal
                                 'skk-previous-candidate
@@ -753,13 +753,13 @@ Return the modified ALIST."
                           0)))
 
 (defun skk-escape-from-show-candidates (count)
-  ;; skk-henkan $B$^$G0l5$$K(B throw $B$9$k!#(B
+  ;; skk-henkan まで一気に throw する。
   (skk-reset-henkan-count count)
   (throw 'unread nil))
 
 (defun skk-nunion (x y)
-  "X $B$H(B Y $B$NOB=89g$r:n$k!#(B
-$BEy$7$$$+$I$&$+$NHf3S$O!"(B`equal' $B$G9T$o$l$k!#(BX $B$K(B Y $B$rGK2uE*$KO"@\$9$k!#(B"
+  "X と Y の和集合を作る。
+等しいかどうかの比較は、`equal' で行われる。X に Y を破壊的に連接する。"
   (cond
    ((null x)
     y)

@@ -43,19 +43,19 @@
   (let ((frames (frame-list))
         val)
     (while (and (not val) frames)
-      ;; $BJQ?t(B window-system $B$O(B frame local $BCM$r;}$D!#(B
-      ;; $BNc$($P(B window system $B$H(B "emacsclient -nw" $B$NJ;MQ;~$J$I(B
-      ;; $B$$$:$l$+$N(B frame $B$,(B window system $B2<$GF0$$$F$$$k$3$H$r(B
-      ;; $B3NG'$9$k!#(B
+      ;; 変数 window-system は frame local 値を持つ。
+      ;; 例えば window system と "emacsclient -nw" の併用時など
+      ;; いずれかの frame が window system 下で動いていることを
+      ;; 確認する。
       (setq val (window-system (car frames))
             frames (cdr frames)))
     val))
 
 (defun skk-jisyo (&optional coding)
-  "CODING $B$,(B nil $B$G$"$l$P!"8D?M<-=q$N(B PATH $B$rJV$9(B ($BJQ?t(B `skk-jisyo' $B$,J8;zNs$G(B
-$B$"$l$P$=$NCM$r!"%3%s%9%;%k$G$"$l$P(B car $B$rJV$9(B).
-CODING $B$,(B non-nil $B$G$"$l$P!"8D?M<-=q$KE,MQ$5$l$k(B CODING $B$rJV$9(B ($BJQ?t(B `skk-jisyo' $B$,(B
-$BJ8;zNs$G$"$l$PJQ?t(B `skk-jisyo-code' $B$NCM$r!"%3%s%9%;%k$G$"$l$P(B cdr $B$rJV$9(B)."
+  "CODING が nil であれば、個人辞書の PATH を返す (変数 `skk-jisyo' が文字列で
+あればその値を、コンスセルであれば car を返す).
+CODING が non-nil であれば、個人辞書に適用される CODING を返す (変数 `skk-jisyo' が
+文字列であれば変数 `skk-jisyo-code' の値を、コンスセルであれば cdr を返す)."
   (let ((p (if (consp skk-jisyo) (car skk-jisyo) skk-jisyo))
         (c (if (consp skk-jisyo) (cdr skk-jisyo) skk-jisyo-code)))
     (if coding c p)))
@@ -73,163 +73,163 @@ CODING $B$,(B non-nil $B$G$"$l$P!"8D?M<-=q$KE,MQ$5$l$k(B CODING $B$rJV$9(B
 
 ;;;; Custom group definitions
 
-(defgroup skk nil "$BF|K\8lF~NO%7%9%F%`(B SKK $B$N%+%9%?%^%$%:(B"
+(defgroup skk nil "日本語入力システム SKK のカスタマイズ"
   :group 'mule
   :group 'applications)
 
 ;;; by function
-(defgroup skk-basic nil "SKK $B4pK\$N@_Dj(B"
+(defgroup skk-basic nil "SKK 基本の設定"
   :prefix "skk-"
   :group 'skk)
 
-(defgroup skk-dictionary nil "SKK $B<-=q$N@_Dj(B"
+(defgroup skk-dictionary nil "SKK 辞書の設定"
   :prefix "skk-"
   :group 'skk)
 
-(defgroup skk-private nil "SKK $B8D?M<-=q$N<h$j07$$(B"
+(defgroup skk-private nil "SKK 個人辞書の取り扱い"
   :prefix "skk-"
   :group 'skk)
 
-(defgroup skk-input-basic nil "SKK $BF~NOF0:n$N4pK\@_Dj(B"
+(defgroup skk-input-basic nil "SKK 入力動作の基本設定"
   :prefix "skk-"
   :group 'skk)
 
-(defgroup skk-input-enhanced nil "SKK $BF~NOF0:n$N3HD%@_Dj(B"
+(defgroup skk-input-enhanced nil "SKK 入力動作の拡張設定"
   :prefix "skk-"
   :group 'skk)
 
-(defgroup skk-henkan nil "SKK $BJQ49F0:n$N@_Dj(B"
+(defgroup skk-henkan nil "SKK 変換動作の設定"
   :prefix "skk-"
   :group 'skk)
 
-(defgroup skk-kakutei nil "SKK $BJQ498uJd3NDjF0:n$N@_Dj(B"
+(defgroup skk-kakutei nil "SKK 変換候補確定動作の設定"
   :prefix "skk-"
   :group 'skk)
 
-(defgroup skk-okurigana nil "SKK $BAw$j$,$J$N<h$j07$$(B"
+(defgroup skk-okurigana nil "SKK 送りがなの取り扱い"
   :prefix "skk-"
   :group 'skk)
 
-(defgroup skk-misc nil "SKK $B$=$NB>$$$m$$$m(B"
+(defgroup skk-misc nil "SKK その他いろいろ"
   :prefix "skk-"
   :group 'skk)
 
-(defgroup skk-visual nil "SKK $B$N8+$?L\$r%+%9%?%^%$%:(B"
+(defgroup skk-visual nil "SKK の見た目をカスタマイズ"
   :prefix "skk-"
   :group 'skk)
 
 ;;; by filename
-(defgroup skk-annotation nil "SKK $B%"%N%F!<%7%g%sI=<((B/$BJT=8$N@_Dj(B"
+(defgroup skk-annotation nil "SKK アノテーション表示/編集の設定"
   :prefix "skk-annotation-"
   :group 'skk)
 
-(defgroup skk-auto nil "SKK $B<+F0Aw$j$,$J5!G=$N@_Dj(B"
+(defgroup skk-auto nil "SKK 自動送りがな機能の設定"
   :prefix "skk-"
   :group 'skk)
 
-(defgroup skk-cdb nil "SKK CDB $B<-=q8!:w5!G=$N@_Dj(B"
+(defgroup skk-cdb nil "SKK CDB 辞書検索機能の設定"
   :prefix "skk-"
   :group 'skk)
 
-(defgroup skk-comp nil "SKK $BJd405!G=$N@_Dj(B"
+(defgroup skk-comp nil "SKK 補完機能の設定"
   :prefix "skk-"
   :group 'skk)
 
-(defgroup skk-server-completion nil "$B<-=q%5!<%PJd405!G=$K4X$9$k@_Dj(B"
+(defgroup skk-server-completion nil "辞書サーバ補完機能に関する設定"
   :group 'skk)
 
-(defgroup skk-cursor nil "SKK $B%+!<%=%k@)8f$N@_Dj(B"
+(defgroup skk-cursor nil "SKK カーソル制御の設定"
   :prefix "skk-cursor-"
   :group 'skk)
 
-(defgroup skk-dcomp nil "SKK $BF0E*Jd40$N@_Dj(B"
+(defgroup skk-dcomp nil "SKK 動的補完の設定"
   :prefix "skk-dcomp-"
   :group 'skk)
 
-(defgroup skk-gadget nil "SKK $B<B9TJQ495!G=(B (gadget) $B$N@_Dj(B"
+(defgroup skk-gadget nil "SKK 実行変換機能 (gadget) の設定"
   :prefix "skk-"
   :group 'skk)
 
-(defgroup skk-hint nil "SKK $B%R%s%HIU$-JQ495!G=$N@_Dj(B"
+(defgroup skk-hint nil "SKK ヒント付き変換機能の設定"
   :prefix "skk-"
   :group 'skk)
 
-(defgroup skk-isearch nil "SKK $B%$%s%/%j%a%s%?%k!&%5!<%A$N@_Dj(B"
+(defgroup skk-isearch nil "SKK インクリメンタル・サーチの設定"
   :prefix "skk-isearch-"
   :group 'skk)
 
-(defgroup skk-jisx0201 nil "SKK JIS X 0201 ($B$*$b$KH>3Q%+%J(B) $B4XO"$N@_Dj(B"
+(defgroup skk-jisx0201 nil "SKK JIS X 0201 (おもに半角カナ) 関連の設定"
   :prefix "skk-jisx0201-"
   :group 'skk)
 
-(defgroup skk-jisx0213 nil "SKK JIS X 0213 $B4XO"$N@_Dj(B"
+(defgroup skk-jisx0213 nil "SKK JIS X 0213 関連の設定"
   :group 'skk)
 
-(defgroup skk-jisyo-edit-mode nil "SKK $B$N<-=qJT=85!G=$N@_Dj(B"
+(defgroup skk-jisyo-edit-mode nil "SKK の辞書編集機能の設定"
   :prefix "skk-"
   :group 'skk)
 
-(defgroup skk-kakasi nil "SKK $B$+$i(B kakasi $B$r;H$&@_Dj(B"
+(defgroup skk-kakasi nil "SKK から kakasi を使う設定"
   :prefix "skk-"
   :group 'skk)
 
-(defgroup skk-kcode nil "SKK $BJ8;z%3!<%I$r07$&@_Dj(B"
+(defgroup skk-kcode nil "SKK 文字コードを扱う設定"
   :prefix "skk-"
   :group 'skk)
 
-(defgroup skk-look nil "SKK $B$+$i(B look $B%3%^%s%I$rMxMQ$9$k@_Dj(B"
+(defgroup skk-look nil "SKK から look コマンドを利用する設定"
   :prefix "skk-look-"
   :group 'skk)
 
-(defgroup skk-lookup nil "SKK $B$+$i(B Lookup $B%Q%C%1!<%8$rMxMQ$9$k@_Dj(B"
+(defgroup skk-lookup nil "SKK から Lookup パッケージを利用する設定"
   :prefix "skk-lookup-"
   :group 'skk)
 
-(defgroup skk-num nil "SKK $B$G?t;z$r07$&$?$a$N@_Dj(B"
+(defgroup skk-num nil "SKK で数字を扱うための設定"
   :prefix "skk-num-"
   :group 'skk)
 
-(defgroup skk-server nil "$B<-=q%5!<%P$H$NDL?.$K4X$9$k@_Dj(B"
+(defgroup skk-server nil "辞書サーバとの通信に関する設定"
   :prefix "skk-server-"
   :group 'skk)
 
-(defgroup skk-sticky nil "SKK $BJQ490LCV;XDjJ}<0$N@_Dj(B"
+(defgroup skk-sticky nil "SKK 変換位置指定方式の設定"
   :prefix "skk-sticky-"
   :group 'skk)
 
-(defgroup skk-study nil "SKK $B3X=,5!G=$N@_Dj(B"
+(defgroup skk-study nil "SKK 学習機能の設定"
   :prefix "skk-study-"
   :group 'skk)
 
-(defgroup skk-tankan nil "SKK $BC14A;zJQ495!G=$N@_Dj(B"
+(defgroup skk-tankan nil "SKK 単漢字変換機能の設定"
   :prefix "skk-tankan-"
   :group 'skk)
 
-(defgroup skk-tooltip nil "SKK $B%D!<%k%F%#%C%WI=<($N@_Dj(B"
+(defgroup skk-tooltip nil "SKK ツールティップ表示の設定"
   :prefix "skk-tooltip-"
   :group 'skk)
 
-(defgroup skk-tut nil "SKK $B%A%e!<%H%j%"%k$N@_Dj(B"
+(defgroup skk-tut nil "SKK チュートリアルの設定"
   :prefix "skk-tut-"
   :group 'skk)
 
-(defgroup skk-viper nil "SKK/Viper $B4XO"$N@_Dj(B"
+(defgroup skk-viper nil "SKK/Viper 関連の設定"
   :prefix "skk-viper-"
   :group 'skk)
 
-(defgroup skk-act nil "SKK $B$G3HD%%m!<%^;zF~NO(B ACT $B$r;H$&@_Dj(B"
+(defgroup skk-act nil "SKK で拡張ローマ字入力 ACT を使う設定"
   :prefix "skk-act-"
   :group 'skk-input-enhanced)
 
-(defgroup skk-azik nil "SKK $B$G3HD%%m!<%^;zF~NO(B AZIK $B$r;H$&@_Dj(B"
+(defgroup skk-azik nil "SKK で拡張ローマ字入力 AZIK を使う設定"
   :prefix "skk-azik-"
   :group 'skk-input-enhanced)
 
-(defgroup skk-kanagaki nil "SKK $B$+$JF~NO$N@_Dj(B"
+(defgroup skk-kanagaki nil "SKK かな入力の設定"
   :prefix "skk-kanagaki-"
   :group 'skk-input-enhanced)
 
-(defgroup skk-nicola nil "SKK $B?F;X%7%U%HF~NO$N@_Dj(B"
+(defgroup skk-nicola nil "SKK 親指シフト入力の設定"
   :prefix "skk-nicola-"
   :group 'skk-kanagaki)
 
@@ -264,76 +264,76 @@ CODING $B$,(B non-nil $B$G$"$l$P!"8D?M<-=q$KE,MQ$5$l$k(B CODING $B$rJV$9(B
                       'light))))
             (t
              nil)))
-  "*SKK $B$NI8=`$N%U%'%$%9?'$r7h$a$k$?$a$NGX7J?'$K4X$9$k>pJs!#(B
-$BI8=`$G$O(B `frame-background-mode' $B$r@_Dj$7$F$$$k>l9g$O$=$l$K=>$$!"(B
-$B@_Dj$7$F$$$J$$>l9g$OFH<+$NJ}K!$G(B `light' $B$+(B `dark' $B$+$r7h$a$k!#(B
-$B$?$@$7!"%?!<%_%J%k$G(B Emacs $B$rMxMQ$7$F$$$k>l9g$OH=Dj$G$-$:!"(B
-$B%f!<%6$N0U?^$H9g$o$J$$$+$b$7$l$J$$$N$G!"$3$N%*%W%7%g%s$+(B
-`frame-background-mode' $B$r$"$i$+$8$a@_Dj$7$F$*$/$3$H$,K>$^$7$$!#(B
-$B$3$N%*%W%7%g%s$O(B ~/.skk $B$K@_Dj$7$F$bH?1G$5$l$J$$!#(B~/.emacs.d/init.el $B$+(B
-\\[customize] $B$K$F!"(BSKK $B$,FI$_9~$^$l$kA0$K@_Dj$9$k$3$H$,I,MW!#(B"
+  "*SKK の標準のフェイス色を決めるための背景色に関する情報。
+標準では `frame-background-mode' を設定している場合はそれに従い、
+設定していない場合は独自の方法で `light' か `dark' かを決める。
+ただし、ターミナルで Emacs を利用している場合は判定できず、
+ユーザの意図と合わないかもしれないので、このオプションか
+`frame-background-mode' をあらかじめ設定しておくことが望ましい。
+このオプションは ~/.skk に設定しても反映されない。~/.emacs.d/init.el か
+\\[customize] にて、SKK が読み込まれる前に設定することが必要。"
   :type '(choice (const dark)
                  (const light)
-                 (const :tag "$B<+F0$G7h$a$k(B" nil))
+                 (const :tag "自動で決める" nil))
   :group 'skk-basic
   :group 'skk-visual)
 
 ;;; skk.el related.
 (defcustom skk-user-directory nil
-  "*SKK $B$N@_Dj%U%!%$%k$J$I$rCV$/%G%#%l%/%H%jL>!#(B
-$B3F<o@_Dj%U%!%$%k$r$R$H$D$N%G%#%l%/%H%j$K$^$H$a$?$$>l9g$K@_Dj$9$k!#(B
+  "*SKK の設定ファイルなどを置くディレクトリ名。
+各種設定ファイルをひとつのディレクトリにまとめたい場合に設定する。
 
-  ($BNc(B) (setq skk-user-directory \"~/.ddskk\")
+  (例) (setq skk-user-directory \"~/.ddskk\")
 "
-  :type '(radio (directory :tag "$B%G%#%l%/%H%jL>(B" "~/.ddskk")
-                (const :tag "$B@_Dj$7$J$$(B" nil))
+  :type '(radio (directory :tag "ディレクトリ名" "~/.ddskk")
+                (const :tag "設定しない" nil))
   :group 'skk-basic)
 
 (defcustom skk-init-file (if skk-user-directory
                              (expand-file-name "init" skk-user-directory)
                            (convert-standard-filename "~/.skk"))
-  "*SKK $B$N=i4|@_Dj$r5-=R$9$k%U%!%$%kL>!#(BSKK $B$r5/F0$7$?:G=i$N0lEY$@$1FI$_(B
-$B9~$^$l$k!#$3$N%U%!%$%k$K5-=R$9$kBe$o$j$K(B ~/.emacs.d/init.el $B$K(B SKK $B$N3F<o=i4|@_Dj$r(B
-$B5-=R$9$k$3$H$b2DG=$@$,!"8e<T$N>l9g$O(B \\[skk-restart] $B$G$OH?1G$5$l$J$$!#(B
+  "*SKK の初期設定を記述するファイル名。SKK を起動した最初の一度だけ読み
+込まれる。このファイルに記述する代わりに ~/.emacs.d/init.el に SKK の各種初期設定を
+記述することも可能だが、後者の場合は \\[skk-restart] では反映されない。
 
-~/.emacs.d/init.el $B$G(B $BJQ?t(B `skk-byte-compile-init-file' $B$r@_Dj$9$k$3$H$G(B `skk-init-file' $B$r(B
-$B<+F0E*$K%P%$%H%3%s%Q%$%k$9$k$3$H$b2DG=!#(B"
+~/.emacs.d/init.el で 変数 `skk-byte-compile-init-file' を設定することで `skk-init-file' を
+自動的にバイトコンパイルすることも可能。"
   ;;"*Name of the SKK initialization file.
   ;;From skk.el 9.x on all customization may be done in ~/.emacs."
-  :type '(file :tag "$B%U%!%$%kL>(B")
+  :type '(file :tag "ファイル名")
   :group 'skk-basic)
 
 (defcustom skk-japanese-message-and-error nil
-  "*Non-nil $B$G$"$l$P!"(BSKK $B$N%a%C%;!<%8$H%(%i!<$rF|K\8l$GI=<($9$k!#(B
-nil $B$G$"$l$P!"1Q8l$GI=<($9$k!#(B"
+  "*Non-nil であれば、SKK のメッセージとエラーを日本語で表示する。
+nil であれば、英語で表示する。"
   :type 'boolean
   :group 'skk-basic)
 
 (defcustom skk-version-codename-ja nil
-  "*Non-nil $B$G$"$l$P!"4X?t(B `skk-version' $B$G$N%3!<%I%M!<%`$rF|K\8l$GI=<($9$k!#(B"
+  "*Non-nil であれば、関数 `skk-version' でのコードネームを日本語で表示する。"
   :type 'boolean
   :group 'skk-basic)
 
 (defcustom skk-jisyo-fix-order nil
-  "*Non-nil $B$G$"$l$P!"3NDj$N:]$K8D?M<-=q$NF12;8l$N=g=x$rJQ99$;$:!"(B
-$B8D?M<-=q$K?75,DI2C$9$k:]$O4{=P8l$N8e$KDI2C$9$k!#(B"
+  "*Non-nil であれば、確定の際に個人辞書の同音語の順序を変更せず、
+個人辞書に新規追加する際は既出語の後に追加する。"
   :type 'boolean
   :group 'skk-dictionary)
 
 (defcustom skk-kakutei-jisyo nil
-  ;; $B%=!<%H$5$l$F$$$kI,MW$,$"$k$+$I$&$+$O@_Dj<!Bh$@$,!"$=$3$^$G@bL@$9$k$N$OLLE](B
-  ;; (FILE . CODE) $B$N7A<0$b$$$1$k$O$:(B ($B$=$N$h$&$J@_Dj$N$7$+$?$ONI$/$J$$(B?)
-  "*$B!V3NDjJQ49!W$G8!:w$9$k<-=q!#(B
-$B8+=P$78l$O!"%=!<%H$5$l$F$$$J$1$l$P$J$i$J$$!#(B
-Non-nil $B$G$"$l$P!";XDj$5$l$?<-=q$r%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#(B
-$B3F8+=P$78l$N:G=i$N%(%s%H%j$G3NDj$5$l$k!#(B
-$B3NDj%"%s%I%%;~$K$O(B 2 $BHVL\0J9_$N%(%s%H%j$bMxMQ$G$-$k$,!"(B
-$B$3$N;EMM$OJQ99$5$l$k2DG=@-$b$"$j!"$^$?3NDj<-=q$NK\<A$HL54X78$G$"$k!#(B
+  ;; ソートされている必要があるかどうかは設定次第だが、そこまで説明するのは面倒
+  ;; (FILE . CODE) の形式もいけるはず (そのような設定のしかたは良くない?)
+  "*「確定変換」で検索する辞書。
+見出し語は、ソートされていなければならない。
+Non-nil であれば、指定された辞書をバッファに読み込み、検索を行う。
+各見出し語の最初のエントリで確定される。
+確定アンドゥ時には 2 番目以降のエントリも利用できるが、
+この仕様は変更される可能性もあり、また確定辞書の本質と無関係である。
 
-$B4X?t(B `skk-search-kakutei-jisyo-file' $B$N0z?t$H$7$F;HMQ$5$l$k!#(B
-$B3NDjJQ495!G=$rMxMQ$9$k>l9g$K$O!"(B
+関数 `skk-search-kakutei-jisyo-file' の引数として使用される。
+確定変換機能を利用する場合には、
   (skk-search-kakutei-jisyo-file skk-kakutei-jisyo 10000 t)
-$B$N$h$&$JMWAG$r(B `skk-search-prog-list' $B$N@hF,$KG[CV$9$k$3$H!#(B"
+のような要素を `skk-search-prog-list' の先頭に配置すること。"
   ;;  "*The first dictionary to be searched.
   ;;If non-nil, and this variable is used as a component of
   ;;`skk-search-prog-list', the indicated dictionary is read into a
@@ -343,22 +343,22 @@ Non-nil $B$G$"$l$P!";XDj$5$l$?<-=q$r%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#(B
   ;;present the second and following entries are ignored.
   ;;By setting the value of `skk-search-prog-list' the dictionaries
   ;;searched and the order of search can be changed."
-  :type '(radio (file :tag "$B<-=q%U%!%$%kL>(B")
-                (const :tag "$B;XDj$7$J$$(B" nil))
+  :type '(radio (file :tag "辞書ファイル名")
+                (const :tag "指定しない" nil))
   :group 'skk-dictionary)
 
 (defcustom skk-initial-search-jisyo nil
-  ;; $B%=!<%H$5$l$F$$$kI,MW$,$"$k$+$I$&$+$O@_Dj<!Bh$@$,!"$=$3$^$G@bL@$9$k$N$OLLE](B
-  ;; (FILE . CODE) $B$N7A<0$b$$$1$k$O$:(B
-  "*$B8D?M<-=q$N8!:w$NA0$K8!:w$9$k<-=q!#(B
-$B8+=P$78l$O!"%=!<%H$5$l$F$$$J$1$l$P$J$i$J$$!#(B
-Non-nil $B$G$"$l$P!";XDj$5$l$?<-=q$r8!:w$N$?$a%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#(B
+  ;; ソートされている必要があるかどうかは設定次第だが、そこまで説明するのは面倒
+  ;; (FILE . CODE) の形式もいけるはず
+  "*個人辞書の検索の前に検索する辞書。
+見出し語は、ソートされていなければならない。
+Non-nil であれば、指定された辞書を検索のためバッファに読み込み、検索を行う。
 
-`skk-search-prog-list' $B$K$*$$$F!"(B
+`skk-search-prog-list' において、
   (skk-search-jisyo-file skk-initial-search-jisyo 10000 t)
-$B$N$h$&$JMWAG$,(B
+のような要素が
   (skk-search-jisyo-file skk-jisyo 0 t)
-$B$h$j@h$KG[CV$5$l$F$$$k;v$K$h$j$=$N0UL#$r@.$7$F$$$k!#(B"
+より先に配置されている事によりその意味を成している。"
   ;;  "*This dictionary is searched before the user's personal dictionary.
   ;;The keys must be sorted.
   ;;If non-nil, and this variable is used as a component of
@@ -366,73 +366,73 @@ Non-nil $B$G$"$l$P!";XDj$5$l$?<-=q$r8!:w$N$?$a%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#
   ;;buffer and searched.
   ;;By setting the value of `skk-search-prog-list' the dictionaries
   ;;searched and the order of search can be changed."
-  :type '(radio (file :tag "$B<-=q%U%!%$%kL>(B")
-                (const :tag "$B;XDj$7$J$$(B" nil))
+  :type '(radio (file :tag "辞書ファイル名")
+                (const :tag "指定しない" nil))
   :group 'skk-dictionary)
 
 (defcustom skk-large-jisyo nil
-  ;; (FILE . CODE) $B$N7A<0$b$$$1$k$O$:(B
-  "*$B8D?M<-=q$N8!:w$N8e$K8!:w$9$k<-=q!#(B
-$B8+=P$78l$O!"%=!<%H$5$l$F$$$J$1$l$P$J$i$J$$!#(B
-Non-nil $B$G$"$l$P!";XDj$5$l$?<-=q$r8!:w$N$?$a%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#(B"
-  :type `(radio (file :tag "$B<-=q%U%!%$%kL>(B"
+  ;; (FILE . CODE) の形式もいけるはず
+  "*個人辞書の検索の後に検索する辞書。
+見出し語は、ソートされていなければならない。
+Non-nil であれば、指定された辞書を検索のためバッファに読み込み、検索を行う。"
+  :type `(radio (file :tag "辞書ファイル名"
                       ,(or (locate-file "skk/SKK-JISYO.L"
                                         (list (expand-file-name "../../.."
                                                                 data-directory)))
                            (locate-file "skk/SKK-JISYO.L"
                                         (list data-directory))
                            ""))
-                (const :tag "$B;XDj$7$J$$(B" nil))
+                (const :tag "指定しない" nil))
   :group 'skk-dictionary)
 
 (defcustom skk-aux-large-jisyo nil
-  ;; (FILE . CODE) $B$N7A<0$b$$$1$k$O$:(B
-  "*$B<-=q%5!<%P$,;H$($J$$;~$K!"Be$o$j$K8!:w$9$k<-=q!#(B
-$B8+=P$78l$O!"%=!<%H$5$l$F$$$J$1$l$P$J$i$J$$!#(B
-Non-nil $B$G$"$l$P!"<-=q%5!<%P$,(B active $B$G$J$$;~$K!"(B
-$B;XDj$5$l$?<-=q$r%P%C%U%!$KFI$_9~$_!"8!:w$r9T$&!#(B"
-  :type `(radio (file :tag "$B<-=q%U%!%$%kL>(B"
+  ;; (FILE . CODE) の形式もいけるはず
+  "*辞書サーバが使えない時に、代わりに検索する辞書。
+見出し語は、ソートされていなければならない。
+Non-nil であれば、辞書サーバが active でない時に、
+指定された辞書をバッファに読み込み、検索を行う。"
+  :type `(radio (file :tag "辞書ファイル名"
                       ,(or (locate-file "skk/SKK-JISYO.L"
                                         (list (expand-file-name "../../.."
                                                                 data-directory)))
                            (locate-file "skk/SKK-JISYO.L"
                                         (list data-directory))
                            ""))
-                (const :tag "$B;XDj$7$J$$(B" nil))
+                (const :tag "指定しない" nil))
   :group 'skk-dictionary
   :group 'skk-server)
 
 (defcustom skk-inhibit-ja-dic-search nil
-  "*$B!V(BGNU Emacs $BIUB0$N<-=q$rMQ$$$?8!:w!W$N6X;_$r;X<($9$k%*%W%7%g%s!#(B
-GNU Emacs $B$K$O(B SKK-JISYO.L $B$r85$KJQ49$5$l$?(B ja-dic.el $B$H$$$&<-=q$,IUB0$9$k!#(B
-$B$3$l$rMQ$$$FDL>o$N$+$J4A;zJQ49(B ($BAw$j$"$j!"Aw$j$J$7!"@\F,<-!"@\Hx<-(B) $B$,2DG=(B
-$B$G$"$k(B ($B$?$@$7(B SKK-JISYO.L $B$K$h$k1Q?tJQ49!"?tCMJQ49$J$I$O$G$-$J$$(B)$B!#(B
-DDSKK 14.2 $B$h$j!V(Bja-dic.el $B8!:w5!G=(B `skk-search-ja-dic'$B!W$,DI2C$5$l$?!#(B
-$B$3$N(B `skk-search-ja-dic' $B$O!"(B `skk-large-jisyo'$B!"(B`skk-aux-large-jisyo'$B!"(B
-`skk-cdb-large-jisyo' $B5Z$S(B `skk-server-host' $B$NA4$F$,L58z$J>l9g$KM-8z$H$J$k(B
-$B$,!"$"$i$f$k>lLL$G6X;_$7$?$$>l9g$O!"$3$NJQ?t$r(B Non-nil $B$K@_Dj$9$k!#(B"
+  "*「GNU Emacs 付属の辞書を用いた検索」の禁止を指示するオプション。
+GNU Emacs には SKK-JISYO.L を元に変換された ja-dic.el という辞書が付属する。
+これを用いて通常のかな漢字変換 (送りあり、送りなし、接頭辞、接尾辞) が可能
+である (ただし SKK-JISYO.L による英数変換、数値変換などはできない)。
+DDSKK 14.2 より「ja-dic.el 検索機能 `skk-search-ja-dic'」が追加された。
+この `skk-search-ja-dic' は、 `skk-large-jisyo'、`skk-aux-large-jisyo'、
+`skk-cdb-large-jisyo' 及び `skk-server-host' の全てが無効な場合に有効となる
+が、あらゆる場面で禁止したい場合は、この変数を Non-nil に設定する。"
   :type 'boolean
   :group 'skk-dictionary)
 
 (defcustom skk-extra-jisyo-file-list nil
-  "*$B%a%$%s<-=q$NB>$K8!:w$9$k<-=q$N%j%9%H$r;XDj$9$k!#(B
-$B$$$:$l$N<-=q$b!"8+=P$78l$O%=!<%H$5$l$F$$$J$1$l$P$J$i$J$$!#(B
+  "*メイン辞書の他に検索する辞書のリストを指定する。
+いずれの辞書も、見出し語はソートされていなければならない。
 
   (setq skk-extra-jisyo-file-list
         (list \\='(\"/usr/share/skk/SKK-JISYO.JIS3_4\" . euc-jisx0213)
              \"/usr/share/skk/SKK-JISYO.zipcode\"))
 
-SKK $B<-=q$K$O(B SKK OpenLab $B$GG[I[$7$F$$$k$b$N!"Bh;0<T$K$h$k$b$N$J$IB??t$"$k$,!"(B
-$B%a%$%s<-=q(B (SKK-JISYO.L $B$d<-=q%5!<%P$J$I(B) $B$NB>$K8!:w$7$?$$<-=q$N%U%!%$%kL>$N(B
-$B%j%9%H$r;XDj$9$k!#%U%!%$%kL>$NBe$o$j$K!"%U%!%$%kL>$H%3!<%I7O$N%Z%"$r;XDj$9$k(B
-$B$3$H$b$G$-$k!#<-=q$O;XDj$5$l$?=g$K8!:w$5$l$k!#(B"
-  :type '(repeat (file :tag "$B<-=q%U%!%$%kL>(B"))
+SKK 辞書には SKK OpenLab で配布しているもの、第三者によるものなど多数あるが、
+メイン辞書 (SKK-JISYO.L や辞書サーバなど) の他に検索したい辞書のファイル名の
+リストを指定する。ファイル名の代わりに、ファイル名とコード系のペアを指定する
+こともできる。辞書は指定された順に検索される。"
+  :type '(repeat (file :tag "辞書ファイル名"))
   :group 'skk-dictionary)
 
 (defcustom skk-itaiji-jisyo nil
-  "$B0[BN;z<-=q(B `SKK-JISYO.itaiji', `SKK-JISYO.itaiji.JIS3_4' $B$X$N%Q%9$r;XDj$9$k!#(B"
-  :type '(radio (file :tag "$B<-=q%U%!%$%kL>(B")
-                (const :tag "$B;XDj$7$J$$(B" nil))
+  "異体字辞書 `SKK-JISYO.itaiji', `SKK-JISYO.itaiji.JIS3_4' へのパスを指定する。"
+  :type '(radio (file :tag "辞書ファイル名")
+                (const :tag "指定しない" nil))
   :group 'skk-dictionary)
 
 (defcustom skk-search-prog-list
@@ -449,100 +449,100 @@ SKK $B<-=q$K$O(B SKK OpenLab $B$GG[I[$7$F$$$k$b$N!"Bh;0<T$K$h$k$b$N$J$IB??t$"
     (skk-search-katakana-maybe)
     (skk-search-sagyo-henkaku-maybe)
     (skk-search-itaiji))
-  "*$B8!:w4X?t!"8!:wBP>]$N<-=q$r7hDj$9$k$?$a$N%j%9%H!#(B
+  "*検索関数、検索対象の辞書を決定するためのリスト。
 
-$B$3$NJQ?t$NCM$r<jF0$GJQ99$9$k$H!"(BSKK $B$NF0:n$K1F6A$9$k2DG=@-$,$"$k$N$GCm0U$rMW$9$k!#(B
+この変数の値を手動で変更すると、SKK の動作に影響する可能性があるので注意を要する。
 
-$BJQ49$7$?8uJd$rJV$9(B S $B<0$r%j%9%H$N7A$KI=5-$7$?$b$N!#(B
-$B4X?t(B `skk-search' $B$,(B `skk-search-prog-list' $B$N(B car $B$+$i8eJ}8~$X=gHV$K(B S $B<0$r(B
-$BI>2A$9$k$3$H$K$h$C$F$+$J4A;zJQ49$r<B9T$9$k!#(B
+変換した候補を返す S 式をリストの形に表記したもの。
+関数 `skk-search' が `skk-search-prog-list' の car から後方向へ順番に S 式を
+評価することによってかな漢字変換を実行する。
 
-$BI,MW$K1~$8$F(B
+必要に応じて
   (skk-okuri-search)
   (skk-look)
   (skk-search-server skk-aux-large-jisyo 10000)
-$B$3$l$i$N%W%m%0%i%`!JMWAG!K$,<+F0E*$KDI2C$5$l$k!#(B"
-  :type '(repeat (sexp :tag "S$B<0(B"))
+これらのプログラム（要素）が自動的に追加される。"
+  :type '(repeat (sexp :tag "S式"))
   :group 'skk-dictionary)
 
 (defcustom skk-search-prog-list-1 nil
-  "*$B8!:w4X?t!"8!:wBP>]$N<-=q$r7hDj$9$k$?$a$N%j%9%H!#(B
-C-1 SPC $B$G;HMQ$5$l$k(B"
-  :type '(repeat (sexp :tag "S$B<0(B"))
+  "*検索関数、検索対象の辞書を決定するためのリスト。
+C-1 SPC で使用される"
+  :type '(repeat (sexp :tag "S式"))
   :group 'skk-dictionary)
 
 (defcustom skk-search-prog-list-2 nil
-  "*$B8!:w4X?t!"8!:wBP>]$N<-=q$r7hDj$9$k$?$a$N%j%9%H!#(B
-C-2 SPC $B$G;HMQ$5$l$k(B"
-  :type '(repeat (sexp :tag "S$B<0(B"))
+  "*検索関数、検索対象の辞書を決定するためのリスト。
+C-2 SPC で使用される"
+  :type '(repeat (sexp :tag "S式"))
   :group 'skk-dictionary)
 
 (defcustom skk-search-prog-list-3 nil
-  "*$B8!:w4X?t!"8!:wBP>]$N<-=q$r7hDj$9$k$?$a$N%j%9%H!#(B
-C-3 SPC $B$G;HMQ$5$l$k(B"
-  :type '(repeat (sexp :tag "S$B<0(B"))
+  "*検索関数、検索対象の辞書を決定するためのリスト。
+C-3 SPC で使用される"
+  :type '(repeat (sexp :tag "S式"))
   :group 'skk-dictionary)
 
 (defcustom skk-search-prog-list-4 nil
-  "*$B8!:w4X?t!"8!:wBP>]$N<-=q$r7hDj$9$k$?$a$N%j%9%H!#(B
-C-4 SPC $B$G;HMQ$5$l$k(B"
-  :type '(repeat (sexp :tag "S$B<0(B"))
+  "*検索関数、検索対象の辞書を決定するためのリスト。
+C-4 SPC で使用される"
+  :type '(repeat (sexp :tag "S式"))
   :group 'skk-dictionary)
 
 (defcustom skk-search-prog-list-5 '((skk-search-tankanji))
-  "*$B8!:w4X?t!"8!:wBP>]$N<-=q$r7hDj$9$k$?$a$N%j%9%H!#(B
-C-5 SPC $B$G;HMQ$5$l$k(B"
-  :type '(repeat (sexp :tag "S$B<0(B"))
+  "*検索関数、検索対象の辞書を決定するためのリスト。
+C-5 SPC で使用される"
+  :type '(repeat (sexp :tag "S式"))
   :group 'skk-dictionary)
 
 (defcustom skk-search-prog-list-6 '((skk-search-identity))
-  "*$B8!:w4X?t!"8!:wBP>]$N<-=q$r7hDj$9$k$?$a$N%j%9%H!#(B
-C-6 SPC $B$G;HMQ$5$l$k(B"
-  :type '(repeat (sexp :tag "S$B<0(B"))
+  "*検索関数、検索対象の辞書を決定するためのリスト。
+C-6 SPC で使用される"
+  :type '(repeat (sexp :tag "S式"))
   :group 'skk-dictionary)
 
 (defcustom skk-search-prog-list-7 '((skk-search-katakana))
-  "*$B8!:w4X?t!"8!:wBP>]$N<-=q$r7hDj$9$k$?$a$N%j%9%H!#(B
-C-7 SPC $B$G;HMQ$5$l$k(B"
-  :type '(repeat (sexp :tag "S$B<0(B"))
+  "*検索関数、検索対象の辞書を決定するためのリスト。
+C-7 SPC で使用される"
+  :type '(repeat (sexp :tag "S式"))
   :group 'skk-dictionary)
 
 (defcustom skk-search-prog-list-8 '((skk-search-hankaku-katakana))
-  "*$B8!:w4X?t!"8!:wBP>]$N<-=q$r7hDj$9$k$?$a$N%j%9%H!#(B
-C-8 SPC $B$G;HMQ$5$l$k(B"
-  :type '(repeat (sexp :tag "S$B<0(B"))
+  "*検索関数、検索対象の辞書を決定するためのリスト。
+C-8 SPC で使用される"
+  :type '(repeat (sexp :tag "S式"))
   :group 'skk-dictionary)
 
 (defcustom skk-search-prog-list-9 '((skk-search-jisx0208-romaji))
-  "*$B8!:w4X?t!"8!:wBP>]$N<-=q$r7hDj$9$k$?$a$N%j%9%H!#(B
-C-9 SPC $B$G;HMQ$5$l$k(B"
-  :type '(repeat (sexp :tag "S$B<0(B"))
+  "*検索関数、検索対象の辞書を決定するためのリスト。
+C-9 SPC で使用される"
+  :type '(repeat (sexp :tag "S式"))
   :group 'skk-dictionary)
 
 (defcustom skk-search-prog-list-0 '((skk-search-romaji))
-  "*$B8!:w4X?t!"8!:wBP>]$N<-=q$r7hDj$9$k$?$a$N%j%9%H!#(B
-C-0 SPC $B$G;HMQ$5$l$k(B"
-  :type '(repeat (sexp :tag "S$B<0(B"))
+  "*検索関数、検索対象の辞書を決定するためのリスト。
+C-0 SPC で使用される"
+  :type '(repeat (sexp :tag "S式"))
   :group 'skk-dictionary)
 
 (defcustom skk-count-jisyo-candidates-function
   'skk-count-jisyo-candidates-original
-  "*`skk-count-jisyo-candidates' $B$G;HMQ$9$k4X?t!#(B"
+  "*`skk-count-jisyo-candidates' で使用する関数。"
   :type 'function
   :group 'skk-dictionary)
 
 (defcustom skk-public-jisyo-to-be-searched-function
   'skk-public-jisyo-to-be-searched-original
-  "*`skk-public-jisyo-has-word-p' $B$G;HMQ$9$k4X?t!#(B"
+  "*`skk-public-jisyo-has-word-p' で使用する関数。"
   :type 'function
   :group 'skk-dictionary)
 
 (defcustom skk-jisyo (if skk-user-directory
                          (expand-file-name "jisyo" skk-user-directory)
                        (convert-standard-filename "~/.skk-jisyo"))
-  "*SKK $B$N8D?M<-=q!#(B"
-  :type '(radio (file :tag "$B<-=q%U%!%$%kL>(B")
-                (cons :tag "`skk-jisyo-code' $B$H0[$J$kJ8;z%3!<%I$r;HMQ$9$k>l9g(B"
+  "*SKK の個人辞書。"
+  :type '(radio (file :tag "辞書ファイル名")
+                (cons :tag "`skk-jisyo-code' と異なる文字コードを使用する場合"
                       (file :tag "PATH/TO/FILE")
                       (coding-system :tag "CODING-SYSTEM-NAME")))
   :group 'skk-private)
@@ -551,388 +551,388 @@ C-0 SPC $B$G;HMQ$5$l$k(B"
                                 (expand-file-name "jisyo.bak"
                                                   skk-user-directory)
                               (convert-standard-filename "~/.skk-jisyo.BAK"))
-  "*SKK $B$N8D?M<-=q$N%P%C%/%"%C%W%U%!%$%k!#(B"
-  :type '(file :tag "$B<-=q%U%!%$%kL>(B")
+  "*SKK の個人辞書のバックアップファイル。"
+  :type '(file :tag "辞書ファイル名")
   :group 'skk-private)
 
 (defcustom skk-jisyo-code nil
-  ;; $B8=:_$N<BAu$K$Y$C$?$j$J@bL@$ONI$/$J$$$+$b(B
-  "*$B<-=q%P%C%U%!$N%3!<%G%#%s%0%7%9%F%`!#(B
-$B4pK\E*$K$O(B coding system $BL>$r;XDj$9$k!#(B
-$BJ8;zNs(B \"euc\", \"ujis\", \"sjis\", \"jis\" $B$N;XDj$b<u$1IU$1$k(B (`skk-coding-system-alist')$B!#(B
-$B%G%U%)%k%H$O(B nil $B$G$"$j!"<-=q%P%C%U%!$N%3!<%G%#%s%0%7%9%F%`$O(B euc-jis-2004 $B$H$J$k(B (`skk-find-coding-system')$B!#(B
-$B8D?M<-=q$b$3$N%3!<%G%#%s%0%7%9%F%`$GJ]B8$5$l$k!#(B"
+  ;; 現在の実装にべったりな説明は良くないかも
+  "*辞書バッファのコーディングシステム。
+基本的には coding system 名を指定する。
+文字列 \"euc\", \"ujis\", \"sjis\", \"jis\" の指定も受け付ける (`skk-coding-system-alist')。
+デフォルトは nil であり、辞書バッファのコーディングシステムは euc-jis-2004 となる (`skk-find-coding-system')。
+個人辞書もこのコーディングシステムで保存される。"
   :type '(radio coding-system
-                (radio :tag "$B%3!<%I$NDL>N(B"
+                (radio :tag "コードの通称"
                        (const "euc")
                        (const "ujis")
                        (const "sjis")
                        (const "jis"))
-                (const :tag "$B;XDj$7$J$$(B" nil))
+                (const :tag "指定しない" nil))
   :group 'skk-private)
 
 (defcustom skk-share-private-jisyo nil "\
-*Non-nil $B$G$"$l$P!"8D?M<-=q$r99?7$9$k:]$K!VJ#?t$N(B SKK $B%W%m%;%9$,FCDj$N8D(B
-$B?M<-=q$r6&M-$7$F$$$k!W$r9MN8$7$?>e$G=hM}$r9T$&!#(B
-SKK $B5/F08e$K$3$NJQ?t$NCM$rJQ99$7$?>l9g$O(B \\[skk-restart] $B$GH?1G$5$;$k;v!#(B"
+*Non-nil であれば、個人辞書を更新する際に「複数の SKK プロセスが特定の個
+人辞書を共有している」を考慮した上で処理を行う。
+SKK 起動後にこの変数の値を変更した場合は \\[skk-restart] で反映させる事。"
   :type 'boolean
   :group 'skk-basic
   :group 'skk-private)
 
 (defcustom skk-jisyo-save-count 50
-  "*$B?tCM$G$"$l$P!"$=$N2s?t$@$18D?M<-=q$,99?7$5$l$?$H$-$K<+F0E*$K%;!<%V$9$k!#(B
-nil $B$G$"$l$P!"8D?M<-=q$N%*!<%H%;!<%V$r9T$o$J$$!#(B
-SKK $B5/F08e$G!"JQ?t(B `skk-share-private-jisyo' $B$,(B non-nil $B$J>l9g(B
-$B$K(B `skk-jisyo-save-count' $B$NCM$rJQ99$7$?>l9g$O(B
-\\[skk-restart] $B$GH?1G$5$;$k;v!#(B"
-  :type '(radio (integer :tag "$B@0?t(B" 50)
-                (const :tag "$B;XDj$7$J$$(B" nil))
+  "*数値であれば、その回数だけ個人辞書が更新されたときに自動的にセーブする。
+nil であれば、個人辞書のオートセーブを行わない。
+SKK 起動後で、変数 `skk-share-private-jisyo' が non-nil な場合
+に `skk-jisyo-save-count' の値を変更した場合は
+\\[skk-restart] で反映させる事。"
+  :type '(radio (integer :tag "整数" 50)
+                (const :tag "指定しない" nil))
   :group 'skk-private)
 
 (defcustom skk-count-private-jisyo-candidates-exactly nil
-  "*Non-nil $B$G$"$l$P!"(BEmacs $B$r=*N;$9$k$H$-$K(B `skk-record-file' $B$KJ]B8$5$l(B
-$B$kE}7W>pJs$N!V8l?t!W$r@53N$K?t$($k!#(B
-nil $B$G$"$l$P!"(B1 $B9T$KJ#?t$N8uJd$,$"$C$F$b(B 1 $B8uJd$H$7$F?t$($k!#(B"
+  "*Non-nil であれば、Emacs を終了するときに `skk-record-file' に保存され
+る統計情報の「語数」を正確に数える。
+nil であれば、1 行に複数の候補があっても 1 候補として数える。"
   :type 'boolean
   :group 'skk-private)
 
 (defcustom skk-compare-jisyo-size-when-saving t
-  "*Non-nil $B$G$"$l$P!"(B`skk-jisyo' $B$N%;!<%V;~$K%U%!%$%k%5%$%:$r%A%'%C%/$9$k!#(B
-$BA02s%;!<%V$7$?(B `skk-jisyo' $B$H:#2s%;!<%V$7$h$&$H$9$k<-=q$H$N%5%$%:$rHf3S$7!"(B
-$B8e<T$NJ}$,Bg$-$$$H$-$K%f!<%6!<$K%;!<%V$rB3$1$k$+$I$&$+$N3NG'$r5a$a$k!#(B"
+  "*Non-nil であれば、`skk-jisyo' のセーブ時にファイルサイズをチェックする。
+前回セーブした `skk-jisyo' と今回セーブしようとする辞書とのサイズを比較し、
+後者の方が大きいときにユーザーにセーブを続けるかどうかの確認を求める。"
   :type 'boolean
   :group 'skk-private)
 
 (defcustom skk-search-excluding-word-pattern-function nil
-  "*$B!V!H8D?M<-=q$K<h$j9~$^$J$$J8;zNs$N%Q%?!<%s!I$r8!:w$9$k>r7o!W$r;XDj$9$k!#(B
-$B$3$NJQ?t$K$O!"0z?t#18D$N4X?t!JKt$O4X?t$N%j%9%H!K$rBeF~$9$k!#(B
-$BBeF~$7$?4X?t$O!"3NDj$7$?J8;zNs$r0z?t$K(B `skk-update-jisyo-p' $BFb$G(B `funcall' $B$5$l$k!#(B
-$B$3$NJQ?t$N%G%U%)%k%H$O(B nil $B$G$"$k$?$a!"4X?t(B `skk-update-jisyo-p' $B$O(B t $B$rJV$9!#(B
+  "*「“個人辞書に取り込まない文字列のパターン”を検索する条件」を指定する。
+この変数には、引数１個の関数（又は関数のリスト）を代入する。
+代入した関数は、確定した文字列を引数に `skk-update-jisyo-p' 内で `funcall' される。
+この変数のデフォルトは nil であるため、関数 `skk-update-jisyo-p' は t を返す。
 
-$B4pK\E*$K!"$3$NJQ?t$O%U%C%/JQ?t$G$"$j!"$=$NCM$r@_Dj$7$?$$>l9g$K$O(B `add-hook'
-$B$GDI2C$9$k$+(B `remove-hook' $B$G:o=|$9$k!#(B
+基本的に、この変数はフック変数であり、その値を設定したい場合には `add-hook'
+で追加するか `remove-hook' で削除する。
 
-SKK $B$G$O!"$+$J4A;zJQ49!&3NDj$r9T$C$?J8;zNs$OA4$F8D?M<-=q$K<h$j9~$^$l$k$,!"(B
-$B$3$NJQ?t$G;XDj$5$l$?4X?t$,(B non-nil $B$rJV$9$H!"$=$NJ8;zNs$O8D?M<-=q$K<h$j9~(B
-$B$^$l$J$$!#(B
+SKK では、かな漢字変換・確定を行った文字列は全て個人辞書に取り込まれるが、
+この変数で指定された関数が non-nil を返すと、その文字列は個人辞書に取り込
+まれない。
 
-$BNc$($P!"$3$NJQ?t$K2<5-$N$h$&$J(B lambda $B4X?t$r;XDj$9$k$H!"$+$J4A;zJQ49$K$h(B
-$B$C$F(B (SKK abbrev mode $B$G$NJQ49$r=|$/(B) $B%+%?%+%J$N$_$+$i@.$kJ8;zNs$rF@$F3N(B
-$BDj$7$F$b!"$=$l$r8D?M<-=q$K<h$j9~$^$J$$!#(B
+例えば、この変数に下記のような lambda 関数を指定すると、かな漢字変換によ
+って (SKK abbrev mode での変換を除く) カタカナのみから成る文字列を得て確
+定しても、それを個人辞書に取り込まない。
 
  (add-hook \\='skk-search-excluding-word-pattern-function
        (lambda (kakutei-word)
-           ;; $B$3$N4X?t$,(B non-nil $B$rJV$7$?$H$-$O!"$=$NJ8;zNs$O8D?M(B
-           ;; $B<-=q$K<h$j9~$^$l$J$$!#(B
+           ;; この関数が non-nil を返したときは、その文字列は個人
+           ;; 辞書に取り込まれない。
            (and
-            ;; $BAw$j$J$7JQ49$G!"(B
+            ;; 送りなし変換で、
             (not skk-okuri-char)
-            ;; $B3NDj8l$,%+%?%+%J$N$_$+$i9=@.$5$l$F$$$F!"(B
-            (string-match \"^[$B!<%!(B-$B%s(B]+$\" kakutei-word)
-            ;; SKK abbrev mode $B0J30$G$NJQ49$+!"(B
+            ;; 確定語がカタカナのみから構成されていて、
+            (string-match \"^[ーァ-ン]+$\" kakutei-word)
+            ;; SKK abbrev mode 以外での変換か、
             (or (not skk-abbrev-mode)
-            ;; $B8+=P$78l$,%+%?%+%J!"$R$i$,$J0J30$N$H$-!#(B
-            ;; ($B8e$G"&%^!<%/$rIU$1$?$H$-$O!"8+=P$78l$,1QJ8;z$G$b!"(B
-            ;; skk-abbrev-mode$B$,(B t $B$K$J$C$F$$$J$$(B)$B!#(B
-            (not (string-match \"^[^$B!<%!(B-$B%s$!(B-$B$s(B]+$\"
+            ;; 見出し語がカタカナ、ひらがな以外のとき。
+            ;; (後で▽マークを付けたときは、見出し語が英文字でも、
+            ;; skk-abbrev-modeが t になっていない)。
+            (not (string-match \"^[^ーァ-ンぁ-ん]+$\"
                                        skk-henkan-key))))))
 
-$B!V$+$J4A;zJQ49$K$h$C$F%+%?%+%J$r5a$a$?$$$,!"8D?M<-=q$K$O%+%?%+%J$N$_$N8u(B
-$BJd$r<h$j9~$_$?$/$J$$!W$J$I!"8D?M<-=q$,I,MW0J>e$KKD$l$k$N$rM^$($kL\E*$K;H(B
-$BMQ$G$-$k!#(B
+「かな漢字変換によってカタカナを求めたいが、個人辞書にはカタカナのみの候
+補を取り込みたくない」など、個人辞書が必要以上に膨れるのを抑える目的に使
+用できる。
 
-$B$J$*!"8D?M<-=q$K<h$j9~$^$J$$8+=P$78l$K$D$$$F$O!"Jd40$,8z$+$J$$$N$GCm0U$9(B
-$B$k$3$H!#(B"
+なお、個人辞書に取り込まない見出し語については、補完が効かないので注意す
+ること。"
   :type 'hook
   :group 'skk-private)
 
 (defcustom skk-update-jisyo-function 'skk-update-jisyo-original
-  "*$B$3$NJQ?t$,;X$94X?t$O!"4X?t(B `skk-update-jisyo' $B$K$F(B funcall $B$G<B9T$5$l$k!#(B"
+  "*この変数が指す関数は、関数 `skk-update-jisyo' にて funcall で実行される。"
   :type 'function
   :group 'skk-private)
 
 (defcustom skk-save-jisyo-function 'skk-save-jisyo-original
-  "*$B$3$NJQ?t$,;X$94X?t$O!"(B $B4X?t(B `skk-save-jisyo' $B$K$F(B funcall $B$G<B9T$5$l$k!#(B"
+  "*この変数が指す関数は、 関数 `skk-save-jisyo' にて funcall で実行される。"
   :type 'function
   :group 'skk-private)
 
 (defcustom skk-update-end-function nil
-  "*$B8D?M<-=q$N99?7=*N;;~$K%3!<%k$5$l$k4X?t!#(B
-HENKAN-BUFFER, MIDASI, OKURIGANA, WORD, PURGE $B$N(B 5 $B0z?t$rH<$J$C$F%3!<%k$5$l$k!#(B
-$B$3$N4X?t$O!"<-=q%P%C%U%!$G%3!<%k$5$l$k$N$G!"JQ49$r9T$C$?%P%C%U%!%m!<%+%k$J(B
-$B>pJs$r<h$j=P$7$?$$$H$-$O!"(BHENKAN-BUFFER $B$rMxMQ$9$k!#(B
-`skk-kakutei-initialize' $B$,%3!<%k$5$l$kA0$K$3$N4X?t$,%3!<%k$5$l$k$N$G!":G8e$N(B
-$B3NDj$K4X$9$k%U%i%0N`$O!"$3$N4X?t$NCf$+$i;2>H$9$k$3$H$,$G$-$k!#(B"
+  "*個人辞書の更新終了時にコールされる関数。
+HENKAN-BUFFER, MIDASI, OKURIGANA, WORD, PURGE の 5 引数を伴なってコールされる。
+この関数は、辞書バッファでコールされるので、変換を行ったバッファローカルな
+情報を取り出したいときは、HENKAN-BUFFER を利用する。
+`skk-kakutei-initialize' がコールされる前にこの関数がコールされるので、最後の
+確定に関するフラグ類は、この関数の中から参照することができる。"
   :type '(list symbol)
   :group 'skk-private)
 
 (defcustom skk-learn-combined-word nil
-  "*$B@\F,<-!"@\Hx<-$NF~NO$N7k2L$r<+F0E*$K3X=,$9$k$+$I$&$+$r@_Dj$9$k!#(B
-Non-nil $B$J$i$P!"@\F,<-$^$?$O@\Hx<-F~NO$N:]!"@\F,<-$^$?$O@\Hx<-$H7k9g$7$?(B
-$B8l$r<+F0E*$K3X=,$9$k!#(B"
+  "*接頭辞、接尾辞の入力の結果を自動的に学習するかどうかを設定する。
+Non-nil ならば、接頭辞または接尾辞入力の際、接頭辞または接尾辞と結合した
+語を自動的に学習する。"
   :type 'boolean
   :group 'skk-private)
 
 (defcustom skk-save-jisyo-instantly nil
-  "*non-nil $B$G$"$l$P!"C18lEPO?!JC18l:o=|!K$NETEY!"8D?M<-=q$rJ]B8$9$k!#(B"
+  "*non-nil であれば、単語登録（単語削除）の都度、個人辞書を保存する。"
   :type 'boolean
   :group 'skk-private)
 
 (defvar skk-jisyo-updated nil
-  "`skk-henkan-in-minibuff' ($BC18lEPO?(B) $B$5$l$l$P(B t $B$H$J$k!#(B
-`skk-update-jisyo' $B$G;2>H$7$F$$$k!#(B")
+  "`skk-henkan-in-minibuff' (単語登録) されれば t となる。
+`skk-update-jisyo' で参照している。")
 
 (defcustom skk-rom-kana-base-rule-list
-  '(("a" nil ("$B%"(B" . "$B$"(B"))
-    ("bb" "b" ("$B%C(B" . "$B$C(B"))
-    ("ba" nil ("$B%P(B" . "$B$P(B"))
-    ("be" nil ("$B%Y(B" . "$B$Y(B"))
-    ("bi" nil ("$B%S(B" . "$B$S(B"))
-    ("bo" nil ("$B%\(B" . "$B$\(B"))
-    ("bu" nil ("$B%V(B" . "$B$V(B"))
-    ("bya" nil ("$B%S%c(B" . "$B$S$c(B"))
-    ("bye" nil ("$B%S%'(B" . "$B$S$'(B"))
-    ("byi" nil ("$B%S%#(B" . "$B$S$#(B"))
-    ("byo" nil ("$B%S%g(B" . "$B$S$g(B"))
-    ("byu" nil ("$B%S%e(B" . "$B$S$e(B"))
-    ("cc" "c" ("$B%C(B" . "$B$C(B"))
-    ("cha" nil ("$B%A%c(B" . "$B$A$c(B"))
-    ("che" nil ("$B%A%'(B" . "$B$A$'(B"))
-    ("chi" nil ("$B%A(B" . "$B$A(B"))
-    ("cho" nil ("$B%A%g(B" . "$B$A$g(B"))
-    ("chu" nil ("$B%A%e(B" . "$B$A$e(B"))
-    ("cya" nil ("$B%A%c(B" . "$B$A$c(B"))
-    ("cye" nil ("$B%A%'(B" . "$B$A$'(B"))
-    ("cyi" nil ("$B%A%#(B" . "$B$A$#(B"))
-    ("cyo" nil ("$B%A%g(B" . "$B$A$g(B"))
-    ("cyu" nil ("$B%A%e(B" . "$B$A$e(B"))
-    ("dd" "d" ("$B%C(B" . "$B$C(B"))
-    ("da" nil ("$B%@(B" . "$B$@(B"))
-    ("de" nil ("$B%G(B" . "$B$G(B"))
-    ("dha" nil ("$B%G%c(B" . "$B$G$c(B"))
-    ("dhe" nil ("$B%G%'(B" . "$B$G$'(B"))
-    ("dhi" nil ("$B%G%#(B" . "$B$G$#(B"))
-    ("dho" nil ("$B%G%g(B" . "$B$G$g(B"))
-    ("dhu" nil ("$B%G%e(B" . "$B$G$e(B"))
-    ("di" nil ("$B%B(B" . "$B$B(B"))
-    ("do" nil ("$B%I(B" . "$B$I(B"))
-    ("du" nil ("$B%E(B" . "$B$E(B"))
-    ("dya" nil ("$B%B%c(B" . "$B$B$c(B"))
-    ("dye" nil ("$B%B%'(B" . "$B$B$'(B"))
-    ("dyi" nil ("$B%B%#(B" . "$B$B$#(B"))
-    ("dyo" nil ("$B%B%g(B" . "$B$B$g(B"))
-    ("dyu" nil ("$B%B%e(B" . "$B$B$e(B"))
-    ("e" nil ("$B%((B" . "$B$((B"))
-    ("ff" "f" ("$B%C(B" . "$B$C(B"))
-    ("fa" nil ("$B%U%!(B" . "$B$U$!(B"))
-    ("fe" nil ("$B%U%'(B" . "$B$U$'(B"))
-    ("fi" nil ("$B%U%#(B" . "$B$U$#(B"))
-    ("fo" nil ("$B%U%)(B" . "$B$U$)(B"))
-    ("fu" nil ("$B%U(B" . "$B$U(B"))
-    ("fya" nil ("$B%U%c(B" . "$B$U$c(B"))
-    ("fye" nil ("$B%U%'(B" . "$B$U$'(B"))
-    ("fyi" nil ("$B%U%#(B" . "$B$U$#(B"))
-    ("fyo" nil ("$B%U%g(B" . "$B$U$g(B"))
-    ("fyu" nil ("$B%U%e(B" . "$B$U$e(B"))
-    ("gg" "g" ("$B%C(B" . "$B$C(B"))
-    ("ga" nil ("$B%,(B" . "$B$,(B"))
-    ("ge" nil ("$B%2(B" . "$B$2(B"))
-    ("gi" nil ("$B%.(B" . "$B$.(B"))
-    ("go" nil ("$B%4(B" . "$B$4(B"))
-    ("gu" nil ("$B%0(B" . "$B$0(B"))
-    ("gya" nil ("$B%.%c(B" . "$B$.$c(B"))
-    ("gye" nil ("$B%.%'(B" . "$B$.$'(B"))
-    ("gyi" nil ("$B%.%#(B" . "$B$.$#(B"))
-    ("gyo" nil ("$B%.%g(B" . "$B$.$g(B"))
-    ("gyu" nil ("$B%.%e(B" . "$B$.$e(B"))
-    ;;("h" "" ("$B%*(B" . "$B$*(B"))
-    ("ha" nil ("$B%O(B" . "$B$O(B"))
-    ("he" nil ("$B%X(B" . "$B$X(B"))
-    ("hi" nil ("$B%R(B" . "$B$R(B"))
-    ("ho" nil ("$B%[(B" . "$B$[(B"))
-    ("hu" nil ("$B%U(B" . "$B$U(B"))
-    ("hya" nil ("$B%R%c(B" . "$B$R$c(B"))
-    ("hye" nil ("$B%R%'(B" . "$B$R$'(B"))
-    ("hyi" nil ("$B%R%#(B" . "$B$R$#(B"))
-    ("hyo" nil ("$B%R%g(B" . "$B$R$g(B"))
-    ("hyu" nil ("$B%R%e(B" . "$B$R$e(B"))
-    ("i" nil ("$B%$(B" . "$B$$(B"))
-    ("jj" "j" ("$B%C(B" . "$B$C(B"))
-    ("ja" nil ("$B%8%c(B" . "$B$8$c(B"))
-    ("je" nil ("$B%8%'(B" . "$B$8$'(B"))
-    ("ji" nil ("$B%8(B" . "$B$8(B"))
-    ("jo" nil ("$B%8%g(B" . "$B$8$g(B"))
-    ("ju" nil ("$B%8%e(B" . "$B$8$e(B"))
-    ("jya" nil ("$B%8%c(B" . "$B$8$c(B"))
-    ("jye" nil ("$B%8%'(B" . "$B$8$'(B"))
-    ("jyi" nil ("$B%8%#(B" . "$B$8$#(B"))
-    ("jyo" nil ("$B%8%g(B" . "$B$8$g(B"))
-    ("jyu" nil ("$B%8%e(B" . "$B$8$e(B"))
-    ("kk" "k" ("$B%C(B" . "$B$C(B"))
-    ("ka" nil ("$B%+(B" . "$B$+(B"))
-    ("ke" nil ("$B%1(B" . "$B$1(B"))
-    ("ki" nil ("$B%-(B" . "$B$-(B"))
-    ("ko" nil ("$B%3(B" . "$B$3(B"))
-    ("ku" nil ("$B%/(B" . "$B$/(B"))
-    ("kya" nil ("$B%-%c(B" . "$B$-$c(B"))
-    ("kye" nil ("$B%-%'(B" . "$B$-$'(B"))
-    ("kyi" nil ("$B%-%#(B" . "$B$-$#(B"))
-    ("kyo" nil ("$B%-%g(B" . "$B$-$g(B"))
-    ("kyu" nil ("$B%-%e(B" . "$B$-$e(B"))
-    ("ma" nil ("$B%^(B" . "$B$^(B"))
-    ("me" nil ("$B%a(B" . "$B$a(B"))
-    ("mi" nil ("$B%_(B" . "$B$_(B"))
-    ("mo" nil ("$B%b(B" . "$B$b(B"))
-    ("mu" nil ("$B%`(B" . "$B$`(B"))
-    ("mya" nil ("$B%_%c(B" . "$B$_$c(B"))
-    ("mye" nil ("$B%_%'(B" . "$B$_$'(B"))
-    ("myi" nil ("$B%_%#(B" . "$B$_$#(B"))
-    ("myo" nil ("$B%_%g(B" . "$B$_$g(B"))
-    ("myu" nil ("$B%_%e(B" . "$B$_$e(B"))
-    ("n" nil ("$B%s(B" . "$B$s(B"))
-    ("n'" nil ("$B%s(B" . "$B$s(B"))
-    ("na" nil ("$B%J(B" . "$B$J(B"))
-    ("ne" nil ("$B%M(B" . "$B$M(B"))
-    ("ni" nil ("$B%K(B" . "$B$K(B"))
-    ("nn" nil ("$B%s(B" . "$B$s(B"))
-    ("no" nil ("$B%N(B" . "$B$N(B"))
-    ("nu" nil ("$B%L(B" . "$B$L(B"))
-    ("nya" nil ("$B%K%c(B" . "$B$K$c(B"))
-    ("nye" nil ("$B%K%'(B" . "$B$K$'(B"))
-    ("nyi" nil ("$B%K%#(B" . "$B$K$#(B"))
-    ("nyo" nil ("$B%K%g(B" . "$B$K$g(B"))
-    ("nyu" nil ("$B%K%e(B" . "$B$K$e(B"))
-    ("o" nil ("$B%*(B" . "$B$*(B"))
-    ("pp" "p" ("$B%C(B" . "$B$C(B"))
-    ("pa" nil ("$B%Q(B" . "$B$Q(B"))
-    ("pe" nil ("$B%Z(B" . "$B$Z(B"))
-    ("pi" nil ("$B%T(B" . "$B$T(B"))
-    ("po" nil ("$B%](B" . "$B$](B"))
-    ("pu" nil ("$B%W(B" . "$B$W(B"))
-    ("pya" nil ("$B%T%c(B" . "$B$T$c(B"))
-    ("pye" nil ("$B%T%'(B" . "$B$T$'(B"))
-    ("pyi" nil ("$B%T%#(B" . "$B$T$#(B"))
-    ("pyo" nil ("$B%T%g(B" . "$B$T$g(B"))
-    ("pyu" nil ("$B%T%e(B" . "$B$T$e(B"))
-    ("rr" "r" ("$B%C(B" . "$B$C(B"))
-    ("ra" nil ("$B%i(B" . "$B$i(B"))
-    ("re" nil ("$B%l(B" . "$B$l(B"))
-    ("ri" nil ("$B%j(B" . "$B$j(B"))
-    ("ro" nil ("$B%m(B" . "$B$m(B"))
-    ("ru" nil ("$B%k(B" . "$B$k(B"))
-    ("rya" nil ("$B%j%c(B" . "$B$j$c(B"))
-    ("rye" nil ("$B%j%'(B" . "$B$j$'(B"))
-    ("ryi" nil ("$B%j%#(B" . "$B$j$#(B"))
-    ("ryo" nil ("$B%j%g(B" . "$B$j$g(B"))
-    ("ryu" nil ("$B%j%e(B" . "$B$j$e(B"))
-    ("ss" "s" ("$B%C(B" . "$B$C(B"))
-    ("sa" nil ("$B%5(B" . "$B$5(B"))
-    ("se" nil ("$B%;(B" . "$B$;(B"))
-    ("sha" nil ("$B%7%c(B" . "$B$7$c(B"))
-    ("she" nil ("$B%7%'(B" . "$B$7$'(B"))
-    ("shi" nil ("$B%7(B" . "$B$7(B"))
-    ("sho" nil ("$B%7%g(B" . "$B$7$g(B"))
-    ("shu" nil ("$B%7%e(B" . "$B$7$e(B"))
-    ("si" nil ("$B%7(B" . "$B$7(B"))
-    ("so" nil ("$B%=(B" . "$B$=(B"))
-    ("su" nil ("$B%9(B" . "$B$9(B"))
-    ("sya" nil ("$B%7%c(B" . "$B$7$c(B"))
-    ("sye" nil ("$B%7%'(B" . "$B$7$'(B"))
-    ("syi" nil ("$B%7%#(B" . "$B$7$#(B"))
-    ("syo" nil ("$B%7%g(B" . "$B$7$g(B"))
-    ("syu" nil ("$B%7%e(B" . "$B$7$e(B"))
-    ("tt" "t" ("$B%C(B" . "$B$C(B"))
-    ("ta" nil ("$B%?(B" . "$B$?(B"))
-    ("te" nil ("$B%F(B" . "$B$F(B"))
-    ("tha" nil ("$B%F%!(B" . "$B$F$!(B"))
-    ("the" nil ("$B%F%'(B" . "$B$F$'(B"))
-    ("thi" nil ("$B%F%#(B" . "$B$F$#(B"))
-    ("tho" nil ("$B%F%g(B" . "$B$F$g(B"))
-    ("thu" nil ("$B%F%e(B" . "$B$F$e(B"))
-    ("ti" nil ("$B%A(B" . "$B$A(B"))
-    ("to" nil ("$B%H(B" . "$B$H(B"))
-    ("tsu" nil ("$B%D(B" . "$B$D(B"))
-    ("tu" nil ("$B%D(B" . "$B$D(B"))
-    ("tya" nil ("$B%A%c(B" . "$B$A$c(B"))
-    ("tye" nil ("$B%A%'(B" . "$B$A$'(B"))
-    ("tyi" nil ("$B%A%#(B" . "$B$A$#(B"))
-    ("tyo" nil ("$B%A%g(B" . "$B$A$g(B"))
-    ("tyu" nil ("$B%A%e(B" . "$B$A$e(B"))
-    ("u" nil ("$B%&(B" . "$B$&(B"))
-    ("vv" "v" ("$B%C(B" . "$B$C(B"))
-    ("va" nil ("$B%t%!(B" . "$B$&!+$!(B"))
-    ("ve" nil ("$B%t%'(B" . "$B$&!+$'(B"))
-    ("vi" nil ("$B%t%#(B" . "$B$&!+$#(B"))
-    ("vo" nil ("$B%t%)(B" . "$B$&!+$)(B"))
-    ("vu" nil ("$B%t(B" . "$B$&!+(B"))
-    ("ww" "w" ("$B%C(B" . "$B$C(B"))
-    ("wa" nil ("$B%o(B" . "$B$o(B"))
-    ("we" nil ("$B%&%'(B" . "$B$&$'(B"))
-    ("wi" nil ("$B%&%#(B" . "$B$&$#(B"))
-    ("wo" nil ("$B%r(B" . "$B$r(B"))
-    ("wu" nil ("$B%&(B" . "$B$&(B"))
-    ("xx" "x" ("$B%C(B" . "$B$C(B"))
-    ("xa" nil ("$B%!(B" . "$B$!(B"))
-    ("xe" nil ("$B%'(B" . "$B$'(B"))
-    ("xi" nil ("$B%#(B" . "$B$#(B"))
-    ("xka" nil ("$B%u(B" . "$B$+(B"))
-    ("xke" nil ("$B%v(B" . "$B$1(B"))
-    ("xo" nil ("$B%)(B" . "$B$)(B"))
-    ("xtsu" nil ("$B%C(B" . "$B$C(B"))
-    ("xtu" nil ("$B%C(B" . "$B$C(B"))
-    ("xu" nil ("$B%%(B" . "$B$%(B"))
-    ("xwa" nil ("$B%n(B" . "$B$n(B"))
-    ("xwe" nil ("$B%q(B" . "$B$q(B"))
-    ("xwi" nil ("$B%p(B" . "$B$p(B"))
-    ("xya" nil ("$B%c(B" . "$B$c(B"))
-    ("xyo" nil ("$B%g(B" . "$B$g(B"))
-    ("xyu" nil ("$B%e(B" . "$B$e(B"))
-    ("yy" "y" ("$B%C(B" . "$B$C(B"))
-    ("ya" nil ("$B%d(B" . "$B$d(B"))
-    ("ye" nil ("$B%$%'(B" . "$B$$$'(B"))
-    ("yo" nil ("$B%h(B" . "$B$h(B"))
-    ("yu" nil ("$B%f(B" . "$B$f(B"))
-    ("zz" "z" ("$B%C(B" . "$B$C(B"))
-    ("z " nil "$B!!(B")
-    ("z*" nil "$B"((B")
-    ("z," nil "$B!E(B")
-    ("z-" nil "$B!A(B")
-    ("z." nil "$B!D(B")
-    ("z/" nil "$B!&(B")
-    ("z0" nil "$B!{(B")
-    ("z:" nil "$(O!,(B")
-    ("z;" nil "$(O!+(B")
-    ("z@" nil "$B!}(B")
-    ("z[" nil "$B!X(B")
-    ("z]" nil "$B!Y(B")
-    ("z{" nil "$B!Z(B")
-    ("z}" nil "$B![(B")
-    ("z(" nil "$B!J(B")
-    ("z)" nil "$B!K(B")
-    ("za" nil ("$B%6(B" . "$B$6(B"))
-    ("ze" nil ("$B%<(B" . "$B$<(B"))
-    ("zh" nil "$B"+(B")
-    ("zi" nil ("$B%8(B" . "$B$8(B"))
-    ("zj" nil "$B"-(B")
-    ("zk" nil "$B",(B")
-    ("zl" nil "$B"*(B")
-    ("zL" nil "$B"M(B")
-    ("zn" nil "$B!<(B")
-    ("zo" nil ("$B%>(B" . "$B$>(B"))
-    ("zu" nil ("$B%:(B" . "$B$:(B"))
-    ("zya" nil ("$B%8%c(B" . "$B$8$c(B"))
-    ("zye" nil ("$B%8%'(B" . "$B$8$'(B"))
-    ("zyi" nil ("$B%8%#(B" . "$B$8$#(B"))
-    ("zyo" nil ("$B%8%g(B" . "$B$8$g(B"))
-    ("zyu" nil ("$B%8%e(B" . "$B$8$e(B"))
+  '(("a" nil ("ア" . "あ"))
+    ("bb" "b" ("ッ" . "っ"))
+    ("ba" nil ("バ" . "ば"))
+    ("be" nil ("ベ" . "べ"))
+    ("bi" nil ("ビ" . "び"))
+    ("bo" nil ("ボ" . "ぼ"))
+    ("bu" nil ("ブ" . "ぶ"))
+    ("bya" nil ("ビャ" . "びゃ"))
+    ("bye" nil ("ビェ" . "びぇ"))
+    ("byi" nil ("ビィ" . "びぃ"))
+    ("byo" nil ("ビョ" . "びょ"))
+    ("byu" nil ("ビュ" . "びゅ"))
+    ("cc" "c" ("ッ" . "っ"))
+    ("cha" nil ("チャ" . "ちゃ"))
+    ("che" nil ("チェ" . "ちぇ"))
+    ("chi" nil ("チ" . "ち"))
+    ("cho" nil ("チョ" . "ちょ"))
+    ("chu" nil ("チュ" . "ちゅ"))
+    ("cya" nil ("チャ" . "ちゃ"))
+    ("cye" nil ("チェ" . "ちぇ"))
+    ("cyi" nil ("チィ" . "ちぃ"))
+    ("cyo" nil ("チョ" . "ちょ"))
+    ("cyu" nil ("チュ" . "ちゅ"))
+    ("dd" "d" ("ッ" . "っ"))
+    ("da" nil ("ダ" . "だ"))
+    ("de" nil ("デ" . "で"))
+    ("dha" nil ("デャ" . "でゃ"))
+    ("dhe" nil ("デェ" . "でぇ"))
+    ("dhi" nil ("ディ" . "でぃ"))
+    ("dho" nil ("デョ" . "でょ"))
+    ("dhu" nil ("デュ" . "でゅ"))
+    ("di" nil ("ヂ" . "ぢ"))
+    ("do" nil ("ド" . "ど"))
+    ("du" nil ("ヅ" . "づ"))
+    ("dya" nil ("ヂャ" . "ぢゃ"))
+    ("dye" nil ("ヂェ" . "ぢぇ"))
+    ("dyi" nil ("ヂィ" . "ぢぃ"))
+    ("dyo" nil ("ヂョ" . "ぢょ"))
+    ("dyu" nil ("ヂュ" . "ぢゅ"))
+    ("e" nil ("エ" . "え"))
+    ("ff" "f" ("ッ" . "っ"))
+    ("fa" nil ("ファ" . "ふぁ"))
+    ("fe" nil ("フェ" . "ふぇ"))
+    ("fi" nil ("フィ" . "ふぃ"))
+    ("fo" nil ("フォ" . "ふぉ"))
+    ("fu" nil ("フ" . "ふ"))
+    ("fya" nil ("フャ" . "ふゃ"))
+    ("fye" nil ("フェ" . "ふぇ"))
+    ("fyi" nil ("フィ" . "ふぃ"))
+    ("fyo" nil ("フョ" . "ふょ"))
+    ("fyu" nil ("フュ" . "ふゅ"))
+    ("gg" "g" ("ッ" . "っ"))
+    ("ga" nil ("ガ" . "が"))
+    ("ge" nil ("ゲ" . "げ"))
+    ("gi" nil ("ギ" . "ぎ"))
+    ("go" nil ("ゴ" . "ご"))
+    ("gu" nil ("グ" . "ぐ"))
+    ("gya" nil ("ギャ" . "ぎゃ"))
+    ("gye" nil ("ギェ" . "ぎぇ"))
+    ("gyi" nil ("ギィ" . "ぎぃ"))
+    ("gyo" nil ("ギョ" . "ぎょ"))
+    ("gyu" nil ("ギュ" . "ぎゅ"))
+    ;;("h" "" ("オ" . "お"))
+    ("ha" nil ("ハ" . "は"))
+    ("he" nil ("ヘ" . "へ"))
+    ("hi" nil ("ヒ" . "ひ"))
+    ("ho" nil ("ホ" . "ほ"))
+    ("hu" nil ("フ" . "ふ"))
+    ("hya" nil ("ヒャ" . "ひゃ"))
+    ("hye" nil ("ヒェ" . "ひぇ"))
+    ("hyi" nil ("ヒィ" . "ひぃ"))
+    ("hyo" nil ("ヒョ" . "ひょ"))
+    ("hyu" nil ("ヒュ" . "ひゅ"))
+    ("i" nil ("イ" . "い"))
+    ("jj" "j" ("ッ" . "っ"))
+    ("ja" nil ("ジャ" . "じゃ"))
+    ("je" nil ("ジェ" . "じぇ"))
+    ("ji" nil ("ジ" . "じ"))
+    ("jo" nil ("ジョ" . "じょ"))
+    ("ju" nil ("ジュ" . "じゅ"))
+    ("jya" nil ("ジャ" . "じゃ"))
+    ("jye" nil ("ジェ" . "じぇ"))
+    ("jyi" nil ("ジィ" . "じぃ"))
+    ("jyo" nil ("ジョ" . "じょ"))
+    ("jyu" nil ("ジュ" . "じゅ"))
+    ("kk" "k" ("ッ" . "っ"))
+    ("ka" nil ("カ" . "か"))
+    ("ke" nil ("ケ" . "け"))
+    ("ki" nil ("キ" . "き"))
+    ("ko" nil ("コ" . "こ"))
+    ("ku" nil ("ク" . "く"))
+    ("kya" nil ("キャ" . "きゃ"))
+    ("kye" nil ("キェ" . "きぇ"))
+    ("kyi" nil ("キィ" . "きぃ"))
+    ("kyo" nil ("キョ" . "きょ"))
+    ("kyu" nil ("キュ" . "きゅ"))
+    ("ma" nil ("マ" . "ま"))
+    ("me" nil ("メ" . "め"))
+    ("mi" nil ("ミ" . "み"))
+    ("mo" nil ("モ" . "も"))
+    ("mu" nil ("ム" . "む"))
+    ("mya" nil ("ミャ" . "みゃ"))
+    ("mye" nil ("ミェ" . "みぇ"))
+    ("myi" nil ("ミィ" . "みぃ"))
+    ("myo" nil ("ミョ" . "みょ"))
+    ("myu" nil ("ミュ" . "みゅ"))
+    ("n" nil ("ン" . "ん"))
+    ("n'" nil ("ン" . "ん"))
+    ("na" nil ("ナ" . "な"))
+    ("ne" nil ("ネ" . "ね"))
+    ("ni" nil ("ニ" . "に"))
+    ("nn" nil ("ン" . "ん"))
+    ("no" nil ("ノ" . "の"))
+    ("nu" nil ("ヌ" . "ぬ"))
+    ("nya" nil ("ニャ" . "にゃ"))
+    ("nye" nil ("ニェ" . "にぇ"))
+    ("nyi" nil ("ニィ" . "にぃ"))
+    ("nyo" nil ("ニョ" . "にょ"))
+    ("nyu" nil ("ニュ" . "にゅ"))
+    ("o" nil ("オ" . "お"))
+    ("pp" "p" ("ッ" . "っ"))
+    ("pa" nil ("パ" . "ぱ"))
+    ("pe" nil ("ペ" . "ぺ"))
+    ("pi" nil ("ピ" . "ぴ"))
+    ("po" nil ("ポ" . "ぽ"))
+    ("pu" nil ("プ" . "ぷ"))
+    ("pya" nil ("ピャ" . "ぴゃ"))
+    ("pye" nil ("ピェ" . "ぴぇ"))
+    ("pyi" nil ("ピィ" . "ぴぃ"))
+    ("pyo" nil ("ピョ" . "ぴょ"))
+    ("pyu" nil ("ピュ" . "ぴゅ"))
+    ("rr" "r" ("ッ" . "っ"))
+    ("ra" nil ("ラ" . "ら"))
+    ("re" nil ("レ" . "れ"))
+    ("ri" nil ("リ" . "り"))
+    ("ro" nil ("ロ" . "ろ"))
+    ("ru" nil ("ル" . "る"))
+    ("rya" nil ("リャ" . "りゃ"))
+    ("rye" nil ("リェ" . "りぇ"))
+    ("ryi" nil ("リィ" . "りぃ"))
+    ("ryo" nil ("リョ" . "りょ"))
+    ("ryu" nil ("リュ" . "りゅ"))
+    ("ss" "s" ("ッ" . "っ"))
+    ("sa" nil ("サ" . "さ"))
+    ("se" nil ("セ" . "せ"))
+    ("sha" nil ("シャ" . "しゃ"))
+    ("she" nil ("シェ" . "しぇ"))
+    ("shi" nil ("シ" . "し"))
+    ("sho" nil ("ショ" . "しょ"))
+    ("shu" nil ("シュ" . "しゅ"))
+    ("si" nil ("シ" . "し"))
+    ("so" nil ("ソ" . "そ"))
+    ("su" nil ("ス" . "す"))
+    ("sya" nil ("シャ" . "しゃ"))
+    ("sye" nil ("シェ" . "しぇ"))
+    ("syi" nil ("シィ" . "しぃ"))
+    ("syo" nil ("ショ" . "しょ"))
+    ("syu" nil ("シュ" . "しゅ"))
+    ("tt" "t" ("ッ" . "っ"))
+    ("ta" nil ("タ" . "た"))
+    ("te" nil ("テ" . "て"))
+    ("tha" nil ("テァ" . "てぁ"))
+    ("the" nil ("テェ" . "てぇ"))
+    ("thi" nil ("ティ" . "てぃ"))
+    ("tho" nil ("テョ" . "てょ"))
+    ("thu" nil ("テュ" . "てゅ"))
+    ("ti" nil ("チ" . "ち"))
+    ("to" nil ("ト" . "と"))
+    ("tsu" nil ("ツ" . "つ"))
+    ("tu" nil ("ツ" . "つ"))
+    ("tya" nil ("チャ" . "ちゃ"))
+    ("tye" nil ("チェ" . "ちぇ"))
+    ("tyi" nil ("チィ" . "ちぃ"))
+    ("tyo" nil ("チョ" . "ちょ"))
+    ("tyu" nil ("チュ" . "ちゅ"))
+    ("u" nil ("ウ" . "う"))
+    ("vv" "v" ("ッ" . "っ"))
+    ("va" nil ("ヴァ" . "う゛ぁ"))
+    ("ve" nil ("ヴェ" . "う゛ぇ"))
+    ("vi" nil ("ヴィ" . "う゛ぃ"))
+    ("vo" nil ("ヴォ" . "う゛ぉ"))
+    ("vu" nil ("ヴ" . "う゛"))
+    ("ww" "w" ("ッ" . "っ"))
+    ("wa" nil ("ワ" . "わ"))
+    ("we" nil ("ウェ" . "うぇ"))
+    ("wi" nil ("ウィ" . "うぃ"))
+    ("wo" nil ("ヲ" . "を"))
+    ("wu" nil ("ウ" . "う"))
+    ("xx" "x" ("ッ" . "っ"))
+    ("xa" nil ("ァ" . "ぁ"))
+    ("xe" nil ("ェ" . "ぇ"))
+    ("xi" nil ("ィ" . "ぃ"))
+    ("xka" nil ("ヵ" . "か"))
+    ("xke" nil ("ヶ" . "け"))
+    ("xo" nil ("ォ" . "ぉ"))
+    ("xtsu" nil ("ッ" . "っ"))
+    ("xtu" nil ("ッ" . "っ"))
+    ("xu" nil ("ゥ" . "ぅ"))
+    ("xwa" nil ("ヮ" . "ゎ"))
+    ("xwe" nil ("ヱ" . "ゑ"))
+    ("xwi" nil ("ヰ" . "ゐ"))
+    ("xya" nil ("ャ" . "ゃ"))
+    ("xyo" nil ("ョ" . "ょ"))
+    ("xyu" nil ("ュ" . "ゅ"))
+    ("yy" "y" ("ッ" . "っ"))
+    ("ya" nil ("ヤ" . "や"))
+    ("ye" nil ("イェ" . "いぇ"))
+    ("yo" nil ("ヨ" . "よ"))
+    ("yu" nil ("ユ" . "ゆ"))
+    ("zz" "z" ("ッ" . "っ"))
+    ("z " nil "　")
+    ("z*" nil "※")
+    ("z," nil "‥")
+    ("z-" nil "～")
+    ("z." nil "…")
+    ("z/" nil "・")
+    ("z0" nil "○")
+    ("z:" nil "O!,")
+    ("z;" nil "O!+")
+    ("z@" nil "◎")
+    ("z[" nil "『")
+    ("z]" nil "』")
+    ("z{" nil "【")
+    ("z}" nil "】")
+    ("z(" nil "（")
+    ("z)" nil "）")
+    ("za" nil ("ザ" . "ざ"))
+    ("ze" nil ("ゼ" . "ぜ"))
+    ("zh" nil "←")
+    ("zi" nil ("ジ" . "じ"))
+    ("zj" nil "↓")
+    ("zk" nil "↑")
+    ("zl" nil "→")
+    ("zL" nil "⇒")
+    ("zn" nil "ー")
+    ("zo" nil ("ゾ" . "ぞ"))
+    ("zu" nil ("ズ" . "ず"))
+    ("zya" nil ("ジャ" . "じゃ"))
+    ("zye" nil ("ジェ" . "じぇ"))
+    ("zyi" nil ("ジィ" . "じぃ"))
+    ("zyo" nil ("ジョ" . "じょ"))
+    ("zyu" nil ("ジュ" . "じゅ"))
     ("." nil skk-auto-kutouten)
     ("," nil skk-auto-kutouten)
     ("-" nil skk-auto-kutouten)
-    (":" nil "$B!'(B")
-    (";" nil "$B!((B")
-    ("?" nil "$B!)(B")
-    ("[" nil "$B!V(B")
-    ("]" nil "$B!W(B")
+    (":" nil "：")
+    (";" nil "；")
+    ("?" nil "？")
+    ("[" nil "「")
+    ("]" nil "」")
     ("l" nil skk-latin-mode)
     ("q" nil skk-toggle-characters)
     ("L" nil skk-jisx0208-latin-mode)
@@ -949,174 +949,174 @@ Non-nil $B$J$i$P!"@\F,<-$^$?$O@\Hx<-F~NO$N:]!"@\F,<-$^$?$O@\Hx<-$H7k9g$7$?(B
     ;;("\M-\040" nil skk-comp-start-henkan); M-SPC
     ;;("\M-\121" nil skk-backward-and-set-henkan-point); M-Q
     )
-  ;; $B%3%s%9%?%s%H$K$7$F$7$^$o$J$$$N$O!"%m!<%^;zF~NO$H$OA4$/JL$N@_Dj$r(B
-  ;; $B$9$k?M$b$$$k$+$i$G$9!#(B
-  "*$B%-!<F~NO$r$$$+$K=hM}$9$k$+$rI=$9!">uBVA+0\5,B'$N%j%9%H!#(B
+  ;; コンスタントにしてしまわないのは、ローマ字入力とは全く別の設定を
+  ;; する人もいるからです。
+  "*キー入力をいかに処理するかを表す、状態遷移規則のリスト。
 
-$B%j%9%H$N3FMWAG$O!"$=$l$>$l$,0l$D$N5,B'$G$"$j!"2<5-$N7A<0$rK~$?$7$F$$$J$1$l$P(B
-$B$J$i$J$$!#(B
+リストの各要素は、それぞれが一つの規則であり、下記の形式を満たしていなければ
+ならない。
 
  (INPUT-STATE NEXT-STATE OUTPUT)
 
-SKK $B$O(B INPUT-STATE $B$r8!=P$9$k$H!"(BOUTPUT $B$r%P%C%U%!$KA^F~$7!"B3$$$F(B
-NEXT-STATE $B$K>uBV$r0\$7$?$&$($G!"F~NOBT$A>uBV$H$J$k!#(B
+SKK は INPUT-STATE を検出すると、OUTPUT をバッファに挿入し、続いて
+NEXT-STATE に状態を移したうえで、入力待ち状態となる。
 
-$BNc$($P!"(B
+例えば、
 
-     (\"a\" nil (\"$B%"(B\" . \"$B$"(B\"))
-     (\"ki\" nil (\"$B%-(B\" . \"$B$-(B\"))
-     (\"tt\" \"t\" (\"$B%C(B\" . \"$B$C(B\"))
-     (\"nn\" nil (\"$B%s(B\" . \"$B$s(B\"))
-     (\"n'\" nil (\"$B%s(B\" . \"$B$s(B\"))
+     (\"a\" nil (\"ア\" . \"あ\"))
+     (\"ki\" nil (\"キ\" . \"き\"))
+     (\"tt\" \"t\" (\"ッ\" . \"っ\"))
+     (\"nn\" nil (\"ン\" . \"ん\"))
+     (\"n'\" nil (\"ン\" . \"ん\"))
 
-$B>e5-$N5,B'$O!"$=$l$>$l!"(B
+上記の規則は、それぞれ、
 
-     a  => $B$"(B
-     ki => $B$-(B
-     tt => $B$C(Bt
-     nn => $B$s(B
-     n' => $B$s(B
+     a  => あ
+     ki => き
+     tt => っt
+     nn => ん
+     n' => ん
 
-$B$3$N$h$&$K>uBV$,0\$jJQ$o$k$3$H$r0UL#$9$k!#(B
+このように状態が移り変わることを意味する。
 
-INPUT-STATE $B5Z$S(B NEXT-STATE $B$O!"DL>o(B US-ASCII $BJ8;z$+$i@.$kJ8;zNs$rMQ$$$k!#(B
-$B$?$@$7!"FCJL$J>l9g$K$O(B INPUT-STATE $B$K$=$l0J30$NJ8;zNs$r;XDj$9$k$3$H$,$"$k!#(B
+INPUT-STATE 及び NEXT-STATE は、通常 US-ASCII 文字から成る文字列を用いる。
+ただし、特別な場合には INPUT-STATE にそれ以外の文字列を指定することがある。
 
-OUTPUT $B$K$O!"0J2<$N(B 3$B$D$N7A<0$r;XDj$G$-$k!#(B
+OUTPUT には、以下の 3つの形式を指定できる。
 
-$BJ8;zNs(B -- $B$+$J%b!<%I!"%+%J%b!<%I$H$b!"$3$l$,A^F~$5$l$k!#(B
-$BJ8;zNs$HJ8;zNs$N%;%k(B ($B%I%C%H%Z%"(B)
-       -- $B$+$J%b!<%I$K$*$$$F$O(B CDR $B$N!"%+%J%b!<%I$K$*$$$F$O(B CAR $B$NJ8;zNs$,!"(B
-          $B$=$l$>$lA^F~$5$l$k!#(B
-$B4X?tL>%7%s%\%k(B
-       -- $B4X?t$r<B9T$9$k!#$b$7$=$N4X?t$NJV$jCM$,J8;zNs$J$i$P!"$=$NJ8;zNs$r(B
-          $BA^F~$9$k!#(B
+文字列 -- かなモード、カナモードとも、これが挿入される。
+文字列と文字列のセル (ドットペア)
+       -- かなモードにおいては CDR の、カナモードにおいては CAR の文字列が、
+          それぞれ挿入される。
+関数名シンボル
+       -- 関数を実行する。もしその関数の返り値が文字列ならば、その文字列を
+          挿入する。
 
-$BF1MM$N5,B'$rI=$9JQ?t$K(B `skk-rom-kana-rule-list' $B$,$"$k!#(BSKK $B$ON>J}$N5,B'$rMx(B
-$BMQ$9$k$,!"(B `skk-rom-kana-rule-list' $B$NJ}$,M%@h$5$l$k!#=>$C$F%f!<%6$,FH<+$N5,(B
-$BB'$r@_Dj$7$?$$>l9g$K$O!"(B`skk-rom-kana-rule-list' $B$NJ}$r;H$&$N$,$h$$!#(B"
+同様の規則を表す変数に `skk-rom-kana-rule-list' がある。SKK は両方の規則を利
+用するが、 `skk-rom-kana-rule-list' の方が優先される。従ってユーザが独自の規
+則を設定したい場合には、`skk-rom-kana-rule-list' の方を使うのがよい。"
   :type '(repeat
-          (list :tag "$B%k!<%k(B"
-                (radio :tag "1 $BF~NO(B"
-                       (string :tag "$BJ8;zNs(B")
-                       (symbol :tag "$BJQ?tL>(B"))
-                (radio :tag "2 $B<!$N>uBV(B"
-                       (string :tag "$BJ8;zNs(B")
-                       (const :tag "nil ($B6u$N>uBV(B)" nil))
-                (radio :tag "3 $B=PNO(B"
-                       (function :tag "$B4X?t$G$-$a$k(B")
-                       (string :tag "$BJ8;zNs(B")
-                       (cons :tag "$BJ8;zNs$NAH(B"
-                             (string :tag "3-1 $B%+%?%+%J(B")
-                             (string :tag "3-2 $B$R$i$,$J(B")))))
+          (list :tag "ルール"
+                (radio :tag "1 入力"
+                       (string :tag "文字列")
+                       (symbol :tag "変数名"))
+                (radio :tag "2 次の状態"
+                       (string :tag "文字列")
+                       (const :tag "nil (空の状態)" nil))
+                (radio :tag "3 出力"
+                       (function :tag "関数できめる")
+                       (string :tag "文字列")
+                       (cons :tag "文字列の組"
+                             (string :tag "3-1 カタカナ")
+                             (string :tag "3-2 ひらがな")))))
   :group 'skk-input-basic)
 
 (defcustom skk-rom-kana-rule-list
-  '(;; $B%f!<%6!<$N9%$_$G@_Dj$,J,$l$=$&$JMWAG$O!"(B
-    ;; skk-rom-kana-base-rule-list $B$+$i$3$A$i$X0\$7$^$7$g$&(B...$B!#(B
-    ("hh" "h" ("$B%C(B" . "$B$C(B"))
-    ;; when you may want to insert $B!V$,$s$^!W(Bby "gamma"...
-    ("mm" "m" ("$B%s(B" . "$B$s(B")))
-  "*$B>uBVA+0\5,B'$N%j%9%H$G!"%f!<%6$NDI2C@_DjMQ$NJQ?t!#(B
+  '(;; ユーザーの好みで設定が分れそうな要素は、
+    ;; skk-rom-kana-base-rule-list からこちらへ移しましょう...。
+    ("hh" "h" ("ッ" . "っ"))
+    ;; when you may want to insert 「がんま」by "gamma"...
+    ("mm" "m" ("ン" . "ん")))
+  "*状態遷移規則のリストで、ユーザの追加設定用の変数。
 
-$B$3$NJQ?t$O!"(B`skk-rom-kana-base-rule-list' $B$HF1MM$N=q<0$rK~$?$9I,MW$,$"$k!#(B
+この変数は、`skk-rom-kana-base-rule-list' と同様の書式を満たす必要がある。
 
-SKK $B$O5/F0;~$K$3$N(B 2 $BJQ?t$rJT=8$7$F(B `skk-rule-tree' $B$r:n@.$9$k$,!"(B
-`skk-rom-kana-rule-list' $B$N5,B'$O(B `skk-rom-kana-base-rule-list' $B$N5,B'$h$j$b(B
-$BM%@h$5$l$k!#(B
+SKK は起動時にこの 2 変数を編集して `skk-rule-tree' を作成するが、
+`skk-rom-kana-rule-list' の規則は `skk-rom-kana-base-rule-list' の規則よりも
+優先される。
 
-$B%j%9%H$N3FMWAG$O!"$=$l$>$l$,0l$D$N5,B'$G$"$j!"2<5-$N7A<0$rK~$?$7$F$$$J$1$l$P(B
-$B$J$i$J$$!#(B
+リストの各要素は、それぞれが一つの規則であり、下記の形式を満たしていなければ
+ならない。
 
  (INPUT-STATE NEXT-STATE OUTPUT)
 
-SKK $B$O(B INPUT-STATE $B$r8!=P$9$k$H!"(BOUTPUT $B$r%P%C%U%!$KA^F~$7!"B3$$$F(B
-NEXT-STATE $B$K>uBV$r0\$7$?$&$($G!"F~NOBT$A>uBV$H$J$k!#(B
+SKK は INPUT-STATE を検出すると、OUTPUT をバッファに挿入し、続いて
+NEXT-STATE に状態を移したうえで、入力待ち状態となる。
 
-$B>\$7$/$O!"(B`skk-rom-kana-base-rule-list' $B$N@bL@$r;2>H$N$3$H!#(B
+詳しくは、`skk-rom-kana-base-rule-list' の説明を参照のこと。
 
-$B%f!<%6$O!"DI2C$7$?$$5,B'$r!"Nc$($P(B
+ユーザは、追加したい規則を、例えば
 
     (setq skk-rom-kana-rule-list
       \\='(
-    (\"hh\" \"h\" (\"$B%C(B\" . \"$B$C(B\"))
-    (\"@\" nil \"$B!w(B\")
+    (\"hh\" \"h\" (\"ッ\" . \"っ\"))
+    (\"@\" nil \"＠\")
     ...))
 
-$B>e5-$N$h$&$K(B `~/.emacs.d/init.el' $B$^$?$O(B `skk-init-file' $B$K$F@_Dj$9$k$3$H$,$G$-$k!#(B
+上記のように `~/.emacs.d/init.el' または `skk-init-file' にて設定することができる。
 
-$B$3$NJQ?t$O!"I8=`$G$O(B
+この変数は、標準では
 
-    (\"hh\" \"h\" (\"$B%C(B\" . \"$B$C(B\"))
+    (\"hh\" \"h\" (\"ッ\" . \"っ\"))
 
-$B$N@_Dj$,$5$l$F$$$k!#$3$N5,B'$K=>$&$H!"(B
+の設定がされている。この規則に従うと、
 
-    ohhonn => $B$*$C$[$s(B
-    ohhira => $B$*$C$R$i(B
+    ohhonn => おっほん
+    ohhira => おっひら
 
-$B$N$h$&$KA^F~$5$l$k!#$b$7$3$l$r(B
+のように挿入される。もしこれを
 
-    ohhonn  => $B$*$*$[$s(B
-    ohhira  => $B$*$*$R$i(B
+    ohhonn  => おおほん
+    ohhira  => おおひら
 
-$B$N$h$&$KJQ99$7$?$1$l$P!"$3$N@_Dj(B
+のように変更したければ、この設定
 
-    (\"hh\" \"h\" (\"$B%C(B\" . \"$B$C(B\"))
+    (\"hh\" \"h\" (\"ッ\" . \"っ\"))
 
-$B$r:o=|$9$k!#(B
+を削除する。
 
-$B$^$?!"(B`@' $B$G(B `skk-today' ($BEvF|$NF|IU$NF~NO(B) $B$r5/F0$9$kBe$j$K(B `$B!w(B' $B$rF~(B
-$BNO$7$?$$>l9g$O!"(B`skk-rom-kana-rule-list' $B$K(B
+また、`@' で `skk-today' (当日の日付の入力) を起動する代りに `＠' を入
+力したい場合は、`skk-rom-kana-rule-list' に
 
-    (\"@\" nil \"$B!w(B\")
+    (\"@\" nil \"＠\")
 
-$B$H$$$&MWAG$r2C$($k!#(B
+という要素を加える。
 
-$B$b$7!"(BSKK $B$r5/F0$7$?8e$G(B `skk-rom-kana-rule-list' $B$rJQ99$7$?>l9g!"$=$N@_(B
-$BDj$rH?1G$5$;$k$K$O(B \\[skk-restart] $B$r<B9T$9$kI,MW$,$"$k!#(B"
+もし、SKK を起動した後で `skk-rom-kana-rule-list' を変更した場合、その設
+定を反映させるには \\[skk-restart] を実行する必要がある。"
   :type '(repeat
-          (list :tag "$B%k!<%k(B"
-                (radio :tag "1 $BF~NO(B"
-                       (string :tag "$BJ8;zNs(B")
-                       (symbol :tag "$BJQ?tL>(B"))
-                (radio :tag "2 $B<!$N>uBV(B"
-                       (string :tag "$BJ8;zNs(B")
-                       (const :tag "nil ($B6u$N>uBV(B)" nil))
-                (radio :tag "3 $B=PNO(B"
-                       (function :tag "$B4X?t$G$-$a$k(B")
-                       (string :tag "$BJ8;zNs(B")
-                       (cons :tag "$BJ8;zNs$NAH(B"
-                             (string :tag "3-1 $B%+%?%+%J(B")
-                             (string :tag "3-2 $B$R$i$,$J(B")))))
+          (list :tag "ルール"
+                (radio :tag "1 入力"
+                       (string :tag "文字列")
+                       (symbol :tag "変数名"))
+                (radio :tag "2 次の状態"
+                       (string :tag "文字列")
+                       (const :tag "nil (空の状態)" nil))
+                (radio :tag "3 出力"
+                       (function :tag "関数できめる")
+                       (string :tag "文字列")
+                       (cons :tag "文字列の組"
+                             (string :tag "3-1 カタカナ")
+                             (string :tag "3-2 ひらがな")))))
   :group 'skk-input-basic)
 
 (defcustom skk-kana-input-search-function
   (lambda ()
     (save-match-data
       (and (string-match "^h\\([bcdfghjklmnpqrstvwxz]\\)$" skk-prefix)
-           (member (char-to-string (preceding-char)) '("$B$*(B" "$B%*(B"))
-           (cons '("$B%*(B" . "$B$*(B") (match-string 1 skk-prefix)))))
-  "*$B%k!<%k%j%9%H$NCf$K5-$;$J$$JQ49%k!<%k$r=hM}$9$k4X?t!#(B
-`skk-rom-kana-base-rule-list' $B$H(B `skk-rom-kana-rule-list' $B$NMWAG$rA4$F8!:w(B
-$B$7$?8e$K%3!<%k$5$l$k!#0z?t$O$J$$!#(B
+           (member (char-to-string (preceding-char)) '("お" "オ"))
+           (cons '("オ" . "お") (match-string 1 skk-prefix)))))
+  "*ルールリストの中に記せない変換ルールを処理する関数。
+`skk-rom-kana-base-rule-list' と `skk-rom-kana-rule-list' の要素を全て検索
+した後にコールされる。引数はない。
 
- ($B8=:_$NF~NO$KBP$9$k=PNO(B . \"$BB3$/(B unfixed prefix\")
+ (現在の入力に対する出力 . \"続く unfixed prefix\")
 
-$B$H$$$&%;%k$rJV$9!#=PNO$N<oN`$K$D$$$F$O(B `skk-rom-kana-base-rule-list' $B$r(B
-$B;2>H$N$3$H!#(B
+というセルを返す。出力の種類については `skk-rom-kana-base-rule-list' を
+参照のこと。
 
-$B%G%U%)%k%H$G$O!"(B\"$B$*(B\" $B$N8e$N(B \"h\" + $B;R2;$NF~NO$r(B \"$B$*$*(B\" + $BB3$/;R2;(B
-$B=hM}MQ$N(B unfixed prefix $B$KJQ49$7$F$$$k!#(B"
+デフォルトでは、\"お\" の後の \"h\" + 子音の入力を \"おお\" + 続く子音
+処理用の unfixed prefix に変換している。"
   :type 'function
   :group 'skk-input-basic)
 
 (defcustom skk-downcase-alist nil
-  "*$BJQ49%-!<(B ($BBgJ8;z%m!<%^;z(B) $B$N>.J8;z$X$NJQ495,B'$rI=$o$9O"A[%j%9%H!#(B
-$BJQ49%-!<$NF~NO$r3+;O$9$k:]!"(BSKK $B$G$OBgJ8;z$GF~NO$r9T$&$N$G!"(B
-`skk-set-henkan-point' $B$NCf$G$3$l$r>.J8;z$KJQ49$9$k!#$3$NO"A[(B
-$B%j%9%H$KBgJ8;z(B -> $B>.J8;z$NJQ49%k!<%k$r=q$$$F$*$/$3$H$G!"%-!<F~NO$r%+%9(B
-$B%?%^%$%:$9$k$3$H$,$G$-$k!#$3$NO"A[%j%9%H$,6u%j%9%H$N>l9g$O!"C1$K(B
-downcase $B$5$l$k!#(B"
+  "*変換キー (大文字ローマ字) の小文字への変換規則を表わす連想リスト。
+変換キーの入力を開始する際、SKK では大文字で入力を行うので、
+`skk-set-henkan-point' の中でこれを小文字に変換する。この連想
+リストに大文字 -> 小文字の変換ルールを書いておくことで、キー入力をカス
+タマイズすることができる。この連想リストが空リストの場合は、単に
+downcase される。"
   :type '(repeat (cons character character))
   :group 'skk-input-basic)
 
@@ -1125,146 +1125,146 @@ downcase $B$5$l$k!#(B"
         nil  nil  nil  nil  nil  nil  nil  nil
         nil  nil  nil  nil  nil  nil  nil  nil
         nil  nil  nil  nil  nil  nil  nil  nil
-        "$B!!(B"  "$B!*(B" "$B!I(B" "$B!t(B" "$B!p(B" "$B!s(B" "$B!u(B" "$B!G(B"
-        "$B!J(B" "$B!K(B" "$B!v(B" "$B!\(B" "$B!$(B" "$B!](B" "$B!%(B" "$B!?(B"
-        "$B#0(B" "$B#1(B" "$B#2(B" "$B#3(B" "$B#4(B" "$B#5(B" "$B#6(B" "$B#7(B"
-        "$B#8(B" "$B#9(B" "$B!'(B" "$B!((B" "$B!c(B" "$B!a(B" "$B!d(B" "$B!)(B"
-        "$B!w(B" "$B#A(B" "$B#B(B" "$B#C(B" "$B#D(B" "$B#E(B" "$B#F(B" "$B#G(B"
-        "$B#H(B" "$B#I(B" "$B#J(B" "$B#K(B" "$B#L(B" "$B#M(B" "$B#N(B" "$B#O(B"
-        "$B#P(B" "$B#Q(B" "$B#R(B" "$B#S(B" "$B#T(B" "$B#U(B" "$B#V(B" "$B#W(B"
-        "$B#X(B" "$B#Y(B" "$B#Z(B" "$B!N(B" "$B!@(B" "$B!O(B" "$B!0(B" "$B!2(B"
-        "$B!F(B" "$B#a(B" "$B#b(B" "$B#c(B" "$B#d(B" "$B#e(B" "$B#f(B" "$B#g(B"
-        "$B#h(B" "$B#i(B" "$B#j(B" "$B#k(B" "$B#l(B" "$B#m(B" "$B#n(B" "$B#o(B"
-        "$B#p(B" "$B#q(B" "$B#r(B" "$B#s(B" "$B#t(B" "$B#u(B" "$B#v(B" "$B#w(B"
-        "$B#x(B" "$B#y(B" "$B#z(B" "$B!P(B" "$B!C(B" "$B!Q(B" "$B!A(B" nil]
-  "*`skk-jisx0208-latin-insert' $B$G;2>H$5$l$kJ8;z%F!<%V%k!#(B
-$B%-!<$KBP1~$9$k0LCV$KJ8;zNs$,$"$l$P!"A41Q%b!<%I$G3:Ev$N%-!<$r2!$9$3$H$G!"BP1~$9(B
-$B$kJ8;z$,A^F~$5$l$k!#(B
-$BNc$($P!"%9%Z!<%9%-!<$KBP1~$7$F!"H>3Q%9%Z!<%9$rA^F~$5$;$k$h$&$KJQ99$7$?$1$l$P!"(B
-skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(B
+        "　"  "！" "”" "＃" "＄" "％" "＆" "’"
+        "（" "）" "＊" "＋" "，" "－" "．" "／"
+        "０" "１" "２" "３" "４" "５" "６" "７"
+        "８" "９" "：" "；" "＜" "＝" "＞" "？"
+        "＠" "Ａ" "Ｂ" "Ｃ" "Ｄ" "Ｅ" "Ｆ" "Ｇ"
+        "Ｈ" "Ｉ" "Ｊ" "Ｋ" "Ｌ" "Ｍ" "Ｎ" "Ｏ"
+        "Ｐ" "Ｑ" "Ｒ" "Ｓ" "Ｔ" "Ｕ" "Ｖ" "Ｗ"
+        "Ｘ" "Ｙ" "Ｚ" "［" "＼" "］" "＾" "＿"
+        "‘" "ａ" "ｂ" "ｃ" "ｄ" "ｅ" "ｆ" "ｇ"
+        "ｈ" "ｉ" "ｊ" "ｋ" "ｌ" "ｍ" "ｎ" "ｏ"
+        "ｐ" "ｑ" "ｒ" "ｓ" "ｔ" "ｕ" "ｖ" "ｗ"
+        "ｘ" "ｙ" "ｚ" "｛" "｜" "｝" "～" nil]
+  "*`skk-jisx0208-latin-insert' で参照される文字テーブル。
+キーに対応する位置に文字列があれば、全英モードで該当のキーを押すことで、対応す
+る文字が挿入される。
+例えば、スペースキーに対応して、半角スペースを挿入させるように変更したければ、
+skk.el のロード後 (もしくは `skk-load-hook' を利用して)、
 
      (aset skk-jisx0208-latin-vector 32 \" \")
 
-$B$H$9$k$+!"$b$7$/$O!"(B`skk-jisx0208-latin-vector' $B$N(B 32 $BHVL\(B (0 $BHV$+$i?t$($F(B)
- $B$NCM$r(B \" \"$B$H$9$k$h$&$J(B `skk-jisx0208-latin-vector' $B$rD>@\=q$-!"(Bsetq $B$G(B
-$BBeF~$9$k!#(B32 $B$O!"(B?  ($BH>3Q%9%Z!<%9$N(B char type) $B$rI>2A$7$?$H$-$NCM!#(B"
+とするか、もしくは、`skk-jisx0208-latin-vector' の 32 番目 (0 番から数えて)
+ の値を \" \"とするような `skk-jisx0208-latin-vector' を直接書き、setq で
+代入する。32 は、?  (半角スペースの char type) を評価したときの値。"
   :type 'sexp
   :group 'skk-input-basic)
 
 (defcustom skk-special-midashi-char-list '(?> ?< ??)
-  "*$B@\F,<-!"@\Hx<-$NF~NO$r;XDj$9$kJ8;z$N%j%9%H!#(B"
+  "*接頭辞、接尾辞の入力を指定する文字のリスト。"
   ;;  "*List of characters for entering prefixes and suffixes."
   :type '(repeat character)
   :group 'skk-input-basic)
 
 (defcustom skk-kuten-touten-alist
-  '((jp . ("$B!#(B" . "$B!"(B"))
-    (en . ("$B!%(B" . "$B!$(B"))
-    (jp-en . ("$B!#(B" . "$B!$(B"))
-    (en-jp . ("$B!%(B" . "$B!"(B")))
-  "*$B6gE@$HFIE@$NO"A[%j%9%H!#(B
-$B3FMWAG$N7A<0$O!"(B
+  '((jp . ("。" . "、"))
+    (en . ("．" . "，"))
+    (jp-en . ("。" . "，"))
+    (en-jp . ("．" . "、")))
+  "*句点と読点の連想リスト。
+各要素の形式は、
 
-   ($B%7%s%\%k(B . ($B6gE@$rI=$o$9J8;zNs(B . $BFIE@$rI=$o$9J8;zNs(B))
+   (シンボル . (句点を表わす文字列 . 読点を表わす文字列))
 
-$B$H$$$&(B cons cell$B!#%7%s%\%k$NItJ,$O!"(B`jp' $B$b$7$/$O(B `en' $B!#(B
-\\[skk-toggle-kutouten] $B$O!"$3$l$r%H%0%k$G@Z$j49$($k!#(B
-$B%G%U%)%k%H$N6gFIE@$N%?%$%W$O!"JQ?t(B `skk-kutouten-type' $B$G;XDj$9$k!#(B"
-  :type '(repeat (cons (radio :tag "$BAH$N$J$^$((B"
+という cons cell。シンボルの部分は、`jp' もしくは `en' 。
+\\[skk-toggle-kutouten] は、これをトグルで切り換える。
+デフォルトの句読点のタイプは、変数 `skk-kutouten-type' で指定する。"
+  :type '(repeat (cons (radio :tag "組のなまえ"
                               (const jp)
                               (const en)
                               (const jp-en)
                               (const en-jp))
-                       (cons :tag "$B6gFIE@$NAH(B"
-                             (string :tag "$B6gE@(B" "$B!#(B")
-                             (string :tag "$BFIE@(B" "$B!"(B"))))
+                       (cons :tag "句読点の組"
+                             (string :tag "句点" "。")
+                             (string :tag "読点" "、"))))
   :group 'skk-input-basic)
 
 (defcustom skk-kutouten-type 'jp
-  "*$BI8=`$N6gFIE@$N%?%$%W!#(B
-$B$3$NJQ?t$NCM$K;XDj$G$-$k%7%s%\%k$H6gFIE@$NAH$H$NBP1~$O0J2<$NDL$j!#(B
+  "*標準の句読点のタイプ。
+この変数の値に指定できるシンボルと句読点の組との対応は以下の通り。
 
-      `jp': $B!V!#!W!V!"!W(B
-      `en': $B!V!%!W!V!$!W(B
-   `jp-en': $B!V!#!W!V!$!W(B
-   `en-jp': $B!V!%!W!V!"!W(B
+      `jp': 「。」「、」
+      `en': 「．」「，」
+   `jp-en': 「。」「，」
+   `en-jp': 「．」「、」
 
-$B$3$NJQ?t$K$O%3%s%9!&%;%k$r;XDj$9$k$3$H$b2DG=!#$=$N>l9g$O(B
+この変数にはコンス・セルを指定することも可能。その場合は
 
- ($B6gE@$r<($9J8;zNs(B . $BFIE@$r<($9J8;zNs(B)
+ (句点を示す文字列 . 読点を示す文字列)
 
-$B$N$h$&$K;XDj$9$k!#(B
+のように指定する。
 
-$B$3$NJQ?t$O(B `skk-use-kana-keyboard' $B$,(B non-nil $B$J$i$PL58z$G$"$k!#(B
+この変数は `skk-use-kana-keyboard' が non-nil ならば無効である。
 
-$B$3$NJQ?t$O(B `setq' $B$9$k$H%P%C%U%!%m!<%+%k2=$5$l$k$?$a!"%0%m!<%P%k$K(B
-$BCM$r@_Dj$7$?$$>l9g$O(B `setq-default' $B$rMQ$$$k$3$H$,?d>)$5$l$k!#(B"
+この変数は `setq' するとバッファローカル化されるため、グローバルに
+値を設定したい場合は `setq-default' を用いることが推奨される。"
   :type '(radio (const jp)
                 (const en)
                 (const jp-en)
                 (const en-jp)
-                (cons :tag "$BG$0U$NAH(B"
-                      (string :tag "$B6gE@(B" "$B!#(B")
-                      (string :tag "$BFIE@(B" "$B!"(B")))
+                (cons :tag "任意の組"
+                      (string :tag "句点" "。")
+                      (string :tag "読点" "、")))
   :group 'skk-input-basic)
 (make-variable-buffer-local 'skk-kutouten-type)
 ;;;###autoload
 (put 'skk-kutouten-type 'safe-local-variable 'symbolp)
 
 (defcustom skk-use-auto-kutouten nil
-  "*Non-nil $B$G$"$l$P!"$+$J%b!<%I$K$*$1$kD92;(B($B!<(B)$B!"6gE@(B($B!#(B)$BKt$OFIE@(B($B!"(B)$B$NF0:n$r(B
-$BJQ99$9$k!#(BASCII $B?t;z$ND>8e$G$"$l$P!"D92;(B($B!<(B)$B$O(B `-' $B$X!"6gE@(B($B!#(B)$B$O(B `.' $B$X!"(B
-$BFIE@(B($B!"(B)$B$O(B `,' $B$X$HJQ99$7!"(BJISX0208($BA43Q(B)$B?t;z$ND>8e$G$"$l$P!"D92;(B($B!<(B)$B$O(B `$B!](B' $B$X!"(B
-$B6gE@(B($B!#(B)$B$O(B `$B!%(B' $B$X!"FIE@(B($B!"(B)$B$O(B `$B!$(B' $B$X$HJQ99$9$k!#(B"
+  "*Non-nil であれば、かなモードにおける長音(ー)、句点(。)又は読点(、)の動作を
+変更する。ASCII 数字の直後であれば、長音(ー)は `-' へ、句点(。)は `.' へ、
+読点(、)は `,' へと変更し、JISX0208(全角)数字の直後であれば、長音(ー)は `－' へ、
+句点(。)は `．' へ、読点(、)は `，' へと変更する。"
   :type 'boolean
   :group 'skk-input-basic)
 
 (defcustom skk-auto-insert-paren nil
-  "*Non-nil $B$G$"$l$P!"3g8L$HJD3g8L$r$^$H$a$FA^F~$9$k!#(B
-$BNc$($P!"(B\"$B!V(B\" $B$rF~NO$7$?$H$-$K(B \"$B!W(B\" $B$r<+F0E*$KA^F~$7!"N>$+$.3g8L$N4V$K(B
-$B%+!<%=%k$r0\F0$9$k!#(B
-$BA^F~$9$kJ8;zNs$O!"(B`skk-auto-paren-string-alist' $B$G;XDj$9$k!#(B"
+  "*Non-nil であれば、括弧と閉括弧をまとめて挿入する。
+例えば、\"「\" を入力したときに \"」\" を自動的に挿入し、両かぎ括弧の間に
+カーソルを移動する。
+挿入する文字列は、`skk-auto-paren-string-alist' で指定する。"
   :type 'boolean
   :group 'skk-basic
   :group 'skk-input-basic)
 
 (defcustom skk-auto-paren-string-alist
-  '(("$B!V(B" . "$B!W(B") ("$B!X(B" . "$B!Y(B") ("(" . ")") ("$B!J(B" . "$B!K(B")
-    ("{" . "}")("$B!P(B" . "$B!Q(B") ("$B!R(B" . "$B!S(B") ("$B!T(B" . "$B!U(B")
-    ("[" . "]") ("$B!N(B" . "$B!O(B") ("$B!L(B" . "$B!M(B") ("$B!Z(B" . "$B![(B")
-    ("\"" . "\"")("$B!H(B" . "$B!I(B") ("`" . "'")
-    ;;("<" . ">") ;; skk-special-midashi-char-list $B$NCf$K$"$kJ8;z!#(B
+  '(("「" . "」") ("『" . "』") ("(" . ")") ("（" . "）")
+    ("{" . "}")("｛" . "｝") ("〈" . "〉") ("《" . "》")
+    ("[" . "]") ("［" . "］") ("〔" . "〕") ("【" . "】")
+    ("\"" . "\"")("“" . "”") ("`" . "'")
+    ;;("<" . ">") ;; skk-special-midashi-char-list の中にある文字。
     )
-  "*$B<+F0E*$KBP$K$J$kJ8;zNs$rF~NO$9$k$?$a$NO"A[%j%9%H!#(B
-`skk-auto-insert-paren' $B$,(B non-nil $B$N>l9g!"(Bcar $B$NJ8;zNs$,A^F~$5$l$?$H$-(B
-$B$K(B cdr $B$NJ8;zNs$r<+F0E*$KA^F~$7!"%+!<%=%k$O$=$N(B 2 $B$D$NJ8;z$N4V$K0\F0$9$k!#(B
-`skk-special-midashi-char-list' $B$NMWAG$K$J$C$F$$$kJ8;z$O!"(B
-`skk-auto-paren-string-alist' $B$K4^$a$F$b:o=|$5$l$k!#(B"
+  "*自動的に対になる文字列を入力するための連想リスト。
+`skk-auto-insert-paren' が non-nil の場合、car の文字列が挿入されたとき
+に cdr の文字列を自動的に挿入し、カーソルはその 2 つの文字の間に移動する。
+`skk-special-midashi-char-list' の要素になっている文字は、
+`skk-auto-paren-string-alist' に含めても削除される。"
   :type '(repeat (cons string string))
   :group 'skk-input-basic)
 
 (defcustom skk-use-auto-enclose-pair-of-region nil
-  "*Non-nil $B$G$"$l$P!"%j!<%8%g%s$,M-8z$J>uBV$G(B `skk-auto-insert-paren' $B$r<B9T$7$?:]$K$O!"%j!<%8%g%s$r3g8L$HJD3g8L$G0O$`!#(B"
+  "*Non-nil であれば、リージョンが有効な状態で `skk-auto-insert-paren' を実行した際には、リージョンを括弧と閉括弧で囲む。"
   :type 'boolean
   :group 'skk-input-basic)
 
 (defcustom skk-start-henkan-char ?\040  ; SPC
-  "*$B4A;zJQ49$r3+;O$9$k%-!<%-%c%i%/%?!#(B"
+  "*漢字変換を開始するキーキャラクタ。"
   :type 'character
   :group 'skk-henkan)
 
 (defcustom skk-show-candidates-nth-henkan-char 5
-  "*`skk-henkan-show-candidates' $B$r8F$S=P$9$^$G$N(B `skk-start-henkan-char' $B$rBG80$9$k2s?t!#(B
-2 $B0J>e$N@0?t$G$"$kI,MW!#(B"
+  "*`skk-henkan-show-candidates' を呼び出すまでの `skk-start-henkan-char' を打鍵する回数。
+2 以上の整数である必要。"
   :type 'integer
   :group 'skk-henkan)
 
 (defcustom skk-previous-candidate-keys (list "x" "\C-p")
-  "*`skk-previous-candidate' $B$r3dEv$F$k%-!<!#(B
-$B$3$NJQ?t$K$O%-!<$rI=$9%*%V%8%'%/%H$N%j%9%H$r;XDj$9$k!#(B
-$B%*%V%8%'%/%H$H$7$F$O!"%-!<$rI=$9J8;zNs$^$?$O(B event vector $B$,;XDj$G$-$k!#(B"
+  "*`skk-previous-candidate' を割当てるキー。
+この変数にはキーを表すオブジェクトのリストを指定する。
+オブジェクトとしては、キーを表す文字列または event vector が指定できる。"
   :type (if (get 'key-sequence 'widget-type)
-            '(repeat (key-sequence :tag "$B%-!<(B (C-q key $B$G<hF@2D(B)"))
+            '(repeat (key-sequence :tag "キー (C-q key で取得可)"))
           '(repeat sexp))
   :group 'skk-henkan)
 
@@ -1274,16 +1274,16 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
 
 (defcustom skk-set-henkan-point-key
   '(?A ?B ?C ?D ?E ?F ?G ?H ?I ?J ?K ?M ?N ?O ?P ?R ?S ?T ?U ?V ?W ?Y ?Z)
-  "*$BJQ49$N3+;OCOE@$r7h$a$k%-!<$N%j%9%H!#(B"
+  "*変換の開始地点を決めるキーのリスト。"
   :type '(repeat character)
   :group 'skk-henkan)
 
 (defcustom skk-henkan-show-candidates-keys
   '(?a ?s ?d ?f ?j ?k ?l ?q ?w ?e ?r ?u ?i ?o ?z ?c ?v ?b ?n ?m ?,)
-  "*$B%a%K%e!<7A<0$G8uJd$rA*Br$9$k$H$-$NA*Br%-!<$N%j%9%H!#(B
-\"x\", \" \" $B5Z$S(B \"C-g\" $B0J30$N(B 7 $B$NG\?t8D$N%-!<(B (char type) $B$r4^$`I,MW$,$"(B
-$B$k!#(B\"x\", \" \" $B5Z$S(B \"C-g\" $B$O8uJdA*Br;~$K$=$l$>$lFCJL$J5!G=$K3d$jEv(B
-$B$F$i$l$F$$$k$N$G!"$3$N%j%9%H$NCf$K$O4^$a$J$$$3$H!#(B"
+  "*メニュー形式で候補を選択するときの選択キーのリスト。
+\"x\", \" \" 及び \"C-g\" 以外の 7 の倍数個のキー (char type) を含む必要があ
+る。\"x\", \" \" 及び \"C-g\" は候補選択時にそれぞれ特別な機能に割り当
+てられているので、このリストの中には含めないこと。"
   :type '(repeat character)
   :group 'skk-henkan)
 
@@ -1296,12 +1296,12 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
      (:inherit default))
     (((class grayscale))
      (:inherit default)))
-  "*$BA*Br%-!<$N(B face $BB0@-!#(B"
+  "*選択キーの face 属性。"
   :group 'skk-henkan
   :group 'skk-visual)
 
 (defcustom skk-henkan-rest-indicator nil
-  "*Non-nil $B$G$"$l$P(B \[$B;D$j(B 99++\] $B$NI=<($r1&4s$;G[CV$9$k!#(B"
+  "*Non-nil であれば \[残り 99++\] の表示を右寄せ配置する。"
   :type 'boolean
   :group 'skk-henkan
   :group 'skk-visual)
@@ -1315,69 +1315,69 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
      (:inherit default))
     (((class grayscale))
      (:inherit default)))
-  "*\[$B;D$j(B 99++\] $B$N(B face $BB0@-!#(B"
+  "*\[残り 99++\] の face 属性。"
   :group 'skk-henkan
   :group 'skk-visual)
 
 (defcustom skk-auto-start-henkan t
-  "*$BC18l$dJ8@a$N6h@Z$j$r<($9J8;z$NBG80$K$h$j<+F0E*$KJQ49$r3+;O$9$k!#(B
-`skk-auto-start-henkan-keyword-list' $B$K$h$jC18l$dJ8@a$N6h@Z$j$r<($9J8;z$r(B
-$B;XDj$9$k!#(B"
+  "*単語や文節の区切りを示す文字の打鍵により自動的に変換を開始する。
+`skk-auto-start-henkan-keyword-list' により単語や文節の区切りを示す文字を
+指定する。"
   :type 'boolean
   :group 'skk-henkan)
 
 (defcustom skk-auto-start-henkan-keyword-list
-  '("$B$r(B" "$B!"(B" "$B!#(B" "$B!%(B" "$B!$(B" "$B!)(B" "$B!W(B" "$B!*(B" "$B!((B" "$B!'(B" ")" ";" ":"
-    "$B!K(B" "$B!I(B" "$B![(B" "$B!Y(B" "$B!U(B" "$B!S(B" "$B!Q(B" "$B!O(B" "$B!M(B" "}" "]" "?" "."
+  '("を" "、" "。" "．" "，" "？" "」" "！" "；" "：" ")" ";" ":"
+    "）" "”" "】" "』" "》" "〉" "｝" "］" "〕" "}" "]" "?" "."
     "," "!")
-  ;; $B$"$^$j%-!<%o!<%I$,B?$/$J$k$H!"DL>o$NJQ49$r:$Fq$K$9$k!)(B
-  "*$B<+F0JQ49$r3+;O$9$k%-!<%o!<%I!#(B
-`skk-auto-start-henkan' $B$,(B non-nil $B$N$H$-!"$3$N%j%9%H$NMWAG$NJ8;z$rBG80(B
-$B$9$k$H!"(BSPC (`skk-start-henkan-char') $B$r2!$7$?$+$N$h$&$KJQ49$r3+;O$7$F(B
-$B"'%b!<%I$KF~$k!#(B"
+  ;; あまりキーワードが多くなると、通常の変換を困難にする？
+  "*自動変換を開始するキーワード。
+`skk-auto-start-henkan' が non-nil のとき、このリストの要素の文字を打鍵
+すると、SPC (`skk-start-henkan-char') を押したかのように変換を開始して
+▼モードに入る。"
   :type '(repeat string)
   :group 'skk-henkan)
 
 (defcustom skk-force-registration-mode-char ?.
-  "*$B6/@)E*$K<-=qEPO?%b!<%I$KF~$k%-!<%-%c%i%/%?!#(B
-$B%(%3!<%(%j%"$G8uJd$rI=<($7$F$$$k$H$-$K$3$NJQ?t$GDj5A$7$?%-!<%-%c%i%/%?$r(B
-$B%?%$%W$9$k$H!"6/@)E*$K<-=qEPO?%b!<%I$KF~$j$^$9!#(B"
+  "*強制的に辞書登録モードに入るキーキャラクタ。
+エコーエリアで候補を表示しているときにこの変数で定義したキーキャラクタを
+タイプすると、強制的に辞書登録モードに入ります。"
   :type 'character
   :group 'skk-henkan)
 
 (defcustom skk-show-candidates-toggle-display-place-char ?\C-f
-  "*$B8uJdI=<(0lMw$N0LCV$r%(%3!<%(%j%"$H%P%C%U%!$H$G@Z$jBX$($k%-!<%-%c%i%/%?!#(B"
+  "*候補表示一覧の位置をエコーエリアとバッファとで切り替えるキーキャラクタ。"
   :type 'character
   :group 'skk-henkan)
 
 (defcustom skk-backward-and-set-henkan-point-char ?\321 ; M-Q
-  "*$B%]%$%s%H$rLa$7$F"&%b!<%I$KF~$k%-!<%-%c%i%/%?!#(B"
+  "*ポイントを戻して▽モードに入るキーキャラクタ。"
   :type 'character
   :group 'skk-henkan)
 
 (defcustom skk-show-inline nil
-  "*Non-nil $B$G$"$l$P!"JQ498uJd$r%$%s%i%$%sI=<($9$k!#(B
-`vertical' $B$G$"$l$P!"=DJ}8~$K%$%s%i%$%sI=<($9$k!J(BXEmacs $B$G$OF0:n$7$J$$!K!#(B"
-  :type '(radio (const :tag "$BM-8z(B" t)
-                (const :tag "$BM-8z(B ($B=DI=<((B)" vertical)
-                (const :tag "$BL58z(B" nil))
+  "*Non-nil であれば、変換候補をインライン表示する。
+`vertical' であれば、縦方向にインライン表示する（XEmacs では動作しない）。"
+  :type '(radio (const :tag "有効" t)
+                (const :tag "有効 (縦表示)" vertical)
+                (const :tag "無効" nil))
   :group 'skk-basic
   :group 'skk-henkan)
 
 (defcustom skk-inline-show-face 'underline
-  "*$B%$%s%i%$%sI=<($9$kJQ498uJd$rAu>~$9$k%U%'%$%9$r;XDj$9$kJQ?t!#(B
-$B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;H$$$?$$>l9g$O(B nil $B$K@_Dj$9$k!#(B"
-  :type '(radio (face :tag "$B%U%'%$%9$r;XDj(B")
-                (const :tag "$B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;HMQ(B" nil))
+  "*インライン表示する変換候補を装飾するフェイスを指定する変数。
+候補文字列のフェイス属性をそのまま使いたい場合は nil に設定する。"
+  :type '(radio (face :tag "フェイスを指定")
+                (const :tag "候補文字列のフェイス属性をそのまま使用" nil))
   :group 'skk-visual)
 
 (defcustom skk-inline-show-background-color
   (if (eq skk-background-mode 'light)
       "beige"
     "gray15")
-  "*$B%$%s%i%$%sI=<($9$kJQ498uJd$NGX7J?'$r;XDj$9$kJQ?t!#(B
-`skk-inline-show-face' $B$^$?$O(B `skk-treat-candidate-appearance-function' $B$G(B
-$BGX7J?'$,;XDj$5$l$F$$$J$$J8;z$KBP$7$F$N$_:nMQ$9$k!#(B"
+  "*インライン表示する変換候補の背景色を指定する変数。
+`skk-inline-show-face' または `skk-treat-candidate-appearance-function' で
+背景色が指定されていない文字に対してのみ作用する。"
   :type 'string
   :group 'skk-visual)
 
@@ -1385,45 +1385,45 @@ skk.el $B$N%m!<%I8e(B ($B$b$7$/$O(B `skk-load-hook' $B$rMxMQ$7$F(B)$B!"(
   (if (eq skk-background-mode 'light)
       "wheat"
     "gray20")
-  "*$B%$%s%i%$%sI=<($9$kJQ498uJd$NGX7J?'(B($B4q?t%i%$%s(B)$B$r;XDj$9$kJQ?t!#(B
-`skk-inline-show-face' $B$^$?$O(B `skk-treat-candidate-appearance-function' $B$G(B
-$BGX7J?'$,;XDj$5$l$F$$$J$$J8;z$KBP$7$F$N$_:nMQ$9$k!#(B"
+  "*インライン表示する変換候補の背景色(奇数ライン)を指定する変数。
+`skk-inline-show-face' または `skk-treat-candidate-appearance-function' で
+背景色が指定されていない文字に対してのみ作用する。"
   :type 'string
   :group 'skk-visual)
 
 (defcustom skk-search-end-function nil
-  "*$BC18l8!:w=*N;;~$K%3!<%k$5$l$k4X?t!#(B
-$B$3$N4X?t$rMxMQ$7$F8!:w$7$?C18l$NM%@h=g0L$rJQ99$9$k$J$I$N:n6H$,2DG=!#(B
-HENKAN-BUFFER, MIDASI, OKURIGANA, ENTRY $B$N(B 4 $B0z?t$rH<$J$C$F%3!<%k$5$l$k!#(B
-$B2C9)$7$?(B ENTRY $B$rJV$9$3$H!#(B
-$B$3$N4X?t$O!"<-=q%P%C%U%!$G%3!<%k$5$l$k$N$G!"JQ49$r9T$C$?%P%C%U%!%m!<%+%k$J(B
-$B>pJs$r<h$j=P$7$?$$$H$-$O!"(BHENKAN-BUFFER $B$rMxMQ$9$k!#(B"
+  "*単語検索終了時にコールされる関数。
+この関数を利用して検索した単語の優先順位を変更するなどの作業が可能。
+HENKAN-BUFFER, MIDASI, OKURIGANA, ENTRY の 4 引数を伴なってコールされる。
+加工した ENTRY を返すこと。
+この関数は、辞書バッファでコールされるので、変換を行ったバッファローカルな
+情報を取り出したいときは、HENKAN-BUFFER を利用する。"
   :type '(list symbol)
   :group 'skk-henkan)
 
 (defcustom skk-allow-spaces-newlines-and-tabs t
-  "*Non-nil $B$G$"$l$P!"8+=P$78l$NCf$N%9%Z!<%9!"%?%V!"2~9T$r<h$j=|$$$FJQ49(B
-$B$G$-$k!#Nc$($P!"2<5-$N$h$&$KESCf$K2~9T$,F~$C$F$$$k8+=P$78l$G$bJQ49$,2DG=(B
-$B$G$"$k!#(B
+  "*Non-nil であれば、見出し語の中のスペース、タブ、改行を取り除いて変換
+できる。例えば、下記のように途中に改行が入っている見出し語でも変換が可能
+である。
 
-     \"$B"&$+(B
-  $B$J(B\"
-   -> \"$B2>L>(B\"
+     \"▽か
+  な\"
+   -> \"仮名\"
 
-$B$3$NCM$,(B nil $B$G$"$l$P!":G=i$N%9%Z!<%9$G8+=P$78l$r@Z$j5M$a$F$7$^$$!"0J9_$N%9%Z!<(B
-$B%9!"%?%V!"2~9T$OL5;k$5$l$k!#(B
-$B$3$NCM$O!"(B`skk-toggle-characters' $B5Z$S(B `skk-backward-and-set-henkan-point' $B$NF0(B
-$B:n$K1F6A$9$k!#(B"
+この値が nil であれば、最初のスペースで見出し語を切り詰めてしまい、以降のスペー
+ス、タブ、改行は無視される。
+この値は、`skk-toggle-characters' 及び `skk-backward-and-set-henkan-point' の動
+作に影響する。"
   :type 'boolean
   :group 'skk-henkan)
 
 (defcustom skk-delete-okuri-when-quit nil
-  "*Non-nil $B$G$"$l$PJQ49Cf$N(B \\[keyboard-quit] $B$GAw$j2>L>$r>C$7$F"&%b!<%I(B
-$B$KF~$k!#(B
-  $BNc!K(B \"$B"&$J(B*$B$/(B -> $B"'5c$/(B -> \\[keyboard-quit] ->$B"&$J(B\"
+  "*Non-nil であれば変換中の \\[keyboard-quit] で送り仮名を消して▽モード
+に入る。
+  例） \"▽な*く -> ▼泣く -> \\[keyboard-quit] ->▽な\"
 
-nil $B$G$"$l$P!"Aw$j2>L>$r4^$a$?8+=P$78l$r$=$N$^$^;D$7$F"&%b!<%I$KF~$k!#(B
-  $BNc!K(B \"$B"&$J(B*$B$/(B -> $B"'5c$/(B -> \\[keyboard-quit] -> $B"&$J$/(B\""
+nil であれば、送り仮名を含めた見出し語をそのまま残して▽モードに入る。
+  例） \"▽な*く -> ▼泣く -> \\[keyboard-quit] -> ▽なく\""
   :type 'boolean
   :group 'skk-henkan)
 
@@ -1432,60 +1432,60 @@ nil $B$G$"$l$P!"Aw$j2>L>$r4^$a$?8+=P$78l$r$=$N$^$^;D$7$F"&%b!<%I$KF~$k!#(B
                         "DDSKK 16.2")
 
 (defcustom skk-henkan-number-to-display-candidates 7
-  "*$BJQ498uJd$rI=<($9$k8D?t!#(B"
+  "*変換候補を表示する個数。"
   :type 'integer
   :group 'skk-henkan)
 
 (defcustom skk-show-candidates-always-pop-to-buffer nil
-  "*$B$3$NJQ?t$,(B non-nil $B$G$"$l$P!">o$K(B\"*$B8uJd(B*\"$B%P%C%U%!$r:n@=$7$F!"JQ498uJd0lMw(B
-$B$r@lMQ%&%#%s%I%&$KI=<($9$k!#(B
-nil $B$G$"$l$P!"8uJd0lMw$r%(%3!<%(%j%"$KI=<($9$k!#$?$@$7!"8uJd0lMw$NJ8;zNs$ND9$5$,(B
-$B%U%l!<%`$N2#I}$K<}$^$i$J$$>l9g$O!"(B\"*$B8uJd(B*\"$B%P%C%U%!$r:n@=(B(pop-to-buffer)$B$7$F@l(B
-$BMQ$N%&%#%s%I%&$GI=<($9$k!#(B"
+  "*この変数が non-nil であれば、常に\"*候補*\"バッファを作製して、変換候補一覧
+を専用ウィンドウに表示する。
+nil であれば、候補一覧をエコーエリアに表示する。ただし、候補一覧の文字列の長さが
+フレームの横幅に収まらない場合は、\"*候補*\"バッファを作製(pop-to-buffer)して専
+用のウィンドウで表示する。"
   :type 'boolean
   :group 'skk-henkan)
 
 (defcustom skk-candidate-buffer-background-color nil
-  "*\"*$B8uJd(B*$B%P%C%U%!(B\"$B$NGX7J?'!#(B"
-  :type '(radio (string :tag "$B?'$NL>A0(B")
-                (const :tag "$B;XDj$7$J$$(B" nil))
+  "*\"*候補*バッファ\"の背景色。"
+  :type '(radio (string :tag "色の名前")
+                (const :tag "指定しない" nil))
   :group 'skk-henkan
   :group 'skk-visual)
 
 (defcustom skk-candidate-buffer-background-color-odd nil
-  "*\"*$B8uJd(B*$B%P%C%U%!(B\"$B$NGX7J?'!J4q?t%i%$%s!K!#(B"
-  :type '(radio (string :tag "$B?'$NL>A0(B")
-                (const :tag "$B;XDj$7$J$$(B" nil))
+  "*\"*候補*バッファ\"の背景色（奇数ライン）。"
+  :type '(radio (string :tag "色の名前")
+                (const :tag "指定しない" nil))
   :group 'skk-henkan
   :group 'skk-visual)
 
 (defcustom skk-search-katakana nil
-  "*$B$+$J$rC1=c$K%+%?%+%JJQ49$7$?8uJd$rI=<($9$k$+$I$&$+$r7h$a$k%*%W%7%g%s!#(B
-nil $B$J$i$P4^$a$J$$!#(Bt $B$J$i$PA43Q%+%J8uJd$r4^$a$k!#(B
-`jisx0201-kana' $B$J$i$PA43Q$K2C$($FH>3Q%+%J8uJd$b4^$a$k!#(B
-$B$3$N5!G=$O0lHLE*$J(B FEP $B$N;H$$>!<j$K6aIU$1$?$$%f!<%6!<!"8D?M<-=q$r0i$F$?$$(B
-$B%f!<%6!<8~$1$KDs6!$5$l$k!#(B"
-  :type '(radio (const :tag "$B$3$N5!G=$rL58z$K$9$k(B" nil)
-                (const :tag "$BA43Q%+%J$N$_(B" t)
-                (const :tag "$BH>3Q%+%J$b4^$a$k(B" jisx0201-kana))
+  "*かなを単純にカタカナ変換した候補を表示するかどうかを決めるオプション。
+nil ならば含めない。t ならば全角カナ候補を含める。
+`jisx0201-kana' ならば全角に加えて半角カナ候補も含める。
+この機能は一般的な FEP の使い勝手に近付けたいユーザー、個人辞書を育てたい
+ユーザー向けに提供される。"
+  :type '(radio (const :tag "この機能を無効にする" nil)
+                (const :tag "全角カナのみ" t)
+                (const :tag "半角カナも含める" jisx0201-kana))
   :group 'skk-henkan)
 
 (defcustom skk-search-sagyo-henkaku nil
-  "*$B4J0W$J%5JQF0;lJQ495!G=$rM-8z$K$9$k$+$I$&$+7h$a$k%*%W%7%g%s!#(B
-nil $B$J$i$P!"Aw$j2>L>$,(B \"$B$5(B\" \"$B$7(B\" \"$B$9(B\" \"$B$;(B\" $B$N$$$:$l$+$N;~$K(B
-$BAw$j$J$78uJd$,JQ498uJd$K8=$l$k!#(B
-anything $B$K@_Dj$9$k$H!"Aw$j2>L>$,2?$G$"$C$F$bAw$j$J$78uJd$rAw$j$"$jJQ49$K(B
-$BMQ$$$k!#$3$N>l9g!"Aw$j2>L>$H$$$&$h$j$b!"G$0U$N4A;z$H$+$J$N@Z$jBX$(0LCV$r(B
-$B;XDj$9$k$h$&$JF~NO$K$J$k!#(B
-$B$3$N5!G=$OIT@53N$J=PNO$r$9$k2DG=@-$KCm0U$9$kI,MW$,$"$k$,!"8D?M<-=q$r0i$F$?$$(B
-$B%f!<%6!<8~$1$KDs6!$5$l$k!#(B"
-  :type '(radio (const :tag "$B$3$N5!G=$rL58z$K$9$k(B" nil)
-                (const :tag "$B4J0W%5JQF0;lJQ49$r$9$k(B" t)
-                (const :tag "$B$3$N5!G=$rG$0U$NAw$j$"$jJQ49$K3HD%$9$k(B" anything))
+  "*簡易なサ変動詞変換機能を有効にするかどうか決めるオプション。
+nil ならば、送り仮名が \"さ\" \"し\" \"す\" \"せ\" のいずれかの時に
+送りなし候補が変換候補に現れる。
+anything に設定すると、送り仮名が何であっても送りなし候補を送りあり変換に
+用いる。この場合、送り仮名というよりも、任意の漢字とかなの切り替え位置を
+指定するような入力になる。
+この機能は不正確な出力をする可能性に注意する必要があるが、個人辞書を育てたい
+ユーザー向けに提供される。"
+  :type '(radio (const :tag "この機能を無効にする" nil)
+                (const :tag "簡易サ変動詞変換をする" t)
+                (const :tag "この機能を任意の送りあり変換に拡張する" anything))
   :group 'skk-henkan)
 
 (defcustom skk-kakutei-key "\C-j"
-  "*$B4A;zJQ49$N3NDjF0:n$r9T$&%-!<!#(B"
+  "*漢字変換の確定動作を行うキー。"
   :type (if (get 'key-sequence 'widget-type)
             'key-sequence
           'sexp)
@@ -1493,39 +1493,39 @@ anything $B$K@_Dj$9$k$H!"Aw$j2>L>$,2?$G$"$C$F$bAw$j$J$78uJd$rAw$j$"$jJQ49$K(B
   :group 'skk-kakutei)
 
 (defcustom skk-kakutei-early t
-  "*Non-nil $B$G$"$l$P(B `skk-insert' $B$,8F$P$l$?$H$-$K8=:_$N8uJd$r3NDj$9$k!#(B
-$BNc$($P!"(B
+  "*Non-nil であれば `skk-insert' が呼ばれたときに現在の候補を確定する。
+例えば、
 
-    \"$B"&$+$/$F$$(B -> $B"'3NDj(B -> $B3NDj(Bs -> $B3NDj$9(B\"
+    \"▽かくてい -> ▼確定 -> 確定s -> 確定す\"
 
-$B$N$h$&$KJQ498e!"!V$9!W$N(B prefix $B$G$"$k(B \"s\" $B$rF~NO$7$?;~E@$G3NDj$9$k!#(B
-nil $B$G$"$l$P!"Nc$($P(B
+のように変換後、「す」の prefix である \"s\" を入力した時点で確定する。
+nil であれば、例えば
 
-    \"$B"&$+$/$F$$(B -> $B"'3NDj(B -> $B"'3NDj(Bs -> $B"'3NDj$9$k(B -> $B3NDj$9$k!#(B\"
+    \"▽かくてい -> ▼確定 -> ▼確定s -> ▼確定する -> 確定する。\"
 
-$B$N$h$&$K(B `skk-kakutei' $B$rD>@\!"4V@\$K%3!<%k$9$k$^$G(B ($B6gFIE@$rF~NO$7$?$j!"(B
-$B?7$?$J"&%b!<%I$KF~$C$?$j$9$k$H4V@\E*$K(B `skk-kakutei' $B$r%3!<%k$9$k(B) $B$O!"3NDj(B
-$B$7$J$$$N$G!"$=$N4V$O!"JQ498uJd$rA*$SD>$9$3$H$J$I$,2DG=!#(B
+のように `skk-kakutei' を直接、間接にコールするまで (句読点を入力したり、
+新たな▽モードに入ったりすると間接的に `skk-kakutei' をコールする) は、確定
+しないので、その間は、変換候補を選び直すことなどが可能。
 
-$B$3$N%*%W%7%g%sMxMQ;~$O!"(B`skk-process-okuri-early' $B$NCM$O(B nil $B$G$J$1$l$P(B
-$B$J$i$J$$!#(B"
+このオプション利用時は、`skk-process-okuri-early' の値は nil でなければ
+ならない。"
   :type 'boolean
   :group 'skk-basic
   :group 'skk-kakutei)
 
 (defcustom skk-egg-like-newline nil
-  "*Non-nil $B$G$"$l$P!""'%b!<%I$G(B RET $B$r%?%$%W$7$F$b3NDj$N$_9T$$!"2~9T$7$J$$!#(B"
+  "*Non-nil であれば、▼モードで RET をタイプしても確定のみ行い、改行しない。"
   :type 'boolean
   :group 'skk-basic
   :group 'skk-kakutei)
 
 (defcustom skk-delete-implies-kakutei t
-  "*Non-nil $B$G$"$l$P!""'%b!<%I$G(B BS $B$r2!$9$H!"A0$N0lJ8;z$r:o=|$73NDj$9$k!#(B
-nil $B$G$"$l$P!"0l$DA0$N8uJd$rI=<($9$k!#(B
-$B%7%s%\%k(B `dont-update' $B$G$"$l$P!"8D?M<-=q$r99?7$7$J$$!#(B
+  "*Non-nil であれば、▼モードで BS を押すと、前の一文字を削除し確定する。
+nil であれば、一つ前の候補を表示する。
+シンボル `dont-update' であれば、個人辞書を更新しない。
 
-$B$J$*!"$3$NJQ?t$NCM$K$+$+$o$i$:!"8uJd0lMw$rI=<($7$F$$$k$H$-$N(B BS $BBG80$O(B
-$BA08uJd(B($B72(B)$B$NI=<($K$J$k!#(B"
+なお、この変数の値にかかわらず、候補一覧を表示しているときの BS 打鍵は
+前候補(群)の表示になる。"
   :type '(radio (const t)
                 (const dont-update)
                 (const nil))
@@ -1533,62 +1533,62 @@ nil $B$G$"$l$P!"0l$DA0$N8uJd$rI=<($9$k!#(B
   :group 'skk-kakutei)
 
 (defcustom skk-kakutei-when-unique-candidate nil
-  "*Non-nil $B$G$"$l$P!"JQ498uJd$,0l$D$7$+$J$$$H$-3NDjJQ49$9$k!#(B
+  "*Non-nil であれば、変換候補が一つしかないとき確定変換する。
 
-$B$3$NCM$,(B t $B$G$"$l$P$I$NJQ49%b!<%I$G$b3NDjJQ49$9$k!#(B
-`okuri-ari', `okuri-nasi', `abbrev' $B$N$$$:$l$+$rMWAG$H$9$k%j%9%H$G(B
-$B$"$l$P!"JQ49%b!<%I$,$=$N>r7o$K9gCW$7$?>l9g$N$_3NDjJQ49$9$k!#(B
+この値が t であればどの変換モードでも確定変換する。
+`okuri-ari', `okuri-nasi', `abbrev' のいずれかを要素とするリストで
+あれば、変換モードがその条件に合致した場合のみ確定変換する。
 
-$B8uJd$,B>$KL5$$;v$r3NG'$9$k$?$a!"(B`skk-search-prog-list' $B$NFbMF<!Bh(B
-$B$G%l%9%]%s%9$,0-$/$J$k2DG=@-$,$"$k!#$=$N>l9g(B
-`skk-kakutei-search-prog-limit' $B$r@_Dj$9$k$3$H$G8!:wBP>]$r@)8B$9$k(B
-$B$3$H$b2DG=!#(B"
-  :type '(radio (const :tag "$B>o$KM-8z(B" t)
-                (set :tag "$BM-8z$K$9$kJQ49%b!<%I(B"
-                     (const :tag "$BAw$jM-$jJQ49(B" okuri-ari)
-                     (const :tag "$BAw$jL5$7JQ49(B" okuri-nasi)
-                     (const :tag "abbrev $BJQ49(B" abbrev))
-                (const :tag "$BL58z(B" nil))
+候補が他に無い事を確認するため、`skk-search-prog-list' の内容次第
+でレスポンスが悪くなる可能性がある。その場合
+`skk-kakutei-search-prog-limit' を設定することで検索対象を制限する
+ことも可能。"
+  :type '(radio (const :tag "常に有効" t)
+                (set :tag "有効にする変換モード"
+                     (const :tag "送り有り変換" okuri-ari)
+                     (const :tag "送り無し変換" okuri-nasi)
+                     (const :tag "abbrev 変換" abbrev))
+                (const :tag "無効" nil))
   :group 'skk-kakutei)
 
 (defcustom skk-kakutei-search-prog-limit nil
-  "*$BJ#?t<-=q$K$h$k3NDjJQ49$K$*$$$F!"8!:wBP>]$H$9$k<-=q$r@)8B$9$k!#(B
+  "*複数辞書による確定変換において、検索対象とする辞書を制限する。
 
-$B$3$l$,?tCM$G$"$l$P!"8!:wBP>]$r(B `skk-search-prog-list' $B$N@hF,$+$i$3(B
-$B$N8D?t$^$G$N<-=q$K@)8B$9$k!#(B
-$B$=$l0J30$G$"$l$PL5@)8B$KA4$F$N<-=q$rBP>]$H$9$k!#(B
+これが数値であれば、検索対象を `skk-search-prog-list' の先頭からこ
+の個数までの辞書に制限する。
+それ以外であれば無制限に全ての辞書を対象とする。
 
-`skk-kakutei-when-unique-candidate' $B$,(B non-nil $B$N$H$-$N$_M-8z!#(B"
-  :type '(radio (integer :tag "$BBP>]$H$9$k<-=q$N?t(B")
-                (const :tag "$B@)8B$7$J$$(B" nil))
+`skk-kakutei-when-unique-candidate' が non-nil のときのみ有効。"
+  :type '(radio (integer :tag "対象とする辞書の数")
+                (const :tag "制限しない" nil))
   :group 'skk-kakutei)
 
 (defcustom skk-kakutei-end-function nil
-  "*$B3NDj;~$K%3!<%k$5$l$k4X?t!#(B
-`skk-kakutei-initialize' $B$,%3!<%k$5$l$kA0$K$3$N4X?t$,%3!<%k$5$l$k$N$G!"(B
-$B:G8e$N3NDj$K4X$9$k%U%i%0N`$O!"$3$N4X?t$NCf$+$i;2>H$9$k$3$H$,$G$-$k!#(B"
-  :type '(radio (function :tag "$B4X?t(B")
-                (const :tag "$B;XDj$7$J$$(B" nil))
+  "*確定時にコールされる関数。
+`skk-kakutei-initialize' がコールされる前にこの関数がコールされるので、
+最後の確定に関するフラグ類は、この関数の中から参照することができる。"
+  :type '(radio (function :tag "関数")
+                (const :tag "指定しない" nil))
   :group 'skk-kakutei)
 
 (defcustom skk-henkan-okuri-strictly nil
-  "*Non-nil $B$G$"$l$P!"8+=P$78l$HAw$j2>L>$,0lCW$7$?$H$-$@$18uJd$H$7$F=PNO$9$k!#(B
-$BNc$($P!"2<5-$N$h$&$J<-=q%(%s%H%j$,(B `skk-jisyo' ($B8D?M<-=q(B) $B$K$"$C$?(B
-$B>l9g$K(B
+  "*Non-nil であれば、見出し語と送り仮名が一致したときだけ候補として出力する。
+例えば、下記のような辞書エントリが `skk-jisyo' (個人辞書) にあった
+場合に
 
-  \"$B$*$*(Bk /$BBg(B/$BB?(B/[$B$/(B/$BB?(B/]/[$B$-(B/$BBg(B/]/\"
+  \"おおk /大/多/[く/多/]/[き/大/]/\"
 
-\"$B"&$*$*(B*$B$/(B\" $B$rJQ49$7$?$H$-!"(B\"$BB?$/(B\" $B$N$_$r=PNO$7!"(B\"$BBg$/(B\" $B$r=PNO$7$J$$!#(B
+\"▽おお*く\" を変換したとき、\"多く\" のみを出力し、\"大く\" を出力しない。
 
-SKK-JISYO.[SML] $B$NAw$j2>L>%(%s%H%j$O>e5-$N7A<0$K$J$C$F$$$J$$$N$G!"(B`skk-jisyo'
- $B$NAw$j$"$j$N<-=q%(%s%H%j$,$3$N7A<0$N$b$N$r$"$^$j4^$s$G$$$J$$>l9g$O!"$3$N(B
-$B%*%W%7%g%s$r(B on $B$K$9$k$3$H$G!"$9$0$KC18lEPO?$KF~$C$F$7$^$&$N$GCm0U$9$k$3$H!#(B
+SKK-JISYO.[SML] の送り仮名エントリは上記の形式になっていないので、`skk-jisyo'
+ の送りありの辞書エントリがこの形式のものをあまり含んでいない場合は、この
+オプションを on にすることで、すぐに単語登録に入ってしまうので注意すること。
 
-`skk-process-okuri-early' $B$NCM$,(B nil $B$J$i$P!">e5-$N7A<0$G(B `skk-jisyo' $B$,(B
-$B:n$i$l$k!#(B
+`skk-process-okuri-early' の値が nil ならば、上記の形式で `skk-jisyo' が
+作られる。
 
-$B2<5-$N<0$rI>2A$9$k$3$H$G!"C18lEPO?$KF~$C$?$H$-$@$1(B
-$B0l;~E*$K$3$N%*%W%7%g%s$rL58z$K$9$k$3$H$,$G$-$k!#(B
+下記の式を評価することで、単語登録に入ったときだけ
+一時的にこのオプションを無効にすることができる。
 
     (add-hook \\='minibuffer-setup-hook
               (function
@@ -1609,99 +1609,99 @@ SKK-JISYO.[SML] $B$NAw$j2>L>%(%s%H%j$O>e5-$N7A<0$K$J$C$F$$$J$$$N$G!"(B`skk-jis
                        (put \\='skk-henkan-okuri-strictly \\='temporary-nil nil)
                        (setq skk-henkan-okuri-strictly t))))))
 
-$B$3$N%*%W%7%g%sMxMQ;~$O!"(B`skk-process-okuri-early' $B$NCM$O(B nil $B$G$J$1$l$P(B
-$B$J$i$J$$!#(B"
+このオプション利用時は、`skk-process-okuri-early' の値は nil でなければ
+ならない。"
   :type 'boolean
   :group 'skk-basic
   :group 'skk-okurigana)
 
 (defcustom skk-henkan-strict-okuri-precedence nil
-  "*Non-nil $B$G$"$l$P!"8+=P$78l$HAw$j2>L>$,0lCW$7$?8uJd$rM%@h$7$FI=<($9$k!#(B
-$BNc$($P!"2<5-$N$h$&$J<-=q%(%s%H%j$,(B `skk-jisyo' ($B8D?M<-=q(B) $B$K$"$C$?(B
-$B>l9g$K(B
+  "*Non-nil であれば、見出し語と送り仮名が一致した候補を優先して表示する。
+例えば、下記のような辞書エントリが `skk-jisyo' (個人辞書) にあった
+場合に
 
-  \"$B$*$*(Bk /$BBg(B/$BB?(B/[$B$/(B/$BB?(B/]/[$B$-(B/$BBg(B/]/\"
+  \"おおk /大/多/[く/多/]/[き/大/]/\"
 
-\"$B"&$*$*(B*$B$/(B\" $B$rJQ49$7$?$H$-!"$^$:(B\"$BB?$/(B\" $B$r=PNO$7!"(B
-$B<!$K(B \"$BBg$/(B\" $B$r=PNO$9$k!#(B
+\"▽おお*く\" を変換したとき、まず\"多く\" を出力し、
+次に \"大く\" を出力する。
 
-\"$BBg$/(B\" $B$J$I$N8uJd$O$&$C$H$&$7$$$,!"$9$0$KC18lEPO?$KF~$C$F$7$^$&$N$b(B
-$B7y$J?M$K$*4+$a!#(B
+\"大く\" などの候補はうっとうしいが、すぐに単語登録に入ってしまうのも
+嫌な人にお勧め。
 
-$B$3$N%*%W%7%g%sMxMQ;~$O!"(B`skk-process-okuri-early' $B$NCM$O(B nil $B$G$J$1$l$P(B
-$B$J$i$J$$!#(B
-$B$^$?(B `skk-henkan-okuri-strictly' $B$,(B non-nil $B$N$H$-$O!"$3$NJQ?t$OL5;k$5$l$k!#(B"
+このオプション利用時は、`skk-process-okuri-early' の値は nil でなければ
+ならない。
+また `skk-henkan-okuri-strictly' が non-nil のときは、この変数は無視される。"
   :type 'boolean
   :group 'skk-basic
   :group 'skk-okurigana)
 
 (defcustom skk-process-okuri-early nil
-  "*Non-nil $B$G$"$l$PAw$j2>L>$N%m!<%^;z%W%l%U%#%C%/%9F~NO;~E@$GJQ49$r3+;O$9$k!#(B
-$BNc$($P!"(B
+  "*Non-nil であれば送り仮名のローマ字プレフィックス入力時点で変換を開始する。
+例えば、
 
-    \"UgoK -> $B"'F0(Bk\"$B!#(B
+    \"UgoK -> ▼動k\"。
 
-$BAw$j2>L>$,J,$i$J$$$^$^JQ49$7$F$$$k$3$H$K$J$k$N$G!"(B`skk-jisyo' $B$,Aw$j2>L>$K(B
-$BBP1~$7$?7A$K@.D9$7$J$$!#$D$^$j(B
+送り仮名が分らないまま変換していることになるので、`skk-jisyo' が送り仮名に
+対応した形に成長しない。つまり
 
-    \"$B$&$4(Bk /$BF0(B/\"
+    \"うごk /動/\"
 
-$B$N$h$&$J7ABV$N$^$^$H$J$k!#$?$@$7!"4{$K(B
+のような形態のままとなる。ただし、既に
 
-    \"$B$&$4(Bk /$BF0(B/[$B$/(B/$BF0(B/]/[$B$+(B/$BF0(B/]/[$B$1(B/$BF0(B/]/[$B$-(B/$BF0(B/]/[$B$3(B/$BF0(B/]/\"
+    \"うごk /動/[く/動/]/[か/動/]/[け/動/]/[き/動/]/[こ/動/]/\"
 
-$B$N$h$&$J%(%s%H%j$,(B `skk-jisyo' $B$K$"$l$P!"$=$l$rGK2u$7$J$$!#(B
+のようなエントリが `skk-jisyo' にあれば、それを破壊しない。
 
-nil $B$G$"$l$P!"Aw$j2>L>$NF~NO$,40N;$7$?;~E@$GJQ49$,3+;O$9$k!#Nc$($P!"(B
+nil であれば、送り仮名の入力が完了した時点で変換が開始する。例えば、
 
-    \"UgoK -> $B"&$&$4(B*k\", \"UgoKu -> $B"'F0$/(B\"
+    \"UgoK -> ▽うご*k\", \"UgoKu -> ▼動く\"
 
-$B$3$N%*%W%7%g%s$r(B on $B$K$7$F(B `skk-mode' $B$r5/F0$9$k$H!"N>N)$G$-$J$$%*%W%7%g%s(B
-$B$G$"$k(B `skk-kakutei-early', `skk-auto-okuri-process' $B5Z$S(B
-`skk-henkan-okuri-strictly' $B$O(B nil $B$K%;%C%H$5$l$k!#(B"
+このオプションを on にして `skk-mode' を起動すると、両立できないオプション
+である `skk-kakutei-early', `skk-auto-okuri-process' 及び
+`skk-henkan-okuri-strictly' は nil にセットされる。"
   :type 'boolean
   :group 'skk-okurigana)
 
 (defcustom skk-check-okurigana-on-touroku nil
-  "*Non-nil $B$G$"$l$P!"Aw$j$"$j$NEPO?;~$K!"M>7W$J2>L>$r%A%'%C%/$9$k!#(B
+  "*Non-nil であれば、送りありの登録時に、余計な仮名をチェックする。
 
-$BNc$($P!"(B
+例えば、
 
-     \"$B$H$S$@(B*$B$9(B $BHt$S=P(B\"
+     \"とびだ*す 飛び出\"
 
-$B$HEPO?$9$k$N$,@5$7$$$K$b$+$+$o$i$:!"%f!<%6$,(B
+と登録するのが正しいにもかかわらず、ユーザが
 
-     \"$B$H$S$@(B*$B$9(B $BHt$S=P$9(B\"
+     \"とびだ*す 飛び出す\"
 
-$B$G$&$C$+$j(B [RET] $B$r2!$7$F$7$^$C$?$H$-$K!":G8e$N!V$9!W$,Aw$j2>L>$G$"$k$+$I$&$+(B
-$BD4$Y$k!#(B
+でうっかり [RET] を押してしまったときに、最後の「す」が送り仮名であるかどうか
+調べる。
 
-$B$3$NJQ?t$O0J2<$NCM$r$H$jF@$k!#4{DjCM$O(B nil$B!#(B
+この変数は以下の値をとり得る。既定値は nil。
 
-ask  -- $B%f!<%6$K3NG'$r5a$a!"Aw$j2>L>$HG'$a$i$l$l$P$3$l$r<h$j=|$$$F$+$iEPO?$9(B
-        $B$k!#(B
-auto -- $B%f!<%6$K3NG'$r5a$a$:!">!<j$KAw$j2>L>$rH=CG$7$F:o=|$7$F$+$iEPO?$9$k!#(B
-nil  -- $B0l@ZAw$j2>L>$N%A%'%C%/$r$;$:!"A4BN$rC18l$H$7$FEPO?$9$k!#$3$l$O(B SKK $BK\(B
-        $BMh$NF0:n$G$"$k!#(B"
-  :type '(radio (const :tag "$B%f!<%6$K3NG'$9$k(B" ask)
-                (const :tag "$B<+F0E*$K=hM}$9$k(B" auto)
-                (const :tag "$B%A%'%C%/$7$J$$(B"  nil))
+ask  -- ユーザに確認を求め、送り仮名と認められればこれを取り除いてから登録す
+        る。
+auto -- ユーザに確認を求めず、勝手に送り仮名を判断して削除してから登録する。
+nil  -- 一切送り仮名のチェックをせず、全体を単語として登録する。これは SKK 本
+        来の動作である。"
+  :type '(radio (const :tag "ユーザに確認する" ask)
+                (const :tag "自動的に処理する" auto)
+                (const :tag "チェックしない"  nil))
   :group 'skk-basic
   :group 'skk-okurigana
   :group 'skk-private)
 
 (defcustom skk-okuri-char-alist nil
-  "*$BAw$j2>L>(B prefix $B$rJQ49$9$k%k!<%k$r5-=R$9$kO"A[%j%9%H!#(B
-car $B$K!V<B:]$N%-!<F~NO$K$h$k$+$J(B prefix $BJ8;zNs!W!"(Bcdr $B$K!V(BSKK $B$N<-=q$,M=(B
-$BA[$7$F$$$k$+$J(B prefix $BJ8;zNs!W$r;}$D(B cons cell $B$N%j%9%H!#(B
+  "*送り仮名 prefix を変換するルールを記述する連想リスト。
+car に「実際のキー入力によるかな prefix 文字列」、cdr に「SKK の辞書が予
+想しているかな prefix 文字列」を持つ cons cell のリスト。
 
-$B$3$N5,B'$,;H$o$l$k$N$O!"(B`skk-process-okuri-early' $B$,(B non-nil $B$N>l9g$N$_$G$"$k!#(B
+この規則が使われるのは、`skk-process-okuri-early' が non-nil の場合のみである。
 
-$BNc$($P!"$+9T$NAw$j2>L>F~NO$K(B \"c\" $B$N(B prefix $B$r;H$&$N$G$"$l$P!"(B
+例えば、か行の送り仮名入力に \"c\" の prefix を使うのであれば、
 
   (setq skk-okuri-char-alist \\='((\"c\" . \"k\")))
 
-$B$N$h$&$K=q$/!#(B"
+のように書く。"
   :type '(repeat (cons string string))
   :group 'skk-okurigana)
 
@@ -1710,57 +1710,57 @@ car $B$K!V<B:]$N%-!<F~NO$K$h$k$+$J(B prefix $BJ8;zNs!W!"(Bcdr $B$K!V(BSKK 
                                                    skk-user-directory)
                                (convert-standard-filename "~/.skk-emacs-id"))
   "\
-*`skk-jisyo-file' $B$K:G6a%"%/%;%9$7$?(B SKK $B$N(B `skk-emacs-id' $B$rJ]B8$9$k%U%!%$%k!#(B"
+*`skk-jisyo-file' に最近アクセスした SKK の `skk-emacs-id' を保存するファイル。"
   :type 'file
   :group 'skk-misc)
 
 (defcustom skk-keep-record t
-  "*Non-nil $B$G$"$l$P!"JQ495Z$S8D?M<-=q$K4X$9$kE}7W$r(B `skk-record-file' $B$K<h$k!#(B
-$B?tCM$G$"$l$P!"(B`skk-record-file' $B$r$=$N9T?t$h$jBg$-$/$7$J$$!#(B
-nil $B$G$"$l$P!"JQ495Z$S8D?M<-=q$K4X$9$kE}7W$r<h$i$J$$!#(B"
-  :type '(radio (integer :tag "$B9T?t$r;XDj(B")
-                (const :tag "$B%l%3!<%I%5%$%:@)8B$J$7(B" t)
-                (const :tag "$B5-O?$7$J$$(B" nil))
+  "*Non-nil であれば、変換及び個人辞書に関する統計を `skk-record-file' に取る。
+数値であれば、`skk-record-file' をその行数より大きくしない。
+nil であれば、変換及び個人辞書に関する統計を取らない。"
+  :type '(radio (integer :tag "行数を指定")
+                (const :tag "レコードサイズ制限なし" t)
+                (const :tag "記録しない" nil))
   :group 'skk-misc)
 
 (defcustom skk-record-file (if skk-user-directory
                                (expand-file-name "record" skk-user-directory)
                              (convert-standard-filename "~/.skk-record"))
-  "*$BJQ495Z$S8D?M<-=q$K4X$9$kE}7W$r<h$k%U%!%$%k!#(B
-$B8D?M<-=q$rJ]B8$7$?F|;~!"C18l$NEPO??t!"3NDj$7$?2s?t!"3NDjN(!"A4BN$N8l?t$N(B
-$B>pJs$r<}$a$k!#(B"
+  "*変換及び個人辞書に関する統計を取るファイル。
+個人辞書を保存した日時、単語の登録数、確定した回数、確定率、全体の語数の
+情報を収める。"
   :type 'file
   :group 'skk-misc)
 
 (defcustom skk-byte-compile-init-file nil
-  "*Non-nil $B$G$"$l$P!"(B`skk-mode' $B5/F0;~$K(B `skk-init-file' $B$r%P%$%H%3%s%Q%$%k$9$k!#(B
-$B@53N$K8@$&$H!"(B
+  "*Non-nil であれば、`skk-mode' 起動時に `skk-init-file' をバイトコンパイルする。
+正確に言うと、
 
-  (1)`skk-init-file' $B$r%P%$%H%3%s%Q%$%k$7$?%U%!%$%k$,$J$$$+!"(B
-  (2)`skk-init-file' $B$H$=$N%P%$%H%3%s%Q%$%k:Q%U%!%$%k$rHf3S$7$F!"A0<T$NJ}$,?7$7(B
-     $B$$$H$-(B
+  (1)`skk-init-file' をバイトコンパイルしたファイルがないか、
+  (2)`skk-init-file' とそのバイトコンパイル済ファイルを比較して、前者の方が新し
+     いとき
 
-$B$K(B `skk-init-file' $B$r%P%$%H%3%s%Q%$%k$9$k!#(B
-nil $B$G$"$l$P!"(B`skk-init-file' $B$H$=$N%P%$%H%3%s%Q%$%k:Q$_%U%!%$%k$rHf3S$7$F(B
-`skk-init-file' $B$NJ}$,?7$7$$$H$-$O!"$=$N%P%$%H%3%s%Q%$%k:Q%U%!%$%k$r>C$9!#(B
+に `skk-init-file' をバイトコンパイルする。
+nil であれば、`skk-init-file' とそのバイトコンパイル済みファイルを比較して
+`skk-init-file' の方が新しいときは、そのバイトコンパイル済ファイルを消す。
 
-$B$3$NJQ?t$O(B ~/.emacs.d/init.el $B$G@_Dj$9$k$3$H!#(B"
+この変数は ~/.emacs.d/init.el で設定すること。"
   :type 'boolean
   :group 'skk-misc)
 
 (defcustom skk-read-from-minibuffer-function nil "\
-*$B<-=qEPO?%b!<%I$KF~$C$?$H$-$N%W%m%s%W%H$KI=<($9$k=i4|CM$rDs6!$9$k4X?t!#(B
-$B$3$N4X?t$OJ8;zNs$rJV$5$J$1$l$P$J$i$J$$!#(B
-$B4X?t(B `read-from-minibuffer' $B$N0z?t(B INITIAL-CONTENTS $B$K3:Ev$9$k!#(B
+*辞書登録モードに入ったときのプロンプトに表示する初期値を提供する関数。
+この関数は文字列を返さなければならない。
+関数 `read-from-minibuffer' の引数 INITIAL-CONTENTS に該当する。
 
-`skk-henkan-key' $B$r$=$N$^$^=i4|CM$H$7$FMxMQ$7$?$$$H$-$O!"(B
+`skk-henkan-key' をそのまま初期値として利用したいときは、
 
   (setq skk-read-from-minibuffer-function
         (lambda () skk-henkan-key))
 
-$B$H;XDj$9$k!#(B"
-  :type '(radio (function :tag "$B4X?t(B")
-                (const :tag "$B;XDj$7$J$$(B" nil))
+と指定する。"
+  :type '(radio (function :tag "関数")
+                (const :tag "指定しない" nil))
   :group 'skk-misc)
 
 (defface skk-jisyo-registration-badge-face
@@ -1772,24 +1772,24 @@ nil $B$G$"$l$P!"(B`skk-init-file' $B$H$=$N%P%$%H%3%s%Q%$%k:Q$_%U%!%$%k$rHf3S$
      (:inherit default :inverse-video t))
     (((class grayscale))
      (:inherit default :inverse-video t)))
-  "*$B"-<-=qEPO?Cf"-$KE,MQ$9$k%U%'%$%9!#(B"
+  "*↓辞書登録中↓に適用するフェイス。"
   :group 'skk-visual)
 
 ;;;###autoload
 (defcustom skk-preload nil
-  "*Non-nil $B$J$i$P!"(BEmacs $B5/F0;~$K(B SKK $B%W%m%0%i%`$H<-=q$NFI$_9~$_$r:Q$^$;$k!#(B
-Emacs $B$N5/F0$=$N$b$N$OCY$/$J$k$,!"(BDDSKK $B$N=i2s5/F0$rAa$/$9$k$3$H$,$G$-$k!#(B"
+  "*Non-nil ならば、Emacs 起動時に SKK プログラムと辞書の読み込みを済ませる。
+Emacs の起動そのものは遅くなるが、DDSKK の初回起動を早くすることができる。"
   :type 'boolean
   :group 'skk-misc)
 
 (defcustom skk-undo-kakutei-word-only nil
-  "*Non-nil $B$G$"$l$P(B $B"&%b!<%I$H"'%b!<%I;~$N%"%s%I%%>pJs$r5-O?$7$J$$!#(B"
+  "*Non-nil であれば ▽モードと▼モード時のアンドゥ情報を記録しない。"
   :type 'boolean
   :group 'skk-misc)
 
 (defcustom skk-undo-kakutei-return-previous-point nil
-  "*Non-nil $B$G$"$l$P!"3NDj%"%s%I%%=hM}$,40N;$7$?8e$K!"3NDj%"%s%I%%=hM}$N(B
-$BD>A0$N0LCV$K%+!<%=%k$rLa$9!#(B"
+  "*Non-nil であれば、確定アンドゥ処理が完了した後に、確定アンドゥ処理の
+直前の位置にカーソルを戻す。"
   :type 'boolean
   :group 'skk-misc)
 
@@ -1803,23 +1803,23 @@ Emacs $B$N5/F0$=$N$b$N$OCY$/$J$k$,!"(BDDSKK $B$N=i2s5/F0$rAa$/$9$k$3$H$,$G$-$
                 (stringp (symbol-value 'gtk-version-string))
                 (string< "2.0" (symbol-value 'gtk-version-string))))
        (equal current-language-environment "Japanese")) "\
-*Non-nil $B$G$"$l$P%a%K%e!<%P!<$rF|K\8l$GI=<($9$k!#(B"
+*Non-nil であればメニューバーを日本語で表示する。"
   :type 'boolean
   :group 'skk-misc)
 
 (defcustom skk-verbose nil
-  "*Non-nil $B$G$"$l$P!"F~NOCf!?JQ49Cf$K%(%3!<%(%j%"$K>iD9$J%a%C%;!<%8$rI=<($9$k!#(B"
+  "*Non-nil であれば、入力中／変換中にエコーエリアに冗長なメッセージを表示する。"
   :type 'boolean
   :group 'skk-misc)
 
 (defcustom skk-verbose-wait 1.5
-  "*$B>iD9$J%a%C%;!<%8$rI=<($9$k$^$G$NBT$A;~4V(B ($BIC(B)$B!#(B"
+  "*冗長なメッセージを表示するまでの待ち時間 (秒)。"
   :type 'number
   :group 'skk-misc)
 
 (defcustom skk-verbose-message-interval 5.0
-  "*$B>iD9$J%a%C%;!<%8$,J#?t$"$k>l9g!"#1$D$"$?$jI=<(;~4V(B ($BIC(B)$B!#(B
-$B$3$N;~4V$,7P2a$7$?$i<!$N%a%C%;!<%8$K@Z$jBX$($k!#(B"
+  "*冗長なメッセージが複数ある場合、１つあたり表示時間 (秒)。
+この時間が経過したら次のメッセージに切り替える。"
   :type 'number
   :group 'skk-misc)
 
@@ -1832,8 +1832,8 @@ Emacs $B$N5/F0$=$N$b$N$OCY$/$J$k$,!"(BDDSKK $B$N=i2s5/F0$rAa$/$9$k$3$H$,$G$-$
      (:inherit default :bold t))
     (((class grayscale))
      (:inherit default :bold t)))
-  "*$B"'%b!<%I$N>iD9$J%a%C%;!<%8$N(B {$B%"%N%F!<%7%g%s(B} $B$H(B {$B$I$l$r;2>H(B?} $B$KE,MQ$9$k(B
-$B%U%'%$%9!#(B"
+  "*▼モードの冗長なメッセージの {アノテーション} と {どれを参照?} に適用する
+フェイス。"
   :group 'skk-visual)
 
 (defface skk-verbose-kbd-face
@@ -1845,31 +1845,31 @@ Emacs $B$N5/F0$=$N$b$N$OCY$/$J$k$,!"(BDDSKK $B$N=i2s5/F0$rAa$/$9$k$3$H$,$G$-$
      (:inherit default :foreground "Cyan"))
     (((class grayscale))
      (:inherit default :foreground "LightGray")))
-  "*$B>iD9$J%a%C%;!<%8$NA`:n%-!<ItJ,$KE,MQ$9$k%U%'%$%9!#(B"
+  "*冗長なメッセージの操作キー部分に適用するフェイス。"
   :group 'skk-visual)
 
 (defcustom skk-henkan-on-message nil
-  "*$B"&%b!<%I$GI=<($9$k>iD9$J%a%C%;!<%8$NFbMF!#(B
-$BI8=`$G$O<+F0@_Dj$9$k!#(B"
-  :type '(radio (string :tag "$BFbMF$r;XDj(B")
-                (const :tag "$B<+F0@_Dj(B" nil))
+  "*▽モードで表示する冗長なメッセージの内容。
+標準では自動設定する。"
+  :type '(radio (string :tag "内容を指定")
+                (const :tag "自動設定" nil))
   :group 'skk-misc)
 
 (defcustom skk-j-mode-function-key-usage nil
-  "*$B%-!<%\!<%I>e$N(B F1 $B!A(B F10 $B%-!<$N;H$$J}$r;XDj$9$k!#(B
-`conversion' $B$J$i$P!"(B`skk-search-prog-list-1' $B!A(B `skk-search-prog-list-0' $B$r(B
-$B<B9T$G$-$k!#(B
-`kanagaki' $B$J$i$P!"$+$J%-!<%\!<%IF~NOMQ$N@_Dj$K$J$k!#(B
-nil $B$J$i$P<+F0@_Dj$O$7$J$$(B ($B<+J,$G9%$-$J@_Dj$,$G$-$k(B)$B!#(B"
-  :type '(radio (const :tag "$B@Z$jBX$(JQ495!G=MQ@_Dj(B" conversion)
-                (const :tag "$B$+$JF~NOMQ@_Dj(B" kanagaki)
-                (const :tag "$B@_Dj$7$J$$(B" nil))
+  "*キーボード上の F1 ～ F10 キーの使い方を指定する。
+`conversion' ならば、`skk-search-prog-list-1' ～ `skk-search-prog-list-0' を
+実行できる。
+`kanagaki' ならば、かなキーボード入力用の設定になる。
+nil ならば自動設定はしない (自分で好きな設定ができる)。"
+  :type '(radio (const :tag "切り替え変換機能用設定" conversion)
+                (const :tag "かな入力用設定" kanagaki)
+                (const :tag "設定しない" nil))
   :group 'skk-misc)
 
 (defcustom skk-mode-hook nil
-  "*skk-mode $B$KF~$k$?$S$K8F$P$l$k%U%C%/!#(B
-$BB>$K!"(B`skk-auto-fill-mode-hook', `skk-load-hook', `skk-init-file' $B$G$b(B
-$B%+%9%?%^%$%:$,2DG=!#(B"
+  "*skk-mode に入るたびに呼ばれるフック。
+他に、`skk-auto-fill-mode-hook', `skk-load-hook', `skk-init-file' でも
+カスタマイズが可能。"
   ;; "*Hook run at SKK startup.  This hook is also run
   ;;in skk-auto-fill-mode after skk-auto-fill-mode-hook.
   ;;skk-auto-fill-mode-hook, skk-load-hook, skk-init-file may also be used
@@ -1878,67 +1878,67 @@ nil $B$J$i$P<+F0@_Dj$O$7$J$$(B ($B<+J,$G9%$-$J@_Dj$,$G$-$k(B)$B!#(B"
   :group 'skk-misc)
 
 (defcustom skk-auto-fill-mode-hook nil
-  "*`skk-auto-fill-mode' $B$r5/F0$7$?$H$-$N%U%C%/!#(B
-$BB>$K!"(B`skk-mode-hook', `skk-load-hook', `skk-init-file' $B$G$b%+%9%?%^%$%:$,(B
-$B2DG=!#(B"
+  "*`skk-auto-fill-mode' を起動したときのフック。
+他に、`skk-mode-hook', `skk-load-hook', `skk-init-file' でもカスタマイズが
+可能。"
   ;;  "*Hook run at startup of skk-auto-fill-mode.
-  ;;skk-mode-hook$B!"(Bskk-load-hook, skk-init-file may also be used for
+  ;;skk-mode-hook、skk-load-hook, skk-init-file may also be used for
   ;;customization."
   :type 'hook
   :group 'skk-misc)
 
 (defcustom skk-load-hook nil
-  "*skk.el $B$r%m!<%I$7$?8e$K%3!<%k$5$l$k%U%C%/!#(B
-$BB>$K!"(B`skk-mode-hook', `skk-auto-fill-mode-hook', `skk-init-file' $B$G$b%+%9%?(B
-$B%^%$%:$,2DG=!#(B"
+  "*skk.el をロードした後にコールされるフック。
+他に、`skk-mode-hook', `skk-auto-fill-mode-hook', `skk-init-file' でもカスタ
+マイズが可能。"
   ;;  "*Hook run when SKK is loaded.
-  ;;skk-auto-fill-mode-hook$B!"(Bskk-mode-hook, skk-init-file may also be used
+  ;;skk-auto-fill-mode-hook、skk-mode-hook, skk-init-file may also be used
   ;;for customization."
   :type 'hook
   :group 'skk-misc)
 
 (defcustom skk-status-indicator 'left
-  "*SKK $B$N>uBV$r%b!<%I%i%$%s$N$I$N0LCV$KI=<($9$k$+$r7h$a$k!#(B
-left $B$G$"$l$P:8C<$KI=<($9$k!#(B
-$B$5$b$J$1$l$P%^%$%J!<%b!<%I$H$7$F$NI=<(K!$r<h$k!#(B"
-  :type '(radio (const :tag "$B%b!<%I%i%$%s$N:8C<$KI=<((B" left)
-                (const :tag "$B%^%$%J!<%b!<%I$N0l<o$H$7$FI=<((B" minor-mode))
+  "*SKK の状態をモードラインのどの位置に表示するかを決める。
+left であれば左端に表示する。
+さもなければマイナーモードとしての表示法を取る。"
+  :type '(radio (const :tag "モードラインの左端に表示" left)
+                (const :tag "マイナーモードの一種として表示" minor-mode))
   :group 'skk-visual)
 
 (defcustom skk-latin-mode-string "SKK"
-  "*$B%"%9%-!<%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($9$kJ8;zNs!#(B"
+  "*アスキーモードであるときにモードラインに表示する文字列。"
   :type 'string
   :group 'skk-visual)
 
-(defcustom skk-hiragana-mode-string "$B$+$J(B"
-  "*$B$+$J%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($9$kJ8;zNs!#(B"
+(defcustom skk-hiragana-mode-string "かな"
+  "*かなモードであるときにモードラインに表示する文字列。"
   :type 'string
   :group 'skk-visual)
 
-(defcustom skk-katakana-mode-string "$B%+%J(B"
-  "*$B%+%J%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($9$kJ8;zNs!#(B"
+(defcustom skk-katakana-mode-string "カナ"
+  "*カナモードであるときにモードラインに表示する文字列。"
   :type 'string
   :group 'skk-visual)
 
-(defcustom skk-jisx0208-latin-mode-string "$BA41Q(B"
-  "*$BA41Q%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($9$kJ8;zNs!#(B"
+(defcustom skk-jisx0208-latin-mode-string "全英"
+  "*全英モードであるときにモードラインに表示する文字列。"
   :type 'string
   :group 'skk-visual)
 
-(defcustom skk-abbrev-mode-string "a$B$"(B"
-  "*SKK abbrev $B%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($9$kJ8;zNs!#(B"
+(defcustom skk-abbrev-mode-string "aあ"
+  "*SKK abbrev モードであるときにモードラインに表示する文字列。"
   :type 'string
   :group 'skk-visual)
 
 (defcustom skk-indicator-use-cursor-color (and window-system
                                                (fboundp 'x-display-color-p)
                                                (x-display-color-p))
-  "*Non-nil $B$J$i$P!"%+!<%=%k$HF1$8?'$G%$%s%8%1!<%?$rI=<($9$k(B"
+  "*Non-nil ならば、カーソルと同じ色でインジケータを表示する"
   :type 'boolean
   :group 'skk-visual)
 
 (defcustom skk-indicator-prefix "--"
-  "*$B%$%s%8%1!<%?$N@\F,<-$H$9$kJ8;zNs(B"
+  "*インジケータの接頭辞とする文字列"
   :type 'string
   :group 'skk-visual)
 
@@ -1947,18 +1947,18 @@ left $B$G$"$l$P:8C<$KI=<($9$k!#(B
                                                 "::")
                                                (t
                                                 ":")))
-  "*$B%$%s%8%1!<%?$N@\Hx8l$H$9$kJ8;zNs$rJV$94X?t(B"
+  "*インジケータの接尾語とする文字列を返す関数"
   :type 'function
   :group 'skk-visual)
 
 (defvar skk-icon nil
-  "SKK $B%"%$%3%s$N2hA|%U%!%$%k(B skk.xpm $B$N%Q%9!#(B")
+  "SKK アイコンの画像ファイル skk.xpm のパス。")
 
 (put 'skk-icon 'risky-local-variable t)
 
 (defcustom skk-show-icon nil
-  "*Non-nil $B$G$"$l$P!"%b!<%I%i%$%s$K(B SKK $B$N%"%$%3%s$r>o;~I=<($9$k!#(B
-$BI=<($9$k(B SKK $B%"%$%3%s$N2hA|$O(B `skk-icon' $B$G;XDj$9$k!#(B"
+  "*Non-nil であれば、モードラインに SKK のアイコンを常時表示する。
+表示する SKK アイコンの画像は `skk-icon' で指定する。"
   :type 'boolean
   :set (lambda (symbol value)
          (prog1
@@ -1975,7 +1975,7 @@ left $B$G$"$l$P:8C<$KI=<($9$k!#(B
   :group 'skk-visual)
 
 (defcustom skk-echo t
-  "*Non-nil $B$G$"$l$P!"2>L>J8;z$N%W%l%U%#%C%/%9$rI=<($9$k!#(B"
+  "*Non-nil であれば、仮名文字のプレフィックスを表示する。"
   :type 'boolean
   :group 'skk-visual)
 
@@ -1983,25 +1983,25 @@ left $B$G$"$l$P:8C<$KI=<($9$k!#(B
                             (fboundp 'selected-frame)
                                         ; XEmacs does not have this.
                             (fboundp 'frame-face-alist))
-  "*Non-nil $B$G$"$l$P!"(BEmacs $B$N(B face $B$N5!G=$r;HMQ$7$FJQ498uJd$r%O%$%i%$%HI=<($9$k!#(B"
+  "*Non-nil であれば、Emacs の face の機能を使用して変換候補をハイライト表示する。"
   :type 'boolean
   :group 'skk-basic
   :group 'skk-visual)
 
 ;; should use defface?  however, can I use defface for highlight?
 (defcustom skk-henkan-face 'skk-henkan-face-default
-  "*$BJQ498uJd$N(B face $BB0@-!#(B`skk-use-face' $B$,(B non-nil $B$N$H$-$N$_M-8z!#(B
-Emacs $BI8=`$N%U%'%$%9$N$[$+!"?7$?$K(B face $B$r:n$C$F;XDj$9$k$3$H$b2DG=!#(B
-$B?7$?$J(B face $B$r:n$C$F;XDj$9$k$K$O!"(B
+  "*変換候補の face 属性。`skk-use-face' が non-nil のときのみ有効。
+Emacs 標準のフェイスのほか、新たに face を作って指定することも可能。
+新たな face を作って指定するには、
 
       (setq skk-henkan-face (skk-make-face \\='DimGray/PeachPuff1))
 
-$B$N$h$&$K(B skk-make-face() $B$rMxMQ$9$k$N$,<j7Z!#(B
-foreground $B$H(B background $B$N?';XDj$@$1$G$J$$6E$C$?(B face $B$r:n$k>l9g$O!"(B`skk-make-face' $B$G(B
-$B$OBP1~$G$-$J$$$N$G!"(BEmacs $B$N(B hilit19.el $B$N(B `hilit-lookup-face-create' $B$J$I$rMxMQ$9$k!#(B
-$B?'$rIU$1$k>l9g$NG[?'$O!"(Bcanna.el $B$N(B `canna:attribute-alist' $B$,NI$$Nc$+$b$7$l$J$$!#(B
+のように skk-make-face() を利用するのが手軽。
+foreground と background の色指定だけでない凝った face を作る場合は、`skk-make-face' で
+は対応できないので、Emacs の hilit19.el の `hilit-lookup-face-create' などを利用する。
+色を付ける場合の配色は、canna.el の `canna:attribute-alist' が良い例かもしれない。
 
-$B$3$NJQ?t$h$j$b(B `skk-treat-candidate-appearance-function' $B$N@_Dj$,M%@h$5$l$k!#(B"
+この変数よりも `skk-treat-candidate-appearance-function' の設定が優先される。"
   :type 'face
   :group 'skk-visual)
 
@@ -2013,7 +2013,7 @@ foreground $B$H(B background $B$N?';XDj$@$1$G$J$$6E$C$?(B face $B$r:n$k>l9g
     (((class color) (background dark))
      (:foreground "white" :background "darkolivegreen"))
     (((class grayscale)) (:underline t)))
-  "*$BI8=`$NJQ498uJd$N(B face $BB0@-!#(B"
+  "*標準の変換候補の face 属性。"
   :group 'skk-visual)
 
 (when (and skk-use-face
@@ -2025,47 +2025,47 @@ foreground $B$H(B background $B$N?';XDj$@$1$G$J$$6E$C$?(B face $B$r:n$k>l9g
   (set-face-background 'skk-henkan-face-default "darkseagreen2"))
 
 (defcustom skk-henkan-overlay-priority 600
-  "*$BJQ49$7$?8uJd$K=E$M$k(B overlay $B$N(B priority$B!#(B
-$BNc$($P!"(BViper $B$G(B R $B%3%^%s%I$K$h$j(B replace $B$r9T$&$H$-$K!"(B
-`viper-replace-overlay' $B$H$$$&(B priority 400 $B$N(B overlay $B$r=E$M$i$l$k$,!"(B
-`skk-henkan-overlay-priority' $B$N%G%U%)%k%HCM$O$3$N(B overlay $B$h$j(B
-priority $B$,9b$$$N$G!"M%@h$7$FI=<($5$l$k!#(B"
+  "*変換した候補に重ねる overlay の priority。
+例えば、Viper で R コマンドにより replace を行うときに、
+`viper-replace-overlay' という priority 400 の overlay を重ねられるが、
+`skk-henkan-overlay-priority' のデフォルト値はこの overlay より
+priority が高いので、優先して表示される。"
   :type 'integer
   :group 'skk-visual)
 
 (defcustom skk-treat-candidate-appearance-function nil
-  "*$B8uJd$NI=<($rAu>~$9$k$?$a$N4X?t$r;XDj$9$kJQ?t!#(B
-$B%f!<%6$O8uJd$H$J$k$Y$-J8;zNs$KBP$7$F!"$=$NCm<a!J%"%N%F!<%7%g%s!K$b4^$a$F(B
-$B$[$\G$0U$N2C9)$r;\$9$3$H$,$G$-$k!#$3$N4X?t$O0J2<$N>r7o$rK~$?$9I,MW$,$"$k!#(B
+  "*候補の表示を装飾するための関数を指定する変数。
+ユーザは候補となるべき文字列に対して、その注釈（アノテーション）も含めて
+ほぼ任意の加工を施すことができる。この関数は以下の条件を満たす必要がある。
 
-1. $B0z?t$r#2$D<h$k$3$H!#(B
-2. $BBh#10z?t$OJ8;zNs$H$7$F07$&$3$H!#$3$l$O2C9)A0$NJ8;zNs$KAjEv$9$k!#(B
-3. $BBh#20z?t$,(B nil $B$N;~$ODL>o$NJQ49;~!"(Bnon-nil $B$N;~$O8uJd0lMwI=<(;~$rI=$9(B
-   $B$b$N$H$7$F07$&$3$H!#(B
-4. $BJV$jCM$O0J2<$N$$$:$l$+$H$9$k$3$H!#(B
- a. $BJ8;zNs(B
-    $B$3$N>l9g!"$3$NJ8;zNs$O8uJd$H%"%N%F!<%7%g%s$rN>J}4^$_$&$k$b$N$H$7$F=h(B
-    $BM}$5$l$k!#(B
+1. 引数を２つ取ること。
+2. 第１引数は文字列として扱うこと。これは加工前の文字列に相当する。
+3. 第２引数が nil の時は通常の変換時、non-nil の時は候補一覧表示時を表す
+   ものとして扱うこと。
+4. 返り値は以下のいずれかとすること。
+ a. 文字列
+    この場合、この文字列は候補とアノテーションを両方含みうるものとして処
+    理される。
 
- b. cons cell ($B8uJd(B . $B%"%N%F!<%7%g%s(B)
-    $B$3$N>l9g!"8uJd$O$b$&%"%N%F!<%7%g%s$r4^$^$J$$$b$N$H$7$F=hM}$5$l$k!#(B
-    $B%"%N%F!<%7%g%s$K$D$$$F$O@hF,$,(B \";\" $B$+$I$&$+$rD4$Y$?>e$G=hM}$5$l$k!#(B
+ b. cons cell (候補 . アノテーション)
+    この場合、候補はもうアノテーションを含まないものとして処理される。
+    アノテーションについては先頭が \";\" かどうかを調べた上で処理される。
 
- c. cons cell ($B8uJd(B . ($B%;%Q%l!<%?(B . $B%"%N%F!<%7%g%s(B))
-    $B$3$N>l9g!"8uJd$O$b$&%"%N%F!<%7%g%s$r4^$^$J$$$b$N$H$7$F=hM}$5$l$k!#(B
-    $B%;%Q%l!<%?$ODL>o$N(B \";\" $B$NBe$o$j$KMxMQ$5$l$k!#%"%N%F!<%7%g%s$O$b$&(B
-    $B%;%Q%l!<%?$r4^$^$J$$$b$N$H$7$F=hM}$5$l$k!#(B
+ c. cons cell (候補 . (セパレータ . アノテーション))
+    この場合、候補はもうアノテーションを含まないものとして処理される。
+    セパレータは通常の \";\" の代わりに利用される。アノテーションはもう
+    セパレータを含まないものとして処理される。
 
-$B$3$N4X?t$O0J2<$N>l9g$K8F$P$l$k!#(B
+この関数は以下の場合に呼ばれる。
 
-o $BDL>o$NJQ49F0:n$NETEY(B
-  $B$3$N>l9g$O!"8uJd$O%P%C%U%!$K!"%"%N%F!<%7%g%s$O%(%3!<%(%j%"$J$I!J%f!<%6(B
-  $B$N@_Dj$K$h$C$F0[$J$k>l=j!K$KI=<($5$l$k!#%;%Q%l!<%?$OI=<($5$l$J$$!#(B
+o 通常の変換動作の都度
+  この場合は、候補はバッファに、アノテーションはエコーエリアなど（ユーザ
+  の設定によって異なる場所）に表示される。セパレータは表示されない。
 
-o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$k(B)
-  $B$3$N>l9g$O!"8uJd!"%;%Q%l!<%?!"%"%N%F!<%7%g%s$N3FJ8;zNs$,I=<($5$l$k!#(B
+o 候補一覧を表示するとき (候補の文字列の後ろにアノテーションが付加される)
+  この場合は、候補、セパレータ、アノテーションの各文字列が表示される。
 
- ($B@_DjNc(B)
+ (設定例)
 
  (setq skk-treat-candidate-appearance-function
        (lambda (candidate listing-p)
@@ -2083,17 +2083,17 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
       candidate))
 
 "
-  :type '(radio (const :tag "$B@_Dj%5%s%W%k(B1" skk-treat-candidate-sample1)
-                (const :tag "$B@_Dj%5%s%W%k(B2" skk-treat-candidate-sample2)
-                (const :tag "$B;XDj$7$J$$(B" nil)
-                (function :tag "$BG$0U$N4X?t(B"))
+  :type '(radio (const :tag "設定サンプル1" skk-treat-candidate-sample1)
+                (const :tag "設定サンプル2" skk-treat-candidate-sample2)
+                (const :tag "指定しない" nil)
+                (function :tag "任意の関数"))
   :group 'skk-annotation
   :group 'skk-visual)
 
 (defface skk-treat-default
   '((((class color) (background light)) (:foreground "black"))
     (((class color) (background dark)) (:foreground "white")))
-  "$BGX7J$J$7$NC1=c$J(B face$B!#(B`default' $B$NBe$o$j$K;H$&!#(B"
+  "背景なしの単純な face。`default' の代わりに使う。"
   :group 'skk-visual)
 
 ;;; -- Internal constants and variables of skk.el
@@ -2102,7 +2102,7 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
     ("ujis" . euc-jis-2004)
     ("sjis". japanese-shift-jis-2004)
     ("jis" . iso-2022-jp-3))
-  "coding-system $B$NJ8;zNsI=8=$H!"%7%s%\%kI=8=$NO"A[%j%9%H!#(B")
+  "coding-system の文字列表現と、シンボル表現の連想リスト。")
 
 (defconst skk-kana-rom-vector
   ["x" "a" "x" "i" "x" "u" "x" "e" "x" "o" "k" "g" "k" "g" "k" "g"
@@ -2111,24 +2111,24 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
    "p" "h" "b" "p" "h" "b" "p" "h" "b" "p" "h" "b" "p" "m" "m" "m"
    "m" "m" "x" "y" "x" "y" "x" "y" "r" "r" "r" "r" "r" "x" "w" "x"
    "x" "w" "n"]
-  "$B$+$JJ8;z$+$i%m!<%^;z$X$NJQ49%k!<%k!#(B
-$B2<5-$N3:Ev$9$k$+$JJ8;z$r$=$NJ8;z$N%m!<%^;z%W%l%U%#%C%/%9$G8=$o$7$?$b$N!#(B
-    $B$!(B  $B$"(B  $B$#(B  $B$$(B  $B$%(B  $B$&(B  $B$'(B  $B$((B  $B$)(B  $B$*(B  $B$+(B  $B$,(B  $B$-(B  $B$.(B  $B$/(B  $B$0(B
-    $B$1(B  $B$2(B  $B$3(B  $B$4(B  $B$5(B  $B$6(B  $B$7(B  $B$8(B  $B$9(B  $B$:(B  $B$;(B  $B$<(B  $B$=(B  $B$>(B  $B$?(B  $B$@(B
-    $B$A(B  $B$B(B  $B$C(B  $B$D(B  $B$E(B  $B$F(B  $B$G(B  $B$H(B  $B$I(B  $B$J(B  $B$K(B  $B$L(B  $B$M(B  $B$N(B  $B$O(B  $B$P(B
-    $B$Q(B  $B$R(B  $B$S(B  $B$T(B  $B$U(B  $B$V(B  $B$W(B  $B$X(B  $B$Y(B  $B$Z(B  $B$[(B  $B$\(B  $B$](B  $B$^(B  $B$_(B  $B$`(B
-    $B$a(B  $B$b(B  $B$c(B  $B$d(B  $B$e(B  $B$f(B  $B$g(B  $B$h(B  $B$i(B  $B$j(B  $B$k(B  $B$l(B  $B$m(B  $B$n(B  $B$o(B  $B$p(B
-    $B$q(B  $B$r(B  $B$s(B"
+  "かな文字からローマ字への変換ルール。
+下記の該当するかな文字をその文字のローマ字プレフィックスで現わしたもの。
+    ぁ  あ  ぃ  い  ぅ  う  ぇ  え  ぉ  お  か  が  き  ぎ  く  ぐ
+    け  げ  こ  ご  さ  ざ  し  じ  す  ず  せ  ぜ  そ  ぞ  た  だ
+    ち  ぢ  っ  つ  づ  て  で  と  ど  な  に  ぬ  ね  の  は  ば
+    ぱ  ひ  び  ぴ  ふ  ぶ  ぷ  へ  べ  ぺ  ほ  ぼ  ぽ  ま  み  む
+    め  も  ゃ  や  ゅ  ゆ  ょ  よ  ら  り  る  れ  ろ  ゎ  わ  ゐ
+    ゑ  を  ん"
   ;; (length skk-kana-rom-vector)
   ;; --> 83
-  ;; (setq kana '("$B$!(B" "$B$"(B" "$B$#(B" "$B$$(B" "$B$%(B" "$B$&(B" "$B$'(B" "$B$((B" "$B$)(B" "$B$*(B"
-  ;;          "$B$+(B" "$B$,(B" "$B$-(B" "$B$.(B" "$B$/(B" "$B$0(B" "$B$1(B" "$B$2(B" "$B$3(B" "$B$4(B"
-  ;;              "$B$5(B" "$B$6(B" "$B$7(B" "$B$8(B" "$B$9(B" "$B$:(B" "$B$;(B" "$B$<(B" "$B$=(B" "$B$>(B"
-  ;;              "$B$?(B" "$B$@(B" "$B$A(B" "$B$B(B" "$B$C(B" "$B$D(B" "$B$E(B" "$B$F(B" "$B$G(B" "$B$H(B" "$B$I(B"
-  ;;          "$B$J(B" "$B$K(B" "$B$L(B" "$B$M(B" "$B$N(B" "$B$O(B" "$B$P(B" "$B$Q(B" "$B$R(B" "$B$S(B" "$B$T(B"
-  ;;          "$B$U(B" "$B$V(B" "$B$W(B" "$B$X(B" "$B$Y(B" "$B$Z(B" "$B$[(B" "$B$\(B" "$B$](B"
-  ;;          "$B$^(B" "$B$_(B" "$B$`(B" "$B$a(B" "$B$b(B" "$B$c(B" "$B$d(B" "$B$e(B" "$B$f(B" "$B$g(B" "$B$h(B"
-  ;;              "$B$i(B" "$B$j(B" "$B$k(B" "$B$l(B" "$B$m(B" "$B$n(B" "$B$o(B" "$B$p(B" "$B$q(B" "$B$r(B" "$B$s(B"))
+  ;; (setq kana '("ぁ" "あ" "ぃ" "い" "ぅ" "う" "ぇ" "え" "ぉ" "お"
+  ;;          "か" "が" "き" "ぎ" "く" "ぐ" "け" "げ" "こ" "ご"
+  ;;              "さ" "ざ" "し" "じ" "す" "ず" "せ" "ぜ" "そ" "ぞ"
+  ;;              "た" "だ" "ち" "ぢ" "っ" "つ" "づ" "て" "で" "と" "ど"
+  ;;          "な" "に" "ぬ" "ね" "の" "は" "ば" "ぱ" "ひ" "び" "ぴ"
+  ;;          "ふ" "ぶ" "ぷ" "へ" "べ" "ぺ" "ほ" "ぼ" "ぽ"
+  ;;          "ま" "み" "む" "め" "も" "ゃ" "や" "ゅ" "ゆ" "ょ" "よ"
+  ;;              "ら" "り" "る" "れ" "ろ" "ゎ" "わ" "ゐ" "ゑ" "を" "ん"))
   ;; (length kana)
   ;; --> 83
   ;; (mapcar (lambda (s) (- (char-octet (string-to-char s) 1) 33))
@@ -2141,29 +2141,29 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
 
 (defconst skk-default-jisx0208-latin-vector
   ;; note that skk-jisx0208-latin-vector is a user variable.
-  ;; skk.el $B%m!<%IA0$K(B ~/.emacs.d/init.el $B$J$I$G!"(Bskk-jisx0208-latin-vector $B$NJL$NCM$r%f!<(B
-  ;; $B%6!<$,D>@\=q$$$?$j!"(Bskk.el $B%m!<%I8e$K$3$NCM$r(B aset $B$GD>@\$$$8$C$?$j$7$J(B
-  ;; $B$1$l$P(B default-value $B$G(B skk-jisx0208-latin-vector $B$K%"%/%;%9$9$k$3$H$G(B
-  ;; skk-default-jisx0208-latin-vector $B$NCM$rJ];}$9$k$3$H$b$G$-$h$&$,!"$=$l$O(B
-  ;; $BK>$a$J$$(B...$B!#(B
+  ;; skk.el ロード前に ~/.emacs.d/init.el などで、skk-jisx0208-latin-vector の別の値をユー
+  ;; ザーが直接書いたり、skk.el ロード後にこの値を aset で直接いじったりしな
+  ;; ければ default-value で skk-jisx0208-latin-vector にアクセスすることで
+  ;; skk-default-jisx0208-latin-vector の値を保持することもできようが、それは
+  ;; 望めない...。
   [nil  nil  nil  nil  nil  nil  nil  nil
         nil  nil  nil  nil  nil  nil  nil  nil
         nil  nil  nil  nil  nil  nil  nil  nil
         nil  nil  nil  nil  nil  nil  nil  nil
-        "$B!!(B"  "$B!*(B" "$B!I(B" "$B!t(B" "$B!p(B" "$B!s(B" "$B!u(B" "$B!G(B"
-        "$B!J(B" "$B!K(B" "$B!v(B" "$B!\(B" "$B!$(B" "$B!](B" "$B!%(B" "$B!?(B"
-        "$B#0(B" "$B#1(B" "$B#2(B" "$B#3(B" "$B#4(B" "$B#5(B" "$B#6(B" "$B#7(B"
-        "$B#8(B" "$B#9(B" "$B!'(B" "$B!((B" "$B!c(B" "$B!a(B" "$B!d(B" "$B!)(B"
-        "$B!w(B" "$B#A(B" "$B#B(B" "$B#C(B" "$B#D(B" "$B#E(B" "$B#F(B" "$B#G(B"
-        "$B#H(B" "$B#I(B" "$B#J(B" "$B#K(B" "$B#L(B" "$B#M(B" "$B#N(B" "$B#O(B"
-        "$B#P(B" "$B#Q(B" "$B#R(B" "$B#S(B" "$B#T(B" "$B#U(B" "$B#V(B" "$B#W(B"
-        "$B#X(B" "$B#Y(B" "$B#Z(B" "$B!N(B" "$B!@(B" "$B!O(B" "$B!0(B" "$B!2(B"
-        "$B!F(B" "$B#a(B" "$B#b(B" "$B#c(B" "$B#d(B" "$B#e(B" "$B#f(B" "$B#g(B"
-        "$B#h(B" "$B#i(B" "$B#j(B" "$B#k(B" "$B#l(B" "$B#m(B" "$B#n(B" "$B#o(B"
-        "$B#p(B" "$B#q(B" "$B#r(B" "$B#s(B" "$B#t(B" "$B#u(B" "$B#v(B" "$B#w(B"
-        "$B#x(B" "$B#y(B" "$B#z(B" "$B!P(B" "$B!C(B" "$B!Q(B" "$B!A(B" nil]
-  "`skk-jisx0208-latin-region' $B$G;2>H$9$kJ8;z%F!<%V%k!#(B
-\"ascii\" -> \"$B#a#s#c#i#i(B\" $B$N$h$&$JA43QJ8;z$XJQ49$9$k:]$KMxMQ$9$k!#(B")
+        "　"  "！" "”" "＃" "＄" "％" "＆" "’"
+        "（" "）" "＊" "＋" "，" "－" "．" "／"
+        "０" "１" "２" "３" "４" "５" "６" "７"
+        "８" "９" "：" "；" "＜" "＝" "＞" "？"
+        "＠" "Ａ" "Ｂ" "Ｃ" "Ｄ" "Ｅ" "Ｆ" "Ｇ"
+        "Ｈ" "Ｉ" "Ｊ" "Ｋ" "Ｌ" "Ｍ" "Ｎ" "Ｏ"
+        "Ｐ" "Ｑ" "Ｒ" "Ｓ" "Ｔ" "Ｕ" "Ｖ" "Ｗ"
+        "Ｘ" "Ｙ" "Ｚ" "［" "＼" "］" "＾" "＿"
+        "‘" "ａ" "ｂ" "ｃ" "ｄ" "ｅ" "ｆ" "ｇ"
+        "ｈ" "ｉ" "ｊ" "ｋ" "ｌ" "ｍ" "ｎ" "ｏ"
+        "ｐ" "ｑ" "ｒ" "ｓ" "ｔ" "ｕ" "ｖ" "ｗ"
+        "ｘ" "ｙ" "ｚ" "｛" "｜" "｝" "～" nil]
+  "`skk-jisx0208-latin-region' で参照する文字テーブル。
+\"ascii\" -> \"ａｓｃｉｉ\" のような全角文字へ変換する際に利用する。")
 
 (defconst skk-kana-cleanup-command-list
   '(skk-undo
@@ -2194,62 +2194,62 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
     (?\r . "\\r")
     (?\" . "\\\"")
     (?\\  . "\\\\"))
-  "$B<-=q%(%s%H%jFb$K4^$a$F$O$J$i$J$$J8;z$rCV$-JQ$($k$?$a$NO"A[%j%9%H!#(B
-`;' $B$O!"Cp<a$H4X78$J$$>l9g$@$1CV49$9$k!#(B")
+  "辞書エントリ内に含めてはならない文字を置き変えるための連想リスト。
+`;' は、註釈と関係ない場合だけ置換する。")
 
 (defvar skk-charset-list nil
-  "SKK $B$,07$&J8;z=89g$N%j%9%H!#(BSKK $B=i2s5/F0;~$K(B GNU Emacs 23 $B0J>e$G$"$l$P@_Dj$5$l$k!#(B")
+  "SKK が扱う文字集合のリスト。SKK 初回起動時に GNU Emacs 23 以上であれば設定される。")
 
 (defvar skk-emacs-id nil
-  "$BJ#?t$N(B emacs $B%W%m%;%9$r<1JL$9$kJ8;zNs!#(B
-$B$R$H$D$N8D?M<-=q%U%!%$%k$rJ#?t$N(B emacs $B>e$G5/F0$7$F$$$k(B SKK $B$G6&M-$9$k$H(B
-$B$-$K;2>H$9$k!#(B")
+  "複数の emacs プロセスを識別する文字列。
+ひとつの個人辞書ファイルを複数の emacs 上で起動している SKK で共有すると
+きに参照する。")
 
 (defvar skk-jisyo-update-vector nil
-  "`skk-share-private-jisyo' $BM-8z;~$K<-=q%P%C%U%!99?7>pJs$rJ];}$9$k(B vector.
-$BD9$5$O(B `skk-jisyo-save-count' $B$h$jD9$/$J$k$h$&$K@_Dj$7$F$$$k!#(B
-$B<-=q%P%C%U%!99?7$N5-O?$rJ]B8$7!"<-=q%P%C%U%!$r<-=q%U%!%$%k$K%;!<%V$9$k$H$-$K!"(B
-$BB>$N(B SKK $B$,<-=q%U%!%$%k$K:G6a%"%/%;%9$7$F$$$k$H$-$K$O!"<-=q%U%!%$%k$r%P%C%U%!(B
-$B$KFI$_9~$s$G$+$i!"(B`skk-jisyo-update-vector' $B$rMQ$$$F%P%C%U%!$r99?7D>$7!"$=$N(B
-$B7k2L$r%U%!%$%k$K%;!<%V$9$k!#(B")
+  "`skk-share-private-jisyo' 有効時に辞書バッファ更新情報を保持する vector.
+長さは `skk-jisyo-save-count' より長くなるように設定している。
+辞書バッファ更新の記録を保存し、辞書バッファを辞書ファイルにセーブするときに、
+他の SKK が辞書ファイルに最近アクセスしているときには、辞書ファイルをバッファ
+に読み込んでから、`skk-jisyo-update-vector' を用いてバッファを更新直し、その
+結果をファイルにセーブする。")
 
 (defvar skk-rule-tree nil
-  "$B%m!<%^;z(B -> $B$+$JJQ49$N>uBVA+0\5,B'$rI=$9%D%j!<$N=i4|>uBV!#(B
-$B:G=i$K(B `skk-mode' $B$r5/F0$7$?$H$-$K(B `skk-rom-kana-base-rule-list' $B$H(B
-`skk-rom-kana-rule-list' $B$+$iLZ$N7A$K%3%s%Q%$%k$5$l$k!#(B
-\\[skk-restart] $B$K$h$C$F$b:F%3%s%Q%$%k$5$l$k!#(B")
+  "ローマ字 -> かな変換の状態遷移規則を表すツリーの初期状態。
+最初に `skk-mode' を起動したときに `skk-rom-kana-base-rule-list' と
+`skk-rom-kana-rule-list' から木の形にコンパイルされる。
+\\[skk-restart] によっても再コンパイルされる。")
 
 (defvar skk-insert-new-word-function nil
-  "$B8uJd$rA^F~$7$?$H$-$K(B `funcall' $B$5$l$k4X?t$rJ]B8$9$kJQ?t!#(B")
+  "候補を挿入したときに `funcall' される関数を保存する変数。")
 
 (defvar skk-mode-invoked nil
-  "Non-nil $B$G$"$l$P!"(BEmacs $B$r5/F08e4{$K(B `skk-mode' $B$r5/F0$7$?$3$H$r<($9!#(B")
+  "Non-nil であれば、Emacs を起動後既に `skk-mode' を起動したことを示す。")
 
 (defvar skk-kakutei-count 0
-  "$BJQ498uJd$r3NDj$7$?%+%&%s%H$rJ];}$9$kJQ?t!#(B
-`skk-record-file' $B$N(B \"$B3NDj(B:\" $B9`L\$N%+%&%s%?!<!#(B")
+  "変換候補を確定したカウントを保持する変数。
+`skk-record-file' の \"確定:\" 項目のカウンター。")
 
 (defvar skk-touroku-count 0
-  "$B<-=qEPO?$7$?%+%&%s%H$rJ];}$9$kJQ?t!#(B
-`skk-record-file' $B$N(B \"$BEPO?(B:\" $B9`L\$N%+%&%s%?!<!#(B")
+  "辞書登録したカウントを保持する変数。
+`skk-record-file' の \"登録:\" 項目のカウンター。")
 
 (defvar skk-update-jisyo-count 0
-  "$B8D?M<-=q$r99?7$7$?2s?t!#(B
-$B$3$NJQ?t$N?tCM$,(B `skk-jisyo-save-count' $B0J>e$H$J$C$?$H$-$K8D?M<-=q$,(B
-$B%*!<%H%;!<%V$5$l$k!#(B
-$B8D?M<-=q$,%;!<%V$5$l$k$H%$%K%7%c%i%$%:$5$l$k!#(B")
+  "個人辞書を更新した回数。
+この変数の数値が `skk-jisyo-save-count' 以上となったときに個人辞書が
+オートセーブされる。
+個人辞書がセーブされるとイニシャライズされる。")
 
 (defvar skk-kakutei-history nil
-  "$BAw$j$J$7$G3NDj$5$l$?8+=P$78l!&8uJd$NMzNr!#(B
+  "送りなしで確定された見出し語・候補の履歴。
 
-   (\"$B$_$@$7$4(B\" \"$B8+=P$78l(B\" buffer)
+   (\"みだしご\" \"見出し語\" buffer)
 
-   $B$H$$$&7A<0$N%j%9%H!#(B")
+   という形式のリスト。")
 
 (defvar skk-minibuffer-origin-mode nil
-  "$BF~NO%b!<%I$rI=$o$9%7%s%\%k!#(B
-$BM-8z$JCM$O!"(B`hiragana', `katakana', `abbrev', `latin', `jisx0208-latin'
-$B$b$7$/$O(B nil $B$N$$$:$l$+!#(B")
+  "入力モードを表わすシンボル。
+有効な値は、`hiragana', `katakana', `abbrev', `latin', `jisx0208-latin'
+もしくは nil のいずれか。")
 
 (defvar skk-menu nil)
 
@@ -2263,18 +2263,18 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
 (defvar skk-inline-overlays nil)
 
 (defvar skk-latin-mode-map nil
-  "*$B%"%9%-!<%b!<%I$N%-!<%^%C%W!#(B")
+  "*アスキーモードのキーマップ。")
 (defvar skk-j-mode-map nil
-  "*$B$+$J%b!<%I$N%-!<%^%C%W!#(B")
+  "*かなモードのキーマップ。")
 (defvar skk-jisx0208-latin-mode-map nil
-  "*$BA41Q%b!<%I$N%-!<%^%C%W!#(B")
+  "*全英モードのキーマップ。")
 (defvar skk-abbrev-mode-map nil
-  "*SKK abbrev $B%b!<%I$N%-!<%^%C%W!#(B")
+  "*SKK abbrev モードのキーマップ。")
 
 (defvar skk-henkan-in-minibuff-nest-level nil)
 
 (defvar skk-menu-items
-  ;; SKK $B%a%K%e!<$NDj5A!#(B
+  ;; SKK メニューの定義。
   '("SKK"
     ("Convert Region and Echo"
      ("Gyakubiki"
@@ -2359,195 +2359,195 @@ o $B8uJd0lMw$rI=<($9$k$H$-(B ($B8uJd$NJ8;zNs$N8e$m$K%"%N%F!<%7%g%s$,IU2C$5$l$
 
 ;; ---- buffer local variables
 
-;; <$B%U%i%0N`(B>
+;; <フラグ類>
 
 ;;(skk-deflocalvar skk-current-henkan-data
 ;;  '(;; global variables
 
-;;    ;; $B%P%C%U%!%m!<%+%kJQ?t$N%G%U%)%k%HCM$r@_Dj$9$k$H!"$3$l$rD>@\=q49$($7$?(B
-;;    ;; $B$H$-$KB>$N%P%C%U%!$+$i8+$($kCM$bJQ$o$C$F$7$^$&!#(Bglobal $B$J%U%i%0$O$3$l(B
-;;    ;; $B$rMxMQ$7$F%G%U%)%k%HCM$rM?$($F$*$/!#(B
+;;    ;; バッファローカル変数のデフォルト値を設定すると、これを直接書換えした
+;;    ;; ときに他のバッファから見える値も変わってしまう。global なフラグはこれ
+;;    ;; を利用してデフォルト値を与えておく。
 
-;;    ;; Emacs $B$r5/F08e4{$K(B skk-mode $B$r5/F0$7$?$3$H$r<($9(B
+;;    ;; Emacs を起動後既に skk-mode を起動したことを示す
 ;;    (invoked . nil)
 
-;;    ;; skk-isearch $B4X?t$r%3!<%k$9$k$?$a$N%U%i%0(B
+;;    ;; skk-isearch 関数をコールするためのフラグ
 ;;    (isearch-message . nil)
 
-;;    ;; $BJQ498uJd$r3NDj$7$?%+%&%s%H$rJ];}$9$kJQ?t(B
+;;    ;; 変換候補を確定したカウントを保持する変数
 ;;    (kakutei-count . 0)
 
-;;    ;;$BF~NO%b!<%I$rI=$o$9%7%s%\%k(B
+;;    ;;入力モードを表わすシンボル
 ;;    (minibuffer-origin-mode . nil)
 
-;;    ;; $B<-=qEPO?$7$?%+%&%s%H$rJ];}$9$kJQ?t(B
+;;    ;; 辞書登録したカウントを保持する変数
 ;;    (touroku-count . 0)
 
-;;    ;; $B<-=q$r99?7$7$?2s?t(B
+;;    ;; 辞書を更新した回数
 ;;    (update-jisyo-count . 0)
 
 ;;    ;; buffer-local variables.
 
-;;    ;; `skk-search-prog-list' $B$N8=:_$NCM$rJ]B8$9$k%j%9%H(B
+;;    ;; `skk-search-prog-list' の現在の値を保存するリスト
 ;;    ;; (current-search-prog-list . nil)
 
-;;    ;; $B%_%K%P%C%U%!$G8uJd$r<!!9$KI=<($7$F!"8uJd$,?T$-$?$3$H$r<($9(B
+;;    ;; ミニバッファで候補を次々に表示して、候補が尽きたことを示す
 ;;    ;; (exit-show-candidates . nil)
 
-;;    ;; $B"'%b!<%I(B ($BJQ49Cf(B) $B$G$"$k$3$H$r<($9(B
+;;    ;; ▼モード (変換中) であることを示す
 ;;    ;; (henkan-active . nil)
 
-;;    ;; `skk-henkan-list' $B$N%j%9%H$N%$%s%G%/%9$G8=:_$N8uJd$r:9$9$b$N(B
+;;    ;; `skk-henkan-list' のリストのインデクスで現在の候補を差すもの
 ;;    ;; (henkan-count . -1)
 
-;;    ;; $BJQ49=*N;%]%$%s%H$r<($9%^!<%+!<(B
+;;    ;; 変換終了ポイントを示すマーカー
 ;;    ;; (henkan-end-point . nil)
 
-;;    ;; $B%_%K%P%C%U%!$G<-=qEPO?$r9T$C$?$H$-$K$3$N%U%i%0$,N)$D(B
+;;    ;; ミニバッファで辞書登録を行ったときにこのフラグが立つ
 ;;    ;; (henkan-in-minibuff-flag . nil)
 
-;;    ;; $BJQ49$9$Y$-8+=P$78l(B
+;;    ;; 変換すべき見出し語
 ;;    ;; (henkan-key . nil)
 
-;;    ;; $BJQ497k2L$N8uJd$N%j%9%H(B
+;;    ;; 変換結果の候補のリスト
 ;;    ;; (henkan-list . nil)
 
-;;    ;; $B8=:_$NJQ49$NAw$j2>L>ItJ,(B
+;;    ;; 現在の変換の送り仮名部分
 ;;    ;; (henkan-okurigana . nil)
 
-;;    ;; $B"&%b!<%I(B ($BJQ49BP>]$NJ8;zNs7hDj$N$?$a$N%b!<%I(B) $B$G$"$k$3$H$r<($9(B
+;;    ;; ▽モード (変換対象の文字列決定のためのモード) であることを示す
 ;;    ;; (henkan-on . nil)
 
-;;    ;; $BJQ493+;O%]%$%s%H$r<($9%^!<%+!<(B
+;;    ;; 変換開始ポイントを示すマーカー
 ;;    ;; (henkan-start-point . nil)
 
-;;    ;; $B3NDj$7$FNI$$8uJd$r8+$D$1$?>uBV$G$"$k$3$H$r;X$9(B
+;;    ;; 確定して良い候補を見つけた状態であることを指す
 ;;    ;; (kakutei-flag . nil)
 
-;;    ;; $B$+$JJ8;z$N3+;O%]%$%s%H$r<($9%^!<%+!<(B
+;;    ;; かな文字の開始ポイントを示すマーカー
 ;;    ;; (kana-start-point . nil)
 
-;;    ;; $BF~NO%b!<%I$,%+%J%b!<%I$G$"$k$3$H$r<($9(B
+;;    ;; 入力モードがカナモードであることを示す
 ;;    ;; (katakana . nil)
 
-;;    ;; $B<-=q$NAw$jM-$j%(%s%H%j$N=*N;E@$r<($9%P%C%U%!%]%$%s%H(B
+;;    ;; 辞書の送り有りエントリの終了点を示すバッファポイント
 ;;    ;; (okuri-ari-max . nil)
 
-;;    ;; $B<-=q$NAw$jM-$j%(%s%H%j$N3+;OE@$r<($9%P%C%U%!%]%$%s%H(B
+;;    ;; 辞書の送り有りエントリの開始点を示すバッファポイント
 ;;    ;; (okuri-ari-min . nil)
 
-;;    ;; $BJQ49$9$Y$-8l$NAw$j2>L>$NItJ,$N%W%l%U%#%C%/%9(B
+;;    ;; 変換すべき語の送り仮名の部分のプレフィックス
 ;;    ;; (okuri-char . nil)
 
-;;    ;; `skk-henkan-list' $B$N%$%s%G%/%9$G<+F0Aw$j=hM}!"$b$7$/$O%5JQ8!:w$G(B
-;;    ;; $B8!:w$7$?:G8e$N8uJd$r;X$9$b$N(B
+;;    ;; `skk-henkan-list' のインデクスで自動送り処理、もしくはサ変検索で
+;;    ;; 検索した最後の候補を指すもの
 ;;    ;; (okuri-index-max . -1)
 
-;;    ;; `skk-henkan-list' $B$N%$%s%G%/%9$G<+F0Aw$j=hM}!"$b$7$/$O%5JQ8!:w$G(B
-;;    ;; $B8!:w$7$?:G=i$N8uJd$r;X$9$b$N(B
+;;    ;; `skk-henkan-list' のインデクスで自動送り処理、もしくはサ変検索で
+;;    ;; 検索した最初の候補を指すもの
 ;;    ;; (okuri-index-min . -1)
 
-;;    ;; $B<-=q$NAw$j$J$7%(%s%H%j$N3+;OE@$r<($9%P%C%U%!%]%$%s%H(B
+;;    ;; 辞書の送りなしエントリの開始点を示すバッファポイント
 ;;    ;; (okuri-nasi-min . nil)
 
-;;    ;; $BAw$j2>L>ItJ,$,F~NOCf$G$"$k$3$H$r<($9(B
+;;    ;; 送り仮名部分が入力中であることを示す
 ;;    ;;(okurigana . nil)
 
-;;    ;; $BAw$j2>L>$N3+;O%]%$%s%H$r<($9%^!<%+!<(B
+;;    ;; 送り仮名の開始ポイントを示すマーカー
 ;;    ;; (okurigana-start-point . nil)
 
-;;    ;; $BF~NO$9$k$+$J$r7hDj$9$k$?$a$N%W%l%U%#%C%/%9(B
+;;    ;; 入力するかなを決定するためのプレフィックス
 ;;    ;; (prefix . "")
 
-;;    ;; $B$3$NJQ?t$KJ];}$5$l$k%]%$%s%H$,8=:_$N%]%$%s%H$H0[$J$k>l9g!"(B
-;;    ;; `skk-with-point-move' $B$,;H$o$l$F$$$J$$%3%^%s%I$rF0:n$5$;$k$H(B
-;;    ;; `skk-after-point-move' $B$,:nF0$9$k(B
+;;    ;; この変数に保持されるポイントが現在のポイントと異なる場合、
+;;    ;; `skk-with-point-move' が使われていないコマンドを動作させると
+;;    ;; `skk-after-point-move' が作動する
 ;;    ;; (previous-point . nil)
 
-;;    ;; `skk-insert' $B$b$7$/$O(B `skk-jisx0208-latin-insert' $B$GO"B3F~NO$7$?(B
-;;    ;; $BJ8;z?t$rI=$o$9%+%&%s%?!<(B
+;;    ;; `skk-insert' もしくは `skk-jisx0208-latin-insert' で連続入力した
+;;    ;; 文字数を表わすカウンター
 ;;    ;; (self-insert-non-undo-count . 1)))
 
 (skk-deflocalvar skk-mode nil "\
-Non-nil $B$G$"$l$P!"%+%l%s%H%P%C%U%!$G8=:_(B `skk-mode' $B$r5/F0$7$F$$$k$3$H$r<($9!#(B")
+Non-nil であれば、カレントバッファで現在 `skk-mode' を起動していることを示す。")
 
 (skk-deflocalvar skk-latin-mode nil
-  "Non-nil $B$G$"$l$P!"F~NO%b!<%I$,%"%9%-!<%b!<%I$G$"$k$3$H$r<($9!#(B")
+  "Non-nil であれば、入力モードがアスキーモードであることを示す。")
 
 (skk-deflocalvar skk-j-mode nil
-  "Non-nil $B$G$"$l$P!"F~NO%b!<%I$,$+$J!&%+%J%b!<%I$G$"$k$3$H$r<($9!#(B")
+  "Non-nil であれば、入力モードがかな・カナモードであることを示す。")
 
 (skk-deflocalvar skk-katakana nil
-  "Non-nil $B$G$"$l$P!"F~NO%b!<%I$,%+%J%b!<%I$G$"$k$3$H$r<($9!#(B
-\"(and (not skk-katakana) skk-j-mode)\" $B$,(B t $B$G$"$l$P!"$+$J%b!<%I$G$"$k$3$H$r(B
-$B<($9!#(B")
+  "Non-nil であれば、入力モードがカナモードであることを示す。
+\"(and (not skk-katakana) skk-j-mode)\" が t であれば、かなモードであることを
+示す。")
 
 (skk-deflocalvar skk-jisx0208-latin-mode nil
-  "Non-nil $B$G$"$l$P!"F~NO%b!<%I$,A41Q%b!<%I$G$"$k$3$H$r<($9!#(B")
+  "Non-nil であれば、入力モードが全英モードであることを示す。")
 
 (skk-deflocalvar skk-abbrev-mode nil
-  "Non-nil $B$G$"$l$P!"F~NO%b!<%I$,(B SKK abbrev $B%b!<%I$G$"$k$3$H$r<($9!#(B")
+  "Non-nil であれば、入力モードが SKK abbrev モードであることを示す。")
 
 (skk-deflocalvar skk-okurigana nil
-  "Non-nil $B$G$"$l$P!"Aw$j2>L>ItJ,$,F~NOCf$G$"$k$3$H$r<($9!#(B")
+  "Non-nil であれば、送り仮名部分が入力中であることを示す。")
 
 (skk-deflocalvar skk-henkan-mode nil
-  "$BJQ49%b!<%I$r<($9!#(B
-`on' $B$G$"$l$P!""&%b!<%I!#(B
-`active' $B$G$"$l$P!""'%b!<%I!#(B
-`nil' $B$G$"$l$P!"3NDjF~NO%b!<%I!#(B")
+  "変換モードを示す。
+`on' であれば、▽モード。
+`active' であれば、▼モード。
+`nil' であれば、確定入力モード。")
 
 (skk-deflocalvar skk-kakutei-flag nil
-  "Non-nil $B$J$i3NDj$7$FNI$$8uJd$r8+$D$1$?>uBV$G$"$k$3$H$r;X$9!#(B")
+  "Non-nil なら確定して良い候補を見つけた状態であることを指す。")
 
 (skk-deflocalvar skk-kakutei-henkan-flag nil
-  "Non-nil $B$J$i3NDjJQ49$9$k;v$r;X$9!#(B
-`skk-search-kakutei-jisyo-file' $B$d!"%f!<%6<+:n$N3NDjJQ49MQ%W%m%0%i%`$O(B
-$B$3$NJQ?t$r%;%C%H$9$k!#(B
+  "Non-nil なら確定変換する事を指す。
+`skk-search-kakutei-jisyo-file' や、ユーザ自作の確定変換用プログラムは
+この変数をセットする。
 
-$B$3$NJQ?t$,(B Non-nil $B$K%;%C%H$5$l$F$b!"JQ49$7$F:G=i$KF@$i$l$?8uJd$G$J$1$l$P(B
-$B3NDjJQ49$5$l$J$$$3$H$KCm0U!#(B")
+この変数が Non-nil にセットされても、変換して最初に得られた候補でなければ
+確定変換されないことに注意。")
 
 (skk-deflocalvar skk-exit-show-candidates nil
-  "$B%_%K%P%C%U%!$G8uJd$r<!!9$KI=<($7$F!"8uJd$,?T$-$?$H$-$K(B non-nil $B$H$J$k!#(B
-$B$=$NCM$O%j%9%H$G!"(Bcar $B$K(B `skk-henkan-show-candidates' $B4X?t$G(B while $B%k!<%W$r(B
-$B2s$C$?2s?t$r<($90l;~JQ?t(B loop $B$NCM$r!"(Bcdr $BIt$K:G8e$K%_%K%P%C%U%!$KI=<($7$?(B
-1 $B$DA0$N8uJd72$N:G8e$NMWAG$r;X$9%$%s%G%/%9$,BeF~$5$l$k!#(B")
+  "ミニバッファで候補を次々に表示して、候補が尽きたときに non-nil となる。
+その値はリストで、car に `skk-henkan-show-candidates' 関数で while ループを
+回った回数を示す一時変数 loop の値を、cdr 部に最後にミニバッファに表示した
+1 つ前の候補群の最後の要素を指すインデクスが代入される。")
 
 (skk-deflocalvar skk-insert-keysequence nil
-  "$B4X?t(B `skk-insert' $BFb$G%-!<%7!<%1%s%9$rC_@Q$9$k!#(B")
+  "関数 `skk-insert' 内でキーシーケンスを蓄積する。")
 
-;; <$B%-!<%^%C%W4XO"(B>
+;; <キーマップ関連>
 (skk-deflocalvar skk-current-rule-tree nil
-  "$B%m!<%^;z(B -> $B$+$JJQ49$N>uBVA+0\5,B'$rI=$o$9%D%j!<$N8=;~E@$N>uBV!#(B
-$B%m!<%^;zF~NO$N=i4|$G$O(B `skk-rule-tree' $B$HF10l$N>uBV$G!"J8;zF~NO$,?J$`$K(B
-$B$D$l!"LZ$r$?$I$C$F$f$/>uBV$NA+0\$rI=$9!#(B")
+  "ローマ字 -> かな変換の状態遷移規則を表わすツリーの現時点の状態。
+ローマ字入力の初期では `skk-rule-tree' と同一の状態で、文字入力が進むに
+つれ、木をたどってゆく状態の遷移を表す。")
 
-;; <$B<-=q4XO"$NJQ?t(B>
+;; <辞書関連の変数>
 (skk-deflocalvar skk-okuri-ari-min nil
-  "SKK $B<-=q$NAw$jM-$j%(%s%H%j$N3+;OE@$r<($9%P%C%U%!%]%$%s%H!#(B")
+  "SKK 辞書の送り有りエントリの開始点を示すバッファポイント。")
 
 (skk-deflocalvar skk-okuri-ari-max nil
-  "SKK $B<-=q$NAw$jM-$j%(%s%H%j$N=*N;E@$r<($9%P%C%U%!%]%$%s%H!#(B
-`skk-jisyo' $B$N%P%C%U%!$G$O<-=q$N99?7$NI,MW$,$"$k$?$a$K%^!<%+!<$,BeF~$5$l$k!#(B")
+  "SKK 辞書の送り有りエントリの終了点を示すバッファポイント。
+`skk-jisyo' のバッファでは辞書の更新の必要があるためにマーカーが代入される。")
 
 (skk-deflocalvar skk-okuri-nasi-min nil
-  "SKK $B<-=q$NAw$j$J$7%(%s%H%j$N3+;OE@$r<($9%P%C%U%!%]%$%s%H!#(B
-`skk-jisyo' $B$N%P%C%U%!$G$O<-=q$N99?7$NI,MW$,$"$k$?$a$K%^!<%+!<$,BeF~$5$l$k!#(B")
+  "SKK 辞書の送りなしエントリの開始点を示すバッファポイント。
+`skk-jisyo' のバッファでは辞書の更新の必要があるためにマーカーが代入される。")
 
-;; <$B$=$NB>(B>
+;; <その他>
 (skk-deflocalvar skk-mode-line nil
-  "SKK $B$N%b!<%I$r<($9%b!<%I%i%$%s$NJ8;zNs!#(B
+  "SKK のモードを示すモードラインの文字列。
 `skk-mode-string', `skk-hiragana-mode-string', `skk-katakana-mode-string',
- `skk-jisx0208-latin-mode-string' $B$N$$$:$l$+$,BeF~$5$l$k!#(B")
+ `skk-jisx0208-latin-mode-string' のいずれかが代入される。")
 
 (skk-deflocalvar skk-previous-point nil
-  "`skk-with-point-move' $B4XO"JQ?t!#(B
-$B$3$NJQ?t$KJ];}$5$l$k%]%$%s%H$,8=:_$N%]%$%s%H$H0[$J$k>l9g!"(B`skk-with-point-move'
-$B$,;H$o$l$F$$$J$$%3%^%s%I$rF0:n$5$;$k$H!"(B`skk-after-point-move' $B$,:nF0$9$k!#(B")
+  "`skk-with-point-move' 関連変数。
+この変数に保持されるポイントが現在のポイントと異なる場合、`skk-with-point-move'
+が使われていないコマンドを動作させると、`skk-after-point-move' が作動する。")
 
 (skk-deflocalvar skk-prefix ""
-  "$BF~NO$9$k$+$J$r7hDj$9$k$?$a$N%W%l%U%#%C%/%9!#(B")
+  "入力するかなを決定するためのプレフィックス。")
 
 (defface skk-prefix-hiragana-face
   '((((class color) (type tty))
@@ -2557,7 +2557,7 @@ Non-nil $B$G$"$l$P!"%+%l%s%H%P%C%U%!$G8=:_(B `skk-mode' $B$r5/F0$7$F$$$k$3$H$
     (((class color) (background dark))
      (:foreground "pink"))
     (((class grayscale)) (:underline t)))
-  "*$B$+$J%b!<%I$N%m!<%^;z%W%l%U%#%C%/%9$N(B face $BB0@-!#(B"
+  "*かなモードのローマ字プレフィックスの face 属性。"
   :group 'skk-visual)
 
 (defface skk-prefix-katakana-face
@@ -2568,7 +2568,7 @@ Non-nil $B$G$"$l$P!"%+%l%s%H%P%C%U%!$G8=:_(B `skk-mode' $B$r5/F0$7$F$$$k$3$H$
     (((class color) (background dark))
      (:foreground "green"))
     (((class grayscale)) (:underline t)))
-  "*$B%+%J%b!<%I$N%m!<%^;z%W%l%U%#%C%/%9$N(B face $BB0@-!#(B"
+  "*カナモードのローマ字プレフィックスの face 属性。"
   :group 'skk-visual)
 
 (defface skk-prefix-jisx0201-face
@@ -2579,259 +2579,259 @@ Non-nil $B$G$"$l$P!"%+%l%s%H%P%C%U%!$G8=:_(B `skk-mode' $B$r5/F0$7$F$$$k$3$H$
     (((class color) (background dark))
      (:foreground "thistle"))
     (((class grayscale)) (:underline t)))
-  "*JISX0201 $B%b!<%I$N%m!<%^;z%W%l%U%#%C%/%9$N(B face $BB0@-!#(B"
+  "*JISX0201 モードのローマ字プレフィックスの face 属性。"
   :group 'skk-visual)
 
 (skk-deflocalvar skk-prefix-overlay nil
-  "`skk-prefix' $B$rI=<($9$k$?$a$K;HMQ$5$l$k(B overlay$B!#(B
-`skk-echo' $B$NCM$,(B non-nil $B$N$H$-$K;HMQ$5$l$k!#(B")
+  "`skk-prefix' を表示するために使用される overlay。
+`skk-echo' の値が non-nil のときに使用される。")
 
 (skk-deflocalvar skk-henkan-start-point nil
-  "$BJQ493+;O%]%$%s%H$r<($9%^!<%+!<!#(B")
+  "変換開始ポイントを示すマーカー。")
 
 (skk-deflocalvar skk-henkan-end-point nil
-  "$BJQ49=*N;%]%$%s%H$r<($9%^!<%+!<!#(B")
+  "変換終了ポイントを示すマーカー。")
 
 (skk-deflocalvar skk-kana-start-point nil
-  "$B$+$JJ8;z$N3+;O%]%$%s%H$r<($9%^!<%+!<!#(B")
+  "かな文字の開始ポイントを示すマーカー。")
 
 (skk-deflocalvar skk-okurigana-start-point nil
-  "$BAw$j2>L>$N3+;O%]%$%s%H$r<($9%^!<%+!<!#(B")
+  "送り仮名の開始ポイントを示すマーカー。")
 
 (skk-deflocalvar skk-henkan-key nil
-  "$BJQ49$9$Y$-8+=P$78l!#(B
-$BNc$($P!"(B\"$B"&$+$J(B\" $B$rJQ49$9$l$P!"(B`skk-henkan-key' $B$K$O(B \"$B$+$J(B\" $B$,BeF~$5$l$k!#(B
-\"$B"&$o$i(B*$B$&(B\" $B$N$h$&$JAw$j$"$j$NJQ49$N>l9g$K$O!"(B\"$B$o$i(Bu\" $B$N$h$&$K!"4A;zItJ,$N(B
-$BFI$_$,$J(B + $BAw$j2>L>$N:G=i$NJ8;z$N%m!<%^;z$N%W%l%U%#%C%/%9$,BeF~$5$l$k!#(B")
+  "変換すべき見出し語。
+例えば、\"▽かな\" を変換すれば、`skk-henkan-key' には \"かな\" が代入される。
+\"▽わら*う\" のような送りありの変換の場合には、\"わらu\" のように、漢字部分の
+読みがな + 送り仮名の最初の文字のローマ字のプレフィックスが代入される。")
 
 (skk-deflocalvar skk-okuri-char nil
-  "$BJQ49$9$Y$-8l$NAw$j2>L>$NItJ,$N%W%l%U%#%C%/%9!#(B
-$BNc$($P!"(B\"$B$*$/(B*$B$j(B\" $B$rJQ49$9$k$H$-$O!"(B`skk-okuri-char' $B$O(B \"r\"$B!#(B
-`skk-okuri-char' $B$,(B non-nil $B$G$"$l$P!"Aw$j$"$j$NJQ49$G$"$k$3$H$r<($9!#(B")
+  "変換すべき語の送り仮名の部分のプレフィックス。
+例えば、\"おく*り\" を変換するときは、`skk-okuri-char' は \"r\"。
+`skk-okuri-char' が non-nil であれば、送りありの変換であることを示す。")
 
 (skk-deflocalvar skk-henkan-okurigana nil
-  "$B8=:_$NJQ49$NAw$j2>L>ItJ,!#(B
-$BNc$($P!"(B\"$B"&$&$^$l(B*$B$k(B\" $B$rJQ49$9$l$P!"(B`skk-henkan-okurigana' $B$K$O(B \"$B$k(B\" $B$,BeF~(B
-$B$5$l$k!#(B")
+  "現在の変換の送り仮名部分。
+例えば、\"▽うまれ*る\" を変換すれば、`skk-henkan-okurigana' には \"る\" が代入
+される。")
 
 (skk-deflocalvar skk-last-kakutei-henkan-key nil
-  "$B3NDj<-=q$K$h$j:G8e$K3NDj$7$?$H$-$N8+=P$78l!#(B
-$B3NDj<-=q$K$h$k3NDj$ND>8e$K(B x $B%-!<$r2!$9$H3NDj$,%"%s%I%%$5$l$F!"3NDjA0$N>uBV$G(B
-$B$3$N8+=P$78l$,%+%l%s%H%P%C%U%!$KA^F~$5$l$k!#(B")
+  "確定辞書により最後に確定したときの見出し語。
+確定辞書による確定の直後に x キーを押すと確定がアンドゥされて、確定前の状態で
+この見出し語がカレントバッファに挿入される。")
 
 (skk-deflocalvar skk-henkan-list nil
-  "$BJQ497k2L$N8uJd$N%j%9%H!#(B
-$BNc$($P!"(B\"$B"&$J(B*$B$/(B\" $B$H$$$&JQ49$9$l$P!"(B`skk-henkan-list' $B$O(B
-\(\"$BLD(B\" \"$B5c(B\" \"$BL5(B\" \"$BK4(B\") $B$N$h$&$K$J$k!#(B")
+  "変換結果の候補のリスト。
+例えば、\"▽な*く\" という変換すれば、`skk-henkan-list' は
+\(\"鳴\" \"泣\" \"無\" \"亡\") のようになる。")
 
 (skk-deflocalvar skk-henkan-count -1
-  "`skk-henkan-list' $B$N%j%9%H$N%$%s%G%/%9$G8=:_$N8uJd$r:9$9$b$N!#(B")
+  "`skk-henkan-list' のリストのインデクスで現在の候補を差すもの。")
 
 (skk-deflocalvar skk-self-insert-non-undo-count 1
-  "$BO"B3F~NO$7$?J8;z?t$rI=$o$9%+%&%s%?!<!#(B
-`skk-insert' $B$b$7$/$O(B `skk-jisx0208-latin-insert' $B$G%+%&%s%H$5$l$k!#(B
-Emacs $B$N%*%j%8%J%k$NF0:n$G$O!"(B`self-insert-command' $B$K%P%$%s%I$5$l$?%-!<F~NO$O(B
-$BO"B3(B 20 $B2s$^$G$,(B 1 $B$D$N%"%s%I%%$NBP>]$H$J$k!#$3$NF0:n$r%(%_%e%l!<%H$9$k$?$a$N(B
-$B%+%&%s%?!<!#$3$N%+%&%s%?!<$,!"(B20 $BL$K~$G$"$k$H$-$O!"F~NO$N$?$S$K(B
-`cancel-undo-boundary' $B$,%3!<%k$5$l$k!#(B")
+  "連続入力した文字数を表わすカウンター。
+`skk-insert' もしくは `skk-jisx0208-latin-insert' でカウントされる。
+Emacs のオリジナルの動作では、`self-insert-command' にバインドされたキー入力は
+連続 20 回までが 1 つのアンドゥの対象となる。この動作をエミュレートするための
+カウンター。このカウンターが、20 未満であるときは、入力のたびに
+`cancel-undo-boundary' がコールされる。")
 
 (skk-deflocalvar skk-current-search-prog-list nil
-  "`skk-search-prog-list' $B$N8=:_$NCM$rJ]B8$9$k%j%9%H!#(B
-$B:G=i$NJQ49;~$O(B `skk-search-prog-list' $B$NA4$F$NCM$rJ];}$7!"JQ49$r7+$jJV$9$?$S$K(B
-1 $B$D$:$DC;$/$J$C$F$f$/!#(B")
+  "`skk-search-prog-list' の現在の値を保存するリスト。
+最初の変換時は `skk-search-prog-list' の全ての値を保持し、変換を繰り返すたびに
+1 つずつ短くなってゆく。")
 
 (defvar skk-search-state nil)
 (defvar skk-search-ex-state nil)
 
 ;; for skk-undo-kakutei
 (skk-deflocalvar skk-last-henkan-data nil
-  "$B:G8e$K9T$C$?JQ49$K4X$9$k%G!<%?$NO"A[%j%9%H!#%G%U%)%k%H$N%-!<(B
-$B$O!"(B`henkan-key', `henkan-okurigana', `okuri-char',
-`henkan-list', `henkan-point', `henkan-buffer', `abbrev-mode' $B$N3F(B
-$B%7%s%\%k!#(B
- (skk-num $B$r(B require $B$7$F$$$k$H$-$O!"(Bnum-list $B$,DI2C$5$l$k(B)$B!#(B")
+  "最後に行った変換に関するデータの連想リスト。デフォルトのキー
+は、`henkan-key', `henkan-okurigana', `okuri-char',
+`henkan-list', `henkan-point', `henkan-buffer', `abbrev-mode' の各
+シンボル。
+ (skk-num を require しているときは、num-list が追加される)。")
 
 (skk-deflocalvar skk-undo-kakutei-flag nil
-  "Non-nil $B$J$i$P!"3NDj%"%s%I%%Cf$G$"$k$3$H$r;X$9!#(B")
+  "Non-nil ならば、確定アンドゥ中であることを指す。")
 
 (skk-deflocalvar skk-undo-kakutei-prev-state nil
-  "`skk-undo-kakutei' $B$,8F$P$l$?;~$NF~NO%b!<%I$N>uBV!#(B")
+  "`skk-undo-kakutei' が呼ばれた時の入力モードの状態。")
 
 (skk-deflocalvar skk-undo-kakutei-previous-point nil
-  "$B3NDj%"%s%I%%D>A0$N%]%$%s%H$r<($9%^!<%+!<!#(B")
+  "確定アンドゥ直前のポイントを示すマーカー。")
 
 (skk-deflocalvar skk-undo-kakutei-previous-length nil
-  "$B3NDj%"%s%I%%$9$kBP>]$NJQ497k2L$ND9$5!#(B")
+  "確定アンドゥする対象の変換結果の長さ。")
 
 (skk-deflocalvar skk-henkan-overlay nil
-  "$B8uJd$rI=<($9$k$H$-$K;HMQ$9$k(B Overlay$B!#(B")
+  "候補を表示するときに使用する Overlay。")
 
 (skk-deflocalvar skk-henkan-in-minibuff-flag nil
-  "$B%_%K%P%C%U%!$G<-=qEPO?$r9T$C$?$H$-$K$3$N%U%i%0$,N)$D!#(B
-`skk-remove-common' $B$G;2>H$5$l$k!#(B")
+  "ミニバッファで辞書登録を行ったときにこのフラグが立つ。
+`skk-remove-common' で参照される。")
 
 (skk-deflocalvar skk-okuri-index-min -1
-  "`skk-henkan-list' $B$N%$%s%G%/%9$rA^$9%]%$%s%?$N$R$H$D!#(B
-$B<+F0Aw$j=hM}$G8!:w$7$?:G=i$N8uJd$r;X$9!#(B")
+  "`skk-henkan-list' のインデクスを挿すポインタのひとつ。
+自動送り処理で検索した最初の候補を指す。")
 
 (skk-deflocalvar skk-okuri-index-max -1
-  "`skk-henkan-list' $B$N%$%s%G%/%9$rA^$9%]%$%s%?$N$R$H$D!#(B
-$B<+F0Aw$j=hM}$G8!:w$7$?:G8e$N8uJd$r;X$9!#(B")
+  "`skk-henkan-list' のインデクスを挿すポインタのひとつ。
+自動送り処理で検索した最後の候補を指す。")
 
 (skk-deflocalvar skk-last-buffer-undo-list nil
-  "$B"&%b!<%I$KF~$kD>A0$N(B `buffer-undo-list' $B$rB`Hr$7$F$*$/JQ?t!#(B")
+  "▽モードに入る直前の `buffer-undo-list' を退避しておく変数。")
 
 (skk-deflocalvar skk-after-prefix nil
-  "t $B$G$"$l$P!"@\F,<-F~NO8e$N>uBV$K$"$k$3$H$rI=$9!#(B
-$B@\F,<-F~NO3+;O;~$K(B t $B$K%;%C%H$5$l!"B3$/8l$N3NDj8e$K(B nil $B$K%;%C%H$5$l$k!#(B")
+  "t であれば、接頭辞入力後の状態にあることを表す。
+接頭辞入力開始時に t にセットされ、続く語の確定後に nil にセットされる。")
 
 ;; skk-act.el related.
 (defcustom skk-use-act nil
-  "*Non-nil $B$G$"$l$P3HD%%m!<%^;zF~NO(B ACT $B$rMxMQ$9$k!#(B"
+  "*Non-nil であれば拡張ローマ字入力 ACT を利用する。"
   :type 'boolean
   :group 'skk-act)
 
 (defcustom skk-act-use-normal-y nil
-  "*Non-nil $B$G$"$l$P(B \"y\" $B$r;H$C$?Y92;$NF~NO$rM-8z$K$9$k(B."
+  "*Non-nil であれば \"y\" を使った拗音の入力を有効にする."
   :type 'boolean
   :group 'skk-act)
 
 (defcustom skk-act-load-hook nil
-  "*skk-act $B$r(B load $B$7$?8e$K<B9T$5$l$k(B hook."
+  "*skk-act を load した後に実行される hook."
   :type 'hook
   :group 'skk-act)
 
 ;; skk-azik.el related.
 (defcustom skk-use-azik nil
-  "*Non-nil $B$G$"$l$P3HD%%m!<%^;zF~NO(B AZIK $B$rMxMQ$9$k!#(B"
+  "*Non-nil であれば拡張ローマ字入力 AZIK を利用する。"
   :type 'boolean
   :group 'skk-azik)
 
 (defcustom skk-azik-keyboard-type 'jp106
-  "*AZIK $B$G;H$&$H$-$N%-!<%\!<%I$N%?%$%W$r%7%s%\%k$G;XDj$9$k!#(B
-o \\='jp106    $BF|K\8l(B 106 $B%-!<%\!<%I(B ($B%G%U%)%k%H(B)
-o \\='jp-pc98  NEC PC-98 $B%-!<%\!<%I(B
-o \\='us101    $B1Q8l%-!<%\!<%I(B  $B"((B jp106 $B5Z$S(B jp-pc98 $B0J30$N%7%s%\%k(B
+  "*AZIK で使うときのキーボードのタイプをシンボルで指定する。
+o \\='jp106    日本語 106 キーボード (デフォルト)
+o \\='jp-pc98  NEC PC-98 キーボード
+o \\='us101    英語キーボード  ※ jp106 及び jp-pc98 以外のシンボル
 
-nil $B$,;XDj$5$l$?>l9g$O!"%-!<%\!<%I$N%?%$%W$N0c$$$r5[<}$9$k3dEv$F$r9T$$$^$;$s!#(B"
-  :type '(radio (const :tag "$BF|K\8l(B 106 $B%-!<%\!<%I(B" jp106)
-                (const :tag "NEC PC-98 $B%-!<%\!<%I(B" jp-pc98)
-                (const :tag "$B1Q8l%-!<%\!<%I(B" us101)
-                (const :tag "$B%-!<%\!<%I0MB8=hM}$rL58z$K$9$k(B" nil))
+nil が指定された場合は、キーボードのタイプの違いを吸収する割当てを行いません。"
+  :type '(radio (const :tag "日本語 106 キーボード" jp106)
+                (const :tag "NEC PC-98 キーボード" jp-pc98)
+                (const :tag "英語キーボード" us101)
+                (const :tag "キーボード依存処理を無効にする" nil))
   :group 'skk-azik)
 
 (defcustom skk-azik-load-hook nil
-  "*skk-azik $B$r(B load $B$7$?8e$K<B9T$5$l$k(B hook"
+  "*skk-azik を load した後に実行される hook"
   :type 'hook
   :group 'skk-azik)
 
 ;; skk-annotation.el related.
 (defcustom skk-show-annotation nil
-  "*Non-nil $B$G$"$l$P!"JQ49;~$K%"%N%F!<%7%g%s$rI=<($9$k!#(B
-$B$+$J4A;zJQ49$N:]!"<-=q$N8uJd$K4^$^$l$k(B `;' $B0J9_$NJ8;zNs$r%"%N%F!<%7%g%s$H$7$F(B\
-$B%(%3!<%(%j%"!"JL(B Window $B$^$?$O%D!<%k%F%#%C%W$KI=<($9$k!#(B"
-  :type '(radio (const :tag "$B>o$KI=<((B" t)
-                (const :tag "$B8uJd0lMw$G$OHsI=<((B" (not list))
-                (const :tag "$B%_%K%P%C%U%!$G$OHsI=<((B" (not minibuf))
-                (const :tag "$B8uJd0lMw$H%_%K%P%C%U%!$G$OHsI=<((B"
+  "*Non-nil であれば、変換時にアノテーションを表示する。
+かな漢字変換の際、辞書の候補に含まれる `;' 以降の文字列をアノテーションとして\
+エコーエリア、別 Window またはツールティップに表示する。"
+  :type '(radio (const :tag "常に表示" t)
+                (const :tag "候補一覧では非表示" (not list))
+                (const :tag "ミニバッファでは非表示" (not minibuf))
+                (const :tag "候補一覧とミニバッファでは非表示"
                        (not list minibuf))
-                (const :tag "$BHsI=<((B" nil))
+                (const :tag "非表示" nil))
   :group 'skk-basic
   :group 'skk-annotation)
 
 (defcustom skk-annotation-delay 1.0
-  "*$B%"%N%F!<%7%g%s$rI=<($9$k$^$G$NCY1d!#C10L$OIC!#(B"
+  "*アノテーションを表示するまでの遅延。単位は秒。"
   :type 'number
   :group 'skk-annotation)
 
 (defcustom skk-annotation-loop-interval 0.1
-  "*$B%"%N%F!<%7%g%s$rI=<(Cf$N%W%m%;%9BT$A;~4V(B ($BIC(B)$B!#(B
-$B9bB.$J4D6-$G$O>.$5$a$K@_Dj$9$k$H%l%9%]%s%9$,2wE,$K$J$k!#(B
-$BDcB.$J4D6-$G$OBg$-$a$K@_Dj$9$k$HF0:n$,2~A1$5$l$&$k!#(B"
+  "*アノテーションを表示中のプロセス待ち時間 (秒)。
+高速な環境では小さめに設定するとレスポンスが快適になる。
+低速な環境では大きめに設定すると動作が改善されうる。"
   :type 'number
   :group 'skk-annotation)
 
 (defcustom skk-annotation-toggle-display-char ?^
-  "*$B8uJd0lMw$rI=<(Cf$K%"%N%F!<%7%g%sI=<($r@Z$jBX$($k%-!<%-%c%i%/%?!#(B"
+  "*候補一覧を表示中にアノテーション表示を切り替えるキーキャラクタ。"
   :type 'character
   :group 'skk-annotation)
 
 (defcustom skk-annotation-copy-key "\C-w"
-  "*$B%"%N%F!<%7%g%s$r%3%T!<$9$k%-!<!#(B
-$B$3$N%-!<$r%?%$%W$9$k$H!"8=:_I=<(Cf$N%"%N%F!<%7%g%s$r(B kill ring $B$KJ]B8$9$k!#(B
-$BJ]B8$7$?FbMF$r(B Emacs $B0J30$N%"%W%j%1!<%7%g%s$GMxMQ$7$?$$>l9g$O(B
-$BJQ?t(B `interprogram-cut-function' $B$r@_Dj$9$k!#(B"
+  "*アノテーションをコピーするキー。
+このキーをタイプすると、現在表示中のアノテーションを kill ring に保存する。
+保存した内容を Emacs 以外のアプリケーションで利用したい場合は
+変数 `interprogram-cut-function' を設定する。"
   :type (if (get 'key-sequence 'widget-type)
             'key-sequence
           'sexp)
   :group 'skk-annotation)
 
 (defcustom skk-annotation-browse-key "\C-o"
-  "*$B%"%N%F!<%7%g%s$r(B URL $B$H8+Pv$7$F%V%i%&%:$9$k%-!<!#(B
-$B$3$N%-!<$r%?%$%W$9$k$H!"8=:_I=<(Cf$N%"%N%F!<%7%g%s$r4X?t(B `browse-url' $B$KEO$9!#(B"
+  "*アノテーションを URL と見做してブラウズするキー。
+このキーをタイプすると、現在表示中のアノテーションを関数 `browse-url' に渡す。"
   :type (if (get 'key-sequence 'widget-type)
             'key-sequence
           'sexp)
   :group 'skk-annotation)
 
 (defcustom skk-annotation-function nil
-  "*$B%"%N%F!<%7%g%s$rI=<($9$k$+H]$+$rH=Dj$9$k$?$a$K%3!<%k$9$k4X?t$r;XDj$9$k!#(B
-$B%"%N%F!<%7%g%s$NBP>]$H$9$kJ8;zNs$r0z?t$K$7$F(B `funcall' $B$5$l!"La$jCM(B
-$B$,(B non-nil $B$G$"$l$P%"%N%F!<%7%g%s$rI=<($9$k!#(B
-$B8uJd0lMw;~$K$O8F$P$l$J$$!#(B
+  "*アノテーションを表示するか否かを判定するためにコールする関数を指定する。
+アノテーションの対象とする文字列を引数にして `funcall' され、戻り値
+が non-nil であればアノテーションを表示する。
+候補一覧時には呼ばれない。
 
-$B%"%N%F!<%7%g%sI=<($NH=CG$O(B `skk-treat-candidate-appearance-function' $B$G$b(B
-$B<B8=$G$-$k!#(B"
+アノテーション表示の判断は `skk-treat-candidate-appearance-function' でも
+実現できる。"
   :type 'function
   :group 'skk-annotation)
 
 (defcustom skk-annotation-show-as-message t
-  "*Non-nil $B$G$"$l$P!"%"%N%F!<%7%g%s$r%(%3!<%(%j%"$KI=<($9$k!#(B
-nil $B$G$"$l$P!"JL$J%&%#%s%I%%$KI=<($9$k!#(B
-$B$3$NJQ?t$h$j$b(B `skk-show-tooltip' $B$N@_Dj$,M%@h$5$l$k!#(B"
+  "*Non-nil であれば、アノテーションをエコーエリアに表示する。
+nil であれば、別なウィンドゥに表示する。
+この変数よりも `skk-show-tooltip' の設定が優先される。"
   :type 'boolean
   :group 'skk-annotation)
 
 (defcustom skk-annotation-mode-hook nil
-  "*SKK annotation mode $B$KF~$C$?$H$-$N%U%C%/!#(B"
+  "*SKK annotation mode に入ったときのフック。"
   :type 'hook
   :group 'skk-annotation)
 
 (defcustom skk-annotation-lookup-DictionaryServices nil
-  "*Non-nil $B$G$"$l$P!"(BApple OS X $B$G(B DictionaryServices $B$h$j0UL#$r<hF@$9$k!#(B
-$B$3$N>l9g!"(Bpython $B$r(B inferior process $B$H$7$F5/F0$9$k!#(B
-$B$3$N@_Dj$O(B `skk-annotation-lookup-dict' $B$h$jM%@h$5$l$k!#(B
-Max OS X $B0J30$N4D6-$G$O5!G=$7$J$$!#(B
+  "*Non-nil であれば、Apple OS X で DictionaryServices より意味を取得する。
+この場合、python を inferior process として起動する。
+この設定は `skk-annotation-lookup-dict' より優先される。
+Max OS X 以外の環境では機能しない。
 
-$B8uJd0lMw$G$b$3$N5!G=$r;H$$$?$$>l9g$O(B `always' $B$K@_Dj$9$k$3$H$G<B8=$G$-$k!#(B
-$B$?$@$7!"(B`always' $B$O(B `skk-treat-candidate-appearance-function' $B$r>e=q$-$7$F$7(B
-$B$^$&$?$a!">e5i<T8~$1$G$O$J$$!#(B"
-  :type '(radio (const :tag "$BDL>o$NJQ49;~$K<-=q$r;2>H$9$k(B" t)
-                (const :tag "$B>e5-$K2C$(8uJd0lMw$G$b;2>H$9$k(B" always)
-                (const :tag "$BMxMQ$7$J$$(B" nil))
+候補一覧でもこの機能を使いたい場合は `always' に設定することで実現できる。
+ただし、`always' は `skk-treat-candidate-appearance-function' を上書きしてし
+まうため、上級者向けではない。"
+  :type '(radio (const :tag "通常の変換時に辞書を参照する" t)
+                (const :tag "上記に加え候補一覧でも参照する" always)
+                (const :tag "利用しない" nil))
   :group 'skk-annotation)
 
 (defcustom skk-annotation-python-program (executable-find "python")
-  "*DictionaryServices $B$N$?$a$K5/F0$9$k(B python $B$N%U%!%$%kL>!#(B"
+  "*DictionaryServices のために起動する python のファイル名。"
   :type '(radio (file)
                 (const nil))
   :group 'skk-annotation)
 
 (defcustom skk-annotation-lookup-lookup nil
-  "*Non-nil $B$G$"$l$P(B elisp `lookup' $B$+$iJQ498uJd$N0UL#$r<hF@$9$k!#(B
+  "*Non-nil であれば elisp `lookup' から変換候補の意味を取得する。
 
-$B8uJd0lMw$G$b$3$N5!G=$r;H$$$?$$>l9g$O(B `always' $B$K@_Dj$9$k$3$H$G<B8=$G$-$k!#(B
-$B$?$@$7!"(B`always' $B$O(B `skk-treat-candidate-appearance-function' $B$r>e=q$-$7(B
-$B$F$7$^$&$?$a!">e5i<T8~$1$G$O$J$$!#(B"
-  :type '(radio (const :tag "$BDL>o$NJQ49;~$K(B lookup $B$r;2>H$9$k(B" t)
-                (const :tag "$B>e5-$K2C$(8uJd0lMw$G$b;2>H$9$k(B" always)
-                (const :tag "$BMxMQ$7$J$$(B" nil))
+候補一覧でもこの機能を使いたい場合は `always' に設定することで実現できる。
+ただし、`always' は `skk-treat-candidate-appearance-function' を上書きし
+てしまうため、上級者向けではない。"
+  :type '(radio (const :tag "通常の変換時に lookup を参照する" t)
+                (const :tag "上記に加え候補一覧でも参照する" always)
+                (const :tag "利用しない" nil))
   :group 'skk-annotation
   :group 'skk-lookup)
 
 (defcustom skk-annotation-lookup-dict nil
-  "*Non-nil $B$G$"$l$P!"30It%W%m%0%i%`$rFI$s$GJQ498uJd$N0UL#$rI=<($9$k!#(B
-$B30It%W%m%0%i%`$O(B `skk-annotation-dict-program' $B$G;XDj$9$k!#(B"
+  "*Non-nil であれば、外部プログラムを読んで変換候補の意味を表示する。
+外部プログラムは `skk-annotation-dict-program' で指定する。"
   :type 'boolean
   :group 'skk-annotation)
 
@@ -2840,7 +2840,7 @@ Max OS X $B0J30$N4D6-$G$O5!G=$7$J$$!#(B
          skk-annotation-python-program)
         (t
          nil))
-  "*$BJQ498uJd$N0UL#$rI=<($9$k$?$a$N30It%W%m%0%i%`$N%U%!%$%kL>!#(B"
+  "*変換候補の意味を表示するための外部プログラムのファイル名。"
   :type '(radio (file)
                 (const nil))
   :group 'skk-annotation)
@@ -2850,28 +2850,28 @@ Max OS X $B0J30$N4D6-$G$O5!G=$7$J$$!#(B
          '("-c" "import sys, DictionaryServices; word = sys.argv[1].decode(\"utf-8\"); print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word))).encode(\"utf-8\")"))
         (t
          nil))
-  "*$BJQ498uJd$N0UL#$rI=<($9$k$?$a$N30It%W%m%0%i%`$N0z?t$N%j%9%H!#(B"
+  "*変換候補の意味を表示するための外部プログラムの引数のリスト。"
   :type '(radio (repeat string)
                 (const nil))
   :group 'skk-annotation)
 
 (defcustom skk-annotation-dict-coding-system 'utf-8
-  "*$B30It%W%m%0%i%`$+$i%"%N%F!<%7%g%s<hF@$9$k:]$KMQ$$$k%3!<%I7O!#(B"
+  "*外部プログラムからアノテーション取得する際に用いるコード系。"
   :type 'coding-system
   :group 'skk-annotation)
 
 (defcustom skk-annotation-other-sources
   (if (eq system-type 'darwin)
-      '(lookup.el $B<-=q(B ja.wiktionary ja.wikipedia
+      '(lookup.el 辞書 ja.wiktionary ja.wikipedia
                   en.wiktionary simple.wikipedia en.wikipedia)
     '(lookup.el ja.wiktionary ja.wikipedia
                 en.wiktionary simple.wikipedia en.wikipedia))
-  "*$B%"%N%F!<%7%g%s$K;H$&>pJs$N%=!<%9$r;XDj$9$k%*%W%7%g%s!#(B
-$BI8=`$G$O(B Wiktionary, Wikipedia ($BF|K\8lHG!"1Q8lHG(B) $B$r;2>H$9$k!#(B
-Apple OS X $B$G$OI8=`$N!V<-=q!W$rMxMQ$G$-$k!#(B"
+  "*アノテーションに使う情報のソースを指定するオプション。
+標準では Wiktionary, Wikipedia (日本語版、英語版) を参照する。
+Apple OS X では標準の「辞書」を利用できる。"
   :type '(radio (repeat :tag "\
-$B<!$N%=!<%9$rMxMQ$9$k(B ($B0J2<$K9`L\$H=gHV$r;XDj$7$F$/$@$5$$(B)" symbol)
-                (const :tag "Wikimedia $B$J$I$N>pJs$rMxMQ$7$J$$(B" nil))
+次のソースを利用する (以下に項目と順番を指定してください)" symbol)
+                (const :tag "Wikimedia などの情報を利用しない" nil))
   :group 'skk-annotation)
 
 (make-obsolete-variable 'skk-annotation-wikipedia-sources
@@ -2879,8 +2879,8 @@ Apple OS X $B$G$OI8=`$N!V<-=q!W$rMxMQ$G$-$k!#(B"
                         "DDSKK 14.4")
 
 (defcustom skk-annotation-wikipedia-key "\C-i"
-  "*$B%"%N%F!<%7%g%s$H$7$F(B Wikipedia $B$NFbMF$rI=<($9$k%-!<!#(B
-$B%*%W%7%g%s(B `skk-show-annotation' $B$,(B non-nil $B$N$H$-$@$1M-8z!#(B"
+  "*アノテーションとして Wikipedia の内容を表示するキー。
+オプション `skk-show-annotation' が non-nil のときだけ有効。"
   :type (if (get 'key-sequence 'widget-type)
             'key-sequence
           'sexp)
@@ -2888,8 +2888,8 @@ Apple OS X $B$G$OI8=`$N!V<-=q!W$rMxMQ$G$-$k!#(B"
 
 (defcustom skk-annotation-wiktionary-preferred-lang-alist
   '(("en" "Translingual" "English" "Japanese")
-    ("ja" "$BF|K\8l(B" "$B4A;z(B" "$B1Q8l(B" "$B8EE5F|K\8l(B"))
-  "*Wiktionary $B$N5-=R8@8l$H!"C18l=jB08@8l$NM%@h=g$H$NO"A[%j%9%H!#(B"
+    ("ja" "日本語" "漢字" "英語" "古典日本語"))
+  "*Wiktionary の記述言語と、単語所属言語の優先順との連想リスト。"
   :type '(repeat (repeat string))
   :group 'skk-annotation)
 
@@ -2898,23 +2898,23 @@ Apple OS X $B$G$OI8=`$N!V<-=q!W$rMxMQ$G$-$k!#(B"
 (defvar skk-annotation-first-candidate nil)
 
 (defvar skk-annotation-mode-map nil
-  "*SKK annotation $B%b!<%I$N%-!<%^%C%W!#(B")
+  "*SKK annotation モードのキーマップ。")
 
 (defvar skk-annotation-original-window-configuration nil
-  "SKK annotation mode $B$KF~$kA0$N(B window configuration$B!#(B
-`skk-annotation-save-and-quit' $B$r8F$V$H$3$N(B window configuration
-$B$r;H$C$F(B SKK annotation mode $B$KF~$kA0$N(B window $B>uBV$KLa$9!#(B")
+  "SKK annotation mode に入る前の window configuration。
+`skk-annotation-save-and-quit' を呼ぶとこの window configuration
+を使って SKK annotation mode に入る前の window 状態に戻す。")
 
 (defvar skk-annotation-target-data nil
-  "annotation $B$rIU$1$i$l$k8uJd$K4X$9$k%G!<%?!#(B")
+  "annotation を付けられる候補に関するデータ。")
 
 (defvar skk-annotation-wikipedia-message nil
-  "SKK Wikipedia $BMxMQJ}K!$r<($9%a%C%;!<%8(B ($B<+F0@_Dj(B)$B!#(B")
+  "SKK Wikipedia 利用方法を示すメッセージ (自動設定)。")
 
 (defvar skkannot-cached-srcs nil)
 
 (defvar skk-annotation-message nil
-  "SKK Annotation $BMxMQJ}K!$r<($9%a%C%;!<%8(B ($B<+F0@_Dj(B)$B!#(B")
+  "SKK Annotation 利用方法を示すメッセージ (自動設定)。")
 
 (defvar skkannot-remaining-delay 0)
 
@@ -2928,7 +2928,7 @@ Apple OS X $B$G$OI8=`$N!V<-=q!W$rMxMQ$G$-$k!#(B"
 print \" %s(word)s in DictionaryServices\" %s {'word': word}; \
 print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))")
 
-;; XXX $B$^$@IT40A4(B
+;; XXX まだ不完全
 (defconst skkannot-en-wiktionary-lang-regexp "\
 <h2>.*<span class=\"mw-headline\".+>\
 \\(<a href=.+>\\)?\
@@ -2936,19 +2936,19 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))")
 \\|Achumawa\\|Adangme\\|Adele\\|Adnyamathanha\\|Adyghe\\|Adzera\\|Afar\
 \\|Afrikaans\\|Aghul\\|Ainu\\|Akan\\|Akawaio\\|Akkadian\\|Aklanon\\|Alabama\
 \\|Albanian\\|Aleut\\|Algonquin\\|Alsatian\\|Amaimon\\|Amanab\\|Ambai\
-\\|Amharic\\|Amoy\\|Amuzgo\\|Ankave\\|Ansus\\|Apala.ANm\\|\\(Egyptian \\)?Arabic\
+\\|Amharic\\|Amoy\\|Amuzgo\\|Ankave\\|Ansus\\|Apala\\|\\(Egyptian \\)?Arabic\
 \\|Aragonese\\|Aramaic\\|Arapaho\\|Arawak\\|Armenian\\|Aromanian\\|Assamese\
 \\|Asturian\\|'Auhelawa\\|Avar\\|Avestan\\|Awabakal\\|Aymara\\|Azeri\
 \\|Balinese\\|Balti\\|Bambara\\|Bandjalang\\|Baruga\\|Bashkir\\|Basque\
 \\|Baure\
 \\|Belarusian\\|Bengali\\|Berbice Creole Dutch\\|Betawi\\|Bhojpuri\\|Biak\
-\\|Bikol\\|Bislama\\|Blackfoot\\|BokmNel\\|Bosnian\\|Breton\
+\\|Bikol\\|Bislama\\|Blackfoot\\|Bokml\\|Bosnian\\|Breton\
 \\|Broome Pearling Lugger Pidgin\\|Bube\\|Bulgarian\\|Burmese\
 \\|Cantonese\\|Capeverdean Crioulo\\|Catalan\\|Catawba\\|Cebuano\
 \\|Central Tarahumara\\|Ch'orti'\\|Chamorro\\|Chechen\\|Cherokee\\|Cheyenne\
 \\|Chichewa\\|Chickasaw\\|Chinese Pidgin English\\|Chinese\\|Chinook Jargon\
-\\|Chiricahua\\|Choctaw\\|TumbalNa Chol\\|Chukchee\\|Chuvash\
-\\|Classical Nahuatl\\|CoatlNan Mixe\\|Comorian\\|Coptic\\|Cornish\\|Corsican\
+\\|Chiricahua\\|Choctaw\\|Tumbal Chol\\|Chukchee\\|Chuvash\
+\\|Classical Nahuatl\\|Coatln Mixe\\|Comorian\\|Coptic\\|Cornish\\|Corsican\
 \\|Cree\\|Creek\\|Crimean Tatar\\|Croatian\\|Czech\
 \\|Dacian\\|Dadibi\\|Northern Dagara\\\Dalmatian\\|Danish\\|Dargwa\
 \\|Darkinjung\\|Darling\\|Dharuk\\|Dhivehi\\|Dhuwal\\|Dieri\\|Dusner\\|Dutch\
@@ -2958,14 +2958,14 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))")
 \\|Friulian\\|Fula\
 \\|Ga\\|Gabi-Gabi\\|Gagauz\\|Galician\\|Gallo\\|Gamilaraay\\|Ge'ez\\|Georgian\
 \\|\\(Middle High\\)?German\\|Gilbertese\\|Golin\\|Gooniyandi\\|Gothic\
-\\|\\(Ancient \\|Mycenaean \\)?Greek\\|Greenlandic\\|GuaranNm\\|MbyNa GuaranNm\
+\\|\\(Ancient \\|Mycenaean \\)?Greek\\|Greenlandic\\|Guaran\\|Mby Guaran\
 \\|Gujarati\\|Guugu Yimidhirr\
 \\|Hausa\\|Hawaiian\\|Hebrew\\|Hindi\\|Hittite\\|Hmong\\|Hopi\\|Hungarian\
 \\|Icelandic\\|Ido\\|Igbo\\|Ilocano\\|Indoneian\\|Interlingua\\|Inuktitut\
 \\|Irish\\|Italian\
-\\|Japanese\\|Javanese\\|Jingpho\\|JNhrriais\
-\\|Kabardian\\|Kabyle\\|KadiwNiu\\|Kannada\\|Kanuri\\|Kapingamarangi\\|Karelian\
-\\|KaritiNbna\\|Kashmiri\\|Kashubian\\|Kaurna\\|Kazakh\\|Khmer\\|Kickapoo\
+\\|Japanese\\|Javanese\\|Jingpho\\|Jrriais\
+\\|Kabardian\\|Kabyle\\|Kadiwu\\|Kannada\\|Kanuri\\|Kapingamarangi\\|Karelian\
+\\|Karitina\\|Kashmiri\\|Kashubian\\|Kaurna\\|Kazakh\\|Khmer\\|Kickapoo\
 \\|Kinyarwanda\\|Kiput\\|Kirundi\\|Kokborok\\|Komi\\|Kongo\\|Korean\\|Kriol\
 \\|Krisa\\|!Kung\\|Kurdish\\|Kurnai\\|Kwanyama\\|Kyrgyz\
 \\|Ladino\\|Lak\\|Lakota\\|Laotian\\|Latin\\|Latvian\\|Lavukaleve\\|Lenape\
@@ -2977,7 +2977,7 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))")
 \\|Martuthunira\\|Mati Ke\\|Mbabaram\\|Mende\\|Menominee\\|Meriam\\|Mesquakie\
 \\|Mi'kmaq\\|Miami\
 \\|Middle \\(Dutch\\|English\\|French\\|Korean\\|Norwegian\\|Scots\\)\
-\\|Min Nan\\|Mirandese\\|Miskito\\|\\(Alcozauca \\|YosondNza \\)?Mixtec\
+\\|Min Nan\\|Mirandese\\|Miskito\\|\\(Alcozauca \\|Yosonda \\)?Mixtec\
 \\|Miyako\\|Mohegan\\|Mohican\\|Moldavian\\|Mongolian\\|Montauk\\|Munduapa\
 \\|Munggui\\|Munsee\\|Murrinh-Patha\\|Mutsun\
 \\|\\(Isthmus-Mecayapan \\)?Nahuatl\\|Nanticoke\\|Narragansett\\|Nauruan\
@@ -2987,11 +2987,11 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))")
 \\|Old \\(Church Slavonic\\|English\\|French\\|Frisian\\|High German\\|Irish\
 \\|Norse\\|Prussian\\|Saxon\\|Slavonic\\)\\|Oriya\\|Oromo\
 \\|Pali\\|Pangasinan\\|Panyjima\\|Papiamentu\\|Papuma\\|Pashto\
-\\|Passamaquoddy\\|PaumarNm\\|Pennsylvania German\\|Penobscot\
+\\|Passamaquoddy\\|Paumar\\|Pennsylvania German\\|Penobscot\
 \\|\\(Old \\)?Perian\\|Phoenician\
-\\|PirahNc\\|Pitcairnese\\|Pitjantjatjara\\|Pitta-Pitta\\|Pochutec\\|Polish\
+\\|Pirah\\|Pitcairnese\\|Pitjantjatjara\\|Pitta-Pitta\\|Pochutec\\|Polish\
 \\|Sayula Popoluca\\|Portuguese\\|Potawatomi\\|Powhatan\
-\\|Proto-\\(Germanic\\|Indo-European\\|Uralic\\)\\|ProvenNga\\|Punjabi\
+\\|Proto-\\(Germanic\\|Indo-European\\|Uralic\\)\\|Provena\\|Punjabi\
 \\|Quechua\\|Quenya\
 \\|Rarotongan\\|Reconstructed\\|Rohingya\\|Roman\\(i\\|ian\\|sch\\)\\|Rotokas\
 \\|Rotuman\\|Russian\\|Rutul\
@@ -3003,24 +3003,24 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))")
 \\|Sindhi\\|Sinhalese\\|Slovak\\|Slovene\\|Somali\\|Upper Sorbian\\|Spanish\
 \\|Sranan\\|Sumerian\\|Swahili\\|Swazi\\|Swedish\\|Syriac\
 \\|Tabassaran\\|TAchelhit\\|Tagalog\\|Tahitian\\|Taimyr Pidgin Russian\\|Tajik\
-\\|Tamasheq\\|Tamazight\\|Tamil\\|Tatar\\|Tausug\\|TaNmno\\|Telugu\\|Tetum\
+\\|Tamasheq\\|Tamazight\\|Tamil\\|Tatar\\|Tausug\\|Tano\\|Telugu\\|Tetum\
 \\|Thai\\|Tibetan\\|Tigrinya\\|Tiwi\\|Tocharian \\(A\\|B\\)\\|Tok Pisin\
 \\|Tokelauan\\|Tongan\\|Torres Strait Creole\\|Translingual\\|Tsakhur\
-\\|Tshiluba\\|Tswana\\|Tuamotuan\\|Tumbuka\\|Tupi\\|TupinambNa\\|Turkish\
+\\|Tshiluba\\|Tswana\\|Tuamotuan\\|Tumbuka\\|Tupi\\|Tupinamb\\|Turkish\
 \\|Turkmen\\|Tuvaluan\\|Tuvan\\|Twi\\|Tz'utujil\
 \\|Ugaritic\\|Ukrainian\\|Umbundu\\|Unami\\|Unserdeutsch\\|Urdu\\|Uyghur\
 \\|Uzbek\
-\\|Vandalic\\|Venda\\|Veps\\|Vietnamese\\|VolapN|k\\|Votic\\|VNuro\
+\\|Vandalic\\|Venda\\|Veps\\|Vietnamese\\|Volapk\\|Votic\\|Vro\
 \\|Wageman\\|Walloon\\|Wampanoag\\|Wangaaybuwan-Ngiyambaa\\|Warlpiri\\|Welsh\
 \\|Wembawemba\\|Western Apache\\|West Frisian\\|Wik-Mungkan\\|Wiradhuri\
 \\|Woi\\|Woiwurrung\\|Wolof\\|Worimi\
-\\|XavNante\\|Xhosa\\|!XNsNu\
+\\|Xavnte\\|Xhosa\\|!X\
 \\|Yapese\\|Yiddish\\|Yidiny\\|Yindjibarndi\\|Yoruba\\|Yucatec\\|Yup'ik\
 \\|\\(Yatzachi \\|Zoogocho \\|Isthmus \\)Zapotec\\|Zenga\\|Zhuang\
 \\|Zulgo-Gemzek\\|Zulu\\|Zuni\\)\
 \\(</a>\\)?\
 </span></h2>"
-  "en.wiktionary $B$K$*$$$F8@8l$rI=$9%X%C%@$N@55,I=8=(B")
+  "en.wiktionary において言語を表すヘッダの正規表現")
 
 (defconst skkannot-en-wiktionary-part-of-speech-regexp "\
 <span class=\"mw-headline\".+>\
@@ -3039,103 +3039,103 @@ print DictionaryServices.DCSCopyTextDefinition(None, word, (0, len(word)))")
 \\|\\(Han \\|Hiragana \\|Katakana \\)character\\|Phrase\\|Letter\\)\
 \\(</a>\\)?\
 </span>"
-  "en.wiktionary $B$K$*$$$FIJ;l$rI=$9%X%C%@$N@55,I=8=(B")
+  "en.wiktionary において品詞を表すヘッダの正規表現")
 
 (defconst skkannot-ja-wiktionary-lang-regexp "\
 <h2>.*<span class=\"mw-headline\".+>\
 \\(<a href=.+>\\)?\
-\\(.+$B8l(B\\|$B%$%s%?!<%j%s%0%"(B\\|$B%(%9%Z%i%s%H(B\\|$B%5%s%9%/%j%C%H(B\\|$B%H%-%]%J(B\
-\\|$B%H%/!&%T%8%s(B\\|$B5-9f(B\\|$B4A;z(B\\)\
+\\(.+語\\|インターリングア\\|エスペラント\\|サンスクリット\\|トキポナ\
+\\|トク・ピジン\\|記号\\|漢字\\)\
 \\(</a>\\)?\
 </span>"
-  "ja.wiktionary $B$K$*$$$F8@8l$rI=$9%X%C%@$N@55,I=8=(B")
+  "ja.wiktionary において言語を表すヘッダの正規表現")
 
 (defconst skkannot-ja-wiktionary-part-of-speech-regexp "\
 <span class=\"mw-headline\".+>\
 \\(<a href=.+>\\)?\
 \\(\
-\\(\\($B8GM-(B\\|\\($B?M>N(B\\|$B5?Ld(B\\)?$BBe(B\\)?$BL>(B\\|\\($B=u(B\\)?$BF0(B\\|$B7AMFF0(B?\\|\
-$B@\B3(B\\|$BA0CV(B\\|$BI{(B\\|$B4'(B\\|$B4X78(B\\|$B4VEj(B\\|$B=u(B\\|$B?t(B\\|$BJ,(B\\|$BN`JL(B\\|$B46F0(B\\)\
-$B;l(B.*\
-\\|$B4A;z:.$8$jI=5-(B\\|$B0U5A(B\\|$B<ZMQ8l(B\\|$BN,8l(B\\|$B%3%T%e%i(B\\|$B@\F,<-(B\\|$B@\Hx<-(B\
-\\|$B?M>N@\<-(B\\|$BJ?2>L>(B\\|$BJR2>L>(B\\|$B0U5A(B\\|$B4A;z(B\\|$BOB8l$N4A;zI=5-(B\\)\
+\\(\\(固有\\|\\(人称\\|疑問\\)?代\\)?名\\|\\(助\\)?動\\|形容動?\\|\
+接続\\|前置\\|副\\|冠\\|関係\\|間投\\|助\\|数\\|分\\|類別\\|感動\\)\
+詞.*\
+\\|漢字混じり表記\\|意義\\|借用語\\|略語\\|コピュラ\\|接頭辞\\|接尾辞\
+\\|人称接辞\\|平仮名\\|片仮名\\|意義\\|漢字\\|和語の漢字表記\\)\
 \\(</a>\\)?\
 </span>"
-  "ja.wiktionary $B$K$*$$$FIJ;l$rI=$9%X%C%@$N@55,I=8=(B")
+  "ja.wiktionary において品詞を表すヘッダの正規表現")
 
 (skk-deflocalvar skk-annotation-mode nil
-  "Non-nil $B$G$"$l$P!"(Bannotation $B%b!<%I$G$"$k$3$H$r<($9!#(B")
+  "Non-nil であれば、annotation モードであることを示す。")
 
 ;;; skk-auto.el related.
 (defcustom skk-auto-okuri-process nil
-  "*Non-nil $B$G$"$l$P!"Aw$j2>L>ItJ,$r<+F0G'<1$7$FJQ49$r9T$&!#(B
-$BNc$($P!"(B
+  "*Non-nil であれば、送り仮名部分を自動認識して変換を行う。
+例えば、
 
-    \"Uresii (\"UreSii\" $B$G$O$J$/(B) -> $B4r$7$$(B\"
+    \"Uresii (\"UreSii\" ではなく) -> 嬉しい\"
 
-$B$N$h$&$KJQ49$5$l$k!#C"$7!"(B`skk-jisyo' ($B8D?M<-=q(B) $B$,!"(B
+のように変換される。但し、`skk-jisyo' (個人辞書) が、
 
-    \"$B$&$l(Bs /$B4r(B/[$B$7(B/$B4r(B/]/\"
+    \"うれs /嬉/[し/嬉/]/\"
 
-$B$N$h$&$J7A<0$K$J$C$F$$$k$3$H$,I,MW$G$"$k(B (SKK-JISYO.[SML] $B$O$3$N7A<0$KBP1~$7(B
-$B$F$$$J$$$N$G!"(B`skk-jisyo' $B$K$3$N%(%s%H%j$,$J$1$l$P$J$i$J$$(B)$B!#(B
+のような形式になっていることが必要である (SKK-JISYO.[SML] はこの形式に対応し
+ていないので、`skk-jisyo' にこのエントリがなければならない)。
 
-$B$3$N%*%W%7%g%sMxMQ;~$O!"(B`skk-process-okuri-early' $B$NCM$O(B nil $B$G$J$1$l$P(B
-$B$J$i$J$$!#(B"
+このオプション利用時は、`skk-process-okuri-early' の値は nil でなければ
+ならない。"
   :type 'boolean
   :group 'skk-okurigana
   :group 'skk-auto)
 
 (defcustom skk-okuri-search-function 'skk-okuri-search-subr-original
-  "*`skk-okuri-search' $B$G;HMQ$9$k4X?t!#(B"
+  "*`skk-okuri-search' で使用する関数。"
   :type 'function
   :group 'skk-auto)
 
 (defcustom skk-auto-load-hook nil
-  "*skk-auto.el $B$r%m!<%I$7$?8e$K%3!<%k$5$l$k%U%C%/!#(B"
+  "*skk-auto.el をロードした後にコールされるフック。"
   :type 'hook
   :group 'skk-auto)
 
 ;; skk-cdb.el related.
 (defcustom skk-cdb-large-jisyo nil
-  "*$B8D?M<-=q$N8!:w$N8e$K8!:w$9$k(B CDB $B7A<0<-=q%U%!%$%kL>!#(B
-Non-nil $B$G$"$l$P!";XDj$5$l$?(B CDB $B7A<0<-=q$r(B Emacs $B$+$iD>@\MxMQ$7!"(B
-$B9bB.$J8!:w$r9T$&!#(B"
-  :type `(radio (file :tag "$B<-=q%U%!%$%kL>(B"
+  "*個人辞書の検索の後に検索する CDB 形式辞書ファイル名。
+Non-nil であれば、指定された CDB 形式辞書を Emacs から直接利用し、
+高速な検索を行う。"
+  :type `(radio (file :tag "辞書ファイル名"
                       ,(or (locate-file "skk/SKK-JISYO.L.cdb"
                                         (list (expand-file-name "../../.."
                                                                 data-directory)))
                            (locate-file "skk/SKK-JISYO.L.cdb"
                                         (list data-directory))
                            ""))
-                (const :tag "$B;XDj$7$J$$(B" nil))
+                (const :tag "指定しない" nil))
   :group 'skk-cdb
   :group 'skk-dictionary)
 
 (defcustom skk-cdb-coding-system 'euc-jp
-  "*$B8D?M<-=q$N8!:w$N8e$K8!:w$9$k(B CDB $B7A<0<-=q$N%3!<%G%#%s%0!&%7%9%F%`!#(B"
+  "*個人辞書の検索の後に検索する CDB 形式辞書のコーディング・システム。"
   :type 'coding-system
   :group 'skk-cdb
   :group 'skk-dictionary)
 
 ;;; skk-comp.el related.
 (defcustom skk-try-completion-char ?\011 ; TAB
-  "*$B8+=P$78l$NJd40F0:n$r9T$&%-!<%-%c%i%/%?!#(B"
+  "*見出し語の補完動作を行うキーキャラクタ。"
   :type 'character
   :group 'skk-comp)
 
 (defcustom skk-next-completion-char ?.
-  "*$B8+=P$78l$NJd40F0:n$G!"<!$N8uJd$r=PNO$9$k%-!<%-%c%i%/%?!#(B"
+  "*見出し語の補完動作で、次の候補を出力するキーキャラクタ。"
   :type 'character
   :group 'skk-comp)
 
 (defcustom skk-previous-completion-char ?,
-  "*$B8+=P$78l$NJd40F0:n$G!"A0$N8uJd$r=PNO$9$k%-!<%-%c%i%/%?!#(B"
+  "*見出し語の補完動作で、前の候補を出力するキーキャラクタ。"
   :type 'character
   :group 'skk-comp)
 
 (defcustom skk-previous-completion-use-backtab t
-  "*$B8+=P$78l$NJd40F0:n!JA08uJd$N=PNO!K$r(B Shift + TAB $B$G$b9T$&!#(B"
+  "*見出し語の補完動作（前候補の出力）を Shift + TAB でも行う。"
   :type 'boolean
   :group 'skk-comp)
 
@@ -3143,294 +3143,294 @@ Non-nil $B$G$"$l$P!";XDj$5$l$?(B CDB $B7A<0<-=q$r(B Emacs $B$+$iD>@\MxMQ$7!
   (cond ((not (skk-find-window-system))          [backtab])
         ((memq system-type '(darwin windows-nt)) [S-tab])
         (t                                       [S-iso-lefttab])) ;X Window System
-  "*Shift + TAB $B$KAjEv$9$k%-!<(B (key event)$B!#(B
-`skk-previous-completion-use-backtab' $B$,M-8z$J:]$KMQ$$$i$l$k!#(B"
+  "*Shift + TAB に相当するキー (key event)。
+`skk-previous-completion-use-backtab' が有効な際に用いられる。"
   :type (if (get 'key-sequence 'widget-type)
             'key-sequence
           'sexp)
   :group 'skk-comp)
 
 (defcustom skk-start-henkan-with-completion-char ?\240 ; M-SPC
-  "*$B8+=P$78l$rJd40$7$J$,$i"'%b!<%I$KF~$k%-!<%-%c%i%/%?!#(B"
+  "*見出し語を補完しながら▼モードに入るキーキャラクタ。"
   :type 'character
   :group 'skk-comp)
 
 (defcustom skk-comp-load-hook nil
-  "*skk-comp.el $B$r%m!<%I$7$?8e$K%3!<%k$5$l$k%U%C%/!#(B"
+  "*skk-comp.el をロードした後にコールされるフック。"
   :type 'hook
   :group 'skk-comp)
 
 (defcustom skk-kakutei-history-limit 100
-  "$BJQ?t(B `skk-kakutei-history' $B$NCM(B ($BO"A[%j%9%H(B) $B$ND9$5$N>e8B!#(B"
+  "変数 `skk-kakutei-history' の値 (連想リスト) の長さの上限。"
   :type 'integer
   :group 'skk-comp)
 
 (defcustom skk-comp-circulate nil
-  "*$B8+=P$78l$rJd40$9$k:]$N!"8uJd$NI=<(=g$r@)8f$9$k!#(Bnon-nil $B$G$"$l$P!"(B
-$B:G8e$N8+=P$78l$,I=<($5$l$?>uBV$G99$KJd40$r9T$&$HF~NOJ8;zNs$KLa$k!#(B
-nil $B$G$"$l$P!":G8e$N8+=P$78l$,I=<($5$l$?>uBV$GDd;_$9$k!#(B"
+  "*見出し語を補完する際の、候補の表示順を制御する。non-nil であれば、
+最後の見出し語が表示された状態で更に補完を行うと入力文字列に戻る。
+nil であれば、最後の見出し語が表示された状態で停止する。"
   :type 'boolean
   :group 'skk-comp)
 
 (defcustom skk-comp-use-prefix nil
-  "*$B8+=P$78l$rJd40$9$k:]$K%W%l%U%#%C%/%9(B(`skk-prefix')$B$b;H$&$+!#(B
-$BNc$($P!"(B\"$B"&$"(Bk\" $B$H$"$k>uBV$GJd40$r$7$?;~$K!"(Bnon-nil $B$G$"$l$P(B
-\"$B$"$5(B\" $B$OBP>]$H$J$i$:!"(B\"$B$"$+(B\", \"$B$"$-(B\" $B$J$I$K9J$i$l$k!#(B
-$B$7$+$7<B:]$K$OJd40%W%m%0%i%`$bBP1~$7$F$$$kI,MW$,$"$k!#(B
+  "*見出し語を補完する際にプレフィックス(`skk-prefix')も使うか。
+例えば、\"▽あk\" とある状態で補完をした時に、non-nil であれば
+\"あさ\" は対象とならず、\"あか\", \"あき\" などに絞られる。
+しかし実際には補完プログラムも対応している必要がある。
 
-kakutei-first $B$rA*$s$@;~$O!"(B\"$B$7$s$j(Bn\" $B$rJd40$9$k$H!"(B
-\"n\" $B$OA0$b$C$F(B \"$B$s(B\" $B$K3NDj$5$l$F$+$iJd408uJd$r8!:w$9$k$N$G!"(B
-\"$B$7$s$j$s(B\" $B<+BN$O8uJd$H$7$FDs<($5$l$J$$;v$KCm0U!#(B"
+kakutei-first を選んだ時は、\"しんりn\" を補完すると、
+\"n\" は前もって \"ん\" に確定されてから補完候補を検索するので、
+\"しんりん\" 自体は候補として提示されない事に注意。"
   :type '(radio (const nil)
                 (const t)
                 (const kakutei-first))
   :group 'skk-comp)
 
 (defcustom skk-comp-prefix-regexp-alist nil
-  "*$B%W%l%U%#%C%/%9$rMxMQ$7$?Jd40;~$K;H$&!"%W%l%U%#%C%/%9$H@55,I=8=$NO"A[%j%9%H!#(B
-$B$3$NJQ?t$O(B `skk-rule-tree' $B$rMxMQ$7$F<+F0$GMWAG$,DI2C$5$l$k$,!"(B
-$B$=$l$,4|BT$9$k$b$N$G$J$$>l9g$K$OM=$aI,MW$J$b$N$@$1@_Dj$7$F$*$/$3$H!#(B"
+  "*プレフィックスを利用した補完時に使う、プレフィックスと正規表現の連想リスト。
+この変数は `skk-rule-tree' を利用して自動で要素が追加されるが、
+それが期待するものでない場合には予め必要なものだけ設定しておくこと。"
   :type '(repeat (cons string regexp))
   :group 'skk-comp)
 
 (defcustom skk-comp-kana-list-filter-function
   (lambda (kana-list prefix)
-    ;; "t" $B0J30$G(B "$B$C(B" $B$rJd40$7$J$$(B
+    ;; "t" 以外で "っ" を補完しない
     (unless (string= prefix "t")
-      (setq kana-list (delete "$B$C(B" kana-list)))
-    ;; "m" $B$G(B "$B$s(B" $B$rJd40$7$J$$(B
+      (setq kana-list (delete "っ" kana-list)))
+    ;; "m" で "ん" を補完しない
     (when (string= prefix "m")
-      (setq kana-list (delete "$B$s(B" kana-list)))
-    ;; "w" $B$G(B "$B$&(B" $B$rJd40$7$J$$(B
+      (setq kana-list (delete "ん" kana-list)))
+    ;; "w" で "う" を補完しない
     (when (string= prefix "w")
-      (setq kana-list (delete "$B$&(B" kana-list)))
-    ;; "x" $B$G(B "$B$+(B", "$B$1(B" $B$rJd40$7$J$$(B
-    ;; in skk-rom-kana-base-rule-list, "xka"$B"*(B"$B$+(B", "xke"$B"*(B"$B$1(B"
+      (setq kana-list (delete "う" kana-list)))
+    ;; "x" で "か", "け" を補完しない
+    ;; in skk-rom-kana-base-rule-list, "xka"→"か", "xke"→"け"
     (when (string= prefix "x")
-      (setq kana-list (delete "$B$+(B" kana-list))
-      (setq kana-list (delete "$B$1(B" kana-list)))
-    ;; $B$$$A$*$&%+%J%b!<%I$r9M$($F(B
+      (setq kana-list (delete "か" kana-list))
+      (setq kana-list (delete "け" kana-list)))
+    ;; いちおうカナモードを考えて
     (when (string= prefix "v")
-      (add-to-list 'kana-list "$B%t(B"))
-    ;; $BJ?2>L>!&JR2>L>$N$_(B ($B5-9fN`$OITMW(B)
+      (add-to-list 'kana-list "ヴ"))
+    ;; 平仮名・片仮名のみ (記号類は不要)
     (save-match-data
       (delq nil
             (mapcar (lambda (kana)
                       (when (string-match "\\(\\cH\\|\\cK\\)" kana)
                         kana))
                     kana-list))))
-  "*`skk-comp-prefix-regexp-alist' $B$K<+F0$GMWAG$rDI2C$9$k:]$KMxMQ$5$l$k4X?t!#(B
-`skk-rule-tree' $B$+$i%W%l%U%#%C%/%9$KBP1~$9$k(B \"$B$+$J(B\" $B$r=8$a$?8e!"(B
-$B$3$N4X?t$K$h$C$FD4@0$r9T$&!#(B"
-  :type '(radio (function :tag "$B4X?t(B")
-                (const :tag "$B;XDj$7$J$$(B" nil))
+  "*`skk-comp-prefix-regexp-alist' に自動で要素を追加する際に利用される関数。
+`skk-rule-tree' からプレフィックスに対応する \"かな\" を集めた後、
+この関数によって調整を行う。"
+  :type '(radio (function :tag "関数")
+                (const :tag "指定しない" nil))
   :group 'skk-comp)
 
 (defcustom skk-completion-prog-list
   '((skk-comp-by-history)
     (skk-comp-from-jisyo skk-jisyo)
     (skk-look-completion))
-  "*$BJd404X?t!"Jd40BP>]$N<-=q$r7hDj$9$k$?$a$N%j%9%H!#(B
-$B%j%9%H$NMWAG$O!"(B`skk-comp-first' $B$,(B t $B$G$"$k;~$K(B
-$B?75,Jd408uJd72$N@8@.$r3+;O$7!"#12s$NI>2A$K$D$-#1$D$N8uJd$rJV$9(B S $B<0!#(B"
+  "*補完関数、補完対象の辞書を決定するためのリスト。
+リストの要素は、`skk-comp-first' が t である時に
+新規補完候補群の生成を開始し、１回の評価につき１つの候補を返す S 式。"
   :type '(repeat (sexp))
   :group 'skk-comp)
 
 (defcustom skk-completion-prog-list-1 nil
-  "*$BJd40%W%m%0%i%`$N%j%9%H!#(B
-$B%j%9%H$NMWAG$O!"(B`skk-completion-prog-list' $B$HA4$/F1MM!#(B
-C-1 TAB $B$G;H$o$l$k!#(B"
+  "*補完プログラムのリスト。
+リストの要素は、`skk-completion-prog-list' と全く同様。
+C-1 TAB で使われる。"
   :type '(repeat (sexp))
   :group 'skk-comp)
 
 (defcustom skk-completion-prog-list-2 nil
-  "*$BJd40%W%m%0%i%`$N%j%9%H!#(B
-$B%j%9%H$NMWAG$O!"(B`skk-completion-prog-list' $B$HA4$/F1MM!#(B
-C-2 TAB $B$G;H$o$l$k!#(B"
+  "*補完プログラムのリスト。
+リストの要素は、`skk-completion-prog-list' と全く同様。
+C-2 TAB で使われる。"
   :type '(repeat (sexp))
   :group 'skk-comp)
 
 (defcustom skk-completion-prog-list-3 nil
-  "*$BJd40%W%m%0%i%`$N%j%9%H!#(B
-$B%j%9%H$NMWAG$O!"(B`skk-completion-prog-list' $B$HA4$/F1MM!#(B
-C-3 TAB $B$G;H$o$l$k!#(B"
+  "*補完プログラムのリスト。
+リストの要素は、`skk-completion-prog-list' と全く同様。
+C-3 TAB で使われる。"
   :type '(repeat (sexp))
   :group 'skk-comp)
 
 (defcustom skk-completion-prog-list-4 nil
-  "*$BJd40%W%m%0%i%`$N%j%9%H!#(B
-$B%j%9%H$NMWAG$O!"(B`skk-completion-prog-list' $B$HA4$/F1MM!#(B
-C-4 TAB $B$G;H$o$l$k!#(B"
+  "*補完プログラムのリスト。
+リストの要素は、`skk-completion-prog-list' と全く同様。
+C-4 TAB で使われる。"
   :type '(repeat (sexp))
   :group 'skk-comp)
 
 (defcustom skk-completion-prog-list-5 nil
-  "*$BJd40%W%m%0%i%`$N%j%9%H!#(B
-$B%j%9%H$NMWAG$O!"(B`skk-completion-prog-list' $B$HA4$/F1MM!#(B
-C-5 TAB $B$G;H$o$l$k!#(B"
+  "*補完プログラムのリスト。
+リストの要素は、`skk-completion-prog-list' と全く同様。
+C-5 TAB で使われる。"
   :type '(repeat (sexp))
   :group 'skk-comp)
 
 (defcustom skk-completion-prog-list-6 nil
-  "*$BJd40%W%m%0%i%`$N%j%9%H!#(B
-$B%j%9%H$NMWAG$O!"(B`skk-completion-prog-list' $B$HA4$/F1MM!#(B
-C-6 TAB $B$G;H$o$l$k!#(B"
+  "*補完プログラムのリスト。
+リストの要素は、`skk-completion-prog-list' と全く同様。
+C-6 TAB で使われる。"
   :type '(repeat (sexp))
   :group 'skk-comp)
 
 (defcustom skk-completion-prog-list-7 nil
-  "*$BJd40%W%m%0%i%`$N%j%9%H!#(B
-$B%j%9%H$NMWAG$O!"(B`skk-completion-prog-list' $B$HA4$/F1MM!#(B
-C-7 TAB $B$G;H$o$l$k!#(B"
+  "*補完プログラムのリスト。
+リストの要素は、`skk-completion-prog-list' と全く同様。
+C-7 TAB で使われる。"
   :type '(repeat (sexp))
   :group 'skk-comp)
 
 (defcustom skk-completion-prog-list-8 nil
-  "*$BJd40%W%m%0%i%`$N%j%9%H!#(B
-$B%j%9%H$NMWAG$O!"(B`skk-completion-prog-list' $B$HA4$/F1MM!#(B
-C-8 TAB $B$G;H$o$l$k!#(B"
+  "*補完プログラムのリスト。
+リストの要素は、`skk-completion-prog-list' と全く同様。
+C-8 TAB で使われる。"
   :type '(repeat (sexp))
   :group 'skk-comp)
 
 (defcustom skk-completion-prog-list-9 nil
-  "*$BJd40%W%m%0%i%`$N%j%9%H!#(B
-$B%j%9%H$NMWAG$O!"(B`skk-completion-prog-list' $B$HA4$/F1MM!#(B
-C-9 TAB $B$G;H$o$l$k!#(B"
+  "*補完プログラムのリスト。
+リストの要素は、`skk-completion-prog-list' と全く同様。
+C-9 TAB で使われる。"
   :type '(repeat (sexp))
   :group 'skk-comp)
 
 (defcustom skk-completion-prog-list-0 nil
-  "*$BJd40%W%m%0%i%`$N%j%9%H!#(B
-$B%j%9%H$NMWAG$O!"(B`skk-completion-prog-list' $B$HA4$/F1MM!#(B
-C-0 TAB $B$G;H$o$l$k!#(B"
+  "*補完プログラムのリスト。
+リストの要素は、`skk-completion-prog-list' と全く同様。
+C-0 TAB で使われる。"
   :type '(repeat (sexp))
   :group 'skk-comp)
 
 (defcustom skk-completion-search-char ?~
-  "*`skk-completion-search' $B$rMxMQ$9$kJQ49$r;XDj$9$k%-!<%-%c%i%/%?!#(B"
+  "*`skk-completion-search' を利用する変換を指定するキーキャラクタ。"
   :type 'character
   :group 'skk-comp)
 
 (defcustom skk-smart-find-file-path load-path
-  "*`smart-find' $B$K%U%!%$%kL>$rC5:w$5$;$k%Q%9!#(B
-$B$3$NCM$,;XDj$5$l$J$1$l$P!"(B`smart-find-file-path' $B$NCM$,Be$o$j$K;HMQ$5$l$k!#(B"
+  "*`smart-find' にファイル名を探索させるパス。
+この値が指定されなければ、`smart-find-file-path' の値が代わりに使用される。"
   :type '(repeat (directory))
   :group 'skk-comp)
 
 (defcustom skk-smart-find-ignored-file-regexp "\
 \\(\\.\\(elc\\|o\\(rig\\|ld\\)?\\|diff\\)\\|,v\\|~\\|/\\)$"
-  "*`smart-find' $B$KL5;k$5$l$k%U%!%$%kL>$r;XDj$9$k@55,I=8=!#(B"
+  "*`smart-find' に無視されるファイル名を指定する正規表現。"
   :type 'regexp
   :group 'skk-comp)
 
 ;; ---- buffer local variables
-;; $B6uJ8;zNs$KBP$7$F(B skk-comp-do $B$r8F$V$3$H$b$"$j$&$k$N$G!"(B"" $B$r(B nil $B$G$OBe(B
-;; $BMQ$G$-$J$$!#(B
+;; 空文字列に対して skk-comp-do を呼ぶこともありうるので、"" を nil では代
+;; 用できない。
 (skk-deflocalvar skk-comp-key ""
-  "$BJd40$9$Y$-8+=P$78l!#(B")
-;; $B<-=qEPO?;~%_%K%P%C%U%!$GJd40$7$?>l9g!"85$N%P%C%U%!$KLa$C$?$H$-$K(B
-;; skk-comp-key $B$NCM$,GK2u$5$l$F$$$J$$J}$,%Y%?!<!#(B
+  "補完すべき見出し語。")
+;; 辞書登録時ミニバッファで補完した場合、元のバッファに戻ったときに
+;; skk-comp-key の値が破壊されていない方がベター。
 
 (skk-deflocalvar skk-comp-prefix ""
-  "$BJd40;~$N(B `skk-prefix'")
+  "補完時の `skk-prefix'")
 
-;; buffer local $B$JI,MW$OL5$$$+$b(B?
+;; buffer local な必要は無いかも?
 (skk-deflocalvar skk-current-completion-prog-list nil
-  "`skk-completion-prog-list' $B$N8=:_$NCM$rJ]B8$9$k%j%9%H!#(B
-$B:G=i$NJd40;~$O(B `skk-completion-prog-list' $B$NA4$F$NCM$rJ];}$7!"(B
-car $B$K$"$kJd40%W%m%0%i%`$,(B nil $B$rJV$9$4$H$K(B 1$B$D$:$DC;$/$J$C$F$f$/!#(B")
+  "`skk-completion-prog-list' の現在の値を保存するリスト。
+最初の補完時は `skk-completion-prog-list' の全ての値を保持し、
+car にある補完プログラムが nil を返すごとに 1つずつ短くなってゆく。")
 
 (skk-deflocalvar skk-comp-first nil
-  "$BJd40%W%m%0%i%`$K?7$7$$8uJd72$r@8@.$9$k$h$&DLCN$9$k!#(B")
+  "補完プログラムに新しい候補群を生成するよう通知する。")
 
 (skk-deflocalvar skk-comp-stack nil
-  "$BJd40$7$?8l$rJ]B8$7$F$*$/%9%?%C%/!#(B")
+  "補完した語を保存しておくスタック。")
 
 (skk-deflocalvar skk-comp-depth 0
-  "$BJd40$7$?8l$r(B `skk-comp-stack' $B$+$i<h$j=P$90LCV!#(B")
+  "補完した語を `skk-comp-stack' から取り出す位置。")
 
 (skk-deflocalvar skk-comp-kakutei-midasi-list nil
-  "$B3NDjMzNr$+$iF@$i$l$?8+=P$78l$N%j%9%H!#(B")
+  "確定履歴から得られた見出し語のリスト。")
 
 (skk-deflocalvar skk-comp-search-done nil
-  "$B8+=P$78l$NJd40MQ$N8uJd8!:w$,=*N;$7$?$3$H$r<($9!#(B")
+  "見出し語の補完用の候補検索が終了したことを示す。")
 
 (defvar skk-comp-smart-find-files nil
-  "`smart-find' $B$,JV$7$?%U%!%$%kL>%j%9%H$r3JG<$9$k!#(B")
+  "`smart-find' が返したファイル名リストを格納する。")
 
 (defvar skk-comp-lisp-symbols nil
-  "$BJd40$5$l$?(B lisp symbol $B$N%j%9%H$r3JG<$9$k!#(B")
+  "補完された lisp symbol のリストを格納する。")
 
 ;;; skk-server-completion.el related.
 (defcustom skk-server-completion-search-char ?~
-  "*server completion $B$rMxMQ$7$?JQ49$r9T$&%-!<%-%c%i%/%?!#(B"
+  "*server completion を利用した変換を行うキーキャラクタ。"
   :type 'character
   :group 'skk-server-completion)
 
 (defvar skk-server-completion-words nil
-  "server completion $B$K$h$jF@$i$l$?8+=P$78l$N%j%9%H!#(B")
+  "server completion により得られた見出し語のリスト。")
 
 (defvar skk-server-disable-completion nil
-  "Non-nil $B$J$i(B server completion $B$N5!G=$rL58z$K$9$k!#(B
-server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
+  "Non-nil なら server completion の機能を無効にする。
+server completion が実装されておらず、かつ無反応な辞書サーバ対策。")
 
 ;;; skk-cursor.el related.
 (defcustom skk-use-color-cursor (and (skk-find-window-system)
                                      (fboundp 'x-display-color-p)
                                      (x-display-color-p))
-  "*Non-nil $B$G$"$l$P!"%+!<%=%k$KF~NO%b!<%I$K1~$8$??'$rIU$1$k!#(B"
+  "*Non-nil であれば、カーソルに入力モードに応じた色を付ける。"
   :type 'boolean
   :group 'skk-basic
   :group 'skk-cursor)
 
 (defcustom skk-cursor-default-color
   (cdr (assq 'cursor-color (frame-parameters (selected-frame))))
-  "*SKK $B%b!<%I$N%*%U$r<($9%+!<%=%k?'!#(B
-`skk-use-color-cursor' $B$,(B non-nil $B$N$H$-$K;HMQ$5$l$k!#(B"
+  "*SKK モードのオフを示すカーソル色。
+`skk-use-color-cursor' が non-nil のときに使用される。"
   :type 'string
   :group 'skk-cursor)
 
 (defcustom skk-cursor-hiragana-color (if (eq skk-background-mode 'light)
                                          "coral4"
                                        "pink")
-  "*$B$+$J%b!<%I$r<($9%+!<%=%k?'!#(B
-`skk-use-color-cursor' $B$,(B non-nil $B$N$H$-$K;HMQ$5$l$k!#(B"
+  "*かなモードを示すカーソル色。
+`skk-use-color-cursor' が non-nil のときに使用される。"
   :type 'string
   :group 'skk-cursor)
 
 (defcustom skk-cursor-katakana-color (if (eq skk-background-mode 'light)
                                          "forestgreen"
                                        "green")
-  "*$B%+%J%b!<%I$r<($9%+!<%=%k?'!#(B
-`skk-use-color-cursor' $B$,(B non-nil $B$N$H$-$K;HMQ$5$l$k!#(B"
+  "*カナモードを示すカーソル色。
+`skk-use-color-cursor' が non-nil のときに使用される。"
   :type 'string
   :group 'skk-cursor)
 
 (defcustom skk-cursor-jisx0201-color (if (eq skk-background-mode 'light)
                                          "blueviolet"
                                        "thistle")
-  "*JISX0201 $B%b!<%I$r<($9%+!<%=%k?'!#(B
-`skk-use-color-cursor' $B$,(B non-nil $B$N$H$-$K;HMQ$5$l$k!#(B"
+  "*JISX0201 モードを示すカーソル色。
+`skk-use-color-cursor' が non-nil のときに使用される。"
   :type 'string
   :group 'skk-cursor)
 
 (defcustom skk-cursor-jisx0208-latin-color "gold"
-  "*$BA41Q%b!<%I$r<($9%+!<%=%k?'!#(B
-`skk-use-color-cursor' $B$,(B non-nil $B$N$H$-$K;HMQ$5$l$k!#(B"
+  "*全英モードを示すカーソル色。
+`skk-use-color-cursor' が non-nil のときに使用される。"
   :type 'string
   :group 'skk-cursor)
 
 (defcustom skk-cursor-latin-color (if (eq skk-background-mode 'light)
                                       "ivory4"
                                     "gray")
-  "*$B%"%9%-!<%b!<%I$r<($9%+!<%=%k?'!#(B
-`skk-use-color-cursor' $B$,(B non-nil $B$N$H$-$K;HMQ$5$l$k!#(B"
+  "*アスキーモードを示すカーソル色。
+`skk-use-color-cursor' が non-nil のときに使用される。"
   :type 'string
   :group 'skk-cursor)
 
 (defcustom skk-cursor-abbrev-color "royalblue"
-  "*skk abbrev $B%b!<%I$r<($9%+!<%=%k?'!#(B
-`skk-use-color-cursor' $B$,(B non-nil $B$N$H$-$K;HMQ$5$l$k!#(B"
+  "*skk abbrev モードを示すカーソル色。
+`skk-use-color-cursor' が non-nil のときに使用される。"
   :type 'string
   :group 'skk-cursor)
 
@@ -3456,7 +3456,7 @@ server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
      (:foreground "gainsboro" :background "gray15"))
     (((class grayscale))
      (:inherit default)))
-  "*$BF0E*Jd40$NJ#?tI=<(72$N%U%'%$%9!#(B"
+  "*動的補完の複数表示群のフェイス。"
   :group 'skk-dcomp)
 
 (defface skk-dcomp-multiple-trailing-face
@@ -3468,7 +3468,7 @@ server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
      (:inherit skk-dcomp-multiple-face :foreground "white" :bold t))
     (((class grayscale))
      (:inherit default)))
-  "*$BF0E*Jd40$NJ#?tI=<(72$NJd40ItJ,$N%U%'%$%9!#(B"
+  "*動的補完の複数表示群の補完部分のフェイス。"
   :group 'skk-dcomp)
 
 (defface skk-dcomp-multiple-selected-face
@@ -3480,16 +3480,16 @@ server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
      (:foreground "dark slate blue" :background "peach puff" :bold t))
     (((class grayscale))
      (:inherit default)))
-  "*$BF0E*Jd40$NJ#?tI=<(72$NA*BrBP>]$N%U%'%$%9!#(B"
+  "*動的補完の複数表示群の選択対象のフェイス。"
   :group 'skk-dcomp)
 
 (defcustom skk-dcomp-activate nil
-  "*Non-nil $B$G$"$l$P8+=P$78l$NF0E*Jd40$N5!G=$rM-8z$K$9$k!#(B
-$B$3$NJQ?t$NCM$,(B `eolp' $B$@$C$?>l9g!"%]%$%s%H$,9TKv$K$"$k;~$@$1Jd40$9$k!#(B"
+  "*Non-nil であれば見出し語の動的補完の機能を有効にする。
+この変数の値が `eolp' だった場合、ポイントが行末にある時だけ補完する。"
   :type '(radio (const :tag "always on" t)
                 (const :tag "only at the end of a line" eolp)
                 (const :tag "off" nil)
-                (sexp :tag "$BG$0U$N%k!<%k(B"))
+                (sexp :tag "任意のルール"))
   :group 'skk-dcomp)
 
 (defcustom skk-dcomp-face-priority 700
@@ -3509,39 +3509,39 @@ server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
   ;;                  skk-rom-kana-base-rule-list))
   ;;     (car (rassoc (list nil 'skk-toggle-characters)
   ;;                  skk-rom-kana-base-rule-list))))
-  "*$BF0E*Jd40$5$l$?8+=P$78l$r>C$5$J$$%-!<$N%j%9%H!#(B
-$BDL>o$O8+=P$78l$NJd408e!"<!$N%-!<F~NO$r$9$k$H!"F0E*(B
-$BJd40$5$l$?%-!<F~NO$,>C$($F$7$^$&$,!"$3$N%j%9%H$K;XDj$5$l$?%-!<(B
-$BF~NO$,$"$C$?$H$-$OF0E*Jd40$5$l$?8+=P$78l$r>C$5$J$$!#(B"
-  :type '(radio (repeat :tag "$B%j%9%H(B"
-                        (string :tag "$B%-!<(B($BJ8;z(B)"))
-                (const :tag "$B;XDj$7$J$$(B" nil))
+  "*動的補完された見出し語を消さないキーのリスト。
+通常は見出し語の補完後、次のキー入力をすると、動的
+補完されたキー入力が消えてしまうが、このリストに指定されたキー
+入力があったときは動的補完された見出し語を消さない。"
+  :type '(radio (repeat :tag "リスト"
+                        (string :tag "キー(文字)"))
+                (const :tag "指定しない" nil))
   :group 'skk-dcomp)
 
 (defcustom skk-dcomp-multiple-activate nil
-  "*Non-nil $B$G$"$l$P!"F0E*Jd40$N8uJd$rJ#?tI=<($9$k!#(B
-$B4X?t$G$"$l$P!"$=$NI>2A7k2L$,(B non-nil $B$N;~$@$1F0E*Jd40$N8uJd$rJ#?tI=<($9$k!#(B"
+  "*Non-nil であれば、動的補完の候補を複数表示する。
+関数であれば、その評価結果が non-nil の時だけ動的補完の候補を複数表示する。"
   :type '(radio (const :tag "always on" t)
                 (const :tag "off" nil)
-                (sexp :tag "$BG$0U$N%k!<%k(B"))
+                (sexp :tag "任意のルール"))
   :group 'skk-dcomp)
 
 (defcustom skk-dcomp-multiple-rows 7
-  "*$BF0E*Jd40$N8uJd$rJ#?tI=<($9$k>l9g$NI=<(?t!#(B"
+  "*動的補完の候補を複数表示する場合の表示数。"
   :type 'integer
   :group 'skk-dcomp)
 
 (defcustom skk-dcomp-multiple-keep-point-buffer-list
   (list (concat " *" (file-name-nondirectory (skk-jisyo)) "*"))
-  "*$BJ#?tI=<($N0Y$KJd408uJd$r8!:w$9$k:]$K(B `point' $B$rJ];}$9$k%P%C%U%!$N%j%9%H!#(B
+  "*複数表示の為に補完候補を検索する際に `point' を保持するバッファのリスト。
 
-$BF0E*Jd40$G8uJd$rJ#?tI=<($9$k:]$K8!:wBP>]%P%C%U%!(B
-$BFb$N(B `point' $B$rF0$+$7$F$7$^$&$HDL>o$NJd40$,@5>o$K5!G=$7$J$/$J$k!#(B
-$B$=$N$?$a!"J#?tI=<(MQ$N8!:w$,=*$o$C$?8e$G(B `point' $B$rLa$9$Y$-%P%C%U%!(B
-$B$r$3$N%j%9%H$K@_Dj$9$k!#(B
+動的補完で候補を複数表示する際に検索対象バッファ
+内の `point' を動かしてしまうと通常の補完が正常に機能しなくなる。
+そのため、複数表示用の検索が終わった後で `point' を戻すべきバッファ
+をこのリストに設定する。
 
-$B6qBNE*$K$O(B `skk-comp-from-jisyo' $B$r;HMQ$7$F8uJd$r8!:w$9$k>l9g!"$=(B
-$B$NBP>]%P%C%U%!$O$3$N%j%9%H$K@_Dj$9$kI,MW$,$"$k!#(B"
+具体的には `skk-comp-from-jisyo' を使用して候補を検索する場合、そ
+の対象バッファはこのリストに設定する必要がある。"
   :type '(repeat string)
   :group 'skk-dcomp)
 
@@ -3558,38 +3558,38 @@ server completion $B$,<BAu$5$l$F$*$i$:!"$+$DL5H?1~$J<-=q%5!<%PBP:v!#(B")
 
 ;;; skk-gadget.el related.
 (defcustom skk-gengo-alist
-  '((reiwa "$BNaOB(B" "R") (heisei "$BJ?@.(B" "H") (showa "$B><OB(B" "S")
-    (taisho "$BBg@5(B" "T") (meiji "$BL@<#(B" "M"))
-  "*$B859f$rI=5-$7$?J8;zNs$N(B alist$B!#(B
-car $B$O859f$r%m!<%^;zI=5-$7$?(B symbol$B!#(B
-cdr $B$O859fI=5-$N(B string $B$+$i@.$k%j%9%H!#(B"
+  '((reiwa "令和" "R") (heisei "平成" "H") (showa "昭和" "S")
+    (taisho "大正" "T") (meiji "明治" "M"))
+  "*元号を表記した文字列の alist。
+car は元号をローマ字表記した symbol。
+cdr は元号表記の string から成るリスト。"
   :type '(repeat (list (symbol :tag "roman")
-                       (string :tag "$BF|K\8l(B")
+                       (string :tag "日本語")
                        (string :tag "Initial")))
   :group 'skk-gadget)
 
 (defcustom skk-month-alist
-  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "MNdrz")
+  '(("Jan" "1" "Januar") ("Feb" "2" "Februar") ("Mar" "3" "Mrz")
     ("Apr" "4" "April") ("May" "5" "Mai")
     ("Jun" "6" "Juni") ("Jul" "7" "Juli") ("Aug" "8" "August")
     ("Sep" "9" "September") ("Oct" "10" "Oktober")
     ("Nov" "11" "November") ("Dec" "12" "Dezember"))
-  "*$B7nL>$N1Q8lI=5-$H$=$NB>$NI=5-K!$NO"A[%j%9%H!#(B
-$B3F(B cons cell $B$N(B car $B$O(B Emacs $BI8=`4X?t(B `current-time-string' $B$,JV$97A<0!#(B
-cdr $B$OBP1~$9$kG$0U$N7A<0!#(B"
+  "*月名の英語表記とその他の表記法の連想リスト。
+各 cons cell の car は Emacs 標準関数 `current-time-string' が返す形式。
+cdr は対応する任意の形式。"
   :type '(repeat (list (string :tag "English")
-                       (string :tag "$BF|K\<0(B")
+                       (string :tag "日本式")
                        (string :tag "Deutsch")))
   :group 'skk-gadget)
 
 (defcustom skk-day-of-week-alist
-  '(("Sun" "$BF|(B" "So") ("Mon" "$B7n(B" "Mo") ("Tue" "$B2P(B" "Di") ("Wed" "$B?e(B" "Mi")
-    ("Thu" "$BLZ(B" "Do") ("Fri" "$B6b(B" "Fr") ("Sat" "$BEZ(B" "Sa"))
-  "*$BMKF|$N1Q8lI=5-$H$=$NB>$NI=5-K!$NO"A[%j%9%H!#(B
-$B3F(B cons cell $B$N(B car $B$O(B Emacs $BI8=`4X?t(B `current-time-string' $B$,JV$97A<0!#(B
-cdr $B$OBP1~$9$kG$0U$N7A<0!#(B"
+  '(("Sun" "日" "So") ("Mon" "月" "Mo") ("Tue" "火" "Di") ("Wed" "水" "Mi")
+    ("Thu" "木" "Do") ("Fri" "金" "Fr") ("Sat" "土" "Sa"))
+  "*曜日の英語表記とその他の表記法の連想リスト。
+各 cons cell の car は Emacs 標準関数 `current-time-string' が返す形式。
+cdr は対応する任意の形式。"
   :type '(repeat (list (string :tag "English")
-                       (string :tag "$BF|K\8l(B")
+                       (string :tag "日本語")
                        (string :tag "Deutsch")))
   :group 'skk-gadget)
 
@@ -3597,38 +3597,38 @@ cdr $B$OBP1~$9$kG$0U$N7A<0!#(B"
   (lambda (date-information format gengo and-time)
     (skk-default-current-date date-information nil skk-number-style
                               gengo 0 0 0 and-time))
-  "*`skk-current-date' $B$G%3!<%k$5$l$k%G%U%)%k%H$N4X?t!#(B
-$B;~4V>pJs$r0z?t$K<h$j2C9)$7$?J8;zNs$r=PNO$9$k!#(B
+  "*`skk-current-date' でコールされるデフォルトの関数。
+時間情報を引数に取り加工した文字列を出力する。
 
-$B0z?t$O(B DATE-INFORMATION, FORMAT, GENGO, AND-TIME $B$N(B 4 $B$D!#(B
-DATE-INFORMATION $B$O(B `current-time-string' $B$,JV$7$?J8;zNs$r(B
+引数は DATE-INFORMATION, FORMAT, GENGO, AND-TIME の 4 つ。
+DATE-INFORMATION は `current-time-string' が返した文字列を
 
   (year month day day-of-week hour minute second)
 
-$B$N7A<0$GJQ49$7$?%j%9%H(B ($B3FMWAG$OJ8;zNs(B)$B!#(B
-FORMAT $B$O(B `format' $B$NBh0l0z?t$NMM<0$K$h$k=PNO7ABV$r;XDj$9$kJ8;zNs!#(B
-GENGO $B$O859fI=<($9$k$+$I$&$+(B (boolean)$B!#(B
-AND-TIME $B$O;~9o$bI=<($9$k$+$I$&$+(B (boolean)$B!#(B"
-  :type '(radio (function :tag "$B4X?t(B")
-                (const :tag "$B;XDj$7$J$$(B" nil))
+の形式で変換したリスト (各要素は文字列)。
+FORMAT は `format' の第一引数の様式による出力形態を指定する文字列。
+GENGO は元号表示するかどうか (boolean)。
+AND-TIME は時刻も表示するかどうか (boolean)。"
+  :type '(radio (function :tag "関数")
+                (const :tag "指定しない" nil))
   :group 'skk-gadget)
 
 (defcustom skk-date-ad nil
-  "*Non-nil $B$G$"$l$P!"(B`skk-today', `skk-clock' $B$G@>NqI=<($9$k!#(B
-nil $B$G$"$l$P!"859fI=<($9$k!#(B"
+  "*Non-nil であれば、`skk-today', `skk-clock' で西暦表示する。
+nil であれば、元号表示する。"
   :type 'boolean
   :group 'skk-gadget)
 
 (defcustom skk-number-style 1
-  "*`skk-today', `skk-clock' $B$GI=<($9$k?t;z$N7A<0$rJQ2=$5$;$k!#(B
-  0 , nil : ASCII $B?t;z(B
-  1 , t   : $BA43Q?t;z(B
-  2       : $B4A?t;z(B($B0L<h(B)
-  3       : $B4A?t;z(B"
-  :type '(radio (const :tag "ASCII $B?t;z(B" 0)
-                (const :tag "$BA43Q?t;z(B" 1)
-                (const :tag "$B4A?t;z(B($B0L<h(B)" 2)
-                (const :tag "$B4A?t;z(B" 3))
+  "*`skk-today', `skk-clock' で表示する数字の形式を変化させる。
+  0 , nil : ASCII 数字
+  1 , t   : 全角数字
+  2       : 漢数字(位取)
+  3       : 漢数字"
+  :type '(radio (const :tag "ASCII 数字" 0)
+                (const :tag "全角数字" 1)
+                (const :tag "漢数字(位取)" 2)
+                (const :tag "漢数字" 3))
   :group 'skk-gadget)
 
 (defcustom skk-units-alist
@@ -3636,68 +3636,68 @@ nil $B$G$"$l$P!"859fI=<($9$k!#(B"
     ("yard" ("feet" . 3) ("cm" . 91.44))
     ("feet" ("inch" . 12) ("cm" . 30.48))
     ("inch" ("feet" . 0.5) ("cm" . 2.54)))
-  "*$BC10L49;;>pJs$NO"A[%j%9%H!#(B
-$B3FMWAG$O(B ($B4p=`$H$J$kC10L(B ($BJQ49$9$kC10L(B . $BJQ49;~$NG\N((B)) $B$N7A<0$K$h$k!#(B
-`skk-gadget-units-conversion' $B$G;2>H$9$k!#(B"
+  "*単位換算情報の連想リスト。
+各要素は (基準となる単位 (変換する単位 . 変換時の倍率)) の形式による。
+`skk-gadget-units-conversion' で参照する。"
   :type 'sexp
   :group 'skk-gadget)
 
 (defcustom skk-gadget-load-hook nil
-  "*skk-gadget.el $B$r%m!<%I$7$?8e$K%3!<%k$5$l$k%U%C%/!#(B"
+  "*skk-gadget.el をロードした後にコールされるフック。"
   :type 'hook
   :group 'skk-gadget)
 
 ;;; skk-isearch.el related.
 (defcustom skk-isearch-mode-enable t
-  "*Non-nil $B$G$"$l$P!"%$%s%/%j%a%s%?%k!&%5!<%A$G(B skk-isearch $B$rMxMQ$9$k!#(B
+  "*Non-nil であれば、インクリメンタル・サーチで skk-isearch を利用する。
 
-$BDL>o$O(B SKK $B%b!<%I$,(B ON $B$N%P%C%U%!$G$N$_(B skk-isearch $B$,M-8z$K$J$k$,!"$3(B
-$B$NCM$,(B `always' $B$G$"$l$P(B SKK $B%b!<%I$,(B OFF $B$N%P%C%U%!$G$bM-8z$K$J$k!#(B
+通常は SKK モードが ON のバッファでのみ skk-isearch が有効になるが、こ
+の値が `always' であれば SKK モードが OFF のバッファでも有効になる。
 
-$B$3$NCM$,(B nil $B$J$i$P(B skk-isearch $B$OL58z$K$J$k!#(Bmigemo $B$rMxMQ$7$?$$>l9g(B
-$B$J$I$K$O(B nil $B$K@_Dj$9$k$+!"$b$7$/$OJ;MQ$9$k$N$G$"$l$P(B
-`skk-isearch-start-mode' $B$r(B `latin' $B$K$9$k$N$,NI$$!#(B"
-  :type '(radio (const :tag "SKK $B%b!<%I$,(B ON $B$N;~$@$1MxMQ$9$k(B" t)
-                (const :tag "$B>o$KMxMQ$9$k(B" always)
-                (const :tag "$BMxMQ$7$J$$(B" nil))
+この値が nil ならば skk-isearch は無効になる。migemo を利用したい場合
+などには nil に設定するか、もしくは併用するのであれば
+`skk-isearch-start-mode' を `latin' にするのが良い。"
+  :type '(radio (const :tag "SKK モードが ON の時だけ利用する" t)
+                (const :tag "常に利用する" always)
+                (const :tag "利用しない" nil))
   :group 'skk-isearch)
 
 (defcustom skk-isearch-mode-string-alist
-  '((hiragana . "[$B$+(B] ") (katakana . "[$B%+(B] ") (jisx0208-latin . "[$B1Q(B] ")
-    (latin . "[aa] ") (abbrev . "[a$B$"(B] ") (nil . "[--] "))
+  '((hiragana . "[か] ") (katakana . "[カ] ") (jisx0208-latin . "[英] ")
+    (latin . "[aa] ") (abbrev . "[aあ] ") (nil . "[--] "))
   ;;  "*Alist of (MODE-SYMBOL . PROMPT-STRING).
   ;;MODE-SYMBOL is a symbol indicates canonical mode of skk for skk-isearch.
   ;;Valid MODE-SYMBOL is one of `hiragana', `katakana', `jisx0208-latin',
   ;;`latin' or nil.
   ;;PROMPT-STRING is a string used in prompt to indicates current mode of
   ;;skk for skk-isearch. "
-  "*$B%$%s%/%j%a%s%?%k!&%5!<%A;~$N%W%m%s%W%HI=<($N$?$a$NO"A[%j%9%H!#(B
-$B3FMWAG$O!"(B
+  "*インクリメンタル・サーチ時のプロンプト表示のための連想リスト。
+各要素は、
   (MODE-SYMBOL . PROMPT-STRING)
-$B$H$$$&(B cons cell$B!#(B
+という cons cell。
 
-MODE-SYMBOL $B$OF~NO%b!<%I$rI=$o$9%7%s%\%k$G!"2<5-$N$$$:$l$+$r;XDj$9$k!#(B
-   $B$+$J%b!<%I!'(B `hiragana'
-   $B%+%J%b!<%I!'(B `katakana'
-   $BA41Q%b!<%I!'(B `jisx0208-latin'
-   $B%"%9%-!<%b!<%I!'(B `latin'
-   Abbrev $B%b!<%I!'(B `abbrev'
-   nil : SKK $B%b!<%I%*%U(B
+MODE-SYMBOL は入力モードを表わすシンボルで、下記のいずれかを指定する。
+   かなモード： `hiragana'
+   カナモード： `katakana'
+   全英モード： `jisx0208-latin'
+   アスキーモード： `latin'
+   Abbrev モード： `abbrev'
+   nil : SKK モードオフ
 
-PROMPT-STRING $B$O!"F~NO%b!<%I$K1~$8$F%W%m%s%W%HI=<($9$kJ8;zNs!#(B"
+PROMPT-STRING は、入力モードに応じてプロンプト表示する文字列。"
   :type '(list
-          (cons (const :tag "$B$+$J%b!<%I(B" hiragana)
-                (string :tag "$B%W%m%s%W%H(B"))
-          (cons (const :tag "$B%+%J%b!<%I(B" katakana)
-                (string :tag "$B%W%m%s%W%H(B"))
-          (cons (const :tag "$BA41Q%b!<%I(B" jisx0208-latin)
-                (string :tag "$B%W%m%s%W%H(B"))
-          (cons (const :tag "$B%"%9%-!<%b!<%I(B" latin)
-                (string :tag "$B%W%m%s%W%H(B"))
-          (cons (const :tag "Abbrev $B%b!<%I(B" abbrev)
-                (string :tag "$B%W%m%s%W%H(B"))
-          (cons (const :tag "SKK$B%b!<%I%*%U(B" nil)
-                (string :tag "$B%W%m%s%W%H(B")))
+          (cons (const :tag "かなモード" hiragana)
+                (string :tag "プロンプト"))
+          (cons (const :tag "カナモード" katakana)
+                (string :tag "プロンプト"))
+          (cons (const :tag "全英モード" jisx0208-latin)
+                (string :tag "プロンプト"))
+          (cons (const :tag "アスキーモード" latin)
+                (string :tag "プロンプト"))
+          (cons (const :tag "Abbrev モード" abbrev)
+                (string :tag "プロンプト"))
+          (cons (const :tag "SKKモードオフ" nil)
+                (string :tag "プロンプト")))
   :group 'skk-isearch)
 
 (defcustom skk-isearch-start-mode nil
@@ -3709,44 +3709,44 @@ PROMPT-STRING $B$O!"F~NO%b!<%I$K1~$8$F%W%m%s%W%HI=<($9$kJ8;zNs!#(B"
   ;;If `hiragana', `hirakana' or `kana' -> hira kana search.
   ;;If `jisx0208-latin' or `eiji', perform zenkaku eiji (i.e. JIS X0208
   ;;alphabet) search."
-  "*$B%+%l%s%H%P%C%U%!$G%$%s%/%j%a%s%?%k!&%5!<%A$r9T$&:]$NF~NO%b!<%I!#(B
-`skk-isearch-use-previous-mode' $B$,(B nil $B$N>l9g$N$_M-8z!#(B
-$B%$%s%/%j%a%s%?%k!&%5!<%A$r9T$&>l9g!">o$K$3$NJQ?t$G;XDj$7$?F~NO%b!<%I$,;HMQ$5$l$k(B
- ($B%f!<%6!<$,L@<(E*$KJQ99$9$k$3$H$O2D(B)$B!#(B
-$B2<5-$N$$$:$l$+$N%7%s%\%k$G;XDj$9$k!#(B
+  "*カレントバッファでインクリメンタル・サーチを行う際の入力モード。
+`skk-isearch-use-previous-mode' が nil の場合のみ有効。
+インクリメンタル・サーチを行う場合、常にこの変数で指定した入力モードが使用される
+ (ユーザーが明示的に変更することは可)。
+下記のいずれかのシンボルで指定する。
 
-   nil:  $B%+%l%s%H%P%C%U%!$G(B SKK $B%b!<%I$,5/F0$5$l$F$$$l$P$=$N%b!<%I!"(B
-         $B5/F0$5$l$F$$$J$1$l$P(B $B%"%9%-!<%b!<%I!#(B
-   `hiragana' (`hiragana' or `kana'): $B$+$J%b!<%I(B
-   `jisx0208-latin' (`eiji') : $BA41Q%b!<%I(B
-   `latin' (`ascii'): $B%"%9%-!<%b!<%I(B"
-  :type '(radio (const :tag "$B8!:wCf%P%C%U%!$N%b!<%I$r7Q>5(B" nil)
-                (const :tag "$B%"%9%-!<%b!<%I(B" latin)
-                (const :tag "$B$+$J%b!<%I(B" hiragana)
-                (const :tag "$BA41Q%b!<%I(B" jisx0208-latin))
+   nil:  カレントバッファで SKK モードが起動されていればそのモード、
+         起動されていなければ アスキーモード。
+   `hiragana' (`hiragana' or `kana'): かなモード
+   `jisx0208-latin' (`eiji') : 全英モード
+   `latin' (`ascii'): アスキーモード"
+  :type '(radio (const :tag "検索中バッファのモードを継承" nil)
+                (const :tag "アスキーモード" latin)
+                (const :tag "かなモード" hiragana)
+                (const :tag "全英モード" jisx0208-latin))
   :group 'skk-isearch)
 
 (defcustom skk-isearch-use-previous-mode nil
   ;; "*Non-nil means use the same search mode as that of the last search."
-  "*Non-nil $B$G$"$l$P!"F1$8%P%C%U%!$G$N:G8e$N8!:w;~$N%b!<%I$r;HMQ$9$k!#(B"
+  "*Non-nil であれば、同じバッファでの最後の検索時のモードを使用する。"
   :type 'boolean
   :group 'skk-isearch)
 
 (defcustom skk-isearch-initial-mode-when-skk-mode-disabled 'latin
   ;;  "*Symbol indicates the mode to use as initial mode for skk-isearch when
   ;;skk is turned off in the current buffer."
-  "*SKK $B%b!<%I$,%*%U$N%P%C%U%!$G!":G=i$K%$%s%/%j%a%s%?%k!&%5!<%A$r9T$&:]$NF~NO%b!<%I!#(B"
-  :type '(radio (const :tag "$B%"%9%-!<%b!<%I(B" latin)
-                (const :tag "$B$+$J%b!<%I(B" hiragana)
-                (const :tag "$BA41Q%b!<%I(B" jisx0208-latin))
+  "*SKK モードがオフのバッファで、最初にインクリメンタル・サーチを行う際の入力モード。"
+  :type '(radio (const :tag "アスキーモード" latin)
+                (const :tag "かなモード" hiragana)
+                (const :tag "全英モード" jisx0208-latin))
   :group 'skk-isearch)
 
 (defcustom skk-isearch-whitespace-regexp "\\(\\s \\|[ \t\n\r\f]\\)*"
   ;;  "*Regular expression to match a sequence of whitespace chars.
   ;;This applies to regular expression incremental search."
-  "$B6uGrJ8;z$NO"B3$H$7$F%^%C%A$5$;$k$Y$-@55,I=8=!#(B
-regexp isearch $B$N:]!"$3$N@55,I=8=$K%^%C%A$9$kJ8;z$,8!:wJ8;zNs$N4V$K4^$^$l$F$$$F(B
-$B$b%^%C%A$9$k!#(B"
+  "空白文字の連続としてマッチさせるべき正規表現。
+regexp isearch の際、この正規表現にマッチする文字が検索文字列の間に含まれていて
+もマッチする。"
   :type 'regexp
   :group 'skk-isearch)
 
@@ -3774,8 +3774,8 @@ CANONICAL should be found in `skk-isearch-mode-canonical-alist'. ")
   "Work buffer for skk isearch.")
 
 (defvar skk-isearch-message nil
-  "skk-isearch $B4X?t$r%3!<%k$9$k$?$a$N%U%i%0!#(B
-Non-nil $B$G$"$l$P!"(B`skk-isearch-message' $B4X?t$r%3!<%k$9$k!#(B")
+  "skk-isearch 関数をコールするためのフラグ。
+Non-nil であれば、`skk-isearch-message' 関数をコールする。")
 
 (defvar skk-isearch-mode nil
   "Current search mode.
@@ -3806,13 +3806,13 @@ This map should be derived from `isearch-mode-map'.")
 
 ;;; skk-hint.el related.
 (defcustom skk-hint-start-char ?\73 ; ;
-  "*$B%R%s%HJQ49$r3+;O$9$k%-!<%-%c%i%/%?(B"
+  "*ヒント変換を開始するキーキャラクタ"
   :type 'character
   :group 'skk-hint)
 
 (skk-deflocalvar skk-hint-henkan-hint nil
-  "$B%R%s%HIU$-JQ49;~$N%R%s%HItJ,!#(B
-`skk-henkan-key', `skk-henkan-okurigana', `skk-okuri-char' $B$N%j%9%H!#(B")
+  "ヒント付き変換時のヒント部分。
+`skk-henkan-key', `skk-henkan-okurigana', `skk-okuri-char' のリスト。")
 
 (skk-deflocalvar skk-hint-start-point nil)
 (skk-deflocalvar skk-hint-end-point nil)
@@ -3823,12 +3823,12 @@ This map should be derived from `isearch-mode-map'.")
 
 ;;; skk-jisx0201.el related.
 (defcustom skk-use-jisx0201-input-method nil "\
-*Non-nil $B$J$i(B $BH>3Q%+%J$H(B Japanese Roman $B$NF~NO5!G=$,MxMQ2DG=$K$J$k!#(B"
+*Non-nil なら 半角カナと Japanese Roman の入力機能が利用可能になる。"
   :type 'boolean
   :group 'skk-jisx0201)
 
-(defcustom skk-jisx0201-mode-string "(I6@6E(B"
-  "*SKK $B$,(B JISX0201 $B%b!<%I$G$"$k$H$-$K%b!<%I%i%$%s$KI=<($5$l$kJ8;zNs!#(B"
+(defcustom skk-jisx0201-mode-string "ｶﾀｶﾅ"
+  "*SKK が JISX0201 モードであるときにモードラインに表示される文字列。"
   :type 'string
   :group 'skk-jisx0201)
 
@@ -3838,64 +3838,64 @@ This map should be derived from `isearch-mode-map'.")
 (skk-deflocalvar skk-jisx0201-roman nil)
 
 (skk-deflocalvar skk-jisx0201-mode nil
-  "Non-nil $B$G$"$l$P!"F~NO%b!<%I$,(B JISX0201 $B%b!<%I$G$"$k$3$H$r<($9!#(B")
+  "Non-nil であれば、入力モードが JISX0201 モードであることを示す。")
 
 ;;; skk-jisx0213.el related.
 (defcustom skk-jisx0213-prohibit nil
-  "*Non-nil $B$G$"$l$P(B JISX0213 $B$NJ8;zNs$r4^$`8uJd$N=PNO$r$7$J$$!#(B
-JISX0213 $B$r07$($J$$$H$-$O$3$NCM$OF0:n$K1F6A$7$J$$!#(B"
+  "*Non-nil であれば JISX0213 の文字列を含む候補の出力をしない。
+JISX0213 を扱えないときはこの値は動作に影響しない。"
   :type 'boolean
   :group 'skk-jisx0213)
 
 ;;; skk-jisyo-edit-mode.el related
 
 (defcustom skk-jisyo-edit-user-accepts-editing nil
-  "*Non-nil $B$G$"$l$P!"%f!<%6$,8D?M<-=q$NJT=8$r<+8J@UG$$K$F9T$&;]3NG':Q$G$"$k!#(B
-nil $B$G$"$l$P!"(B`skk-edit-private-jisyo' $B$N<B9T;~$K3NG'$9$k!#(B"
+  "*Non-nil であれば、ユーザが個人辞書の編集を自己責任にて行う旨確認済である。
+nil であれば、`skk-edit-private-jisyo' の実行時に確認する。"
   :type 'boolean
   :group 'skk-jisyo-edit-mode)
 
 ;;; skk-kakasi.el related.
 (defcustom skk-use-kakasi (if (executable-find "kakasi") t nil)
-  "*Non-nil $B$G$"$l$P(B KAKASI $B$r;H$C$?JQ49$r9T$&!#(B"
+  "*Non-nil であれば KAKASI を使った変換を行う。"
   :type 'boolean
   :group 'skk-kakasi)
 
 (defcustom skk-kakasi-command (executable-find "kakasi")
-  "*KAKASI $B%3%^%s%IK\BN!#(B"
+  "*KAKASI コマンド本体。"
   :type 'file
   :group 'skk-kakasi)
 
 (defcustom skk-romaji-*-by-hepburn t
-  "*Non-nil $B$G$"$l$P(B KAKASI $B$r;H$C$?%m!<%^;z$X$NJQ49MM<0$K%X%\%s<0$rMQ$$$k!#(B
-$BNc$($P!"(B
-  \"$B$7(B\" -> \"shi\"
+  "*Non-nil であれば KAKASI を使ったローマ字への変換様式にヘボン式を用いる。
+例えば、
+  \"し\" -> \"shi\"
 
-nil $B$G$"$l$P!"71Na<0(B \"($B!VF|K\<0!W$H$b8@$&$h$&$@(B)\" $B$rMQ$$$k!#(B
-$BNc$($P!"(B
-   \"$B$7(B\" -> \"si\"
+nil であれば、訓令式 \"(「日本式」とも言うようだ)\" を用いる。
+例えば、
+   \"し\" -> \"si\"
 
-$B><OB(B 29 $BG/(B 12 $B7n(B 9 $BF|IUFb3U9p<(Bh0l9f$K$h$l$P!"86B'E*$K71Na<0(B \"($BF|K\<0(B)\" $B$r(B
-$BMQ$$$k$+$N$h$&$K5-:\$5$l$F$$$k$,!":#F|0lHLE*$J5-:\J}K!$O!"$`$7$m!"%X%\%s<0$G$"(B
-$B$k$h$&$K;W$&!#(B"
+昭和 29 年 12 月 9 日付内閣告示第一号によれば、原則的に訓令式 \"(日本式)\" を
+用いるかのように記載されているが、今日一般的な記載方法は、むしろ、ヘボン式であ
+るように思う。"
   :type 'boolean
   :group 'skk-kakasi)
 
 (defcustom skk-kakasi-load-hook nil
-  "*skk-kakasi.el $B$r%m!<%I$7$?8e$K%3!<%k$5$l$k%U%C%/!#(B"
+  "*skk-kakasi.el をロードした後にコールされるフック。"
   :type 'hook
   :group 'skk-kakasi)
 
 (defcustom skk-gyakubiki-jisyo-list nil
-  "KAKASI $B$r;H$C$?JQ49$N:]$KDI2C;2>H$9$k5U0z$-%f!<%6<-=q$N%j%9%H!#(B"
+  "KAKASI を使った変換の際に追加参照する逆引きユーザ辞書のリスト。"
   :type '(repeat file)
   :group 'skk-kakasi)
 
 ;;; skk-kanagaki.el related.
 (defcustom skk-use-kana-keyboard nil "\
-*Non-nil $B$J$i2>L>F~NOMQ$N@_Dj$r%m!<%I$9$k!#(B
-SKK $B;HMQCf$K$3$NJQ?t$NCM$r@Z$jBX$($k$3$H$G(B  $B%m!<%^;zF~NO(B $B"+"*(B $B2>L>F~NO(B $B$N(B
-$B@Z$jBX$($,$G$-$k!#(B"
+*Non-nil なら仮名入力用の設定をロードする。
+SKK 使用中にこの変数の値を切り替えることで  ローマ字入力 ←→ 仮名入力 の
+切り替えができる。"
   :type 'boolean
   :set (lambda (symbol value)
          (prog1
@@ -3911,36 +3911,36 @@ SKK $B;HMQCf$K$3$NJQ?t$NCM$r@Z$jBX$($k$3$H$G(B  $B%m!<%^;zF~NO(B $B"+"*(B 
 
 ;;; skk-kcode.el related.
 (defcustom skk-kcode-method 'code-or-char-list
-  "*`skk-input-by-code-or-menu' $B$G;H$o$l$kJ8;zA^F~$N$?$a$N%$%s%?!<%U%'!<%9!#(B
-`char-list' $B$G$"$l$P!"J8;z0lMwI=(B (`skk-list-chars') $B$+$iA*Br$9$k!#(B
-`code-or-char-list' $B$G$"$l$P!"$^$:(B JIS $B%3!<%I(B/$B6hE@%3!<%IF~NO%W%m%s%W%H$rI=<((B
-$B$7!"M-8z$JF~NO$,F@$i$l$J$+$C$?>l9g$K(B `skk-list-chars' $B$r8F$S=P$9!#(B
-`code-or-menu' $B$G$"$l$P=>Mh$N$h$&$K!"$^$:(B JIS $B%3!<%I(B/$B6hE@%3!<%IF~NO%W%m%s%W%H(B
-$B$rI=<($7!"M-8z$JF~NO$,3NDj$7$J$+$C$?>l9g$K$O8uJdJ8;z0lMw$rI=<($9$k!#(B"
-  :type '(radio (const :tag "$B>o$KJ8;z%3!<%II=$+$iA*$V(B" char-list)
-                (const :tag "$B%3!<%IF~NO(B $B"*(B $BJ8;z%3!<%II=(B" code-or-char-list)
-                (const :tag "$B%3!<%IF~NO(B $B"*(B $BJ8;z8uJd(B ($B5lMh$N%a%K%e!<(B)"
+  "*`skk-input-by-code-or-menu' で使われる文字挿入のためのインターフェース。
+`char-list' であれば、文字一覧表 (`skk-list-chars') から選択する。
+`code-or-char-list' であれば、まず JIS コード/区点コード入力プロンプトを表示
+し、有効な入力が得られなかった場合に `skk-list-chars' を呼び出す。
+`code-or-menu' であれば従来のように、まず JIS コード/区点コード入力プロンプト
+を表示し、有効な入力が確定しなかった場合には候補文字一覧を表示する。"
+  :type '(radio (const :tag "常に文字コード表から選ぶ" char-list)
+                (const :tag "コード入力 → 文字コード表" code-or-char-list)
+                (const :tag "コード入力 → 文字候補 (旧来のメニュー)"
                        code-or-menu)
-                (const :tag "$BJ8;z%3!<%II=!?%3!<%IF~NO$OMxMQ$7$J$$(B" this-key))
+                (const :tag "文字コード表／コード入力は利用しない" this-key))
   :group 'skk-kcode)
 
 (defcustom skk-input-by-code-menu-keys1 '(?a ?s ?d ?f ?g ?h ?q ?w ?e ?r ?t ?y)
-  "*$B%a%K%e!<7A<0$G(B JIS $BJ8;z$rF~NO$9$k$H$-$K;HMQ$9$kA*Br%-!<$N%j%9%H!#(B
-$BBh(B 1 $BCJ3,$N%a%K%e!<$G;HMQ$9$k!#(B
-12 $B8D$N%-!<(B (char type) $B$r4^$`I,MW$,$"$k!#(B"
+  "*メニュー形式で JIS 文字を入力するときに使用する選択キーのリスト。
+第 1 段階のメニューで使用する。
+12 個のキー (char type) を含む必要がある。"
   :type '(repeat character)
   :group 'skk-kcode)
 
 (defcustom skk-input-by-code-menu-keys2
   '(?a ?s ?d ?f ?g ?h ?j ?k ?l ?q ?w ?e ?r ?t ?y ?u)
-  "*$B%a%K%e!<7A<0$G(B JIS $BJ8;z$rF~NO$9$k$H$-$K;HMQ$9$kA*Br%-!<$N%j%9%H!#(B
-$BBh(B 2 $BCJ3,$N%a%K%e!<$G;HMQ$9$k!#(B
-16 $B8D$N%-!<(B (char type) $B$r4^$`I,MW$,$"$k!#(B"
+  "*メニュー形式で JIS 文字を入力するときに使用する選択キーのリスト。
+第 2 段階のメニューで使用する。
+16 個のキー (char type) を含む必要がある。"
   :type '(repeat character)
   :group 'skk-kcode)
 
 (defcustom skk-kcode-charset 'japanese-jisx0213-1
-  "*`skk-input-by-code-or-menu' $B$G;H$o$l$kJ8;z%;%C%H!#(B"
+  "*`skk-input-by-code-or-menu' で使われる文字セット。"
   :type (let ((list '((const japanese-jisx0213-1)
                       (const japanese-jisx0208)))
               (prompt (if (get 'charset 'widget-type)
@@ -3951,7 +3951,7 @@ SKK $B;HMQCf$K$3$NJQ?t$NCM$r@Z$jBX$($k$3$H$G(B  $B%m!<%^;zF~NO(B $B"+"*(B 
   :group 'skk-kcode)
 
 (defcustom skk-kcode-load-hook nil
-  "*skk-kcode.el $B$r%m!<%I$7$?8e$K%3!<%k$5$l$k%U%C%/!#(B"
+  "*skk-kcode.el をロードした後にコールされるフック。"
   :type 'hook
   :group 'skk-kcode)
 
@@ -3971,8 +3971,8 @@ SKK $B;HMQCf$K$3$NJQ?t$NCM$r@Z$jBX$($k$3$H$G(B  $B%m!<%^;zF~NO(B $B"+"*(B 
           charset-list))
 
 (defvar skk-display-code-method 'code
-  "*Non-nil $B$G$"$l$P%]%$%s%H$K$"$kJ8;z$N%3!<%I$rI=<($9$k!#(B
-nil $B$G$"$l$P(B `this-command-keys' $B$rA^F~$9$k!#(B")
+  "*Non-nil であればポイントにある文字のコードを表示する。
+nil であれば `this-command-keys' を挿入する。")
 
 (defvar skk-input-by-code-or-menu-jump-default skk-code-n1-min)
 
@@ -3985,8 +3985,8 @@ nil $B$G$"$l$P(B `this-command-keys' $B$rA^F~$9$k!#(B")
      (:inherit default :foreground "cyan"))
     (((class grayscale))
      (:inherit default)))
-  "*skk-display-code `$' $B$G%(%3!<%(%j%"$KI=<($9$k%a%C%;!<%8Cf$N(B KUTEN:$B!"(BJIS:$B!"(BEUC:$B!"(B
-SJIS: $B5Z$S(B UNICODE: $B$KE,MQ$9$k(B face $BB0@-!#(B"
+  "*skk-display-code `$' でエコーエリアに表示するメッセージ中の KUTEN:、JIS:、EUC:、
+SJIS: 及び UNICODE: に適用する face 属性。"
   :group 'skk-kcode
   :group 'skk-visual)
 
@@ -3999,7 +3999,7 @@ SJIS: $B5Z$S(B UNICODE: $B$KE,MQ$9$k(B face $BB0@-!#(B"
      (:inherit default :foreground "black" :background "yellow"))
     (((class grayscale))
      (:inherit default)))
-  "*skk-display-code `$' $B$G%(%3!<%(%j%"$KI=<($9$k%a%C%;!<%8Cf$NEv3:J8;z$KE,MQ$9$k(B face $BB0@-!#(B"
+  "*skk-display-code `$' でエコーエリアに表示するメッセージ中の当該文字に適用する face 属性。"
   :group 'skk-kcode
   :group 'skk-visual)
 
@@ -4012,7 +4012,7 @@ SJIS: $B5Z$S(B UNICODE: $B$KE,MQ$9$k(B face $BB0@-!#(B"
      (:inherit default))
     (((class grayscale))
      (:inherit default)))
-  "*skk-display-code `$' $B$G%(%3!<%(%j%"$KI=<($9$k%a%C%;!<%8Cf$NAm2h?t$KE,MQ$9$k(B face $BB0@-!#(B"
+  "*skk-display-code `$' でエコーエリアに表示するメッセージ中の総画数に適用する face 属性。"
   :group 'skk-kcode
   :group 'skk-visual)
 
@@ -4025,7 +4025,7 @@ SJIS: $B5Z$S(B UNICODE: $B$KE,MQ$9$k(B face $BB0@-!#(B"
      (:inherit default))
     (((class grayscale))
      (:inherit default)))
-  "*skk-display-code `$' $B$G%(%3!<%(%j%"$KI=<($9$k%a%C%;!<%8Cf$NJ8;zL>$KE,MQ$9$k(B face $BB0@-!#(B"
+  "*skk-display-code `$' でエコーエリアに表示するメッセージ中の文字名に適用する face 属性。"
   :group 'skk-kcode
   :group 'skk-visual)
 
@@ -4034,15 +4034,15 @@ SJIS: $B5Z$S(B UNICODE: $B$KE,MQ$9$k(B face $BB0@-!#(B"
   "Docstring.")
 
 (defvar skk-list-chars-original-window-configuration nil
-  "skk-list-chars-mode $B$KF~$kA0$N(B window configuration$B!#(B
-`skk-list-chars-quit' $B$N<B9T;~!"$3$NJQ?t$r;H$C$F(B skk-list-chars-mode $B$K(B
-$BF~$kA0$N(B window $B>uBV$KI|5"$9$k!#(B")
+  "skk-list-chars-mode に入る前の window configuration。
+`skk-list-chars-quit' の実行時、この変数を使って skk-list-chars-mode に
+入る前の window 状態に復帰する。")
 
 (defvar skk-list-chars-destination-buffer nil
-  "skk-list-chars-insert $B$NA^F~@h%P%C%U%!(B")
+  "skk-list-chars-insert の挿入先バッファ")
 
 (defvar skk-list-chars-point nil
-  "C-x C-x (skk-list-chars-goto-point) $B$N%8%c%s%W@h(B")
+  "C-x C-x (skk-list-chars-goto-point) のジャンプ先")
 
 (defvar skk-list-chars-default-charstr nil)
 
@@ -4053,10 +4053,10 @@ SJIS: $B5Z$S(B UNICODE: $B$KE,MQ$9$k(B face $BB0@-!#(B"
     (define-key map "q" 'skk-list-chars-quit)
     (define-key map (kbd "C-x C-x") 'skk-list-chars-goto-point)
     (define-key map "c" 'skk-list-chars-code-input)
-    ;;     (define-key map (kbd "C-a") '$B6h$N@hF,$X(B)
-    ;;     (define-key map (kbd "C-e") '$B6h$NKvHx$X(B)
-    ;;     (define-key map "<" '$B%P%C%U%!@hF,$X(B)
-    ;;     (define-key map ">" '$B%P%C%U%!KvHx$X(B)
+    ;;     (define-key map (kbd "C-a") '区の先頭へ)
+    ;;     (define-key map (kbd "C-e") '区の末尾へ)
+    ;;     (define-key map "<" 'バッファ先頭へ)
+    ;;     (define-key map ">" 'バッファ末尾へ)
 
     (define-key map (kbd "C-f") 'next-completion)
     (define-key map "f"         'next-completion)
@@ -4097,7 +4097,7 @@ SJIS: $B5Z$S(B UNICODE: $B$KE,MQ$9$k(B face $BB0@-!#(B"
      (:inherit default))
     (((class grayscale))
      (:inherit default)))
-  "*skk-list-chars $B%P%C%U%!$K$*$1$k!"L\E*J8;z$r;X$7<($9MQES$KE,MQ$9$k(B face $BB0@-!#(B"
+  "*skk-list-chars バッファにおける、目的文字を指し示す用途に適用する face 属性。"
   :group 'skk-kcode
   :group 'skk-visual)
 
@@ -4110,42 +4110,42 @@ SJIS: $B5Z$S(B UNICODE: $B$KE,MQ$9$k(B face $BB0@-!#(B"
      (:inherit default :foreground "chocolate1"))
     (((class grayscale))
      (:inherit default :foreground "LightGray")))
-  "*skk-list-chars $B%P%C%U%!$K$*$1$k!"0lMw8+=P$7$dOH@~$KE,MQ$9$k(B face $BB0@-!#(B"
+  "*skk-list-chars バッファにおける、一覧見出しや枠線に適用する face 属性。"
   :group 'skk-visual)
 
 ;;; skk-look.el related.
 (defcustom skk-use-look nil
-  "*UNIX look $B%3%^%s%I$rMxMQ$7$?Jd40!&JQ49$r9T$&$+$I$&$+$r;XDj$9$k!#(B
-t $B$J$i$P!"Jd40;~$H1Q?t;zJQ49;~$K(B look $B$r;HMQ$9$k!#(B
-`completion' $B$J$i$P!"Jd40;~$@$1(B look $B$r;HMQ$9$k!#(B
-`conversion' $B$J$i$P!"1Q?t;zJQ49;~$@$1(B look $B$r;HMQ$9$k!#(B
-nil $B$J$i$P!"(Blook $B$r;HMQ$7$J$$!#(B
+  "*UNIX look コマンドを利用した補完・変換を行うかどうかを指定する。
+t ならば、補完時と英数字変換時に look を使用する。
+`completion' ならば、補完時だけ look を使用する。
+`conversion' ならば、英数字変換時だけ look を使用する。
+nil ならば、look を使用しない。
 
-SKK abbrev $B%b!<%I$GJd40$9$k$H!"8D?M<-=q$r8!:w$7?T$7$?8e$G!"(BUNIX look $B%3%^%s(B
-$B%I$K$h$k1QC18lJd40$r9T$&!#Nc$($P!"(B
+SKK abbrev モードで補完すると、個人辞書を検索し尽した後で、UNIX look コマン
+ドによる英単語補完を行う。例えば、
 
-  $B"&(Babstr (TAB)
-  ---> $B"&(Babstract
+  ▽abstr (TAB)
+  ---> ▽abstract
 
-SKK abbrev $B%b!<%I$G!"!V1QJ8;z(B + $B%"%9%?%j%9%/!W$K$FJQ49$9$k$H!"(Blook $B%3%^%s%I(B
-$B$K$h$k[#Kf8!:w$r9T$&$3$H$,$G$-$k!#Nc$($P!"(B
+SKK abbrev モードで、「英文字 + アスタリスク」にて変換すると、look コマンド
+による曖昧検索を行うことができる。例えば、
 
- $B"&(Babstra* (SPC)
-  ---> $B"'(Babstract
+ ▽abstra* (SPC)
+  ---> ▼abstract
 
-$B$3$N>uBV$G3NDj$9$k$H!"(B`abstra*' $B$r8+=P$78l!"(B`abstract' $B$r8uJd$H$9$k%(%s%H%j(B
-$B$,8D?M<-=q$KDI2C$5$l$k!#(B`skk-search-excluding-word-pattern-function' $B$K$h(B
-$B$j!"3NDj$7$F$b$3$N$h$&$J%(%s%H%j$rDI2C$7$J$$$h$&$K@_Dj$9$k$3$H$,$G$-$k!#(B"
-  :type '(radio (const :tag "$BJd40;~$H1Q?t;zJQ49;~$KM-8z(B" t)
-                (const :tag "$BJd40;~$@$1M-8z(B" completion)
-                (const :tag "$B1Q?t;zJQ49;~$@$1M-8z(B" conversion)
-                (const :tag "$BL58z(B" nil))
+この状態で確定すると、`abstra*' を見出し語、`abstract' を候補とするエントリ
+が個人辞書に追加される。`skk-search-excluding-word-pattern-function' によ
+り、確定してもこのようなエントリを追加しないように設定することができる。"
+  :type '(radio (const :tag "補完時と英数字変換時に有効" t)
+                (const :tag "補完時だけ有効" completion)
+                (const :tag "英数字変換時だけ有効" conversion)
+                (const :tag "無効" nil))
   :group 'skk-basic
   :group 'skk-look)
 
 (defcustom skk-look-command (executable-find "look")
-  "*UNIX look $B%3%^%s%I$NL>A0!#(B"
-  :type `(file :tag "$B%U%!%$%kL>(B" ,(or (executable-find "look") ""))
+  "*UNIX look コマンドの名前。"
+  :type `(file :tag "ファイル名" ,(or (executable-find "look") ""))
   :group 'skk-look)
 
 (defcustom skk-look-conversion-arguments
@@ -4158,24 +4158,24 @@ SKK abbrev $B%b!<%I$G!"!V1QJ8;z(B + $B%"%9%?%j%9%/!W$K$FJQ49$9$k$H!"(Blook 
                  "/usr/dict/words")
                 (t
                  "")))
-  "*look $B%3%^%s%I$,1Q?t!VJQ49!W;~$K8F$S=P$5$l$k:]$KEO$90z?t$r;XDj$9$kJQ?t!#(B
-$B0lHL$K(B look $B%3%^%s%I$O0J2<$N7A<0$G8F$S=P$5$l$k!#(B
+  "*look コマンドが英数「変換」時に呼び出される際に渡す引数を指定する変数。
+一般に look コマンドは以下の形式で呼び出される。
 
      look [-df] [-t termchar] string [file]
 
-$B$=$l$>$l$N0UL#$K$D$$$F$O(B \\[man] look $B$r;2>H$5$l$?$$!#(B
-$B$3$NJQ?t$K$O!">e5-$N$h$&$JA40z?t$N$&$A(B string $B$r(B %s $B$KCV49$7$?$b$N$r;XDj$9$k!#(B
+それぞれの意味については \\[man] look を参照されたい。
+この変数には、上記のような全引数のうち string を %s に置換したものを指定する。
 
-$BCm0U;v9`$H$7$F!"(Blook $B%3%^%s%I$KEO$90z?t(B -d $B$H(B -f $B$K4X$7$F$O!"(B file $B$,(B $BF1$8(B
-$B0z?t$G(B sort $B$5$l$F$$$kI,MW$,$"$k!#Nc$($P(B look -df $B$G8!:w$9$k$H$-$O(B sort -df
-$B$G!"(B look -d $B$G8!:w$9$k$H$-$O(B sort -d $B$G(B sort $B$5$l$F$$$kI,MW$,$"$k!#$3$N$3$H(B
-$B$K4X$7$F$O(B \\[man] sort $B$b;2>H$5$l$?$$!#(B
+注意事項として、look コマンドに渡す引数 -d と -f に関しては、 file が 同じ
+引数で sort されている必要がある。例えば look -df で検索するときは sort -df
+で、 look -d で検索するときは sort -d で sort されている必要がある。このこと
+に関しては \\[man] sort も参照されたい。
 
-$B$b$&$R$H$D$NCm0UE@$H$7$F!"(B look $B$N:G8e$N0z?t$H$7$F(B file $B$rEO$5$J$$$H(B ($B>JN,$9$k(B
-$B$H(B) $B6/@)E*$K0z?t(B -d $B$H(B -f $B$N5!G=$,M-8z$K$J$k!#$b$7(B look $B$r;W$$DL$j@)8f$7$?$1$l(B
-$B$PE,@Z$J(B file $B$r;XDj$9$k$Y$-$G$"$k!#(B
+もうひとつの注意点として、 look の最後の引数として file を渡さないと (省略する
+と) 強制的に引数 -d と -f の機能が有効になる。もし look を思い通り制御したけれ
+ば適切な file を指定するべきである。
 
- ($B@_DjNc(B)
+ (設定例)
 
  (setq skk-look-conversion-arguments \"-df %s /usr/share/dict/words\")
 "
@@ -4192,11 +4192,11 @@ SKK abbrev $B%b!<%I$G!"!V1QJ8;z(B + $B%"%9%?%j%9%/!W$K$FJQ49$9$k$H!"(Blook 
                  "/usr/dict/words")
                 (t
                  "")))
-  "*look $B%3%^%s%I$,1Q?t!VJd40!W;~$K8F$S=P$5$l$k:]$KEO$90z?t$r;XDj$9$kJQ?t!#(B
-look $B%3%^%s%I$K4X$7$F$OJQ?t(B `skk-look-conversion-arguments' $B$N%I%-%e%a%s%H!"(B
-$B5Z$S(B \\[man] look $B$r;2>H$5$l$?$$!#(B
+  "*look コマンドが英数「補完」時に呼び出される際に渡す引数を指定する変数。
+look コマンドに関しては変数 `skk-look-conversion-arguments' のドキュメント、
+及び \\[man] look を参照されたい。
 
- ($B@_DjNc(B)
+ (設定例)
 
  (setq skk-look-completion-arguments \"-d %s /usr/share/dict/words.case\")
 "
@@ -4204,46 +4204,46 @@ look $B%3%^%s%I$K4X$7$F$OJQ?t(B `skk-look-conversion-arguments' $B$N%I%-%e%a%
   :group 'skk-look)
 
 (defcustom skk-look-recursive-search nil
-  "*Non-nil $B$J$i$P!"(B look $B%3%^%s%I$,8+$D$1$?1QC18l$rJQ49%-!<$K$7$F:F8!:w$r9T$&!#(B
-$B:F8!:w$N7k2L!"8uJd$,8+$D$+$i$J$1$l$P!"85$N1QC18l<+?H$r8uJd$H$7$F=PNO$9$k!#(B"
+  "*Non-nil ならば、 look コマンドが見つけた英単語を変換キーにして再検索を行う。
+再検索の結果、候補が見つからなければ、元の英単語自身を候補として出力する。"
   :type 'boolean
   :group 'skk-look)
 
 (defcustom skk-look-expanded-word-only t
-  "*Non-nil $B$J$i$P!"(B look $B$N=PNO$KBP$9$k:F8!:w$,@.8y$7$?8uJd$N$_$rI=<($9$k!#(B
-`skk-look-recursive-search' $B$,(B non-nil $B$G$"$k$H$-$N$_M-8z!#(B"
+  "*Non-nil ならば、 look の出力に対する再検索が成功した候補のみを表示する。
+`skk-look-recursive-search' が non-nil であるときのみ有効。"
   :type 'boolean
   :group 'skk-look)
 
 (defcustom skk-look-use-ispell nil
-  "*look $B$K$h$k8!:w$N:]!"(Bispell $B$rJ;MQ$9$k$+$I$&$+$r;XDj$9$k!#(B
-t $B$J$i$P!"Jd40;~$H1Q?t;zJQ49;~$K(B ispell $B$rJ;MQ$9$k!#(B
-`completion' $B$J$i$P!"Jd40;~$@$1(B ispell $B$rJ;MQ$9$k!#(B
-`conversion' $B$J$i$P!"1Q?t;zJQ49;~$@$1(B ispell $B$rJ;MQ$9$k!#(B
-nil $B$J$i$P!"(Bispell $B$r;HMQ$7$J$$!#(B"
-  :type '(radio (const :tag "$BJd40;~$H1Q?t;zJQ49;~$KM-8z(B" t)
-                (const :tag "$BJd40;~$@$1M-8z(B" completion)
-                (const :tag "$B1Q?t;zJQ49;~$@$1M-8z(B" conversion)
-                (const :tag "$BL58z(B" nil))
+  "*look による検索の際、ispell を併用するかどうかを指定する。
+t ならば、補完時と英数字変換時に ispell を併用する。
+`completion' ならば、補完時だけ ispell を併用する。
+`conversion' ならば、英数字変換時だけ ispell を併用する。
+nil ならば、ispell を使用しない。"
+  :type '(radio (const :tag "補完時と英数字変換時に有効" t)
+                (const :tag "補完時だけ有効" completion)
+                (const :tag "英数字変換時だけ有効" conversion)
+                (const :tag "無効" nil))
   :group 'skk-look)
 
 (defvar skk-look-completion-words nil)
 
 ;;;; skk-lookup.el related.
 (defcustom skk-lookup-search-agents nil
-  "*$B8!:w%(!<%8%'%s%H$N@_Dj$N%j%9%H!#(B
-$B%j%9%H$N3FMWAG$O<!$N7A<0$r<h$k(B:
+  "*検索エージェントの設定のリスト。
+リストの各要素は次の形式を取る:
 
   (CLASS LOCATION [KEY1 VALUE1 [KEY2 VALUE2 [...]]])
 
-CLASS $B$K$O!"%(!<%8%'%s%H$N<oN`$r%7%s%\%k$G;XDj$9$k!#(B
-LOCATION $B$K$O!"%(!<%8%'%s%H$N=j:_$rJ8;zNs$G;XDj$9$k!#(B
-KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#(B
+CLASS には、エージェントの種類をシンボルで指定する。
+LOCATION には、エージェントの所在を文字列で指定する。
+KEY 及び VALUE は省略可能で、エージェントに対するオプションを指定する。
 
-$BNc(B: (setq skk-lookup-search-agents
+例: (setq skk-lookup-search-agents
           \\='((ndtp \"dserver\" :port 2010)
             (ndeb \"/cdrom\" :enable (\"EIWA\"))))"
-  :type '(repeat (sexp :tag "Agent"))   ; type $B$O$A$g$C$H$d$d$3$7$9$.!&!&(B
+  :type '(repeat (sexp :tag "Agent"))   ; type はちょっとややこしすぎ・・
   :group 'skk-lookup)
 
 (defcustom skk-lookup-option-alist
@@ -4252,113 +4252,113 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
      nil nil)
     ;; what's this?
     ("jedict" exact nil nil (not skk-okuri-char) nil nil nil)
-    ;; $BCN7CB"(B
-    ;; `$B"'#I#M#F!N(BInternational Monetary Fund$B!?(BInternational
-    ;;            Metalworkers Federation$B!O(B'
-    ;; `$B#I#M#F!J9q:]DL2_4p6b!K!Z(BInternational Monetary Fund$B![(B'
+    ;; 知恵蔵
+    ;; `▼ＩＭＦ［International Monetary Fund／International
+    ;;            Metalworkers Federation］'
+    ;; `ＩＭＦ（国際通貨基金）【International Monetary Fund】'
     ("CHIEZO" exact exact prefix t
-     ("$B!J(B\\(.+\\)$B!K(B\\|$B!Z(B\\(.+\\)$B![(B$\\|$B!N(B\\(.+\\)$B!O(B$\\|^\\([^$B!J!Z!N!O![!K(B]+\\)$"
+     ("（\\(.+\\)）\\|【\\(.+\\)】$\\|［\\(.+\\)］$\\|^\\([^（【［］】）]+\\)$"
       .
       (cond ((match-beginning 1) 1)
             ((match-beginning 2) 2)
             ((match-beginning 3) 3)
             ((match-beginning 4) 4)))
-     "$B!?(B\\|$B!"(B\\|, " nil)
-    ;; $B!V<-!&E5!&HW!W(B
-    ;; `$B$"$+#3(B $B^@(B", "ethanol'
-    ("CHUJITEN" exact exact prefix t ("[$B#0(B-$B#9(B]* *\\([^ ]+\\)$" . 1) nil nil)
-    ;; `($BHiIf$J$I$N(B)$B$"$+(B <grime>", "$B!T1Q!U(B ($B%Q%$%W$J$I$N(B)$B$"$+(B <fur>'
-    ("COLLOC" exact exact prefix t ("\\([^ $B!T!U(B]+\\) <[a-z]+>$" . 1) nil nil)
-    ;; $B%8!<%K%"%91QOB(B, $B%8!<%K%"%91QOB!&OB1Q<-E5(B
-    ;; `$B$"$+(B[$B^@(B]'
-    ;; `$B$$$l$+$((B[$BF~$lBX$((B,$BF~$l49$((B]'
+     "／\\|、\\|, " nil)
+    ;; 「辞・典・盤」
+    ;; `あか３ 淦", "ethanol'
+    ("CHUJITEN" exact exact prefix t ("[０-９]* *\\([^ ]+\\)$" . 1) nil nil)
+    ;; `(皮膚などの)あか <grime>", "《英》 (パイプなどの)あか <fur>'
+    ("COLLOC" exact exact prefix t ("\\([^ 《》]+\\) <[a-z]+>$" . 1) nil nil)
+    ;; ジーニアス英和, ジーニアス英和・和英辞典
+    ;; `あか[淦]'
+    ;; `いれかえ[入れ替え,入れ換え]'
     ("GENIUS" exact exact prefix t
      ;;("\\[\\(.+\\)\\]$" . 1) ;;can I use `$' for GENIUS?
      ("\\[\\(.+\\)\\]" . 1)
      "," nil)
-    ;; Super$BE}9g<-=q(B99 Disk1, 2/$B8=BeMQ8l$N4pACCN<1(B
-    ;; `$B"!<k!&3t!&<l!&<n!L;w$?$b$N4A;z!M(B' ; `$B!&(B' $B$,6h@Z$jJ8;z$G$"$k$H$-$H(B
-    ;;  $B$=$&$G$J$$$H$-$,$"$k$J$!(B...$B!#(B
-    ;; `$B"!@V%o%$%s!&%V!<%`!L7r9/LdBj!M(B'
-    ("GN99EP01" exact exact prefix t ("^$B"!(B\\([^$B!L!M(B]+\\)$B!L(B.+$B!M(B$" . 1) nil nil)
-    ("GN99EP02" exact exact prefix t ("^$B"!(B\\([^$B!L!M(B]+\\)$B!L(B.+$B!M(B$" . 1) nil nil)
-    ;; $B4dGH9q8l<-E5(B
-    ;; `$B$7$?$$!Z;`BN!&;SBN![(B'
-    ;; `$B$7$?$$!Z;YBb![!Z;^Bb![(B'
-    ;; `$B$"$$!Z0&![(B'
-    ;; `$B$"$$(B($B$"$p(B)$B!ZMu![(B'
-    ;; `$B$"$$(B<gaiji=za52a>$B0%(B<gaiji=za52b>'
-    ;; `$B$@$7!Z=P$7![!Z=P$7!&!R=P=A!S![!Z!P;3<V!Q![(B'
-    ;; `$B$U$&$-$j!ZIu@Z(B($B$j(B)$B![(B'
+    ;; Super統合辞書99 Disk1, 2/現代用語の基礎知識
+    ;; `◆朱・株・殊・珠〔似たもの漢字〕' ; `・' が区切り文字であるときと
+    ;;  そうでないときがあるなぁ...。
+    ;; `◆赤ワイン・ブーム〔健康問題〕'
+    ("GN99EP01" exact exact prefix t ("^◆\\([^〔〕]+\\)〔.+〕$" . 1) nil nil)
+    ("GN99EP02" exact exact prefix t ("^◆\\([^〔〕]+\\)〔.+〕$" . 1) nil nil)
+    ;; 岩波国語辞典
+    ;; `したい【死体・屍体】'
+    ;; `したい【支隊】【枝隊】'
+    ;; `あい【愛】'
+    ;; `あい(あゐ)【藍】'
+    ;; `あい<gaiji=za52a>哀<gaiji=za52b>'
+    ;; `だし【出し】【出し・〈出汁〉】【｛山車｝】'
+    ;; `ふうきり【封切(り)】'
     ("IWAKOKU" exact exact prefix t
      ;; cannot use `$' for this.
-     ("$B!Z(B\\(.+\\)$B![(B" . 1)
-     "$B![!Z(B\\|$B!&(B" "[$B!R!S!P!Q(B()]")
-    ;; "$B9$(B", "$B@V(B"
+     ("【\\(.+\\)】" . 1)
+     "】【\\|・" "[〈〉｛｝()]")
+    ;; "垢", "赤"
     ("KANWA" exact exact prefix t nil nil nil)
-    ;; KOUJIEN: $B9-<-1q(B $BBh(B4$BHG(B($B4dGH(B,EPWING) $B%^%k%A%a%G%#%"HG(B
-    ;; `$B$"$$!Z9g$$!&2q$$![%"%R(B' ; $B$3$l$K$O(B `$B![(B$' $B$r;H$($J$$!#(B
-    ;; `$B$"$$!Z4V![%"%R(B'
-    ;; `$B%&%#!Z(Boui $B%U%i%s%9![(B'
-    ;; `$B%=!Z(Bsol $B%$%?%j%"![(B'
-    ;; `$B%"%j%9%H%F%l%9!>$7$e$.!Z!=<g5A![(B'
-    ;; `$B%"!<%H%^%s!Z(B_tman $B[p![(B'; $BL$BP1~!#30;z$r4^$`8uJd!#(B_ $B$O30;z(B
-    ;; "$B!{8W$N0R$r<Z$k8Q(B"
+    ;; KOUJIEN: 広辞苑 第4版(岩波,EPWING) マルチメディア版
+    ;; `あい【合い・会い】アヒ' ; これには `】$' を使えない。
+    ;; `あい【間】アヒ'
+    ;; `ウィ【oui フランス】'
+    ;; `ソ【sol イタリア】'
+    ;; `アリストテレス‐しゅぎ【―主義】'
+    ;; `アートマン【_tman 梵】'; 未対応。外字を含む候補。_ は外字
+    ;; "○虎の威を借る狐"
     ("KOUJIEN" exact exact prefix t
-     ("^\\([^$B!Z![(B]+\\)$B!>(B[$B!<$!(B-$B$s(B]+$B!Z!=(B\\([^$B!Z![(B]+\\)$B![(B$\\|\
-\$B!Z(B\\([a-zA-Z]+\\) [$B!<%!(B-$B%s(B]+$B![(B$\\|$B!Z(B\\([^$B!Z![(B]+\\)$B![(B\\|\
-^$B!{(B\\(.+\\)$" .
+     ("^\\([^【】]+\\)‐[ーぁ-ん]+【―\\([^【】]+\\)】$\\|\
+\【\\([a-zA-Z]+\\) [ーァ-ン]+】$\\|【\\([^【】]+\\)】\\|\
+^○\\(.+\\)$" .
 (cond ((match-beginning 2) '(1 2))
       ((match-beginning 3) 3)
       ((match-beginning 4) 4)
       ((match-beginning 5) 5)))
-     "$B!&(B"
-     ;;"$B!>(B[$B!<$!(B-$B$s(B]+$B!Z!=(B\\|$B![(B$"
+     "・"
+     ;;"‐[ーぁ-ん]+【―\\|】$"
      nil)
-    ;; KOJIEN: $B9-<-1qBh(B5$BHG(B($B4dGH(B,EPWING)
-    ;; `$B$G$s$7!>%V%C%/!ZEE;R!=![(B'
+    ;; KOJIEN: 広辞苑第5版(岩波,EPWING)
+    ;; `でんし‐ブック【電子―】'
     ("KOJIEN" exact exact prefix t
-     ("^\\([^$B!Z![(B]+\\)$B!>(B[$B!<$!(B-$B$s(B]+$B!Z!=(B\\([^$B!Z![(B]+\\)$B![(B$\\|\
-\$B!Z(B\\([a-zA-Z]+\\) [$B!<%!(B-$B%s(B]+$B![(B$\\|\
-\$B!Z(B\\([^$B!Z![(B]+\\)$B![(B\\|\
-^[$B!<$!(B-$B$s(B]+$B!>(B\\([$B!<%!(B-$B%s(B]+\\)$B!Z(B\\([^$B!Z![(B]+\\)$B!=![(B$\\|\
-^$B!{(B\\(.+\\)$" .
+     ("^\\([^【】]+\\)‐[ーぁ-ん]+【―\\([^【】]+\\)】$\\|\
+\【\\([a-zA-Z]+\\) [ーァ-ン]+】$\\|\
+\【\\([^【】]+\\)】\\|\
+^[ーぁ-ん]+‐\\([ーァ-ン]+\\)【\\([^【】]+\\)―】$\\|\
+^○\\(.+\\)$" .
 (cond ((match-beginning 2) '(1 2))
       ((match-beginning 3) 3)
       ((match-beginning 4) 4)
       ((match-beginning 5) '(6 5))
       ((match-beginning 7) 7)))
-     "$B!&(B"
-     ;;"$B!>(B[$B!<$!(B-$B$s(B]+$B!Z!=(B\\|$B![(B$"
+     "・"
+     ;;"‐[ーぁ-ん]+【―\\|】$"
      nil)
-    ;; KOKUGO: $B;0>JF2(B $BF|K\8l<-E5!J8=Be9q8l!"30Mh8l!K(B
-    ;; `$B!R(B' $B$O!"EvMQ4A;zI=$K$J$$4A;z$G!"(B`$B!T(B' $B$O!"EvMQ4A;zI=$K$O$"$k$,!"$=$N2;!"(B
-    ;; $B71$,EvMQ4A;zI=$N2;71I=$K$J$$4A;z!#(B
-    ("KOKUGO" exact exact prefix t ("$B!Z(B\\([^$B!Z![(B]+\\)$B![(B" . 1) "$B!&(B" "[$B!T!R(B]")
-    ;; $B!V<-!&E5!&HW!WImB0$N%^%$%Z%G%#%"(B
-    ;;`$BBgOB74;3(B($B;T(B)'
-    ;;`$B%o%7%s%H%s(B(George Washington)'
-    ;;`$B%o%7%s%H%s(B($B=#(B)'
-    ;;`$B%o%7%s%H%s(B Washington'
-    ;;`$B%"%$%s%7%e%?%$%s(B(Albert Einstein)'
-    ;;`$B9aNI='(B($BD.(B)'
-    ;;`$B%+%i%9(B ($B1((B)'
-    ;;`$B%+%i%9(B(Maria Callas)'
+    ;; KOKUGO: 三省堂 日本語辞典（現代国語、外来語）
+    ;; `〈' は、当用漢字表にない漢字で、`《' は、当用漢字表にはあるが、その音、
+    ;; 訓が当用漢字表の音訓表にない漢字。
+    ("KOKUGO" exact exact prefix t ("【\\([^【】]+\\)】" . 1) "・" "[《〈]")
+    ;; 「辞・典・盤」附属のマイペディア
+    ;;`大和郡山(市)'
+    ;;`ワシントン(George Washington)'
+    ;;`ワシントン(州)'
+    ;;`ワシントン Washington'
+    ;;`アインシュタイン(Albert Einstein)'
+    ;;`香良洲(町)'
+    ;;`カラス (烏)'
+    ;;`カラス(Maria Callas)'
     ("MYPAEDIA" exact exact prefix t
      ("\\([^ ]+\\)(.+)$\\|.+ (\\([^ ]+\\))$\\|^\\([^ ()]+\\)$" .
       (cond ((match-beginning 1) 1)
             ((match-beginning 2) 2)
             ((match-beginning 3) 3)))
      nil nil)
-    ;;  mypaedia-fpw $B$+$i@8@.$7$?(B PC Success $BHG%^%$%Z%G%#%"(B (FreePWING $B<-=q(B)
-    ;; `$BBgOB74;3(B [$B$d$^$H$3$*$j$d$^(B] ($B;T(B)'
-    ;; `$B%"%$%s%7%e%?%$%s(B (Albert Einstein)'
-    ;; `$B%o%7%s%H%s(B (Washington) ($B=#(B)'
-    ;; `$B%o%7%s%H%s(B (Washington)'
-    ;; `$B%o%7%s%H%s(B (George Washington)'
-    ;; `$B9aNI='(B [$B$+$i$9(B] ($BD.(B)'
-    ;; `$B%+%i%9(B ($B1((B) [$B%+%i%9(B]'
-    ;; `$B%+%i%9(B (Maria Callas)'
+    ;;  mypaedia-fpw から生成した PC Success 版マイペディア (FreePWING 辞書)
+    ;; `大和郡山 [やまとこおりやま] (市)'
+    ;; `アインシュタイン (Albert Einstein)'
+    ;; `ワシントン (Washington) (州)'
+    ;; `ワシントン (Washington)'
+    ;; `ワシントン (George Washington)'
+    ;; `香良洲 [からす] (町)'
+    ;; `カラス (烏) [カラス]'
+    ;; `カラス (Maria Callas)'
     ;;("MYPAEDIA" exact exact prefix t
     ;; ("^\\([^ ]+\\) \\[.+\\] (.+)$\\|^[^ ]+ (\\(.+\\)) \\[.+\\]$\\|\
     ;;   ^\\([^][() ]+\\)\\( .+\\)?$" .
@@ -4367,66 +4367,66 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
     ;;        ((match-beginning 3) 3)))
     ;; nil nil)
     ;;
-    ;; $B%K%e!<%"%s%+!<1QOB(B
-    ;; "$B$"$+#2(B $B9$(B"
-    ("NEWANC" exact exact prefix t ("[$B#0(B-$B#9(B]* *\\([^ ]+\\)$" . 1) nil nil)
+    ;; ニューアンカー英和
+    ;; "あか２ 垢"
+    ("NEWANC" exact exact prefix t ("[０-９]* *\\([^ ]+\\)$" . 1) nil nil)
     ;; what's this?
-    ;; `$B!!$"$+(B <scud$B#2(B>',
-    ;; `$B!!!V$"$+!W(B <rust>'
-    ("PLUS" exact exact prefix t ("^$B!!(B\\(.+\\) <[a-z$B#0(B-$B#9(B]+>$" . 1) nil nil)
-    ("lsd" exact exact prefix t ("^\\([^$B!L!M(B]+\\)$B!L(B.+$B!M(B$" . 1) nil nil))
-  "*$B<-=qKh$N8!:w!"J8;z@Z$j=P$7%*%W%7%g%s!#(B
-$B%j%9%H$N3FMWAG$O2<5-$NDL$j!#(B
+    ;; `　あか <scud２>',
+    ;; `　「あか」 <rust>'
+    ("PLUS" exact exact prefix t ("^　\\(.+\\) <[a-z０-９]+>$" . 1) nil nil)
+    ("lsd" exact exact prefix t ("^\\([^〔〕]+\\)〔.+〕$" . 1) nil nil))
+  "*辞書毎の検索、文字切り出しオプション。
+リストの各要素は下記の通り。
 
-  0th: `lookup-dictionary-name' $B$,JV$9J8;zNs(B ($B<-=q<oJL$rI=$o$9(B)$B!#(B
-  1th: $BAw$j$J$7JQ49$N:]$N(B search method $B$r<($9%7%s%\%k!#(Bregexp $B$O;XDjIT2D!#(B
-  2th: $BAw$j$"$jJQ49$G!"$+$D(B `skk-process-okuri-early' $B%*%W%7%g%s$r;XDj$7$F(B
-       $B$$$J$$$H$-(B ($BAw$j2>L>7hDj$N8e$K8!:w$r3+;O$9$k$N$G!"Aw$j2>L>$,FCDj$G$-$k(B)
-       $B$N(B search method $B$r<($9%7%s%\%k!#(Bregexp $B$O;XDjIT2D!#(Bnil $B$r;XDj$9$k$H!"(B
-       $BAw$j$"$jJQ49$N:]$O$=$N<-=q$r8!:w$7$J$$!#(B
-  3th: $BAw$j$"$jJQ49$G!"$+$D(B `skk-process-okuri-early' $B$G$"$k$H$-(B ($BAw$j2>L>(B
-       $B7hDj$NA0$K8!:w$r3+;O$7$F$*$j!"Aw$j2>L>$,FCDj$G$-$J$$$N$G!"Aw$j2>L>$N$+$J(B
-       prefix $B$r=|$$$?ItJ,$r8!:w%-!<$H$7$F(B lookup $B$KEO$7$F$$$k(B) $B$N(B search
-       method $B$r<($9(B $B%7%s%\%k!#(Bregexp $B$O;XDjIT2D!#(Bnil $B$r;XDj$9$k$HAw$j$"$jJQ49(B
-       $B$N:]$O$=$N<-=q$r8!:w$7$J$$!#(B
-  4th: S $B<0!#$3$N(B S $B<0$rI>2A$7$F(B nil $B$K$J$k$H$-$O8!:w$7$J$$!#$"$k0lDj$N>r7o$rK~(B
-       $B$7$?>l9g$K8!:w$7$J$$$h$&$K;XDj$G$-$k!#(B
-  5th: `lookup-entry-heading' $B$,JV$9(B heading $B$+$i8uJd$H$7$F=PNO$9$kJ8;zNs$r@Z$j(B
-       $B=P$9$?$a$N(B regexp $B;XDj5Z$S@Z$j=P$7%*%W%7%g%s!#(B
-       car $B$K(B regexp $B$r<($9J8;zNs!"(Bcdr $B$K(B `match-string' $B$KEO$9(B count $B$r;XDj(B
-       $B$9$k(B (5th $B$KJ8;zNs$@$1$r;XDj$7$?>l9g$O(B `match-string' $B$K$O(B 1 $B$,(B
-       $BEO$5$l$k(B)$B!#(B
-       cdr $BIt$K(B S $B<0$r;XDj$9$k$3$H$b2DG=!#2<5-$N$h$&$K(B cond $B<0$G>r7oH=Dj$9$l$P(B
-       $BJ#?t$N(B regexp $B$r(B or $B;XDj$9$k$3$H$,2DG=!#(B
+  0th: `lookup-dictionary-name' が返す文字列 (辞書種別を表わす)。
+  1th: 送りなし変換の際の search method を示すシンボル。regexp は指定不可。
+  2th: 送りあり変換で、かつ `skk-process-okuri-early' オプションを指定して
+       いないとき (送り仮名決定の後に検索を開始するので、送り仮名が特定できる)
+       の search method を示すシンボル。regexp は指定不可。nil を指定すると、
+       送りあり変換の際はその辞書を検索しない。
+  3th: 送りあり変換で、かつ `skk-process-okuri-early' であるとき (送り仮名
+       決定の前に検索を開始しており、送り仮名が特定できないので、送り仮名のかな
+       prefix を除いた部分を検索キーとして lookup に渡している) の search
+       method を示す シンボル。regexp は指定不可。nil を指定すると送りあり変換
+       の際はその辞書を検索しない。
+  4th: S 式。この S 式を評価して nil になるときは検索しない。ある一定の条件を満
+       した場合に検索しないように指定できる。
+  5th: `lookup-entry-heading' が返す heading から候補として出力する文字列を切り
+       出すための regexp 指定及び切り出しオプション。
+       car に regexp を示す文字列、cdr に `match-string' に渡す count を指定
+       する (5th に文字列だけを指定した場合は `match-string' には 1 が
+       渡される)。
+       cdr 部に S 式を指定することも可能。下記のように cond 式で条件判定すれば
+       複数の regexp を or 指定することが可能。
 
           (cond ((match-beginning 1) 1)
                 ((match-beginning 2) 2)
             ((match-beginning 3) 3)
                 ((match-beginning 4) 4))
 
-       cdr $BIt$NI>2A7k2L$,?t;z$N%j%9%H$K$J$k$H$-$O!"$=$N?t;z$r=g$K(B `match-string'
-       $B$KEO$7$FJ8;zNs$r@Z$j=P$7!"$=$l$iO"7k$7$?J8;zNs$r8uJd$H$7$FJV$9!#Nc$($P!"(B
+       cdr 部の評価結果が数字のリストになるときは、その数字を順に `match-string'
+       に渡して文字列を切り出し、それら連結した文字列を候補として返す。例えば、
 
           (cond ((match-beginning 5) \\='(6 5)))
 
-       $B$H;XDj$9$k$H!"(B(match-beginning 5) $B$,(B non-nil $B$K$J$C$?>l9g!"(B
-       (match-string 6) $B$H(B (match-string 5) $B$r$=$N=g$KO"7k$7$?J8;zNs$r8uJd$H$7(B
-       $B$F=PNO$9$k!#(B
-       $B@Z$j=P$5$:$KJ8;zNsA4BN$rBP>]$K$9$k$H$-$O!"(B5th $B$K(B nil $B$r;XDj$9$k!#(B
-  6th: $B@Z$j=P$5$l$?J8;zNs$NCf$K99$KJ#?t$N8uJd$r4^$`>l9g$N6h@Z$j$rI=$o$9(B
-       regexp$B!#(B
-       $BJ#?t$N8uJd$,F10l(B heading $B$NCf$K=PNO$5$l$J$$$H$-$O!"(Bnil $B$r;XDj$9$k!#(B
-  7th: $B@Z$j=P$5$l$?J8;zNs$+$iFCDj$NJ8;zNs$r<h$j=|$/>l9g$K;XDj$9$k(B regexp$B!#(B
-       $B<-=q$N=PNO$,<-=qFCM-$N5-9fJ8;z$r4^$`>l9g$K;XDj$9$k!#(B
+       と指定すると、(match-beginning 5) が non-nil になった場合、
+       (match-string 6) と (match-string 5) をその順に連結した文字列を候補とし
+       て出力する。
+       切り出さずに文字列全体を対象にするときは、5th に nil を指定する。
+  6th: 切り出された文字列の中に更に複数の候補を含む場合の区切りを表わす
+       regexp。
+       複数の候補が同一 heading の中に出力されないときは、nil を指定する。
+  7th: 切り出された文字列から特定の文字列を取り除く場合に指定する regexp。
+       辞書の出力が辞書特有の記号文字を含む場合に指定する。
 
-$B8=:_BP1~$7$F$$$k<-=qL>$O(B \"ispell\", \"jedict\", \"CHIEZO\", \"CHUJITEN\",
+現在対応している辞書名は \"ispell\", \"jedict\", \"CHIEZO\", \"CHUJITEN\",
 \"COLLOC\", \"GENIUS\", \"GN99EP01\", \"GN99EP02\", \"IWAKOKU\", \"KANWA\",
-\"KOUJIEN\", \"KOJIEN\", \"KOKUGO\", \"MYPAEDIA\", \"NEWANC\", \"PLUS\" $B5Z$S(B
-\"lsd\"$B!#(B
-`lookup-entry-heading' $B$,<+J,$N;HMQ$9$k<-=q$+$i$I$N$h$&$JJ8;zNs$r<h$j=P$9$N$+(B
-$B3N$+$a$?$$$H$-$O!"(B`skk-lookup-pickup-headings' $B$r;HMQ$9$k!#Nc$($P!"(B
+\"KOUJIEN\", \"KOJIEN\", \"KOKUGO\", \"MYPAEDIA\", \"NEWANC\", \"PLUS\" 及び
+\"lsd\"。
+`lookup-entry-heading' が自分の使用する辞書からどのような文字列を取り出すのか
+確かめたいときは、`skk-lookup-pickup-headings' を使用する。例えば、
 
- (skk-lookup-pickup-headings \"$B$3$7$g$&(B\" \\='exact)"
+ (skk-lookup-pickup-headings \"こしょう\" \\='exact)"
   ;; for checking.
   ;; (pp (mapcar (lambda (e)(cons (car e) (length e)))
   ;;    skk-lookup-option-alist))
@@ -4459,70 +4459,70 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
   :group 'skk-lookup)
 
 (defcustom skk-lookup-default-option-list
-  '(exact exact prefix t ("$B!Z(B\\([^$B!Z![(B]+\\)$B![(B" . 1) "$B!&(B" nil)
-  ;; CRCEN: $B;0>JF2(B $B%K%e!<%;%s%A%e%j!<1QOB!&?7%/%i%&%sOB1Q<-E5(B
-  ;; KANJIGEN: Super$BE}9g<-=q(B99 Disk2/$B4A;z8;(B : EPWING
-  ;; RIKAGAKU: $BM}2=3X<-E5(B
+  '(exact exact prefix t ("【\\([^【】]+\\)】" . 1) "・" nil)
+  ;; CRCEN: 三省堂 ニューセンチュリー英和・新クラウン和英辞典
+  ;; KANJIGEN: Super統合辞書99 Disk2/漢字源 : EPWING
+  ;; RIKAGAKU: 理化学辞典
   ;; WAEI: what's this?
-  "*$B%G%U%)%k%H$N<-=q8!:w!"J8;z@Z$j=P$7%*%W%7%g%s!#(B
-$B$^$:<-=qL>$r%-!<$K$7$F(B `skk-lookup-option-alist' $B$r0z$-!"$=$3$K<-=q8!:w!"J8;z@Z(B
-$B$j=P$7$N%*%W%7%g%s$,8+$D$+$l$P$=$l$r;HMQ$7!"8+$D$+$i$J$+$C$?>l9g$K$3$NJQ?t$G(B
-$B;XDj$5$l$k<-=q8!:w!"J8;z@Z$j=P$7$N%*%W%7%g%s$r;HMQ$9$k!#(B
+  "*デフォルトの辞書検索、文字切り出しオプション。
+まず辞書名をキーにして `skk-lookup-option-alist' を引き、そこに辞書検索、文字切
+り出しのオプションが見つかればそれを使用し、見つからなかった場合にこの変数で
+指定される辞書検索、文字切り出しのオプションを使用する。
 
-$B%j%9%H$N3FMWAG$O2<5-$NDL$j!#(B
+リストの各要素は下記の通り。
 
-  0th: $BAw$j$J$7JQ49$N:]$N(B search method $B$r<($9%7%s%\%k!#(Bregexp $B$O;XDjIT2D!#(B
-  1th: $BAw$j$"$jJQ49$G!"$+$D(B `skk-process-okuri-early' $B%*%W%7%g%s$r;XDj$7$F$$$J(B
-       $B$$$H$-(B ($BAw$j2>L>7hDj$N8e$K8!:w$r3+;O$9$k$N$G!"Aw$j2>L>$,FCDj$G$-$k(B) $B$N(B
-       search method $B$r<($9%7%s%\%k!#(Bregexp $B$O;XDjIT2D!#(Bnil $B$r;XDj$9$k$H!"Aw$j(B
-       $B$"$jJQ49$N:]$O$=$N<-=q$r8!:w$7$J$$!#(B
-  2th: $BAw$j$"$jJQ49$G!"$+$D(B `skk-process-okuri-early' $B$G$"$k(B ($BAw$j2>L>7hDj$NA0(B
-       $B$K8!:w$r3+;O$7$F$*$j!"Aw$j2>L>$,FCDj$G$-$J$$$N$G!"Aw$j2>L>$N$+$J(B prefix
-       $B$r=|$$$?ItJ,$r8!:w%-!<$H$7$F(B lookup $B$KEO$7$F$$$k(B) $B$H$-$N(B search method
-       $B$r<($9%7%s%\%k!#(Bregexp $B$O;XDjIT2D!#(Bnil $B$r;XDj$9$k$HAw$j$"$jJQ49$N:]$O$=(B
-       $B$N<-=q$r8!:w$7$J$$!#(B
-  3th: S $B<0!#$3$N(B S $B<0$rI>2A$7$F(B nil $B$K$J$k$H$-$O8!:w$7$J$$!#$"$k0lDj$N>r7o$rK~(B
-       $B$7$?>l9g$K8!:w$7$J$$$h$&$K;XDj$G$-$k!#(B
-  4th: `lookup-entry-heading' $B$,JV$9(B heading $B$+$i8uJd$H$7$F=PNO$9$kJ8;zNs$r@Z$j(B
-       $B=P$9$?$a$N(B regexp $B;XDj5Z$S@Z$j=P$7%*%W%7%g%s!#(B
-       car $B$K(B regexp $B$r<($9J8;zNs!"(Bcdr $B$K(B `match-string' $B$KEO$9(B count $B$r;XDj$9(B
-       $B$k(B (4th $B$KJ8;zNs$@$1$r;XDj$7$?>l9g$O(B `match-string' $B$K$O(B 1 $B$,EO$5$l$k(B)$B!#(B
-       cdr $BIt$K(B S $B<0$r;XDj$9$k$3$H$b2DG=!#2<5-$N$h$&$K(B cond $B<0$G>r7oH=Dj$9$l$P(B
-       $BJ#?t$N(B regexp $B$r(B or $B;XDj$9$k$3$H$,2DG=!#(B
+  0th: 送りなし変換の際の search method を示すシンボル。regexp は指定不可。
+  1th: 送りあり変換で、かつ `skk-process-okuri-early' オプションを指定していな
+       いとき (送り仮名決定の後に検索を開始するので、送り仮名が特定できる) の
+       search method を示すシンボル。regexp は指定不可。nil を指定すると、送り
+       あり変換の際はその辞書を検索しない。
+  2th: 送りあり変換で、かつ `skk-process-okuri-early' である (送り仮名決定の前
+       に検索を開始しており、送り仮名が特定できないので、送り仮名のかな prefix
+       を除いた部分を検索キーとして lookup に渡している) ときの search method
+       を示すシンボル。regexp は指定不可。nil を指定すると送りあり変換の際はそ
+       の辞書を検索しない。
+  3th: S 式。この S 式を評価して nil になるときは検索しない。ある一定の条件を満
+       した場合に検索しないように指定できる。
+  4th: `lookup-entry-heading' が返す heading から候補として出力する文字列を切り
+       出すための regexp 指定及び切り出しオプション。
+       car に regexp を示す文字列、cdr に `match-string' に渡す count を指定す
+       る (4th に文字列だけを指定した場合は `match-string' には 1 が渡される)。
+       cdr 部に S 式を指定することも可能。下記のように cond 式で条件判定すれば
+       複数の regexp を or 指定することが可能。
 
           (cond ((match-beginning 1) 1)
                 ((match-beginning 2) 2)
             ((match-beginning 3) 3)
                 ((match-beginning 4) 4))
 
-       cdr $BIt$NI>2A7k2L$,?t;z$N%j%9%H$K$J$k$H$-$O!"$=$N?t;z$r=g$K(B `match-string'
-       $B$KEO$7$FJ8;zNs$r@Z$j=P$7!"$=$l$iO"7k$7$?J8;zNs$r8uJd$H$7$FJV$9!#Nc$($P!"(B
+       cdr 部の評価結果が数字のリストになるときは、その数字を順に `match-string'
+       に渡して文字列を切り出し、それら連結した文字列を候補として返す。例えば、
 
           (cond ((match-beginning 5) \\='(6 5)))
 
-       $B$H;XDj$9$k$H!"(B(match-beginning 5) $B$,(B non-nil $B$K$J$C$?>l9g!"(B
-       (match-string 6) $B$H(B (match-string 5) $B$r$=$N=g$KO"7k$7$?J8;zNs$r8uJd$H$7(B
-       $B$F=PNO$9$k!#(B
-       $B@Z$j=P$5$:$KJ8;zNsA4BN$rBP>]$K$9$k$H$-$O!"(B4th $B$K(B nil $B$r;XDj$9$k!#(B
-  5th: $B@Z$j=P$5$l$?J8;zNs$NCf$K99$KJ#?t$N8uJd$r4^$`>l9g$N6h@Z$j$rI=$o$9(B
-        regexp$B!#(B
-       $BJ#?t$N8uJd$,F10l(B heading $B$NCf$K=PNO$5$l$J$$$H$-$O!"(Bnil $B$r;XDj$9$k!#(B
-  6th: $B@Z$j=P$5$l$?J8;zNs$+$iFCDj$NJ8;zNs$r<h$j=|$/>l9g$K;XDj$9$k(B regexp$B!#(B
-       $B<-=q$N=PNO$,<-=qFCM-$N5-9fJ8;z$r4^$`>l9g$K;XDj$9$k!#(B
+       と指定すると、(match-beginning 5) が non-nil になった場合、
+       (match-string 6) と (match-string 5) をその順に連結した文字列を候補とし
+       て出力する。
+       切り出さずに文字列全体を対象にするときは、4th に nil を指定する。
+  5th: 切り出された文字列の中に更に複数の候補を含む場合の区切りを表わす
+        regexp。
+       複数の候補が同一 heading の中に出力されないときは、nil を指定する。
+  6th: 切り出された文字列から特定の文字列を取り除く場合に指定する regexp。
+       辞書の出力が辞書特有の記号文字を含む場合に指定する。
 
-$B$3$N%*%W%7%g%s$GBP1~$7$F$$$k<-=qL>$O!"(B\"CRCEN\", \"KANJIGEN\", \"RIKAGAKU\"
-$B5Z$S(B \"WAEI\".
-`lookup-entry-heading' $B$G<h$j=P$7$?J8;zNs$,2<5-$N$h$&$K$J$k$3$H$rA0Ds$K(B
-$B$7$F$$$k!#(B
+このオプションで対応している辞書名は、\"CRCEN\", \"KANJIGEN\", \"RIKAGAKU\"
+及び \"WAEI\".
+`lookup-entry-heading' で取り出した文字列が下記のようになることを前提に
+している。
 
-  \"$B$"!>$+!Z0!2J![!E%/%o(B\"
-  \"$B$"$+!Zod2@![(B\"
-  \"$B$3!>$7$g$&!Z>.@+!&>.@-![!E%7%d%&(B\"
+  \"あ‐か【亜科】‥クワ\"
+  \"あか【閼伽】\"
+  \"こ‐しょう【小姓・小性】‥シヤウ\"
 
-`lookup-entry-heading' $B$,<+J,$N;HMQ$9$k<-=q$+$i$I$N$h$&$JJ8;zNs$r<h$j=P$9$N$+(B
-$B3N$+$a$?$$$H$-$O!"(B`skk-lookup-pickup-headings' $B$r;HMQ$9$k!#Nc$($P!"(B
+`lookup-entry-heading' が自分の使用する辞書からどのような文字列を取り出すのか
+確かめたいときは、`skk-lookup-pickup-headings' を使用する。例えば、
 
- (skk-lookup-pickup-headings \"$B$3$7$g$&(B\" \\='exact)"
+ (skk-lookup-pickup-headings \"こしょう\" \\='exact)"
   :type '(list (choice :tag "Search method for okuri nasi"
                        (const exact) (const prefix)
                        (const suffix) (const substring)
@@ -4549,38 +4549,38 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
   :group 'skk-lookup)
 
 (defcustom skk-lookup-search-modules nil
-  "*$B8!:w%b%8%e!<%k$N@_Dj$N%j%9%H!#(B"
+  "*検索モジュールの設定のリスト。"
   :type '(repeat (cons :tag "Module" (string :tag "Name")
                        (repeat :tag "Dictionary" (string :tag "ID"))))
   :group 'skk-lookup)
 
 (defcustom skk-lookup-process-henkan-key-function nil
-  "*Lookup $B$KEO$9:]$K8!:w%-!<$r2C9)$9$k%U%!%s%/%7%g%s!#(B
-$BAw$j$"$jJQ49$N:]$N$_%3!<%k$5$l$k!#0z?t$O2C9)$9$Y$-J8;zNs(B HENKAN-KEY$B!#(B
-$BJV$jCM$O(B car $B$K2C9)$7$?J8;zNs!"(Bcdr $B$KAw$j2>L>$N2C9)J}K!$r<($9%^%8%C%/%J%s%P!<(B
-$B$rF~$l$?(B cons cell$B!#(B
-$B%^%8%C%/%J%s%P!<$O!"(B0 $B$,Aw$j$J$7$rI=$o$9(B ($BK\(B function $B$G$O;HMQ$9$k$3$H$O$J$$(B)$B!#(B
-1 $B$OAw$j$"$jJQ49$G(B `skk-process-okuri-early' $B$,(B nil $B$N>l9g!#(B
-2 $B$OAw$j$"$jJQ49$G(B `skk-process-okuri-early' $B$,(B non-nil $B$N>l9g$rI=$o$9!#(B
-$B6a$$>-Mh!"(Bskk-lookup.el $BA4BN$rDL$8$F$3$N$h$&$J%^%8%C%/%J%s%P!<$r;H$o$J$$$h$&$K(B
-$B2~NI$5$l$k2DG=@-$,$"$k!#(B"
-  :type '(radio (function :tag "$B4X?t(B")
-                (const :tag "$B;XDj$7$J$$(B" nil))
+  "*Lookup に渡す際に検索キーを加工するファンクション。
+送りあり変換の際のみコールされる。引数は加工すべき文字列 HENKAN-KEY。
+返り値は car に加工した文字列、cdr に送り仮名の加工方法を示すマジックナンバー
+を入れた cons cell。
+マジックナンバーは、0 が送りなしを表わす (本 function では使用することはない)。
+1 は送りあり変換で `skk-process-okuri-early' が nil の場合。
+2 は送りあり変換で `skk-process-okuri-early' が non-nil の場合を表わす。
+近い将来、skk-lookup.el 全体を通じてこのようなマジックナンバーを使わないように
+改良される可能性がある。"
+  :type '(radio (function :tag "関数")
+                (const :tag "指定しない" nil))
   :group 'skk-lookup)
 
 (defcustom skk-lookup-kana-vector
-  ["$B$!(B" "$B$"(B" "$B$#(B" "$B$$(B" "$B$%(B" "$B$&(B" "$B$'(B" "$B$((B" "$B$)(B" "$B$*(B"
-   "$B$+(B" "$B$,(B" "$B$-(B" "$B$.(B" "$B$/(B" "$B$0(B" "$B$1(B" "$B$2(B" "$B$3(B" "$B$4(B"
-   "$B$5(B" "$B$6(B" "$B$7(B" "$B$8(B" "$B$9(B" "$B$:(B" "$B$;(B" "$B$<(B" "$B$=(B" "$B$>(B"
-   "$B$?(B" "$B$@(B" "$B$A(B" "$B$B(B" "$B$C(B" "$B$D(B" "$B$E(B" "$B$F(B" "$B$G(B" "$B$H(B" "$B$I(B"
-   "$B$J(B" "$B$K(B" "$B$L(B" "$B$M(B" "$B$N(B"
-   "$B$O(B" "$B$P(B" "$B$Q(B" "$B$R(B" "$B$S(B" "$B$T(B" "$B$U(B" "$B$V(B" "$B$W(B" "$B$X(B" "$B$Y(B" "$B$Z(B" "$B$[(B" "$B$\(B" "$B$](B"
-   "$B$^(B" "$B$_(B" "$B$`(B" "$B$a(B" "$B$b(B"
-   "$B$c(B" "$B$d(B" "$B$e(B" "$B$f(B" "$B$g(B" "$B$h(B"
-   "$B$i(B" "$B$j(B" "$B$k(B" "$B$l(B" "$B$m(B"
-   "$B$n(B" "$B$o(B" "$B$p(B" "$B$q(B" "$B$r(B" "$B$s(B"]
-  "*`skk-kana-rom-vector' $B$N(B prefix $B$KBP1~$9$k$+$JJ8;z$N%Y%/%H%k!#(B
-$B$"$k(B prefix $B$,$I$N$+$JJ8;z$KBP1~$9$k$+$N%^%C%W$r:n$k$?$a$K;2>H$9$k!#(B"
+  ["ぁ" "あ" "ぃ" "い" "ぅ" "う" "ぇ" "え" "ぉ" "お"
+   "か" "が" "き" "ぎ" "く" "ぐ" "け" "げ" "こ" "ご"
+   "さ" "ざ" "し" "じ" "す" "ず" "せ" "ぜ" "そ" "ぞ"
+   "た" "だ" "ち" "ぢ" "っ" "つ" "づ" "て" "で" "と" "ど"
+   "な" "に" "ぬ" "ね" "の"
+   "は" "ば" "ぱ" "ひ" "び" "ぴ" "ふ" "ぶ" "ぷ" "へ" "べ" "ぺ" "ほ" "ぼ" "ぽ"
+   "ま" "み" "む" "め" "も"
+   "ゃ" "や" "ゅ" "ゆ" "ょ" "よ"
+   "ら" "り" "る" "れ" "ろ"
+   "ゎ" "わ" "ゐ" "ゑ" "を" "ん"]
+  "*`skk-kana-rom-vector' の prefix に対応するかな文字のベクトル。
+ある prefix がどのかな文字に対応するかのマップを作るために参照する。"
   :type 'sexp
   :group 'skk-lookup)
 
@@ -4590,57 +4590,57 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
 (defvar skk-lookup-prefix-and-kana-map nil)
 
 (defvar skk-lookup-get-content-nth-dic 0
-  "*$B4X?t(B `skk-lookup-get-content' $B$N=hM}BP>]$r?tCM$G;XDj$9$k(B.
-$B?tCM$O!V4X?t(B `skk-lookup-default-module' $B$NI>2A7k2L$N$&$A2?HVL\$N(B agent $B$r(B
-$B;HMQ$9$k$+!W$r!"%<%m$r5/E@$K?t$($k(B.
+  "*関数 `skk-lookup-get-content' の処理対象を数値で指定する.
+数値は「関数 `skk-lookup-default-module' の評価結果のうち何番目の agent を
+使用するか」を、ゼロを起点に数える.
 
-*scratch* $B%P%C%U%!$G<!$N(B S $B<0$rI>2A$7$F$_$k$H$h$$(B.
+*scratch* バッファで次の S 式を評価してみるとよい.
 \(let ((n 0))
   (dolist (i (lookup-module-dictionaries (skk-lookup-default-module)))
-    (insert (format \"%d %s\" n (lookup-dictionary-name i)) 10) ;10$B$O2~9T(B
+    (insert (format \"%d %s\" n (lookup-dictionary-name i)) 10) ;10は改行
     (setq n (1+ n))))
 
-$B$J$*!"(BDDSKK $B$N5/F08e$KJQ?t$NCM$rJQ99$7$?>l9g$O!"(B*scratch* $B%P%C%U%!$G(B
-$B4X?t(B `skk-lookup-get-content-setup-dic' $B$rI>2A$9$k$3$H(B.")
+なお、DDSKK の起動後に変数の値を変更した場合は、*scratch* バッファで
+関数 `skk-lookup-get-content-setup-dic' を評価すること.")
 
 (defvar skk-lookup-get-content-default-dic nil)
 (defvar skk-lookup-get-content-default-dic-name nil)
 
 ;;; skk-num.el related.
 (defcustom skk-use-numeric-conversion t
-  "*Non-nil $B$G$"$l$P!"?tCMJQ49$r9T$&!#(B"
+  "*Non-nil であれば、数値変換を行う。"
   :type 'boolean
   :group 'skk-num)
 
 (defcustom skk-non-numeric-prog-list nil
-  "*$B?tCMJQ49$K;H$o$J$$<-=q8!:w%W%m%0%i%`$N%j%9%H!#(B
-`skk-use-numeric-conversion' $B$,(B non-nil $B$N>l9g$N$_M-8z!#%j%9%H$NMWAG$H$7$F$O!"(B
+  "*数値変換に使わない辞書検索プログラムのリスト。
+`skk-use-numeric-conversion' が non-nil の場合のみ有効。リストの要素としては、
 
-1. $B%W%m%0%i%`$N4X?tL>$rI=$9%7%s%\%k(B
-2. $B%W%m%0%i%`$r0z?t$NCM$^$G;XDj$7$?7A$N%j%9%H(B
+1. プログラムの関数名を表すシンボル
+2. プログラムを引数の値まで指定した形のリスト
 
-$B$N$$$:$l$G$b;XDj$G$-$k!#(B
+のいずれでも指定できる。
 
-$BA0<T$G$O!"4X?tL>$N0lCW$7$?A4%W%m%0%i%`$,0lCW$HH=CG$5$l$k!#8e<T$O(B
-`skk-search-prog-list' $B$NMWAG$HF1$8=q<0$GI=$5$l!"F1%j%9%H$NMWAG$H4X?tL>5Z$S(B
-$B$9$Y$F$N0z?t$,0lCW$7$?>l9g$N$_0lCW$HH=CG$5$l$k!#(B
+前者では、関数名の一致した全プログラムが一致と判断される。後者は
+`skk-search-prog-list' の要素と同じ書式で表され、同リストの要素と関数名及び
+すべての引数が一致した場合のみ一致と判断される。
 
-$B0lCW$NI>2A$O!"(B 1 $B$O4X?t(B `eq' $B$K$h$C$F!"(B 2 $B$O%j%9%H$KBP$7$F(B `equal' $B$K$h$C$F(B
-$B9T$o$l$k!#(B
+一致の評価は、 1 は関数 `eq' によって、 2 はリストに対して `equal' によって
+行われる。
 
- ($B@_DjNc(B)
+ (設定例)
 
  (setq skk-non-numeric-prog-list
        \\='(skk-look
      skk-tankan-search
      (skk-search-jisyo-file \"/usr/share/skk/SKK-JISYO.jinmei\" 10000)))
 "
-  :type '(repeat (radio (symbol :tag "$B4X?tL>$N$_$G;XDj(B")
-                        (list :tag "$B4X?tL>$H0z?t$N%j%9%H(B")))
+  :type '(repeat (radio (symbol :tag "関数名のみで指定")
+                        (list :tag "関数名と引数のリスト")))
   :group 'skk-num)
 
 (defcustom skk-show-num-type-info t
-  "*Non-nil $B$J$i$P!"?tCMJQ49%(%s%H%j$N<-=qEPO?;~$KJQ49%?%$%W$N0FFb$rI=<($9$k!#(B"
+  "*Non-nil ならば、数値変換エントリの辞書登録時に変換タイプの案内を表示する。"
   :type 'boolean
   :group 'skk-num)
 
@@ -4653,22 +4653,22 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
     (5 . skk-num-type5-kanji)
     (8 . skk-num-grouping)
     (9 . skk-num-shogi))
-  "*$B?tCM$NJQ49$N$?$a$N!"%$%s%G%/%9$HJQ49$K;HMQ$9$k4X?t$H$NO"A[%j%9%H!#(B
-$B4X?t(B `skk-num-exp' $B$,;2>H$7$F$$$k!#(B
-$B3FMWAG$O!"(B`($B%$%s%G%/%9(B . $B4X?tL>(B)' $B$H$$$&9=@.$K$J$C$F$$$k!#(B
-$B%$%s%G%/%9$K$O!"Nc$($P8+=P$78l$,(B \"$BJ?@.(B#1$BG/(B\" $B$N$H$-!"(B`#' $B5-9f$ND>8e$KI=<((B
-$B$5$l$k(B integer `1' $B$rBeF~$9$k!#(B
+  "*数値の変換のための、インデクスと変換に使用する関数との連想リスト。
+関数 `skk-num-exp' が参照している。
+各要素は、`(インデクス . 関数名)' という構成になっている。
+インデクスには、例えば見出し語が \"平成#1年\" のとき、`#' 記号の直後に表示
+される integer `1' を代入する。
 
-$B%$%s%G%/%9$H4X?t$N4X78(B ($B%G%U%)%k%HCM(B) $B$O2<5-$NDL$j!#(B
-    0 -> $BL5JQ49(B
-    1 -> $BA43Q?t;z$XJQ49(B
-    2 -> $B4A?t;z(B ($B0L<h$j$"$j(B) $B$XJQ49(B
-    3 -> $B4A?t;z(B ($B0L<h$j$J$7(B) $B$XJQ49(B
-    4 -> $B$=$N?t;z$=$N$b$N$r%-!<$K$7$F<-=q$r:F8!:w(B
-    5 -> $B4A?t;z(B ($B<j7A$J$I$G;HMQ$9$kJ8;z$r;HMQ(B) $B$XJQ49(B
-    8 -> $B7e6h@Z$j$XJQ49(B (1,234,567)
-    9 -> $B>-4}$G;HMQ$9$k?t;z(B (\"$B#3;M(B\" $B$J$I(B) $B$KJQ49(B"
-  :type '(repeat (cons (radio :tag "$B%$%s%G%/%9(B"
+インデクスと関数の関係 (デフォルト値) は下記の通り。
+    0 -> 無変換
+    1 -> 全角数字へ変換
+    2 -> 漢数字 (位取りあり) へ変換
+    3 -> 漢数字 (位取りなし) へ変換
+    4 -> その数字そのものをキーにして辞書を再検索
+    5 -> 漢数字 (手形などで使用する文字を使用) へ変換
+    8 -> 桁区切りへ変換 (1,234,567)
+    9 -> 将棋で使用する数字 (\"３四\" など) に変換"
+  :type '(repeat (cons (radio :tag "インデクス"
                               (const 0)
                               (const 1)
                               (const 2)
@@ -4677,13 +4677,13 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
                               (const 5)
                               (const 8)
                               (const 9))
-                       (function :tag "$B4X?t(B")))
+                       (function :tag "関数")))
   :group 'skk-num)
 
 (defcustom skk-num-convert-float nil
-  "*Non-nil $B$G$"$l$P!"IbF0>.?tE@?t$r;H$C$?8+=P$78l$KBP1~$7$FJQ49$r9T$&!#(B
-$B$3$NCM$r(B non-nil $B$K$9$k$3$H$G!"(B\"#.# /#1$B!%(B#1/#0$B7n(B#0$BF|(B/\" $B$J$I$N<-=q8+=P$7$,;HMQ(B
-$B$G$-$J$/$J$k$N$G!"Cm0U!#(B"
+  "*Non-nil であれば、浮動小数点数を使った見出し語に対応して変換を行う。
+この値を non-nil にすることで、\"#.# /#1．#1/#0月#0日/\" などの辞書見出しが使用
+できなくなるので、注意。"
   :type 'boolean
   :group 'skk-num)
 
@@ -4691,146 +4691,146 @@ KEY $B5Z$S(B VALUE $B$O>JN,2DG=$G!"%(!<%8%'%s%H$KBP$9$k%*%W%7%g%s$r;XDj$9$k!#
                             (and (assq 2 skk-num-type-alist)
                                  (or (assq 3 skk-num-type-alist)
                                      (assq 5 skk-num-type-alist)))) "\
-*Non-nil $B$G$"$l$P!"0[$J$k?tCMI=8=$G$bJQ497k2L$,F1$8?tCM$r=EJ#$7$F=PNO$7$J$$!#(B"
+*Non-nil であれば、異なる数値表現でも変換結果が同じ数値を重複して出力しない。"
                                      :type 'boolean
                                      :group 'skk-num)
 
 (defcustom skk-num-load-hook nil
-  "*skk-num.el $B$r%m!<%I$7$?8e$K%3!<%k$5$l$k%U%C%/!#(B"
+  "*skk-num.el をロードした後にコールされるフック。"
   :type 'hook
   :group 'skk-num)
 
 (defconst skk-num-alist-type1
-  '((?0 . "$B#0(B") (?1 . "$B#1(B") (?2 . "$B#2(B") (?3 . "$B#3(B")
-    (?4 . "$B#4(B") (?5 . "$B#5(B") (?6 . "$B#6(B") (?7 . "$B#7(B")
-    (?8 . "$B#8(B") (?9 . "$B#9(B")
-    (?. . "$B!%(B") ; $B>.?tE@!#(B(?. . ".") $B$NJ}$,NI$$?M$b$$$k$+$b(B...$B!#(B
+  '((?0 . "０") (?1 . "１") (?2 . "２") (?3 . "３")
+    (?4 . "４") (?5 . "５") (?6 . "６") (?7 . "７")
+    (?8 . "８") (?9 . "９")
+    (?. . "．") ; 小数点。(?. . ".") の方が良い人もいるかも...。
     (?  . ""))
-  "ascii $B?t;z$N(B char type $B$HA43Q?t;z$N(B string type $B$NO"A[%j%9%H!#(B
-\"1995\" -> \"$B#1#9#9#5(B\" $B$N$h$&$JJ8;zNs$XJQ49$9$k:]$KMxMQ$9$k!#(B")
+  "ascii 数字の char type と全角数字の string type の連想リスト。
+\"1995\" -> \"１９９５\" のような文字列へ変換する際に利用する。")
 
 (defconst skk-num-alist-type2
-  '((?0 . "$B!;(B") (?1 . "$B0l(B") (?2 . "$BFs(B") (?3 . "$B;0(B")
-    (?4 . "$B;M(B") (?5 . "$B8^(B") (?6 . "$BO;(B") (?7 . "$B<7(B")
-    (?8 . "$BH,(B") (?9 . "$B6e(B") (?\  . ""))
-  "ascii $B?t;z$N(B char type $B$H4A?t;z$N(B string type $B$NO"A[%j%9%H!#(B
-\"1995\" -> \"$B0l6e6e8^(B\" $B$N$h$&$JJ8;zNs$XJQ49$9$k:]$KMxMQ$9$k!#(B")
+  '((?0 . "〇") (?1 . "一") (?2 . "二") (?3 . "三")
+    (?4 . "四") (?5 . "五") (?6 . "六") (?7 . "七")
+    (?8 . "八") (?9 . "九") (?\  . ""))
+  "ascii 数字の char type と漢数字の string type の連想リスト。
+\"1995\" -> \"一九九五\" のような文字列へ変換する際に利用する。")
 
 (defconst skk-num-alist-type3
   (append
-   '((ju . "$B==(B") (hyaku . "$BI4(B") (sen . "$B@i(B")
-     (man . "$BK|(B") (oku . "$B2/(B") (cho . "$BC{(B") (kei . "$B5~(B"))
+   '((ju . "十") (hyaku . "百") (sen . "千")
+     (man . "万") (oku . "億") (cho . "兆") (kei . "京"))
    skk-num-alist-type2)
-  "$B?t;z$N4A;zI=5-$rI=$9O"A[%j%9%H!#(B
-\"1995\" -> \"$B@i6eI46e==8^(B\" $B$N$h$&$JJ8;zNs$XJQ49$9$k:]$KMxMQ$9$k!#(B")
+  "数字の漢字表記を表す連想リスト。
+\"1995\" -> \"千九百九十五\" のような文字列へ変換する際に利用する。")
 
 (defconst skk-num-alist-type5
-  '((ju . "$B=&(B") (hyaku . "$BI4(B") (sen . "$Bot(B")
-    (man . "$Bh_(B") (oku . "$B2/(B") (cho . "$BC{(B") (kei . "$B5~(B")
-    (?0 . "$BNm(B") (?1 . "$B0m(B") (?2 . "$BFu(B") (?3 . "$B;2(B")
-    (?4 . "$B;M(B") (?5 . "$B8`(B") (?6 . "$BO;(B") (?7 . "$B<7(B")
-    (?8 . "$BH,(B") (?9 . "$B6e(B") (?\  . ""))
-  "$B?t;z$N4A;zI=5-$rI=$9O"A[%j%9%H!#(B
-\"1995\" -> \"$B0mot6eI46e=&8`(B\" $B$N$h$&$JJ8;zNs$XJQ49$9$k:]$KMxMQ$9$k!#(B")
+  '((ju . "拾") (hyaku . "百") (sen . "阡")
+    (man . "萬") (oku . "億") (cho . "兆") (kei . "京")
+    (?0 . "零") (?1 . "壱") (?2 . "弐") (?3 . "参")
+    (?4 . "四") (?5 . "伍") (?6 . "六") (?7 . "七")
+    (?8 . "八") (?9 . "九") (?\  . ""))
+  "数字の漢字表記を表す連想リスト。
+\"1995\" -> \"壱阡九百九拾伍\" のような文字列へ変換する際に利用する。")
 
 (skk-deflocalvar skk-num-list nil
-  "`skk-henkan-key' $B$NCf$K4^$^$l$k?t;z$rI=$9J8;zNs$N%j%9%H!#(B
-$BNc$($P!"(B\"$B"&$X$$$;$$(B7$B$M$s(B10$B$,$D(B\" $B$rJQ49$9$k$H$-!"(B`skk-henkan-key' $B$O(B
-\"$B$X$$$;$$(B7$B$M$s(B10$B$,$D(B\" $B$G$"$j!"(B`skk-num-list' $B$O(B (\"7\" \"10\") $B$H$J$k!#(B
+  "`skk-henkan-key' の中に含まれる数字を表す文字列のリスト。
+例えば、\"▽へいせい7ねん10がつ\" を変換するとき、`skk-henkan-key' は
+\"へいせい7ねん10がつ\" であり、`skk-num-list' は (\"7\" \"10\") となる。
 \(buffer local)")
 
 (defvar skk-num-recompute-key nil
-  "#4 $B%?%$%W$N%-!<$K$h$j?tCM$N:F7W;;$r9T$C$?$H$-$N8!:w%-!<!#(B")
+  "#4 タイプのキーにより数値の再計算を行ったときの検索キー。")
 
 (defcustom skk-num-grouping-separator ","
-  "#8 $B%?%$%W(B ($B7e6h@Z$j(B) $B$G;HMQ$9$k5-9f(B"
+  "#8 タイプ (桁区切り) で使用する記号"
   :type 'string
   :group 'skk-num)
 
 (defcustom skk-num-grouping-places 3
-  "#8 $B%?%$%W(B ($B7e6h@Z$j(B) $B$r2?7e$G6h@Z$k$+(B"
+  "#8 タイプ (桁区切り) を何桁で区切るか"
   :type 'integer
   :group 'skk-num)
 
 ;;; skk-server.el related.
 (defcustom skk-server-host (or (getenv "SKKSERVER") "localhost")
-  "*$B<-=q%5!<%P$,5/F0$7$F$$$k%[%9%HL>Kt$O(B IP $B%"%I%l%9!#(B"
-  :type `(radio (string :tag "$B%[%9%HL>(B"
+  "*辞書サーバが起動しているホスト名又は IP アドレス。"
+  :type `(radio (string :tag "ホスト名"
                         ,(or (getenv "SKKSERVER") "localhost"))
                 (const nil))
   :group 'skk-server)
 
 (defcustom skk-server-prog (getenv "SKKSERV")
-  "*$B<-=q%5!<%P%W%m%0%i%`L>!#(B
-$B%U%k%Q%9$G=q$/!#(B
-`skk-server-inhibit-startup-server' $B$,(B nil $B$N;~$K;2>H$5$l!"(B
-$B$3$N%W%m%0%i%`$,(B SKK $B$h$j5/F0$5$l$k!#(B"
-  :type '(radio (file :tag "$B<-=q%5!<%PL>(B")
-                (const :tag "$B;XDj$7$J$$(B" nil))
+  "*辞書サーバプログラム名。
+フルパスで書く。
+`skk-server-inhibit-startup-server' が nil の時に参照され、
+このプログラムが SKK より起動される。"
+  :type '(radio (file :tag "辞書サーバ名")
+                (const :tag "指定しない" nil))
   :group 'skk-file
   :group 'skk-server)
 
 (defcustom skk-server-jisyo (getenv "SKK_JISYO")
-  "*$B<-=q%5!<%P%W%m%0%i%`$KEO$9<-=q%U%!%$%kL>!#(B
-$B%U%k%Q%9$G=q$/!#(B
-`skk-server-inhibit-startup-server' $B$,(B nil $B$N;~$K;2>H$5$l$k!#(B
-$B<-=q%U%!%$%k$N;XDjK!$O<-=q%5!<%P$K$h$j0[$J$k$N$GCm0U!#(B
+  "*辞書サーバプログラムに渡す辞書ファイル名。
+フルパスで書く。
+`skk-server-inhibit-startup-server' が nil の時に参照される。
+辞書ファイルの指定法は辞書サーバにより異なるので注意。
   % skkserv jisyo
-$B$N7A<0$N;~$N$_MxMQ$G$-$k%*%W%7%g%s$G$"$k!#(B"
-  :type `(radio (file :tag "$B<-=q%U%!%$%kL>(B" ,(or skk-aux-large-jisyo ""))
-                (const :tag "$B;XDj$7$J$$(B" nil))
+の形式の時のみ利用できるオプションである。"
+  :type `(radio (file :tag "辞書ファイル名" ,(or skk-aux-large-jisyo ""))
+                (const :tag "指定しない" nil))
   :group 'skk-file
   :group 'skk-server)
 
 (defcustom skk-server-portnum (if (eq system-type 'windows-nt)
                                   1178
                                 nil)
-  "*Non-nil $B$G$"$l$P!"$=$NCM$r(B port number $B$H$7$F(B skkserv $B$H(B TCP $B@\B3$9$k!#(B
-/etc/services $B$rD>@\=q$-49$($k8"8B$,$J$$%f!<%6!<$N$?$a$NJQ?t!#(B
-Microsoft Windows $B$G$O%G%U%)%k%HCM$H$7$F(B 1178 $B$,@_Dj$5$l$k!#(B"
-  :type '(radio (integer :tag "$B%]!<%HHV9f(B" 1178)
-                (const :tag "$B;XDj$7$J$$(B" nil))
+  "*Non-nil であれば、その値を port number として skkserv と TCP 接続する。
+/etc/services を直接書き換える権限がないユーザーのための変数。
+Microsoft Windows ではデフォルト値として 1178 が設定される。"
+  :type '(radio (integer :tag "ポート番号" 1178)
+                (const :tag "指定しない" nil))
   :group 'skk-server)
 
 (defcustom skk-servers-list nil
-  "*$B<-=q%5!<%PKh$N>pJs%j%9%H!#(B
+  "*辞書サーバ毎の情報リスト。
 
-$BJ#?t$N%[%9%H$GF0$$$F$$$k<-=q%5!<%P$K%"%/%;%9$G$-$k>l9g$K$O!"0J2<$N$h$&$K%j%9%H$N(B
-$B3FMWAG$K=g$K%[%9%HL>!"%U%k%Q%9$G$N<-=q%5!<%PL>!"<-=q%5!<%P$KEO$9<-=q%U%!%$%kL>!"(B
-$B<-=q%5!<%P$,;HMQ$9$k%]!<%HHV9f$r=q$-!"@_Dj$r$9$k$3$H$,$G$-$k!#(B
+複数のホストで動いている辞書サーバにアクセスできる場合には、以下のようにリストの
+各要素に順にホスト名、フルパスでの辞書サーバ名、辞書サーバに渡す辞書ファイル名、
+辞書サーバが使用するポート番号を書き、設定をすることができる。
 
    (setq skk-servers-list
          \\='((\"host1\" \"/path/to/skkserv\" \"/path/to/SKK-JISYO.L\" 1178)
            (\"host2\" \"/path/to/skkserv\")))
 
-$B$3$N>l9g!":G=i$K;XDj$7$?<-=q%5!<%P$K%"%/%;%9$G$-$J$/$J$k$H!"<+F0E*$K=g<!%j%9%H$K$"(B
-$B$k;D$j$N<-=q%5!<%P$K%"%/%;%9$9$k$h$&$K$J$k!#(B
-$B<-=q%5!<%P$N%G%U%)%k%H$N<-=q5Z$S%]!<%HHV9f$r;HMQ$9$k>l9g$O(B nil $B$r;XDj$9$k$+!"(B
-$B2?$b=q$+$J$$$GNI$$!#(B
+この場合、最初に指定した辞書サーバにアクセスできなくなると、自動的に順次リストにあ
+る残りの辞書サーバにアクセスするようになる。
+辞書サーバのデフォルトの辞書及びポート番号を使用する場合は nil を指定するか、
+何も書かないで良い。
 
-$B$J$*!"%f!<%6!<<+?H$K<B9T8"8B$N$J$$<-=q%5!<%P$r;XDj$9$k>l9g$O!"(B
+なお、ユーザー自身に実行権限のない辞書サーバを指定する場合は、
 
    (setq skk-servers-list \\='((\"host1\") (\"host2\")))
 
-$B$N$h$&$K!"%[%9%HL>$@$1$r=q$/$3$H$,$G$-$k!#>e5-$N@_DjNc$G$O!"(Bhost1, host2 $B$K$*(B
-$B$1$k(B skkserv $B%5!<%S%9$N(B TCP $B@\B3$N3+;O$N$_;n$_!"<-=q%5!<%P$N5/F0$O;n$_$J$$!#(B"
+のように、ホスト名だけを書くことができる。上記の設定例では、host1, host2 にお
+ける skkserv サービスの TCP 接続の開始のみ試み、辞書サーバの起動は試みない。"
   :type '(repeat
-          (list (string :tag "$B%[%9%HL>(B")
-                (radio :tag "$B<-=q%5!<%PL>(B"
+          (list (string :tag "ホスト名")
+                (radio :tag "辞書サーバ名"
                        file
-                       (const :tag "$B;XDj$7$J$$(B" nil))
-                (radio :tag "$B<-=q%U%!%$%k(B"
+                       (const :tag "指定しない" nil))
+                (radio :tag "辞書ファイル"
                        file
-                       (const :tag "$B;XDj$7$J$$(B" nil))
-                (radio :tag "$B%]!<%HHV9f(B"
+                       (const :tag "指定しない" nil))
+                (radio :tag "ポート番号"
                        integer
-                       (const :tag "$B;XDj$7$J$$(B" nil))))
+                       (const :tag "指定しない" nil))))
   :group 'skk-server)
 
 (defcustom skk-server-report-response nil
-  "*Non-nil $B$G$"$l$P!"<-=q%5!<%P$N1~Ez>u67$rJs9p$9$k!#(B
-$B6qBNE*$K$O!"JQ49;~$K<-=q%5!<%P$NAw=P$9$kJ8;z$r<u$1<h$k$^$G$K(B
-`accept-process-output' $B$r2?2s<B9T$7$?$+$r%(%3!<%(%j%"$KJs9p$9$k!#(B"
+  "*Non-nil であれば、辞書サーバの応答状況を報告する。
+具体的には、変換時に辞書サーバの送出する文字を受け取るまでに
+`accept-process-output' を何回実行したかをエコーエリアに報告する。"
   :type 'boolean
   :group 'skk-server)
 
@@ -4855,68 +4855,68 @@ Microsoft Windows $B$G$O%G%U%)%k%HCM$H$7$F(B 1178 $B$,@_Dj$5$l$k!#(B"
         "/usr/bin/rcmd")
        (t
         "rsh")))
-  "*$B%j%b!<%H%7%'%k$N%W%m%0%i%`L>!#(B"
+  "*リモートシェルのプログラム名。"
   :type 'file
   :group 'skk-server)
 
 (defcustom skk-server-inhibit-startup-server t
-  "*Non-nil $B$G$"$l$P(B `call-process' $B$G$N<-=q%5!<%P5/F0$r6X;_$9$k!#(B"
+  "*Non-nil であれば `call-process' での辞書サーバ起動を禁止する。"
   :type 'boolean
   :group 'skk-server)
 
 (defcustom skk-server-load-hook nil
-  "*skk-server.el $B$r%m!<%I$7$?8e$K%3!<%k$5$l$k%U%C%/!#(B"
+  "*skk-server.el をロードした後にコールされるフック。"
   :type 'hook
   :group 'skk-server)
 
 ;;(defvar skk-server-debug nil
-;;  "*Non-nil $B$G$"$l$P!"<-=q%5!<%P%W%m%0%i%`$r%G%#%P%C%0%b!<%I$G5/F0$9$k!#(B
-;;$B%G%#%P%C%0!&%b!<%I$G(B skkserv $B$rAv$i$;$k$H!"$=$N$^$^(B foreground $B$GAv$j!"(B
-;;$B%a%C%;!<%8$r=PNO$9$k!#%-!<%\!<%I$+$i3d$j$3$_$r$+$1$k$3$H$b$G$-$k!#(B")
+;;  "*Non-nil であれば、辞書サーバプログラムをディバッグモードで起動する。
+;;ディバッグ・モードで skkserv を走らせると、そのまま foreground で走り、
+;;メッセージを出力する。キーボードから割りこみをかけることもできる。")
 
 (defconst skkserv-working-buffer " *skkserv*")
 (defvar skkserv-process nil)
 
 ;;; skk-sticky related.
 (defcustom skk-sticky-key nil
-  "*$BJQ493+;O0LCV$b$7$/$OAw$j3+;O0LCV$N;XDj$r$9$k%-!<!#(B
+  "*変換開始位置もしくは送り開始位置の指定をするキー。
 
-$B%-!<$N@_DjJ}K!$O3dEv$F$k%-!<$N<oN`$K$h$C$F0[$J$j$^$9!#(B
+キーの設定方法は割当てるキーの種類によって異なります。
 
-1. $BI=<(2DG=$J%-!<(B
+1. 表示可能なキー
 
-  \";\" $B$J$I$NI=<($,2DG=$J%-!<$N>l9g$O(B
+  \";\" などの表示が可能なキーの場合は
 
     (setq skk-sticky-key \";\")
 
-  $B$N$h$&$K(B string $B$r@_Dj$7$F2<$5$$!#(B`skk-sticky-key' $B$K@_Dj$7$?J8(B
-  $B;z$=$N$b$N$rF~NO$7$?$$>l9g$O(B2$B2sB3$1$FBG$D$HF~NO$G$-$^$9!#(B
+  のように string を設定して下さい。`skk-sticky-key' に設定した文
+  字そのものを入力したい場合は2回続けて打つと入力できます。
 
-2. $BI=<($5$l$J$$%-!<(B
+2. 表示されないキー
 
-  \"$BL5JQ49(B\" $B$N$h$&$JI=<($rH<$o$J$$%-!<$N>l9g$O(B
+  \"無変換\" のような表示を伴わないキーの場合は
 
-    (setq skk-sticky-key [muhenkan])    ; Windows $B4D6-$@$H(B [noconvert]
+    (setq skk-sticky-key [muhenkan])    ; Windows 環境だと [noconvert]
 
-  $B$N$h$&$K$=$N%-!<$rI=$o$9(B vector $B$r@_Dj$7$F2<$5$$!#(B
+  のようにそのキーを表わす vector を設定して下さい。
 
-3. $BF1;~BG80(B
+3. 同時打鍵
 
-  2$B$D$N%-!<$rF1;~$KBG80$9$k$3$H$G$bJQ490LCV$r;XDj$G$-$^$9!#Nc$($P(B
-  \"f\" $B$H(B \"j\" $B$NF1;~BG80$G;XDj$9$k>l9g$O(B
+  2つのキーを同時に打鍵することでも変換位置を指定できます。例えば
+  \"f\" と \"j\" の同時打鍵で指定する場合は
 
     (setq skk-sticky-key \\='(?f ?j))
 
-  $B$N$h$&$K(B character $B$N%j%9%H$r@_Dj$7$F2<$5$$!#(B"
-  :type '(radio (string :tag "$BI=<(2DG=$J%-!<(B")
-                (vector :tag "$BI=<($5$l$J$$%-!<(B" symbol)
-                (list :tag "$BF1;~BG80(B" character character)
-                (const :tag "$B;XDj$7$J$$(B" nil))
+  のように character のリストを設定して下さい。"
+  :type '(radio (string :tag "表示可能なキー")
+                (vector :tag "表示されないキー" symbol)
+                (list :tag "同時打鍵" character character)
+                (const :tag "指定しない" nil))
   :group 'skk-sticky)
 
 (defcustom skk-sticky-double-interval 0.1
-  "*$B$3$N;~4V0JFb$KBG80$5$l$?$b$N$rF1;~BG80$HH=Dj$9$k!#(B
-$BC10L$OIC!#%G%U%)%k%H$O(B 0.1 $BIC!#(B"
+  "*この時間以内に打鍵されたものを同時打鍵と判定する。
+単位は秒。デフォルトは 0.1 秒。"
   :type 'number
   :group 'skk-sticky)
 
@@ -4924,7 +4924,7 @@ Microsoft Windows $B$G$O%G%U%)%k%HCM$H$7$F(B 1178 $B$,@_Dj$5$l$k!#(B"
 (defcustom skk-study-file (if skk-user-directory
                               (expand-file-name "study" skk-user-directory)
                             (convert-standard-filename "~/.skk-study"))
-  "*$B3X=,7k2L$rJ]B8$9$k%U%!%$%k!#(B"
+  "*学習結果を保存するファイル。"
   :type 'file
   :group 'skk-study)
 
@@ -4933,38 +4933,38 @@ Microsoft Windows $B$G$O%G%U%)%k%HCM$H$7$F(B 1178 $B$,@_Dj$5$l$k!#(B"
                                                        skk-user-directory)
                                    (convert-standard-filename
                                     "~/.skk-study.BAK"))
-  "*$B3X=,7k2L$rJ]B8$9$k%U%!%$%k$N%P%C%/%"%C%W!#(B"
+  "*学習結果を保存するファイルのバックアップ。"
   :type 'file
   :group 'skk-study)
 
 (defcustom skk-study-associates-number 5
-  "*$BJ]B8$9$k4XO"8l$N?t!#(B"
+  "*保存する関連語の数。"
   :type 'integer
   :group 'skk-study)
 
 (defcustom skk-study-sort-saving nil
-  "*Non-nil $B$G$"$l$P3X=,7k2L$r%=!<%H$7$F%;!<%V$9$k!#(B"
+  "*Non-nil であれば学習結果をソートしてセーブする。"
   :type 'boolean
   :group 'skk-study)
 
 (defcustom skk-study-check-alist-format nil
-  "*Non-nil $B$G$"$l$P!"3X=,7k2L$NFI$_9~$_;~$KO"A[%j%9%H$N%U%)!<%^%C%H$r%A%'%C%/$9$k!#(B"
+  "*Non-nil であれば、学習結果の読み込み時に連想リストのフォーマットをチェックする。"
   :type 'boolean
   :group 'skk-study)
 
 (defcustom skk-study-search-times 5
-  "*$B8=:_$NJQ49%-!<$KBP$9$k4XO"JQ49%-!<$r$$$/$D$^$GAL$C$F8!:w$9$k$+!#(B"
+  "*現在の変換キーに対する関連変換キーをいくつまで遡って検索するか。"
   :type 'integer
   :group 'skk-study)
 
 (defcustom skk-study-first-candidate t
-  "*Non-nil $B$G$"$l$P!"Bh0l8uJd$G3NDj$7$?:]$b3X=,$9$k!#(B"
+  "*Non-nil であれば、第一候補で確定した際も学習する。"
   :type 'boolean
   :group 'skk-study)
 
 (defcustom skk-study-max-distance 30
-  "*$BD>A0$K3NDj$7$?%]%$%s%H$H:#2s$NJQ49%]%$%s%H$,$3$N5wN%0J>eN%$l$F$$$k$H3X=,$7$J$$!#(B
-nil $B$N>l9g$OD>A0$K3NDj$7$?%]%$%s%H$H$N5wN%$r9MN8$;$:$K3X=,$9$k!#(B"
+  "*直前に確定したポイントと今回の変換ポイントがこの距離以上離れていると学習しない。
+nil の場合は直前に確定したポイントとの距離を考慮せずに学習する。"
   :type '(radio integer (const nil))
   :group 'skk-study)
 
@@ -4974,24 +4974,24 @@ nil $B$N>l9g$OD>A0$K3NDj$7$?%]%$%s%H$H$N5wN%$r9MN8$;$:$K3X=,$9$k!#(B"
 (defvar skk-kakutei-end-function nil)
 (defvar skk-study-alist nil)
 (defvar skk-study-data-ring nil
-  "$BD>A0$N(B `skk-study-search-times' $B8DJ,$NJQ49%-!<$H3NDj8l%G!<%?!#(B
-ring.el $B$rMxMQ$7$F$*$j!"6qBNE*$K$O!"2<5-$N$h$&$J9=B$$K$J$C$F$$$k!#(B
+  "直前の `skk-study-search-times' 個分の変換キーと確定語データ。
+ring.el を利用しており、具体的には、下記のような構造になっている。
 
-\(2 3 . [\(\"$B$3$&$>$&(B\" . \"$B9=B$(B\"\)\
- \(\"$B$0$?$$$F$-(B\" . \"$B6qBNE*(B\"\) \(\"$B$+$-(B\" . \"$B2<5-(B\"\)]\)")
+\(2 3 . [\(\"こうぞう\" . \"構造\"\)\
+ \(\"ぐたいてき\" . \"具体的\"\) \(\"かき\" . \"下記\"\)]\)")
 
 (defvar skk-study-last-save nil)
 (defvar skk-study-last-read nil)
 
 ;;; skk-tankan.el related.
 (defcustom skk-tankan-search-key ?@
-  "*$BC14A;zJQ49$r9T$&%-!<%-%c%i%/%?!#(B"
+  "*単漢字変換を行うキーキャラクタ。"
   :type 'character
   :group 'skk-jisx0213
   :group 'skk-tankan)
 
-;;; $BJ8;z=89g$NJ8;z$KBP$7$F(B ($BIt<s(B $BIt<sFb2h?t(B $BAm2h?t(B) $B$rJV$94X?t$N(B alist
-;; $BJd=u4A;zEy$K$b0l1~BP1~2DG=$J$h$&$KJQ?t$K$7$F$"$k(B
+;;; 文字集合の文字に対して (部首 部首内画数 総画数) を返す関数の alist
+;; 補助漢字等にも一応対応可能なように変数にしてある
 (defvar skk-tankan-get-char-data-functions
   '((japanese-jisx0208 . skk-tankan-get-char-data-0213-1)
     (japanese-jisx0213-1 . skk-tankan-get-char-data-0213-1)
@@ -5026,7 +5026,7 @@ ring.el $B$rMxMQ$7$F$*$j!"6qBNE*$K$O!"2<5-$N$h$&$J9=B$$K$J$C$F$$$k!#(B
      (:inherit default))
     (((class grayscale))
      (:inherit default)))
-  "*skk-tankan-mode $B$N(B face $BB0@-!#(B"
+  "*skk-tankan-mode の face 属性。"
   :group 'skk-tankan
   :group 'skk-visual)
 
@@ -5039,7 +5039,7 @@ ring.el $B$rMxMQ$7$F$*$j!"6qBNE*$K$O!"2<5-$N$h$&$J9=B$$K$J$C$F$$$k!#(B
      (:inherit default))
     (((class grayscale))
      (:inherit default)))
-  "*skk-tankan-bushu-compread() $B$G;HMQ$9$k!VIt<s$NFI$_!W$N(B face $BB0@-!#(B"
+  "*skk-tankan-bushu-compread() で使用する「部首の読み」の face 属性。"
   :group 'skk-tankan
   :group 'skk-visual)
 
@@ -5047,34 +5047,34 @@ ring.el $B$rMxMQ$7$F$*$j!"6qBNE*$K$O!"2<5-$N$h$&$J9=B$$K$J$C$F$$$k!#(B
 
 ;;; skk-tooltip related.
 (defcustom skk-show-tooltip nil
-  "*Non-nil $B$G$"$l$P!"%(%3!<%(%j%"$NBe$o$j$K(B tooltip $B$G8uJd$J$I$rI=<($9$k!#(B"
+  "*Non-nil であれば、エコーエリアの代わりに tooltip で候補などを表示する。"
   :type 'boolean
   :group 'skk-basic
   :group 'skk-tooltip)
 
 (defcustom skk-tooltip-hide-delay 1000
-  "*tooltip $B$r;H$C$F8uJd$J$II=<($9$k>l9g$K!"I=<($9$k;~4V(B ($BIC(B)$B!#(B
-$B$3$N;~4V$,7P2a$9$k$H<+F0E*$K(B tooltip $B$O>C$($k!#(B"
+  "*tooltip を使って候補など表示する場合に、表示する時間 (秒)。
+この時間が経過すると自動的に tooltip は消える。"
   :type 'integer
   :group 'skk-tooltip)
 
 (defcustom skk-tooltip-face nil
-  "*$B%D!<%k%F%#%C%W$KI=<($9$kJ8;zNs$KE,MQ$9$k%U%'%$%9$r;XDj$9$kJQ?t!#(B
-$B8uJdJ8;zNs$N%U%'%$%9B0@-!J(B`skk-treat-candidate-appearance-function' $B$K$h$k(B
-$B2C9)$J$I!K$r$=$N$^$^;H$$$?$$>l9g$O(B nil $B$K@_Dj$9$k!#(B
+  "*ツールティップに表示する文字列に適用するフェイスを指定する変数。
+候補文字列のフェイス属性（`skk-treat-candidate-appearance-function' による
+加工など）をそのまま使いたい場合は nil に設定する。
 
- ($B@_DjNc(B)
+ (設定例)
 
  (setq skk-tooltip-face \\='font-lock-doc-face)"
-  :type '(radio (face :tag "$B%U%'%$%9$r;XDj(B" tooltip)
-                (const :tag "$B8uJdJ8;zNs$N%U%'%$%9B0@-$r$=$N$^$^;HMQ(B" nil))
+  :type '(radio (face :tag "フェイスを指定" tooltip)
+                (const :tag "候補文字列のフェイス属性をそのまま使用" nil))
   :group 'skk-henkan
   :group 'skk-tooltip)
 
 (defcustom skk-tooltip-parameters nil
-  "*tooltip $B$r;H$&>l9g$N(B SKK $BFH<+$N(B tooltip $B%U%l!<%`%Q%i%a!<%?@_Dj!#(B
+  "*tooltip を使う場合の SKK 独自の tooltip フレームパラメータ設定。
 
- ($B@_DjNc(B)
+ (設定例)
 
  (setq skk-tooltip-parameters
        \\='((foreground-color . \"navy blue\")
@@ -5082,51 +5082,51 @@ ring.el $B$rMxMQ$7$F$*$j!"6qBNE*$K$O!"2<5-$N$h$&$J9=B$$K$J$C$F$$$k!#(B
      (border-color . \"royal blue\")
      (border-width . 1)))
 "
-  :type '(radio (const :tag "$B@_DjNc$r;n$9(B"
+  :type '(radio (const :tag "設定例を試す"
                        ((foreground-color . "navy blue")
                         (background-color . "alice blue")
                         (border-color . "royal blue")
                         (border-width . 1)))
-                (repeat :tag "$BG$0U$N@_Dj(B"
-                        (cons (symbol :tag "$B%Q%i%a!<%?L>(B")
-                              (sexp :tag "$BCM(B (S$B<0(B)"))))
+                (repeat :tag "任意の設定"
+                        (cons (symbol :tag "パラメータ名")
+                              (sexp :tag "値 (S式)"))))
   :group 'skk-tooltip)
 
 (defcustom skk-tooltip-mouse-behavior
   'banish
-  "*Tooltip $B$rI=<($9$k>l9g$N!"%^%&%9%]%$%s%?$N5sF0!#(B
-`follow' $B$J$i$P!"(B tip $B$N0LCV$K0\F0$9$k!#(B
-`avoid' $B$J$i$P!"%&%#%s%I%&$NC<$KB`Hr$9$k!#(B
-`avoid-maybe' $B$J$i$P!"%&%#%s%I%&>e$K$"$k%^%&%9%]%$%s%?$N$_B`Hr$9$k!#(B
-`banish' $B$J$i$P!"%&%#%s%I%&$NC<$KB`Hr$7$?$^$^5"$C$F$3$J$$!#(B
-`nil' $B$J$i$P!"B`Hr$7$J$$!#$3$N>l9g!"(Btip $B$N%F%-%9%H$H%^%&%9%]%$%s%?$,(B
-$B=E$J$C$?$j!"$&$^$/(B tip $B$,I=<($G$-$J$+$C$?$j$9$k$N$GCm0U!#(B"
-  :type '(radio (const :tag "Tip $B$K=>$&(B" follow)
-                (const :tag "$B%&%#%s%I%&$NC<$KF($2$k(B" avoid)
-                (const :tag "$BF($2$?$[$&$,$h$5$=$&$J$H$-$@$1F($2$k(B" avoid-maybe)
-                (const :tag "$BF($2$?$^$^5"$i$J$$(B" banish)
-                (const :tag "$B5o:B$k(B" nil))
+  "*Tooltip を表示する場合の、マウスポインタの挙動。
+`follow' ならば、 tip の位置に移動する。
+`avoid' ならば、ウィンドウの端に退避する。
+`avoid-maybe' ならば、ウィンドウ上にあるマウスポインタのみ退避する。
+`banish' ならば、ウィンドウの端に退避したまま帰ってこない。
+`nil' ならば、退避しない。この場合、tip のテキストとマウスポインタが
+重なったり、うまく tip が表示できなかったりするので注意。"
+  :type '(radio (const :tag "Tip に従う" follow)
+                (const :tag "ウィンドウの端に逃げる" avoid)
+                (const :tag "逃げたほうがよさそうなときだけ逃げる" avoid-maybe)
+                (const :tag "逃げたまま帰らない" banish)
+                (const :tag "居座る" nil))
   :group 'skk-tooltip)
 
 (defcustom skk-tooltip-x-offset
   (/ (1+ (frame-char-height)) 2)
-  "*Tooltip $B$NI=<(0LCV$r1&$K$:$i$9%T%/%;%k?t!#(B
-$BIi$N@0?t$r;XDj$9$k$H:8$K$:$l$k!#(B"
+  "*Tooltip の表示位置を右にずらすピクセル数。
+負の整数を指定すると左にずれる。"
   :type 'integer
   :group 'skk-tooltip)
 
 (defcustom skk-tooltip-y-offset 0
-  "*Tooltip $B$NI=<(0LCV$r2<$K$:$i$9%T%/%;%k?t!#(B
-$BIi$N@0?t$r;XDj$9$k$H>e$K$:$l$k!#(B"
+  "*Tooltip の表示位置を下にずらすピクセル数。
+負の整数を指定すると上にずれる。"
   :type 'integer
   :group 'skk-tooltip)
 
 (defcustom skk-tooltip-function
   (lambda (tooltip-str)
     (skk-tooltip-show-at-point tooltip-str 'listing))
-  "*Tip $BIA2h5!9=$N4X?t$r;XDj$9$k!#(B
-$B%G%U%)%k%H$G$O(B Emacs $BI8=`$N(B Tooltip $B$r;HMQ$9$k!#(B
-$BB>$N(B Tip $BIA2h5!9=(B $B$G$"$k(B pos-tip $B$d(B popup-tip $B$b;XDj$G$-$k!#(B"
+  "*Tip 描画機構の関数を指定する。
+デフォルトでは Emacs 標準の Tooltip を使用する。
+他の Tip 描画機構 である pos-tip や popup-tip も指定できる。"
   :type 'function
   :group 'skk-tooltip)
 
@@ -5137,16 +5137,16 @@ ring.el $B$rMxMQ$7$F$*$j!"6qBNE*$K$O!"2<5-$N$h$&$J9=B$$K$J$C$F$$$k!#(B
                                            data-directory)))
       (locate-file "skk/SKK.tut" (list data-directory))
       "/usr/local/share/skk/SKK.tut")
-  "*SKK $BF|K\8l%A%e!<%H%j%"%k$N%U%!%$%kL>(B ($B%Q%9$r4^$`(B)$B!#(B"
+  "*SKK 日本語チュートリアルのファイル名 (パスを含む)。"
   :type 'file
   :group 'skk-tut)
 
 (defvar skk-tut-current-lang nil)
 
 (defcustom skk-tut-lang "Japanese"
-  "*SKK $B%A%e!<%H%j%"%k$GMQ$$$k8@8l!#(B
-\\[universal-argument] \\[skk-tutorial] $B$K$h$k8@8l;XDj$O!"$3$NJQ?t$h$j$bM%@h(B
-$B$9$k!#(B"
+  "*SKK チュートリアルで用いる言語。
+\\[universal-argument] \\[skk-tutorial] による言語指定は、この変数よりも優先
+する。"
   :type '(radio (string "Japanese")
                 (string "English"))
   :set (lambda (symbol value)
@@ -5165,7 +5165,7 @@ For example, if filename of the Japanese version is \"SKK.tut\",
 then filename of the English version will be \"SKK.tut.E\".")
 
 (defcustom skk-tut-use-face skk-use-face
-  "*Non-nil $B$G$"$l$P!"%A%e!<%H%j%"%k$G(B face $B$rMxMQ$7$FI=<($9$k!#(B"
+  "*Non-nil であれば、チュートリアルで face を利用して表示する。"
   :type 'boolean
   :group 'skk-tut)
 
@@ -5176,7 +5176,7 @@ then filename of the English version will be \"SKK.tut.E\".")
      (:foreground "yellow" :background "slateblue"))
     (((class grayscale))
      (:bold t) (:italic t)))
-  "*$B%A%e!<%H%j%"%kCf$N%;%/%7%g%s$NI=<(ItJ,$N(B face$B!#(B"
+  "*チュートリアル中のセクションの表示部分の face。"
   :group 'skk-tut)
 
 (defface skk-tut-do-it-face
@@ -5186,7 +5186,7 @@ then filename of the English version will be \"SKK.tut.E\".")
      (:foreground "LightGoldenrod"))
     (((class grayscale))
      (:bold t)))
-  "*$B%A%e!<%H%j%"%kCf$N;X<(9`L\$NI=<(ItJ,$N(B face$B!#(B"
+  "*チュートリアル中の指示項目の表示部分の face。"
   :group 'skk-tut)
 
 (defface skk-tut-question-face
@@ -5196,7 +5196,7 @@ then filename of the English version will be \"SKK.tut.E\".")
      (:foreground "LightSkyBlue"))
     (((class grayscale))
      (:underline t)))
-  "*$B%A%e!<%H%j%"%kCf$NLdBj$NI=<(ItJ,$N(B face$B!#(B"
+  "*チュートリアル中の問題の表示部分の face。"
   :group 'skk-tut)
 
 (defface skk-tut-key-bind-face
@@ -5206,7 +5206,7 @@ then filename of the English version will be \"SKK.tut.E\".")
      (:foreground "OrangeRed"))
     (((class grayscale))
      (:bold t)))
-  "*$B%A%e!<%H%j%"%kCf$N%-!<%P%$%s%I$NI=<(ItJ,$N(B face$B!#(B"
+  "*チュートリアル中のキーバインドの表示部分の face。"
   :group 'skk-tut)
 
 (defface skk-tut-hint-face
@@ -5216,8 +5216,8 @@ then filename of the English version will be \"SKK.tut.E\".")
      (:foreground "Aquamarine"))
     (((class grayscale))
      (:italic t)))
-  "*$B%A%e!<%H%j%"%kCf$N%R%s%H$NI=<(ItJ,$N(B face$B!#(B
-$B8=:_$N$H$3$m!"(BSKK.tut.E $B$G$7$+;HMQ$5$l$F$$$J$$!#(B"
+  "*チュートリアル中のヒントの表示部分の face。
+現在のところ、SKK.tut.E でしか使用されていない。"
   :group 'skk-tut)
 
 ;;; skk-show-mode.el related.
@@ -5225,23 +5225,23 @@ then filename of the English version will be \"SKK.tut.E\".")
 (defvar skk-show-mode-functions '((inline . skk-show-mode-inline)
                                   (tooltip . skk-show-mode-tooltip)))
 (defcustom skk-show-mode-show nil
-  "*Non-nil $A$G$"$l$P!"$+$J%b$B!<$A%I$d%"%9%-$B!<$A%b$B!<$A%I$XGP$jLf$o$C$?$H$-$K%+$B!<$A%=%k86=|$K(B skk-*-mode-string $A$r1mJ>$9$k!#(B
+  "*Non-nil であれば、かなモードやアスキーモードへ切り替わったときにカーソル付近に skk-*-mode-string を表示する。
 
-$BI=<(%9%?%$%k$O(B `skk-show-mode-style' $B$G;XDj$9$k!#(B"
+表示スタイルは `skk-show-mode-style' で指定する。"
   :type 'boolean
   :group 'skk-visual)
 
 (defvar skk-show-mode-enable t
-  "$BFbItMQ!#%A%e!<%H%j%"%k<B9TCf$N$_(B nil $B$H$J$k!#(B")
+  "内部用。チュートリアル実行中のみ nil となる。")
 
 (defcustom skk-show-mode-style 'inline
-  "*skk-show-mode $B$NI=<(%9%?%$%k!#(B"
+  "*skk-show-mode の表示スタイル。"
   :type '(radio (const :tag "tooltip" tooltip)
                 (const :tag "inline" inline))
   :group 'skk-visual)
 
 (defvar skk-show-mode-inline-overlays nil
-  "$BFbIt%9%?%C%/MQ(B")
+  "内部スタック用")
 
 (defface skk-show-mode-inline-face
   '((((class color) (type tty))
@@ -5252,20 +5252,20 @@ then filename of the English version will be \"SKK.tut.E\".")
      (:inherit default :background "dark slate gray" :box t))
     (((class grayscale))
      (:inherit default)))
-  "*inline $B8~$1$NGX7J?'(B"
+  "*inline 向けの背景色"
   :group 'skk-visual)
 
 ;;; skk-get related.
 (defvar skk-get-jisyo-directory "~/.emacs.d/skk-get-jisyo"
   ;; (expand-file-name "../../../skk" data-directory)
-  "`skk-get'$B$NJ]B8@h(B")
+  "`skk-get'の保存先")
 
 ;;; skk-search-web related.
 (defvar skk-use-search-web nil
-  "*Non-nil $B$G$"$l$P!"(Bskk-search-web $B$rM-8z$K$9$k(B.")
+  "*Non-nil であれば、skk-search-web を有効にする.")
 
 ;; XXX workaround
-;; face $B$N(B property $B$,0lIt$N>u67$GH?1G$5$l$J$$$3$H$KBP=h(B
+;; face の property が一部の状況で反映されないことに対処
 (when (and (not noninteractive)
            window-system)
   (dolist (f '(skk-tut-section-face
@@ -5278,7 +5278,7 @@ then filename of the English version will be \"SKK.tut.E\".")
 
 ;;; skk-viper.el related.
 (defcustom skk-use-viper nil
-  "*Non-nil $B$G$"$l$P!"(BVIPER $B$KBP1~$9$k!#(B"
+  "*Non-nil であれば、VIPER に対応する。"
   :type 'boolean
   :group 'skk-viper)
 
@@ -5295,11 +5295,11 @@ then filename of the English version will be \"SKK.tut.E\".")
   (if skk-viper-use-vip-prefix
       'vip-normalize-minor-mode-map-alist
     'viper-normalize-minor-mode-map-alist)
-  "Viper $B$,(B `minor-mode-map-alist' $B$rD4@0$9$k$?$a$N4X?t!#(B")
+  "Viper が `minor-mode-map-alist' を調整するための関数。")
 
 ;;; skk-decor.el related.
 
-;; skk-show-inline 'vertical $B$K8B$C$F%U%'%$%9$r:nMQ$5$;$k(B
+;; skk-show-inline 'vertical に限ってフェイスを作用させる
 (defvar skk-inline-show-vertically-decor nil)
 
 (defface skk-inline-show-vertically-cand-face
@@ -5308,7 +5308,7 @@ then filename of the English version will be \"SKK.tut.E\".")
     (t
      (:foreground "white" :background "gray40" :height 180
                   :box (:line-width 3 :color "gray40" :style released-button) )))
-  "$B8uJd$KE,MQ$9$k(B FACE"
+  "候補に適用する FACE"
   :group 'skk-visual)
 
 (defface skk-inline-show-vertically-anno-face
@@ -5316,10 +5316,10 @@ then filename of the English version will be \"SKK.tut.E\".")
      (:foreground "DarkSeaGreen"))
     (t
      (:foreground "yellow" :height 120)))
-  "$B%"%N%F!<%7%g%s$KE,MQ$9$k(B FACE"
+  "アノテーションに適用する FACE"
   :group 'skk-visual)
 
-;; tooltip $B$K8B$C$F%U%'%$%9$r:nMQ$5$;$k(B
+;; tooltip に限ってフェイスを作用させる
 (defvar skk-tooltip-show-at-point-decor nil)
 
 (defface skk-tooltip-show-at-point-cand-face
@@ -5328,7 +5328,7 @@ then filename of the English version will be \"SKK.tut.E\".")
     (t
      (:foreground "white" :background "gray40" :height 200
                   :box (:line-width 3 :color "gray40" :style released-button) )))
-  "$B8uJd$KE,MQ$9$k(B FACE"
+  "候補に適用する FACE"
   :group 'skk-visual)
 
 (defface skk-tooltip-show-at-point-anno-face
@@ -5336,10 +5336,10 @@ then filename of the English version will be \"SKK.tut.E\".")
      (:foreground "DarkSeaGreen"))
     (t
      (:foreground "yellow" :height 120)))
-  "$B%"%N%F!<%7%g%s$KE,MQ$9$k(B FACE"
+  "アノテーションに適用する FACE"
   :group 'skk-visual)
 
-;; $B8uJd%P%C%U%!$K8B$C$F%U%'%$%9$r:nMQ$5$;$k(B
+;; 候補バッファに限ってフェイスを作用させる
 (defvar skk-henkan-show-candidates-buffer-decor nil)
 
 (defface skk-henkan-show-candidates-buffer-cand-face
@@ -5348,7 +5348,7 @@ then filename of the English version will be \"SKK.tut.E\".")
     (t
      (:foreground "white" :background "gray40" :height 250
                   :box (:line-width 3 :color "gray40" :style released-button) )))
-  "$B8uJd$KE,MQ$9$k(B FACE"
+  "候補に適用する FACE"
   :group 'skk-visual)
 
 (defface skk-henkan-show-candidates-buffer-anno-face
@@ -5356,10 +5356,10 @@ then filename of the English version will be \"SKK.tut.E\".")
      (:foreground "DarkSeaGreen"))
     (t
      (:foreground "yellow" :height 120)))
-  "$B%"%N%F!<%7%g%s$KE,MQ$9$k(B FACE"
+  "アノテーションに適用する FACE"
   :group 'skk-visual)
 
-;; skk-treat-candidate-appearance-function $B$N$?$a$KMQ0U$9$k4X?t(B
+;; skk-treat-candidate-appearance-function のために用意する関数
 (defun skk-treat-candidate-sample1 (candidate listing-p)
   (cond
    ((string-match ";" candidate)
@@ -5387,7 +5387,7 @@ then filename of the English version will be \"SKK.tut.E\".")
                  (cdr value)))
          (sep (if note
                   (propertize (if (skk-annotation-display-p 'list)
-                                  " $B"b(B "
+                                  " ≒ "
                                 " !")
                               'face 'skk-tut-do-it-face)
                 nil)))
@@ -5411,7 +5411,7 @@ then filename of the English version will be \"SKK.tut.E\".")
                          #'skk-emacs-circulate-modes)
                        map)
           'help-echo
-          "mouse-1: $B%b!<%I@ZBX(B($B=[4D(B)\nmouse-3: SKK $B%a%K%e!<(B"
+          "mouse-1: モード切替(循環)\nmouse-3: SKK メニュー"
           'mouse-face
           'highlight)))
 

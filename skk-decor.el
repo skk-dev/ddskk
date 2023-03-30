@@ -36,27 +36,27 @@
 ;;                |- skk-henkan-candidate-list()
 ;;                   |- skk-treat-candidate-appearance()
 
-;; $BJ8=q%P%C%U%!$N"'%b!<%I$K$*$1$kJQ498uJd$NI=<($rAu>~$9$k$K$O(B
-;; skk-henkan-face $B$r@_Dj$7$^$9!#EvA3$G$9$,!"J8=q%P%C%U%!$NJQ498uJd$K$7(B
-;; $B$+:nMQ$7$^$;$s!#(B
+;; 文書バッファの▼モードにおける変換候補の表示を装飾するには
+;; skk-henkan-face を設定します。当然ですが、文書バッファの変換候補にし
+;; か作用しません。
 
-;; $B%$%s%i%$%s!"(Btooltip $BKt$O(B $B8uJd%P%C%U%!$NJQ498uJd$NI=<($rAu>~$9$k$K$O(B
-;; skk-treat-candidate-appearance-function $B$r@_Dj$7$^$9!#(B
-;; $B$7$+$7!"(Bskk-treat-candidate-appearance-function $B$N@_Dj$O!"(B
-;;   o $BJ8=q%P%C%U%!$N"'%b!<%I$K$*$1$kJQ498uJd$NI=<($K$b1F6A(B
-;;     $B!J(Bskk-henkan-face $B$h$j$bM%@h$7$FE,MQ$5$l$k!K(B
-;;   o $B%$%s%i%$%s!"(Btooltip $B5Z$S(B $B8uJd%P%C%U%!$N#3$D$9$Y$F$K1F6A(B
-;; $B$H$$$&8z2L$,$"$j$^$9!#(B
+;; インライン、tooltip 又は 候補バッファの変換候補の表示を装飾するには
+;; skk-treat-candidate-appearance-function を設定します。
+;; しかし、skk-treat-candidate-appearance-function の設定は、
+;;   o 文書バッファの▼モードにおける変換候補の表示にも影響
+;;     （skk-henkan-face よりも優先して適用される）
+;;   o インライン、tooltip 及び 候補バッファの３つすべてに影響
+;; という効果があります。
 
-;; $BNc$($P!"8uJd%P%C%U%!$NJQ498uJd$NI=<($rBg$-$/$7$h$&$H;W$C$?$H$-!"(B
-;; skk-henkan-face $B$G$O8uJd%P%C%U%!$NAu>~$rJQ$($k$3$H$,$G$-$J$$$?$a!"(B
-;; skk-treat-candidate-appearance-function $B$r;HMQ$7$F%5%$%:$NBg$-$J(B
-;; face $B$rE,MQ$5$;$^$9!#$7$+$7!"(Bskk-treat-candidate-appearance-function $B$O(B
-;; $BJ8=q%P%C%U%!$NAu>~$K$b1F6A$,5Z$V$3$H$+$i!"I=<($,%,%?%,%?$K$J$C$F$7$^(B
-;; $B$$$^$9!#(B
+;; 例えば、候補バッファの変換候補の表示を大きくしようと思ったとき、
+;; skk-henkan-face では候補バッファの装飾を変えることができないため、
+;; skk-treat-candidate-appearance-function を使用してサイズの大きな
+;; face を適用させます。しかし、skk-treat-candidate-appearance-function は
+;; 文書バッファの装飾にも影響が及ぶことから、表示がガタガタになってしま
+;; います。
 
-;; $B$=$3$G!"!VJ8=q%P%C%U%!$K1F6A$;$:!"8uJd%P%C%U%!$K8B$C$?I=<($NAu>~!W$r(B
-;; $B$7$?$$J}$N$?$a$K:n$C$F$_$^$7$?!#(B
+;; そこで、「文書バッファに影響せず、候補バッファに限った表示の装飾」を
+;; したい方のために作ってみました。
 
 ;;; Howto:
 
@@ -74,7 +74,7 @@
 
 (require 'skk)
 
-;; skk-show-inline 'vertical $B$K8B$C$F%U%'%$%9$r:nMQ$5$;$k(B.
+;; skk-show-inline 'vertical に限ってフェイスを作用させる.
 ;;;###autoload
 (defun skk-inline-show-vertically-decor-func (string)
   (let* ((sp (reverse (split-string string "\n")))
@@ -92,7 +92,7 @@
              cands "\n")
             "\n" rest)))
 
-;; tooltip $B$K8B$C$F%U%'%$%9$r:nMQ$5$;$k(B
+;; tooltip に限ってフェイスを作用させる
 ;;;###autoload
 (defun skk-tooltip-show-at-point-decor-func (text)
   (let* ((sp (reverse (split-string text "\n")))
@@ -110,7 +110,7 @@
              cands "\n")
             "\n" rest)))
 
-;; $B8uJd%P%C%U%!$K8B$C$F%U%'%$%9$r:nMQ$5$;$k(B
+;; 候補バッファに限ってフェイスを作用させる
 ;;;###autoload
 (defun skk-henkan-show-candidates-buffer-decor-func (str)
   (let* ((cand (reverse (split-string str "  " t)))

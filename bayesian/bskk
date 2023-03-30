@@ -24,18 +24,18 @@
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ### Commentary:
-## »È¤¤Êı¤Ï¡¢skk-bayesian.el ¤Î Commentary ¤ò»²¾È
+## ä½¿ã„æ–¹ã¯ã€skk-bayesian.el ã® Commentary ã‚’å‚ç…§
 
 
 ### Specifications:
 
-## bskk ¤ò½ªÎ»¤µ¤»¤ëÊıË¡¤Ï -s ¥ª¥×¥·¥ç¥ó¤¬¤¢¤ë¤«¤Ë¤è¤é¤º¡¢TERM ¥·¥°¥Ê¥ë
-## ¤òÁ÷¤ë¤³¤È¡£
+## bskk ã‚’çµ‚äº†ã•ã›ã‚‹æ–¹æ³•ã¯ -s ã‚ªãƒ—ã‚·ãƒ§ãƒ³ãŒã‚ã‚‹ã‹ã«ã‚ˆã‚‰ãšã€TERM ã‚·ã‚°ãƒŠãƒ«
+## ã‚’é€ã‚‹ã“ã¨ã€‚
 
-## TERM ¥·¥°¥Ê¥ë¤ò¼õ¤±¼è¤ë¤ÈÄ¾¤Á¤Ë½ªÎ»¤¹¤ë¡£ÍúÎò¤ÎÊİÂ¸¤Ï¹Ô¤ï¤Ê¤¤¡£
+## TERM ã‚·ã‚°ãƒŠãƒ«ã‚’å—ã‘å–ã‚‹ã¨ç›´ã¡ã«çµ‚äº†ã™ã‚‹ã€‚å±¥æ­´ã®ä¿å­˜ã¯è¡Œã‚ãªã„ã€‚
 
-## emacs ¤Ï½ªÎ»¤ÎÁ°¤Ë bskk ¤ËÂĞ¤·¤Æ COMMAND_SAVE ¤òÁ÷¤êÍúÎò¤ÎÊİÂ¸¤ò¤µ¤»
-## ¤Ê¤¯¤Æ¤Ï¤¤¤±¤Ê¤¤¡£
+## emacs ã¯çµ‚äº†ã®å‰ã« bskk ã«å¯¾ã—ã¦ COMMAND_SAVE ã‚’é€ã‚Šå±¥æ­´ã®ä¿å­˜ã‚’ã•ã›
+## ãªãã¦ã¯ã„ã‘ãªã„ã€‚
 
 ### TODO:
 ## /home/USER/bin/bskk:325: warning: assigned but unused variable - adr
@@ -66,8 +66,8 @@ end
 
 class Distribution
   public
-  # obj.class == String -> e.g. obj="Ãå#1/Ãå#2/"
-  #                             ²ş¹Ô¥³¡¼¥É¤ò´Ş¤ó¤Ç¤Ï¤¤¤±¤Ê¤¤
+  # obj.class == String -> e.g. obj="ç€#1/ç€#2/"
+  #                             æ”¹è¡Œã‚³ãƒ¼ãƒ‰ã‚’å«ã‚“ã§ã¯ã„ã‘ãªã„
   def initialize( obj )
     @word2count = Hash.new(0)
     @total_count = 0
@@ -110,7 +110,7 @@ class Distribution
   end
 
   private
-  ## @total_count ¤¬ Bignum ¤Ê¤é¡¢Fixnum ¤Ë¼ı¤Ş¤ë¤è¤¦¤Ë¤¹¤ë
+  ## @total_count ãŒ Bignum ãªã‚‰ã€Fixnum ã«åã¾ã‚‹ã‚ˆã†ã«ã™ã‚‹
   def decrement
     # = NEWS for Ruby 2.4.0
     # == Changes since the 2.3.0 release
@@ -119,7 +119,7 @@ class Distribution
     #   * Fixnum and Bignum are unified into Integer  [Feature #12005]
 
     # /home/USER/bin/bskk:116: warning: constant ::Bignum is deprecated #
-    # Bignum ¤È Fixnum ¤Î¶èÊÌ¤¬¤Ê¤¤¤Î¤Ç¡¢¤Ê¤Ë¤â½èÍı¤·¤Ê¤¤¤Ç¤è¤¤¤Î¤Ç¤Ï¡£
+    # Bignum ã¨ Fixnum ã®åŒºåˆ¥ãŒãªã„ã®ã§ã€ãªã«ã‚‚å‡¦ç†ã—ãªã„ã§ã‚ˆã„ã®ã§ã¯ã€‚
     if 2.3 < RUBY_VERSION.to_f
       return
     end
@@ -189,9 +189,9 @@ class DB
     end
   end
 
-  ## °ú¿ô¤ÎÎã
-  ## word_str    : "Ãå"
-  ## prefix_list : ["¡¢", "¤ò", "Éş", "¤Î", "¤½"]
+  ## å¼•æ•°ã®ä¾‹
+  ## word_str    : "ç€"
+  ## prefix_list : ["ã€", "ã‚’", "æœ", "ã®", "ã"]
   def add_history( word_str, prefix_list )
     check_type( word_str, String )
     check_type( prefix_list, Array )
@@ -216,10 +216,10 @@ class DB
     }
   end
 
-  ## °ú¿ô¤ÎÎã
-  ## entries     : ["»Â", "ÀÚ", "Ãå"]
-  ## prefix_list : ["¡¢", "¤ò", "Éş", "¤Î", "¤½"]
-  ## return      : [["Ãå", "»Â", "ÀÚ"], [0.4, 0.2, 0.1]]
+  ## å¼•æ•°ã®ä¾‹
+  ## entries     : ["æ–¬", "åˆ‡", "ç€"]
+  ## prefix_list : ["ã€", "ã‚’", "æœ", "ã®", "ã"]
+  ## return      : [["ç€", "æ–¬", "åˆ‡"], [0.4, 0.2, 0.1]]
   def sort( entries, prefix_list )
     check_type( entries, Array )
     check_type( prefix_list, Array )
@@ -239,7 +239,7 @@ class DB
         entry[1] += prob * weights[p_i]
       }
     }
-    ## ¹ß½ç¤Ë¥½¡¼¥È
+    ## é™é †ã«ã‚½ãƒ¼ãƒˆ
     sorted_entries.sort!{ |e1, e2|
       e2[1] <=> e1[1]
     }
@@ -297,8 +297,8 @@ class DB
     debug_log( "marchasl() took " + (Time.now-time).to_f.to_s + "(sec)." )
   end
 
-  ## º®¹çÊ¬ÉÛ¤Î½Å¤ß¤òÊÖ¤¹
-  ## ÊÖ¤êÃÍ¤Ï¡¢Array: [w_1, w_2, .., w_n]
+  ## æ··åˆåˆ†å¸ƒã®é‡ã¿ã‚’è¿”ã™
+  ## è¿”ã‚Šå€¤ã¯ã€Array: [w_1, w_2, .., w_n]
   ## p( word | p_1, .., p_n )
   ## = \sum_{i=1}^n p( word | p_i ) * w_i
   ## "p_n p_{n-1} .. p_1 word"
@@ -320,10 +320,10 @@ end
 
 
 ## ensuring-bind tcp server
-## TCPServer ¤Ï¡¢bind ¤ò¤¦¤Ş¤¯¤·¤Æ¤¤¤Ê¤¤¤è¤¦¤À¡£ruby 1.8.1
-## TCPServer.open ¤Ç¡¢bind ¤µ¤ì¤ë¤è¤¦¤À¤¬¡¢bskk ¤ò2¤ÄÆ°¤«¤»¤¿¡£
-## ¤Ê¤¼¤«¡¢3¤Ä¤ÏÌµÍı¤À¤Ã¤¿¡£
-## ¾Ü¤·¤¯¤ÏÄÉ¤Ã¤Æ¤¤¤Ê¤¤¡£
+## TCPServer ã¯ã€bind ã‚’ã†ã¾ãã—ã¦ã„ãªã„ã‚ˆã†ã ã€‚ruby 1.8.1
+## TCPServer.open ã§ã€bind ã•ã‚Œã‚‹ã‚ˆã†ã ãŒã€bskk ã‚’2ã¤å‹•ã‹ã›ãŸã€‚
+## ãªãœã‹ã€3ã¤ã¯ç„¡ç†ã ã£ãŸã€‚
+## è©³ã—ãã¯è¿½ã£ã¦ã„ãªã„ã€‚
 class EBTCPServer
   require "socket"
   include Socket::Constants
@@ -334,7 +334,7 @@ class EBTCPServer
     @soc_waiting.listen( backlog )
   end
 
-  ## Socket ¤Î¥¤¥ó¥¹¥¿¥ó¥¹¤òÊÖ¤¹
+  ## Socket ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’è¿”ã™
   def accept
     if @soc_waiting
       soc, adr = @soc_waiting.accept
@@ -384,11 +384,11 @@ def split_line( line )
   return array
 end
 
-# out ¤Ï¡¢emacs ¤Î buffer ¤Ë½ĞÎÏ¤µ¤ì¤ë
+# out ã¯ã€emacs ã® buffer ã«å‡ºåŠ›ã•ã‚Œã‚‹
 def serve( db, input, out, history_file, history_file_bak )
-  # emacs ¤Ï¡¢ºÇ½é¤Î²ş¹Ô¤ò¼õ¤±¤È¤Ã¤¿»şÅÀ¤Ç buffer ¤òÉ¾²Á¤¹¤ë¡£
-  # 2 ¹ÔÌÜ°Ê¹ß¤ËÉ¾²Á¤ÎÉ¬Í×¤Ê¾ğÊó¤ò½ĞÎÏ¤·¤Æ¤Ï¤¤¤±¤Ê¤¤¡£
-  # ¤Ş¤¿¡¢2 ¹ÔÌÜ°Ê¹ß¤Ï¥³¥á¥ó¥È¥¢¥¦¥È¤¹¤ëÉ¬Í×¤¬¤¢¤ë¡£
+  # emacs ã¯ã€æœ€åˆã®æ”¹è¡Œã‚’å—ã‘ã¨ã£ãŸæ™‚ç‚¹ã§ buffer ã‚’è©•ä¾¡ã™ã‚‹ã€‚
+  # 2 è¡Œç›®ä»¥é™ã«è©•ä¾¡ã®å¿…è¦ãªæƒ…å ±ã‚’å‡ºåŠ›ã—ã¦ã¯ã„ã‘ãªã„ã€‚
+  # ã¾ãŸã€2 è¡Œç›®ä»¥é™ã¯ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆã™ã‚‹å¿…è¦ãŒã‚ã‚‹ã€‚
   debug_log( "start" )
   begin
     # mail loop
@@ -403,7 +403,7 @@ def serve( db, input, out, history_file, history_file_bak )
         out.puts "(" + sorted_entries.map!{|entry|
           entry.inspect
         }.join( " " ) + ")"
-        # out.puts ";;(\"#{probs.join("\" \"")}\")" # ruby 1.6.8 ¤Ç¡¢ÉÔ¶ñ¹ç
+        # out.puts ";;(\"#{probs.join("\" \"")}\")" # ruby 1.6.8 ã§ã€ä¸å…·åˆ
         out.puts ";;(\""+ probs.join( "\" \"" ) + "\")"
         out.puts ";;OK."
       when COMMAND_ADD
@@ -520,7 +520,7 @@ def mode_serve( history_file, server, port )
     else
       serve( db, STDIN, STDOUT, history_file, history_file_bak )
     end
-  rescue SignalException => e # TERM °Ê³°
+  rescue SignalException => e # TERM ä»¥å¤–
     debug_log( "SIG #{e.to_s}; " + Time.now.to_s )
     STDERR.puts "Signal #{e.to_s}"
     STDERR.puts "use TERM signal to halt bskk."
@@ -591,7 +591,7 @@ def main
   mode_serve( history_file, server, port )
 end
 
-# ¤³¤Î¥Õ¥¡¥¤¥ë¤¬¼Â¹Ô¥Õ¥¡¥¤¥ë¤È¤·¤Æ¼Â¹Ô¤µ¤ì¤¿»ş
+# ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ãŒå®Ÿè¡Œãƒ•ã‚¡ã‚¤ãƒ«ã¨ã—ã¦å®Ÿè¡Œã•ã‚ŒãŸæ™‚
 if $0 == __FILE__
   main
 end

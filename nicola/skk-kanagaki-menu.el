@@ -1,4 +1,4 @@
-;;; skk-kanagaki-menu.el --- NICOLA-DDSKK $B$N%a%K%e!<%5%]!<%H(B -*- coding: iso-2022-jp -*-
+;;; skk-kanagaki-menu.el --- NICOLA-DDSKK のメニューサポート -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2000 Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 
@@ -22,7 +22,7 @@
 
 ;;; Commentary:
 
-;; NICOLA-DDSKK $B$N%a%K%e!<$r(B SKK $BI8=`$N%a%K%e!<$KDI2C$7$^$9!#(B
+;; NICOLA-DDSKK のメニューを SKK 標準のメニューに追加します。
 
 ;;; Code:
 
@@ -77,29 +77,29 @@ Convert to Hankaku Katakana  or  Toggle Katakana <=> Hankaku Katakana Mode"
   (setq skk-emacs-menu-resource-ja
         (append
          skk-emacs-menu-resource-ja
-         '(("Set Henkan point" . "$BJQ493+;OE@$r%;%C%H(B")
-           ("Input Prefix or Suffix" . "$B@\F,<-!&@\Hx<-$rF~NO(B")
-           ("Start Conversion with Okuri" . "$BAw$j$"$jJQ49$r3+;O(B")
-           ("Input a Character by Code" . "$B%3!<%IF~NO(B")
-           ("Enter SKK Abbrev Mode" . "Abbrev $B%b!<%I$KF~$k(B")
+         '(("Set Henkan point" . "変換開始点をセット")
+           ("Input Prefix or Suffix" . "接頭辞・接尾辞を入力")
+           ("Start Conversion with Okuri" . "送りあり変換を開始")
+           ("Input a Character by Code" . "コード入力")
+           ("Enter SKK Abbrev Mode" . "Abbrev モードに入る")
            ("\
 Convert  Hiragana <=> Katakana  or  Toggle Hiragana <=> Katakana Mode"
-            . "$B$+$J(B <=> $B%+%J(B $BJQ49(B  $B$^$?$O(B  $B$+$J%b!<%I(B <=> $B%+%J%b!<%I(B $B@Z49$((B")
-           ("Enter SKK JIS X 0208 Latin Mode" . "$BA41Q%b!<%I$KF~$k(B")
+            . "かな <=> カナ 変換  または  かなモード <=> カナモード 切換え")
+           ("Enter SKK JIS X 0208 Latin Mode" . "全英モードに入る")
            ("\
 Convert to Hankaku Katakana  or  Toggle Katakana <=> Hankaku Katakana Mode"
             . "\
-$BH>3Q%+%J$KJQ49(B  $B$^$?$O(B  $BA43Q%+%J%b!<%I(B <=> $BH>3Q%+%J%b!<%I(B $B@Z49$((B")
-           ("Enter SKK Latin Mode" . "$B%"%9%-!<%b!<%I$KF~$k(B")
-           ("Enter SKK Japanese Mode" . "$B$+$J%b!<%I$KF~$k(B")
-           ("Toggle Roma <=> Kana" . "$B$+$JF~NOJ}<0(B  $B%m!<%^(B  <=> $B$+$J(B $B@Z49$((B")
-           ("Show Key Bindings" . "$B$+$JF~NOFH<+$N%-!<Dj5A$rI=<((B")
+半角カナに変換  または  全角カナモード <=> 半角カナモード 切換え")
+           ("Enter SKK Latin Mode" . "アスキーモードに入る")
+           ("Enter SKK Japanese Mode" . "かなモードに入る")
+           ("Toggle Roma <=> Kana" . "かな入力方式  ローマ  <=> かな 切換え")
+           ("Show Key Bindings" . "かな入力独自のキー定義を表示")
            ("Show the Current Keymap based on NICOLA"
-            . "NICOLA $B%-!<G[Ns$rI=<((B")
+            . "NICOLA キー配列を表示")
            ("Show NICOLA-Specific Key Bindings"
-            . "NICOLA $BFCM-$N%-!<Dj5A$rI=<((B")
+            . "NICOLA 特有のキー定義を表示")
            ("Visit NIHONGO-NYURYOKU CONSORTIUM Web Site"
-            . "$BF|K\8lF~NO%3%s%=!<%7%"%`$N%5%$%H$X(B")))))
+            . "日本語入力コンソーシアムのサイトへ")))))
 
 (provide 'skk-kanagaki-menu)
 

@@ -1,4 +1,4 @@
-;;; skk-jisx0213.el --- SKK $BMQ(B JISX0213 $BJ8;z%3!<%I4XO"%W%m%0%i%`(B -*- coding: iso-2022-jp -*-
+;;; skk-jisx0213.el --- SKK 用 JISX0213 文字コード関連プログラム -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2000 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 

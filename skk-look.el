@@ -25,86 +25,86 @@
 ;;; Commentary:
 
 ;; <How to work>
-;; ~/.skk $B$+(B ~/.emacs.d/init.el $B$G(B `skk-use-look' $B$r(B t $B$K%;%C%H$7$F$3$l$r(B
-;; $BI>2A$7$F2<$5$$!#$=$N8e(B skk-mode $B$rN)$A>e$2$k$+!"(BM-x skk-restart $B$9$k$H!"(B
-;; $B2<5-$N$h$&$J7]Ev$,2DG=$K$J$j$^$9!#(B
+;; ~/.skk か ~/.emacs.d/init.el で `skk-use-look' を t にセットしてこれを
+;; 評価して下さい。その後 skk-mode を立ち上げるか、M-x skk-restart すると、
+;; 下記のような芸当が可能になります。
 
-;; (1)$B1QC18l$rJd40$,$G$-$^$9!#(B
+;; (1)英単語を補完ができます。
 
-;;    $B"&(Babstr(TAB) ---> $B"&(Babstract
+;;    ▽abstr(TAB) ---> ▽abstract
 
-;;    $BDL>o$NJd405!G=F1MM!"(B`.' $B$G<!$NJd408uJd!"(B`,' $B$G$R$H$DA0$NJd408uJd$K(B
-;;    $B0\F0$G$-$^$9!#(B
+;;    通常の補完機能同様、`.' で次の補完候補、`,' でひとつ前の補完候補に
+;;    移動できます。
 
-;;    SKK $B7A<0$N1QOB<-=q$,$"$l$P!"$3$3$+$i(B SPC $B$r2!$7$F1QOBJQ49$,$G$-$^$9$M!#(B
+;;    SKK 形式の英和辞書があれば、ここから SPC を押して英和変換ができますね。
 
-;; (2)$B1QC18l$r$"$$$^$$$KJQ49$7$F<h$j=P$9$3$H$,$G$-$^$9!#(B
+;; (2)英単語をあいまいに変換して取り出すことができます。
 
-;;    $B"&(Babstr* (SPC) ---> $B"'(Babstract
+;;    ▽abstr* (SPC) ---> ▼abstract
 
-;;    $B8+=P$78l$K%"%9%?%j%9%/(B (`*') $B$rF~$l$k$N$r$*K:$l$J$/!#(B
+;;    見出し語にアスタリスク (`*') を入れるのをお忘れなく。
 
-;;    $B3NDj$9$k$H!"(B`abstr*' $B$r8+=P$78l!"(B`abstract' $B$r8uJd$H$9$k%(%s%H%j$,8D?M<-(B
-;;    $B=q$KDI2C$5$l$^$9!#$3$N$h$&$J%(%s%H%j$rDI2C$7$?$/$J$$>l9g$O!"(B
-;;    $B%f!<%6!<JQ?t!"(B`skk-search-excluding-word-pattern-function' $B$rE,@Z$K(B
-;;    $B@_Dj$9$k$3$H$G!"$3$l$r<B8=$9$k$3$H$,$G$-$^$9!#>\$7$/$O!"(B
-;;    `skk-search-excluding-word-pattern-function' $B$N%I%-%e%a%s%H$r$4Mw2<$5$$!#(B
+;;    確定すると、`abstr*' を見出し語、`abstract' を候補とするエントリが個人辞
+;;    書に追加されます。このようなエントリを追加したくない場合は、
+;;    ユーザー変数、`skk-search-excluding-word-pattern-function' を適切に
+;;    設定することで、これを実現することができます。詳しくは、
+;;    `skk-search-excluding-word-pattern-function' のドキュメントをご覧下さい。
 
-;; (3)(2)$B$GJQ49$7$?8e!"99$K:F5"E*$J1QOBJQ49$r9T$&$3$H$,$G$-$^$9!#(B
+;; (3)(2)で変換した後、更に再帰的な英和変換を行うことができます。
 
-;;    $B$^$:!"(B`skk-look-recursive-search' $B$NCM$r(B non-nil $B$K%;%C%H$7$F2<$5(B
-;;    $B$$!#(BEmacs/SKK $B$r:F5/F0$9$kI,MW$O$"$j$^$;$s!#(B
+;;    まず、`skk-look-recursive-search' の値を non-nil にセットして下さ
+;;    い。Emacs/SKK を再起動する必要はありません。
 
-;;    $B$9$k$H!"Nc$($P!"(B
+;;    すると、例えば、
 
-;;    $B"&(Babstr* (SPC)
+;;    ▽abstr* (SPC)
 
-;;      ---> $B"'(Babstract (SPC) -> $B"'%"%V%9%H%i%/%H(B (SPC) -> $B"'Cj>](B (SPC)
-;;        -> $B"'(Babstraction (SPC) -> $B"'%"%V%9%H%i%/%7%g%s(B
+;;      ---> ▼abstract (SPC) -> ▼アブストラクト (SPC) -> ▼抽象 (SPC)
+;;        -> ▼abstraction (SPC) -> ▼アブストラクション
 
-;;    $B$3$N$h$&$K1QC18l(B + $B$=$N1QC18l$r8+=P$78l$K$7$?8uJd$N!V%;%C%H!W$rJQ49(B
-;;    $B7k2L$H$7$F=PNO$9$k$3$H$,$G$-$^$9!#(B
+;;    このように英単語 + その英単語を見出し語にした候補の「セット」を変換
+;;    結果として出力することができます。
 
-;;    $B$3$N:]!"(B`skk-look-expanded-word-only' $B$NCM$,(B non-nil $B$G$"$l$P!":F5"(B
-;;    $B8!:w$K@.8y$7$?1QC18l$N!V%;%C%H!W$@$1$r=PNO$9$k$3$H$,$G$-$^$9(B ($B:F5"(B
-;;    $B8!:w$G8!=P$5$l$J$+$C$?1QC18l$OL5;k$7$F=PNO$7$^$;$s(B) $B!#(B
+;;    この際、`skk-look-expanded-word-only' の値が non-nil であれば、再帰
+;;    検索に成功した英単語の「セット」だけを出力することができます (再帰
+;;    検索で検出されなかった英単語は無視して出力しません) 。
 
-;;    $B$b$A$m$s!"(BSKK $B<-=q$K(B
+;;    もちろん、SKK 辞書に
 
-;;       abstract /$B%"%V%9%H%i%/%H(B/$BCj>](B/
-;;       abstraction /$B%"%V%9%H%i%/%7%g%s(B/
+;;       abstract /アブストラクト/抽象/
+;;       abstraction /アブストラクション/
 
-;;    $B$H$$$&%(%s%H%j$,$"$k$3$H$rA0Ds$H$7$F$$$^$9!#(Bedict $B$r(B SKK $B<-=q7A<0$K(B
-;;    $BJQ49$9$k$HNI$$$G$9$M!#(B
+;;    というエントリがあることを前提としています。edict を SKK 辞書形式に
+;;    変換すると良いですね。
 
-;; $BF0:n$r3NG'$7$?(B look $B$O!"(BSlackware 3.5 $B$KF~$C$F$$$?!"(Bman page $B$K(B
-;; `BSD Experimental June 14, 1993' $B$H5-:\$N$"$k$b$N(B ($B%P!<%8%g%s>pJs$,$J$$(B)
-;; $B$G$9!#%*%W%7%g%s$N;XDj$J$I$,0[$J$k(B look $B$,$"$l$P!"$40lJs2<$5$$!#(B
-;; $B$h$m$7$/$*4j$$$$$?$7$^$9!#(B
+;; 動作を確認した look は、Slackware 3.5 に入っていた、man page に
+;; `BSD Experimental June 14, 1993' と記載のあるもの (バージョン情報がない)
+;; です。オプションの指定などが異なる look があれば、ご一報下さい。
+;; よろしくお願いいたします。
 
 ;; <Dictionary>
 ;; ftp://ftp.u-aizu.ac.jp:/pub/SciEng/nihongo/ftp.cc.monash.edu.au/
-;; $B$KCV$$$F$"$k(B edict $B$rMxMQ$9$k$H<j7Z$K1QOB<-=q$,$G$-$^$9!#(B
+;; に置いてある edict を利用すると手軽に英和辞書ができます。
 
 ;;   % jgawk -f skk-10/lisp/look/edict2skk.awk edict > temp
 ;;   % skkdic-expr temp | skkdic-sort > SKK-JISYO.E2J
 ;;   % rm temp
 
-;; $B$G$-$?(B SKK-JISYO.E2J $B$NMxMQJ}K!$O?'!9$"$j$^$9$,!"(B
+;; できた SKK-JISYO.E2J の利用方法は色々ありますが、
 
 ;;   % skkdic-expr SKK-JISYO.E2J + /usr/local/share/skk/SKK-JISYO.L\
 ;;     | skkdic-sort > SKK-JISYO.L
 
-;; $B$J$I$H$7$F!"(BSKK-JISYO.L $B$H%^!<%8$7$F;H$&$N$,<j7Z$G$9!#(B
+;; などとして、SKK-JISYO.L とマージして使うのが手軽です。
 
 ;; <Motivation>
-;; $B$3$N%W%m%0%i%`$O!"(BeWnn for Linux/FreeBSD $B$N9-9p$KN`;w$N5!G=>R2p$,$"$C$?$N$r(B
-;; $B8+$F!"!V$3$s$J5!G=$J$i(B SKK $B>e$K$9$0%$%s%W%j%a%s%H$G$-$k$5!W$H;W$&$H$?$^$i$/(B
-;; $B$J$C$F=q$$$F$7$^$$$^$7$?!#(BeWnn $B$KIi$1$k$J!"(BSKK!
+;; このプログラムは、eWnn for Linux/FreeBSD の広告に類似の機能紹介があったのを
+;; 見て、「こんな機能なら SKK 上にすぐインプリメントできるさ」と思うとたまらく
+;; なって書いてしまいました。eWnn に負けるな、SKK!
 
-;; $B@N!"(BSeiichi Namba <sn@asahi-net.email.ne.jp> $B$5$s$H0l=o$K(B Emacs Lisp $B$G(B
-;; look interface $B$r=q$$$?$3$H$,$"$k$N$G$9$,!":#2s$O$=$N:]$N7P83$r@8$+$9$3$H$,(B
-;; $B$G$-$^$7$?!#FqGH$5$s$K46<U$$$?$7$^$9!#(B
+;; 昔、Seiichi Namba <sn@asahi-net.email.ne.jp> さんと一緒に Emacs Lisp で
+;; look interface を書いたことがあるのですが、今回はその際の経験を生かすことが
+;; できました。難波さんに感謝いたします。
 
 ;;; Code:
 
@@ -147,18 +147,18 @@
 ;; program
 ;;;###autoload
 (defun skk-look (&optional conversion-arguments not-abbrev-only expand-null)
-  "UNIX look $B%3%^%s%I$rMxMQ$7$FJQ49$9$k!#(B
-SKK abbrev $B%b!<%I$K$F!"1QJ8;z(B + $B%"%9%?%j%9%/$G(B uncompleted spelling $B$r;XDj$9$k!#(B
-$B>\$7$/$O(B skk-look.el $B%U%!%$%k$N%3%a%s%H$d(B Info $B$r;2>H$N;v!#(B
-CONVERSION-ARGUMENTS $B$O(B `skk-look-conversion-arguments' $B$r(B
-$B0l;~E*$KCV$-49$($?$$;~$K;XDj$9$k!#(B
-$B%G%U%)%k%H$G$O(B SKK abbrev $B%b!<%I$N$_$GM-8z$J5!G=$@$,!"(B
-NOT-ABBREV-ONLY $B$r;XDj$9$k;v$G>o$KM-8z$H$J$k!#(B
-EXPAND-NULL $B$r;XDj$9$k$H!"F~NO$,(B \"*\" $B$N$_$N;~$O(B
-words $B%U%!%$%k$K$"$kA4$F$N8+=P$7$,BP>]$H$J$k!#(B
+  "UNIX look コマンドを利用して変換する。
+SKK abbrev モードにて、英文字 + アスタリスクで uncompleted spelling を指定する。
+詳しくは skk-look.el ファイルのコメントや Info を参照の事。
+CONVERSION-ARGUMENTS は `skk-look-conversion-arguments' を
+一時的に置き換えたい時に指定する。
+デフォルトでは SKK abbrev モードのみで有効な機能だが、
+NOT-ABBREV-ONLY を指定する事で常に有効となる。
+EXPAND-NULL を指定すると、入力が \"*\" のみの時は
+words ファイルにある全ての見出しが対象となる。
 `skk-look-recursive-search', `skk-look-expanded-word-only',
-`skk-look-use-ispell' $B$r0l;~E*$KJQ99$7$?$$>l9g$K$O(B
-`let' $B$K$h$jB+G{$7$F;H$&;v!#(B"
+`skk-look-use-ispell' を一時的に変更したい場合には
+`let' により束縛して使う事。"
   (when (and (not (memq skk-use-look '(nil completion)))
              (or not-abbrev-only
                  skk-abbrev-mode)
@@ -221,18 +221,18 @@ words $B%U%!%$%k$K$"$kA4$F$N8+=P$7$,BP>]$H$J$k!#(B
 
 ;;;###autoload
 (defun skk-look-completion (&optional completion-arguments not-abbrev-only expand-null)
-  "look $B%3%^%s%I$rMxMQ$7$FJd408uJd$rF@$k!#(B
-COMPLETION-ARGUMENTS $B$O(B `skk-look-completion-arguments' $B$r(B
-$B0l;~E*$KCV$-49$($?$$;~$K;XDj$9$k!#(B
-$B%G%U%)%k%H$G$O(B SKK abbrev $B%b!<%I$N$_$GM-8z$J5!G=$@$,!"(B
-NOT-ABBREV-ONLY $B$r;XDj$9$k;v$G>o$KM-8z$H$J$k!#(B
-EXPAND-NULL $B$r;XDj$9$k$H!"F~NO$,6u$G$"$k;~$K(B
-words $B%U%!%$%k$K$"$kA4$F$N8+=P$7$rJV$9!#(B
-`skk-look-use-ispell' $B$r0l;~E*$KJQ99$7$?$$>l9g$K$O(B
-`let' $B$K$h$jB+G{$7$F;H$&;v!#(B"
+  "look コマンドを利用して補完候補を得る。
+COMPLETION-ARGUMENTS は `skk-look-completion-arguments' を
+一時的に置き換えたい時に指定する。
+デフォルトでは SKK abbrev モードのみで有効な機能だが、
+NOT-ABBREV-ONLY を指定する事で常に有効となる。
+EXPAND-NULL を指定すると、入力が空である時に
+words ファイルにある全ての見出しを返す。
+`skk-look-use-ispell' を一時的に変更したい場合には
+`let' により束縛して使う事。"
   (let* ((numericp (and skk-use-numeric-conversion
                         (save-match-data
-                          (string-match "[0-9$B#0(B-$B#9(B]" skk-comp-key))))
+                          (string-match "[0-9０-９]" skk-comp-key))))
          (conv-key (and numericp
                         (skk-num-compute-henkan-key skk-comp-key)))
          (comp-key (or conv-key skk-comp-key))
@@ -245,8 +245,8 @@ words $B%U%!%$%k$K$"$kA4$F$N8+=P$7$rJV$9!#(B
       (let ((skk-look-completion-arguments (or completion-arguments
                                                skk-look-completion-arguments)))
         (when skk-comp-first
-          ;; look $B$OJ#?t$N8uJd$rEG$/$N$G!"0lC6Cy$a$F$*$$$F!"(B
-          ;; $B0l$D$:$D(B complete $B$9$k!#(B
+          ;; look は複数の候補を吐くので、一旦貯めておいて、
+          ;; 一つずつ complete する。
           (setq skk-look-completion-words
                 (if (and (not (memq skk-look-use-ispell '(nil conversion)))
                          (> (length comp-key) 0))
@@ -298,14 +298,14 @@ words $B%U%!%$%k$K$"$kA4$F$N8+=P$7$rJV$9!#(B
     (setq ispell-filter nil)
     (cond
      ((eq poss 'error)
-      (skk-message "ispell process $B$G%(%i!<$,H/@8$7$^$7$?(B"
+      (skk-message "ispell process でエラーが発生しました"
                    "error in ispell process")
       (sit-for 1)
       (message "")
       nil)
      ((or (eq poss t)
-          ;; root word $B$KBP$7$F(B skk-look-1 $B$+$1$A$c$*$&$+!)(B
-          ;; $B$G$b$A$C$H$bJd40$B$c$J$/$J$C$A$^$$$^$9$M(B... (^^;;$B!#(B
+          ;; root word に対して skk-look-1 かけちゃおうか？
+          ;; でもちっとも補完ぢゃなくなっちまいますね... (^^;;。
           (stringp poss)
           (null (or (nth 2 poss) (nth 3 poss))))
       (skk-look-1 word situation))

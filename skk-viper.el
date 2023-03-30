@@ -56,15 +56,15 @@
 
 (setq skk-use-viper t)
 (save-match-data
-  (unless (string-match (sentence-end) "$B!#!)!*!%(B")
-    (setq sentence-end (concat "[$B!#!)!*!%(B]\\|" sentence-end))))
+  (unless (string-match (sentence-end) "。？！．")
+    (setq sentence-end (concat "[。？！．]\\|" sentence-end))))
 
 ;;; cursor color support.
 ;; what should we do if older Viper that doesn't have
 ;; `viper-insert-state-cursor-color'?
 (when (boundp 'viper-insert-state-cursor-color)
   (defadvice skk-cursor-current-color (around skk-viper-cursor-ad activate)
-    "vi-state $B0J30$G3n$D(B SKK $B%b!<%I$N$H$-$N$_(B SKK $BM3Mh$N%+!<%=%k?'$rJV$9!#(B"
+    "vi-state 以外で且つ SKK モードのときのみ SKK 由来のカーソル色を返す。"
     (cond
      ((not skk-use-color-cursor)
       ad-do-it)
@@ -118,7 +118,7 @@
        `(defadvice ,(intern (symbol-name func))
             (after skk-viper-cursor-ad activate)
           "\
-`viper-insert-state-cursor-color' $B$r(B SKK $B$NF~NO%b!<%I$N%+!<%=%k?'$H9g$o$;$k!#(B"
+`viper-insert-state-cursor-color' を SKK の入力モードのカーソル色と合わせる。"
           (when skk-use-color-cursor
             (setq viper-insert-state-cursor-color
                   (skk-cursor-current-color)))))))
@@ -133,19 +133,19 @@
 
 (when (boundp 'viper-insert-state-cursor-color)
   (skk-defadvice read-from-minibuffer (before skk-viper-ad activate)
-    "`minibuffer-setup-hook' $B$K(B `update-buffer-local-frame-params' $B$r%U%C%/$9$k!#(B
-`viper-read-string-with-history' $B$O(B `minibuffer-setup-hook' $B$r4X?t%m!<%+%k(B
-$B$K$7$F$7$^$&$N$G!"M=$a(B `minibuffer-setup-hook' $B$K$+$1$F$*$$$?%U%C%/$,L58z(B
-$B$H$J$k!#(B"
+    "`minibuffer-setup-hook' に `update-buffer-local-frame-params' をフックする。
+`viper-read-string-with-history' は `minibuffer-setup-hook' を関数ローカル
+にしてしまうので、予め `minibuffer-setup-hook' にかけておいたフックが無効
+となる。"
     (when skk-use-color-cursor
       ;; non-command subr.
       (add-hook 'minibuffer-setup-hook 'ccc-update-buffer-local-frame-params
                 'append))))
 
 ;;; advices.
-;; vip-4 $B$NF1<o$N4X?tL>$O(B vip-read-string-with-history$B!)(B
+;; vip-4 の同種の関数名は vip-read-string-with-history？
 (defadvice viper-read-string-with-history (after skk-viper-ad activate)
-  "$B<!2s%_%K%P%C%U%!$KF~$C$?$H$-$K(B SKK $B%b!<%I$K$J$i$J$$$h$&$K$9$k!#(B"
+  "次回ミニバッファに入ったときに SKK モードにならないようにする。"
   (skk-remove-skk-pre-command)
   (skk-remove-minibuffer-setup-hook 'skk-j-mode-on
                                     'skk-setup-minibuffer
@@ -154,8 +154,8 @@
 (skk-viper-advice-select
  viper-forward-word-kernel vip-forward-word
  (around skk-ad activate)
- ("SKK $B%b!<%I$,%*%s$G!"%]%$%s%H$ND>8e$NJ8;z$,(B JISX0208/JISX0213 $B$@$C$?$i(B\
- `forward-word' $B$9$k!#(B"
+ ("SKK モードがオンで、ポイントの直後の文字が JISX0208/JISX0213 だったら\
+ `forward-word' する。"
   (if (and skk-mode
            (or (skk-jisx0208-p (following-char))
                (skk-jisx0213-p (following-char))))
@@ -165,8 +165,8 @@
 (skk-viper-advice-select
  viper-backward-word-kernel vip-backward-word
  (around skk-ad activate)
- ("SKK $B%b!<%I$,%*%s$G!"%]%$%s%H$ND>A0$NJ8;z$,(B JISX0208/JISX0213 $B$@$C$?$i(B\
- `backward-word' $B$9$k!#(B"
+ ("SKK モードがオンで、ポイントの直前の文字が JISX0208/JISX0213 だったら\
+ `backward-word' する。"
   (if (and skk-mode (or (skk-jisx0208-p (preceding-char))
                         (skk-jisx0213-p (preceding-char))))
       (backward-word (ad-get-arg 0))
@@ -176,10 +176,10 @@
 (skk-viper-advice-select
  viper-del-backward-char-in-insert vip-delete-backward-char
  (around skk-ad activate)
- ("$B"'%b!<%I$G(B `skk-delete-implies-kakutei' $B$J$iD>A0$NJ8;z$r>C$7$F3NDj$9$k!#(B
-$B"'%b!<%I$G(B `skk-delete-implies-kakutei' $B$,(B nil $B$@$C$?$iA08uJd$rI=<($9$k!#(B
-$B"&%b!<%I$G(B`$B"&(B'$B$h$j$bA0$N%]%$%s%H$G<B9T$9$k$H3NDj$9$k!#(B
-$B3NDjF~NO%b!<%I$G!"$+$J%W%l%U%#%C%/%9$NF~NOCf$J$i$P!"$+$J%W%l%U%#%C%/%9$r>C$9!#(B"
+ ("▼モードで `skk-delete-implies-kakutei' なら直前の文字を消して確定する。
+▼モードで `skk-delete-implies-kakutei' が nil だったら前候補を表示する。
+▽モードで`▽'よりも前のポイントで実行すると確定する。
+確定入力モードで、かなプレフィックスの入力中ならば、かなプレフィックスを消す。"
   (skk-with-point-move
    (let ((count (or (prefix-numeric-value (ad-get-arg 0)) 1)))
      (cond
@@ -188,12 +188,12 @@
                 (= (+ skk-henkan-end-point (length skk-henkan-okurigana))
                    (point)))
            (skk-previous-candidate)
-         ;; overwrite-mode $B$G!"%]%$%s%H$,A43QJ8;z$K0O$^$l$F$$$k$H(B
-         ;; $B$-$K(B delete-backward-char $B$r;H$&$H!"A43QJ8;z$O>C$9$,H>(B
-         ;; $B3QJ8;zJ,$7$+(B backward $BJ}8~$K%]%$%s%H$,La$i$J$$(B (Emacs
-         ;; 19.31 $B$K$F3NG'(B)$B!#JQ49Cf$N8uJd$KBP$7$F$O(B
-         ;; delete-backward-char $B$GI,$:A43QJ8;z(B 1 $BJ8;zJ,(B backward
-         ;; $BJ}8~$KLa$C$?J}$,NI$$!#(B
+         ;; overwrite-mode で、ポイントが全角文字に囲まれていると
+         ;; きに delete-backward-char を使うと、全角文字は消すが半
+         ;; 角文字分しか backward 方向にポイントが戻らない (Emacs
+         ;; 19.31 にて確認)。変換中の候補に対しては
+         ;; delete-backward-char で必ず全角文字 1 文字分 backward
+         ;; 方向に戻った方が良い。
          (if overwrite-mode
              (progn
                (backward-char count)
@@ -214,8 +214,8 @@
             (not (skk-get-prefix skk-current-rule-tree)))
        (setq skk-henkan-count 0)
        (skk-kakutei))
-      ;; $BF~NOCf$N8+=P$78l$KBP$7$F$O(B delete-backward-char $B$G(B
-      ;; $BI,$:A43QJ8;z(B 1$BJ8;zJ,(B backward $BJ}8~$KLa$C$?J}$,NI$$!#(B
+      ;; 入力中の見出し語に対しては delete-backward-char で
+      ;; 必ず全角文字 1文字分 backward 方向に戻った方が良い。
       ((and skk-henkan-mode
             overwrite-mode)
        (backward-char count)
@@ -230,7 +230,7 @@
 (skk-viper-advice-select
  viper-intercept-ESC-key vip-escape-to-emacs
  (before skk-add activate)
- ("$B"&%b!<%I!""'%b!<%I$@$C$?$i3NDj$9$k!#(B"
+ ("▽モード、▼モードだったら確定する。"
   (when (and skk-mode
              skk-henkan-mode)
     (skk-kakutei))))
@@ -238,13 +238,13 @@
 (skk-viper-advice-select
  viper-intercept-ESC-key vip-escape-to-emacs
  (after skk-kana-cleanup-ad activate)
- ("vi-state $B0\9T$N:]$K3NDjF~NO%b!<%I$GF~NO$5$l$?%m!<%^;z%W%l%U%#%C%/%9$r>C$9!#(B"
+ ("vi-state 移行の際に確定入力モードで入力されたローマ字プレフィックスを消す。"
   (skk-kana-cleanup t)))
 
 (skk-viper-advice-select
  viper-join-lines vip-join-lines
  (after skk-ad activate)
- ("$B%9%Z!<%9$NN>B&$NJ8;z%;%C%H$,(B JISX0208/JISX0213 $B$@$C$?$i%9%Z!<%9$r<h$j=|$/!#(B"
+ ("スペースの両側の文字セットが JISX0208/JISX0213 だったらスペースを取り除く。"
   (save-match-data
     (let ((char-after (char-after (progn
                                     (skip-chars-forward " ")
@@ -293,9 +293,9 @@ Convert hirakana to katakana and vice versa."
                 (if (eq c (upcase c))
                     (insert-char (downcase c) 1)
                   (insert-char (upcase c) 1)))
-               ((and (<= ?$B$!(B c) (>= ?$B$s(B c))
+               ((and (<= ?ぁ c) (>= ?ん c))
                 (insert (skk-hiragana-to-katakana (char-to-string c))))
-               ((and (<= ?$B%!(B c) (>= ?$B%s(B c))
+               ((and (<= ?ァ c) (>= ?ン c))
                 (insert (skk-katakana-to-hiragana (char-to-string c))))
                (t
                 (insert-char c 1)))
@@ -307,7 +307,7 @@ Convert hirakana to katakana and vice versa."
   (when (and (boundp 'viper-insert-state-cursor-color)
              (featurep 'skk-cursor))
     (setq viper-insert-state-cursor-color (skk-cursor-current-color)))
-  ;; viper-toggle-key-action $B$HO"F0$5$;$k!)(B
+  ;; viper-toggle-key-action と連動させる？
   (skk-viper-normalize-map)
   (remove-hook 'skk-mode-hook 'skk-viper-init-function))
 

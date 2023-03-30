@@ -1,4 +1,4 @@
-;;; skk-gadget.el --- $B<B9TJQ49$N$?$a$N%W%m%0%i%`(B -*- coding: iso-2022-jp -*-
+;;; skk-gadget.el --- 実行変換のためのプログラム -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 1995, 1996, 1997, 1998, 1999, 2000, 2001
 ;;   Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
@@ -26,66 +26,66 @@
 ;;; Commentary:
 
 ;; 2014.12.30 SKK-JISYO.lisp
-;;   SKK-JISYO.L $B$+$i%W%m%0%i%`<B9TJQ49$r;HMQ$7$F$$$k%(%s%H%j$rH4$-=P$7$F(B
-;;   SKK-JISYO.lisp $B$H$7$?!#$?$@$7!"(Bconcat $B4X?t$K8B$C$F$O(B SKK-JISYO.L $B$K(B
-;;   $B;D$7$F$$$k!#(B http://mail.ring.gr.jp/skk/201412/msg00095.html
+;;   SKK-JISYO.L からプログラム実行変換を使用しているエントリを抜き出して
+;;   SKK-JISYO.lisp とした。ただし、concat 関数に限っては SKK-JISYO.L に
+;;   残している。 http://mail.ring.gr.jp/skk/201412/msg00095.html
 
-;; $B%W%m%0%i%`<B9TJQ49$H$O(B
+;; プログラム実行変換とは
 ;; ======================
-;; $BAw$j2>L>$N$J$$<-=q$NJQ49$N8uJd$K(B Emacs Lisp $B$N%3!<%I$,=q$$$F$"$l$P!"(BSKK
-;; $B$O$=$N%3!<%I$r(B Lisp $B$N%W%m%0%i%`$H$7$F<B9T$7!"$=$N7k2L$NJ8;zNs$r2hLL$KA^(B
-;; $BF~$9$k!#Nc$($P!"<-=q$K(B
+;; 送り仮名のない辞書の変換の候補に Emacs Lisp のコードが書いてあれば、SKK
+;; はそのコードを Lisp のプログラムとして実行し、その結果の文字列を画面に挿
+;; 入する。例えば、辞書に
 
 ;;         now /(current-time-string)/
 
-;; $B$H$$$&9T$,$"$k$H$-!"(B`/now ' $B$H%?%$%W$9$l$P2hLL$K$O8=:_$N;~9o$,I=<($5$l!"(B
-;; `$B"'(BFri Apr 10 11:41:43 1992' $B$N$h$&$K$J$k!#(B
+;; という行があるとき、`/now ' とタイプすれば画面には現在の時刻が表示され、
+;; `▼Fri Apr 10 11:41:43 1992' のようになる。
 
-;; $B$3$3$G;H$($k(B Lisp $B$N%3!<%I$O(B
-;;   o $BJ8;zNs$rJV$9$3$H(B
-;;   o $B2~9T$r4^$^$J$$$3$H(B
-;; $B$K8B$i$l$k!#(B
+;; ここで使える Lisp のコードは
+;;   o 文字列を返すこと
+;;   o 改行を含まないこと
+;; に限られる。
 
-;; $B$3$N%U%!%$%k$O<B9TJQ49%W%m%0%i%`$r=8$a$?$b$N$G$"$k!#(B
+;; このファイルは実行変換プログラムを集めたものである。
 
-;; skk-gadget.el $B$N(B `gadget' $B$O!V>e<j$/9)IW$7$?F;6q!W$N0UL#!#!V?'!9Ht$S=P$9(B
-;; $B5$$N$-$$$?$*$b$A$cH"!W$H$$$&$h$&$J0UL#$GL>IU$1$i$l$?!#(B
-;; $BM>CL$@$,!"(BX Window $B$G;HMQ$5$l$k(B `Widget' $B$H$$$&8@MU$O!"(B`window'+`gadget'
-;; $B$+$i:n$i$l$?B$8l$i$7$$!#(B
+;; skk-gadget.el の `gadget' は「上手く工夫した道具」の意味。「色々飛び出す
+;; 気のきいたおもちゃ箱」というような意味で名付けられた。
+;; 余談だが、X Window で使用される `Widget' という言葉は、`window'+`gadget'
+;; から作られた造語らしい。
 
 
-;; $B<-=q%(%s%H%j(B today $B$N2r@b(B
+;; 辞書エントリ today の解説
 ;; ======================
 ;; today /(skk-current-date (lambda (date-information format gengo and-time) (skk-default-current-date date-information nil 0 'gengo 0 0 0)) )/
 
-;; 1. lambda() $BA4BN$r0z?t$H$7$F(B skk-current-date() $B$r<B9T$9$k(B
+;; 1. lambda() 全体を引数として skk-current-date() を実行する
 
-;; 2. skk-current-date() $B$O!"(B
+;; 2. skk-current-date() は、
 ;;   a. skk-current-date-1() => ("2013" "Jan" "29" "Tue" "22" "59" "50")
 ;;   b. format               => nil
-;;   c. (not skk-date-ad)    => t=$B@>Nq(B, nil=$B859f(B
+;;   c. (not skk-date-ad)    => t=西暦, nil=元号
 ;;   d. and-time             => nil
-;;  $B$r0z?t$H$7$F(B lambda() $B$r(B funcall $B$9$k(B
+;;  を引数として lambda() を funcall する
 
-;; 3. $B$9$J$o$A!"(Blambda() $B<+?H$N0z?t(B `date-information' `format' `gengo' `and-time' $B$O!"(B
-;;  $B>e5-$N(B a $B!A(B d $B$G$"$k(B
+;; 3. すなわち、lambda() 自身の引数 `date-information' `format' `gengo' `and-time' は、
+;;  上記の a ～ d である
 
-;; 4. $B:G=*E*$K(B skk-default-current-date() $B$,<B9T$5$l$k(B
+;; 4. 最終的に skk-default-current-date() が実行される
 ;;   e. date-information  [date-information] ... ("2013" "Jan" "29" "Tue" "22" "59" "50")
-;;   f. nil               [format]           ... %s$BG/(B%s$B7n(B%s$BF|(B(%s)%s$B;~(B%s$BJ,(B%s$BIC(B
-;;   g. 3                 [num-type]         ... $BJQ49%?%$%W(B => $B4A?t;z(B
-;;   h. 'gengo            [gengo]            ... non-nil => $BJ?@.Fs==8^G/(B
-;;                                                   nil => $BFs@i==;0G/(B
+;;   f. nil               [format]           ... %s年%s月%s日(%s)%s時%s分%s秒
+;;   g. 3                 [num-type]         ... 変換タイプ => 漢数字
+;;   h. 'gengo            [gengo]            ... non-nil => 平成二十五年
+;;                                                   nil => 二千十三年
 ;;   i. 0                 [gengo-index]      ...
 ;;   j. 0                 [month-alist-index] ...
 ;;   k. 0                 [dayofweek-alist-index] ...
 ;;   opt. and-time
 
-;; 5. *scratch* $B$GI>2A$7$F$_$k(B
+;; 5. *scratch* で評価してみる
 ;;   (skk-default-current-date
 ;;     '("2013" "Jan" "29" "Tue" "22" "59" "50") nil 3 t 0 0 0)  [C-j]
-;;   => "$BJ?@.Fs==8^G/0l7nFs==6eF|(B($B2P(B)"
-;;      $B$3$l",$,!"H/C<$G$"$k(B skk-current-date() $B$NLa$jCM$G$"$k(B
+;;   => "平成二十五年一月二十九日(火)"
+;;      これ↑が、発端である skk-current-date() の戻り値である
 
 ;;; Code:
 
@@ -97,27 +97,27 @@
 ;; -- programs
 ;;;###autoload
 (defun skk-current-date (&optional pp-function format and-time)
-  "`current-time-string' $B$N=PNO$r2C9)$7!"8=:_$NF|;~(B \(string\) $B$rJV$9!#(B
-$B%*%W%7%g%J%k0z?t$N(B PP-FUNCTION $B$r;XDj$9$k$H!"(B
-  `skk-current-date-1' $B$NJV$jCM!"(B FORMAT $B!"(B AND-TIME
-$B$r0z?t$K$7$F(B PP-FUNCTION $B$r(B `funcall' $B$9$k!#(B
-PP-FUNCTION $B$,(B nil $B$N>l9g$O(B `skk-default-current-date-function' $B$r(B
-`funcall' $B$9$k!#(B
-FORMAT $B$O(B `format' $B$NBh#10z?t$NMM<0(B \(string\) $B$K$h$k=PNO;XDj%F%s%W%l!<%H!#(B
-AND-TIME \(boolean\) $B$r;XDj$9$k$H;~9o$bJV$9!#(B
-`skk-today' $B$H(B `skk-clock' $B$N%5%V%k!<%A%s$G$"$k!#(B"
+  "`current-time-string' の出力を加工し、現在の日時 \(string\) を返す。
+オプショナル引数の PP-FUNCTION を指定すると、
+  `skk-current-date-1' の返り値、 FORMAT 、 AND-TIME
+を引数にして PP-FUNCTION を `funcall' する。
+PP-FUNCTION が nil の場合は `skk-default-current-date-function' を
+`funcall' する。
+FORMAT は `format' の第１引数の様式 \(string\) による出力指定テンプレート。
+AND-TIME \(boolean\) を指定すると時刻も返す。
+`skk-today' と `skk-clock' のサブルーチンである。"
   (funcall (if pp-function
                pp-function
              skk-default-current-date-function)
            (skk-current-date-1) format (not skk-date-ad) and-time))
 
 (defun skk-current-date-1 (&optional specified-time)
-  "`current-time-string' $B$N=PNO$r2C9)$7!"F|IU!&;~9o>pJs$r%j%9%H$K$7$FJV$9!#(B
+  "`current-time-string' の出力を加工し、日付・時刻情報をリストにして返す。
 \(year month day day-of-week hour minute second\)
 \(\"2013\" \"Jan\" \"29\" \"Tue\" \"22\" \"41\" \"11\"\)
 
-$B%*%W%7%g%J%k0z?t$N(B SPECIFIED-TIME $B$O(B `current-time-string' $B$N(B docstring
-$B$r;2>H$N$3$H!#(B"
+オプショナル引数の SPECIFIED-TIME は `current-time-string' の docstring
+を参照のこと。"
   (cl-multiple-value-bind (dow month day time year)
       (split-string (current-time-string specified-time))
     (append (list year month day dow)
@@ -129,42 +129,42 @@ AND-TIME \(boolean\) $B$r;XDj$9$k$H;~9o$bJV$9!#(B
      format num-type gengo gengo-index month-alist-index dayofweek-alist-index
      &optional and-time)
   "\
-$BF|IU>pJs$NI8=`E*$J=PNO$r$9$kB>!"%f!<%6$K$"$kDxEY$N%+%9%?%^%$%:5!G=$rDs6!$9$k!#(B
-$B$3$N4X?t$N0z?t$G%+%9%?%^%$%:$G$-$J$$=PNO$r4uK>$9$k>l9g$O!"(B
-`skk-default-current-date-function' $B$K<+A0$N4X?t$r;XDj$9$k!#(B
+日付情報の標準的な出力をする他、ユーザにある程度のカスタマイズ機能を提供する。
+この関数の引数でカスタマイズできない出力を希望する場合は、
+`skk-default-current-date-function' に自前の関数を指定する。
 
-DATE-INFORMATION $B$O(B
+DATE-INFORMATION は
 
   \(year month day day-of-week hour minute second\)
 
-$B$N7A<0$N%j%9%H!#3FMWAG$OJ8;zNs!#(B`skk-current-date-1' $B$N=PNO$r;HMQ!#(B
+の形式のリスト。各要素は文字列。`skk-current-date-1' の出力を使用。
 
-FORMAT $B$O(B `format' $B$NBh#10z?t$NMM<0$K$h$k=PNO7ABV$r;XDj$9$kJ8;zNs!#(B
-  nil $B$G$"$l$P(B \"%s$BG/(B%s$B7n(B%s$BF|(B\(%s\)%s$B;~(B%s$BJ,(B%s$BIC(B\" \($B$b$7$/$O(B
-  \"%s$BG/(B%s$B7n(B%s$BF|(B\(%s\)\" $B$,;H$o$l$k!#(B
+FORMAT は `format' の第１引数の様式による出力形態を指定する文字列。
+  nil であれば \"%s年%s月%s日\(%s\)%s時%s分%s秒\" \(もしくは
+  \"%s年%s月%s日\(%s\)\" が使われる。
 
-NUM-TYPE \(number\) $B$O(B
-  0 -> $BL5JQ49(B
-  1 -> $BA43Q?t;z$XJQ49(B
-  2 -> $B4A?t;z$XJQ49(B \($B0L<h$j$J$7(B\)
-  3 -> $B4A?t;z$XJQ49(B \($B0L<h$j$r$9$k(B\)
-  4 -> $B$=$N?t;z$=$N$b$N$r%-!<$K$7$F<-=q$r:F8!:w(B
-  5 -> $B4A?t;z(B \($B<j7A$J$I$G;HMQ$9$kJ8;z$r;HMQ(B\)$B$XJQ49(B \($B0L<h$j$r$9$k(B\)
-  9 -> $B>-4}$G;HMQ$9$k?t;z(B \(\"$B#3;M(B\" $B$J$I(B\) $B$KJQ49(B
+NUM-TYPE \(number\) は
+  0 -> 無変換
+  1 -> 全角数字へ変換
+  2 -> 漢数字へ変換 \(位取りなし\)
+  3 -> 漢数字へ変換 \(位取りをする\)
+  4 -> その数字そのものをキーにして辞書を再検索
+  5 -> 漢数字 \(手形などで使用する文字を使用\)へ変換 \(位取りをする\)
+  9 -> 将棋で使用する数字 \(\"３四\" など\) に変換
 
-GENGO $B$O859fI=<($9$k$+$I$&$+(B \(boolean\)$B!#(B
+GENGO は元号表示するかどうか \(boolean\)。
 
-GENGO-INDEX $B$O(B `skk-gengo-alist' $B$N3FMWAG$N(B cadr $B$r(B 0 $B$H$9$k(B index
- \(number\)$B!#(Bnil $B$G$"$l$P(B `current-time-string' $B$N=PNO$N$^$^L5JQ49!#(B
+GENGO-INDEX は `skk-gengo-alist' の各要素の cadr を 0 とする index
+ \(number\)。nil であれば `current-time-string' の出力のまま無変換。
 
-MONTH-ALIST-INDEX $B$O(B `skk-month-alist' $B$N3FMWAG$N(B cadr $B$r(B 0 $B$H$9$k(B
- index \(number\)$B!#(Bnil $B$G$"$l$P(B `current-time-string' $B$N=PNO$N$^$^L5JQ49!#(B
+MONTH-ALIST-INDEX は `skk-month-alist' の各要素の cadr を 0 とする
+ index \(number\)。nil であれば `current-time-string' の出力のまま無変換。
 
-DAYOFWEEK-ALIST-INDEX $B$O(B `skk-day-of-week-alist' $B$N3FMWAG$N(B cadr $B$r(B
- 0 $B$H$9$k(B index \(number\)$B!#(Bnil $B$G$"$l$P(B `current-time-string' $B$N=PNO$N$^(B
-$B$^L5JQ49!#(B
+DAYOFWEEK-ALIST-INDEX は `skk-day-of-week-alist' の各要素の cadr を
+ 0 とする index \(number\)。nil であれば `current-time-string' の出力のま
+ま無変換。
 
-AND-TIME $B$O;~9o$bI=<($9$k$+$I$&$+(B \(boolean\)$B!#(B"
+AND-TIME は時刻も表示するかどうか \(boolean\)。"
   (cl-multiple-value-bind (year month day day-of-week hour minute second v)
       date-information
     (when gengo
@@ -194,20 +194,20 @@ AND-TIME $B$O;~9o$bI=<($9$k$+$I$&$+(B \(boolean\)$B!#(B"
       (setq minute (skk-num-exp minute num-type))
       (setq second (skk-num-exp second num-type)))
     (if and-time
-        (format (or format "%s$BG/(B%s$B7n(B%s$BF|(B(%s)%s$B;~(B%s$BJ,(B%s$BIC(B")
+        (format (or format "%s年%s月%s日(%s)%s時%s分%s秒")
                 year month day day-of-week hour minute second)
-      (format (or format "%s$BG/(B%s$B7n(B%s$BF|(B(%s)") year month day day-of-week))))
+      (format (or format "%s年%s月%s日(%s)") year month day day-of-week))))
 
 ;;;###autoload
 (cl-defun skk-relative-date (pp-function format and-time &key (yy 0) (mm 0) (dd 0))
-  "`skk-current-date' $B$N3HD%HG!#0z?t$G$"$k(B PP-FUNCTION, FORMAT $B5Z$S(B AND-TIME
- $B$O(B `skk-current-date' $B$r;2>H$N$3$H!#(B
+  "`skk-current-date' の拡張版。引数である PP-FUNCTION, FORMAT 及び AND-TIME
+ は `skk-current-date' を参照のこと。
 
-$B<B9TNc(B
- (skk-relative-date) => \"$BJ?@.(B25$BG/(B2$B7n(B03$BF|(B($BF|(B)\"
- (skk-relative-date (lambda (arg) body) nil nil :dd -1) => \"$BJ?@.(B25$BG/(B2$B7n(B02$BF|(B($BEZ(B)\"
- (skk-relative-date (lambda (arg) body) nil nil :mm -1) => \"$BJ?@.(B25$BG/(B1$B7n(B03$BF|(B($BLZ(B)\"
- (skk-relative-date (lambda (arg) body) nil nil :yy  2) => \"$BJ?@.(B27$BG/(B2$B7n(B03$BF|(B($B2P(B)\"
+実行例
+ (skk-relative-date) => \"平成25年2月03日(日)\"
+ (skk-relative-date (lambda (arg) body) nil nil :dd -1) => \"平成25年2月02日(土)\"
+ (skk-relative-date (lambda (arg) body) nil nil :mm -1) => \"平成25年1月03日(木)\"
+ (skk-relative-date (lambda (arg) body) nil nil :yy  2) => \"平成27年2月03日(火)\"
 "
   (let ((specified-time (cl-multiple-value-bind (sec min hour day month year dow dst zone)
                             (decode-time)
@@ -231,11 +231,11 @@ AND-TIME $B$O;~9o$bI=<($9$k$+$I$&$+(B \(boolean\)$B!#(B"
 ;;;###autoload
 (defun skk-today (arg)
   "\
-`current-time-string' $B$N=PNO$r2C9)$7!"8=:_$NF|;~$rI=$9J8;zNs$r:n$j!"A^F~(B
-$B$9$k!#<B<AE*$K!V(Btoday $B%(%s%H%j$N8F$S=P$7!W$@$1$J$N$G!"%+%9%?%^%$%:$O8D?M(B
-$B<-=q$N(B today $B%(%s%H%j$K$h$k!#(B"
+`current-time-string' の出力を加工し、現在の日時を表す文字列を作り、挿入
+する。実質的に「today エントリの呼び出し」だけなので、カスタマイズは個人
+辞書の today エントリによる。"
   (interactive "p")
-  (if (and (eq skk-henkan-mode 'on) ;$B"&%b!<%I(B
+  (if (and (eq skk-henkan-mode 'on) ;▽モード
            (equal (this-command-keys) (skk-today-execute-char))
            (< skk-henkan-start-point (point)))
       (this-command-keys)
@@ -248,17 +248,17 @@ AND-TIME $B$O;~9o$bI=<($9$k$+$I$&$+(B \(boolean\)$B!#(B"
 
 ;;;###autoload
 (defun skk-clock (&optional kakutei-when-quit time-signal)
-  "$B%_%K%P%C%U%!$K%G%8%?%k;~7W$rI=<($9$k!#(B
-quit $B$9$k$H!"$=$N;~E@$NF|;~$r8uJd$H$7$FA^F~$9$k!#(B
-quit $B$7$?$H$-$K5/F0$7$F$+$i$N7P2a;~4V$r%_%K%P%C%U%!$KI=<($9$k!#(B
-interactive $B$K5/F0$9$kB>!"(B\"clock /(skk-clock)/\" $B$J$I$N%(%s%H%j$r(B SKK $B$N<-=q(B
-$B$K2C$(!"(B\"/clock\"+ SPC $B$GJQ49$9$k$3$H$K$h$C$F$b5/F02D!#(B\\[keyboard-quit] $B$G;_$^$k!#(B
-$B<B9TJQ49$G5/F0$7$?>l9g$O!"(B\\[keyboard-quit] $B$7$?;~E@$N;~E@$NF|;~$rA^F~$9$k!#(B
+  "ミニバッファにデジタル時計を表示する。
+quit すると、その時点の日時を候補として挿入する。
+quit したときに起動してからの経過時間をミニバッファに表示する。
+interactive に起動する他、\"clock /(skk-clock)/\" などのエントリを SKK の辞書
+に加え、\"/clock\"+ SPC で変換することによっても起動可。\\[keyboard-quit] で止まる。
+実行変換で起動した場合は、\\[keyboard-quit] した時点の時点の日時を挿入する。
 
-$B%*%W%7%g%J%k0z?t$N(B KAKUTEI-WHEN-QUIT $B$,(B non-nil $B$G$"$l$P(B \\[keyboard-quit] $B$7$?$H$-$K3NDj$9$k!#(B
-$B%*%W%7%g%J%k0z?t$N(B TIME-SIGNAL $B$,(B non-nil $B$G$"$l$P!"(BNTT $B$N;~JsIw$K(B ding $B$9$k!#(B
-$B$=$l$>$l(B \"clock /(skk-clock nil t)/\" $B$N$h$&$J%(%s%H%j$r<-=q$KA^F~$9$l$PNI$$!#(B
-`skk-date-ad' $B$H(B `skk-number-style' $B$K$h$C$FI=<(J}K!$N%+%9%?%^%$%:$,2DG=!#(B"
+オプショナル引数の KAKUTEI-WHEN-QUIT が non-nil であれば \\[keyboard-quit] したときに確定する。
+オプショナル引数の TIME-SIGNAL が non-nil であれば、NTT の時報風に ding する。
+それぞれ \"clock /(skk-clock nil t)/\" のようなエントリを辞書に挿入すれば良い。
+`skk-date-ad' と `skk-number-style' によって表示方法のカスタマイズが可能。"
   (interactive "*")
   (let ((start (current-time))
         end
@@ -269,18 +269,18 @@ interactive $B$K5/F0$9$kB>!"(B\"clock /(skk-clock)/\" $B$J$I$N%(%s%H%j$r(B S
     (cond
      ((or (not skk-number-style)
           (eq skk-number-style 0))
-      (setq expr1 "[789]$BIC(B"
-            expr2 "0$BIC(B"))
+      (setq expr1 "[789]秒"
+            expr2 "0秒"))
      ((or (eq skk-number-style t)
-          ;; skk-number-style $B$K(B $B?t;z$H(B t $B0J30$N(B non-nil $BCM$rF~$l$F$$$k>l(B
-          ;; $B9g!"(B= $B$r;H$&$H(B Wrong type argument: number-or-marker-p, xxxx
-          ;; $B$K$J$C$F$7$^$&!#(B
+          ;; skk-number-style に 数字と t 以外の non-nil 値を入れている場
+          ;; 合、= を使うと Wrong type argument: number-or-marker-p, xxxx
+          ;; になってしまう。
           (eq skk-number-style 1))
-      (setq expr1 "[$B#7#8#9(B]$BIC(B"
-            expr2 "$B#0IC(B"))
+      (setq expr1 "[７８９]秒"
+            expr2 "０秒"))
      (t
-      (setq expr1 "[$B<7H,6e(B]$BIC(B"
-            expr2 "$B!;IC(B")))
+      (setq expr1 "[七八九]秒"
+            expr2 "〇秒")))
 
     (save-match-data
       (condition-case nil
@@ -294,18 +294,18 @@ interactive $B$K5/F0$9$kB>!"(B\"clock /(skk-clock)/\" $B$J$I$N%(%s%H%j$r(B S
               (when time-signal
                 (cond
                  ((string-match expr1 mes)
-                  ;; [7890] $B$N$h$&$K@55,I=8=$r;H$o$:!"(B7 $B$@$1$GA4$F$N%^%7%s$,(B
-                  ;; $BCe$$$F$f$1$PNI$$$N$@$,(B...$B!#CzEY$3$N4X?t<B9T;~$K(B Garbage
-                  ;; collection $B$,8F$P$l$F$bI=<($5$l$k?t;z$,Ht$V>l9g$,$"$k!#(B
+                  ;; [7890] のように正規表現を使わず、7 だけで全てのマシンが
+                  ;; 着いてゆけば良いのだが...。丁度この関数実行時に Garbage
+                  ;; collection が呼ばれても表示される数字が飛ぶ場合がある。
                   (ding))
                  ((string-match expr2 mes)
-                  ;; 0 $B$@$1!V%]!A%s!W$H$$$-$?$$$H$3$m$G$9$,!"%^%7%s$K$h$C(B
-                  ;; $B$F:9$,$"$k!#(B
-                  ;; 386SX 25Mhz + Mule-2.x $B$@$H!V%T%C!"%T%C!W$H$$$&46$8!#(B
-                  ;; $BIU$$$F$f$/$N$,Hs>o$K?I$$!#(B68LC040 33Mhz + NEmacs $B$@$H(B
-                  ;; $B!V%T%T%C!W$H$J$j!"2;$N%?%$%_%s%0$ONI$$$N$@$,!"$H$-(B
-                  ;; $B$I$-(B 1 $BICJ,$D$$$F$$$1$J$/$J$k!#(BPentium 90Mhz +
-                  ;; Mule-2.x$B$@$H!V%T%C!W$H$$$&C12;$K$J$C$F$7$^$&(B... (;_;)$B!#(B
+                  ;; 0 だけ「ポ～ン」といきたいところですが、マシンによっ
+                  ;; て差がある。
+                  ;; 386SX 25Mhz + Mule-2.x だと「ピッ、ピッ」という感じ。
+                  ;; 付いてゆくのが非常に辛い。68LC040 33Mhz + NEmacs だと
+                  ;; 「ピピッ」となり、音のタイミングは良いのだが、とき
+                  ;; どき 1 秒分ついていけなくなる。Pentium 90Mhz +
+                  ;; Mule-2.xだと「ピッ」という単音になってしまう... (;_;)。
                   (if snd
                       (ding)
                     (ding)
@@ -323,16 +323,16 @@ interactive $B$K5/F0$9$kB>!"(B\"clock /(skk-clock)/\" $B$J$I$N%(%s%H%j$r(B S
              (skk-current-date nil nil t)
            (when kakutei-when-quit
              (setq skk-kakutei-flag t))
-           (message "$B7P2a;~4V(B: %s $BIC(B"
+           (message "経過時間: %s 秒"
                     (skk-time-difference start end))))))))
 
 ;;;###autoload
 (defun skk-ad-to-gengo (gengo-index &optional divider tail not-gannen)
-  ;; $B@>Nq$r859f$KJQ49$9$k!#%*%W%7%g%J%k0z?t$N(B DIVIDER $B$,;XDj$5$l$F$$$l$P!"G/9f(B
-  ;; $B$H?t;z$N4V$K!"(BTAIL $B$,;XDj$5$l$F$$$l$P!"?t;z$NKvHx$K!"$=$l$>$l$NJ8;zNs$rO"(B
-  ;; $B7k$9$k!#(B
-  ;; $B<-=q8+=P$7Nc(B;
-  ;; $B$;$$$l$-(B#$B$M$s(B /(skk-ad-to-gengo 0 nil "$BG/(B")/(skk-ad-to-gengo 0 " " " $BG/(B")/
+  ;; 西暦を元号に変換する。オプショナル引数の DIVIDER が指定されていれば、年号
+  ;; と数字の間に、TAIL が指定されていれば、数字の末尾に、それぞれの文字列を連
+  ;; 結する。
+  ;; 辞書見出し例;
+  ;; せいれき#ねん /(skk-ad-to-gengo 0 nil "年")/(skk-ad-to-gengo 0 " " " 年")/
   (let ((v (skk-ad-to-gengo-1 (string-to-number
                                (car skk-num-list))
                               not-gannen)))
@@ -351,9 +351,9 @@ interactive $B$K5/F0$9$kB>!"(B\"clock /(skk-clock)/\" $B$J$I$N%(%s%H%j$r(B S
   ;; gotten from `skk-gengo-alist', and cdr is a number
   ;; of year.
   ;; if NOT-GANNEN is non-nil and calculated year is 1,
-  ;; return a value of which cdr is "$B85(B" (string).
+  ;; return a value of which cdr is "元" (string).
   (when (>= 1866 ad)
-    (skk-error "$BJ,$j$^$;$s(B" "Unknown year"))
+    (skk-error "分りません" "Unknown year"))
   (cons (cond ((or (< ad 1912) (and (= ad 1912) month (< month 7))
                    (and (= ad 1912) month (= month 7) day (< day 30)))
                (setq ad (- ad 1867))
@@ -373,16 +373,16 @@ interactive $B$K5/F0$9$kB>!"(B\"clock /(skk-clock)/\" $B$J$I$N%(%s%H%j$r(B S
                (setq ad (- ad 2018))
                (cdr (assq 'reiwa skk-gengo-alist))))
         (cond (not-gannen ad)
-              ((= ad 1) "$B85(B")
+              ((= ad 1) "元")
               (t ad))))
 
 ;;;###autoload
 (defun skk-gengo-to-ad (&optional head tail)
-  ;; $B859f$r@>Nq$KJQ49$9$k!#%*%W%7%g%J%k0z?t$N(B HEAD, TAIL $B$,;XDj$5$l$F$$(B
-  ;; $B$l$P!"$=$NJ8;zNs$r@hF,!"KvHx$KO"7k$9$k!#(B
-  ;; $B<-=q8+=P$7Nc(B;
-  ;;   $B$7$g$&$o(B#$B$M$s(B /(skk-gengo-to-ad "" "$BG/(B")/(skk-gengo-to-ad "" " $BG/(B")/\
-  ;;   (skk-gengo-to-ad "$B@>Nq(B" "$BG/(B")/(skk-gengo-to-ad "$B@>Nq(B" " $BG/(B")/
+  ;; 元号を西暦に変換する。オプショナル引数の HEAD, TAIL が指定されてい
+  ;; れば、その文字列を先頭、末尾に連結する。
+  ;; 辞書見出し例;
+  ;;   しょうわ#ねん /(skk-gengo-to-ad "" "年")/(skk-gengo-to-ad "" " 年")/\
+  ;;   (skk-gengo-to-ad "西暦" "年")/(skk-gengo-to-ad "西暦" " 年")/
   (save-match-data
     (when (string-match (car skk-num-list)
                         skk-henkan-key)
@@ -401,35 +401,35 @@ interactive $B$K5/F0$9$kB>!"(B\"clock /(skk-clock)/\" $B$J$I$N%(%s%H%j$r(B S
   (+ number
      (cond
       ((eq number 0)
-       (skk-error "0 $BG/$O$"$jF@$J$$(B"
+       (skk-error "0 年はあり得ない"
                   "Cannot convert 0 year"))
-      ((member gengo '("$B$l$$$o(B" "$BNaOB(B"))
+      ((member gengo '("れいわ" "令和"))
        2018)
-      ((member gengo '("$B$X$$$;$$(B" "$BJ?@.(B"))
+      ((member gengo '("へいせい" "平成"))
        1988)
-      ((member gengo '("$B$7$g$&$o(B" "$B><OB(B"))
+      ((member gengo '("しょうわ" "昭和"))
        1925)
-      ((member gengo '("$B$?$$$7$g$&(B" "$BBg@5(B"))
+      ((member gengo '("たいしょう" "大正"))
        1911)
-      ((member gengo '("$B$a$$$8(B" "$BL@<#(B"))
+      ((member gengo '("めいじ" "明治"))
        1867)
       (t
-       (skk-error "$BH=JLITG=$J859f$G$9!*(B"
+       (skk-error "判別不能な元号です！"
                   "Unknown Gengo!")))))
 
 ;;;###autoload
 (defun skk-calc (operator)
-  ;; 2 $B$D$N0z?t$r<h$C$F(B operator $B$N7W;;$r$9$k!#(B
-  ;; $BCm0U(B: '/ $B$O0z?t$H$7$FEO$;$J$$$N$G(B (defalias 'div '/) $B$J$I$H$7!"JL$N7A$G(B
-  ;; skk-calc $B$KEO$9!#(B
-  ;; $B<-=q8+=P$7Nc(B; #*# /(skk-calc '*)/
+  ;; 2 つの引数を取って operator の計算をする。
+  ;; 注意: '/ は引数として渡せないので (defalias 'div '/) などとし、別の形で
+  ;; skk-calc に渡す。
+  ;; 辞書見出し例; #*# /(skk-calc '*)/
   (number-to-string (apply operator
                            (mapcar 'string-to-number
                                    skk-num-list))))
 
 ;;;###autoload
 (defun skk-plus ()
-  ;; $B<-=q8+=P$7Nc(B; #+#+# /(skk-plus)/
+  ;; 辞書見出し例; #+#+# /(skk-plus)/
   (skk-calc '+))
 
 ;;;###autoload
@@ -442,52 +442,52 @@ interactive $B$K5/F0$9$kB>!"(B\"clock /(skk-clock)/\" $B$J$I$N%(%s%H%j$r(B S
 
 ;;;###autoload
 (defun skk-ignore-dic-word (&rest no-show-list)
-  ;; $B6&MQ<-=q$KEPO?$5$l$F$$$k!"0c$C$F$$$k(B/$B5$$KF~$i$J$$JQ49$r=P$5$J$$$h$&$K$9(B
-  ;; $B$k!#(B
-  ;; $B<-=q8+=P$7Nc(B;
-  ;;   $B$k$9$P$s(B /$BN1<iHV(B/(skk-ignore-dic-word "$BN1<iEE(B")/
-  ;;   $B$+$/$F$$(B /(skk-ignore-dic-word "$B3NDj(B")/
+  ;; 共用辞書に登録されている、違っている/気に入らない変換を出さないようにす
+  ;; る。
+  ;; 辞書見出し例;
+  ;;   るすばん /留守番/(skk-ignore-dic-word "留守電")/
+  ;;   かくてい /(skk-ignore-dic-word "確定")/
   (let (new-word)
-    ;; skk-ignore-dic-word $B<+?H$N%(%s%H%j$r>C$9!#>C$9$Y$-8uJd$O(B
-    ;; skk-henkan-list $B$+$iD>@\Cj=P$7$F$$$k$N$G(B delete $B$G$O$J$/(B delq $B$G==J,!#(B
+    ;; skk-ignore-dic-word 自身のエントリを消す。消すべき候補は
+    ;; skk-henkan-list から直接抽出しているので delete ではなく delq で十分。
     (setq skk-henkan-list (delq (nth skk-henkan-count skk-henkan-list)
                                 skk-henkan-list))
-    ;; $BA48uJd$r(B skk-henkan-list $B$KF~$l$k!#(B
+    ;; 全候補を skk-henkan-list に入れる。
     (while skk-current-search-prog-list
       (setq skk-henkan-list (skk-nunion skk-henkan-list (skk-search))))
-    ;; $BITMW$J8uJd$r<N$F$k!#(B
+    ;; 不要な候補を捨てる。
     (while no-show-list
       (setq skk-henkan-list (delete (car no-show-list) skk-henkan-list)
             no-show-list (cdr no-show-list)))
-    ;; $B%+%l%s%H$N8uJd(B (skk-ignore-dic-word $B<+?H$N%(%s%H%j(B) $B$r>C$7$?$N$G!"(B
-    ;; skk-henkan-count $B$O<!$N8uJd$r;X$7$F$$$k!#(B
+    ;; カレントの候補 (skk-ignore-dic-word 自身のエントリ) を消したので、
+    ;; skk-henkan-count は次の候補を指している。
     (setq new-word (or (nth skk-henkan-count skk-henkan-list)
                        (skk-henkan-in-minibuff)))
-    ;; $B8uJd$,$J$$$H$-!#(B
+    ;; 候補がないとき。
     (unless new-word
-      ;; $B6uJ8;zNs$,EPO?$5$l$?$i<-=qEPO?$NA0$N>uBV$KLa$9!#(B
-      ;; (nth -1 '(A B C)) $B$O!"(BA $B$rJV$9$N$G!"(Bn $B$,Ii$N?t$G$J$$$3$H$r%A%'%C%/(B
-      ;; $B$7$F$*$/I,MW$,$"$k!#(B
+      ;; 空文字列が登録されたら辞書登録の前の状態に戻す。
+      ;; (nth -1 '(A B C)) は、A を返すので、n が負の数でないことをチェック
+      ;; しておく必要がある。
       (if (> skk-henkan-count 0)
           (setq skk-henkan-count (- skk-henkan-count 1)
                 new-word (nth skk-henkan-count skk-henkan-list))
-        ;; (1- skk-henkan-count) == -1 $B$K$J$k!#"&%b!<%I$KLa$9!#(B
+        ;; (1- skk-henkan-count) == -1 になる。▽モードに戻す。
         (throw 'next-word 'none)))
     ;;
     (throw 'next-word new-word)))
 
 ;;;###autoload
 (defun skk-henkan-face-off-and-remove-itself ()
-  ;; skk-insert-new-word-function $B$K%;%C%H$9$k$?$a$N4X?t!#%+%l%s%H%P%C%U%!$N(B
-  ;; $BJQ49ItJ,$,(B Overlay $B$N(B face $BB0@-$K$h$C$FI=<($,JQ99$5$l$F$$$k$N$rLa$7!"$=$N(B
-  ;; $B8e<+J,<+?H$r(B skk-insert-new-word-function $B$+$i<h$j=|$/<+Gz4X?t!#(B
+  ;; skk-insert-new-word-function にセットするための関数。カレントバッファの
+  ;; 変換部分が Overlay の face 属性によって表示が変更されているのを戻し、その
+  ;; 後自分自身を skk-insert-new-word-function から取り除く自爆関数。
   (skk-henkan-face-off)
   (setq skk-insert-new-word-function nil))
 
 ;;;###autoload
 (defun skk-gadget-units-conversion (unit-from number unit-to)
-  "`skk-units-alist'$B$r;2>H$7!"49;;$r9T$&!#(B
-NUMBER $B$K$D$$$F(B UNIT-FROM $B$+$i(B UNIT-TO $B$X$N49;;$r9T$&!#(B"
+  "`skk-units-alist'を参照し、換算を行う。
+NUMBER について UNIT-FROM から UNIT-TO への換算を行う。"
   (let ((v (assoc unit-to
                   (cdr (assoc unit-from skk-units-alist)))))
     (when v

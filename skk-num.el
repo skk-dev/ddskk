@@ -1,4 +1,4 @@
-;;; skk-num.el --- $B?tCMJQ49$N$?$a$N%W%m%0%i%`(B -*- coding: iso-2022-jp -*-
+;;; skk-num.el --- 数値変換のためのプログラム -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
 ;;               1998, 1999, 2000, 2001, 2002
@@ -38,31 +38,31 @@
 
 ;;;###autoload
 (defun skk-num-compute-henkan-key (key)
-  "KEY $B$NCf$NO"B3$9$k?t;z$r8=$o$9J8;zNs$r(B \"#\" $B$KCV$-49$($?J8;zNs$rJV$9!#(B
-\"12\" $B$d(B \"$B#0#9(B\" $B$J$IO"B3$9$k?t;z$r(B 1 $B$D$N(B \"#\" $B$KCV$-49$($k$3$H$KCm0U!#(B
-$BCV$-49$($??t;z$r(B `skk-num-list' $B$NCf$K%j%9%H$N7A$GJ]B8$9$k!#(B
-$BNc$($P!"(BKEY $B$,(B \"$B$X$$$;$$(B7$B$M$s(B12$B$,$D(B\" $B$G$"$l$P!"(B\"$B$X$$$;$$(B#$B$M$s(B#$B$,$D(B\"
-$B$HJQ49$7!"(B`skk-num-list' $B$K(B (\"7\" \"12\") $B$H$$$&%j%9%H$rBeF~$9$k!#(B
-$B<-=q$N8+=P$78l$N8!:w$K;HMQ$9$k!#(B"
+  "KEY の中の連続する数字を現わす文字列を \"#\" に置き換えた文字列を返す。
+\"12\" や \"０９\" など連続する数字を 1 つの \"#\" に置き換えることに注意。
+置き換えた数字を `skk-num-list' の中にリストの形で保存する。
+例えば、KEY が \"へいせい7ねん12がつ\" であれば、\"へいせい#ねん#がつ\"
+と変換し、`skk-num-list' に (\"7\" \"12\") というリストを代入する。
+辞書の見出し語の検索に使用する。"
   (let ((numexp (if skk-num-convert-float
                     "[0-9]+\\(\\.[0-9]+\\)?"
                   "[0-9]+")))
     ;;(setq skk-noconv-henkan-key key)
     (save-match-data
-      ;; $BA43Q?t;z$r(B ascii $B?t;z$KJQ49$9$k!#(B
-      (while (string-match "[$B#0(B-$B#9(B]" key)
+      ;; 全角数字を ascii 数字に変換する。
+      (while (string-match "[０-９]" key)
         (let ((zen-num (match-string 0 key)))
           (setq key (concat (substring key 0 (match-beginning 0))
                             (skk-jisx0208-to-ascii zen-num)
                             (substring key (match-end 0))))))
-      ;; $B0L<h$j$N(B "," $B$r=|5n$9$k!#(B
+      ;; 位取りの "," を除去する。
       (while (string-match "[0-9]\\(,\\)[0-9]" key)
         (setq key (concat (substring key 0 (match-beginning 1))
                           (substring key (match-end 1)))))
-      ;; $B=EJ#$rHr$1$k!#(B
+      ;; 重複を避ける。
       (when (string-match numexp key)
         (setq skk-num-list nil))
-      ;; ascii $B?t;z$r(B "#" $B$KCV$-49$(!"$=$N?t;z$r(B skk-num-list $B$NCf$KJ]B8!#(B
+      ;; ascii 数字を "#" に置き換え、その数字を skk-num-list の中に保存。
       (while (string-match numexp key)
         (setq skk-num-list (nconc skk-num-list (list (match-string 0 key)))
               key (concat (substring key 0 (match-beginning 0))
@@ -72,10 +72,10 @@
 
 ;;;###autoload
 (defun skk-num-convert (index)
-  "INDEX $B$,;X$9(B `skk-henkan-list' $B$NMWAG$r?tCMJQ49$N$?$a$K2C9)$9$k!#(B
-`skk-henkan-list' $B$N(B INDEX $B$,;X$7$F$$$k8uJd(B \($B?tCMJQ49%-!<$N(B)\ $B$r(B
-  \"#2\" -> \(\"#2\" .\"$B0l(B\"\)
-$B$N$h$&$KJQ49$9$k!#(B"
+  "INDEX が指す `skk-henkan-list' の要素を数値変換のために加工する。
+`skk-henkan-list' の INDEX が指している候補 \(数値変換キーの)\ を
+  \"#2\" -> \(\"#2\" .\"一\"\)
+のように変換する。"
   (let ((key (skk-get-current-candidate-1 index))
         convlist current)
     (unless (consp key)
@@ -83,11 +83,11 @@
       (cond
        ((null convlist)
         nil)
-       ;; CONV-LIST $B$NA4MWAG$,J8;zNs!#(B
+       ;; CONV-LIST の全要素が文字列。
        ((null (memq t (mapcar 'listp convlist)))
         (setq current (mapconcat 'identity convlist ""))
         (if (skk-get-current-candidate-1)
-            ;; ("A" "#2" "C") -> ("A" ("#2" ."$B0l(B") "C")
+            ;; ("A" "#2" "C") -> ("A" ("#2" ."一") "C")
             (setcar (nthcdr index skk-henkan-list)
                     (cons key current))
           (setq skk-henkan-list
@@ -109,34 +109,34 @@
             (skk-num-uniq))))))))
 
 (defun skk-num-convert-1 (key)
-  "KEY $B$r(B `skk-num-list' $B$K=>$$JQ49$9$k!#(B
-$BJQ498e$NJ8;zNs$N%Q!<%D$r=g$K$J$i$Y$?%j%9%H$rJV$9!#Nc$($P(B
-  KEY ::= `$BJ?@.(B#0$BG/(B', return ::= (\"$BJ?@.(B\" \"13\" \"$BG/(B\")"
+  "KEY を `skk-num-list' に従い変換する。
+変換後の文字列のパーツを順にならべたリストを返す。例えば
+  KEY ::= `平成#0年', return ::= (\"平成\" \"13\" \"年\")"
   (unless (or (not key)
               (consp key))
     (let ((numexp (if skk-num-convert-float
-                      ;; "." $B$r4^$a$k0U?^$O(B?
+                      ;; "." を含める意図は?
                       "#[.0-9]+" "#[0-9]+"))
           (n 0)
           (workkey key)
           num convnum string convlist beg)
       (save-match-data
         (while (and
-                ;; $B6qBNE*$J?tCM$rJ];}$7$F$$$k%j%9%H$r;2>H$9$k!#(B
+                ;; 具体的な数値を保持しているリストを参照する。
                 (setq num (nth n skk-num-list))
                 (setq beg (string-match numexp workkey)))
-          (setq convnum     ; $B?tCMJQ49$5$l$?ItJ,$NJ8;zNs(B
-                ;; $B6qBNE*$J?t;z$rJQ49%?%$%W$K=>$$JQ49$9$k!#(B
+          (setq convnum     ; 数値変換された部分の文字列
+                ;; 具体的な数字を変換タイプに従い変換する。
                 (skk-num-exp
                  num
                  (string-to-number
                   (substring workkey (1+ beg) (match-end 0))))
-                ;; $B=hM}$5$l$??tCM%-!<$^$G$N(B prefix $BJ8;zNs(B
+                ;; 処理された数値キーまでの prefix 文字列
                 string (substring workkey 0 beg)
-                ;; $BL$=hM}$NJ8;zNs(B
+                ;; 未処理の文字列
                 workkey (substring workkey (match-end 0))
                 n (1+ n))
-          ;; $BJQ49$5$l$?J8;z$H?tCMJQ49$K4X78$N$J$$L5JQ49$NJ8;z$rJB$Y$?%j%9%H(B
+          ;; 変換された文字と数値変換に関係のない無変換の文字を並べたリスト
           (setq convlist (nconc convlist (list string convnum))))
         (delete "" (nconc convlist (list workkey)))))))
 
@@ -155,21 +155,21 @@
 
 (defun skk-num-rawnum-exp (string)
   (setq string (skk-num-rawnum-exp-1
-                string "[$B#0(B-$B#9(B][$B!;0l6e8^;0;M<7FsH,O;(B]" "#9" 0))
+                string "[０-９][〇一九五三四七二八六]" "#9" 0))
   (setq string (skk-num-rawnum-exp-1
                 string "\\(^\\|[^#0-9]\\)\\([0-9]+\\)" "#0" 2))
   (setq string (skk-num-rawnum-exp-1
-                string "[$B#0(B-$B#9(B]+" "#1" 0))
+                string "[０-９]+" "#1" 0))
   (setq string (skk-num-rawnum-exp-1
-                string "\\([$B!;0l6e8^;0;M<7FsH,O;==(B][$B==I4@iK|2/C{5~(B]\\)+"
+                string "\\([〇一九五三四七二八六十][十百千万億兆京]\\)+"
                 "#3" 0))
   ;; (mapcar 'char-to-string
   ;;         (sort
-  ;;          '(?$B0l(B ?$BFs(B ?$B;0(B ?$B;M(B ?$B8^(B ?$BO;(B ?$B<7(B ?$BH,(B ?$B6e(B ?$B!;(B) '<))
-  ;;   --> ("$B!;(B" "$B0l(B" "$B6e(B" "$B8^(B" "$B;0(B" "$B;M(B" "$B<7(B" "$BFs(B" "$BH,(B" "$BO;(B")
+  ;;          '(?一 ?二 ?三 ?四 ?五 ?六 ?七 ?八 ?九 ?〇) '<))
+  ;;   --> ("〇" "一" "九" "五" "三" "四" "七" "二" "八" "六")
   ;;
-  ;; [$B!;(B-$B6e(B] $B$H$$$&@55,I=8=$,;H$($J$$$N$G!"@8$N$^$^$D$C$3$s$G$*$/!#(B
-  (skk-num-rawnum-exp-1 string "[$B!;0l6e8^;0;M<7FsH,O;(B]+" "#2" 0))
+  ;; [〇-九] という正規表現が使えないので、生のままつっこんでおく。
+  (skk-num-rawnum-exp-1 string "[〇一九五三四七二八六]+" "#2" 0))
 
 (defun skk-num-rawnum-exp-1 (string key type place)
   (save-match-data
@@ -180,8 +180,8 @@
     string))
 
 (defun skk-num-flatten-list (list)
-  "$BM?$($i$l$?%j%9%H$N3FMWAG$+$iAH$_9g$;2DG=$JJ8;zNs$NO"@\$r:n$k!#(B
-$B7k2L$O%j%9%H$GJV$9!#Nc$($P(B
+  "与えられたリストの各要素から組み合せ可能な文字列の連接を作る。
+結果はリストで返す。例えば
   ((\"A\" \"B\") \"1\" (\"X\" \"Y\")) -> (\"A1X\" \"A1Y\" \"B1X\" \"B1Y\")"
   (let ((dst (car list)))
     (unless (listp dst)
@@ -204,24 +204,24 @@
 
 ;;;###autoload
 (defun skk-num-exp (num type)
-  "ascii $B?t;z(B (string) $B$N(B NUM $B$r(B TYPE $B$K=>$C$FJQ49$7$?J8;zNs$rJV$9!#(B
-TYPE $B$O2<5-$NDL$j!#(B
-0 -> $BL5JQ49(B
-1 -> $BA43Q?t;z$XJQ49(B
-2 -> $B4A?t;z(B ($B0L<h$j$"$j(B) $B$XJQ49!#Nc(B;1024 -> $B0l!;Fs;M(B
-3 -> $B4A?t;z(B ($B0L<h$j$J$7(B) $B$XJQ49!#Nc(B;1024 -> $B@iFs==;M(B
-4 -> $B$=$N?t;z$=$N$b$N$r%-!<$K$7$F<-=q$r:F8!:w(B
-5 -> $B4A?t;z(B ($B<j7A$J$I$G;HMQ$9$kJ8;z$r;HMQ(B) $B$XJQ49(B
-8 -> $B7e6h@Z$j$XJQ49(B (1,234,567)
-9 -> $B>-4}$G;HMQ$9$k?t;z(B (\"$B#3;M(B\" $B$J$I(B) $B$XJQ49(B"
+  "ascii 数字 (string) の NUM を TYPE に従って変換した文字列を返す。
+TYPE は下記の通り。
+0 -> 無変換
+1 -> 全角数字へ変換
+2 -> 漢数字 (位取りあり) へ変換。例;1024 -> 一〇二四
+3 -> 漢数字 (位取りなし) へ変換。例;1024 -> 千二十四
+4 -> その数字そのものをキーにして辞書を再検索
+5 -> 漢数字 (手形などで使用する文字を使用) へ変換
+8 -> 桁区切りへ変換 (1,234,567)
+9 -> 将棋で使用する数字 (\"３四\" など) へ変換"
   (save-match-data
     (let ((fun (cdr (assq type skk-num-type-alist))))
       (when fun
         (funcall fun num)))))
 
 (defun skk-num-jisx0208-latin (num)
-  "ascii $B?t;z$N(B NUM $B$rA43Q?t;z$NJ8;zNs$KJQ49$7!"JQ498e$NJ8;zNs$rJV$9!#(B
-$BNc$($P(B \"45\" $B$r(B \"$B#4#5(B\" $B$KJQ49$9$k!#(B"
+  "ascii 数字の NUM を全角数字の文字列に変換し、変換後の文字列を返す。
+例えば \"45\" を \"４５\" に変換する。"
   (let ((candidate
          (mapconcat (lambda (c)
                       (skk-num-get-suuji c skk-num-alist-type1))
@@ -230,8 +230,8 @@ TYPE $B$O2<5-$NDL$j!#(B
       candidate)))
 
 (defun skk-num-type2-kanji (num)
-  "ascii $B?t;z(B NUM $B$r4A?t;z$NJ8;zNs(B ($B0L<h$j$"$j(B) $B$KJQ49$7!"JQ498e$NJ8;zNs$rJV$9!#(B
-$BNc$($P!"(B\"1024\" $B$r(B \"$B0l!;Fs;M(B\" $B$KJQ49$9$k!#(B"
+  "ascii 数字 NUM を漢数字の文字列 (位取りあり) に変換し、変換後の文字列を返す。
+例えば、\"1024\" を \"一〇二四\" に変換する。"
   (save-match-data
     (when (skk-num-int-p num)
       (let ((candidate
@@ -244,23 +244,23 @@ TYPE $B$O2<5-$NDL$j!#(B
           candidate)))))
 
 (defun skk-num-type3-kanji (num)
-  "ascii $B?t;z(B NUM $B$r4A?t;z$NJ8;zNs(B ($B0L<h$j$J$7(B) $B$KJQ49$7!"JQ498e$NJ8;zNs$rJV$9!#(B
-$BNc$($P(B \"1024\" $B$r(B \"$B@iFs==;M(B\" $B$KJQ49$9$k!#(B"
+  "ascii 数字 NUM を漢数字の文字列 (位取りなし) に変換し、変換後の文字列を返す。
+例えば \"1024\" を \"千二十四\" に変換する。"
   (save-match-data
     (when (skk-num-int-p num)
-      ;; $B>.?tE@$r4^$^$J$$?t(B
+      ;; 小数点を含まない数
       (skk-num-to-kanji num 'type3))))
 
 (defun skk-num-type5-kanji (num)
-  "ascii $B?t;z(B NUM $B$r4A?t;z$NJ8;zNs$KJQ49$7!"JQ498e$NJ8;zNs$rJV$9!#(B
-$BNc$($P(B \"1021\" $B$r(B \"$B0motFu=&0m(B\" $B$KJQ49$9$k!#(B"
+  "ascii 数字 NUM を漢数字の文字列に変換し、変換後の文字列を返す。
+例えば \"1021\" を \"壱阡弐拾壱\" に変換する。"
   (save-match-data
     (when (skk-num-int-p num)
-      ;; $B>.?tE@$r4^$^$J$$?t(B
+      ;; 小数点を含まない数
       (skk-num-to-kanji num 'type5))))
 
 (defun skk-num-to-kanji (num type &optional alist)
-  "NUM $B$r(B TYPE $B$N7A<0$N4A?t;z$K$9$k!#0L$J$I$rI=$94A;z$O(B ALIST $B$+$i<hF@$9$k!#(B"
+  "NUM を TYPE の形式の漢数字にする。位などを表す漢字は ALIST から取得する。"
   (let ((len (length num))
         (i 0)
         char v num1 v1)
@@ -268,39 +268,39 @@ TYPE $B$O2<5-$NDL$j!#(B
       (setq alist
             (symbol-value
              (intern (format "skk-num-alist-%s" type)))))
-    ;; $B!V@i5~!W$^$G$O=PNO$9$k!#(B
+    ;; 「千京」までは出力する。
     (when (> len 20)
-      (skk-error "$B0L$,Bg$-$9$.$^$9!*(B" "Too big number!"))
+      (skk-error "位が大きすぎます！" "Too big number!"))
     (setq num (append num nil))
     (cond
      ((<= len 4)
       (while (setq char (car num))
-        ;; $B0L(B:   $B0l(B  $B==(B  $BI4(B  $B@i(B
+        ;; 位:   一  十  百  千
         ;; len:   1   2   3   4
         (cond
          ((= len 1)
-          ;; $B0L$rI=$o$94A?t;z0J30$N4A?t;z!#(B
+          ;; 位を表わす漢数字以外の漢数字。
           (unless (eq char ?0)
-            ;; $B0l$N0L$G(B 0 $B$G$J$$?t!#(B
+            ;; 一の位で 0 でない数。
             (setq v (concat v (skk-num-get-suuji char alist)))))
          (t
-          ;; $B0L$rI=$o$94A?t;z0J30$N4A?t;z!#(B
+          ;; 位を表わす漢数字以外の漢数字。
           (unless (or (and (eq type 'type3)
                            (memq char '(?0 ?1)))
                       (and (eq type 'type5)
                            (eq char ?0)))
-            ;; type3 $B$N$H$-$O!"==$N0L0J>e$G!"$+$D(B 0, 1 $B0J30$N?t;z!#(B
-            ;; type5 $B$N$H$-$O!"==$N0L0J>e$G!"$+$D(B 0 $B0J30$N?t;z!#(B
+            ;; type3 のときは、十の位以上で、かつ 0, 1 以外の数字。
+            ;; type5 のときは、十の位以上で、かつ 0 以外の数字。
             (setq v (concat v (skk-num-get-suuji char alist))))
-          ;; $B0L$rI=$o$94A?t;z!#(B
+          ;; 位を表わす漢数字。
           (when (and (not (eq char ?0)) (< 1 len))
             (setq v
                   (concat
                    v
                    (skk-num-get-suuji
-                    (cond ((eq len 2) 'ju) ; $B==(B
-                          ((eq len 3) 'hyaku) ; $BI4(B
-                          (t 'sen)) ; $B@i(B
+                    (cond ((eq len 2) 'ju) ; 十
+                          ((eq len 3) 'hyaku) ; 百
+                          (t 'sen)) ; 千
                     alist))))))
         (setq len (1- len) num (cdr num))))
      (t
@@ -314,10 +314,10 @@ TYPE $B$O2<5-$NDL$j!#(B
           (setq v1 (skk-num-to-kanji num1 type alist))
           (when (string= v1 (skk-num-get-suuji ?0 alist))
             (setq v1 ""))
-          (when (and (eq type 'type3) (eq i 1) (equal v1 "$B@i(B"))
-            ;; $BF|K\8l$G$O!V@i2/!W$H$$$&I=8=$O$H$-$K;H$o$l$k$,!"!V@iK|!W$H$$$&I=(B
-            ;; $B8=$O$^$:;H$o$l$J$$$N$G!"!V0l@iK|!W$KD>$9!#(B
-            (setq v1 (concat "$B0l(B" v1)))
+          (when (and (eq type 'type3) (eq i 1) (equal v1 "千"))
+            ;; 日本語では「千億」という表現はときに使われるが、「千万」という表
+            ;; 現はまず使われないので、「一千万」に直す。
+            (setq v1 (concat "一" v1)))
           (setq
            v
            (concat
@@ -325,10 +325,10 @@ TYPE $B$O2<5-$NDL$j!#(B
             (when v1
               (skk-num-get-suuji
                (cond ((eq i 0) ?\ )
-                     ((eq i 1) 'man) ; $BK|(B
-                     ((eq i 2) 'oku) ; $B2/(B
-                     ((eq i 3) 'cho) ; $BC{(B
-                     ((eq i 4) 'kei)) ; $B5~(B
+                     ((eq i 1) 'man) ; 万
+                     ((eq i 2) 'oku) ; 億
+                     ((eq i 3) 'cho) ; 兆
+                     ((eq i 4) 'kei)) ; 京
                alist))
             v)))
         (setq i (1+ i)))))
@@ -338,7 +338,7 @@ TYPE $B$O2<5-$NDL$j!#(B
 
 (defun add-number-grouping (number &optional separator places)
   ;; http://www.emacswiki.org/cgi-bin/wiki/AddCommasToNumbers
-  ;; and $B6LLn7r0l(B <suzu@a7m3.jp>
+  ;; and 玉野健一 <suzu@a7m3.jp>
   "Add commas to NUMBER and return it as a string.
     Optional SEPARATOR is the string to use to separate groups.
     It defaults to a comma.
@@ -359,17 +359,17 @@ TYPE $B$O2<5-$NDL$j!#(B
     num))
 
 (defun skk-num-grouping (num)
-  "ascii $B?t;z$N(B NUM $B$r7e6h@Z$j$XJQ49$7!"JQ498e$NJ8;zNs$rJV$9!#(B
-$BNc$($P(B \"1234567\" $B$r(B \"1,234,567\" $B$XJQ49$9$k!#(B
-$B6h@Z$k5-9f$O(B `skk-num-grouping-separator' $B$G!"6h@Z$k7e?t$O(B `skk-num-grouping-places' $B$G;XDj$9$k!#(B"
+  "ascii 数字の NUM を桁区切りへ変換し、変換後の文字列を返す。
+例えば \"1234567\" を \"1,234,567\" へ変換する。
+区切る記号は `skk-num-grouping-separator' で、区切る桁数は `skk-num-grouping-places' で指定する。"
   (add-number-grouping (string-to-number num)     ; number
                        skk-num-grouping-separator ; `,'
                        skk-num-grouping-places    ; 3
                        ))
 
 (defun skk-num-shogi (num)
-  "ascii $B?t;z$N(B NUM $B$r>-4}$G;HMQ$5$l$k?t;zI=5-$KJQ49$9$k!#(B
-$BNc$($P(B \"34\" $B$r(B \"$B#3;M(B\" $B$KJQ49$9$k!#(B"
+  "ascii 数字の NUM を将棋で使用される数字表記に変換する。
+例えば \"34\" を \"３四\" に変換する。"
   (save-match-data
     (when (and (= (length num) 2)
                (skk-num-int-p num))
@@ -380,26 +380,26 @@ TYPE $B$O2<5-$NDL$j!#(B
           candidate)))))
 
 (defun skk-num-recompute (num)
-  "#4 $B$N8+=P$7$KBP$7(B `skk-henkan-key' $B$KBeF~$5$l$??t;z$=$N$b$N$r:FEY8!:w$9$k!#(B"
+  "#4 の見出しに対し `skk-henkan-key' に代入された数字そのものを再度検索する。"
   (let (result)
     (setq skk-num-recompute-key num)
     (with-temp-buffer
-      ;; $B%+%l%s%H%P%C%U%!$N%P%C%U%!%m!<%+%kJQ?t$K1F6A$r5Z$\$5$J$$$h$&!"(B
-      ;; $B%o!<%-%s%0%P%C%U%!$X0lC6F($2$k(B
+      ;; カレントバッファのバッファローカル変数に影響を及ぼさないよう、
+      ;; ワーキングバッファへ一旦逃げる
       (let ((skk-current-search-prog-list skk-search-prog-list)
             (skk-henkan-key num)
-            ;; $B%+%l%s%H$NJQ49$OAw$j$J$7(B (skk-henkan-okurigana $B$H(B
-            ;; skk-okuri-char $B$O$$$:$l$b(B nil) $B$@$,!"JL%P%C%U%!(B
-            ;;  (work $B%P%C%U%!(B) $B$KF~$C$F$$$k$N$G!"G0$N$?$a!"(Bnil $B$r(B
-            ;; $BF~$l$F$*$/!#(B
+            ;; カレントの変換は送りなし (skk-henkan-okurigana と
+            ;; skk-okuri-char はいずれも nil) だが、別バッファ
+            ;;  (work バッファ) に入っているので、念のため、nil を
+            ;; 入れておく。
             skk-henkan-okurigana skk-okuri-char skk-use-numeric-conversion)
         (while skk-current-search-prog-list
           (setq result (skk-nunion result (skk-search))))))
-    ;; $B$3$3$G(B temp-buffer $B$r=P$FJQ49$r9T$C$F$$$k%+%l%s%H%P%C%U%!$KLa$k(B
-    ;; ($B%P%C%U%!%m!<%+%kCM$G$"$k(B skk-henkan-list $B$rA`:n$7$?$$$?$a(B)$B!#(B
+    ;; ここで temp-buffer を出て変換を行っているカレントバッファに戻る
+    ;; (バッファローカル値である skk-henkan-list を操作したいため)。
     (cond
      ((not result)
-      ;; $BJQ49$G$-$J$+$C$?$i85$N?t;z$r$=$N$^$^JV$7$F$*$/!#(B
+      ;; 変換できなかったら元の数字をそのまま返しておく。
       num)
      ((null (cdr result));;(= (length result) 1)
       (car result))
@@ -414,7 +414,7 @@ TYPE $B$O2<5-$NDL$j!#(B
       (let ((n1 -1)
             n2
             e1 e2 e3
-            ;; 1 $B$D$G$b(B 2 $B7e0J>e$N?t;z$,$"$l$P!"(B#2 $B$H(B #3 $B$G$O(B uniq $B$7$J$$!#(B
+            ;; 1 つでも 2 桁以上の数字があれば、#2 と #3 では uniq しない。
             (type2and3 (> 2 (apply 'max (mapcar 'length skk-num-list))))
             type2 type3
             index2 index3
@@ -422,26 +422,26 @@ TYPE $B$O2<5-$NDL$j!#(B
             tail2 tail3
             case-fold-search)
         (while (setq n1 (1+ n1) e1 (nth n1 skk-henkan-list))
-          ;; cons cell $B$G$J$1$l$P(B skk-nunion $B$G=hM}:Q$_$J$N$G!"=EJ#$O$J$$!#(B
+          ;; cons cell でなければ skk-nunion で処理済みなので、重複はない。
           (when (consp e1)
             (setq skk-henkan-list (delete (car e1) skk-henkan-list)
                   skk-henkan-list (delete (cdr e1) skk-henkan-list)))
           (when (and skk-num-recompute-key (consp e1))
-            ;; ("#4" . "xxx") $B$r4^$`8uJd$,(B skk-henkan-list $B$NCf$K$"$k!#(B
+            ;; ("#4" . "xxx") を含む候補が skk-henkan-list の中にある。
             (setq n2 -1)
             (while (setq n2 (1+ n2) e2 (nth n2 skk-henkan-list))
               (when (and (not (= n1 n2)) (consp e2)
-                         ;; $BNc$($P(B ("#4" . "$B0l(B") $B$H(B ("#2" . "$B0l(B") $B$,(B
-                         ;; $BJBB8$7$F$$$k>l9g!#(B
+                         ;; 例えば ("#4" . "一") と ("#2" . "一") が
+                         ;; 並存している場合。
                          (string= (cdr e1) (cdr e2)))
                 (setq skk-henkan-list (delq e2 skk-henkan-list)))))
           (when type2and3
-            ;; 1 $B7e$N?t;z$rJQ49$9$k:]$K!"(Bskk-henkan-list $B$K(B #2 $B%(%s%H%j$H(B #3
-            ;; $B%(%s%H%j$,$"$l$P!"(B#2 $B$b$7$/$O(B #3 $B%(%s%H%j$N$&$A!"$h$j8eJ}$K$"$k(B
-            ;; $B$b$N$r>C$9!#(B
+            ;; 1 桁の数字を変換する際に、skk-henkan-list に #2 エントリと #3
+            ;; エントリがあれば、#2 もしくは #3 エントリのうち、より後方にある
+            ;; ものを消す。
             (setq e3 (if (consp e1) (car e1) e1))
-            ;; e3 $B$O(B "#2" $B$N$h$&$K?tCMJQ49$r<($9J8;zNs$N$_$H$O8B$i$J$$$N$G!"(B
-            ;; member $B$O;H$($J$$!#(B
+            ;; e3 は "#2" のように数値変換を示す文字列のみとは限らないので、
+            ;; member は使えない。
             (cond ((string-match "#2" e3)
                    (setq type2 e1
                          index2 n1
@@ -453,34 +453,34 @@ TYPE $B$O2<5-$NDL$j!#(B
                          head3 (substring e3 0 (match-beginning 0))
                          tail3 (substring e3 (match-end 0)))))))
         (when (and type2and3 type2 type3
-                   ;; $B?tCMJQ49$r<($9J8;zNs(B "#[23]" $B$NA08e$NJ8;zNs$bF10l$N$H(B
-                   ;; $B$-$N$_(B uniq $B$r9T$&!#(B
+                   ;; 数値変換を示す文字列 "#[23]" の前後の文字列も同一のと
+                   ;; きのみ uniq を行う。
                    (string= head2 head3) (string= tail2 tail3))
           (if (> index2 index3)
-              ;; "#3" $B$NJ}$,A0$K$"$k!#(B
+              ;; "#3" の方が前にある。
               (setq skk-henkan-list (delq type2 skk-henkan-list))
-            ;; $BJQ?t(B type[23] $B$NCM$O!"(Bskk-henkan-list $B$+$iD>@\Cj=P$7$?$b(B
-            ;; $B$N$@$+$i(B delete $B$G$J$/!"(Bdelq $B$G==J,!#(B
+            ;; 変数 type[23] の値は、skk-henkan-list から直接抽出したも
+            ;; のだから delete でなく、delq で十分。
             (setq skk-henkan-list (delq type3 skk-henkan-list))))))))
 
 ;;;###autoload
 (defun skk-num-initialize ()
-  "`skk-use-numeric-conversion' $B4XO"$NJQ?t$r=i4|2=$9$k!#(B"
+  "`skk-use-numeric-conversion' 関連の変数を初期化する。"
   (setq skk-last-henkan-data (skk-put-alist 'num-list skk-num-list skk-last-henkan-data)
         skk-num-list nil
         skk-num-recompute-key nil))
 
 ;;;###autoload
 (defun skk-num-henkan-key ()
-  "$BE,@Z$JJQ49%-!<$rJV$9!#(B
-type4 $B$N?tCM:FJQ49$,9T$o$l$?$H$-$O!"?tCM<+?H$rJV$7!"$=$l0J30$N?tCMJQ49(B
-$B$G$O!"(B`skk-henkan-key' $B$N?tCM$r(B \"#\" $B$GCV$-49$($?%-!<$rJV$9!#(B"
+  "適切な変換キーを返す。
+type4 の数値再変換が行われたときは、数値自身を返し、それ以外の数値変換
+では、`skk-henkan-key' の数値を \"#\" で置き換えたキーを返す。"
   (or skk-num-recompute-key
       (skk-num-compute-henkan-key skk-henkan-key)))
 
 ;;;###autoload
 (defun skk-num-update-jisyo (noconvword word &optional purge)
-  "$B?t;z<+?H$r8+=P$78l$H$7$F<-=q$r%"%C%W%G!<%H$9$k!#(B"
+  "数字自身を見出し語として辞書をアップデートする。"
   (when (and skk-num-recompute-key
              (save-match-data (string-match "#4" noconvword)))
     (with-current-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg)
@@ -491,8 +491,8 @@ type4 $B$N?tCM:FJQ49$,9T$o$l$?$H$-$O!"?tCM<+?H$rJV$7!"$=$l0J30$N?tCMJQ49(B
 
 ;;;###autoload
 (defun skk-num (str)
-  "$B?t;z$r(B `skk-number-style' $B$NCM$K=>$$JQ49$9$k!#(B
-`skk-current-date' $B$N%5%V%k!<%A%s!#(B"
+  "数字を `skk-number-style' の値に従い変換する。
+`skk-current-date' のサブルーチン。"
   (mapconcat (lambda (c)
                (cond
                 ((or (< ?9 c) (< c 0))

@@ -35,11 +35,11 @@
 ;; At Mon, 23 Aug 1999 01:13:34 +0900,
 ;; Hajime Ohiwa <ohiwa@sfc.keio.ac.jp> wrote:
 
-;; > $B;d$O!V$F$#!<$f!<$F$#!<$3!<$I!W$HFI$s$G$$$^$9$,!"$b$&>/$78@$$0W$$J}$,(B
-;; > $B$h$$$H;W$$$^$9!#(BTUT$B$O$3$l$r3+H/$7$?K-665;=Q2J3XBg3X$NN,>N$G$9!#(B
-;; > $BJF9q?M$K8+$;$?$i!"!V$?$C$H!W$HFI$_$^$7$?!#$D$?$s$+!<$a$s2&$N$3$H$r1Q8l(B
-;; > $B$G$O(B king TUT $B$H8F$S!"H/2;$O!V$?$C$H!W$J$N$@$=$&$G$9!#!V$?$C$H$3!<$I!W(B
-;; > $B$NJ}$,$h$$$+$b$7$l$^$;$s!#8f0U8+$r$*J9$+$;2<$5$$!#(B
+;; > 私は「てぃーゆーてぃーこーど」と読んでいますが、もう少し言い易い方が
+;; > よいと思います。TUTはこれを開発した豊橋技術科学大学の略称です。
+;; > 米国人に見せたら、「たっと」と読みました。つたんかーめん王のことを英語
+;; > では king TUT と呼び、発音は「たっと」なのだそうです。「たっとこーど」
+;; > の方がよいかもしれません。御意見をお聞かせ下さい。
 
 ;; To get more information, access following URL;
 ;;    http://www.crew.sfc.keio.ac.jp/~chk/
@@ -81,7 +81,7 @@
 ;; `skk-tutcode-'.
 ;;;###autoload
 (defcustom skk-tutcode-use-touch16+ nil
-  "*Non-nil $B$G$"$l$P!"(BTouch16+ $B3HD%%3!<%I$rMxMQ$9$k!#(B"
+  "*Non-nil であれば、Touch16+ 拡張コードを利用する。"
   :type 'boolean
   :group 'skk-tutcode)
 
@@ -93,16 +93,16 @@
 ;;;###autoload
 (defun skk-tutcode-display-code (&optional arg)
   ;; adapted from skk-kcode.el
-  "$B%]%$%s%H$K$"$kJ8;z$N(B EUC $B%3!<%I!"(BJIS $B%3!<%I!"(BTUT $B%3!<%I$rI=<($9$k!#(B"
+  "ポイントにある文字の EUC コード、JIS コード、TUT コードを表示する。"
   (interactive "P")
   (if (eobp)
-      (skk-error "$B%+!<%=%k$,%P%C%U%!$N=*C<$K$"$j$^$9(B"
+      (skk-error "カーソルがバッファの終端にあります"
                  "Cursor is at the end of the buffer")
     (skk-tutcode-display-code-1
      (buffer-substring-no-properties
       (point)
       (skk-save-point (forward-char 1) (point))))
-    ;; $B%(%3!<$7$?J8;zNs$r%+%l%s%H%P%C%U%!$KA^F~$7$J$$$h$&$K!#(B
+    ;; エコーした文字列をカレントバッファに挿入しないように。
     t))
 
 (defun skk-tutcode-display-code-1 (str)
@@ -125,14 +125,14 @@
              (char2-e (+ char2-j 128))
              (char3 (skk-tutcode-get-code str)))
         (message
-         "$B!X(B%s$B!Y(B  EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d), KUTEN: (%2d, %2d), TUT: `%s'"
+         "『%s』  EUC: %2x%2x (%3d, %3d), JIS: %2x%2x (%3d, %3d), KUTEN: (%2d, %2d), TUT: `%s'"
          str char1-e char2-e char1-e char2-e
          char1-j char2-j char1-j char2-j char1-k char2-k char3)))
      ((memq charset '(ascii latin-jisx0201))
       (message "\"%s\"  %2x (%3d)"
                str (skk-char-octet char 0)  (skk-char-octet char 0)))
      (t
-      (skk-error "$BH=JL$G$-$J$$J8;z$G$9(B"
+      (skk-error "判別できない文字です"
                  "Cannot understand this character")))))
 
 ;; some new stuff

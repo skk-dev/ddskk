@@ -21,49 +21,49 @@
 
 ;;; Commentary:
 
-;; $B$3$l$O"&%b!<%I$H"'%b!<%I$GFI$_$N@Q=89g(B ($B$_$?$$$J$b$N(B) $B$r<h$k$3$H$K(B
-;; $B$h$C$F8uJd$r9J$j9~$`%W%m%0%i%`$G$9!#(B
+;; これは▽モードと▼モードで読みの積集合 (みたいなもの) を取ることに
+;; よって候補を絞り込むプログラムです。
 
-;; $B%$%s%9%H!<%k$O(B ~/.skk $B$K0J2<$r5-F~$7$^$9!#(B
+;; インストールは ~/.skk に以下を記入します。
 
 ;; (require 'skk-hint)
 
-;; $BNc$($P!""&$+$s$I$&(B $B$H$J$C$F$$$k$H$-$K!"(B; michi SPC $B$HF~NO$9$k$H!"(B
-;; $B"'4VF;$H$$$&>uBV$K$J$j$^$9!#(B
+;; 例えば、▽かんどう となっているときに、; michi SPC と入力すると、
+;; ▼間道という状態になります。
 
-;; $B87L)$K@Q=89g$r<h$C$F$$$k$o$1$G$O$J$/!""&$+$s$I$&(B $B$G(B ; doubutsu SPC
-;; $B$HF~NO$9$k$H"'46F0$H$$$&>uBV$K$J$j$^$9!#(B
+;; 厳密に積集合を取っているわけではなく、▽かんどう で ; doubutsu SPC
+;; と入力すると▼感動という状態になります。
 
-;; $B$D$^$j!"DL>o$NJQ498uJd$N$J$+$G!"%R%s%H$H$7$FM?$($i$l$?FI$_$r4^$s$@(B
-;; $B4A;z$r;}$D$b$N$K8uJd$r9J$j$^$9!#(B
+;; つまり、通常の変換候補のなかで、ヒントとして与えられた読みを含んだ
+;; 漢字を持つものに候補を絞ります。
 
 ;; -- Tips --
 
-;; skk-hint.el $B$OC14A;z$N8uJd$,$?$/$5$s$"$k>l9g$K!"$=$3$+$i8uJd$r9J$j(B
-;; $B$3$`<jCJ$H$7$FHs>o$KM-8z$G$9!#Nc$($P(B
+;; skk-hint.el は単漢字の候補がたくさんある場合に、そこから候補を絞り
+;; こむ手段として非常に有効です。例えば
 
-;;   $B"&$+(B
+;;   ▽か
 
-;; $B$rJQ49$9$k$H!"2c!"2=!"2D!"2<!"F|!"(B...$B$H2L$F$7$J$/8uJd$,=P$F$-$^$9!#(B
-;; $B$3$NCf$+$i!V2_!W$r$H$/$K=P$7$?$$$H$7$^$9!#IaDL$KJQ49$7$F$b$=$N$&$A(B
-;; $B=P$F$-$^$9$,$3$l$r(B
+;; を変換すると、蚊、化、可、下、日、...と果てしなく候補が出てきます。
+;; この中から「貨」をとくに出したいとします。普通に変換してもそのうち
+;; 出てきますがこれを
 
-;;   $B"&$+(B;kahei
+;;   ▽か;kahei
 
-;; $B$N$h$&$KF~NO$7$F$+$i(B SPC $B$r2!$7$FJQ49$r3+;O$9$k$H!"!V$+$X$$!W$N8uJd(B
-;; $B$G$"$k!V2_J>!W$K4^$^$l$k(B
+;; のように入力してから SPC を押して変換を開始すると、「かへい」の候補
+;; である「貨幣」に含まれる
 
-;;   $B"'2_(B
+;;   ▼貨
 
-;; $B$,>e0L$K8=$l$^$9!#(B
+;; が上位に現れます。
 
 ;;; Code:
 
 (require 'skk)
 
 (defadvice skk-search (around skk-hint-ad activate)
-  ;; skk-current-search-prog-list $B$NMWAG$K$J$C$F$$$k%W%m%0%i%`$rI>2A$7$F!"(B
-  ;; skk-henkan-key $B$r%-!<$K$7$F8!:w$r9T$&!#(B
+  ;; skk-current-search-prog-list の要素になっているプログラムを評価して、
+  ;; skk-henkan-key をキーにして検索を行う。
   (if (null skk-hint-henkan-hint)
       ad-do-it
     (let (l kouho hint)
@@ -102,7 +102,7 @@
                    (list (concat henkan-key skk-hint-okuri-char)
                          okurigana skk-hint-okuri-char)))))
         (t
-         (skk-error "$BM=4|$7$J$$>uBV$G(B %s $B$,8F$P$l$^$7$?(B"
+         (skk-error "予期しない状態で %s が呼ばれました"
                     "%s is called from unexpected place"
                     "skk-hint-setup-hint")))
   (setq skk-hint-inhibit-kakutei nil))
@@ -187,7 +187,7 @@
           skk-hint-inhibit-kakutei nil)))
 
 (defun skk-hint-member (char kouho)
-  ;; $BJ8;zNs$N%j%9%H(B KOUHO $B$NCf$KJ8;z(B CHAR $B$r4^$`$b$N$,$"$l$P!"$=$NJ8;zNs$rJV$9(B
+  ;; 文字列のリスト KOUHO の中に文字 CHAR を含むものがあれば、その文字列を返す
   (catch 'found
     (dolist (word kouho)
       (let ((length (length word)))
@@ -196,8 +196,8 @@
               (throw 'found word)))))))
 
 (defun skk-hint-limit (kouho hint)
-  ;; $BJQ498uJd(B KOUHO $B$r!"J8;zNs$N%j%9%H(B HINT $B$NCf$N$I$l$+$NJ8;z$,(B
-  ;; $B4^$^$l$F$$$k$b$N$N$_$K@)8B$9$k!#(B
+  ;; 変換候補 KOUHO を、文字列のリスト HINT の中のどれかの文字が
+  ;; 含まれているもののみに制限する。
   (let ((kouho (copy-sequence kouho))
         result)
     (dolist (string hint)

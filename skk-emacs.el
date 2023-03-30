@@ -87,40 +87,40 @@
       ["Visit Web Site" skk-emacs-visit-website t])))
 
 (defvar skk-emacs-menu-resource-ja
-  '(("Daredevil SKK Menu" . "Daredevil SKK $B%a%K%e!<(B")
-    ("Convert Region and Echo" . "$BNN0h$rJQ49$7$F%_%K%P%C%U%!$KI=<((B")
-    ("Gyakubiki" . "$B5U0z$-(B")
-    ("to Hiragana" . "$B$R$i$,$J$KJQ49(B")
-    ("to Hiragana, All Candidates" . "$B$R$i$,$J$KJQ49!"A4$F$N8uJd$rI=<((B")
-    ("to Katakana" . "$B%+%?%+%J$KJQ49(B")
-    ("to Katakana, All Candidates" . "$B%+%?%+%J$KJQ49!"A4$F$N8uJd$rI=<((B")
-    ("Hurigana" . "$B$U$j$,$J(B")
-    ("Convert Region and Replace" . "$BNN0h$rJQ49$7$FCV$-49$($k(B")
-    ("Hiragana" . "$B$R$i$,$J(B")
-    ("Katakana" . "$B%+%?%+%J(B")
-    ("Hiragana to Katakana" . "$B$R$i$,$J$r%+%?%+%J$KJQ49(B")
-    ("Katakana to Hiragana" . "$B%+%?%+%J$r$R$i$,$J$KJQ49(B")
-    ("Kana and Zenkaku to Romaji" . "$B$+$J!&%+%J!&A43Q$r%m!<%^;z$KJQ49(B")
-    ("Ascii to Zenkaku" . "ASCII $B$rA43Q1Q?t$KJQ49(B")
-    ("Zenkaku to Ascii" . "$BA43Q1Q?t$r(B ASCII $B$KJQ49(B")
-    ("Count Jisyo Candidates" . "$B<-=qCf$N8uJd?t$r?t$($k(B")
-    ("Save Jisyo" . "$B<-=q$rJ]B8$9$k(B")
-    ("Undo Kakutei" . "$B3NDj$r<h$j>C$9(B ($B%"%s%I%%(B)")
-    ("Restart SKK" . "SKK $B$N:F5/F0(B")
-    ("Version" . "SKK $B$N%P!<%8%g%s(B")
-    ("Daredevil SKK Menu" . "Daredevil SKK $B%a%K%e!<(B")
-    ("Hankaku alphabet" . "$BH>3Q1Q?t(B")
-    ("Zenkaku alphabet" . "$BA43Q1Q?t(B")
-    ("Read Manual" . "$B%^%K%e%"%k$rFI$`(B")
-    ("Start Tutorial" . "$B%A%e!<%H%j%"%k(B")
-    ("Customize SKK" . "SKK $B$r%+%9%?%^%$%:(B")
-    ("Customize SKK (simple)" . "SKK $B$r%+%9%?%^%$%:(B ($B4J0WHG(B)")
-    ("Find kanji by radicals" . "$B4A;z$rIt<s$+$iD4$Y$k(B")
-    ("Show list of characters" . "$BJ8;z%3!<%II=(B")
-    ("SKK Clock" . "SKK $B;~7W(B")
-    ("Lookup word in region or at point" . "$BNN0h$^$?$O%]%$%s%H$N8l6g$rD4$Y$k(B")
-    ("About Daredevil SKK.." . "Daredevil SKK $B$K$D$$$F(B..")
-    ("Visit Web Site" . "SKK $B$N%5%$%H$X(B")))
+  '(("Daredevil SKK Menu" . "Daredevil SKK メニュー")
+    ("Convert Region and Echo" . "領域を変換してミニバッファに表示")
+    ("Gyakubiki" . "逆引き")
+    ("to Hiragana" . "ひらがなに変換")
+    ("to Hiragana, All Candidates" . "ひらがなに変換、全ての候補を表示")
+    ("to Katakana" . "カタカナに変換")
+    ("to Katakana, All Candidates" . "カタカナに変換、全ての候補を表示")
+    ("Hurigana" . "ふりがな")
+    ("Convert Region and Replace" . "領域を変換して置き換える")
+    ("Hiragana" . "ひらがな")
+    ("Katakana" . "カタカナ")
+    ("Hiragana to Katakana" . "ひらがなをカタカナに変換")
+    ("Katakana to Hiragana" . "カタカナをひらがなに変換")
+    ("Kana and Zenkaku to Romaji" . "かな・カナ・全角をローマ字に変換")
+    ("Ascii to Zenkaku" . "ASCII を全角英数に変換")
+    ("Zenkaku to Ascii" . "全角英数を ASCII に変換")
+    ("Count Jisyo Candidates" . "辞書中の候補数を数える")
+    ("Save Jisyo" . "辞書を保存する")
+    ("Undo Kakutei" . "確定を取り消す (アンドゥ)")
+    ("Restart SKK" . "SKK の再起動")
+    ("Version" . "SKK のバージョン")
+    ("Daredevil SKK Menu" . "Daredevil SKK メニュー")
+    ("Hankaku alphabet" . "半角英数")
+    ("Zenkaku alphabet" . "全角英数")
+    ("Read Manual" . "マニュアルを読む")
+    ("Start Tutorial" . "チュートリアル")
+    ("Customize SKK" . "SKK をカスタマイズ")
+    ("Customize SKK (simple)" . "SKK をカスタマイズ (簡易版)")
+    ("Find kanji by radicals" . "漢字を部首から調べる")
+    ("Show list of characters" . "文字コード表")
+    ("SKK Clock" . "SKK 時計")
+    ("Lookup word in region or at point" . "領域またはポイントの語句を調べる")
+    ("About Daredevil SKK.." . "Daredevil SKK について..")
+    ("Visit Web Site" . "SKK のサイトへ")))
 
 (defvar skk-emacs-max-tooltip-size '(80 . 40)
   "Not used if `x-max-tooltip-size' is bound.")
@@ -330,8 +330,8 @@
              (setq cons (assoc (car list) skk-emacs-menu-resource-ja)))
         (setcar list (if (and running-ntemacs
                               (member (car list) workaround))
-                         ;; NTEmacs $B$G(B Widget $BIU$-%a%K%e!<%"%$%F%`$N(B
-                         ;; $BF|K\8l$,$&$^$/I=<($G$-$J$$LdBj$X$NBP:v(B
+                         ;; NTEmacs で Widget 付きメニューアイテムの
+                         ;; 日本語がうまく表示できない問題への対策
                          ;; (NTEmacs 22.1, 23.1)
                          (encode-coding-string (cdr cons) 'shift_jis)
                        (cdr cons))))
@@ -339,8 +339,8 @@
              (setq cons (assoc (aref (car list) 0) skk-emacs-menu-resource-ja)))
         (aset (car list) 0 (if (and running-ntemacs
                                     (member (aref (car list) 0) workaround))
-                               ;; NTEmacs $B$G(B Widget $BIU$-%a%K%e!<%"%$%F%`$N(B
-                               ;; $BF|K\8l$,$&$^$/I=<($G$-$J$$LdBj$X$NBP:v(B
+                               ;; NTEmacs で Widget 付きメニューアイテムの
+                               ;; 日本語がうまく表示できない問題への対策
                                ;; (NTEmacs 22.1, 23.1)
                                (encode-coding-string (cdr cons) 'shift_jis)
                              (cdr cons)))))
@@ -349,9 +349,9 @@
 ;;@@ Tooltip related functions.
 
 (defun skk-emacs-mouse-position ()
-  "$B%]%$%s%H$N0LCV$r(B (FRAME X . Y) $B$N7A$GJV$9!#(B
-$B$3$l$O(B `mouse-avoidance-point-position' $B$H$[$\F1$8$@$,!"(BSKK $B"'%b!<%I$N$H$-$O(B
-$B"'$N%]%$%s%H$rJV$9!#(B"
+  "ポイントの位置を (FRAME X . Y) の形で返す。
+これは `mouse-avoidance-point-position' とほぼ同じだが、SKK ▼モードのときは
+▼のポイントを返す。"
   (let* ((w (if skk-isearch-switch
                 (minibuffer-window)
               (selected-window)))
@@ -380,14 +380,14 @@
   (if (boundp 'x-max-tooltip-size)
       (symbol-value 'x-max-tooltip-size)
     ;; Workaround.
-    ;; Cocoa Emacs 23.2 $B$G(B x-max-tooltip-size $B$,Dj5A$5$l$F$$$J$$$N$r3NG'(B
+    ;; Cocoa Emacs 23.2 で x-max-tooltip-size が定義されていないのを確認
     skk-emacs-max-tooltip-size))
 
 (defun skk-tooltip-resize-text (text)
   (let ((lines 0)
-        (max-lines (- (/ (/ (display-pixel-height) 2) ;$B%G%#%9%W%l%$$NH>J,(B (ex.512)
-                         (frame-char-height)) ;$B$N9T?t(B(ex.16) => 32
-                      2))       ;$B4p=`$H$9$k:GBg9b(B => 16
+        (max-lines (- (/ (/ (display-pixel-height) 2) ;ディスプレイの半分 (ex.512)
+                         (frame-char-height)) ;の行数(ex.16) => 32
+                      2))       ;基準とする最大高 => 16
         (max-columns (- (car (skk-tooltip-max-tooltip-size)) 2)) ;ex.78
         (columns 0)
         current-column indent)
@@ -402,9 +402,9 @@
       (goto-char (point-min))
       (while (not (eobp))
         (setq lines (1+ lines))
-        (cond ((= lines max-lines)  ;$BD9$9$.$k(B
+        (cond ((= lines max-lines)  ;長すぎる
                (beginning-of-line)
-               (insert "($BD9$9$.$k$N$G>JN,$5$l$^$7$?(B)")
+               (insert "(長すぎるので省略されました)")
                (delete-region (point) (point-max))
                (goto-char (point-max)))
               ;;
@@ -432,7 +432,7 @@
     (cons text (cons columns lines))))
 
 (defun skk-tooltip-show-at-point (text &optional situation)
-  "TEXT $B$r(B tooltip $B$GI=<($9$k!#(B"
+  "TEXT を tooltip で表示する。"
   (require 'tooltip)
 
   (and (null (eq situation 'annotation))
@@ -471,7 +471,7 @@
       (set-mouse-position (selected-frame)
                           (car avoid-destination)
                           ;; XXX pending
-                          ;; $B%^%&%9%]%$%s%?$O$I$3$X$$$/$Y$-$+(B
+                          ;; マウスポインタはどこへいくべきか
                           ;; (cdr avoid-destination)
                           0))
     ;;
@@ -480,7 +480,7 @@
       (setq tooltip-info (skk-tooltip-resize-text text)
             text (car tooltip-info)))
      (t
-      ;; $B%^%&%9%]%$%s%?$K0MB8$;$:(B tooptip $B$N0LCV$r7hDj$9$k!#(B
+      ;; マウスポインタに依存せず tooptip の位置を決定する。
       (setq win (if skk-isearch-switch
                     (minibuffer-window)
                   (selected-window))
@@ -518,16 +518,16 @@
                                                        'internal-border-width)
                                       0)
 
-            ;; $B0J2<(B left $B$H(B top $B$O!"(BX Window System $B2<$G$O2hLLA4BN$NCf$G$N:BI8$r(B
-            ;; $B;XDj$9$k!#(B Apple OS X $B$K$*$$$F$b!"(BCarbon Emacs 22.3 $B$G$OF1MM$@$,(B
-            ;; Cocoa Emacs 23.2 $B$G$O(B Emacs $B%U%l!<%`Fb$G$N:BI8$r;XDj$9$kI,MW$,$"$k!#(B
+            ;; 以下 left と top は、X Window System 下では画面全体の中での座標を
+            ;; 指定する。 Apple OS X においても、Carbon Emacs 22.3 では同様だが
+            ;; Cocoa Emacs 23.2 では Emacs フレーム内での座標を指定する必要がある。
 
-            ;; x $B:BI8(B ($B:8$+$i$N(B)
+            ;; x 座標 (左からの)
             left (+ (car tip-destination)
                     (nth 0 (window-inside-pixel-edges win))
                     (eval (frame-parameter (selected-frame) 'left))
                     skk-tooltip-x-offset)
-            ;; y $B:BI8(B ($B>e$+$i$N(B)
+            ;; y 座標 (上からの)
             top  (+ (cdr tip-destination)
                     (nth 1 (window-inside-pixel-edges win))
                     (+ (if tool-bar-mode
@@ -552,28 +552,28 @@
             screen-height (display-pixel-height))
       ;;
       (when (> (+ left text-width) screen-width)
-        ;; $B1&$K4s$j$9$.$F7g$1$F$7$^$o$J$$$h$&$K(B
+        ;; 右に寄りすぎて欠けてしまわないように
         (setq left (- left (- (+ left text-width
-                                 ;; $B>/$7M>7W$K:8$K4s$;$J$$$H(B avoid
-                                 ;; $B$7$?%^%&%9%]%$%s%?$H43>D$9$k(B
+                                 ;; 少し余計に左に寄せないと avoid
+                                 ;; したマウスポインタと干渉する
                                  (* 2 fontsize))
                               screen-width))))
       (when (> (+ top text-height) screen-height)
-        ;; $B2<$K4s$j$9$.$F7g$1$F$7$^$o$J$$$h$&$K(B
+        ;; 下に寄りすぎて欠けてしまわないように
         (setq top (- top
-                     ;; $B==J,>e$2$J$$$H%F%-%9%H$H=E$J$k$N$G!"(B
-                     ;; $B$$$C$=%F%-%9%H$N>e$K$7$F$_$k(B
+                     ;; 十分上げないとテキストと重なるので、
+                     ;; いっそテキストの上にしてみる
                      text-height (* 2 (+ fontsize spacing))))
-        ;; $B$5$i$K(B X $B:BI8$r(B...
+        ;; さらに X 座標を...
         (let ((right (+ left
                         text-width
                         skk-tooltip-x-offset))
               (mouse-x (+ (frame-parameter (selected-frame) 'left)
                           (* (frame-pixel-width)))))
           (when (and (<= left mouse-x) (<= mouse-x right))
-            ;; $B%^%&%9%]%$%s%?$HHo$j$=$&$J$H$-(B
+            ;; マウスポインタと被りそうなとき
             (setq left (- left (- right mouse-x) fontsize)))))))
-    ;; END **$B%^%&%9%]%$%s%?$K0MB8$;$:(B tooptip $B$N0LCV$r7hDj$9$k(B**
+    ;; END **マウスポインタに依存せず tooptip の位置を決定する**
     ;;
     (setq parameters (if (eq skk-tooltip-mouse-behavior 'follow)
                          skk-tooltip-parameters
@@ -597,13 +597,13 @@
                       (car oP))
              (mouse-avoidance-set-mouse-position oP))
            (setq skk-henkan-count 0)
-           (cond ((eq skk-henkan-mode 'active) ; $B"'%b!<%I(B
+           (cond ((eq skk-henkan-mode 'active) ; ▼モード
                   (skk-unread-event
                    (aref (car (where-is-internal 'skk-previous-candidate
                                                  skk-j-mode-map))
                          0))
                   (when (eq situation 'listing)
-                    (throw 'unread nil))) ; skk-henkan $B$^$G0l5$$K(B throw $B$9$k!#(B
+                    (throw 'unread nil))) ; skk-henkan まで一気に throw する。
                  (t
                   (skk-unread-event event))))
 
@@ -615,18 +615,18 @@
            (skk-unread-event event)))))
 
 (defun skk-tooltip-show-1 (text skk-params)
-  "TEXT $B$r(B tooltip $B$GI=<($9$k!#(B
-SKK-PARAMS $B$O(B `skk-tooltip-parameters' $BKt$O(B `tooltip-frame-parameters' $B$N$$$:$l$+!#(B
-TEXT $B$K$O(B `skk-tooltip-face' $B$,E,MQ$5$l$k!#(B"
+  "TEXT を tooltip で表示する。
+SKK-PARAMS は `skk-tooltip-parameters' 又は `tooltip-frame-parameters' のいずれか。
+TEXT には `skk-tooltip-face' が適用される。"
   (condition-case error
       (let ((params (or skk-params tooltip-frame-parameters))
             fg bg)
         (if skk-params
-            ;; $B%f!<%6$,FH<+$K(B tooltip $BI=<(@_Dj$9$k(B
+            ;; ユーザが独自に tooltip 表示設定する
             (dolist (cell tooltip-frame-parameters)
               (unless (assq (car cell) skk-params)
                 (setq params (cons cell params))))
-          ;; tooltip $B$N%G%U%)%k%H$N@_Dj$r$9$k(B
+          ;; tooltip のデフォルトの設定をする
           (setq fg (face-attribute 'tooltip :foreground))
           (setq bg (face-attribute 'tooltip :background))
           (when (stringp fg)
@@ -637,15 +637,15 @@ TEXT $B$K$O(B `skk-tooltip-face' $B$,E,MQ$5$l$k!#(B"
         ;;
         (when (facep skk-tooltip-face)
           (setq text (propertize text 'face skk-tooltip-face)))
-        ;; $B%_%K%P%C%U%!$K$$$k$H$-M>7W$J%a%C%;!<%8$r%/%j%"$9$k(B
+        ;; ミニバッファにいるとき余計なメッセージをクリアする
         (when (or skk-isearch-switch
                   (skk-in-minibuffer-p))
           (message nil))
         ;;
         (let ((x-gtk-use-system-tooltips nil))
-          ;; GTK $BIU(B Emacs $B$G!"(BGTK $B$N%D!<%k%F%#%C%W$rMxMQ$9$k$H(B
-          ;; $B8=>u%U%'%$%9B0@-$,E,MQ$5$l$J$$$N$G!"(BEmacs $B$N%D!<%k(B
-          ;; $B%F%#%C%W$rMQ$$$k!#(B
+          ;; GTK 付 Emacs で、GTK のツールティップを利用すると
+          ;; 現状フェイス属性が適用されないので、Emacs のツール
+          ;; ティップを用いる。
           (x-show-tip text (selected-frame) params skk-tooltip-hide-delay
                       ;;
                       (if (eq skk-tooltip-mouse-behavior 'follow)
@@ -665,10 +665,10 @@ TEXT $B$K$O(B `skk-tooltip-face' $B$,E,MQ$5$l$k!#(B"
 
 ;;;###autoload
 (defun skk-search-ja-dic ()
-  "GNU Emacs $B$KIUB0$9$k$+$J4A;zJQ49<-=q$rMQ$$$F8!:w$9$k!#(B
-$B8=:_$N(B Emacs $B$K$O(B SKK-JISYO.L $B$r4p$KJQ49$5$l$?(B ja-dic.el $B$,IUB0$7$F$$$k!#(B
-$B$3$N<-=q%G!<%?$rMQ$$$FAw$j$"$j!"Aw$j$J$7!"@\F,<-!"@\Hx<-$NJQ49$r9T$&!#(B
-$B$?$@$7!"(BSKK-JISYO.L $B$N$h$&$J1Q?tJQ49!"?tCMJQ49$J$I$O$G$-$J$$!#(B"
+  "GNU Emacs に付属するかな漢字変換辞書を用いて検索する。
+現在の Emacs には SKK-JISYO.L を基に変換された ja-dic.el が付属している。
+この辞書データを用いて送りあり、送りなし、接頭辞、接尾辞の変換を行う。
+ただし、SKK-JISYO.L のような英数変換、数値変換などはできない。"
   (require 'ja-dic-utl)
   ;; Mostly from ja-dic-utl.el.
   (when (and (not skkdic-okuri-nasi)
@@ -683,14 +683,14 @@ TEXT $B$K$O(B `skk-tooltip-face' $B$,E,MQ$5$l$k!#(B"
       ;; At first, generate vector VEC from SEQ for looking up SKK
       ;; alists.  Nth element in VEC corresponds to Nth element in SEQ.
       ;; The values are decided as follows.
-      ;;   If SEQ[N] is `$B!<(B', VEC[N] is 0,
+      ;;   If SEQ[N] is `ー', VEC[N] is 0,
       ;;   else if SEQ[N] is a Hiragana character, VEC[N] is:
       ;;     ((The 2nd position code of SEQ[N]) - 32),
       ;;   else VEC[N] is 128.
       (while (< i len)
         (let ((ch (aref skk-henkan-key i))
               code)
-          (cond ((= ch ?$B!<(B)
+          (cond ((= ch ?ー)
                  (aset vec i 0))
                 ((and (>= ch (car skkdic-jisx0208-hiragana-block))
                       (<= ch (cdr skkdic-jisx0208-hiragana-block))
@@ -700,7 +700,7 @@ TEXT $B$K$O(B `skk-tooltip-face' $B$,E,MQ$5$l$k!#(B"
                  (aset vec i 128))))
         (setq i (1+ i)))
       (cond
-       (skk-henkan-okurigana ; $BAw$j$"$jJQ49(B
+       (skk-henkan-okurigana ; 送りあり変換
         (let ((okurigana (assq (aref skk-henkan-okurigana 0)
                                skkdic-okurigana-table))
               orig-element)
@@ -712,11 +712,11 @@ TEXT $B$K$O(B `skk-tooltip-face' $B$,E,MQ$5$l$k!#(B"
                                                         len 0 t))
                        (consp (car entry)))
               (setq entry (nreverse (copy-sequence (car entry))))))))
-       ((string-match ">$" skk-henkan-key) ; $B@\F,<-(B
+       ((string-match ">$" skk-henkan-key) ; 接頭辞
         (setq entry (lookup-nested-alist vec skkdic-prefix (1- len) 0 t)))
-       ((string-match "^>" skk-henkan-key) ; $B@\Hx<-(B
+       ((string-match "^>" skk-henkan-key) ; 接尾辞
         (setq entry (lookup-nested-alist vec skkdic-postfix len 1 t)))
-       (t ; $BDL>o$NAw$j$J$7JQ49(B
+       (t ; 通常の送りなし変換
         (setq entry (lookup-nested-alist vec skkdic-okuri-nasi len 0 t))))
       ;;
       (when (consp (car entry))
