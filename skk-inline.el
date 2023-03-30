@@ -33,8 +33,8 @@
 
 ;; Functions.
 (defun skk-add-background-color (string color)
-  "STRING $B$N$&$AGX7J?'$,;XDj$5$l$F$$$J$$J8;z$K8B$C$F(B COLOR $B$NGX7J?'$r(B
-$BE,MQ$9$k!#(B"
+  "STRING のうち背景色が指定されていない文字に限って COLOR の背景色を
+適用する。"
   (when (and string
              color
              (color-defined-p color))
@@ -79,7 +79,7 @@
 (defun skk-inline-show (str face &optional vertical-str text-max-height)
   (skk-delete-overlay skk-inline-overlays)
   (if (and (eq 'vertical skk-show-inline)
-           ;; window $B$,8uJd72$rI=<($G$-$k9b$5$,$"$k$+%A%'%C%/(B
+           ;; window が候補群を表示できる高さがあるかチェック
            (stringp vertical-str)
            (integerp text-max-height)
            (< (1+ text-max-height) (window-body-height)))
@@ -105,8 +105,8 @@
     (setq string (funcall skk-inline-show-vertically-decor string)))
   (unless (skk-in-minibuffer-p)
     (let* ((margin 2)
-           ;; XXX beg-col $B$,(B -1 $B$K$J$C$F(B `make-string' $B$G%(%i!<$K$J$k(B
-           ;; $B>l9g$"$j(B ?
+           ;; XXX beg-col が -1 になって `make-string' でエラーになる
+           ;; 場合あり ?
            (beg-col (max 0 (- (skk-screen-column) margin)))
            (candidates (split-string string "\n"))
            (max-width (skk-max-string-width candidates))
@@ -141,10 +141,10 @@
              (setq bottom (> i (vertical-motion i)))
              (cond
               (bottom
-               ;; $B%P%C%U%!:G=*9T$G$OIaDL$K(B overlay $B$rDI2C$7$F$$$/J}K!$@(B
-               ;; $B$H(B overlay $B$NI=<($5$l$k=gHV$,68$&$3$H$,$"$C$F$&$^$/$J(B
-               ;; $B$$!#$7$?$,$C$FA02s$N(B overlay $B$N(B after-string $B$KDI2C$9(B
-               ;; $B$k!#(B
+               ;; バッファ最終行では普通に overlay を追加していく方法だ
+               ;; と overlay の表示される順番が狂うことがあってうまくな
+               ;; い。したがって前回の overlay の after-string に追加す
+               ;; る。
                (setq ol (cond ((< (overlay-end
                                    (car skk-inline-overlays))
                                   (point))
@@ -155,32 +155,32 @@
               (t
                (setq col (skk-move-to-screen-column beg-col))
                (cond ((> beg-col col)
-                      ;; $B7e9g$o$;$N6uGr$rDI2C(B
+                      ;; 桁合わせの空白を追加
                       (setq str (concat (make-string (- beg-col col) ? )
                                         str)))
-                     ;; overlay $B$N:8C<$,%^%k%AI}J8;z$H=E$J$C$?$H$-$NHyD4@0(B
+                     ;; overlay の左端がマルチ幅文字と重なったときの微調整
                      ((< beg-col col)
                       (backward-char)
                       (setq col (skk-screen-column))
                       (setq str (concat (make-string (- beg-col col) ? )
                                         str))))))))
-          ;; $B$3$N;~E@$G(B overlay $B$N3+;O0LCV$K(B point $B$,$"$k(B
+          ;; この時点で overlay の開始位置に point がある
           (unless bottom
             (let ((ol-beg (point))
                   (ol-end-col (+ col (string-width str)))
                   base-ol)
               (setq col (skk-move-to-screen-column ol-end-col))
-              ;; overlay $B$N1&C<$,%^%k%AI}J8;z$H=E$J$C$?$H$-$NHyD4@0(B
+              ;; overlay の右端がマルチ幅文字と重なったときの微調整
               (when (< ol-end-col col)
                 (setq str (concat str
                                   (make-string (- col ol-end-col) ? ))))
               (setq ol (make-overlay ol-beg (point)))
-              ;; $B85%F%-%9%H$N(B face $B$r7Q>5$7$J$$$h$&$K(B1$B$D8e$m$K(B overlay
-              ;; $B$r:n$C$F!"$=$N(B face $B$r(B 'default $B$K;XDj$7$F$*$/(B
+              ;; 元テキストの face を継承しないように1つ後ろに overlay
+              ;; を作って、その face を 'default に指定しておく
               (setq base-ol (make-overlay (point) (1+ (point))))
               (overlay-put base-ol 'face 'default)
               (push base-ol skk-inline-overlays)
-              ;; $B8uJd$,2D;k$+$I$&$+%A%'%C%/(B
+              ;; 候補が可視かどうかチェック
               (unless (pos-visible-in-window-p (point))
                 (setq invisible t)))))
         (overlay-put ol 'invisible t)

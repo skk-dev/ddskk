@@ -1,4 +1,4 @@
-;;; skk-auto.el --- $BAw$j2>L>$N<+F0=hM}$N$?$a$N%W%m%0%i%`(B -*- coding: iso-2022-jp -*-
+;;; skk-auto.el --- 送り仮名の自動処理のためのプログラム -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
 ;;               1998, 1999, 2001
@@ -49,13 +49,13 @@
                 l)))))
 
 (defun skk-okuri-search-subr-original ()
-  ;; skk-okuri-search $B$N%5%V%k!<%A%s!#8+$D$1$?%(%s%H%j$N%j%9%H$rJV$9!#(B
+  ;; skk-okuri-search のサブルーチン。見つけたエントリのリストを返す。
   (let* ((henkan-key skk-henkan-key)
          (key (substring henkan-key 0 1))
          (len (length henkan-key))
          (key1 (concat "\n" key))
          key2 len2 key3 len3 okuri3
-         ;; case-fold-search $B$O!"<-=q%P%C%U%!$G$O>o$K(B nil$B!#(B
+         ;; case-fold-search は、辞書バッファでは常に nil。
          ;;case-fold-search
          (inhibit-quit t)
          key-cand-alist p q r)
@@ -91,17 +91,17 @@
                               (point)
                               (1- (search-forward "/" skk-okuri-ari-max t)))
                              okuri))
-                      ;; $B8+=P$78l$,0c$C$F$b8uJd$,F1$8$3$H$,$"$jF@$k!#(B
-                      ;;   $B$+$s(Bz /$B46(B/[$B$8(B/$B46(B/]/
-                      ;;   $B$+$s(Bj /$B46(B/[$B$8(B/$B46(B/]/
-                      ;; $B$J$I!#(B
+                      ;; 見出し語が違っても候補が同じことがあり得る。
+                      ;;   かんz /感/[じ/感/]/
+                      ;;   かんj /感/[じ/感/]/
+                      ;; など。
                       (unless (rassoc cand key-cand-alist)
                         (setq key-cand-alist (cons (cons key3 cand)
                                                    key-cand-alist))))
                     ;; it is not necessary to seach for "\[" on this line
                     ;; any more
                     (setq cont nil)))))))
-        ;; key3 $B$ND9$$$b$N=g$K%=!<%H$7$FJV$9!#(B
+        ;; key3 の長いもの順にソートして返す。
         (mapcar 'cdr
                 (sort (nreverse key-cand-alist)
                       (lambda (x y)
@@ -109,12 +109,12 @@
 
 ;;;###autoload
 (defun skk-adjust-search-prog-list-for-auto-okuri ()
-  ;; `skk-auto-okuri-process' $B$,(B non-nil $B$G$"$l$P(B
-  ;; `skk-search-prog-list' $B$K(B `skk-okuri-search' $B$r2C$($k!#(B
+  ;; `skk-auto-okuri-process' が non-nil であれば
+  ;; `skk-search-prog-list' に `skk-okuri-search' を加える。
   ;;
-  ;; `skk-okuri-search' $B$r2C$($k0LCV$K$D$$$F$O!"(Bskk-jisyo $B$N(B
-  ;; $B8e$,:GNI$+$I$&$+$OJ,$i$J$$$N$G!"%*%W%7%g%s$GJQ99$G$-$k(B
-  ;; $B$h$&$K$9$Y$-$@$,(B...$B!#(B
+  ;; `skk-okuri-search' を加える位置については、skk-jisyo の
+  ;; 後が最良かどうかは分らないので、オプションで変更できる
+  ;; ようにすべきだが...。
   (unless (member '(skk-okuri-search)
                   (default-value 'skk-search-prog-list))
     (let ((pl (default-value 'skk-search-prog-list))

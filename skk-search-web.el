@@ -1,4 +1,4 @@
-;;; skk-search-web.el --- Google $B%5%8%'%9%H$J$I$rMxMQ$7$?$+$J4A;zJQ49(B -*- coding: iso-2022-jp -*-
+;;; skk-search-web.el --- Google サジェストなどを利用したかな漢字変換 -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2010, 2011 HAMANO Kiyoto <khiker.mail@gmail.com>
 ;; Copyright (C) 2011 Tsuyoshi Kitamoto <tsuyoshi.kitamoto@gmail.com>
@@ -24,24 +24,24 @@
 
 ;;; Commentary:
 
-;; $B;HMQJ}K!$r#2$D@bL@$7$^$9!#9%$_$NJ}$r;HMQ$7$F$/$@$5$$!#(B
+;; 使用方法を２つ説明します。好みの方を使用してください。
 
-;; (1) $B$+$J4A;zJQ49$N8uJd$K(B Google $B%5%8%'%9%H$rMxMQ$9$k(B
-;;     skk-search-prog-list $B$N:G8eJ}$K(B skk-search-web() $B$rCV$/$3$H$K$h$j!"(B
-;;     $B8D?M<-=q$d6&M-<-=q$KEPO?$5$l$F$$$J$$8+=P$78l$r(B Google $B%5%8%'%9%H(B
-;;     $B$7$^$9!#(B
+;; (1) かな漢字変換の候補に Google サジェストを利用する
+;;     skk-search-prog-list の最後方に skk-search-web() を置くことにより、
+;;     個人辞書や共有辞書に登録されていない見出し語を Google サジェスト
+;;     します。
 
 ;;     (add-to-list 'skk-search-prog-list
 ;;                  '(skk-search-web 'skk-google-suggest)
 ;;                  t)
 
-;; (2) $B<-=qEPO?%b!<%I$X$NFMF~;~$N=i4|CM$K(B Google $B%5%8%'%9%H$rMxMQ$9$k(B
+;; (2) 辞書登録モードへの突入時の初期値に Google サジェストを利用する
 ;;     (setq skk-read-from-minibuffer-function
 ;;           (lambda ()
 ;;             (car (skk-google-suggest skk-henkan-key))))
 
-;; $B>e5-Nc$G<($7$?4X?t(B skk-google-suggest $B$O(B skk-google-cgi-api-for-japanese-input
-;; $B$KCV$-49$(2DG=$G$9!#(B
+;; 上記例で示した関数 skk-google-suggest は skk-google-cgi-api-for-japanese-input
+;; に置き換え可能です。
 ;;     (add-to-list 'skk-search-prog-list
 ;;              '(skk-search-web 'skk-google-cgi-api-for-japanese-input)
 ;;                  t)
@@ -50,19 +50,19 @@
 ;;           (lambda ()
 ;;             (car (skk-google-cgi-api-for-japanese-input skk-henkan-key))))
 
-;; SKK Dynamic Completion $B$HJ;MQ$9$k$3$H$b2DG=$G$9!#(B
+;; SKK Dynamic Completion と併用することも可能です。
 ;; (add-to-list 'skk-completion-prog-list '(skk-comp-google) t)
 
 ;;; Test:
 
 ;; (let ((skk-henkan-key "emacs"))
 ;;   (skk-search-web 'skk-google-suggest))
-;; => ("emacs" "emacs $B%3%^%s%I(B" "emacs windows" "emacs $B;H$$J}(B" "emacs $BJ8;z%3!<%I(B" ...)
+;; => ("emacs" "emacs コマンド" "emacs windows" "emacs 使い方" "emacs 文字コード" ...)
 
-;;; $B<U<-(B
-;;    $B$b$H$b$H$N%*%j%8%J%k$O(B HAMANO Kiyoto <khiker.mail@gmail.com> $B$5$s$,(B
-;;    $B=q$$$?5-;v(B http://d.hatena.ne.jp/khiker/20100128/google_suggest $B$G$9!#(B
-;;    $B2~JQ!"8x3+$r2w$/>5Bz$7$F$$$?$@$$$?(B HAMANO Kiyoto $B$5$s$K46<U$7$^$9!#(B
+;;; 謝辞
+;;    もともとのオリジナルは HAMANO Kiyoto <khiker.mail@gmail.com> さんが
+;;    書いた記事 http://d.hatena.ne.jp/khiker/20100128/google_suggest です。
+;;    改変、公開を快く承諾していただいた HAMANO Kiyoto さんに感謝します。
 
 ;;; Code:
 
@@ -75,7 +75,7 @@
   (defvar skk-comp-first))
 
 (defun skk-url-retrieve (url coding-system)
-  "URL $B$r<hF@$9$k!#La$jCM$O(B decode-coding-string $B$G$"$k(B."
+  "URL を取得する。戻り値は decode-coding-string である."
   (let (buf p)
     (unwind-protect
         (progn
@@ -96,9 +96,9 @@
 
 
 (defun skk-google-cgi-api-for-japanese-input (word)
-  "Google CGI API for Japanese Input $B$rMxMQ$7$?$+$J4A;zJQ49(B.
+  "Google CGI API for Japanese Input を利用したかな漢字変換.
 http://www.google.co.jp/ime/cgiapi.html
-$BLa$jCM$O!"8uJd72$N%j%9%H(B."
+戻り値は、候補群のリスト."
   (let* ((jsonp (skk-url-retrieve
                  (concat "http://www.google.com/transliterate"
                          "?langpair=ja-Hira|ja"
@@ -106,8 +106,8 @@ http://www.google.co.jp/ime/cgiapi.html
                          (url-hexify-string (encode-coding-string (concat word ",")
                                                                   'utf-8)))
                  'utf-8))
-         (json (json-read-from-string jsonp)) ; [["$B$_$@$7$4(B" ["$B8uJd(Ba" "$B8uJd(Bb" "$B8uJd(Bc"]]]
-         (ary (aref (aref json 0) 1))         ; ["$B8uJd(Ba" "$B8uJd(Bb" "$B8uJd(Bc"]
+         (json (json-read-from-string jsonp)) ; [["みだしご" ["候補a" "候補b" "候補c"]]]
+         (ary (aref (aref json 0) 1))         ; ["候補a" "候補b" "候補c"]
          list)
     (dotimes (i (length ary))
       (setq list (cons (aref ary i)
@@ -116,7 +116,7 @@ http://www.google.co.jp/ime/cgiapi.html
 
 
 (defun skk-google-suggest (word)
-  "Google $B%5%8%'%9%H$rMxMQ$7$?$+$J4A;zJQ49(B."
+  "Google サジェストを利用したかな漢字変換."
   ;; http://labs.google.com/intl/ja/suggestfaq.html (404 not found)
 
   (with-temp-buffer
@@ -124,7 +124,7 @@ http://www.google.co.jp/ime/cgiapi.html
              (concat "http://clients1.google.co.jp/complete/search"
                      "?hl=ja"
                      "&cp=2"
-                     "&output=toolbar" ; xml $B%l%9%]%s%9(B
+                     "&output=toolbar" ; xml レスポンス
                      "&q=" (url-hexify-string (encode-coding-string word 'utf-8)))
              'sjis))
     (goto-char (point-min))
@@ -144,10 +144,10 @@ http://www.google.co.jp/ime/cgiapi.html
                                      (encode-coding-string word 'utf-8)))
                  'utf-8))
          (json (json-read-from-string jsonp))
-         ;; ["$B$_$@$7$4(B" ["$B8uJd(Ba" "$B8uJd(Bb" "$B8uJd(Bc"]]
-         ;; $B"(!V$_$@$7$4!W$,4A;z$G$"$l$PMM!9$J8uJd$,F@$i$l$k$,!"(B
-         ;;   $BJ?2>L>$@$H$"$^$j%R%C%H$7$J$$!#$=$N$?$a!"$+$J4A;z(B
-         ;;   $BJQ49$NMQES$K$OIT8~$-$+$b!#(B
+         ;; ["みだしご" ["候補a" "候補b" "候補c"]]
+         ;; ※「みだしご」が漢字であれば様々な候補が得られるが、
+         ;;   平仮名だとあまりヒットしない。そのため、かな漢字
+         ;;   変換の用途には不向きかも。
          (ary (aref json 1))
          list)
     (dotimes (i (length ary))

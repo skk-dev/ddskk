@@ -1,4 +1,4 @@
-;;; skk-ja-names.el --- localization $B$N2DG=@-$K4X$9$k>.$5$J;n$_(B  -*- coding: iso-2022-jp -*-
+;;; skk-ja-names.el --- localization の可能性に関する小さな試み  -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2010 SKK Development Team
 
@@ -23,53 +23,53 @@
 
 ;;; Commentary:
 
-;; 21 $B@$5*$K$J$j!"%"%W%j%1!<%7%g%s$N(B localization $B$O(B $B0lHLE*$J$b$N$K$J$j(B
-;; $B$^$7$?$,!"(BGNU Emacs $B$O4pK\E*$K1Q8lCN<1$,A0Ds$H$5$l$F$$$^$9(B ($B%I%-%e%a(B
-;; $B%s%H$N0lIt$O?t3X1Q8l$NCN<1$rA0Ds$K$9$i$7$F$$$^$9(B)$B!#(B
+;; 21 世紀になり、アプリケーションの localization は 一般的なものになり
+;; ましたが、GNU Emacs は基本的に英語知識が前提とされています (ドキュメ
+;; ントの一部は数学英語の知識を前提にすらしています)。
 
-;; $B$3$N%U%!%$%k$O(B SKK $B$N%3%^%s%IL>!&%*%W%7%g%sL>$r(B localize $B$9$k$3$H$G(B
-;; $B%f!<%6!<$KMxE@$,$"$k$+$I$&$+$r3N$+$a$k$?$a$K@_CV$5$l$^$7$?!#$h$$L?L>(B
-;; $BK!$K;j$k$^$G$O>/$J$/$H$b(B experimental $B$H$7$^$9!#(B
+;; このファイルは SKK のコマンド名・オプション名を localize することで
+;; ユーザーに利点があるかどうかを確かめるために設置されました。よい命名
+;; 法に至るまでは少なくとも experimental とします。
 
-;; $B:#$N$H$3$m;W$$$D$/4pK\J}?K(B
+;; 今のところ思いつく基本方針
 
-;; 1. $B=i?4<T!"<cG/<T!"1Q8l$,6l<j$J5$;}$A$r9M$($k(B
+;; 1. 初心者、若年者、英語が苦手な気持ちを考える
 
-;; 2. $BJXMx$J$b$N!"J,$+$j$d$9$$$b$N$r87A*$9$k(B
+;; 2. 便利なもの、分かりやすいものを厳選する
 
-;; 3. Emacs $B$K$*$$$F1Q8l0J30$N%7%s%\%kL>$NF~NO$OEvA3<j4V$G$"$k!#$=$&$9$k$H(B
-;;    $BJd40A0Ds$G!"Jd40$7$d$9$$L>A0$NIU$1J}$,$h$$$HA[A|$5$l$k!#(B
+;; 3. Emacs において英語以外のシンボル名の入力は当然手間である。そうすると
+;;    補完前提で、補完しやすい名前の付け方がよいと想像される。
 
 ;;; Code:
 
-(defalias 'SKK$B%b!<%I(B 'skk-mode)
-(defalias 'SKK$B$N%P!<%8%g%s(B 'skk-version)
-(defalias 'SKK$B$N%P%0$rJs9p$9$k(B 'skk-submit-bug-report)
-(defalias 'SKK$B$N%A%e!<%H%j%"%k(B 'skk-tutorial)
+(defalias 'SKKモード 'skk-mode)
+(defalias 'SKKのバージョン 'skk-version)
+(defalias 'SKKのバグを報告する 'skk-submit-bug-report)
+(defalias 'SKKのチュートリアル 'skk-tutorial)
 
-(defvaralias 'SKK$B4pK\@_Dj(B-$B8D?M%U%!%$%k$rCV$/%G%#%l%/%H%jL>(B 'skk-user-directory)
+(defvaralias 'SKK基本設定-個人ファイルを置くディレクトリ名 'skk-user-directory)
 
-(defvaralias 'SKK$B%-!<@_Dj(B-$B%j%?!<%s%-!<$r3NDj$K;H$&(B? 'skk-egg-like-newline)
-(defvaralias 'SKK$B%-!<@_Dj(B-$BA08uJdI=<($9$k%-!<72(B 'skk-egg-like-newline)
-(defvaralias 'SKK$B%-!<@_Dj(B-$B3NDj$K;H$&%-!<(B 'skk-kakutei-key)
+(defvaralias 'SKKキー設定-リターンキーを確定に使う? 'skk-egg-like-newline)
+(defvaralias 'SKKキー設定-前候補表示するキー群 'skk-egg-like-newline)
+(defvaralias 'SKKキー設定-確定に使うキー 'skk-kakutei-key)
 
-(defvaralias 'SKK$B<-=q@_Dj(B-L$B<-=q$N%U%!%$%kL>(B 'skk-large-jisyo)
-(defvaralias 'SKK$B<-=q@_Dj(B-CDB$B<-=q$N%U%!%$%kL>(B 'skk-cdb-large-jisyo)
-(defvaralias 'SKK$B<-=q@_Dj(B-$B8D?M<-=q$r6&M-$9$k(B? 'skk-share-private-jisyo)
+(defvaralias 'SKK辞書設定-L辞書のファイル名 'skk-large-jisyo)
+(defvaralias 'SKK辞書設定-CDB辞書のファイル名 'skk-cdb-large-jisyo)
+(defvaralias 'SKK辞書設定-個人辞書を共有する? 'skk-share-private-jisyo)
 
-(defvaralias 'SKK$BJQ49@_Dj(B-$BAw$j2>L>$,@5$7$$8uJd$rM%@h$9$k(B?
+(defvaralias 'SKK変換設定-送り仮名が正しい候補を優先する?
   'skk-henkan-strict-okuri-precedence)
-(defvaralias 'SKK$BJQ49@_Dj(B-$BM>7W$JAw$j2>L>$N=hM}J}K!$rA*$V(B!
+(defvaralias 'SKK変換設定-余計な送り仮名の処理方法を選ぶ!
   'skk-check-okurigana-on-touroku)
 
-(defvaralias 'SKK$BI=<(@_Dj(B-$B%$%s%i%$%sI=<($9$k(B? 'skk-show-inline)
-(defvaralias 'SKK$BI=<(@_Dj(B-$B%D!<%k%F%#%C%WI=<($9$k(B? 'skk-show-inline)
-(defvaralias 'SKK$BI=<(@_Dj(B-$BF|K\8l%a%K%e!<I=<($9$k(B? 'skk-show-japanese-menu)
-(defvaralias 'SKK$BI=<(@_Dj(B-$BF|K\8l%a%C%;!<%8$rI=<($9$k(B?
+(defvaralias 'SKK表示設定-インライン表示する? 'skk-show-inline)
+(defvaralias 'SKK表示設定-ツールティップ表示する? 'skk-show-inline)
+(defvaralias 'SKK表示設定-日本語メニュー表示する? 'skk-show-japanese-menu)
+(defvaralias 'SKK表示設定-日本語メッセージを表示する?
   'skk-japanese-message-and-error)
 
-(defvaralias 'SKK$B3HD%@_Dj(B-$B@hFI$_$7$F$*$/(B? 'skk-preload)
-(defvaralias 'SKK$B3HD%@_Dj(B-SKK$B$N%"%$%3%s$rI=<($9$k(B? 'skk-show-japanese-menu)
+(defvaralias 'SKK拡張設定-先読みしておく? 'skk-preload)
+(defvaralias 'SKK拡張設定-SKKのアイコンを表示する? 'skk-show-japanese-menu)
 
 (provide 'skk-ja-names)
 

@@ -57,11 +57,11 @@
   (defvar skk-rdbms-private-jisyo-table)
   (defvar this-command-char))
 
-;; Daredevil SKK 13.1 $B$O(B APEL 10.7 $B$rMW5a$9$k!#(B
-;; APEL 10.7 $B$O<g$K(B install.el $B$N5!G=$N$?$a$KMW5a$5$l$F$$$k!#(B
-;; APEL 10.6 $B$O%;%-%e%j%F%#>e$N=EBg$J7g4Y$KBP1~$7$F$$$k$?$a!"I,?\$G$"$k!#(B
-;; make-temp-file() $B$N7g4Y$K$D$$$F$O4X?t(B skk-save-jisyo-original() $B$N%3%a(B
-;; $B%s%H$r;2>H!#(B
+;; Daredevil SKK 13.1 は APEL 10.7 を要求する。
+;; APEL 10.7 は主に install.el の機能のために要求されている。
+;; APEL 10.6 はセキュリティ上の重大な欠陥に対応しているため、必須である。
+;; make-temp-file() の欠陥については関数 skk-save-jisyo-original() のコメ
+;; ントを参照。
 
 (eval-when-compile
   (require 'cl-lib))
@@ -74,12 +74,12 @@
   ;; SKK common.
 
 
-  ;; skk $B$N5/F0;~!"(B*-autoloads $B$O2<5-$N#2<oN`$N$&$A$I$A$i$+$K8B$C$FB8:_$9$k!#(B
-  ;; MELPA$B7PM3$N>l9g!"(B autoload $B$O(B package.el $B$K$h$C$F4IM}$5$l$k$?$a!"(B
-  ;; skk-autoloads$B$,%m!<%I$G$-$J$$>l9g!"C1$KL5;k$9$k!#(B
-  ;;                | make $B$G%$%s%9%H!<%k(B     | MELPA $B7PM3$G%$%s%9%H!<%k(B
-  ;;   $B%U%!%$%kL>(B     | skk-autoloads.el     | ddskk-autoloads.el
-  ;;   provide $B@k8@(B  | $B$"$j(B (SKK-MK $B$,@8@.(B)   | $B$J$7(B
+  ;; skk の起動時、*-autoloads は下記の２種類のうちどちらかに限って存在する。
+  ;; MELPA経由の場合、 autoload は package.el によって管理されるため、
+  ;; skk-autoloadsがロードできない場合、単に無視する。
+  ;;                | make でインストール     | MELPA 経由でインストール
+  ;;   ファイル名     | skk-autoloads.el     | ddskk-autoloads.el
+  ;;   provide 宣言  | あり (SKK-MK が生成)   | なし
   (require 'skk-autoloads nil 'noerror)
 
   (provide 'skk)                        ; workaround for recursive require
@@ -93,9 +93,9 @@
 
 ;;;###autoload
 (defun skk-mode (&optional arg)
-  "$BF|K\8lF~NO%b!<%I!#(B
-$B%^%$%J!<%b!<%I$N0l<o$G!"%*%j%8%J%k$N%b!<%I$K$O1F6A$rM?$($J$$!#(B
-$BIi$N0z?t$rM?$($k$H(B SKK $B%b!<%I$+$iH4$1$k!#(B
+  "日本語入力モード。
+マイナーモードの一種で、オリジナルのモードには影響を与えない。
+負の引数を与えると SKK モードから抜ける。
 
 An input mode for Japanese, converting romanized phonetic strings to kanji.
 
@@ -103,16 +103,16 @@ A minor mode, it should not affect the use of any major mode or
 orthogonal minor modes.
 
 In the initial SKK mode, hiragana submode, the mode line indicator is
-\"$B$+$J(B\".  Lowercase romaji inputs are automatically converted to
+\"かな\".  Lowercase romaji inputs are automatically converted to
 hiragana where possible.  The lowercase characters `q' and `l' change
 submodes of SKK, and `x' is used as a prefix indicating a small kana.
 
 `q' is used to toggle between hiragana and katakana \(mode line
-indicator \"$B%+%J(B\"\) input submodes.
+indicator \"カナ\"\) input submodes.
 
 `l' is used to enter ASCII submode \(mode line indicator \"SKK\"\).
 Uppercase `L' enters JISX0208 latin \(wide ASCII\) submode \(mode line
-indicator \"$BA41Q(B\"\).  `\C-j' returns to hiragana submode from either
+indicator \"全英\"\).  `\C-j' returns to hiragana submode from either
 ASCII submode.
 
 Kanji conversion is complex, but the basic principle is that the user
@@ -122,13 +122,13 @@ information, both the beginning and the end of the stem must be marked.
 
 For non-inflected words \(eg, nouns\) consisting entirely of kanji, the
 simplest way to invoke conversion is to enter the reading of the kanji,
-the first character only in uppercase.  A leading \"$B"&(B\" indicates that
+the first character only in uppercase.  A leading \"▽\" indicates that
 kanji conversion is in progress.  After entering the reading, press
 space.  This invokes dictionary lookup, and the hiragana reading will be
 redisplayed in kanji as the first candidate.  Pressing space again gives
 the next candidate.  Further presses of space produce further candidates,
 as well as a list of the next few candidates in the minibuffer.  Eg,
-\"Benri\" => \"$B"&$Y$s$j(B\", and pressing space produces \"$B"'JXMx(B\" \(the
+\"Benri\" => \"▽べんり\", and pressing space produces \"▼便利\" \(the
 solid triangle indicates that conversion is in progress\).  Backspace
 steps through the candidate list in reverse.
 
@@ -140,7 +140,7 @@ break.\)
 Inflected words \(verbs and adjectives\), like non-inflected words, begin
 input with a capital letter.  However, for these words the end of the
 kanji string is signaled by capitalizing the next mora.  Eg, \"TuyoI\"
-=> \"$B"'6/$$(B\".  If no candidate is available at that point, the inflection
+=> \"▼強い\".  If no candidate is available at that point, the inflection
 point will be indicated with an asterisk \"*\", and trailing characters
 will be displayed until a candidate is recognized.  It will be
 immediately displayed \(pressing space is not necessary\).  Space and
@@ -155,7 +155,7 @@ dependent."
   (interactive "P")
   (setq skk-mode (cond ((null arg)
                         (not skk-mode))
-                       ;; - $B$O(B -1 $B$KJQ49$5$l$k!#(B
+                       ;; - は -1 に変換される。
                        ((> (prefix-numeric-value arg) 0)
                         t)
                        (t
@@ -167,9 +167,9 @@ dependent."
     (unless skk-mode-invoked
       ;; enter `skk-mode' for the first time in this session.
       (skk-mode-invoke))
-    ;; $B0J2<$O(B skk-mode $B$KF~$k$?$S$KKh2s%3!<%k$5$l$k%3!<%I!#(B
+    ;; 以下は skk-mode に入るたびに毎回コールされるコード。
     (skk-create-file (skk-jisyo)
-                     "$B6u$N(B SKK $B8D?M<-=q$r:n$j$^$7$?(B"
+                     "空の SKK 個人辞書を作りました"
                      "I have created an empty SKK Jisyo file for you")
     (skk-require-module)
     ;; To terminate kana input.
@@ -181,10 +181,10 @@ dependent."
 
 ;;;###autoload
 (defun skk-auto-fill-mode (&optional arg)
-  "$BF|K\8lF~NO%b!<%I!#<+F0@^$jJV$75!G=IU$-!#(B
-$B%^%$%J!<%b!<%I$N0l<o$G!"%*%j%8%J%k$N%b!<%I$K$O1F6A$rM?$($J$$!#(B
-$B@5$N0z?t$rM?$($k$H!"6/@)E*$K(B `auto-fill-mode' $B5Z$S(B SKK $B%b!<%I$KF~$k!#(B
-$BIi$N0z?t$rM?$($k$H(B `auto-fill-mode' $B5Z$S(B SKK $B%b!<%I$+$iH4$1$k!#(B"
+  "日本語入力モード。自動折り返し機能付き。
+マイナーモードの一種で、オリジナルのモードには影響を与えない。
+正の引数を与えると、強制的に `auto-fill-mode' 及び SKK モードに入る。
+負の引数を与えると `auto-fill-mode' 及び SKK モードから抜ける。"
   (interactive "P")
   (let ((auto-fill
          (cond ((null arg)
@@ -196,13 +196,13 @@ dependent."
     (run-hooks 'skk-auto-fill-mode-hook)))
 
 (defun skk-kill-emacs-without-saving-jisyo (&optional query)
-  "$B8D?M<-=q$rJ]B8$;$:$K(B Emacs $B$r=*N;$9$k!#(B"
+  "個人辞書を保存せずに Emacs を終了する。"
   (interactive "P")
-  ;; format $B$r0z?t$K;}$?$;$?>l9g$O!"(Bskk-yes-or-no-p $B$r;H$&$H$+$($C$F>iD9$K$J(B
-  ;; $B$k!#(B
+  ;; format を引数に持たせた場合は、skk-yes-or-no-p を使うとかえって冗長にな
+  ;; る。
   (when (yes-or-no-p
          (if skk-japanese-message-and-error
-             "$B8D?M<-=q$rJ]B8$;$:$K(B Emacs $B$r=*N;$7$^$9!#NI$$$G$9$+!)(B "
+             "個人辞書を保存せずに Emacs を終了します。良いですか？ "
            "Do you really wish to kill Emacs without saving Jisyo? "))
     (let ((buff (skk-get-jisyo-buffer skk-jisyo 'nomsg)))
       (remove-hook 'kill-emacs-hook 'skk-save-jisyo)
@@ -213,10 +213,10 @@ dependent."
       (save-buffers-kill-emacs query))))
 
 (defun skk-restart ()
-  "`skk-init-file' $B$N:F%m!<%I5Z$S3F<o:F@_Dj$N8e(B SKK $B%b!<%I$r5/F0$9$k!#(B
-$B3F<o%f!<%6JQ?t$r$$$C$?$s=i4|2=$9$k$N$G!"(B~/.emacs.d/init.el $B$G(B SKK $B$N@_Dj$r$7$F$$$k>l9g$O(B
-$B;H$&$Y$-$G$J$$!#(B
-`skk-kakutei-key' $B$NJQ99$K$OBP1~$G$-$F$$$J$$!#(B"
+  "`skk-init-file' の再ロード及び各種再設定の後 SKK モードを起動する。
+各種ユーザ変数をいったん初期化するので、~/.emacs.d/init.el で SKK の設定をしている場合は
+使うべきでない。
+`skk-kakutei-key' の変更には対応できていない。"
   (interactive)
   (skk-save-jisyo)
   (setq skk-jisyo-update-vector nil)
@@ -225,12 +225,12 @@ dependent."
   (setq skk-server-disable-completion nil)
   (kill-local-variable 'skk-rule-tree)
   (setq skk-rule-tree nil)
-  ;; $B$$$C$=(B unload-feature $B$H$+$7$?$[$&$,$$$$$N$+$b$7$l$J$$!#(B
-  ;; skk-kakutei-key $B$K4X$7$F$O(B minibuffer-local-map $B$J$I$N=hM}$b!#(B
+  ;; いっそ unload-feature とかしたほうがいいのかもしれない。
+  ;; skk-kakutei-key に関しては minibuffer-local-map などの処理も。
   (mapatoms (lambda (sym)
-              ;; skk-user-directory, skk-init-file $B0J30$N(B defcustom $B$G@k8@(B
-              ;; $B$5$l$?JQ?t$N$&$A!"(Bsaved-value $B$r;}$?$J$$$b$N$r:F=i4|2=!#(B
-              ;; $BB>$K$b=|30$9$Y$-JQ?t$,$J$$$+MW8!F$!#(B
+              ;; skk-user-directory, skk-init-file 以外の defcustom で宣言
+              ;; された変数のうち、saved-value を持たないものを再初期化。
+              ;; 他にも除外すべき変数がないか要検討。
               (when (and (string-match "^skk-" (symbol-name sym))
                          (not (memq sym '(skk-user-directory skk-init-file)))
                          (not (plist-member (symbol-plist sym) 'saved-value))
@@ -244,7 +244,7 @@ dependent."
     (skk-mode 1)))
 
 (defun skk-require-module ()
-  ;; skk-mode $B$KF~$k$?$S$K<B9T$5$l$k(B
+  ;; skk-mode に入るたびに実行される
   (when skk-use-viper
     (require 'skk-viper))
   (when (or skk-servers-list
@@ -282,13 +282,13 @@ dependent."
                'local)
   (skk-update-modeline)
 
-  (dolist (b `("*$B8uJd(B*" "*SKK annotation*" "*$BC14A;z(B*"
-               " *$B?tCMJQ49%?%$%W(B*" ,skk-list-chars-buffer-name))
+  (dolist (b `("*候補*" "*SKK annotation*" "*単漢字*"
+               " *数値変換タイプ*" ,skk-list-chars-buffer-name))
     (when (get-buffer b)
       (kill-buffer b))))
 
 (defun skk-mode-invoke ()
-  ;; $B0lHV:G=i$N(B skk $B5/F0;~$N$_<B9T$5$l$k(B
+  ;; 一番最初の skk 起動時のみ実行される
   (when skk-user-directory
     (make-directory skk-user-directory t))
   (skk-compile-init-file-maybe)
@@ -300,21 +300,21 @@ dependent."
     (skk-setup-shared-private-jisyo))
   (when skk-keep-record
     (skk-create-file skk-record-file
-                     "SKK $B$NE}7W>pJsMQ%U%!%$%k$r:n$j$^$7$?(B"
+                     "SKK の統計情報用ファイルを作りました"
                      "I have created an SKK record file for you"))
   (skk-setup-auto-paren) ; necessary to call before compiling skk-rule-tree.
-  ;; SKK $B3HD%F~NO5!G=$N@_Dj(B
+  ;; SKK 拡張入力機能の設定
   (cond (skk-use-act
-         ;; $B3HD%%m!<%^;zF~NO(B ACT
+         ;; 拡張ローマ字入力 ACT
          (require 'skk-act))
         (skk-use-azik
-         ;; $B3HD%%m!<%^;zF~NO(B AZIK
+         ;; 拡張ローマ字入力 AZIK
          (require 'skk-azik))
         ((featurep 'skk-tutcdef)
          ;; TUT-code
          (require 'skk-tutcode))
         (skk-use-kana-keyboard
-         ;; $B2>L>F~NO(B ($BF|K\8l5l(B JIS $B$^$?$O?F;X%7%U%H(B)
+         ;; 仮名入力 (日本語旧 JIS または親指シフト)
          (skk-kanagaki-initialize)))
   (skk-emacs-prepare-menu)
   (skk-setup-charset-list)
@@ -326,10 +326,10 @@ dependent."
 
 ;;; setup
 (defun skk-setup-shared-private-jisyo ()
-  ;; vector $B$ND9$5$O!"(B`skk-save-jisyo' $B$,<:GT$7$J$$A0Ds$J$i$P(B
-  ;; skk-jisyo-save-count $B$HF1$8$G$h$$!#%(%i!<$=$NB>$G<:GT$9$k2DG=@-$r(B
-  ;; $B9MN8$9$k$H!"$=$l$h$j>/$7D9$$J}$,LdBj$,5/$3$j$K$/$$!#(B
-  ;; ($B0J2<$N6qBNE*$J?t;z$K$O:,5r$O$J$$(B)
+  ;; vector の長さは、`skk-save-jisyo' が失敗しない前提ならば
+  ;; skk-jisyo-save-count と同じでよい。エラーその他で失敗する可能性を
+  ;; 考慮すると、それより少し長い方が問題が起こりにくい。
+  ;; (以下の具体的な数字には根拠はない)
   (setq skk-jisyo-update-vector
         (make-vector (max (* 2 skk-jisyo-save-count)
                           (+ 20 skk-jisyo-save-count))
@@ -360,7 +360,7 @@ dependent."
                             japanese-jisx0208-1978)))))
 
 (defun skk-setup-keymap ()
-  "SKK $B$N%-!<$r@_Dj$9$k!#(B"
+  "SKK のキーを設定する。"
   (cond (skk-j-mode
          (skk-define-j-mode-map)
          (skk-setup-j-mode-map-options))
@@ -380,11 +380,11 @@ dependent."
                                                skk-rom-kana-rule-list))))
 
 (defun skk-define-menu (map)
-  "SKK $B$N%W%k%@%&%s%a%K%e!<$rDj5A$9$k!#(B"
+  "SKK のプルダウンメニューを定義する。"
   (easy-menu-define skk-menu map "Menu used in SKK mode." skk-menu-items))
 
 (defun skk-define-j-mode-map ()
-  "$B%-!<%^%C%W(B `skk-j-mode-map' $B$rDj5A$9$k!#(B"
+  "キーマップ `skk-j-mode-map' を定義する。"
   (unless (keymapp skk-j-mode-map)
     (setq skk-j-mode-map (make-sparse-keymap))
     (skk-update-minor-mode-map-alist 'skk-j-mode skk-j-mode-map)
@@ -396,14 +396,14 @@ dependent."
     (skk-define-menu skk-j-mode-map)))
 
 (defun skk-define-latin-mode-map ()
-  "$B%-!<%^%C%W(B `skk-latin-mode-map' $B$rDj5A$9$k!#(B"
+  "キーマップ `skk-latin-mode-map' を定義する。"
   (unless (keymapp skk-latin-mode-map)
     (setq skk-latin-mode-map (make-sparse-keymap))
     (skk-update-minor-mode-map-alist 'skk-latin-mode skk-latin-mode-map)
     (skk-define-menu skk-latin-mode-map)))
 
 (defun skk-define-jisx0208-latin-mode-map ()
-  "$B%-!<%^%C%W(B `skk-jisx0208-latin-mode-map' $B$rDj5A$9$k!#(B"
+  "キーマップ `skk-jisx0208-latin-mode-map' を定義する。"
   (unless (keymapp skk-jisx0208-latin-mode-map)
     (setq skk-jisx0208-latin-mode-map (make-sparse-keymap))
     (skk-update-minor-mode-map-alist 'skk-jisx0208-latin-mode
@@ -419,7 +419,7 @@ dependent."
     (skk-define-menu skk-jisx0208-latin-mode-map)))
 
 (defun skk-define-abbrev-mode-map ()
-  "$B%-!<%^%C%W(B `skk-abbrev-mode-map' $B$rDj5A$9$k!#(B"
+  "キーマップ `skk-abbrev-mode-map' を定義する。"
   (unless (keymapp skk-abbrev-mode-map)
     (setq skk-abbrev-mode-map (make-sparse-keymap))
     (skk-update-minor-mode-map-alist 'skk-abbrev-mode skk-abbrev-mode-map)
@@ -454,12 +454,12 @@ dependent."
 
     ;; Workaround for key translation.
     (when (eq skk-try-completion-char 9)
-      ;; tab $B%-!<$O(B <tab> $B$NDj5A$,L5$1$l$P(B TAB $B$NDj5A$,3d$jEv$F$i$l$k!#(B
-      ;; Org-mode $B$J$I$O(B <tab> $B$rDj5A$9$k$N$G!$(BSKK $B$NJ}$G$b(B <tab> $B$rDj5A(B
-      ;; $B$9$kI,MW$,$"$k!#(B
+      ;; tab キーは <tab> の定義が無ければ TAB の定義が割り当てられる。
+      ;; Org-mode などは <tab> を定義するので，SKK の方でも <tab> を定義
+      ;; する必要がある。
       (define-key skk-j-mode-map [(tab)] #'skk-comp-wrapper))
 
-    ;; comp $B$H(B dcomp $B$G$NA08uJd$XLa$kF0:n$r(B Shift TAB $B$G$b2DG=$H$9$k!#(B
+    ;; comp と dcomp での前候補へ戻る動作を Shift TAB でも可能とする。
     (when skk-previous-completion-use-backtab
       (define-key skk-j-mode-map skk-previous-completion-backtab-key
         #'skk-previous-comp-maybe))
@@ -521,7 +521,7 @@ dependent."
         #'skk-comp-start-henkan))))
 
 (defun skk-make-indicator-alist ()
-  "SKK $B%$%s%8%1!<%?7?%*%V%8%'%/%H$rMQ0U$7!"O"A[%j%9%H$K$^$H$a$k!#(B"
+  "SKK インジケータ型オブジェクトを用意し、連想リストにまとめる。"
   (skk-emacs-prepare-modeline-properties)
   (let ((mode-string-list '(skk-latin-mode-string
                             skk-hiragana-mode-string
@@ -539,8 +539,8 @@ dependent."
                  (string-match "skk-\\([-a-z0-9]+\\)-mode-string" mode)
                  (setq mode (intern (match-string-no-properties 1 mode)))
                  (setq string (symbol-value symbol))
-                 ;; $BK\Mh$J$i$3$N$h$&$K%f!<%6JQ?t$r2C9)$9$k$N$O$*$+$7$$$,!"(B
-                 ;; $B0\9T4|$N=hCV$H$7$F;CDjE*$K9T$J$&!#(B
+                 ;; 本来ならこのようにユーザ変数を加工するのはおかしいが、
+                 ;; 移行期の処置として暫定的に行なう。
                  (cond
                   ((string-match "^ +" string)
                    ;; minor-mode setting
@@ -563,7 +563,7 @@ dependent."
                                         (funcall skk-indicator-suffix-func mode))))
 
 (defun skk-setup-modeline ()
-  "$B%b!<%I%i%$%s$X$N%9%F!<%?%9I=<($r=`Hw$9$k!#(B"
+  "モードラインへのステータス表示を準備する。"
   (setq skk-indicator-alist (skk-make-indicator-alist))
   (cl-case skk-status-indicator
     (left
@@ -618,12 +618,12 @@ dependent."
         (define-key skk-j-mode-map key emulation)))))
 
 (defun skk-setup-delete-backward-char ()
-  "$B!V8eB`!W7O$N%-!<$K%3%^%s%I(B `skk-delete-backward-char' $B$r3dEv$F$k!#(B"
+  "「後退」系のキーにコマンド `skk-delete-backward-char' を割当てる。"
   (skk-setup-emulation-commands
    skk-delete-backward-char-commands 'skk-delete-backward-char))
 
 (defun skk-setup-undo ()
-  "$B!V$d$jD>$7!W7O$N%-!<$K%3%^%s%I(B `skk-undo' $B$r3dEv$F$k!#(B"
+  "「やり直し」系のキーにコマンド `skk-undo' を割当てる。"
   (skk-setup-emulation-commands skk-undo-commands 'skk-undo))
 
 (defun skk-setup-verbose-messages ()
@@ -647,13 +647,13 @@ dependent."
                                      (intern-soft
                                       (format "skk-search-prog-list-%d"
                                               x))))
-                              '((skk-search-tankanji . "$BC14A;z(B")
-                                (skk-search-identity . "$BL5JQ49(B")
-                                (skk-search-katakana . "$B%+%?%+%J(B")
-                                (skk-search-hankaku-katakana . "$BH>3Q%+%J(B")
-                                (skk-search-jisx0208-romaji . "$BA43Q%m!<%^(B")
-                                (skk-search-romaji . "$B%m!<%^(B")
-                                (nil . "$BL$Dj5A(B")))))
+                              '((skk-search-tankanji . "単漢字")
+                                (skk-search-identity . "無変換")
+                                (skk-search-katakana . "カタカナ")
+                                (skk-search-hankaku-katakana . "半角カナ")
+                                (skk-search-jisx0208-romaji . "全角ローマ")
+                                (skk-search-romaji . "ローマ")
+                                (nil . "未定義")))))
                     '(5 6 7 8 9 0))) "  "))
           new) ; END varlist
       ;; BODY
@@ -668,14 +668,14 @@ dependent."
       (setq skk-henkan-on-message new))))
 
 (defun skk-compile-init-file-maybe ()
-  "$BI,MW$J$i(B `skk-init-file' $B$r%P%$%H%3%s%Q%$%k$9$k!#(B
-`skk-byte-compile-init-file' $B$,(B non-nil $B$N>l9g$G!"(B`skk-init-file' $B$r%P%$%H%3(B
-$B%s%Q%$%k$7$?%U%!%$%k$,B8:_$7$J$$$+!"$=$N%P%$%H%3%s%Q%$%k:Q%U%!%$%k$h$j(B
-`skk-init-file' $B$NJ}$,?7$7$$$H$-$O!"(B`skk-init-file' $B$r%P%$%H%3%s%Q%$%k$9$k!#(B
+  "必要なら `skk-init-file' をバイトコンパイルする。
+`skk-byte-compile-init-file' が non-nil の場合で、`skk-init-file' をバイトコ
+ンパイルしたファイルが存在しないか、そのバイトコンパイル済ファイルより
+`skk-init-file' の方が新しいときは、`skk-init-file' をバイトコンパイルする。
 
-`skk-byte-compile-init-file' $B$,(B nil $B$N>l9g$G!"(B`skk-init-file' $B$r%P%$%H%3%s%Q(B
-$B%$%k$7$?%U%!%$%k$h$j(B `skk-init-file' $B$NJ}$,?7$7$$$H$-$O!"$=$N%P%$%H%3%s%Q%$(B
-$B%k:Q%U%!%$%k$r>C$9!#(B"
+`skk-byte-compile-init-file' が nil の場合で、`skk-init-file' をバイトコンパ
+イルしたファイルより `skk-init-file' の方が新しいときは、そのバイトコンパイ
+ル済ファイルを消す。"
   (save-match-data
     (let* ((file (expand-file-name skk-init-file))
            (init-file (if (file-exists-p (concat file ".el"))
@@ -690,7 +690,7 @@ dependent."
                      (or (not (file-exists-p elc))
                          (file-newer-than-file-p init-file elc)))
             (save-window-excursion ; for keep window configuration.
-              (skk-message "%s $B$r%P%$%H%3%s%Q%$%k$7$^$9(B"
+              (skk-message "%s をバイトコンパイルします"
                            "Byte-compile %s"
                            skk-init-file)
               (sit-for 2)
@@ -713,9 +713,9 @@ dependent."
           (setq this-command 'ignore)))))
 
 (defun skk-setup-delete-selection-mode ()
-  "Delete Selection $B%b!<%I$N$?$a$N@_Dj$r$9$k!#(B
-Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$K(B
-$B%;%C%H%"%C%W$9$k!#(B"
+  "Delete Selection モードのための設定をする。
+Delete Selection モードが SKK を使った日本語入力に対しても機能するように
+セットアップする。"
   (let ((funcs '(skk-current-kuten
                  skk-current-touten
                  skk-input-by-code-or-menu
@@ -731,8 +731,8 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 (defun skk-setup-auto-paren ()
   (when (and skk-auto-insert-paren
              skk-auto-paren-string-alist)
-    ;; skk-auto-paren-string-alist $B$NCf$+$i!"(B
-    ;; skk-special-midashi-char-list $B$NMWAG$K4XO"$9$k$b$N$r<h$j=|$/!#(B
+    ;; skk-auto-paren-string-alist の中から、
+    ;; skk-special-midashi-char-list の要素に関連するものを取り除く。
     (dolist (s (mapcar #'char-to-string
                        skk-special-midashi-char-list))
       (skk-remove-alist 'skk-auto-paren-string-alist s))
@@ -750,29 +750,29 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
         (dolist (cell skk-auto-paren-string-alist)
           (setq str (car cell))
           (when (and (skk-ascii-char-p (string-to-char str))
-                     ;; $B=PNOJ8;z$,F~$C$F$$$k%;%k$rD4$Y$F!"$$$:$l$+$N(B
-                     ;; $B%-!<$K%P%$%s%I$5$l$F$$$J$$$+$I$&$+$r3NG'$9$k!#(B
+                     ;; 出力文字が入っているセルを調べて、いずれかの
+                     ;; キーにバインドされていないかどうかを確認する。
                      (null (assoc str rulealst))
                      (null (rassoc str rulealst))
-                     ;; $B3d$jIU$1$h$&$H$7$F$$$k%-!<$,!"2?$+B>$N=PNOJ8;z$K(B
-                     ;; $B%P%$%s%I$5$l$F$$$J$$$+$I$&$+$r3NG'$9$k!#(B
+                     ;; 割り付けようとしているキーが、何か他の出力文字に
+                     ;; バインドされていないかどうかを確認する。
                      (null (assoc str skk-rom-kana-base-rule-list))
                      (null (assoc str skk-rom-kana-rule-list)))
-            ;; skk-auto-paren-string-alist $B$N3FMWAG$N(B car $B$NJ8;z$,(B
-            ;; ascii char $B$G$"$k>l9g$O!"(Bskk-rom-kana-rule-list,
-            ;; skk-rom-kana-base-rule-list $B$K$=$NJ8;z$r=q$-9~$`!#(B
-            ;; $BK\Mh$O(B ascii char $B$O(B skk-rom-kana-rule-list,
-            ;; skk-rom-kana-base-rule-list $B$K=q$/I,MW$,$J$$(B
-            ;; --- skk-emulate-original-map$B$K$h$kF~NO$,9T$J$o$l$k(B ---
-            ;; $B$,!"(Bskk-auto-paren-string-alist $B$K;XDj$5$l$?BP$K$J$k(B
-            ;; $BJ8;z$NA^F~$N$?$a$K$O!"%-!<$H$J$kJ8;z$r=q$$$F$*$/I,MW$,(B
-            ;; $B$"$k!#(B
+            ;; skk-auto-paren-string-alist の各要素の car の文字が
+            ;; ascii char である場合は、skk-rom-kana-rule-list,
+            ;; skk-rom-kana-base-rule-list にその文字を書き込む。
+            ;; 本来は ascii char は skk-rom-kana-rule-list,
+            ;; skk-rom-kana-base-rule-list に書く必要がない
+            ;; --- skk-emulate-original-mapによる入力が行なわれる ---
+            ;; が、skk-auto-paren-string-alist に指定された対になる
+            ;; 文字の挿入のためには、キーとなる文字を書いておく必要が
+            ;; ある。
             (setq skk-rom-kana-rule-list
                   (cons (list str nil str)
                         skk-rom-kana-rule-list))))))))
 
 (defun skk-setup-minibuffer ()
-  "$B%+%l%s%H%P%C%U%!$NF~NO%b!<%I$K=>$C$F%_%K%P%C%U%!$NF~NO%b!<%I$r@_Dj$9$k!#(B"
+  "カレントバッファの入力モードに従ってミニバッファの入力モードを設定する。"
   (cl-case skk-minibuffer-origin-mode
     (hiragana
      (skk-j-mode-on))
@@ -787,48 +787,48 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 
 ;;;###autoload
 (defun skk-setup-jisyo-buffer ()
-  "SKK $B$N<-=q%P%C%U%!$rMQ0U$9$k!#(B
-`skk-jisyo' $B$N<-=q%P%C%U%!$G!"(B
- (1)$B6u%P%C%U%!$G$"$l$P!"?7$7$/%X%C%@!<$r:n$j!"(B
- (2)$B<-=q%(%s%H%j$,$"$k4{B8$N<-=q%P%C%U%!$J$i$P!"%X%C%@!<$,@5$7$$$+$I$&$+$r(B
-    $B%A%'%C%/$9$k!#(B"
+  "SKK の辞書バッファを用意する。
+`skk-jisyo' の辞書バッファで、
+ (1)空バッファであれば、新しくヘッダーを作り、
+ (2)辞書エントリがある既存の辞書バッファならば、ヘッダーが正しいかどうかを
+    チェックする。"
 
-  ;; skk-okuri-ari-min $B$H(B skk-okuri-nasi-min $B$N0LCV$rJQ99$7$?!#(B
-  ;;                       $B"-(B $B?7$7$$(B skk-okuri-ari-min
+  ;; skk-okuri-ari-min と skk-okuri-nasi-min の位置を変更した。
+  ;;                       ↓ 新しい skk-okuri-ari-min
   ;;   ;; okuri-ari entries.
-  ;;   $B"+(B $B0JA0$N(B skk-okuri-ari-min
+  ;;   ← 以前の skk-okuri-ari-min
   ;;
-  ;;   $B"-(B skk-okuri-ari-max $B"-(B $B?7$7$$(B skk-okuri-nasi-min
+  ;;   ↓ skk-okuri-ari-max ↓ 新しい skk-okuri-nasi-min
   ;;   ;; okuri-nasi entries.
-  ;;   $B"+(B $B0JA0$N(B skk-okuri-nasi-min
+  ;;   ← 以前の skk-okuri-nasi-min
   ;;
   ;;
-  ;; $BJQ99A0$N0LCV$G$"$l$P!"2<5-$N$h$&$J6u<-=q$N>l9g!"(B
+  ;; 変更前の位置であれば、下記のような空辞書の場合、
   ;;
   ;;   ;; okuri-ari entries.
   ;;   ;; okuri-nasi entries.
   ;;
-  ;; skk-okuri-ari-min $B$H(B skk-okuri-ari-max $B$N%^!<%+!<$,=E$J$C$F$7$^$$!"(B
-  ;; skk-okuri-ari-min $B$N0LCV$KA^F~$7$?8uJd$,(B skk-okuri-ari-max $B$N%^!<%+!<(B
-  ;; $B$r8eJ}$K2!$7$d$i$J$$!#(B
+  ;; skk-okuri-ari-min と skk-okuri-ari-max のマーカーが重なってしまい、
+  ;; skk-okuri-ari-min の位置に挿入した候補が skk-okuri-ari-max のマーカー
+  ;; を後方に押しやらない。
   ;;
-  ;; case-fold-search $B$O!"<-=q%P%C%U%!$G$O>o$K(B nil$B!#(B
+  ;; case-fold-search は、辞書バッファでは常に nil。
   (save-match-data
     (when (zerop (buffer-size))
-      ;; $B6u%P%C%U%!$@$C$?$i!"%X%C%@!<$N$_A^F~!#(B
+      ;; 空バッファだったら、ヘッダーのみ挿入。
       (insert ";; okuri-ari entries.\n" ";; okuri-nasi entries.\n"))
     (goto-char (point-min))
     (unless (re-search-forward "^;; okuri-ari entries.$" nil 'noerror)
-      (skk-error "$BAw$j$"$j%(%s%H%j$N%X%C%@!<$,$"$j$^$;$s!*(B"
+      (skk-error "送りありエントリのヘッダーがありません！"
                  "Header line for okuri-ari entries is missing!"))
-    ;; $B8GDj%]%$%s%H$J$N$G!"(B(point) $B$G==J,!#(B
+    ;; 固定ポイントなので、(point) で十分。
     (setq skk-okuri-ari-min (point))
     (unless (re-search-forward "^;; okuri-nasi entries.$" nil 'noerror)
-      (skk-error "$BAw$j$J$7%(%s%H%j$N%X%C%@!<$,$"$j$^$;$s!*(B"
+      (skk-error "送りなしエントリのヘッダーがありません！"
                  "Header line for okuri-nasi entries is missing!"))
     (beginning-of-line)
-    ;; $B6&M-<-=q$J$i8GDj%]%$%s%H$G$bNI$$$N$@$,!"<-=q%P%C%U%!$GJT=8$r9T(B
-    ;; $B$J$C$?$H$-$N$3$H$rG[N8$7$F%^!<%+!<$K$7$F$*$/!#(B
+    ;; 共有辞書なら固定ポイントでも良いのだが、辞書バッファで編集を行
+    ;; なったときのことを配慮してマーカーにしておく。
     (setq skk-okuri-ari-max (point-marker))
     (forward-line 1)
     (backward-char 1)
@@ -840,12 +840,12 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
        (null (car (mapcar #'(lambda (e)
                               (string-match "skk" (symbol-name e)))
                           isearch-mode-hook)))
-       (skk-message "skk-setup.el $B$r;29M$K$7$F!"(Bisearch-mode-hook $B$r@_Dj$7$F$/$@$5$$!#(B"
+       (skk-message "skk-setup.el を参考にして、isearch-mode-hook を設定してください。"
                     "Please refer to the source file `skk-setup.el' and setup isearch-mode-hook.") ))
 
 ;;;###autoload
 (defun skk-emulate-original-map (arg)
-  "$B%-!<F~NO$KBP$7$F(B Emacs $B$N%*%j%8%J%k$N%-!<3d$jIU$1$G%3%^%s%I$r<B9T$9$k!#(B"
+  "キー入力に対して Emacs のオリジナルのキー割り付けでコマンドを実行する。"
   (let ((prefix-arg arg)
         (keys (skk-command-key-sequence (this-command-keys) this-command)))
     (when keys ; If key is nil, the command may have been invoked by M-x.
@@ -874,8 +874,8 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
                                #'undefined)))))))
 
 (defun skk-command-key-sequence (key command)
-  "KEY $B$+$i(B universal arguments $B$r<h$j=|$-!"(BCOMMAND $B$r<B9T$9$k%-!<$rJV$9!#(B
-`execute-extended-command' $B$K$h$C$F%3%^%s%I$,<B9T$5$l$?>l9g$O!"(Bnil $B$rJV$9!#(B"
+  "KEY から universal arguments を取り除き、COMMAND を実行するキーを返す。
+`execute-extended-command' によってコマンドが実行された場合は、nil を返す。"
   (while (not (or (zerop (length key))
                   (eq command (key-binding key))))
     (setq key (vconcat (cdr (append key nil)))))
@@ -884,25 +884,25 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 
 ;;;###autoload
 (defun skk-adjust-user-option ()
-  "$B%f!<%6%*%W%7%g%s$NIT@09g$rD4@0$9$k!#(B"
+  "ユーザオプションの不整合を調整する。"
   (unless (skk-color-cursor-display-p)
     (setq skk-use-color-cursor nil))
-  ;; $BN>N)$G$-$J$$%*%W%7%g%s$rD4@0$9$k!#(B
+  ;; 両立できないオプションを調整する。
   (when skk-process-okuri-early
-    ;; skk-process-okuri-early $B$NCM$,(B non-nil $B$G$"$k$H$-$K2<5-$NCM$,(B non-nil
-    ;; $B$G$"$l$P@5>o$KF0$+$J$$$N$G$3$NJQ?t$NM%@h=g0L$r9b$/$7$?!#(B
+    ;; skk-process-okuri-early の値が non-nil であるときに下記の値が non-nil
+    ;; であれば正常に動かないのでこの変数の優先順位を高くした。
     (setq skk-kakutei-early nil
           skk-auto-okuri-process nil
           skk-henkan-okuri-strictly nil
           skk-henkan-strict-okuri-precedence nil))
   (unless skk-jisyo-save-count
-    ;; $B8=:_$N<BAu$G$O!"8D?M<-=q$N%*!<%H%;!<%VL5$7$G$O8D?M<-=q$N6&M-$O$G$-$J$$(B
-    ;; $B$3$H$K$J$C$F$$$k!#(B
+    ;; 現在の実装では、個人辞書のオートセーブ無しでは個人辞書の共有はできない
+    ;; ことになっている。
     (setq skk-share-private-jisyo nil)))
 
 ;;;###autoload
 (defun skk-latin-mode (arg)
-  "SKK $B$N%b!<%I$r%"%9%-!<%b!<%I$KJQ99$9$k!#(B"
+  "SKK のモードをアスキーモードに変更する。"
   (interactive "P")
   (skk-kakutei)
   (skk-latin-mode-on)
@@ -910,20 +910,20 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 
 ;;;###autoload
 (defun skk-jisx0208-latin-mode (arg)
-  "SKK $B$N%b!<%I$rA41Q%b!<%I$KJQ99$9$k!#(B"
+  "SKK のモードを全英モードに変更する。"
   (interactive "P")
   (skk-kakutei)
   (skk-jisx0208-latin-mode-on)
   nil)
 
 (defun skk-abbrev-mode (arg)
-  "ascii $BJ8;z$r%-!<$K$7$?JQ49$r9T$&$?$a$NF~NO%b!<%I!#(B"
+  "ascii 文字をキーにした変換を行うための入力モード。"
   (interactive "*P")
   (cl-case skk-henkan-mode
     (active
      (skk-kakutei))
     (on
-     (skk-error "$B4{$K"&%b!<%I$KF~$C$F$$$^$9(B" "Already in $B"&(B mode")))
+     (skk-error "既に▽モードに入っています" "Already in ▽ mode")))
   (let (skk-dcomp-activate)
     (skk-set-henkan-point-subr))
   (skk-abbrev-mode-on)
@@ -931,21 +931,21 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 
 ;;;###autoload
 (defun skk-toggle-characters (arg)
-  "$B"#%b!<%I!""'%b!<%I$G!"$+$J%b!<%I$H%+%J%b!<%I$r%H%0%k$G@Z$jBX$($k!#(B
-$B"&%b!<%I$G$O(B `skk-henkan-start-point' ($B"&$ND>8e(B) $B$H%+!<%=%k$N4V$NJ8;zNs$K$D$$(B
-$B$F!"$R$i$,$J$H%+%?%+%J$rF~$lBX$($k!#(B"
+  "■モード、▼モードで、かなモードとカナモードをトグルで切り替える。
+▽モードでは `skk-henkan-start-point' (▽の直後) とカーソルの間の文字列につい
+て、ひらがなとカタカナを入れ替える。"
   (interactive "P")
-  (let ((show skk-show-mode-enable))    ;$B%A%e!<%H%j%"%k<B9TCf$N$_(B nil
+  (let ((show skk-show-mode-enable))    ;チュートリアル実行中のみ nil
     (cond
-     ((eq skk-henkan-mode 'on)      ;$B"&%b!<%I(B
+     ((eq skk-henkan-mode 'on)      ;▽モード
       (let (char-type)
         (skk-save-point
          (goto-char skk-henkan-start-point)
          (while (and (>= skk-save-point (point))
                      ;; (not (eobp))
                      (or
-                      ;; "$B!<(B" $B$G$OJ8;z<oJL$,H=JL$G$-$J$$$N$G!"%]%$%s%H$r?J$a$k!#(B
-                      (looking-at "$B!<(B")
+                      ;; "ー" では文字種別が判別できないので、ポイントを進める。
+                      (looking-at "ー")
                       (eq 'unknown (setq char-type (skk-what-char-type)))))
            (forward-char 1)))
         (skk-henkan-skk-region-by-func
@@ -954,13 +954,13 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
            (katakana #'skk-hiragana-region)
            (jisx0208-latin #'skk-latin-region)
            (ascii #'skk-jisx0208-latin-region))
-         ;; `skk-katakana-region' $B$N0z?t(B VCONTRACT $B$^$?$O(B
-         ;; `skk-hiragana-region' $B$N0z?t(B VEXPAND $B$rM?$($k!#(B
+         ;; `skk-katakana-region' の引数 VCONTRACT または
+         ;; `skk-hiragana-region' の引数 VEXPAND を与える。
          (memq char-type '(hiragana katakana))))
       (setq show nil))
      ((and (skk-in-minibuffer-p)
            (not skk-j-mode))
-      ;; $B%_%K%P%C%U%!$X$N=iFMF~;~!#(B
+      ;; ミニバッファへの初突入時。
       (skk-j-mode-on))
      (t
       (setq skk-katakana (not skk-katakana))))
@@ -971,25 +971,25 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
   nil)
 
 (defun skk-misc-for-picture ()
-  "`picture-mode' $B$XF~$C$?$H$-$K(B SKK $B5/F0A0$N>uBV$KLa$9!#(B
-`edit-picture-hook' $B$K(B `add-hook' $B$7$F;HMQ$9$k!#(B"
-  ;; $B4{B8$N%P%C%U%!$r(B picture mode $B$K$7$?$H$-!"(Bpicture-mode $B4X?t$O(B
-  ;; kill-all-local-variables $B4X?t$r8F$P$J$$$N$G!"(BSKK $B4XO"$N%P%C%U%!%m!<%+%k(B
-  ;; $BJQ?t$,85$N%P%C%U%!$NCM$N$^$^$K$J$C$F$7$^$&!#$=$3$G!"(Bpicture mode $B$KF~$C$?(B
-  ;; $B$H$-$K%U%C%/$rMxMQ$7$F$3$l$i$N%P%C%U%!%m!<%+%kJQ?t$r(B kill $B$9$k!#(B
-  ;; RMS $B$O(B picture-mode $B$G(B kill-all-local-variables $B4X?t$r8F$P$J$$$N$O!"%P%0(B
-  ;; $B$G$O$J$$!"$H8@$C$F$$$?!#(B
+  "`picture-mode' へ入ったときに SKK 起動前の状態に戻す。
+`edit-picture-hook' に `add-hook' して使用する。"
+  ;; 既存のバッファを picture mode にしたとき、picture-mode 関数は
+  ;; kill-all-local-variables 関数を呼ばないので、SKK 関連のバッファローカル
+  ;; 変数が元のバッファの値のままになってしまう。そこで、picture mode に入った
+  ;; ときにフックを利用してこれらのバッファローカル変数を kill する。
+  ;; RMS は picture-mode で kill-all-local-variables 関数を呼ばないのは、バグ
+  ;; ではない、と言っていた。
   ;;
-  ;; picture-mode $B$G(B SKK $B$r;HMQ$74A;zF~NO$r$7$?>l9g$K!"(BBS $B$GA43QJ8;z$,>C$;$J$$(B
-  ;; $B$N$O!"(BSKK $B$NIT6q9g$G$O$J$/!"(Bpicture.el $B$NLdBj(B (move-to-column-force $B4X?t(B
-  ;; $B$NCf$G;HMQ$7$F$$$k(B move-to-column $B$GA43QJ8;z$rL5;k$7$?%+%i%`?t$,M?$($i$l(B
-  ;; $B$?$H$-$K%+!<%=%k0\F0$,$G$-$J$$$+$i(B) $B$G$"$k!#>C$7$?$$J8;z$K%]%$%s%H$r9g$o(B
-  ;; $B$;!"(BC-c C-d $B$G0lJ8;z$:$D>C$9$7$+J}K!$O$J$$!#(B
+  ;; picture-mode で SKK を使用し漢字入力をした場合に、BS で全角文字が消せない
+  ;; のは、SKK の不具合ではなく、picture.el の問題 (move-to-column-force 関数
+  ;; の中で使用している move-to-column で全角文字を無視したカラム数が与えられ
+  ;; たときにカーソル移動ができないから) である。消したい文字にポイントを合わ
+  ;; せ、C-c C-d で一文字ずつ消すしか方法はない。
   (when skk-mode
     (skk-kill-local-variables)))
 
 (defun skk-kill-local-variables ()
-  "SKK $B4XO"$N%P%C%U%!%m!<%+%kJQ?t$rL58z$K$9$k!#(B"
+  "SKK 関連のバッファローカル変数を無効にする。"
   (skk-mode -1)
   (let (v vstr)
     (dolist (lv (buffer-local-variables))
@@ -1002,7 +1002,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
 ;;;; kana inputting functions
 ;;;###autoload
 (defun skk-insert (&optional arg prog-list-number)
-  "SKK $B$NJ8;zF~NO$r9T$J$&!#(B"
+  "SKK の文字入力を行なう。"
   (interactive "p")
   (unless prog-list-number
     (setq prog-list-number current-prefix-arg))
@@ -1012,11 +1012,11 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
      (cond ((and skk-henkan-mode
                  (memq ch skk-special-midashi-char-list))
             (if (= skk-henkan-start-point (point))
-                ;; `$B"&(B' $B$KB3$/(B `>' $B$G$OJQ49=hM}$r3+;O$7$J$$(B
+                ;; `▽' に続く `>' では変換処理を開始しない
                 (progn
                   (set 'last-command-event ?>)
                   (skk-kana-input arg))
-              ;; $B@\F,<-!&@\Hx<-$N=hM}!#(B
+              ;; 接頭辞・接尾辞の処理。
               (skk-process-prefix-or-suffix arg)))
 
            ;; start writing a midasi key.
@@ -1030,34 +1030,34 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
             (skk-set-henkan-point arg))
 
            ;; start conversion.
-           ((and skk-henkan-mode        ; $B"&%b!<%I(B or $B"'%b!<%I(B
+           ((and skk-henkan-mode        ; ▽モード or ▼モード
                  (eq ch skk-start-henkan-char)) ; SPC
             (skk-start-henkan arg prog-list-number))
 
            ;; just input kana.
-           ((not (eq skk-henkan-mode 'on)) ; not $B"&%b!<%I(B
+           ((not (eq skk-henkan-mode 'on)) ; not ▽モード
             (skk-kana-input arg))
 
            ;; for completion.
-           ;; $B%3%s%W%j!<%7%g%s4XO"$N4X?t$O(B skk-rom-kana-base-rule-list $B$NCf$K2!(B
-           ;; $B$79~$a!"(Bskk-kana-input $B$NCf$+$i@)8f$9$Y$-!#(B
-           ;; $BC"$7!"(BTAB $B$O(B self-insert-command $B$G$O$J$$$N$G!"(Bskk-j-mode-map $B$N(B
-           ;; $B%-!<%^%C%W$G(B substitute-key-definition $B$7$F$b(B skk-insert $B$K%P%$%s(B
-           ;; $B%I$G$-$J$$!#(Bskk-j-mode-map $B$G(B $BD>@\(B "\t" $B$r(B skk-insert $B$K%P%$%s%I(B
-           ;; $B$7$F!"(Bcompletion $B$H(B skk-current-kuten/skk-current-touten $B$r%3%s%H(B
-           ;; $B%m!<%k$9$k%3%^%s%IL>$r(B skk-rom-kana-base-rule-list $B$K=q$1$PNI$$$+(B
-           ;; $B$b!#(B
-           ;; $B$G$b!"(Bskk-comp $B$H(B skk-current-kuten/skk-current-touten $B$N%3%s%H%m(B
-           ;; $B!<%k$,%O!<%I%3!<%G%#%s%0$5$l$k$N$O$^$:$$$+$b(B (skk-comp $B$O;H$C$F$b(B
-           ;; skk-current-kuten/skk-current-touten $B$O;H$o$J$$!"$H$$$&?M$,$$$k$+(B
-           ;; $B$b(B)$B!#(B
-           ((and (eq skk-henkan-mode 'on) ; $B"&%b!<%I(B
+           ;; コンプリーション関連の関数は skk-rom-kana-base-rule-list の中に押
+           ;; し込め、skk-kana-input の中から制御すべき。
+           ;; 但し、TAB は self-insert-command ではないので、skk-j-mode-map の
+           ;; キーマップで substitute-key-definition しても skk-insert にバイン
+           ;; ドできない。skk-j-mode-map で 直接 "\t" を skk-insert にバインド
+           ;; して、completion と skk-current-kuten/skk-current-touten をコント
+           ;; ロールするコマンド名を skk-rom-kana-base-rule-list に書けば良いか
+           ;; も。
+           ;; でも、skk-comp と skk-current-kuten/skk-current-touten のコントロ
+           ;; ールがハードコーディングされるのはまずいかも (skk-comp は使っても
+           ;; skk-current-kuten/skk-current-touten は使わない、という人がいるか
+           ;; も)。
+           ((and (eq skk-henkan-mode 'on) ; ▽モード
                  (eq ch skk-try-completion-char))
-            (skk-comp (or prog-list-number ; C-u TAB $B$GJd40%-!<$r=i4|2=(B
+            (skk-comp (or prog-list-number ; C-u TAB で補完キーを初期化
                           (not (eq last-command 'skk-comp-do)))))
 
            ;;
-           ((and (eq skk-henkan-mode 'on) ; $B"&%b!<%I(B
+           ((and (eq skk-henkan-mode 'on) ; ▽モード
                  (memq ch (list skk-next-completion-char
                                 skk-previous-completion-char))
                  (eq last-command 'skk-comp-do))
@@ -1071,23 +1071,23 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
      (skk-henkan-on-message))))
 
 (defun skk-process-prefix-or-suffix (&optional arg)
-  "$B@\F,<-$^$?$O@\Hx<-$NF~NO$r3+;O$9$k!#(B
-$B$3$l$O!"IaDL(B `skk-special-midashi-char-list' $B$K;XDj$5$l$?J8;z$NF~NO$,$"$C$?>l(B
-$B9g$KHsBPOCE*$K8F$S=P$5$l$k$,!"BPOCE*$K8F=P$9$3$H$b2DG=$G$"$k!#(B"
-  ;; SKK 10 $B$^$G$O!"(B> < ? $B$N(B 3 $B$D$K$D$$$F07$$$,J?Ey$G$J$+$C$?!#(BDaredevil SKK
-  ;; 11 $B0J9_$G$O!"<-=q$K$*$1$kI=8=$r(B > $B$GE}0l$9$k$3$H$K$h$j!"(B3 $B<T$N07$$$rJ?Ey(B
-  ;; $B$K$7!"$J$*$+$D!"$3$N%3%^%s%I$,J8;z%-!<$G$J$$F~NO$K$h$j8F$P$l$?$H$-$K$b@\(B
-  ;; $BHx<-!&(B $B@\F,<-F~NO$,$G$-$k$h$&$K$9$k!#(B
+  "接頭辞または接尾辞の入力を開始する。
+これは、普通 `skk-special-midashi-char-list' に指定された文字の入力があった場
+合に非対話的に呼び出されるが、対話的に呼出すことも可能である。"
+  ;; SKK 10 までは、> < ? の 3 つについて扱いが平等でなかった。Daredevil SKK
+  ;; 11 以降では、辞書における表現を > で統一することにより、3 者の扱いを平等
+  ;; にし、なおかつ、このコマンドが文字キーでない入力により呼ばれたときにも接
+  ;; 尾辞・ 接頭辞入力ができるようにする。
   (interactive "*p")
   (cl-case skk-henkan-mode
     (active
-     ;; $B@\Hx<-$N$?$a$N=hM}(B
+     ;; 接尾辞のための処理
      (skk-kakutei)
      (let (skk-kakutei-history)
        (skk-set-henkan-point-subr))
      (insert-and-inherit ?>))
     (on
-     ;; $B@\F,<-$N=hM}(B
+     ;; 接頭辞の処理
      (skk-kana-cleanup 'force)
      (insert-and-inherit ?>)
      (skk-set-marker skk-henkan-end-point (point))
@@ -1099,7 +1099,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
      (skk-henkan))
     (t
      (if last-command-event
-         ;; `skk-insert' $B$+$i8F$P$l$k>l9g$K$O!"$3$N%1!<%9$O$J$$!#(B
+         ;; `skk-insert' から呼ばれる場合には、このケースはない。
          (let ((i (prefix-numeric-value arg))
                (str (skk-char-to-unibyte-string last-command-event)))
            (while (> i 0)
@@ -1108,62 +1108,62 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
        nil))))
 
 (defun skk-kana-input (&optional arg)
-  "$B$+$JJ8;z$NF~NO$r9T$&%k!<%A%s!#(B"
+  "かな文字の入力を行うルーチン。"
   ;; Message-Id: <19980610190611B.sakurada@kuis.kyoto-u.ac.jp>
   ;; From: Hideki Sakurada <sakurada@kuis.kyoto-u.ac.jp>
   ;; Date: Wed, 10 Jun 1998 19:06:11 +0900 (JST)
   ;;
-  ;; $B?7$7$$(B skk-kana-input $B$O(B, $B4JC1$K@bL@$9$k$H(B,
-  ;; $B$"$i$+$8$a%k!<%k$rLZ$N7A$KI=8=$7$F$*$$$F(B, $BF~NO$r8+(B
-  ;; $B$FLZ$rC)$j(B, $B$=$l0J>eC)$l$J$/$J$C$?$i$=$N@a$KEPO?$5(B
-  ;; $B$l$F$$$k2>L>$rF~NO$9$k(B. $B$H$$$&$7$/$_$G$9(B.
+  ;; 新しい skk-kana-input は, 簡単に説明すると,
+  ;; あらかじめルールを木の形に表現しておいて, 入力を見
+  ;; て木を辿り, それ以上辿れなくなったらその節に登録さ
+  ;; れている仮名を入力する. というしくみです.
   ;;
-  ;; $BNc$($P(B, n a t $B$N$_$+$i$J$k0J2<$N%k!<%k(B
+  ;; 例えば, n a t のみからなる以下のルール
   ;;
-  ;;     a  $B"*(B $B$"(B
-  ;;     n  $B"*(B $B$s(B
-  ;;     nn $B"*(B $B$s(B
-  ;;     na $B"*(B $B$J(B
-  ;;     ta $B"*(B $B$?(B
-  ;;     tt $B"*(B $B$C(B ($B<!>uBV(B t)
+  ;;     a  → あ
+  ;;     n  → ん
+  ;;     nn → ん
+  ;;     na → な
+  ;;     ta → た
+  ;;     tt → っ (次状態 t)
   ;;
-  ;; $B$r%k!<%kLZ$KJQ49$9$k$H(B,
+  ;; をルール木に変換すると,
   ;;
-  ;;                 $B!?(B/$B!@(B
-  ;;               $B!?(B /   $B!@(B
-  ;;           a $B!?(B  / t    $B!@(B n
-  ;;           $B!?(B   /         $B!@(B
-  ;;          $B$"(B   $B!&(B           $B$s(B
-  ;;             $B!?(B|           / $B!@(B
-  ;;         a $B!?(B  | t      a /    $B!@(B n
-  ;;         $B!?(B    |         /       $B!@(B
-  ;;       $B$?(B     $B$C(B        $B$J(B        $B$s(B
-  ;;          ($B<!>uBV(B "t")
+  ;;                 ／/＼
+  ;;               ／ /   ＼
+  ;;           a ／  / t    ＼ n
+  ;;           ／   /         ＼
+  ;;          あ   ・           ん
+  ;;             ／|           / ＼
+  ;;         a ／  | t      a /    ＼ n
+  ;;         ／    |         /       ＼
+  ;;       た     っ        な        ん
+  ;;          (次状態 "t")
   ;;
-  ;; $B$H$$$&7A$K$J$j$^$9(B.
+  ;; という形になります.
   ;;
-  ;; $B=i4|>uBV(B($BLZ$N:,(B)$B$G(B `a' $B$rF~NO$9$k$H(B, $BLZ$N:,$+$i(B
-  ;; $B!V$"!W$K0\F0$7$^$9(B. $B<!$K$I$N$h$&$JF~NO$,Mh$F$b(B,
-  ;; $B$=$l$h$j2<$KC)$l$J$$$N$G(B, $B!V$"!W$r=PNO$7$F:,$KLa$j$^$9(B.
-  ;; $B%k!<%k$K<!>uBV$,@_Dj$5$l$F$$$k>l9g$O(B, $B@_Dj$5$l$F$$(B
-  ;; $B$kJ8;zNs$r%-%e!<$KLa$7$F$+$i:,$KLa$j$^$9(B.
+  ;; 初期状態(木の根)で `a' を入力すると, 木の根から
+  ;; 「あ」に移動します. 次にどのような入力が来ても,
+  ;; それより下に辿れないので, 「あ」を出力して根に戻ります.
+  ;; ルールに次状態が設定されている場合は, 設定されてい
+  ;; る文字列をキューに戻してから根に戻ります.
   ;;
-  ;; $B=i4|>uBV$G(B `n' $B$rF~NO$9$k$H(B, $B!V$s!W$K0\F0$7$^$9(B.
-  ;; $B<!$K(B `a' $B$^$?$O(B `n' $B$,F~NO$5$l$l$P$=$l$h$j2<$KC)$l$k(B
-  ;; $B$N$G<!$NF~NO$r8+$k$^$G$^$@=PNO$7$^$;$s(B.
-  ;; $B<!$K(B `t' $B$,F~NO$5$l$?>l9g$O(B, `t' $B$G$O2<$KC)$l$J$$$N$G(B,
-  ;; $B!V$s!W$r=PNO$7$F(B `t' $B$r%-%e!<$KLa$7$^$9(B.
+  ;; 初期状態で `n' を入力すると, 「ん」に移動します.
+  ;; 次に `a' または `n' が入力されればそれより下に辿れる
+  ;; ので次の入力を見るまでまだ出力しません.
+  ;; 次に `t' が入力された場合は, `t' では下に辿れないので,
+  ;; 「ん」を出力して `t' をキューに戻します.
   ;;
-  ;; $B$3$3$G(B, $B=i4|>uBV(B, $B8=>uBV$r$=$l$>$l(B skk-rule-tree,
-  ;; skk-current-rule-tree $B$GI=$7(B.
-  ;; $BLZ$r2<$KC)$k(B, $B$H$$$&A`:n$O(B, skk-select-branch $B$r(B
-  ;; $BMQ$$$F(B,
+  ;; ここで, 初期状態, 現状態をそれぞれ skk-rule-tree,
+  ;; skk-current-rule-tree で表し.
+  ;; 木を下に辿る, という操作は, skk-select-branch を
+  ;; 用いて,
   ;;
   ;;   (skk-select-branch rule-tree ?a)
   ;;
-  ;; $B$N$h$&$K$7$^$9(B. $B8=>uBV$K@_Dj$5$l$F$$$k$+$J(B(("$B%"(B". "$B$"(B")$B$J$I(B),
-  ;; $B<!>uBV(B("t" $B$J$I(B)$B$O(B, $B$=$l$>$l(B skk-get-kana,
-  ;; skk-get-nextstate $B$G<h$j$^$9(B.
+  ;; のようにします. 現状態に設定されているかな(("ア". "あ")など),
+  ;; 次状態("t" など)は, それぞれ skk-get-kana,
+  ;; skk-get-nextstate で取ります.
   ;; don't echo key strokes in the minibuffer.
   (let ((echo-keystrokes 0)
         (queue (list last-command-event)))
@@ -1229,7 +1229,7 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
           (if skk-current-rule-tree
               (progn
                 ;;(digit-argument arg)
-                ;; $B$&!A$s!"$h$&J,$+$i$s!#$H$j$"$($:!#(B
+                ;; う～ん、よう分からん。とりあえず。
                 (unless skk-isearch-message
                   (setq prefix-arg arg))
                 (setq skk-prefix (skk-get-prefix skk-current-rule-tree))
@@ -1261,13 +1261,13 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
                    (count1 arg)
                    (inserted 0)
                    region-str)
-              (when (and (eq skk-henkan-mode 'active) ;$B"'%b!<%I(B
+              (when (and (eq skk-henkan-mode 'active) ;▼モード
                          skk-kakutei-early
                          (not skk-process-okuri-early))
                 (skk-kakutei))
-              ;; arg $B$OJ]B8$7$F$*$+$J$$$H!"(B0 $B$K$J$C$F$7$^$$!"(Bqueue $B$,(B
-              ;; $B$?$^$C$F$$$F:FEY$3$3$X$d$C$FMh$?$H$-$K!"J8;zF~NO$,(B
-              ;; $B$G$-$J$/$J$k!#(B
+              ;; arg は保存しておかないと、0 になってしまい、queue が
+              ;; たまっていて再度ここへやって来たときに、文字入力が
+              ;; できなくなる。
               (skk-cancel-undo-boundary)
               (when (and (use-region-p)
                          skk-use-auto-enclose-pair-of-region
@@ -1298,11 +1298,11 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
       (when skk-isearch-message
         (skk-isearch-message)))))
 
-;;; tree procedure ($B%D%j!<$K%"%/%;%9$9$k$?$a$N%$%s%?!<%U%'!<%9(B)
+;;; tree procedure (ツリーにアクセスするためのインターフェース)
 (defun skk-search-tree (tree char-list)
-  "TREE $B$N:,$+$i@hC<$X(B CHAR-LIST $B$K=>$C$FC)$k!#(B
-$B@.8y$7$?>l9g$O(B nil $B$H(B $B7k2L$NLZ$NAH$rJV$7!"<:GT$7$?>l9g$OC)$l$J$+$C$?(B
-CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
+  "TREE の根から先端へ CHAR-LIST に従って辿る。
+成功した場合は nil と 結果の木の組を返し、失敗した場合は辿れなかった
+CHAR-LIST の残りと辿れなくなった節点の木の組を返す。"
   (catch 'return
     (let (next char rest)
       (while char-list
@@ -1335,12 +1335,12 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
     (skk-set-kana addpoint (nth 2 rule))))
 
 (defun skk-delete-rule (tree string)
-  "$BF~NO(B STRING $B$KBP$9$k%k!<%k$r%k!<%kLZ(B TREE $B$+$i:o=|$9$k!#(B"
+  "入力 STRING に対するルールをルール木 TREE から削除する。"
   (catch 'return
     (let ((char-list (string-to-list string))
           (cutpoint tree)
-          ;; TREE $B$N:,$+$i=P$k;^$,(B1$BK\$7$+$J$$>l9g(B
-          ;; $B$N$?$a$K0l1~=i4|2=$7$F$*$/(B
+          ;; TREE の根から出る枝が1本しかない場合
+          ;; のために一応初期化しておく
           (cuttree (car (skk-get-branch-list tree)))
           next)
       (while char-list
@@ -1348,8 +1348,8 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
               char-list (cdr char-list))
         (if next
             (if (> (length (skk-get-branch-list tree)) 1)
-                (setq cutpoint tree ; $B;^$,(B2$BK\0J>e$N;~(B cutpoint cuttree
-                      cuttree next  ; $B$r(B update
+                (setq cutpoint tree ; 枝が2本以上の時 cutpoint cuttree
+                      cuttree next  ; を update
                       tree next)
               (setq tree next))
           (throw 'return nil)))
@@ -1360,12 +1360,12 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 ;; The rule tree follows the following syntax:
 ;; <branch-list>  := nil | (<tree> . <branch-list>)
 ;; <tree>         := (<char> <prefix> <nextstate> <kana> <branch-list>)
-;; <kana>         := (<$B$R$i$,$JJ8;zNs(B> . <$B%+%?%+%JJ8;zNs(B>) | nil
-;; <char>         := <$B1Q>.J8;z(B>
-;; <nextstate>    := <$B1Q>.J8;zJ8;zNs(B> | nil
+;; <kana>         := (<ひらがな文字列> . <カタカナ文字列>) | nil
+;; <char>         := <英小文字>
+;; <nextstate>    := <英小文字文字列> | nil
 ;;;###autoload
 (defun skk-compile-rule-list (&rest rule-lists)
-  "rule list $B$rLZ$N7A$K%3%s%Q%$%k$9$k!#(B"
+  "rule list を木の形にコンパイルする。"
   (let ((tree (skk-make-rule-tree nil "" nil nil nil))
         key)
     (dolist (rule-list rule-lists)
@@ -1385,17 +1385,17 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
     tree))
 
 (defun skk-insert-str (str)
-  "$B%P%C%U%!$K(B STR $B$rA^F~$9$k!#(B
-$BI,MW$G$"$l$P(B `skk-auto-start-henkan' $B$r%3!<%k$9$k!#(B
-$BI,MW$G$"$l$P(B `self-insert-after-hook' $B$r%3!<%k$9$k!#(B
-`overwrite-mode' $B$G$"$l$P!"E,@Z$K>e=q$-$9$k!#(B"
+  "バッファに STR を挿入する。
+必要であれば `skk-auto-start-henkan' をコールする。
+必要であれば `self-insert-after-hook' をコールする。
+`overwrite-mode' であれば、適切に上書きする。"
   (insert-and-inherit str)
   (if (eq skk-henkan-mode 'on)
-      ;; $B"&%b!<%I(B
+      ;; ▽モード
       (when (and skk-auto-start-henkan
                  (not skk-okurigana))
         (skk-auto-start-henkan str))
-    ;; $B"&%b!<%I0J30(B
+    ;; ▽モード以外
     (when (and (boundp 'self-insert-after-hook)
                self-insert-after-hook)
       (funcall self-insert-after-hook
@@ -1403,21 +1403,21 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
                (point)))
     (when overwrite-mode
       (skk-del-char-with-pad (skk-ovwrt-len str))))
-  ;; SKK 9.6 $B$G$O$3$N%?%$%_%s%0$G(B fill $B$,9T$o$l$F$$$?$,!"(BSKK 10 $B$G$O9T$o$l$F$$(B
-  ;; $B$J$+$C$?!#(B
+  ;; SKK 9.6 ではこのタイミングで fill が行われていたが、SKK 10 では行われてい
+  ;; なかった。
   (when (and skk-j-mode
              (not skk-henkan-mode))
     (skk-do-auto-fill)))
 
 (defun skk-ovwrt-len (str)
-  "$B>e=q$-$7$FNI$$D9$5$rJV$9!#(B"
+  "上書きして良い長さを返す。"
   (min (string-width (buffer-substring-no-properties (point)
                                                      (line-end-position)))
        (string-width str)))
 
 (defun skk-del-char-with-pad (length)
-  "$BD9$5(B LENGTH $B$NJ8;z$r>C5n$9$k!#(B
-$BD4@0$N$?$a!"I,MW$G$"$l$P!"KvHx$K%9%Z!<%9$rA^F~$9$k!#(B"
+  "長さ LENGTH の文字を消去する。
+調整のため、必要であれば、末尾にスペースを挿入する。"
   (let ((p (point))
         (len 0))
     (while (< len length)
@@ -1429,41 +1429,41 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
       (backward-char 1))))
 
 (defun skk-cancel-undo-boundary ()
-  ;; skk-insert, skk-jisx0208-latin-insert $B$GO"B3$7$FF~NO$5(B
-  ;; $B$l$?(B 20 $BJ8;z$r(B 1 $B2s$N%"%s%I%%$NBP>]$H$9$k!#(B`20' $B$O(B
-  ;; keyboard.c $B$KDj$a$i$l$?%^%8%C%/%J%s%P!<!#(BMule-2.3 $BE:IU(B
-  ;; $B$N(B egg.el $B$r;29M$K$7$?!#(B
+  ;; skk-insert, skk-jisx0208-latin-insert で連続して入力さ
+  ;; れた 20 文字を 1 回のアンドゥの対象とする。`20' は
+  ;; keyboard.c に定められたマジックナンバー。Mule-2.3 添付
+  ;; の egg.el を参考にした。
   (cond
    ((and (< skk-self-insert-non-undo-count 20)
          (memq last-command
                '(skk-insert
                  skk-jisx0208-latin-insert
                  skk-kakutei-henkan
-                 ;; SKK abbrev $B%b!<%I$G$O!"%"%9%-!<J8;zF~NO$,(B Emacs $B%*%j%8%J(B
-                 ;; $B%k$N(B self-insert-command $B$K$h$j9T$o$l$F$$$k$N$G!"(B
-                 ;; skk-self-insert-non-undo-count $B$r%$%s%/%j%a%s%H$9$k$3$H(B
-                 ;; $B$,$G$-$J$$$N$G!"%"%s%I%%$r%(%_%e%l!<%H$G$-$J$$!#(B
-                 ;; $B$7$+$b!"%+%s%^$d%T%j%*%I$rA^F~$7$?;~E@$G!"(B
-                 ;; skk-abbrev-comma $B$d(B skk-abbrev-period $B$r;H$&$3$H$K$J$k$N(B
-                 ;; $B$G(B (self-insert-command $B0J30$N%3%^%s%I$r;H$C$F$7$^$&$N$G(B)$B!"(B
-                 ;; $B%*%j%8%J%k$N%"%s%I%%$N5!G=$bB;$J$C$F$7$^$&!#(B
-                 ;; $B$7$+$78=<BLdBj$H$7$F$O!"(BSKK abbrev $B%b!<%I$O>JN,7A$H$7$F$N(B
-                 ;; $B8+=P$78l$rA^F~$9$k$?$a$N%b!<%I$G$"$k$N$G!"D9$$8+=P$78l$r(B
-                 ;; $BA^F~$9$k$3$H$O$"$^$j$J$/!"LdBj$b>.$5$$$H9M$($i$l$k!#(B
+                 ;; SKK abbrev モードでは、アスキー文字入力が Emacs オリジナ
+                 ;; ルの self-insert-command により行われているので、
+                 ;; skk-self-insert-non-undo-count をインクリメントすること
+                 ;; ができないので、アンドゥをエミュレートできない。
+                 ;; しかも、カンマやピリオドを挿入した時点で、
+                 ;; skk-abbrev-comma や skk-abbrev-period を使うことになるの
+                 ;; で (self-insert-command 以外のコマンドを使ってしまうので)、
+                 ;; オリジナルのアンドゥの機能も損なってしまう。
+                 ;; しかし現実問題としては、SKK abbrev モードは省略形としての
+                 ;; 見出し語を挿入するためのモードであるので、長い見出し語を
+                 ;; 挿入することはあまりなく、問題も小さいと考えられる。
                  ;;skk-abbrev-comma
                  ;;skk-abbrev-period
                  self-insert-command)))
     (cancel-undo-boundary)
     (when (null skk-current-rule-tree)
-      ;; $B$^$@$+$JJ8;z$,40@.$7$F$$$J$$$H$-$O!"(Bundo count $B$r%$%s%/%j%a%s%H(B
-      ;; $B$7$J$$!#(B
+      ;; まだかな文字が完成していないときは、undo count をインクリメント
+      ;; しない。
       (setq skk-self-insert-non-undo-count
             (1+ skk-self-insert-non-undo-count))))
    (t
     (setq skk-self-insert-non-undo-count 1))))
 
 (defun skk-set-okurigana ()
-  "$B8+=P$78l$+$i(B `skk-henkan-okurigana', `skk-henkan-key' $B$N3FCM$r%;%C%H$9$k!#(B"
+  "見出し語から `skk-henkan-okurigana', `skk-henkan-key' の各値をセットする。"
   (cancel-undo-boundary)
   ;;(and skk-katakana (skk-hiragana-region skk-henkan-start-point (point)))
   (skk-set-marker skk-henkan-end-point skk-okurigana-start-point)
@@ -1495,8 +1495,8 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
   (setq skk-okurigana nil))
 
 (defun skk-set-char-before-as-okurigana (&optional no-sokuon)
-  "$B%]%$%s%H$ND>A0$NJ8;z$rAw$j2>L>$H8+Jo$7$F!"JQ49$r3+;O$9$k!#(B
-$B$?$@$7!"(B $B$b$&$R$H$DA0$NJ8;z$,B%2;$@$C$?>l9g$K$O!"(B $B$=$l0J9_$rAw$j2>L>$H8+Jo$9!#(B"
+  "ポイントの直前の文字を送り仮名と見倣して、変換を開始する。
+ただし、 もうひとつ前の文字が促音だった場合には、 それ以降を送り仮名と見倣す。"
   (interactive)
   (let ((pt1 (point))
         pt2 okuri sokuon)
@@ -1510,7 +1510,7 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
                       (backward-char 2)
                       (buffer-substring-no-properties (point)
                                                       pt2)))
-        (unless (member sokuon '("$B$C(B" "$B%C(B"))
+        (unless (member sokuon '("っ" "ッ"))
           (setq sokuon nil)))
       ;;
       (skk-save-point
@@ -1523,7 +1523,7 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 
 ;;; other inputting functions
 (defun skk-toggle-kutouten ()
-  "$B6gFIE@$N<oN`$r%H%0%k$GJQ99$9$k!#(B"
+  "句読点の種類をトグルで変更する。"
   (interactive)
   (setq skk-kutouten-type (cl-case skk-kutouten-type
                             (jp 'en)
@@ -1531,18 +1531,18 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
                             (jp-en 'en-jp)
                             (t 'jp)))
   (when (called-interactively-p 'interactive)
-    (skk-message "$BFIE@(B: `%s'  $B6gE@(B: `%s'"
+    (skk-message "読点: `%s'  句点: `%s'"
                  "Touten: `%s'  Kuten: `%s'"
                  (skk-current-touten nil)
                  (skk-current-kuten nil))))
 
-(defun skk-current-kuten (arg)      ;$B6gE@(B($B!#(B)
+(defun skk-current-kuten (arg)      ;句点(。)
   ;; just ignore arg.
   (if (symbolp skk-kutouten-type)
       (cadr (assq skk-kutouten-type skk-kuten-touten-alist))
     (car skk-kutouten-type)))
 
-(defun skk-current-touten (arg)     ;$BFIE@(B($B!"(B)
+(defun skk-current-touten (arg)     ;読点(、)
   ;; just ignore arg.
   (if (symbolp skk-kutouten-type)
       (cdr (cdr (assq skk-kutouten-type skk-kuten-touten-alist)))
@@ -1550,15 +1550,15 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 
 (defun skk-auto-kutouten (arg)
   (let ((output (cdr (assq last-command-event
-                           (list (list ?- "-" "$B!](B" "$B!<(B")
-                                 (list ?, "," "$B!$(B" (skk-current-touten nil))
-                                 (list ?. "." "$B!%(B" (skk-current-kuten nil))))))
+                           (list (list ?- "-" "－" "ー")
+                                 (list ?, "," "，" (skk-current-touten nil))
+                                 (list ?. "." "．" (skk-current-kuten nil))))))
         (chr (char-before (point))))
-    (cond ((null chr)           ;point-min $BBP:v(B
+    (cond ((null chr)           ;point-min 対策
            (nth 2 output))
           ((and (<= ?0 chr) (>= ?9 chr) skk-use-auto-kutouten)
            (nth 0 output))
-          ((and (<= ?$B#0(B chr) (>= ?$B#9(B chr) skk-use-auto-kutouten)
+          ((and (<= ?０ chr) (>= ?９ chr) skk-use-auto-kutouten)
            (nth 1 output))
           (t
            (nth 2 output)))))
@@ -1568,8 +1568,8 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
   (self-insert-command arg))
 
 (defun skk-abbrev-period (arg)
-  "SKK abbrev $B%b!<%I$G8+=P$78l$NJd40Cf$G$"$l$P!"<!$N8uJd$rI=<($9$k!#(B
-$BJd40$ND>8e$G$J$1$l$P!"%*%j%8%J%k$N%-!<3d$jIU$1$N%3%^%s%I$r%(%_%e%l!<%H$9$k!#(B"
+  "SKK abbrev モードで見出し語の補完中であれば、次の候補を表示する。
+補完の直後でなければ、オリジナルのキー割り付けのコマンドをエミュレートする。"
   (interactive "*P")
   (skk-with-point-move
    (if (eq last-command 'skk-comp-do)
@@ -1579,8 +1579,8 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
      (skk-emulate-original-map arg))))
 
 (defun skk-abbrev-comma (arg)
-  "SKK abbrev $B%b!<%I$G8+=P$78l$NJd40Cf$G$"$l$P!"D>A0$N8uJd$rI=<($9$k!#(B
-$BJd40$ND>8e$G$J$1$l$P!"%*%j%8%J%k$N%-!<3d$jIU$1$N%3%^%s%I$r%(%_%e%l!<%H$9$k!#(B"
+  "SKK abbrev モードで見出し語の補完中であれば、直前の候補を表示する。
+補完の直後でなければ、オリジナルのキー割り付けのコマンドをエミュレートする。"
   (interactive "*P")
   (skk-with-point-move
    (if (eq last-command 'skk-comp-do)
@@ -1590,12 +1590,12 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
      (skk-emulate-original-map arg))))
 
 (defun skk-jisx0208-latin-insert (arg)
-  "$BA41QJ8;z$r%+%l%s%H%P%C%U%!$KA^F~$9$k!#(B
-`skk-jisx0208-latin-vector' $B$r%F!<%V%k$H$7$F!":G8e$KF~NO$5$l$?%-!<$KBP1~$9$k(B
-$BJ8;z$rA^F~$9$k!#(B
-`skk-auto-insert-paren' $B$NCM$,(B non-nil $B$N>l9g$G!"(B`skk-auto-paren-string-alist'
-$B$KBP1~$9$kJ8;zNs$,$"$k$H$-$O!"$=$NBP1~$9$kJ8;zNs(B ($B$+$C$3N`(B) $B$r<+F0E*$KA^F~$9(B
-$B$k!#(B"
+  "全英文字をカレントバッファに挿入する。
+`skk-jisx0208-latin-vector' をテーブルとして、最後に入力されたキーに対応する
+文字を挿入する。
+`skk-auto-insert-paren' の値が non-nil の場合で、`skk-auto-paren-string-alist'
+に対応する文字列があるときは、その対応する文字列 (かっこ類) を自動的に挿入す
+る。"
   (interactive "p")
   (barf-if-buffer-read-only)
   (skk-with-point-move
@@ -1632,10 +1632,10 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
            (skip-chars-forward pair-str)))))))
 
 (defun skk-delete-backward-char (arg)
-  "$B"'%b!<%I$G(B `skk-delete-implies-kakutei' $B$J$iD>A0$NJ8;z$r>C$7$F3NDj$9$k!#(B
-$B"'%b!<%I$G(B `skk-delete-implies-kakutei' $B$,(B nil $B$@$C$?$iA08uJd$rI=<($9$k!#(B
-$B"&%b!<%I$G(B`$B"&(B'$B$h$j$bA0$N%]%$%s%H$G<B9T$9$k$H3NDj$9$k!#(B
-$B3NDjF~NO%b!<%I$G!"$+$J%W%l%U%#%C%/%9$NF~NOCf$J$i$P!"$+$J%W%l%U%#%C%/%9$r>C$9!#(B"
+  "▼モードで `skk-delete-implies-kakutei' なら直前の文字を消して確定する。
+▼モードで `skk-delete-implies-kakutei' が nil だったら前候補を表示する。
+▽モードで`▽'よりも前のポイントで実行すると確定する。
+確定入力モードで、かなプレフィックスの入力中ならば、かなプレフィックスを消す。"
   (interactive "*P")
   (skk-with-point-move
    (let ((count (prefix-numeric-value arg)))
@@ -1645,12 +1645,12 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
                 (= (+ skk-henkan-end-point (length skk-henkan-okurigana))
                    (point)))
            (skk-previous-candidate)
-         ;; overwrite-mode $B$G!"%]%$%s%H$,A43QJ8;z$K0O$^$l$F$$$k$H(B
-         ;; $B$-$K(B delete-backward-char $B$r;H$&$H!"A43QJ8;z$O>C$9$,H>(B
-         ;; $B3QJ8;zJ,$7$+(B backward $BJ}8~$K%]%$%s%H$,La$i$J$$(B (Emacs
-         ;; 19.31 $B$K$F3NG'(B)$B!#JQ49Cf$N8uJd$KBP$7$F$O(B
-         ;; delete-backward-char $B$GI,$:A43QJ8;z(B 1 $BJ8;zJ,(B backward
-         ;; $BJ}8~$KLa$C$?J}$,NI$$!#(B
+         ;; overwrite-mode で、ポイントが全角文字に囲まれていると
+         ;; きに delete-backward-char を使うと、全角文字は消すが半
+         ;; 角文字分しか backward 方向にポイントが戻らない (Emacs
+         ;; 19.31 にて確認)。変換中の候補に対しては
+         ;; delete-backward-char で必ず全角文字 1 文字分 backward
+         ;; 方向に戻った方が良い。
          (if overwrite-mode
              (progn
                (backward-char count)
@@ -1671,8 +1671,8 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
             (not (skk-get-prefix skk-current-rule-tree)))
        (setq skk-henkan-count 0)
        (skk-kakutei))
-      ;; $BF~NOCf$N8+=P$78l$KBP$7$F$O(B delete-backward-char $B$G(B
-      ;; $BI,$:A43QJ8;z(B 1$BJ8;zJ,(B backward $BJ}8~$KLa$C$?J}$,NI$$!#(B
+      ;; 入力中の見出し語に対しては delete-backward-char で
+      ;; 必ず全角文字 1文字分 backward 方向に戻った方が良い。
       ((and skk-henkan-mode overwrite-mode)
        (backward-char count)
        (delete-char count arg))
@@ -1685,7 +1685,7 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
 
 ;;; henkan routines
 (defun skk-henkan (&optional prog-list-number)
-  "$B%+%J$r4A;zJQ49$9$k%a%$%s%k!<%A%s!#(B"
+  "カナを漢字変換するメインルーチン。"
   (let (mark prototype new-word pair kakutei-henkan)
     (if (string= skk-henkan-key "")
         (skk-kakutei)
@@ -1694,7 +1694,7 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
         (setq mark (skk-save-point (forward-char 1)
                                    (point-marker))))
 
-      (unless (eq skk-henkan-mode 'active) ;$B"'%b!<%I0J30$J$i!#$D$^$j0lH/L\$r4^$`(B
+      (unless (eq skk-henkan-mode 'active) ;▼モード以外なら。つまり一発目を含む
         (skk-change-marker)
         (setq skk-current-search-prog-list
               (cond ((and (integerp prog-list-number)
@@ -1706,9 +1706,9 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
                     (t
                      skk-search-prog-list))))
 
-      ;; skk-henkan-1 $B$NCf$+$i%3!<%k$5$l$k(B skk-henkan-show-candidates
-      ;; $B$+$i(B throw $B$5$l$k!#$3$3$G%-%c%C%A$7$?>l9g$O!"(B?x $B$,%9%H%j!<%`$K(B
-      ;; $BLa$5$l$F$$$k$N$G!"$3$N4X?t$r=P$F!"(Bskk-previous-candidate $B$X$f$/!#(B
+      ;; skk-henkan-1 の中からコールされる skk-henkan-show-candidates
+      ;; から throw される。ここでキャッチした場合は、?x がストリームに
+      ;; 戻されているので、この関数を出て、skk-previous-candidate へゆく。
       (catch 'unread
         (cond ((setq prototype (skk-henkan-1))
                (setq new-word prototype))
@@ -1722,10 +1722,10 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
       (if mark
           (progn
             (goto-char mark)
-            ;; $B;2>H$5$l$F$$$J$$%^!<%+!<$O!"(BGarbage Collection $B$,%3!<%k$5$l$?$H(B
-            ;; $B$-$K2s<}$5$l$k$,!"$=$l$^$G$N4V!"%F%-%9%H$N$I$3$+$r;X$7$F$$$k$H!"(B
-            ;; $B%F%-%9%H$N%"%C%W%G!<%H$N:]$K$=$N%^!<%+!<CM$r99?7$9$kI,MW$,$"$k(B
-            ;; $B$N$G!"$I$3$b;X$5$J$$$h$&$K$9$k!#(B
+            ;; 参照されていないマーカーは、Garbage Collection がコールされたと
+            ;; きに回収されるが、それまでの間、テキストのどこかを指していると、
+            ;; テキストのアップデートの際にそのマーカー値を更新する必要がある
+            ;; ので、どこも指さないようにする。
             (skk-set-marker mark nil)
             (backward-char 1))
         (goto-char (point-max)))
@@ -1740,10 +1740,10 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
     (setq skk-henkan-in-minibuff-nest-level nil)))
 
 (defun skk-henkan-1 ()
-  "`skk-henkan' $B$N%5%V%k!<%A%s!#(B"
+  "`skk-henkan' のサブルーチン。"
   (let (new-word)
     (cl-case skk-henkan-count
-      ;; $B0lH/L\$N(B SPC $BBG80!J$D$^$j"&"*(BSPC$B"*"'$N$H$-!K(B
+      ;; 一発目の SPC 打鍵（つまり▽→SPC→▼のとき）
       (0
        (let ((prog-list-length (when (numberp skk-kakutei-search-prog-limit)
                                  (length skk-current-search-prog-list))))
@@ -1753,7 +1753,7 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
                                              (skk-search)))
            (skk-henkan-list-filter)
            (setq new-word (skk-get-current-candidate)))
-         ;; $BJQ498uJd$,0l$D$7$+L5$$;~$N3NDjJQ49MQ%A%'%C%/(B
+         ;; 変換候補が一つしか無い時の確定変換用チェック
          (when (and (or (eq skk-kakutei-when-unique-candidate t)
                         (cond (skk-abbrev-mode
                                (and (listp skk-kakutei-when-unique-candidate)
@@ -1764,7 +1764,7 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
                                     (memq 'okuri-ari
                                           skk-kakutei-when-unique-candidate)))
                               (t
-                               ;; $BAw$jL5$7$N$_$rFCJL07$$$7$F$$$?8E$$;EMM$KBP1~(B
+                               ;; 送り無しのみを特別扱いしていた古い仕様に対応
                                (or (eq 'okuri-nasi
                                        skk-kakutei-when-unique-candidate)
                                    (memq 'okuri-nasi
@@ -1786,7 +1786,7 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
                                  (length skk-current-search-prog-list))
                               skk-kakutei-search-prog-limit)))
              (setq skk-kakutei-henkan-flag t)))
-         ;; skk-henkan-list-filter $B$rDL$7$?8e$OG0$N0Y$K:F<hF@(B
+         ;; skk-henkan-list-filter を通した後は念の為に再取得
          (setq new-word (skk-get-current-candidate))
          (when (and new-word
                     (not skk-undo-kakutei-flag)
@@ -1795,12 +1795,12 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
            (setq this-command 'skk-kakutei-henkan
                  skk-kakutei-flag t))))
 
-      ;; $BFsH/L\0J9_$N(B SPC $BBG80!J$D$^$j"'$GO"B3(B SPC $BBG80!K(B
+      ;; 二発目以降の SPC 打鍵（つまり▼で連続 SPC 打鍵）
       (t
        (setq new-word (skk-get-current-candidate))
        (unless new-word
-         ;; $B?7$7$$8uJd$r8+$D$1$k$+!"(Bskk-current-search-prog-list $B$,6u$K$J(B
-         ;; $B$k$^$G(B skk-search $B$rO"B3$7$F%3!<%k$9$k!#(B
+         ;; 新しい候補を見つけるか、skk-current-search-prog-list が空にな
+         ;; るまで skk-search を連続してコールする。
          (while (and skk-current-search-prog-list
                      (not new-word))
            (setq skk-henkan-list (skk-nunion skk-henkan-list (skk-search)))
@@ -1831,24 +1831,24 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
     (skk-jisx0213-henkan-list-filter)))
 
 (defun skk-henkan-show-candidates ()
-  "$BJQ49$7$?8uJd72$r%(%3!<%(%j%"$KI=<($9$k!#(B"
+  "変換した候補群をエコーエリアに表示する。"
   (skk-save-point
    (let* ((max-candidates skk-henkan-number-to-display-candidates)
-          (candidate-keys ; $BI=<(MQ$N%-!<%j%9%H(B
+          (candidate-keys ; 表示用のキーリスト
            (mapcar (lambda (c)
                      (when (or (memq c '(?\C-g skk-start-henkan-char))
                                (skk-key-binding-member
                                 (skk-char-to-unibyte-string c)
                                 '(skk-previous-candidate)))
-                       (skk-error "`%s' $B$KL58z$J%-!<$,;XDj$5$l$F$$$^$9(B"
+                       (skk-error "`%s' に無効なキーが指定されています"
                                   "Illegal key in `%s'"
                                   "skk-henkan-show-candidates-keys"))
                      (skk-char-to-unibyte-string (upcase c)))
                    skk-henkan-show-candidates-keys))
-          key-num-alist ; $B8uJdA*BrMQ$NO"A[%j%9%H(B
-          (key-num-alist1 ; key-num-alist $B$rAH$_N)$F$k$?$a$N:n6HMQO"A[%j%9%H!#(B
-           ;; $B5U$5$^$K$7$F$*$$$F!"I=<($9$k8uJd$N?t$,>/$J$+$C$?$i@h(B
-           ;; $BF,$+$i4v$D$+:o$k!#(B
+          key-num-alist ; 候補選択用の連想リスト
+          (key-num-alist1 ; key-num-alist を組み立てるための作業用連想リスト。
+           ;; 逆さまにしておいて、表示する候補の数が少なかったら先
+           ;; 頭から幾つか削る。
            (let (alist)
              (dotimes (i max-candidates alist)
                (push (cons (nth i skk-henkan-show-candidates-keys)
@@ -1862,8 +1862,8 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
           new-one
           reverse
           n)
-     ;; Emacs 19.28 $B$@$H(B Overlay $B$r>C$7$F$*$+$J$$$H!"<!$K(B insert $B$5$l$k(B
-     ;; skk-henkan-key $B$K2?8N$+(B Overlay $B$,$+$+$C$F$7$^$&!#(B
+     ;; Emacs 19.28 だと Overlay を消しておかないと、次に insert される
+     ;; skk-henkan-key に何故か Overlay がかかってしまう。
      (when skk-use-face
        (skk-henkan-face-off))
      (delete-region skk-henkan-start-point
@@ -1877,23 +1877,23 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
                reverse nil))
 
         (skk-exit-show-candidates
-         ;; $B8uJd$,?T$-$F$7$^$C$F!"(Bskk-henkan-show-candidates ->
+         ;; 候補が尽きてしまって、skk-henkan-show-candidates ->
          ;; skk-henkan-in-minibuff -> skk-henkan
-         ;; -> skk-henkan-show-candidates $B$N=g$G!":F$S$3$N4X?t$,8F$P$l(B
-         ;; $B$?$H$-$O!"$3$3$G(B henkan-list $B$H(B loop $B$r7W;;$9$k!#(B
+         ;; -> skk-henkan-show-candidates の順で、再びこの関数が呼ばれ
+         ;; たときは、ここで henkan-list と loop を計算する。
          (setq henkan-list (nthcdr skk-henkan-count skk-henkan-list)
                loop (car skk-exit-show-candidates))
          (setq skk-exit-show-candidates nil))
 
         (t
-         ;; skk-henkan-show-candidates-keys $B$N:G=*$N%-!<$KBP1~$9$k8uJd(B
-         ;; $B$,=P$F$/$k$^$G%5!<%A$rB3$1$k!#(B
+         ;; skk-henkan-show-candidates-keys の最終のキーに対応する候補
+         ;; が出てくるまでサーチを続ける。
          (while (and skk-current-search-prog-list
                      (null (nthcdr (+ nth-henkan max-candidates (* loop max-candidates))
                                    skk-henkan-list)))
-           ;; $B?75,$K8uJd$,F@$i$l$?;~$N$_(B skk-henkan-list-filter $B$r8F$V!#(B
-           ;; skk-look $B$d(B skk-server-completion-search $B$rMxMQ$7$?M9JXHV9f$+$i$N(B
-           ;; $BJQ49;~$J$I$N$h$&$K!"?tCM$r4^$_3n$DBgNL$N8uJd$,$"$k;~$NB.EY2~A1!#(B
+           ;; 新規に候補が得られた時のみ skk-henkan-list-filter を呼ぶ。
+           ;; skk-look や skk-server-completion-search を利用した郵便番号からの
+           ;; 変換時などのように、数値を含み且つ大量の候補がある時の速度改善。
            (let ((cands (skk-search)))
              (when cands
                (setq skk-henkan-list
@@ -1940,23 +1940,23 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
                      (if (or skk-current-search-prog-list
                              (nthcdr max-candidates henkan-list))
                          (setq loop (1+ loop))
-                       ;; $B8uJd$,?T$-$?!#$3$N4X?t$+$iH4$1$k!#(B
+                       ;; 候補が尽きた。この関数から抜ける。
                        (let ((last-showed-index (+ nth-henkan (* loop max-candidates))))
                          (setq skk-exit-show-candidates
-                               ;; cdr $BIt$O!"<-=qEPO?$KF~$kA0$K:G8e$KI=<($7(B
-                               ;; $B$?8uJd72$NCf$G:G=i$N8uJd$r;X$9%$%s%G%/%9(B
+                               ;; cdr 部は、辞書登録に入る前に最後に表示し
+                               ;; た候補群の中で最初の候補を指すインデクス
                                (cons loop last-showed-index))
-                         ;; $B<-=qEPO?$KF~$k!#(Bskk-henkan-count $B$O(B
-                         ;; skk-henkan-list $B$N:G8e$N8uJd$N<!(B ($BB8:_$7$J$$(B
-                         ;; --- nil)$B$r;X$9!#(B
+                         ;; 辞書登録に入る。skk-henkan-count は
+                         ;; skk-henkan-list の最後の候補の次 (存在しない
+                         ;; --- nil)を指す。
                          (setq skk-henkan-count (+ last-showed-index n))
                          (setq loop nil))))
 
                     ((eq char skk-force-registration-mode-char)
                      (let ((last-showed-index (+ nth-henkan (* loop max-candidates))))
                        (setq skk-exit-show-candidates
-                             ;; cdr $BIt$O!"<-=qEPO?$KF~$kA0$K:G8e$KI=<($7(B
-                             ;; $B$?8uJd72$NCf$G:G=i$N8uJd$r;X$9%$%s%G%/%9(B
+                             ;; cdr 部は、辞書登録に入る前に最後に表示し
+                             ;; た候補群の中で最初の候補を指すインデクス
                              (cons loop last-showed-index))
                        (setq skk-henkan-count last-showed-index)
                        (setq loop nil)))
@@ -1972,11 +1972,11 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
                                              skk-j-mode-map)
                      (cl-case loop
                        (0
-                        ;; skk-henkan-show-candidates $B$r8F$VA0$N(B
-                        ;; $B>uBV$KLa$9!#(B
+                        ;; skk-henkan-show-candidates を呼ぶ前の
+                        ;; 状態に戻す。
                         (skk-escape-from-show-candidates nth-henkan))
                        (t
-                        ;; $B0l$DA0$N8uJd72$r%(%3!<%(%j%"$KI=<($9$k!#(B
+                        ;; 一つ前の候補群をエコーエリアに表示する。
                         (setq reverse t))))
 
                     ((eq char skk-annotation-toggle-display-char)
@@ -1988,23 +1988,23 @@ CHAR-LIST $B$N;D$j$HC)$l$J$/$J$C$?@aE@$NLZ$NAH$rJV$9!#(B"
                      (signal 'quit nil))
 
                     (t
-                     (skk-message "`%s' $B$OL58z$J%-!<$G$9!*(B"
+                     (skk-message "`%s' は無効なキーです！"
                                   "`%s' is not valid here!"
                                   (or (key-description key)
                                       (key-description char)))
                      (sit-for 1)))))
              (quit
-              ;; skk-previous-candidate $B$X(B
+              ;; skk-previous-candidate へ
               (skk-escape-from-show-candidates 0)))))) ; end of while loop
      ;;
      (or (cdr-safe new-one)
          new-one))))
 
 (defun skk-henkan-show-candidate-subr (keys candidates)
-  "$B8uJd72$rI=<($9$k4X?t!#(B
-KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
-$BK~$?$J$+$C$?$i$=$3$GBG$A@Z$k(B) $B$NJ8;zNs$r:n$j!"%$%s%i%$%s!"%D!<%k%F%#%C%W!"(B
-$B%(%3!<%(%j%"Kt$O8uJd%P%C%U%!$KI=<($9$k!#(B"
+  "候補群を表示する関数。
+KEYS と CANDIDATES を組み合わせて７の倍数個の候補群 (候補数が
+満たなかったらそこで打ち切る) の文字列を作り、インライン、ツールティップ、
+エコーエリア又は候補バッファに表示する。"
   (let* ((max-candidates skk-henkan-number-to-display-candidates)
          (workinglst (skk-henkan-candidate-list candidates max-candidates))
          str tooltip-str message-log-max)
@@ -2016,7 +2016,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
               (key (concat (propertize (nth i keys) 'face
                                        'skk-henkan-show-candidates-keys-face)
                            ":")))
-          (when (and (zerop (% i skk-henkan-number-to-display-candidates)) ; $B3FNs$N:G=i$N8uJd(B
+          (when (and (zerop (% i skk-henkan-number-to-display-candidates)) ; 各列の最初の候補
                      (not (zerop i)))
             (setq str (concat str "\n")))
           (setq str (concat str
@@ -2024,7 +2024,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
                             key cand)
                 tooltip-str (concat tooltip-str key cand "\n"))))
       (setq str (concat str (propertize
-                             (format "  [$B;D$j(B %d%s]"
+                             (format "  [残り %d%s]"
                                      (- (length candidates)
                                         (length workinglst))
                                      (make-string
@@ -2032,25 +2032,25 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
                                       ?+))
                              'face 'skk-henkan-rest-indicator-face))
             tooltip-str (concat tooltip-str
-                                (format "[$B;D$j(B %d%s]"
+                                (format "[残り %d%s]"
                                         (- (length candidates)
                                            (length workinglst))
                                         (make-string
                                          (length skk-current-search-prog-list)
                                          ?+))))
       (cond
-       ;; (1) $B8=:_$N%P%C%U%!$NCf$KI=<($9$k(B ($B%$%s%i%$%sI=<((B)
+       ;; (1) 現在のバッファの中に表示する (インライン表示)
        ((and skk-show-inline
              (not skk-isearch-switch)
              (not (skk-in-minibuffer-p)))
         (skk-inline-show str skk-inline-show-face tooltip-str max-candidates))
 
-       ;; (2) tooptip $B$GI=<($9$k(B
+       ;; (2) tooptip で表示する
        ((and window-system
              skk-show-tooltip
              (not (eq (symbol-function 'skk-tooltip-show-at-point) 'ignore)))
         (when (and skk-henkan-rest-indicator)
-          (let* ((body (substring tooltip-str 0 (string-match "\\[$B;D$j(B" tooltip-str)))
+          (let* ((body (substring tooltip-str 0 (string-match "\\[残り" tooltip-str)))
                  (rest (substring tooltip-str (- (length body) (length tooltip-str)))))
             (setq tooltip-str (concat body
                                       (make-string (- (car (skk-tooltip-max-tooltip-size))
@@ -2059,11 +2059,11 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
                                       rest))))
         (funcall skk-tooltip-function tooltip-str))
 
-       ;; (3) $B%(%3!<%(%j%"$r;H$&(B
+       ;; (3) エコーエリアを使う
        ((and (not skk-show-candidates-always-pop-to-buffer)
              (> (frame-width) (skk-max-string-width (split-string str "\n"))))
         (when skk-henkan-rest-indicator
-          (let* ((body (substring str 0 (string-match "  \\[$B;D$j(B" str)))
+          (let* ((body (substring str 0 (string-match "  \\[残り" str)))
                  (rest (substring str (- (length body) (length str)))))
             (setq str (concat body
                               (make-string (- (frame-width)
@@ -2071,17 +2071,17 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
                               rest))))
         (message "%s" str))
 
-       ;; (4) $B0l;~%P%C%U%!$r(B pop up $B$7$F;H$&(B
+       ;; (4) 一時バッファを pop up して使う
        (t
         (skk-henkan-show-candidates-buffer str keys))))
-    ;; $BI=<($9$k8uJd?t$rJV$9!#(B
+    ;; 表示する候補数を返す。
     (length workinglst)))
 
 (defun skk-check-treat-candidate-appearance-function ()
   (when (or (eq skk-annotation-lookup-lookup 'always)
             (eq skk-annotation-lookup-DictionaryServices 'always))
-    ;; Apple OS X $B$N<-=q%5!<%S%9$r8uJd0lMw$G$b;H$&>l9g$O!"(B
-    ;; `skk-treat-candidate-appearance-function' $B$rD4@a$9$kI,MW$"$j(B
+    ;; Apple OS X の辞書サービスを候補一覧でも使う場合は、
+    ;; `skk-treat-candidate-appearance-function' を調節する必要あり
     (setq skk-treat-candidate-appearance-function
           'skk-treat-candidate-sample2))
   ;;
@@ -2091,7 +2091,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
   (funcall skk-treat-candidate-appearance-function candidate listing-p))
 
 (defun skk-henkan-candidate-list (candidates max)
-  ;; CANDIDATES $B$N@hF,$N(B max $B8D$N$_$N%j%9%H$rJV$9!#(B
+  ;; CANDIDATES の先頭の max 個のみのリストを返す。
   (let ((count 0) e sep note v)
     (while (> max count)
       (setq e (nth count candidates))
@@ -2101,78 +2101,78 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
         (setq e (cdr e)))
       (cond
        (e
-        ;; $B$^$@8uJd$,;D$C$F$$$k>l9g(B
+        ;; まだ候補が残っている場合
         (when (skk-check-treat-candidate-appearance-function)
-          ;; skk-treat-candidate-appearance-function $B$K$h$C$F%f!<%6$O(B
-          ;; $BG$0U$K8uJdJ8;zNs$HCm<aJ8;zNs$r2C9)!&=$>~$9$k$3$H$,$G$-$k!#(B
-          ;; $B%f!<%6$,JV$9CM$O(B cons cell $B$^$?$OJ8;zNs$H$J$k!#(B
+          ;; skk-treat-candidate-appearance-function によってユーザは
+          ;; 任意に候補文字列と注釈文字列を加工・修飾することができる。
+          ;; ユーザが返す値は cons cell または文字列となる。
           (let ((value (save-match-data
-                         ;; $B8uJd0lMwI=<($N:]$O(B
-                         ;; skk-treat-candidate-appearance-function $B$N(B
-                         ;; $BBh(B 2 $B0z?t$r(B non-nil $B$H$9$k!#(B
+                         ;; 候補一覧表示の際は
+                         ;; skk-treat-candidate-appearance-function の
+                         ;; 第 2 引数を non-nil とする。
                          (skk-treat-candidate-appearance e 'list))))
             (cond
              ((consp value)
-              ;; $BJV$jCM$,(B cons cell $B$@$C$?>l9g(B
+              ;; 返り値が cons cell だった場合
               (setq e (car value))
               (cond
                ((consp (cdr value))
-                ;; ($B8uJd(B . ($B%;%Q%l!<%?(B . $BCm<a(B))
-                ;; $BCm<a$O4{$K%;%Q%l!<%?H4$-(B
+                ;; (候補 . (セパレータ . 注釈))
+                ;; 注釈は既にセパレータ抜き
                 (setq sep  (cadr value)
                       note (cddr value)))
                ((string-match "^;" (cdr value))
-                ;; ($B8uJd(B . $BCm<a(B)
-                ;; $BCm<a$O$^$@%;%Q%l!<%?$r4^$s$G$$$k(B
+                ;; (候補 . 注釈)
+                ;; 注釈はまだセパレータを含んでいる
                 (setq sep  (substring (cdr value) 0 1)
                       note (substring (cdr value) 1)))
                (t
-                ;; ($B8uJd(B . $BCm<a(B)
-                ;; $BCm<a$O4{$K%;%Q%l!<%?$r=|5n$7$F$$$k$b$N$H(B
-                ;; $BH=CG$9$k(B
+                ;; (候補 . 注釈)
+                ;; 注釈は既にセパレータを除去しているものと
+                ;; 判断する
                 (setq sep  ";"
                       note (cdr value)))))
              (t
-              ;; $BJV$jCM$,J8;zNs$@$C$?>l9g(B
+              ;; 返り値が文字列だった場合
               (setq e    value
                     note nil)))))
-        ;; $B%f!<%6$,Cm<aI=<($r2C9):Q$_$N>l9g$O$b$&Cm<a$N=hM}$O$7$J$$!#(B
+        ;; ユーザが注釈表示を加工済みの場合はもう注釈の処理はしない。
         (when (and (not (stringp note))
                    (string-match ";" e))
           (setq sep  (substring e (match-beginning 0) (match-end 0))
                 note (substring e (match-end 0))
                 e    (substring e 0 (match-beginning 0))))
-        ;; $B%f!<%6$,K>$`Cm<a$NI=<(7A<0$K1h$C$FCm<a$r2C9)$9$k!#(B
+        ;; ユーザが望む注釈の表示形式に沿って注釈を加工する。
         (cond ((not skk-show-annotation)
-               ;; $B!VI=<($7$J$$!W(B
+               ;; 「表示しない」
                (setq sep  nil
                      note nil))
               ((skk-annotation-display-p 'list)
-               ;; $B!VI=<($9$k!W(B
-               ;; $B$=$N$^$^(B
+               ;; 「表示する」
+               ;; そのまま
                )
               (t
-               ;; $B!V8uJd0lMw$G$OI=<($7$J$$!W(B
-               ;; annotation $B$NB8:_$@$1$rCN$i$;$k!#(B
+               ;; 「候補一覧では表示しない」
+               ;; annotation の存在だけを知らせる。
                (setq note nil)))
-        ;; $B8uJd0lMwI=<($G$O8uJd$HCm<a$r0l3g$7$FI=<($9$k$N$G(B
-        ;; $B$3$3$G7k9g$7$F$*$/!#(B
+        ;; 候補一覧表示では候補と注釈を一括して表示するので
+        ;; ここで結合しておく。
         (setq e (concat (skk-eval-string e)
                         sep
                         (when note
                           (skk-eval-string (skk-annotation-get note)))))
-        ;; $BA4$F$N2C9)=hM}=*$o$j!#JQ?t$K%;%C%H$9$k!#(B
+        ;; 全ての加工処理終わり。変数にセットする。
         (setq v     (cons e v)
               count (1+ count)))
        (t
-        ;; $B8uJd$,?T$-$?>l9g(B
+        ;; 候補が尽きた場合
         (setq count max))))
-    ;; $B8uJd$r=P8==g$K%=!<%H$7D>$7$FJV$9!#(B
+    ;; 候補を出現順にソートし直して返す。
     (nreverse v)))
 
 (defun skk-henkan-show-candidates-buffer (str keys)
-  ;; $B%(%3!<%(%j%"$NBe$o$j$K0l;~%P%C%U%!$r(B pop up $B$7$F8uJd0lMw$rI=<($9$k!#(B
-  (let ((buff (get-buffer-create "*$B8uJd(B*"))
+  ;; エコーエリアの代わりに一時バッファを pop up して候補一覧を表示する。
+  (let ((buff (get-buffer-create "*候補*"))
         (case-fold-search t))
     (with-current-buffer buff
       (erase-buffer)
@@ -2180,24 +2180,24 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
                   (funcall skk-henkan-show-candidates-buffer-decor str)
                 str))
       (goto-char (point-min))
-      ;; 1 $B8uJd$K(B 1 $B9T$r3d$jEv$F$k!#(B
+      ;; 1 候補に 1 行を割り当てる。
       (forward-char 2)
       (while (re-search-forward
               (concat "  "
                       (mapconcat 'identity keys ":\\|  ")
                       ":\\|"
-                      "  \\[$B;D$j(B [0-9]+\\(\\++\\)?\\]") nil t)
+                      "  \\[残り [0-9]+\\(\\++\\)?\\]") nil t)
         (goto-char (match-beginning 0))
         (delete-char 2)
         (insert "\n"))
       (goto-char (point-min))
 
-      ;; $B1&C<$KM>Gr$r@_$1$k(B
+      ;; 右端に余白を設ける
       (while (and (move-to-column (- (frame-width) 2))
                   (not (eobp))
                   (>= (frame-width) (current-column)))
         (unless (eolp)
-          ;; $B6XB'=hM}(B
+          ;; 禁則処理
           (unless (member (char-to-string (char-before))
                           skk-auto-start-henkan-keyword-list)
             (backward-char 1))
@@ -2205,14 +2205,14 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
           (forward-line -1))
         (forward-line 1))
 
-      ;; [$B;D$j(B 99++] $B$r1&C<$X(B
+      ;; [残り 99++] を右端へ
       (when skk-henkan-rest-indicator
         (let ((col (progn (goto-char (point-max))
                           (skk-screen-column))))
           (beginning-of-line)
           (insert-char 32 (- (frame-width) col 1))))
 
-      ;;$B8uJd%P%C%U%!$NGX7J?'(B
+      ;;候補バッファの背景色
       (when skk-candidate-buffer-background-color
         (unless skk-candidate-buffer-background-color-odd
           (setq skk-candidate-buffer-background-color-odd
@@ -2227,7 +2227,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
                                (point)))
                    (ovl (make-overlay bol eol)))
               (when (or (string-match "[ASDFJKL]:" (buffer-substring bol (+ 2 bol)))
-                        (string-match "\\[$B;D$j(B [0-9]+\\(\\++\\)?\\]"
+                        (string-match "\\[残り [0-9]+\\(\\++\\)?\\]"
                                       (buffer-substring bol eol)))
                 (setq background-color
                       (if (string= background-color skk-candidate-buffer-background-color)
@@ -2253,17 +2253,17 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
 
 ;;;###autoload
 (defun skk-henkan-in-minibuff ()
-  "$B<-=qEPO?%b!<%I$KF~$j!"EPO?$7$?C18l$NJ8;zNs$rJV$9!#(B"
+  "辞書登録モードに入り、登録した単語の文字列を返す。"
   (unless (numberp skk-henkan-in-minibuff-nest-level)
     (setq skk-henkan-in-minibuff-nest-level (minibuffer-depth)))
   (when (and window-system skk-show-tooltip)
     (tooltip-hide))
   (when skk-show-inline
-    (skk-inline-show "$B"-<-=qEPO?Cf"-(B" 'skk-jisyo-registration-badge-face))
+    (skk-inline-show "↓辞書登録中↓" 'skk-jisyo-registration-badge-face))
   (save-match-data
     (let ((enable-recursive-minibuffers t)
           (depth (- (1+ (minibuffer-depth)) skk-henkan-in-minibuff-nest-level))
-          ;; XEmacs $B$G$O<!$NJQ?t$,:F5"E*%_%K%P%C%U%!$N2DH]$K1F6A$9$k!#(B
+          ;; XEmacs では次の変数が再帰的ミニバッファの可否に影響する。
           minibuffer-max-depth
           ;; From skk-henkan()
           ;; we use mark to go back to the correct position after henkan
@@ -2271,7 +2271,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
                   (skk-save-point
                    (forward-char 1)
                    (point-marker))))
-          skk-isearch-message   ; $BJQ49Cf$K(B isearch message $B$,=P$J$$$h$&$K$9$k(B
+          skk-isearch-message   ; 変換中に isearch message が出ないようにする
           orglen new-one pair)
       (add-hook 'minibuffer-setup-hook 'skk-j-mode-on)
       (add-hook 'minibuffer-setup-hook 'skk-add-skk-pre-command)
@@ -2279,7 +2279,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
         (skk-show-num-type-info)
         (condition-case nil
             (setq new-one (read-from-minibuffer
-                           (format "%s$B<-=qEPO?(B%s %s: "
+                           (format "%s辞書登録%s %s: "
                                    (make-string depth ?\[)
                                    (make-string depth ?\])
                                    (or (and (skk-numeric-p)
@@ -2294,40 +2294,40 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
            (skk-delete-overlay skk-inline-overlays)
            (setq new-one ""))))
       (when (and skk-check-okurigana-on-touroku
-                 ;; $BAw$j$"$jJQ49$G$b(B skk-okuri-char $B$@$1$@$HH=CG$G$-$J$$!#(B
+                 ;; 送りあり変換でも skk-okuri-char だけだと判断できない。
                  skk-henkan-okurigana new-one)
         (setq new-one (skk-remove-redundant-okurigana new-one)))
       (cond
        ((string= new-one "")
         (skk-delete-overlay skk-inline-overlays)
         (if skk-exit-show-candidates
-            ;; $B%(%3!<%(%j%"$KI=<($7$?8uJd$,?T$-$F<-=qEPO?$KF~$C$?$,!"6uJ8;z(B
-            ;; $BNs$,EPO?$5$l$?>l9g!#:G8e$K%(%3!<%(%j%"$KI=<($7$?8uJd72$r:FI=(B
-            ;; $B<($9$k!#(B
+            ;; エコーエリアに表示した候補が尽きて辞書登録に入ったが、空文字
+            ;; 列が登録された場合。最後にエコーエリアに表示した候補群を再表
+            ;; 示する。
             (progn
               (setq skk-henkan-count (cdr skk-exit-show-candidates))
               (skk-henkan))
-          ;; skk-henkan-show-candidates $B$KF~$kA0$K8uJd$,?T$-$?>l9g(B
+          ;; skk-henkan-show-candidates に入る前に候補が尽きた場合
           (setq skk-henkan-count (1- skk-henkan-count))
           (if (= skk-henkan-count -1)
-              ;; $BAw$j$"$j$NJQ49$G<-=qEPO?$KF~$j!"6uJ8;z$rEPO?$7$?8e!"$=$N(B
-              ;; $B$^$^:FEYAw$j$J$7$H$7$FJQ49$7$?>l9g$O(B
-              ;; skk-henkan-okurigana, skk-okuri-char $B$NCM$r(B nil $B$K$7$J$1(B
-              ;; $B$l$P!"$=$l$>$l$NCM$K8E$$Aw$j2>L>$,F~$C$?$^$^$G8!:w$K<:GT(B
-              ;; $B$9$k!#(B
+              ;; 送りありの変換で辞書登録に入り、空文字を登録した後、その
+              ;; まま再度送りなしとして変換した場合は
+              ;; skk-henkan-okurigana, skk-okuri-char の値を nil にしなけ
+              ;; れば、それぞれの値に古い送り仮名が入ったままで検索に失敗
+              ;; する。
               (progn
                 (setq skk-henkan-okurigana nil
                       skk-okurigana nil
                       skk-okuri-char nil)
                 (skk-change-marker-to-white))
-            ;; $B<-=qEPO?$KF~$kD>A0$N8uJd$KCm<a$,$"$k2DG=@-$r9M$(!":FI=<($9$k!#(B
-            ;;   skk-insert-new-word(), skk-henkan-candidate-list() $BFb$N(B
-            ;;   $BCm<a2C9)=hM}$rFHN)$7$?4X?t$K$7$F!"(B
-            ;;   $B$=$l$rMxMQ$9$k$h$&$K$7$?$[$&$,NI$5$=$&!#(B
+            ;; 辞書登録に入る直前の候補に注釈がある可能性を考え、再表示する。
+            ;;   skk-insert-new-word(), skk-henkan-candidate-list() 内の
+            ;;   注釈加工処理を独立した関数にして、
+            ;;   それを利用するようにしたほうが良さそう。
             (setq pair (skk-insert-new-word (skk-get-current-candidate)))
             ;; From skk-henkan()
-            ;; $BAw$j$"$jJQ49$N:]$N(B point $B$N0LCV$r!"<-=qEPO?%b!<%I$KF~$kA0$N(B
-            ;; $B0LCV$KLa$9!#(B
+            ;; 送りあり変換の際の point の位置を、辞書登録モードに入る前の
+            ;; 位置に戻す。
             (if mark
                 (progn
                   (goto-char mark)
@@ -2338,7 +2338,7 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
             (when skk-show-annotation
               (skk-annotation-find-and-show pair)))))
        (t
-        (when (string-match "[ $B!!(B]+$" new-one)
+        (when (string-match "[ 　]+$" new-one)
           (setq new-one (substring new-one 0 (match-beginning 0))))
         (setq skk-henkan-list (nconc skk-henkan-list
                                      (list new-one)))
@@ -2351,18 +2351,18 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
           (setq skk-kakutei-flag t))
         (setq skk-henkan-in-minibuff-flag t
               skk-touroku-count (1+ skk-touroku-count))))
-      ;; (nth skk-henkan-count skk-henkan-list) $B$,(B nil $B$@$+$i<-=qEPO?$K(B
-      ;; $BF~$C$F$$$k!#(Bskk-henkan-count $B$r%$%s%/%j%a%s%H$9$kI,MW$O$J$$!#(B
-      ;; new-one $B$,6uJ8;zNs$@$C$?$i(B nil $B$rJV$9!#(B
+      ;; (nth skk-henkan-count skk-henkan-list) が nil だから辞書登録に
+      ;; 入っている。skk-henkan-count をインクリメントする必要はない。
+      ;; new-one が空文字列だったら nil を返す。
       (unless (string= new-one "")
-        (setq skk-jisyo-updated t)  ; skk-update-jisyo $B$G;2>H(B
+        (setq skk-jisyo-updated t)  ; skk-update-jisyo で参照
         new-one))))
 
 (defun skk-compute-henkan-key2 ()
-  ;; skk-henkan-okurigana $B$,(B non-nil $B$J$i(B skk-henkan-key $B$+$i!"$+$D$F(B
-  ;; skk-henkan-key2 $B$H8F$P$l$F$$$?$b$N$r:n$k!#(B
-  ;; skk-henkan-key2 $B$H$O!"!V4A;zItJ,$NFI$_(B + "*" + $BAw$j2>L>!W$N7A<0$NJ8;zNs$r(B
-  ;; $B8@$&!#(B
+  ;; skk-henkan-okurigana が non-nil なら skk-henkan-key から、かつて
+  ;; skk-henkan-key2 と呼ばれていたものを作る。
+  ;; skk-henkan-key2 とは、「漢字部分の読み + "*" + 送り仮名」の形式の文字列を
+  ;; 言う。
   (when skk-henkan-okurigana
     (save-match-data
       (string-match "[a-z]+$" skk-henkan-key)
@@ -2371,15 +2371,15 @@ KEYS $B$H(B CANDIDATES $B$rAH$_9g$o$;$F#7$NG\?t8D$N8uJd72(B ($B8uJd?t$,(B
               skk-henkan-okurigana))))
 
 (defun skk-remove-redundant-okurigana (word)
-  "$B<-=q$KEPO?$5$l$k8uJd$N;}$DM>7W$JAw$j2>L>$r<h$j=|$/!#(B
+  "辞書に登録される候補の持つ余計な送り仮名を取り除く。
 
-$BAw$j$"$j$NEPO?$r$9$k$H$-!"Aw$j2>L>$r>C$7$F$+$i(B [RET] $B$r2!$5$J$1$l$P@5$7$/EPO?(B
-$B$G$-$J$$!#(B $B$=$3$G!"%f!<%6$,4V0c$($FAw$j2>L>$r>C$7K:$l$F$$$J$$$+$I$&$+!"(B SKK
-$B$NB&$G%A%'%C%/$G$-$kHO0O$K$D$$$F$O%f!<%6$N3NG'$r<h$k!#(B
+送りありの登録をするとき、送り仮名を消してから [RET] を押さなければ正しく登録
+できない。 そこで、ユーザが間違えて送り仮名を消し忘れていないかどうか、 SKK
+の側でチェックできる範囲についてはユーザの確認を取る。
 
-`skk-check-okurigana-on-touroku' $B$r(B non-nil $B$K@_Dj$7$F$$$k>l9g$N$_M-8z!#(B
-auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
-$BJQ49$,9T$o$l$?%P%C%U%!$G<B9T$5$l$k!#%_%K%P%C%U%!!"<-=q%P%C%U%!$G$O$J$$!#(B"
+`skk-check-okurigana-on-touroku' を non-nil に設定している場合のみ有効。
+auto に設定するとユーザに確認しない。
+変換が行われたバッファで実行される。ミニバッファ、辞書バッファではない。"
   (save-match-data
     (let* ((len (length word))
            (str1 (when (< 0 len)
@@ -2387,44 +2387,44 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
            (str2 (when (< 1 len)
                    (substring word (- len 2) (1- len))))
            (str (if (and str2
-                         (string-match "^[$B$!(B-$B$s(B]$" str2))
+                         (string-match "^[ぁ-ん]$" str2))
                     (concat str2 str1)
                   str1)))
       (when (and str
-                 (string-match "^[$B$!(B-$B$s(B]$" str1)
+                 (string-match "^[ぁ-ん]$" str1)
                  (or (eq skk-check-okurigana-on-touroku 'auto)
                      (skk-y-or-n-p
-                      (format "%s: `%s' $B$r=|$$$FEPO?$7$^$9$+!)(B "
+                      (format "%s: `%s' を除いて登録しますか？ "
                               word str)
                       (format "%s: Remove `%s' when register? "
                               word str))))
-        ;; $B%f!<%6$N;X<($K=>$$Aw$j2>L>$r<h$j=|$/!#(B
+        ;; ユーザの指示に従い送り仮名を取り除く。
         (message "")
         (setq word (substring word
                               0
-                              (if (string-match "^[$B$!(B-$B$s(B]$" str2)
+                              (if (string-match "^[ぁ-ん]$" str2)
                                   (- len 2)
                                 (1- len)))))))
   ;;
   word)
 
 (defun skk-show-num-type-info ()
-  "$B?tCMJQ49%(%s%H%j$N<-=qEPO?;~$KJQ49%?%$%W$N0FFb$rI=<($9$k!#(B"
+  "数値変換エントリの辞書登録時に変換タイプの案内を表示する。"
   (when (and skk-show-num-type-info
              skk-use-numeric-conversion
              (string-match "[0-9]" skk-henkan-key))
-    (let ((buff (get-buffer-create " *$B?tCMJQ49%?%$%W(B*")))
+    (let ((buff (get-buffer-create " *数値変換タイプ*")))
       (with-current-buffer buff
         (erase-buffer)
         (insert "\
-#0 $BL5JQ49(B                 e.g. 12
-#1 $BA43Q?t;z(B               e.g. $B#1#2(B
-#2 $B4A?t;z$G0L<h$j$"$j(B     e.g. $B8^8^!;!;(B
-#3 $B4A?t;z$G0L<h$j$J$7(B     e.g. $B8^@i8^I4(B
-#4 $B?tCM:FJQ49(B
-#5 $B6b3[I=5-(B               e.g. $B0mot6eI46e=&8`(B
-#9 $B>-4}4}IhMQ(B"))
-      ;; skk-henkan-show-candidates-buffer $B$+$i$R$C$Q$C$F$-$?%3!<%I(B
+#0 無変換                 e.g. 12
+#1 全角数字               e.g. １２
+#2 漢数字で位取りあり     e.g. 五五〇〇
+#3 漢数字で位取りなし     e.g. 五千五百
+#4 数値再変換
+#5 金額表記               e.g. 壱阡九百九拾伍
+#9 将棋棋譜用"))
+      ;; skk-henkan-show-candidates-buffer からひっぱってきたコード
       (let ((minibuf-p (skk-in-minibuffer-p))
             (window (get-buffer-window (skk-minibuffer-origin))))
         (when minibuf-p
@@ -2440,10 +2440,10 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
 
 ;;;###autoload
 (defun skk-previous-candidate (&optional arg)
-  "$B"'%b!<%I$G$"$l$P!"0l$DA0$N8uJd$rI=<($9$k!#(B
-$B"'%b!<%I0J30$G$O%+%l%s%H%P%C%U%!$K%?%$%W$7$?J8;z$rA^F~$9$k!#(B
-$B3NDj<-=q$K$h$k3NDj$ND>8e$K8F$V$H3NDj$r%"%s%I%%$7!"8+=P$7$KBP$9$k<!8uJd$rI=<($9$k!#(B
-$B:G8e$K3NDj$7$?$H$-$N8uJd$O%9%-%C%W$5$l$k!#(B"
+  "▼モードであれば、一つ前の候補を表示する。
+▼モード以外ではカレントバッファにタイプした文字を挿入する。
+確定辞書による確定の直後に呼ぶと確定をアンドゥし、見出しに対する次候補を表示する。
+最後に確定したときの候補はスキップされる。"
   (interactive "*p")
   (skk-with-point-move
    (cond
@@ -2481,8 +2481,8 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
                  skk-prefix "")
            (when (skk-numeric-p)
              (skk-num-initialize))
-           ;; Emacs 19.28 $B$@$H(B Overlay $B$r>C$7$F$*$+$J$$$H!"<!$K(B insert $B$5$l(B
-           ;; $B$k(B skk-henkan-key $B$K2?8N$+(B Overlay $B$,$+$+$C$F$7$^$&!#(B
+           ;; Emacs 19.28 だと Overlay を消しておかないと、次に insert され
+           ;; る skk-henkan-key に何故か Overlay がかかってしまう。
            (when skk-use-face
              (skk-henkan-face-off))
            (delete-region skk-henkan-start-point skk-henkan-end-point)
@@ -2510,7 +2510,7 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
    (skk-henkan-on-message)))
 
 (defun skk-undo (&optional arg)
-  "`undo' $B$N5!G=$r!"(BSKK $B$H$N@09g@-$r9M$($FD4@a$9$k!#(B"
+  "`undo' の機能を、SKK との整合性を考えて調節する。"
   (interactive "*P")
   (cond ((skk-get-prefix skk-current-rule-tree)
          (skk-kana-cleanup 'force))
@@ -2526,27 +2526,27 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
          (skk-emulate-original-map arg))))
 
 (defun skk-insert-new-word (word)
-  "$B8+=P$78l$r>C$7!"$=$N>l=j$XJQ497k2L$NJ8;zNs$rA^F~$9$k!#(B"
+  "見出し語を消し、その場所へ変換結果の文字列を挿入する。"
   (save-match-data
     (let (retval note face)
       (while (and (setq retval (skk-treat-new-word (or retval word)))
                   (stringp retval))
-        ;; nextword-or-retval $B$KJ8;zNs$,BeF~$5$l$?>l9g(B (`skk-ignore-dic-word'
-        ;; $B$K$h$C$FA0$N8uJd$,%9%-%C%W$5$l$?>l9g(B) $B$O$=$NJ8;zNs$r?7$7$$8uJd$H$7$F(B
-        ;; $B=hM}$r7+$jJV$9!#J8;zNs0J30$,BeF~$5$l$?$i%k!<%W$r=*N;$9$k!#(B
+        ;; nextword-or-retval に文字列が代入された場合 (`skk-ignore-dic-word'
+        ;; によって前の候補がスキップされた場合) はその文字列を新しい候補として
+        ;; 処理を繰り返す。文字列以外が代入されたらループを終了する。
         ())
       (when (consp retval)
         (setq word (car retval)
               note (cdr retval)))
       (unless (eq retval 'none)
-        ;; $BA^F~$9$Y$-8uJd$,$"$k!#(B
+        ;; 挿入すべき候補がある。
         (when skk-use-face
           (skk-henkan-face-off))
         (delete-region skk-henkan-start-point skk-henkan-end-point)
         (goto-char skk-henkan-start-point)
-        ;; word $B$rA^F~$9$kA0$K$=$N(B face $BB0@-$r=|5n$9$k!#$?$@$7!$=|5n$9$kA0$K(B
-        ;; face $BB0@-$rJQ?t$KB`Hr$9$k!#$3$N(B face $BB0@-$O<!$N8uJdI=<($K;HMQ$5$l(B
-        ;; $B$k!#(B
+        ;; word を挿入する前にその face 属性を除去する。ただし，除去する前に
+        ;; face 属性を変数に退避する。この face 属性は次の候補表示に使用され
+        ;; る。
         (setq face (get-text-property 0 'face word))
         (set-text-properties 0 (length word) nil word)
         (insert-and-inherit word)
@@ -2556,72 +2556,72 @@ auto $B$K@_Dj$9$k$H%f!<%6$K3NG'$7$J$$!#(B
         (when skk-insert-new-word-function
           (funcall skk-insert-new-word-function))
         (when skk-kakutei-flag
-          ;; `skk-ignore-dic-word' $BFb$G<-=qEPO?%b!<%I$KF~$C$?>l9g!#(B
+          ;; `skk-ignore-dic-word' 内で辞書登録モードに入った場合。
           (skk-kakutei))
         (cons word note)))))
 
 (defun skk-treat-new-word (word)
-  "`skk-insert-new-word' $B$N%5%V%k!<%A%s!#A^F~$9$Y$-C18l$rAu>~$9$k!#(B
-$B%k!<%WFb$G$h$P$l$k!#=hM}Cf$K(B `skk-ignore-dic-word' $B$,8F$P$l$?>l9g$O$=$3$+$i(B
-catch $B$9$k!#(Bcatch $B$7$?CM$,J8;zNs$J$i$P!"$=$l$rJV$9(B (word $B$r$=$l$KCV$-49$($F(B
-$B:FEY8F$S=P$5$l$k(B)$B!#(B catch $B$7$J$+$C$?>l9g$OA^F~$9$Y$-J8;zNs$,F@$i$l$k!#$3$N>l9g(B
-$B$OCm<a$HJ8;zNs$N(B cons cell $B$rJV$9!#(B"
+  "`skk-insert-new-word' のサブルーチン。挿入すべき単語を装飾する。
+ループ内でよばれる。処理中に `skk-ignore-dic-word' が呼ばれた場合はそこから
+catch する。catch した値が文字列ならば、それを返す (word をそれに置き換えて
+再度呼び出される)。 catch しなかった場合は挿入すべき文字列が得られる。この場合
+は注釈と文字列の cons cell を返す。"
   (let (note)
     (catch 'next-word
-      ;; $B%k!<%W(B 1 $B2sL\$G$O(B next-word $B$O(B nil$B!#(B
-      ;; `skk-ignore-dic-word' $B$K$h$j8=:_$N(B word $B$,(B skip $B$5$l!"(B
-      ;; $B?7$7$$8l$,JV$C$F$-$?>l9g!"(Bnext-word $B$KJ8;zNs$,%;%C%H$5$l$F$$$k!#(B
-      ;; $B$3$N>l9g(B word $B$r(B next-word $B$KCV$-49$($F=hM}$r$d$jD>$9!#(B
+      ;; ループ 1 回目では next-word は nil。
+      ;; `skk-ignore-dic-word' により現在の word が skip され、
+      ;; 新しい語が返ってきた場合、next-word に文字列がセットされている。
+      ;; この場合 word を next-word に置き換えて処理をやり直す。
 
-      ;; $B8uJd0lMw$GA*Br$5$l$?8uJd$rA^F~$9$k:]$O!"(B
-      ;; skk-kakutei-flag $B$,(B t $B$K$J$C$F$$$k!#$3$N>l9g$OAu>~(B
-      ;; $B$7$F$b$7$+$?$J$$!#(B
+      ;; 候補一覧で選択された候補を挿入する際は、
+      ;; skk-kakutei-flag が t になっている。この場合は装飾
+      ;; してもしかたない。
       (when (and (not skk-kakutei-flag)
                  (skk-check-treat-candidate-appearance-function))
-        ;; skk-treat-candidate-appearance-function $B$K$h$C$F(B
-        ;; $B%f!<%6$OG$0U$K8uJdJ8;zNs$HCm<aJ8;zNs$r2C9)!&=$>~(B
-        ;; $B$9$k$3$H$,$G$-$k!#(B
-        ;; $B%f!<%6$,JV$9CM$O(B cons cell $B$^$?$OJ8;zNs$H$J$k!#(B
+        ;; skk-treat-candidate-appearance-function によって
+        ;; ユーザは任意に候補文字列と注釈文字列を加工・修飾
+        ;; することができる。
+        ;; ユーザが返す値は cons cell または文字列となる。
         (save-match-data
           (let ((value (skk-treat-candidate-appearance word nil)))
             (if (consp value)
-                ;; $BJV$jCM$,(B cons cell $B$@$C$?>l9g(B
+                ;; 返り値が cons cell だった場合
                 (setq word (car value)
                       note (cond
                             ((consp (cdr value))
-                             ;; ($B8uJd(B . ($B%;%Q%l!<%?(B . $BCm<a(B))
-                             ;; $BCm<a$O4{$K%;%Q%l!<%?H4$-(B
+                             ;; (候補 . (セパレータ . 注釈))
+                             ;; 注釈は既にセパレータ抜き
                              (cddr value))
                             ((string-match "^;" (cdr value))
-                             ;; ($B8uJd(B . $BCm<a(B)
-                             ;; $BCm<a$O$^$@%;%Q%l!<%?$r4^$s$G(B
-                             ;; $B$$$k(B
+                             ;; (候補 . 注釈)
+                             ;; 注釈はまだセパレータを含んで
+                             ;; いる
                              (substring (cdr value) (match-end 0)))
                             (t
-                             ;; ($B8uJd(B . $BCm<a(B)
-                             ;; $BCm<a$O4{$K%;%Q%l!<%?$r=|5n$7$F(B
-                             ;; $B$$$k$b$N$HH=CG$9$k(B
+                             ;; (候補 . 注釈)
+                             ;; 注釈は既にセパレータを除去して
+                             ;; いるものと判断する
                              (cdr value))))
-              ;; $BJV$jCM$,J8;zNs$@$C$?>l9g(B
+              ;; 返り値が文字列だった場合
               (setq word value)))))
-      ;; $B%f!<%6$N0U?^$K$h$C$FCm<a$,4{$K@_Dj$5$l$F(B
-      ;; $B$$$k>l9g$O(BSKK $B$NJ}$G$OBP=h$7$J$$!#(B
+      ;; ユーザの意図によって注釈が既に設定されて
+      ;; いる場合はSKK の方では対処しない。
       (when (and (not (stringp note))
                  (string-match ";" word))
         (setq note (substring word (match-end 0))
               word (substring word 0 (match-beginning 0))))
-      ;; word $B$NJ}$,(B S $B<0$NJ8;zNs$@$C$?$i!"$=$l$rI>2A$7$?(B
-      ;; $BJ8;zNs$rJV$9!#(B
-      ;; note $B$NJ}$b(B S $B<0$N>l9g$,$"$j$&$k$,!"$=$l$NI>2A$O(B
-      ;; skk-annotation $B$,$d$C$F$/$l$k!#(B
+      ;; word の方が S 式の文字列だったら、それを評価した
+      ;; 文字列を返す。
+      ;; note の方も S 式の場合がありうるが、それの評価は
+      ;; skk-annotation がやってくれる。
       (setq word (skk-eval-string word))
       (cons word note))))
 
 ;;;###autoload
 (defun skk-treat-strip-note-from-word (word)
-  "$BJQ498uJd$NJ8;zNs(B WORD $B$r!"8uJd$=$N$b$N$HCm<a$H$KJ,3d$7$F(B cons cell $B$rJV$9!#(B
-$B8uJd$=$N$b$N$HCm<a$H$N%;%Q%l!<%?$O(B \";\" $B$G$"$kI,MW$,$"$k!#(B
-$BJ,3d$N%k!<%k$O0J2<$N$H$*$j!#(B
+  "変換候補の文字列 WORD を、候補そのものと注釈とに分割して cons cell を返す。
+候補そのものと注釈とのセパレータは \";\" である必要がある。
+分割のルールは以下のとおり。
 
   \"word\" --> (\"word\" . nil)
   \"word;\" --> (\"word\" . \"\")
@@ -2637,42 +2637,42 @@ catch $B$9$k!#(Bcatch $B$7$?CM$,J8;zNs$J$i$P!"$=$l$rJV$9(B (word $B$r$=$l$K
 
 ;;;###autoload
 (defun skk-kakutei (&optional arg word)
-  "$B8=:_I=<($5$l$F$$$k8l$G3NDj$7!"<-=q$r99?7$9$k!#(B
-$B%+%l%s%H%P%C%U%!$G(B SKK $B%b!<%I$K$J$C$F$$$J$+$C$?$i(B SKK $B%b!<%I$KF~$k!#(B
-$B%*%W%7%g%J%k0z?t$N(B WORD $B$rEO$9$H!"8=:_I=<($5$l$F$$$k8uJd$H$OL54X78$K(B
-WORD $B$G3NDj$9$k!#(B"
-  ;; read only $B$G%(%i!<$K$J$k$h$&$K$9$k$H(B read only $B%P%C%U%!$G(B SKK $B$,5/F0$G$-(B
-  ;; $B$J$/$J$k!#(B
+  "現在表示されている語で確定し、辞書を更新する。
+カレントバッファで SKK モードになっていなかったら SKK モードに入る。
+オプショナル引数の WORD を渡すと、現在表示されている候補とは無関係に
+WORD で確定する。"
+  ;; read only でエラーになるようにすると read only バッファで SKK が起動でき
+  ;; なくなる。
   (interactive "P")
   (let ((inhibit-quit t)
         converted kakutei-word)
     (when skk-henkan-mode       ;'on or 'active
       (cl-case skk-henkan-mode
-        (active             ;$B"'%b!<%I(B
+        (active             ;▼モード
          (setq kakutei-word
-               ;; $B3NDj<-=q$N8l$G3NDj$7$?$H$-$O!"<-=q$K$=$N8l$r=q$-9~$`I,MW$b$J(B
-               ;; $B$$$7!"99?7$9$kI,MW$b$J$$$H;W$C$F$$$?$,!"Jd40$r9T$&$H$-$O!"(B
-               ;; $B8D?M<-=q$r;2>H$9$k(B ($B3NDj<-=q$O;2>H$7$J$$(B) $B$N$G!"B?>/;q8;$H;~(B
-               ;; $B4V$rL5BL$K$7$F$b!"8D?M<-=q$K3NDj<-=q$N%(%s%H%j$r=q$-9~$s$G99(B
-               ;; $B?7$b$7$F$*$/!#(B
+               ;; 確定辞書の語で確定したときは、辞書にその語を書き込む必要もな
+               ;; いし、更新する必要もないと思っていたが、補完を行うときは、
+               ;; 個人辞書を参照する (確定辞書は参照しない) ので、多少資源と時
+               ;; 間を無駄にしても、個人辞書に確定辞書のエントリを書き込んで更
+               ;; 新もしておく。
                (or word (skk-get-current-candidate 'noconv)))
          (when (and kakutei-word
                     (skk-update-jisyo-p kakutei-word))
            (skk-update-jisyo kakutei-word)
-           ;; $B@\Hx<-!&@\F,<-$K4X$9$k=hM}(B
+           ;; 接尾辞・接頭辞に関する処理
            (cond
             ((not skk-learn-combined-word)
-             ;; $B%f!<%6$,4uK>$7$J$$8B$j2?$N=hM}$b$7$J$$!#(B
+             ;; ユーザが希望しない限り何の処理もしない。
              (setq skk-after-prefix nil))
             ((and skk-after-prefix
                   (not (string-match "^[^\000-\177]+>$" skk-henkan-key)))
-             ;; $B$3$N%P%C%U%!$K$*$$$F!"@\F,<-$KB3$/F~NO$,?J9TCf!#(B
+             ;; このバッファにおいて、接頭辞に続く入力が進行中。
              (let* ((history (cdr skk-kakutei-history))
-                    (list1 (car skk-kakutei-history)) ; ($B$j$h$&(B $BMxMQ(B)
-                    (list2 (catch 'list ; ($B$5$$(B> $B:F(B)
+                    (list1 (car skk-kakutei-history)) ; (りよう 利用)
+                    (list2 (catch 'list ; (さい> 再)
                              (while history
                                (if (eq (nth 2 list1) (nth 2 (car history)))
-                                   ;; $BF1$8%P%C%U%!$@$C$?$i(B
+                                   ;; 同じバッファだったら
                                    (throw 'list (car history))
                                  (setq history (cdr history))))))
                     (list1-word (car (skk-treat-strip-note-from-word
@@ -2691,20 +2691,20 @@ WORD $B$G3NDj$9$k!#(B"
                        (concat (substring (car list2)
                                           0
                                           (1- (length (car list2))))
-                               (car list1)) ; $B$5$$$j$h$&(B
-                       comb-word (concat list2-word list1-word)) ; $B:FMxMQ(B
+                               (car list1)) ; さいりよう
+                       comb-word (concat list2-word list1-word)) ; 再利用
                  (skk-update-jisyo comb-word))
                (setq skk-after-prefix nil)))
             ((and (stringp (caar skk-kakutei-history))
                   (string-match "^>[^\000-\177]+$" (caar skk-kakutei-history)))
-             ;; $B:#2s$N3NDj$,@\Hx<-$@$C$?>l9g!"A02s$N3NDj$H:#2s$N@\Hx<-$r(B
-             ;; $B9g$o$;$?8l$r<-=qEPO?$9$k!#(B
+             ;; 今回の確定が接尾辞だった場合、前回の確定と今回の接尾辞を
+             ;; 合わせた語を辞書登録する。
              (let* ((history (cdr skk-kakutei-history))
-                    (list1 (car skk-kakutei-history)) ; (>$B$F$-(B $BE*(B)
-                    (list2 (catch 'list ; ($B$+$s$I$&(B $B46F0(B)
+                    (list1 (car skk-kakutei-history)) ; (>てき 的)
+                    (list2 (catch 'list ; (かんどう 感動)
                              (while history
                                (if (eq (nth 2 list1) (nth 2 (car history)))
-                                   ;; $BF1$8%P%C%U%!$@$C$?$i(B
+                                   ;; 同じバッファだったら
                                    (throw 'list (car history))
                                  (setq history (cdr history))))))
                     (list1-word (car (skk-treat-strip-note-from-word
@@ -2715,16 +2715,16 @@ WORD $B$G3NDj$9$k!#(B"
                (when (stringp list2-word)
                  (setq skk-henkan-key
                        (concat (car list2)
-                               (substring (car list1) 1)) ; $B$+$s$I$&$F$-(B
-                       comb-word (concat list2-word list1-word)) ; $B46F0E*(B
+                               (substring (car list1) 1)) ; かんどうてき
+                       comb-word (concat list2-word list1-word)) ; 感動的
                  (skk-update-jisyo comb-word)))))
            ;;
            (when (skk-numeric-p)
              (setq converted (skk-get-current-candidate))
              (skk-num-update-jisyo kakutei-word converted))))
         (t
-         ;; $B"&%b!<%I$G3NDj$7$?>l9g!#JX59E*$K8=:_$N%]%$%s%H$^$G$r8+=P$78l$r07$$(B
-         ;; $B$7$FMzNr$r99?7$9$k!#(B
+         ;; ▽モードで確定した場合。便宜的に現在のポイントまでを見出し語を扱い
+         ;; して履歴を更新する。
          (when (and (> skk-kakutei-history-limit 0)
                     (< skk-henkan-start-point (point))
                     (skk-save-point
@@ -2739,17 +2739,17 @@ WORD $B$G3NDj$9$k!#(B"
         (skk-kakutei-cleanup-buffer)
         (when (and skk-undo-kakutei-word-only
                    (consp buffer-undo-list))
-          ;; $B"&%b!<%I$K0\$C$F$+$i8=:_$^$G$N(B undo $B>pJs$+$i@hF,0J30$N(B
-          ;; nil $B$r:o=|$9$k(B
+          ;; ▽モードに移ってから現在までの undo 情報から先頭以外の
+          ;; nil を削除する
           (setq buffer-undo-list
                 (cons (car buffer-undo-list)
                       (nconc
                        (delq nil (cdr (butlast buffer-undo-list
                                                (length skk-last-buffer-undo-list))))
                        skk-last-buffer-undo-list))))
-        ;; KAKUTEI-WORD $B$J$I$N>pJs$,I,MW$G$"$l$P!"(Bskk-last-henkan-data
-        ;; $B$+$iF@$i$l$k!#I,MW$J%G!<%?$,$=$l$i$NJQ?t$K8BDj$5$l$J$$$N$G!"(B
-        ;; $B0z?t$K$7$J$$!#(B
+        ;; KAKUTEI-WORD などの情報が必要であれば、skk-last-henkan-data
+        ;; から得られる。必要なデータがそれらの変数に限定されないので、
+        ;; 引数にしない。
         (when skk-kakutei-end-function
           (funcall skk-kakutei-end-function))
         (skk-kakutei-initialize
@@ -2781,14 +2781,14 @@ WORD $B$G3NDj$9$k!#(B"
              (skk-latin-mode-on))
             ((cdr (assq 'skk-jisx0208-latin-mode skk-undo-kakutei-prev-state))
              (skk-jisx0208-latin-mode-on))
-            ;; skk-mode $B$,%*%U$N>uBV$KLa$=$&$H$9$k$H(B
-            ;; `skk-mode-exit' $BFb$G:FEY(B `skk-kakutei' $B$r8F$V$?(B
-            ;; $B$aL58B%k!<%W$K$J$C$F$7$^$&(B
+            ;; skk-mode がオフの状態に戻そうとすると
+            ;; `skk-mode-exit' 内で再度 `skk-kakutei' を呼ぶた
+            ;; め無限ループになってしまう
             ;;      ((not (cdr (assq 'skk-mode skk-undo-kakutei-prev-state)))
             ;;       (skk-mode -1))
             ((cdr (assq 'skk-j-mode skk-undo-kakutei-prev-state))
-             ;; M-x skk-undo-kakutei $B$G(B skk-abbrev-mode $B$KLa$C$?:]!"(B
-             ;; $B3NDj8e$K(B skk-j-mode $B$KLa$k$?$a$K$O0J2<$,I,MW!#(B
+             ;; M-x skk-undo-kakutei で skk-abbrev-mode に戻った際、
+             ;; 確定後に skk-j-mode に戻るためには以下が必要。
              (skk-j-mode-on skk-katakana)))
       (setq skk-undo-kakutei-prev-state nil))
      ((not (or skk-j-mode skk-jisx0201-mode))
@@ -2796,25 +2796,25 @@ WORD $B$G3NDj$9$k!#(B"
   nil)
 
 (defun skk-update-jisyo-p (word)
-  "WORD $B$,8D?M<-=q$KEPO?$5$l$k$Y$-$+H]$+$rH=Dj$9$k!#(B
-$BJQ?t(B `skk-search-excluding-word-pattern-function' $B$,4X?t$G$"$l$P!"(BWORD $B$r(B
-$B0z?t$K$7$F$=$N4X?t$r<B9T$7!"La$jCM$,(B non-nil $B$G$"$l$P(B `skk-update-jisyo-p' $B$O(B
- nil $B$rJV$9!#(B
-$BJQ?t(B `skk-search-excluding-word-pattern-function' $B$,4X?t$N%j%9%H$G$"$l$P!"(B
- WORD $B$r0z?t$K$7$F$=$l$>$l$N4X?t$r<B9T$7!"$=$N$&$A$N$R$H$D$G$b(B non-nil $B$r(B
-$BJV$;$P(B `skk-update-jisyo-p' $B$O(B nil $B$rJV$9!#(B
+  "WORD が個人辞書に登録されるべきか否かを判定する。
+変数 `skk-search-excluding-word-pattern-function' が関数であれば、WORD を
+引数にしてその関数を実行し、戻り値が non-nil であれば `skk-update-jisyo-p' は
+ nil を返す。
+変数 `skk-search-excluding-word-pattern-function' が関数のリストであれば、
+ WORD を引数にしてそれぞれの関数を実行し、そのうちのひとつでも non-nil を
+返せば `skk-update-jisyo-p' は nil を返す。
 
-$BJQ?t(B `skk-search-excluding-word-pattern-function' $B$N(B docstring $B$b;2>H$N$3$H!#(B"
+変数 `skk-search-excluding-word-pattern-function' の docstring も参照のこと。"
   (save-match-data
     (not (run-hook-with-args-until-success
           'skk-search-excluding-word-pattern-function word))))
 
 (defun skk-kakutei-cleanup-buffer ()
-  "$B3NDjD>8e$N%P%C%U%!$r@07A$9$k!#(B"
+  "確定直後のバッファを整形する。"
   (when skk-okurigana
-    ;; $B3NDjJQ49$N$H$-$K$3$3$K$/$k!#(B
-    ;; $B:FJQ49$N:]$KAw$j2>L>4XO"%U%i%0$,(B clear $B$5$l$F$$$k$H$h$m$7$/$J$$$N$G(B
-    ;; `skk-delete-okuri-mark' $B$N(B NOCLEAR $B$r%;%C%H$7$F8F$V!#(B
+    ;; 確定変換のときにここにくる。
+    ;; 再変換の際に送り仮名関連フラグが clear されているとよろしくないので
+    ;; `skk-delete-okuri-mark' の NOCLEAR をセットして呼ぶ。
     (skk-delete-okuri-mark t))
   (skk-delete-henkan-markers)
   (when (and (boundp 'self-insert-after-hook)
@@ -2826,18 +2826,18 @@ WORD $B$G3NDj$9$k!#(B"
                                            skk-henkan-start-point (point))))))
 
 (defun skk-kakutei-initialize (&optional kakutei-word)
-  "$B3NDj;~$KJQ?t$N=i4|2=$H%"%s%I%%$N$?$a$NJQ?t$NJ]B8$r9T$&!#(B"
+  "確定時に変数の初期化とアンドゥのための変数の保存を行う。"
   (when (and kakutei-word
              (or (consp kakutei-word)
                  (not (string= kakutei-word ""))))
     (setq skk-kakutei-count (1+ skk-kakutei-count))
-    ;; skk-undo-kakutei $B$N$?$a$K:G8e$NJQ49$N%G!<%?$rJ]B8$9$k!#(B
+    ;; skk-undo-kakutei のために最後の変換のデータを保存する。
     (skk-put-last-henkan-data
      (list (cons 'henkan-key skk-henkan-key)
            (cons 'okuri-char skk-okuri-char)
            (cons 'henkan-okurigana skk-henkan-okurigana)
            (cons 'henkan-list
-                 ;; $B3NDj$7$?8l$r@hF,$K$9$k!#(B
+                 ;; 確定した語を先頭にする。
                  (cons kakutei-word
                        (delete kakutei-word skk-henkan-list)))
            (cons 'henkan-buffer (current-buffer))
@@ -2847,11 +2847,11 @@ WORD $B$G3NDj$9$k!#(B"
                        (set-marker hpoint (point))
                      (point-marker))))
            (cons 'abbrev-mode skk-abbrev-mode)
-           ;; (eq last-command 'skk-kakutei-henkan) $B$G%]!<%?%V%k$K3NG'$G$-(B
-           ;; $B$k$N$G$"$($F$$$i$J$$$+!#(B
+           ;; (eq last-command 'skk-kakutei-henkan) でポータブルに確認でき
+           ;; るのであえていらないか。
            ;; (cons 'kakutei-henkan (eq this-command 'skk-kakutei-henkan))
-           ;; $B>e5-0J30$N(B henkan data $B$r(B skk-last-henkan-data $B$K;D$7$?$+$C$?$i!"(B
-           ;; skk-kakutei-end-function $B$rMxMQ$9$k!#(B
+           ;; 上記以外の henkan data を skk-last-henkan-data に残したかったら、
+           ;; skk-kakutei-end-function を利用する。
            )))
   (setq skk-henkan-count -1)
   (setq skk-exit-show-candidates nil)
@@ -2871,30 +2871,30 @@ WORD $B$G3NDj$9$k!#(B"
         ))
 
 (defun skk-undo-kakutei ()
-  "$B0lHV:G8e$N3NDj$r%"%s%I%%$7!"8+=P$78l$KBP$9$k8uJd$rI=<($9$k!#(B
-$B:G8e$K3NDj$7$?$H$-$N8uJd$O%9%-%C%W$5$l$k!#(B
-$BB>$K8uJd$,$J$$$H$-$O!"%(%3!<%(%j%"$G$N<-=qEPO?$KF~$k!#(B"
+  "一番最後の確定をアンドゥし、見出し語に対する候補を表示する。
+最後に確定したときの候補はスキップされる。
+他に候補がないときは、エコーエリアでの辞書登録に入る。"
   (interactive)
   (let (jmsg emsg)
     (cond ((eq last-command 'skk-undo-kakutei)
-           (setq jmsg "$B3NDj%"%s%I%%$OO"B3;HMQ$G$-$^$;$s(B"
+           (setq jmsg "確定アンドゥは連続使用できません"
                  emsg "Cannot undo kakutei repeatedly"))
           ((eq skk-henkan-mode 'active)
-           (setq jmsg "$B"'%b!<%I$G$O3NDj%"%s%I%%$G$-$^$;$s(B"
-                 emsg "Cannot undo kakutei in $B"'(B mode"))
+           (setq jmsg "▼モードでは確定アンドゥできません"
+                 emsg "Cannot undo kakutei in ▼ mode"))
           ((or (not (skk-get-last-henkan-datum 'henkan-key))
                (string= (skk-get-last-henkan-datum 'henkan-key) "")
                (null skk-henkan-end-point))
            ;; skk-henkan-key may be nil or "".
-           (setq jmsg "$B%"%s%I%%%G!<%?$,$"$j$^$;$s(B"
+           (setq jmsg "アンドゥデータがありません"
                  emsg "Lost undo data")))
     (if jmsg
         (skk-message jmsg emsg)
       (skk-with-point-move
        (condition-case nil
            (skk-undo-kakutei-subr)
-         ;; skk-undo-kakutei $B$+$iESCf$GH4$1$?>l9g$O!"3F<o%U%i%0$r=i4|2=$7$F(B
-         ;; $B$*$+$J$$$H<!$NF0:n$r$7$h$&$H$7$?$H$-$K%(%i!<$K$J$k!#(B
+         ;; skk-undo-kakutei から途中で抜けた場合は、各種フラグを初期化して
+         ;; おかないと次の動作をしようとしたときにエラーになる。
          ((error quit)
           (skk-kakutei)))))))
 
@@ -2945,18 +2945,18 @@ WORD $B$G3NDj$9$k!#(B"
     (when skk-use-numeric-conversion
       (setq skk-num-list (skk-get-last-henkan-datum 'skk-num-list)))
     (when (>= (point-max) end)
-      ;; $B:G8e$NJQ49ItJ,$N%F%-%9%H$r>C$9!#Aw$j2>L>$rGD0.$7$F$$$k$N$J$i(B
-      ;; (skk-process-okuri-early $B$,(B non-nil $B$J$iAw$j2>L>$rGD0.$G$-$J$$(B)$B!"(B
-      ;; $BAw$j2>L>$r4^$a$?ItJ,$^$G$r>C$9!#(B
+      ;; 最後の変換部分のテキストを消す。送り仮名を把握しているのなら
+      ;; (skk-process-okuri-early が non-nil なら送り仮名を把握できない)、
+      ;; 送り仮名を含めた部分までを消す。
       (delete-region skk-henkan-start-point end))
     (when skk-undo-kakutei-word-only
       (setq skk-last-buffer-undo-list buffer-undo-list))
     (goto-char skk-henkan-start-point)
-    (insert-and-inherit "$B"'(B")
+    (insert-and-inherit "▼")
     (skk-set-marker skk-henkan-start-point (point))
     (cond
      (skk-okuri-char
-      ;; $BAw$j$"$j(B
+      ;; 送りあり
       (insert-and-inherit (substring skk-henkan-key 0
                                      (1- (length skk-henkan-key))))
       (skk-set-marker skk-henkan-end-point (point))
@@ -2965,13 +2965,13 @@ WORD $B$G3NDj$9$k!#(B"
      (t
       (insert-and-inherit skk-henkan-key)
       (skk-set-marker skk-henkan-end-point (point))))
-    (skk-message "$B3NDj%"%s%I%%!*(B"
+    (skk-message "確定アンドゥ！"
                  "Undo kakutei!")
     (setq skk-henkan-count 1)
     (skk-henkan)))
 
 (defun skk-set-henkan-point (&optional arg)
-  "$BJQ49$r3+;O$9$k%]%$%s%H$r%^!<%/$7!"BP1~$9$k(B `skk-prefix' $B$+Jl2;$rF~NO$9$k!#(B"
+  "変換を開始するポイントをマークし、対応する `skk-prefix' か母音を入力する。"
   (let* ((last-char (skk-downcase last-command-event))
          (normal (not (eq last-char last-command-event)))
          (sokuon (if (string= skk-prefix (skk-char-to-unibyte-string last-char))
@@ -3040,10 +3040,10 @@ WORD $B$G3NDj$9$k!#(B"
                 (concat (buffer-substring-no-properties
                          skk-henkan-start-point
                          skk-kana-start-point)
-                        (if skk-katakana "$B%C(B" "$B$C(B")
+                        (if skk-katakana "ッ" "っ")
                         skk-henkan-okurigana))
           (skk-erase-prefix)
-          (insert-and-inherit (if skk-katakana "$B%C(B " "$B$C(B "))
+          (insert-and-inherit (if skk-katakana "ッ " "っ "))
           (setq skk-prefix "")
           (setq skk-henkan-count 0)
           (skk-henkan)
@@ -3065,17 +3065,17 @@ WORD $B$G3NDj$9$k!#(B"
        ((/= skk-henkan-start-point (point))
         (when sokuon
           (skk-erase-prefix 'clean)
-          (insert-and-inherit (if skk-katakana "$B%C(B" "$B$C(B")))
+          (insert-and-inherit (if skk-katakana "ッ" "っ")))
         (cond
          ((and (not sokuon)
                (skk-get-prefix skk-current-rule-tree)
                normal
                (eq (char-before) (string-to-char skk-prefix)))
-          ;; SKK $B$N;EMM$K$J$$Nc30$N=hM}!#(B
-          ;; $BNc$($P!$%f!<%6$,(B $B!VJb$/!W$rA^F~$7$?$/$F(B "AruKu" $B$HBG$D$Y$-(B
-          ;; $B$H$3$m$r(B "ArukU" $B$HBG$C$F$7$^$C$?>l9g!#$3$N>l9g(B SKK $BB&$G(B
-          ;; $B$I$&=hM}$9$k$Y$-$+!"7h$^$C$F$$$J$$!#$3$3$G$O2>$N=hCV$H$7$F!"(B
-          ;; "AruKu" $B$HF1MM$NJQ49$r$9$k$h$&$K$7$F$*$/!#(B
+          ;; SKK の仕様にない例外の処理。
+          ;; 例えば，ユーザが 「歩く」を挿入したくて "AruKu" と打つべき
+          ;; ところを "ArukU" と打ってしまった場合。この場合 SKK 側で
+          ;; どう処理するべきか、決まっていない。ここでは仮の処置として、
+          ;; "AruKu" と同様の変換をするようにしておく。
           (setq skk-okuri-char nil
                 skk-okurigana nil
                 normal nil)
@@ -3086,8 +3086,8 @@ WORD $B$G3NDj$9$k!#(B"
          (t
           (when (and skk-dcomp-activate
                      (skk-dcomp-marked-p))
-            ;; $B?7$7$$(B marker $B$r(B set $B$9$kA0$K(B  skk-dcomp $B$N(B marker $B$r%/%j%"(B
-            ;; $B$7$F$*$/!#(B
+            ;; 新しい marker を set する前に  skk-dcomp の marker をクリア
+            ;; しておく。
             (skk-dcomp-before-kakutei))
           (skk-set-marker skk-okurigana-start-point (point))
           (insert-and-inherit "*")
@@ -3115,45 +3115,45 @@ WORD $B$G3NDj$9$k!#(B"
 
 ;;;###autoload
 (defun skk-start-henkan (arg &optional prog-list-number)
-  "$B"&%b!<%I$G$O4A;zJQ49$r3+;O$9$k!#"'%b!<%I$G$O<!$N8uJd$rI=<($9$k!#(B
-$B"&%b!<%I$G%+%J%b!<%I$N$^$^4A;zJQ49$r3+;O$7$?>l9g$O!"8+=P$78l$rJ?2>L>$K(B
-$BJQ49$7$F$+$i4A;zJQ49$r3+;O$9$k!#8+=P$78l$rJQ49$;$:$K$=$N$^$^4A;zJQ49$r(B
-$B9T$$$?$1$l$P!"(B\\[universal-argument] SPC $B$H%?%$%W$9$k!#(B"
+  "▽モードでは漢字変換を開始する。▼モードでは次の候補を表示する。
+▽モードでカナモードのまま漢字変換を開始した場合は、見出し語を平仮名に
+変換してから漢字変換を開始する。見出し語を変換せずにそのまま漢字変換を
+行いたければ、\\[universal-argument] SPC とタイプする。"
   (interactive "*p")
   (unless prog-list-number
     (setq prog-list-number current-prefix-arg))
   (skk-with-point-move
    (cancel-undo-boundary)
-   (if (eq skk-henkan-mode 'active) ;$B"'%b!<%I(B
+   (if (eq skk-henkan-mode 'active) ;▼モード
        (progn
          (setq skk-henkan-count (1+ skk-henkan-count))
          (skk-henkan))
-     ;; $B"&%b!<%I(B
+     ;; ▽モード
      (save-match-data
        (let (pos)
          (skk-kana-cleanup 'force)
          (when (skk-get-prefix skk-current-rule-tree)
            ;; Never.  `skk-erase-prefix' called by `skk-kana-cleanup'
            ;; initializes `skk-prefix'.
-           (skk-error "$B%U%#%C%/%9$5$l$F$$$J$$(B skk-prefix $B$,$"$j$^$9(B"
+           (skk-error "フィックスされていない skk-prefix があります"
                       "Have unfixed skk-prefix"))
          (setq pos (point))
          (when (< pos skk-henkan-start-point)
-           (skk-error "$B%+!<%=%k$,JQ493+;OCOE@$h$jA0$K$"$j$^$9(B"
+           (skk-error "カーソルが変換開始地点より前にあります"
                       "Henkan end point must be after henkan start point"))
          (setq skk-henkan-key (buffer-substring-no-properties
                                skk-henkan-start-point pos))
          (when (and skk-katakana
-                    ;; C-u $B$r;H$C$F$$$J$$>l9g(B
-                    ;; prog-list-number $B$O(B skk-insert() $B$K$*$1$k(B current-prefix-arg
+                    ;; C-u を使っていない場合
+                    ;; prog-list-number は skk-insert() における current-prefix-arg
                     (not (and prog-list-number (listp prog-list-number))))
            (setq skk-henkan-key (skk-katakana-to-hiragana skk-henkan-key)))
          (when (and skk-okurigana
                     (string-match "\\* *$" skk-henkan-key))
-           (skk-error "$B6u$NAw$j2>L>$G4A;z$rEPO?$7$h$&$H$7$F$$$^$9(B"
+           (skk-error "空の送り仮名で漢字を登録しようとしています"
                       "No okurigana!"))
          (if skk-allow-spaces-newlines-and-tabs
-             ;; skk-henkan-key $B$NCf$N(B "[ \n\t]+" $B$r40A4$K<h$j=|$/!#(B
+             ;; skk-henkan-key の中の "[ \n\t]+" を完全に取り除く。
              (while (string-match "[ \n\t]+" skk-henkan-key)
                (setq skk-henkan-key
                      (concat (substring skk-henkan-key 0 (match-beginning 0))
@@ -3161,9 +3161,9 @@ WORD $B$G3NDj$9$k!#(B"
            (skk-save-point
             (beginning-of-line)
             (when (> (point) skk-henkan-start-point)
-              (skk-error "$BJQ49%-!<$K2~9T$,4^$^$l$F$$$^$9(B"
+              (skk-error "変換キーに改行が含まれています"
                          "Henkan key may not contain a new line character")))
-           ;; $B:G=i$N%9%Z!<%9$G(B skk-henkan-key $B$r%+%C%H$9$k$@$1!#(B
+           ;; 最初のスペースで skk-henkan-key をカットするだけ。
            (setq skk-henkan-key (substring skk-henkan-key
                                            0
                                            (string-match " "
@@ -3174,14 +3174,14 @@ WORD $B$G3NDj$9$k!#(B"
          (skk-henkan prog-list-number)
          (when (and skk-abbrev-mode
                     (eq skk-henkan-mode 'active))
-           ;; $B$3$&$7$F$*$+$J$$$HJQ498e!"<!$KF~NO$5$l$kJ8;z$b$^$?(B
-           ;; SKK abbrev-mode $BF~NO$K$J$C$F$7$^$&!#(B
+           ;; こうしておかないと変換後、次に入力される文字もまた
+           ;; SKK abbrev-mode 入力になってしまう。
            (skk-j-mode-on skk-katakana)
            (setq skk-abbrev-mode t)))))))
 
 (defun skk-auto-start-henkan (str)
-  "STR $B$,(B `skk-auto-start-henkan-keyword-list' $B$NMWAG$H0lCW(B (member) $B$9$k>l9g$KJQ49$r3+;O$9$k!#(B
-$B4X?t(B `skk-insert-str' $B$N<B9TCf!"JQ?t(B `skk-auto-start-henkan' $B$,(B non-nil $B$N$H$-$K$3$N4X?t$,%3!<%k$5$l$k!#(B"
+  "STR が `skk-auto-start-henkan-keyword-list' の要素と一致 (member) する場合に変換を開始する。
+関数 `skk-insert-str' の実行中、変数 `skk-auto-start-henkan' が non-nil のときにこの関数がコールされる。"
   (when (member str skk-auto-start-henkan-keyword-list)
     (skk-save-point
      (backward-char 1)
@@ -3190,51 +3190,51 @@ WORD $B$G3NDj$9$k!#(B"
          (skk-start-henkan (prefix-numeric-value current-prefix-arg)))))))
 
 (defun skk-backward-and-set-henkan-point (arg)
-  "$B%]%$%s%H$ND>A0$K$"$kJ8;zNs$N@hF,$KJQ493+;O%]%$%s%H$r<($9(B \"$B"&(B\" $B$rIU$1$k!#(B
-$B%+!<%=%k$ND>A0$K$"$kJ8;z(B ($B%9%Z!<%9J8;z!"%?%VJ8;z!"D92;$rI=$o$9!V!<!W(B $B$OL5>r7o(B
-$B$K%9%-%C%W$5$l$k(B) $B$r(B `skk-what-char-type' $B$K$FH=JL$7!"F1<o$NJ8;zNs$r$R$H$+$?$^(B
-$B$j$H$7$F8eJ}$X%9%-%C%W$9$k!#(B
-$BC"$7!"$R$i$,$J$N>l9g$O!V$r!W$ND>A0$G!"%+%?%+%J$N>l9g$O!V%r!W$ND>A0$G;_$^$k!#(B
-\\[universal-argument] ARG $B$G(B ARG $B$rM?$($k$H!"$=$NJ8;zJ,$@$1La$C$FF1$8F0:n$r9T$&!#(B"
+  "ポイントの直前にある文字列の先頭に変換開始ポイントを示す \"▽\" を付ける。
+カーソルの直前にある文字 (スペース文字、タブ文字、長音を表わす「ー」 は無条件
+にスキップされる) を `skk-what-char-type' にて判別し、同種の文字列をひとかたま
+りとして後方へスキップする。
+但し、ひらがなの場合は「を」の直前で、カタカナの場合は「ヲ」の直前で止まる。
+\\[universal-argument] ARG で ARG を与えると、その文字分だけ戻って同じ動作を行う。"
   (interactive "*P")
   (if (not skk-mode)
       (skk-emulate-original-map arg)
     (catch 'exit1
       (skk-save-point
-       ;; $B$H$j$"$($::G=i$N(B SPC, TAB, $BA43Q(B SPC $B$@$1%8%c%s%W$9$k!#(B
-       (skip-chars-backward " \t$B!!(B")
-       ;; $B0z?t$"$j!#(B
+       ;; とりあえず最初の SPC, TAB, 全角 SPC だけジャンプする。
+       (skip-chars-backward " \t　")
+       ;; 引数あり。
        (cond
         (arg
          (if (not skk-allow-spaces-newlines-and-tabs)
              (backward-char (prefix-numeric-value arg))
            (setq arg (prefix-numeric-value arg))
            (while (> arg 0)
-             (skip-chars-backward " \t$B!!(B")
+             (skip-chars-backward " \t　")
              (if (bolp)
-                 ;; $B9TF,$@$C$?$i0l9TA0$N9TKv$^$GLa$k$,!"(Barg $B$O8:$i$5$J$$!#(B
+                 ;; 行頭だったら一行前の行末まで戻るが、arg は減らさない。
                  (backward-char 1)
                (backward-char 1)
                (setq arg (1- arg))))))
         (t
-         ;; $B0z?t$J$7!#(B
+         ;; 引数なし。
          (let ((limit
                 (if (not skk-allow-spaces-newlines-and-tabs)
                     (skk-save-point (beginning-of-line) (point))
                   (point-min)))
-               ;; $B!2!1!0!/!.!-!,!+!*!)!(!'!&!%!$!#(B
+               ;; ＿￣＾¨｀´゜゛！？；：・．，。
                (unknown-chars-regexp
                 (if skk-allow-spaces-newlines-and-tabs
-                    "[ $B!!(B\n\t$B!<!7!6!5!4!3(B]"
-                  "[$B!!!<!7!6!5!4!3(B]"))
+                    "[ 　\n\tー〃ゞゝヾヽ]"
+                  "[　ー〃ゞゝヾヽ]"))
                type p)
            (save-match-data
              (skk-save-point
               (backward-char 1)
               (while (and (> (point) limit)
-                          ;; unknown-chars-regexp $B$G$OJ8;z<oJL$,H=JL$G$-$J$$$N(B
-                          ;; $B$G!"$=$NJ8;zNs$,B3$/8B$j%]%$%s%H$r%P%C%U%!$N@hF,(B
-                          ;; $BJ}8~$XLa$9!#(B
+                          ;; unknown-chars-regexp では文字種別が判別できないの
+                          ;; で、その文字列が続く限りポイントをバッファの先頭
+                          ;; 方向へ戻す。
                           (looking-at unknown-chars-regexp))
                 (backward-char 1))
               (setq type (skk-what-char-type))
@@ -3244,10 +3244,10 @@ WORD $B$G3NDj$9$k!#(B"
               (setq p (point))
               (when skk-allow-spaces-newlines-and-tabs
                 (while (and (> (point) limit) (bolp))
-                  ;; 1 $B9T>e$N9TKv$X!#(B
+                  ;; 1 行上の行末へ。
                   (backward-char 1)
-                  ;; $B%]%$%s%H$,H=JL$G$-$J$$J8;z<oJL$N>e$K$"$k4V$O(B
-                  ;; backward $BJ}8~$X%]%$%s%H$rLa$9!#(B
+                  ;; ポイントが判別できない文字種別の上にある間は
+                  ;; backward 方向へポイントを戻す。
                   ;;(while (and (> (point) limit)
                   ;;            (looking-at unknown-chars-regexp))
                   ;;  (backward-char 1))
@@ -3260,32 +3260,32 @@ WORD $B$G3NDj$9$k!#(B"
        (skk-set-henkan-point-subr)))))
 
 (defun skk-backward-and-set-henkan-point-1 (type)
-  "`skk-backward-and-set-henkan-point' $B$N%5%V%k!<%A%s!#(B
-TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#(B"
+  "`skk-backward-and-set-henkan-point' のサブルーチン。
+TYPE (文字の種類) に応じた文字をスキップしてバッファの先頭方向へ戻る。"
   (skip-chars-backward
    (cl-case type
      (hiragana
-      ;; "$B$r(B" $B$NA0$G;_$^$C$?J}$,JXMx!)(B
-      "$B!3!4!5!6!7!<$s$!(B-$B$q(B")
+      ;; "を" の前で止まった方が便利？
+      "ヽヾゝゞ〃ーんぁ-ゑ")
      (katakana
-      ;; "$B%r(B" $B$NA0$G;_$^$C$?J}$,JXMx!)(B
-      "$B!3!4!5!6!7!<%s%!(B-$B%q(B")
+      ;; "ヲ" の前で止まった方が便利？
+      "ヽヾゝゞ〃ーンァ-ヱ")
      (jisx0208-latin
-      "$B!!(B-$B#z(B")
+      "　-ｚ")
      (ascii
       " -~"))))
 
 (defun skk-what-char-type ()
-  "$B8=:_$N%]%$%s%H$K$"$kJ8;z$N<oN`$rH=JL$9$k!#(B
-$BJ8;z$N<oN`$K1~$8$F!"<!$N$$$:$l$+$N%7%s%\%k$rJV$9!#(B
+  "現在のポイントにある文字の種類を判別する。
+文字の種類に応じて、次のいずれかのシンボルを返す。
 \\='hiragana \\='katakana \\='jisx0208-latin \\='ascii \\='unknown"
   (save-match-data
-    (cond ((looking-at "[$B$!(B-$B$s(B]")
+    (cond ((looking-at "[ぁ-ん]")
            'hiragana)
-          ((looking-at "[$B%!(B-$B%v!3!4(B]")
+          ((looking-at "[ァ-ヶヽヾ]")
            'katakana)
-          ;; "$B!<(B" $B$r=|30$7$F$$$k(B ("$B!<(B" $B$O(B "$B!;(B" $B$H(B "$B!=(B" $B$N4V$KF~$C$F$$$k(B)$B!#(B
-          ((looking-at "[$B!!(B-$B!;!=(B-$B#z(B]")
+          ;; "ー" を除外している ("ー" は "〇" と "―" の間に入っている)。
+          ((looking-at "[　-〇―-ｚ]")
            'jisx0208-latin)
           ((looking-at "[ -~]")
            'ascii)
@@ -3294,8 +3294,8 @@ TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#
 
 ;;;###autoload
 (defun skk-set-henkan-point-subr (&optional arg)
-  "$B$+$J$rF~NO$7$?8e$G!"%]%$%s%H$KJQ493+;O$N%^!<%/(B ($B"&(B) $B$rIU$1$k!#(B
-$B$3$N4X?t$O(B `skk-set-henkan-point' $B$NFbIt4X?t$H$7$F$b;HMQ$5$l$F$$$k!#(B"
+  "かなを入力した後で、ポイントに変換開始のマーク (▽) を付ける。
+この関数は `skk-set-henkan-point' の内部関数としても使用されている。"
   (interactive "*P")
   (skk-with-point-move
 ;;;    (unless skk-undo-kakutei-word-only
@@ -3306,9 +3306,9 @@ TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#
    (when skk-undo-kakutei-word-only
      (setq skk-last-buffer-undo-list buffer-undo-list))
    (if (not (skk-get-prefix skk-current-rule-tree))
-       (insert-and-inherit "$B"&(B")
+       (insert-and-inherit "▽")
      (skk-erase-prefix)
-     (insert-and-inherit "$B"&(B")
+     (insert-and-inherit "▽")
      (skk-set-marker skk-kana-start-point (point))
      (skk-insert-prefix))
    (setq skk-henkan-mode 'on)
@@ -3317,38 +3317,38 @@ TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#
   nil)
 
 (defun skk-change-marker ()
-  "\"$B"&(B\"$B$r(B\"$B"'(B\"$B$KJQ$($k!#(B`skk-henkan-mode' $B$r(B active $B$K$9$k!#(B"
+  "\"▽\"を\"▼\"に変える。`skk-henkan-mode' を active にする。"
   (skk-save-point
    (goto-char (1- skk-henkan-start-point))
-   (unless (looking-at "$B"&(B")
+   (unless (looking-at "▽")
      (skk-kakutei)
-     (skk-error "$B"&$,$"$j$^$;$s(B"
-                "It seems that you have deleted $B"&(B"))
+     (skk-error "▽がありません"
+                "It seems that you have deleted ▽"))
    (cancel-undo-boundary)
    (let ((buffer-undo-list t))
-     (insert-and-inherit "$B"'(B")
+     (insert-and-inherit "▼")
      (delete-char 1))
    (setq skk-henkan-mode 'active)))
 
 (defun skk-change-marker-to-white ()
-  "\"$B"'(B\"$B$r(B\"$B"&(B\"$B$KJQ$($k!#(B`skk-henkan-mode' $B$r(B on $B$K$9$k!#(B"
+  "\"▼\"を\"▽\"に変える。`skk-henkan-mode' を on にする。"
   (skk-save-point
    (goto-char (1- skk-henkan-start-point))
    (cancel-undo-boundary)
-   (if (looking-at "$B"'(B")
+   (if (looking-at "▼")
        (let ((buffer-undo-list t))
-         (insert-and-inherit "$B"&(B")
+         (insert-and-inherit "▽")
          (delete-char 1))
      (goto-char skk-henkan-start-point)
-     (insert-and-inherit "$B"&(B")
+     (insert-and-inherit "▽")
      (skk-set-marker skk-henkan-start-point (point))
-     (skk-message "$B"'$,$"$j$^$;$s(B"
-                  "It seems that you have deleted $B"'(B"))
+     (skk-message "▼がありません"
+                  "It seems that you have deleted ▼"))
    (setq skk-henkan-end-point nil)
    (setq skk-henkan-mode 'on)))
 
 (defun skk-delete-henkan-markers (&optional nomesg)
-  "$BJQ49;~$K%+%l%s%H%P%C%U%!$KI=$o$l$k(B \"$B"&(B\", \"$B"'(B\" $B%^!<%/$r>C$9!#(B"
+  "変換時にカレントバッファに表われる \"▽\", \"▼\" マークを消す。"
   (when (marker-position skk-henkan-start-point)
     (save-match-data
       (skk-save-point
@@ -3357,21 +3357,21 @@ TYPE ($BJ8;z$N<oN`(B) $B$K1~$8$?J8;z$r%9%-%C%W$7$F%P%C%U%!$N@hF,J}8~$XLa$k!#
         ((eq skk-henkan-mode 'active)
          (when skk-use-face
            (skk-henkan-face-off))
-         (if (looking-at "$B"'(B")
+         (if (looking-at "▼")
              (delete-char 1)
            (unless nomesg
-             (skk-message "$B"'$,$"$j$^$;$s(B"
-                          "It seems that you have deleted $B"'(B"))))
-        ((looking-at "$B"&(B")
+             (skk-message "▼がありません"
+                          "It seems that you have deleted ▼"))))
+        ((looking-at "▽")
          (delete-char 1))
         ((not nomesg)
-         (skk-message "$B"&$,$"$j$^$;$s(B"
-                      "It seems that you have deleted $B"&(B")))))))
+         (skk-message "▽がありません"
+                      "It seems that you have deleted ▽")))))))
 
 (defun skk-delete-okuri-mark (&optional noclear)
-  "$BAw$j2>L>4XO"%U%i%0$r>C$9!#(B
-$BAw$j2>L>F~NOCf$K%+%l%s%H%P%C%U%!$KI=$o$l$k(B `*' $B%^!<%/$r>C$7!"(B
-NOCLEAR $B$,(B nil $B$G$"$l$PAw$j2>L>4XO"%U%i%0$r(B nil $B$K%;%C%H$9$k!#(B"
+  "送り仮名関連フラグを消す。
+送り仮名入力中にカレントバッファに表われる `*' マークを消し、
+NOCLEAR が nil であれば送り仮名関連フラグを nil にセットする。"
   (when (and skk-okurigana
              skk-okurigana-start-point
              (markerp skk-okurigana-start-point)
@@ -3385,7 +3385,7 @@ NOCLEAR $B$,(B nil $B$G$"$l$PAw$j2>L>4XO"%U%i%0$r(B nil $B$K%;%C%H$9$k!#(B
       (setq skk-okuri-char nil
             skk-henkan-okurigana nil))))
 
-;; "[F7] $B%+%?%+%J(B" $B$N$h$&$J4JC1$JJQ495!G=$r3d$jEv$F$k$?$a$N%3%^%s%IDj5A(B
+;; "[F7] カタカナ" のような簡単な変換機能を割り当てるためのコマンド定義
 (defun skk-start-henkan-prog-null-handler (arg)
   (condition-case nil
       (skk-emulate-original-map arg)
@@ -3424,7 +3424,7 @@ NOCLEAR $B$,(B nil $B$G$"$l$PAw$j2>L>4XO"%U%i%0$r(B nil $B$K%;%C%H$9$k!#(B
 
 ;;; jisyo related functions
 (defun skk-purge-from-jisyo (&optional arg)
-  "$B"'%b!<%I$G8=:_$N8uJd$r<-=q%P%C%U%!$+$i>C5n$9$k!#(B"
+  "▼モードで現在の候補を辞書バッファから消去する。"
   (interactive "*P")
   (skk-with-point-move
    (cond
@@ -3435,7 +3435,7 @@ NOCLEAR $B$,(B nil $B$G$"$l$PAw$j2>L>4XO"%U%i%0$r(B nil $B$K%;%C%H$9$k!#(B
           (yes-or-no-p
            (format
             (if skk-japanese-message-and-error
-                "%s /%s/%s$B$r<-=q$+$i:o=|$7$^$9!#NI$$$G$9$+!)(B "
+                "%s /%s/%sを辞書から削除します。良いですか？ "
               "Really purge \"%s /%s/%s\"? ")
             skk-henkan-key
             (skk-get-current-candidate)
@@ -3445,23 +3445,23 @@ NOCLEAR $B$,(B nil $B$G$"$l$PAw$j2>L>4XO"%U%i%0$r(B nil $B$K%;%C%H$9$k!#(B
                             skk-henkan-strict-okuri-precedence)))
               " ")
              (skk-japanese-message-and-error
-              (format " ($BAw$j2>L>(B: %s) " skk-henkan-okurigana))
+              (format " (送り仮名: %s) " skk-henkan-okurigana))
              (t
               (format " (okurigana: %s) " skk-henkan-okurigana))))))
-     ;; skk-henkan-start-point $B$+$i(B point $B$^$G:o=|$7$F$7$^$C$F$b!"JQ49D>8e(B
-     ;; $B$K(B ($B%+!<%=%k$rF0$+$9$3$H$J$/(B) skk-purge-from-jisyo $B$r8F$Y$PLdBj$J$$(B
-     ;; $B$,!"%+!<%=%k$,0c$&>l=j$X0\F0$7$F$$$?>l9g$O!":o=|$9$Y$-$G$J$$$b$N$^(B
-     ;; $B$G:o=|$7$F$7$^$&2DG=@-$,$"$k!#$=$3$G!"Aw$j2>L>$,$"$l$P$=$ND9$5$r4^(B
-     ;; $B$a$?(B end $B$r5a$a!":#2s$NJQ49$K4XO"$7$?8D=j$@$1$r@53N$K@Z$j<h$k$h$&$K(B
-     ;; $B$9$k!#(B
+     ;; skk-henkan-start-point から point まで削除してしまっても、変換直後
+     ;; に (カーソルを動かすことなく) skk-purge-from-jisyo を呼べば問題ない
+     ;; が、カーソルが違う場所へ移動していた場合は、削除すべきでないものま
+     ;; で削除してしまう可能性がある。そこで、送り仮名があればその長さを含
+     ;; めた end を求め、今回の変換に関連した個所だけを正確に切り取るように
+     ;; する。
      (let ((end (if skk-henkan-okurigana
                     (+ (length skk-henkan-okurigana)
                        skk-henkan-end-point)
                   skk-henkan-end-point))
            (word (skk-get-current-candidate)))
        (skk-update-jisyo word 'purge)
-       ;; Emacs 19.28 $B$@$H(B Overlay $B$r>C$7$F$*$+$J$$$H!"<!$K(B insert $B$5$l$k(B
-       ;; skk-henkan-key $B$K2?8N$+(B Overlay $B$,$+$+$C$F$7$^$&!#(B
+       ;; Emacs 19.28 だと Overlay を消しておかないと、次に insert される
+       ;; skk-henkan-key に何故か Overlay がかかってしまう。
        (when skk-use-face
          (skk-henkan-face-off))
        (delete-region skk-henkan-start-point end)
@@ -3471,30 +3471,30 @@ NOCLEAR $B$,(B nil $B$G$"$l$PAw$j2>L>4XO"%U%i%0$r(B nil $B$K%;%C%H$9$k!#(B
 
 ;;;###autoload
 (defun skk-save-jisyo (&optional quiet)
-  "SKK $B$N<-=q%P%C%U%!$r%;!<%V$9$k!#(B
-$B%*%W%7%g%J%k0z?t$N(B QUIET $B$,(B non-nil $B$G$"$l$P!"<-=q%;!<%V;~$N%a%C%;!<%8$r(B
-$B=P$5$J$$!#(B"
+  "SKK の辞書バッファをセーブする。
+オプショナル引数の QUIET が non-nil であれば、辞書セーブ時のメッセージを
+出さない。"
   (interactive "P")
-  ;; skk.el $B0J30$GDs6!$5$l$k<-=q%;!<%V5!G=$rMxMQ$G$-$k$h$&$K4X?t$r(B funcall $B$9$k(B
-  ;; $B7A$K$7$F$*$/!#(B
+  ;; skk.el 以外で提供される辞書セーブ機能を利用できるように関数を funcall する
+  ;; 形にしておく。
   (unless noninteractive
-    ;; emacs $B$N=*N;;~$K8D?M<-=q$rJ]B8$9$k$?$a!"(Bskk.el (5190 $B9T$"$?$j(B) $B$G(B
-    ;; kill-emacs-hook $B$K(B #'skk-save-jisyo $B$r(B add-hook $B$7$F$$$k!#(B
-    ;; skk-mode $B$KF~$k$?$S$K8D?M<-=q$NB8:_$r3NG'$7$F$$$k!J$J$1$l$P<+F0@8@.!K$,!"(B
-    ;; $B2?$i$+$N860x$G8D?M<-=q$,B8:_$7$J$$>uBV$G(B emacs $B$r=*N;$7$h$&$H$9$k$H(B
-    ;; skk-save-jisyo-original (skk-get-jisyo-buffer) $BFb$N%(%i!<$G(B emacs $B$r=*N;$G$-$J$$;vBV$H$J$k!#(B
+    ;; emacs の終了時に個人辞書を保存するため、skk.el (5190 行あたり) で
+    ;; kill-emacs-hook に #'skk-save-jisyo を add-hook している。
+    ;; skk-mode に入るたびに個人辞書の存在を確認している（なければ自動生成）が、
+    ;; 何らかの原因で個人辞書が存在しない状態で emacs を終了しようとすると
+    ;; skk-save-jisyo-original (skk-get-jisyo-buffer) 内のエラーで emacs を終了できない事態となる。
     (when (file-exists-p (skk-jisyo))
       (funcall skk-save-jisyo-function quiet))))
 
 ;;;###autoload
 (defun skk-save-jisyo-original (&optional quiet)
-  "SKK $B$N<-=q%P%C%U%!$r%;!<%V$9$k!#(B
-$B%*%W%7%g%J%k0z?t(B QUIET $B$,(B non-nil $B$G$"$l$P!"<-=q%;!<%V;~$N%a%C%;!<%8$r=P$5$J$$!#(B"
+  "SKK の辞書バッファをセーブする。
+オプショナル引数 QUIET が non-nil であれば、辞書セーブ時のメッセージを出さない。"
   (let ((jisyo-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg)))
     (if (not (and jisyo-buffer
                   (buffer-modified-p jisyo-buffer)))
         (unless quiet
-          (skk-message "SKK $B<-=q$rJ]B8$9$kI,MW$O$"$j$^$;$s(B"
+          (skk-message "SKK 辞書を保存する必要はありません"
                        "No need to save SKK jisyo")
           (sit-for 1))
       ;;
@@ -3506,23 +3506,23 @@ NOCLEAR $B$,(B nil $B$G$"$l$PAw$j2>L>4XO"%U%i%0$r(B nil $B$K%;%C%H$9$k!#(B
         (let ((inhibit-quit t)
               (tempo-file (make-temp-file "skk")))
           (unless quiet
-            (skk-message "SKK $B<-=q$rJ]B8$7$F$$$^$9(B..."
+            (skk-message "SKK 辞書を保存しています..."
                          "Saving SKK jisyo..."))
           (skk-save-jisyo-as tempo-file)
           (skk-check-size-and-do-save-jisyo tempo-file)
-          ;; $B<-=q$N%;!<%V$K@.8y$7$F=i$a$F(B modified $B%U%i%0$r(B nil $B$K$9$k!#(B
+          ;; 辞書のセーブに成功して初めて modified フラグを nil にする。
           (cond
            ((skk-share-private-jisyo-p)
             (skk-init-shared-jisyo)
-            ;; `set-buffer-modified-p' $B$OITMW$J(B lock $B$r2r=|$9$k!#$?$@$7!"(B
-            ;; $B%P%C%U%!$H%U%!%$%kL>$,4XO"IU$1$i$l$F$$$kI,MW$,$"$k!#(B
+            ;; `set-buffer-modified-p' は不要な lock を解除する。ただし、
+            ;; バッファとファイル名が関連付けられている必要がある。
             (let ((buffer-file-name (expand-file-name (skk-jisyo)))
                   (buffer-file-truename (file-truename (skk-jisyo))))
               (set-buffer-modified-p nil)))
            (t
             (set-buffer-modified-p nil)))
           (unless quiet
-            (skk-message "SKK $B<-=q$rJ]B8$7$F$$$^$9(B...$B40N;!*(B"
+            (skk-message "SKK 辞書を保存しています...完了！"
                          "Saving SKK jisyo...done")
             (sit-for 1))))))
   (setq skk-update-jisyo-count 0))
@@ -3538,24 +3538,24 @@ NOCLEAR $B$,(B nil $B$G$"$l$PAw$j2>L>4XO"%U%i%0$r(B nil $B$K%;%C%H$9$k!#(B
        (with-temp-buffer
          (insert-file-contents skk-emacs-id-file)
          (goto-char (point-min))
-         ;; $B8D?M<-=q$,B>$N(B emacs $B>e$N(B skk $B$K$h$j99?7$5$l$?$+$r%A%'%C%/(B
+         ;; 個人辞書が他の emacs 上の skk により更新されたかをチェック
          (not (search-forward skk-emacs-id nil t)))))
 
 (defun skk-update-shared-jisyo ()
-  "$B8D?M<-=q$,6&M-$5$l$F$$$k>l9g$K!"?7$7$$>pJs$K99?7$9$k!#(B
-$B8=:_$N<-=q%P%C%U%!$NFbMF$r>C5n$7$F!"B>$N(B Emacs $B>e$N(B SKK $B$,99?7$7$?(B
-`skk-jisyo' $B$rFI$_9~$`!#(B"
+  "個人辞書が共有されている場合に、新しい情報に更新する。
+現在の辞書バッファの内容を消去して、他の Emacs 上の SKK が更新した
+`skk-jisyo' を読み込む。"
   (erase-buffer)
   (insert-file-contents (skk-jisyo))
   (skk-setup-jisyo-buffer)
-  ;; skk-jisyo-update-vector $B$K$7$?$,$C$F%P%C%U%!$r99?7$9$k!#(B
+  ;; skk-jisyo-update-vector にしたがってバッファを更新する。
   (let ((index 0)
         (len (length skk-jisyo-update-vector))
         list skk-henkan-key)
     (while (and (< index len)
                 (setq list (aref skk-jisyo-update-vector index)))
       ;; skk-update-jisyo-1, skk-search-jisyo
-      ;; $B$G;2>H$5$l$k(B skk-henkan-key $B$r%;%C%H$9$k(B
+      ;; で参照される skk-henkan-key をセットする
       (when (setq skk-henkan-key (car list))
         (skk-update-jisyo-1 (nth 1 list)                          ;okurigana
                             (nth 2 list)                          ;word
@@ -3570,13 +3570,13 @@ NOCLEAR $B$,(B nil $B$G$"$l$PAw$j2>L>4XO"%U%i%0$r(B nil $B$K%;%C%H$9$k!#(B
       (unless (re-search-forward "^;; okuri-ari entries.$" nil 'noerror)
         (skk-error
          "\
-$BAw$j$"$j%(%s%H%j$N%X%C%@!<$,$"$j$^$;$s!*(B SKK $B<-=q$N%;!<%V$rCf;_$7$^$9(B"
+送りありエントリのヘッダーがありません！ SKK 辞書のセーブを中止します"
          "\
 Header line for okuri-ari entries is missing!  Stop saving SKK jisyo"))
       (unless (re-search-forward "^;; okuri-nasi entries.$" nil 'noerror)
         (skk-error
          "\
-$BAw$j$J$7%(%s%H%j$N%X%C%@!<$,$"$j$^$;$s(B $B!*(B SKK $B<-=q$N%;!<%V$rCf;_$7$^$9(B"
+送りなしエントリのヘッダーがありません ！ SKK 辞書のセーブを中止します"
          "\
 Header line for okuri-nasi entries is missing!  Stop saving SKK jisyo")))
     (let ((coding-system-for-write (skk-find-coding-system (skk-jisyo t)))
@@ -3587,60 +3587,60 @@ Header line for okuri-nasi entries is missing!  Stop saving SKK jisyo")))
   (skk-bind-last-command-char nil
     (let ((new-size (nth 7 (file-attributes new-file)))
           old-size
-          ;; yes-or-no-p $B$K2sEz$7!"(Bnewline $B$9$k$H!"(Bthis-command $B$,JQ$C$F$7$^$&!#(B
+          ;; yes-or-no-p に回答し、newline すると、this-command が変ってしまう。
           this-command this-command-char last-command)
       (when (zerop new-size)
         (delete-file new-file)
-        (skk-error "SKK $B<-=q$,6u$K$J$C$F$$$^$9!*(B $B<-=q$N%;!<%V$rCf;_$7$^$9(B"
+        (skk-error "SKK 辞書が空になっています！ 辞書のセーブを中止します"
                    "Null SKK jisyo!  Stop saving jisyo"))
       (cond
        ((or (not skk-compare-jisyo-size-when-saving)
-            ;; $B5l<-=q$H$N%5%$%:$rHf3S$7$J$$!#(B
+            ;; 旧辞書とのサイズを比較しない。
             (progn
-              ;; (1)skk-jisyo $B$,$J$$$+!"(B
-              ;; (2)new-file $B$H(B skk-jisyo $B$,F10l$N%5%$%:$+(B
-              ;;    (skk-(aux-)large-jisyo $B$+$i?75,$NC18l$rFI$_9~$^$J$+$C$?$j!"(B
-              ;;    $B?75,C18l$NEPO?$r9T$o$J$+$C$?>l9g$O%5%$%:$,F1$8(B)$B!"(B
-              ;; (3)new-file $B$NJ}$,Bg$-$$(B
-              ;; $B>l9g(B ($B>e5-$N(B 3 $BDL$j$G$"$l$P$$$:$l$b@5>o(B)$B!#(B
+              ;; (1)skk-jisyo がないか、
+              ;; (2)new-file と skk-jisyo が同一のサイズか
+              ;;    (skk-(aux-)large-jisyo から新規の単語を読み込まなかったり、
+              ;;    新規単語の登録を行わなかった場合はサイズが同じ)、
+              ;; (3)new-file の方が大きい
+              ;; 場合 (上記の 3 通りであればいずれも正常)。
               (setq old-size (nth 7 (file-attributes (skk-jisyo))))
               (or (not old-size)
                   (>= new-size old-size))))
         (skk-make-new-jisyo new-file))
 
        ((skk-yes-or-no-p
-         (format "%s $B$,(B %dbytes $B>.$5$/$J$j$^$9$,!"%;!<%V$7$FNI$$$G$9$+!)(B"
+         (format "%s が %dbytes 小さくなりますが、セーブして良いですか？"
                  (skk-jisyo) (- old-size new-size))
          (format "New %s will be %dbytes smaller.  Save anyway?"
                  (skk-jisyo) (- old-size new-size)))
-        ;; $B$H$K$+$/%;!<%V!#(B
+        ;; とにかくセーブ。
         (skk-make-new-jisyo new-file))
 
        (t
-        ;; $B%;!<%V$H$j;_$a!#(B
+        ;; セーブとり止め。
         (delete-file new-file)
         (with-output-to-temp-buffer "*SKK warning*"
           (if skk-japanese-message-and-error
               (princ "\
-$B%;!<%V$7$h$&$H$9$k<-=q$N%5%$%:$,85$N%5%$%:$h$j$b>.$5$/$J$C$F$7$^$&$?$a!"(B
-$B%;!<%V$rCf;_$7$^$7$?!#<-=q$N%5%$%:$,>.$5$/$J$C$?860x$K$O!"Nc$($P!"(B
+セーブしようとする辞書のサイズが元のサイズよりも小さくなってしまうため、
+セーブを中止しました。辞書のサイズが小さくなった原因には、例えば、
 
-    (a) M-x skk-purge-from-jisyo $B$r<B9T$7$?!#(B
+    (a) M-x skk-purge-from-jisyo を実行した。
 
-    (b) ~/.skk-jisyo $B$NJ8;z%3!<%I$H$O0[$J$kJ8;z%3!<%I$G(B \" *.skk-jisyo*\"
-       $B%P%C%U%!$,J]B8$5$l$h$&$H$7$F$$$k!#(B
+    (b) ~/.skk-jisyo の文字コードとは異なる文字コードで \" *.skk-jisyo*\"
+       バッファが保存されようとしている。
 
-    (c) \" *.skk-jisyo*\" $B%P%C%U%!$r<+J,$GJT=8$7$?!#(B
+    (c) \" *.skk-jisyo*\" バッファを自分で編集した。
 
-$B$J$I$,$"$j$^$9!#(B(a) $B$H(B (b) $B$N>l9g$O0[>o$G$O$"$j$^$;$s!#(B
-\(c) $B$N>l9g$OJT=8$NFbMF$K$h$j$^$9!#860x$r?5=E$K3NG'$7$F$+$i<-=q$rJ]B8$9$k$3(B
-$B$H$r$*4+$a$7$^$9!#(B
+などがあります。(a) と (b) の場合は異常ではありません。
+\(c) の場合は編集の内容によります。原因を慎重に確認してから辞書を保存するこ
+とをお勧めします。
 
-$B85$N<-=q$r:F$SFI$_9~$`$K$O!"(B
+元の辞書を再び読み込むには、
 
     M-x skk-reread-private-jisyo
 
-$B$r<B9T$7$F2<$5$$!#(B")
+を実行して下さい。")
             (princ "\
 Saving your private dictionary has been canceled, since the size of the
 dictionary will be smaller.  The following cases should be considered:
@@ -3660,12 +3660,12 @@ If you want to restore the dictionary from your drive, try
 
     M-x skk-reread-private-jisyo
 ")))
-        (skk-error "SKK $B<-=q$N%;!<%V$rCf;_$7$^$7$?!*(B"
+        (skk-error "SKK 辞書のセーブを中止しました！"
                    "Stop saving SKK jisyo!"))))))
 
 (defun skk-make-new-jisyo (tempo-file)
-  "TEMPO-FILE $B$r?75,$N(B `skk-jisyo' $B$K$9$k!#(B
-`skk-backup-jisyo' $B$,(B non-nil $B$@$C$?$i%P%C%/%"%C%W<-=q$r:n$k!#(B"
+  "TEMPO-FILE を新規の `skk-jisyo' にする。
+`skk-backup-jisyo' が non-nil だったらバックアップ辞書を作る。"
   (if skk-backup-jisyo
       (progn
         (when (file-exists-p skk-backup-jisyo)
@@ -3676,31 +3676,31 @@ If you want to restore the dictionary from your drive, try
 
 ;;;###autoload
 (defun skk-reread-private-jisyo (&optional force)
-  "$B%P%C%U%!$KFI$_9~$s$@8D?M<-=q$rGK4~$7!"%U%!%$%k$+$i%P%C%U%!$X:FFI$_9~$_$9$k!#(B
-$B%*%W%7%g%J%k0z?t$N(B FORCE $B$,(B non-nil $B$G$"$l$P!"GK4~$N3NG'$r$7$J$$!#(B"
+  "バッファに読み込んだ個人辞書を破棄し、ファイルからバッファへ再読み込みする。
+オプショナル引数の FORCE が non-nil であれば、破棄の確認をしない。"
   (interactive "P")
   (let ((buf (skk-get-jisyo-buffer skk-jisyo 'nomsg)))
     (when (and buf
                (or force
                    (skk-yes-or-no-p
-                    "$BL$%;!<%V$N8D?M<-=q$rGK4~$7$^$9$+!)(B "
+                    "未セーブの個人辞書を破棄しますか？ "
                     "Discard your unsaved private JISYO? ")))
       (with-current-buffer buf
         (set-buffer-modified-p nil)
         (kill-buffer buf))
       (unless (skk-get-jisyo-buffer skk-jisyo 'nomsg)
-        (skk-error "$B8D?M<-=q$r:FFI$_9~$_$9$k$3$H$,$G$-$^$;$s!*(B"
+        (skk-error "個人辞書を再読み込みすることができません！"
                    "Cannot reread private JISYO!")))))
 
 (defun skk-record-jisyo-data ()
-  "$B8D?M<-=q$K4X$9$kE}7W>pJs$r(B `skk-record-file' $B$KJ]B8$9$k!#(B"
+  "個人辞書に関する統計情報を `skk-record-file' に保存する。"
   (unless (or (not skk-keep-record)
               (> 1 skk-kakutei-count))
     (with-temp-file skk-record-file
       (insert-file-contents skk-record-file)
       (goto-char (point-min))
       (insert (format
-               "%s  $BEPO?(B: %3d  $B3NDj(B: %4d  $B3NDjN((B: %3d%%  $B8l?t(B:%6d\n"
+               "%s  登録: %3d  確定: %4d  確定率: %3d%%  語数:%6d\n"
                (current-time-string)
                skk-touroku-count
                skk-kakutei-count
@@ -3708,15 +3708,15 @@ If you want to restore the dictionary from your drive, try
                   skk-kakutei-count)
                (cond
                 ((featurep 'skk-rdbms)
-                 ;; RDBMS $B$r;H$($P$b$C$H6=L#?<$$E}7W$,<h$l$k$+$b$7$l$J$$(B
-                 ;; $B$,!"$H$j$"$($:8l?t$@$1?t$($FF~$l$F$*$/!#(B
+                 ;; RDBMS を使えばもっと興味深い統計が取れるかもしれない
+                 ;; が、とりあえず語数だけ数えて入れておく。
                  (skk-rdbms-count-jisyo-candidates
                   skk-rdbms-private-jisyo-table))
                 (skk-count-private-jisyo-candidates-exactly
                  (skk-count-jisyo-candidates
                   (expand-file-name (skk-jisyo))))
 
-                ;; 1 $B9T(B 1 $B8uJd$H$_$J$9!#(B
+                ;; 1 行 1 候補とみなす。
                 (t
                  (with-current-buffer (skk-get-jisyo-buffer
                                        skk-jisyo 'nomsg)
@@ -3732,7 +3732,7 @@ If you want to restore the dictionary from your drive, try
           skk-kakutei-count 0)))
 
 (defun skk-count-jisyo-candidates (file-or-table)
-  "SKK $B<-=q$N8uJd?t$r?t$($k!#(B"
+  "SKK 辞書の候補数を数える。"
   (interactive
    (list (cond
           ((eq skk-count-jisyo-candidates-function
@@ -3742,17 +3742,17 @@ If you want to restore the dictionary from your drive, try
             default-directory (skk-jisyo) 'confirm))
           ((eq skk-count-jisyo-candidates-function
                'skk-rdbms-count-jisyo-candidates)
-           ;; $B%G!<%?%Y!<%9%U%!%$%k$rD>@\%U%!%$%kL>$G;XDj$G$-$k(B
-           ;; permission $B$,$J$$>l9g$,B?$$$h$M(B...$B!#(B
+           ;; データベースファイルを直接ファイル名で指定できる
+           ;; permission がない場合が多いよね...。
            ;;(read-file-name
            ;; (format "Jisyo table: (default: %s) "
            ;;    skk-rdbms-private-jisyo-table))
            skk-rdbms-private-jisyo-table))))
-  ;; mule@emacs19.31 $B$@$H2<5-$N$h$&$K$9$k$H(B (`$B%!(B' $B$,860x$N$h$&(B) $B2?8N$+(B
-  ;; default-directory $B$NKvHx$K2~9T$,IU$/!#(B
-  ;; $BDL>o$O5$$,IU$+$J$$$,!"(Brsz-mini.el $B$r;H$C$F(B resize-minibuffer-mode $B$r(B
-  ;; non-nil $B$K$7$F$$$k$HITMW$J(B 2 $B9TL\$,=P8=$9$k!#(B
-  ;; (interactive "f$B<-=q%U%!%$%k(B: ")
+  ;; mule@emacs19.31 だと下記のようにすると (`ァ' が原因のよう) 何故か
+  ;; default-directory の末尾に改行が付く。
+  ;; 通常は気が付かないが、rsz-mini.el を使って resize-minibuffer-mode を
+  ;; non-nil にしていると不要な 2 行目が出現する。
+  ;; (interactive "f辞書ファイル: ")
   (let ((count (funcall skk-count-jisyo-candidates-function
                         file-or-table)))
     (if (called-interactively-p 'interactive)
@@ -3763,8 +3763,8 @@ If you want to restore the dictionary from your drive, try
       count)))
 
 (defun skk-count-jisyo-candidates-original (file)
-  "SKK $B<-=q$N8uJd?t$r?t$($k!#(B
-`[' $B$H(B `]' $B$K0O$^$l$?Aw$j2>L>Kh$N%V%m%C%/Fb$O?t$($J$$!#(B"
+  "SKK 辞書の候補数を数える。
+`[' と `]' に囲まれた送り仮名毎のブロック内は数えない。"
   (let ((orig-buffer (find-buffer-visiting file)))
     (with-current-buffer (let ((find-file-visit-truename t))
                            (or orig-buffer (find-file-noselect file)))
@@ -3775,11 +3775,11 @@ If you want to restore the dictionary from your drive, try
               (interactive-p (called-interactively-p 'interactive)))
           (goto-char min)
           (unless (and
-                   ;; $B$3$A$i$O(B skk-save-point $B$r;H$o$:!"%]%$%s%H$r0\F0$5$;$k!#(B
+                   ;; こちらは skk-save-point を使わず、ポイントを移動させる。
                    (re-search-forward "^;; okuri-ari entries.$" nil t nil)
                    (skk-save-point
                     (re-search-forward "^;; okuri-nasi entries.$" nil t nil)))
-            (skk-error "$B$3$N%U%!%$%k$O(B SKK $B<-=q$G$O$"$j$^$;$s(B"
+            (skk-error "このファイルは SKK 辞書ではありません"
                        "This file is not an SKK dictionary"))
           (beginning-of-line)
           (while (looking-at ";")
@@ -3807,9 +3807,9 @@ If you want to restore the dictionary from your drive, try
 
 ;;;###autoload
 (defun skk-create-file (file &optional japanese english modes)
-  "FILE $B$,$J$1$l$P!"(BFILE $B$H$$$&L>A0$N6u%U%!%$%k$r:n$k!#(B
-$B%*%W%7%g%J%k0z?t$N(B JAPANESE/ENGLISH $B$r;XDj$9$k$H!"%U%!%$%k:n@.8e$=$N%a%C%;!<%8(B
-$B$r%(%3!<%(%j%"$KI=<($9$k!#(B"
+  "FILE がなければ、FILE という名前の空ファイルを作る。
+オプショナル引数の JAPANESE/ENGLISH を指定すると、ファイル作成後そのメッセージ
+をエコーエリアに表示する。"
   (let ((file (expand-file-name file)))
     (if (file-exists-p file)
         (when modes
@@ -3826,11 +3826,11 @@ If you want to restore the dictionary from your drive, try
 
 ;;;###autoload
 (defun skk-get-jisyo-buffer (file &optional nomsg)
-  "FILE $B$r3+$$$F(B SKK $B<-=q%P%C%U%!$r:n$j!"%P%C%U%!$rJV$9!#(B
-$B<-=q%P%C%U%!$K$O(B `skk-jisyo-code' $B$,E,MQ$5$l$k(B (nil $B$G$"$l$P(B euc) $B$,!"(BFILE $B$K(B
- (\"path/to/file\" . CODING-SYSTEM) $B$N%3%s%9%;%k$b;XDj$G$-$k!#(B
-$B%*%W%7%g%J%k0z?t$N(B NOMSG $B$r;XDj$9$k$H%U%!%$%kFI$_9~$_$N:]$N%a%C%;!<%8$rI=<($7$J(B
-$B$$!#(B"
+  "FILE を開いて SKK 辞書バッファを作り、バッファを返す。
+辞書バッファには `skk-jisyo-code' が適用される (nil であれば euc) が、FILE に
+ (\"path/to/file\" . CODING-SYSTEM) のコンスセルも指定できる。
+オプショナル引数の NOMSG を指定するとファイル読み込みの際のメッセージを表示しな
+い。"
   (when file
     (let* ((inhibit-quit t)
            (code (skk-find-coding-system (cond ((consp file)
@@ -3847,31 +3847,31 @@ If you want to restore the dictionary from your drive, try
                              (file-name-nondirectory file)
                              "*"))
            (buf (get-buffer buf-name)))
-      ;; $B<-=q%P%C%U%!$H$7$F%*!<%W%s$5$l$F$$$k$J$i!"2?$b$7$J$$!#(B
+      ;; 辞書バッファとしてオープンされているなら、何もしない。
       (unless (buffer-live-p buf)
         (setq buf (get-buffer-create buf-name))
         (setq file (expand-file-name file))
         (with-current-buffer buf
           (buffer-disable-undo)
           (auto-save-mode -1)
-          ;; $B%o!<%-%s%0%P%C%U%!$N%b!<%I%i%$%s$O%"%C%W%G!<%H$5$l$J$$!)(B
+          ;; ワーキングバッファのモードラインはアップデートされない？
           ;;(make-local-variable 'line-number-mode)
           ;;(make-local-variable 'column-number-mode)
           ;;(setq column-number-mode nil
           ;;      line-number-mode nil)
           (setq buffer-read-only nil
                 case-fold-search nil
-                ;; buffer-file-name $B$r(B nil $B$K$7$F$*$/$H(B M-x compile $B$J$I(B
-                ;; $BFbIt$G(B save-some-buffers $B$r%3!<%k$7$F$$$k%3%^%s%I$r(B
-                ;; $B;H$C$?$H$-$G$b%;!<%V$9$k$+$I$&$+$r?R$M$F$3$J$/$J$k!#(B
+                ;; buffer-file-name を nil にしておくと M-x compile など
+                ;; 内部で save-some-buffers をコールしているコマンドを
+                ;; 使ったときでもセーブするかどうかを尋ねてこなくなる。
                 ;; buffer-file-name file
                 ;; cache-long-line-scans nil
-                ;; dabbrev $B$N%5!<%A$H$J$k%P%C%U%!$K$J$i$J$$$h$&$KB8:_$7(B
-                ;; $B$J$$%b!<%IL>$K$7$F$*$/!#<B32$N$"$kI{:nMQ$O$J$$$O$:!#(B
+                ;; dabbrev のサーチとなるバッファにならないように存在し
+                ;; ないモード名にしておく。実害のある副作用はないはず。
                 major-mode 'skk-jisyo-mode
                 mode-name "SKK dic")
           (unless nomsg
-            (skk-message "SKK $B<-=q(B %s $B$r%P%C%U%!$KFI$_9~$s$G$$$^$9(B..."
+            (skk-message "SKK 辞書 %s をバッファに読み込んでいます..."
                          "Inserting contents of %s ..."
                          (file-name-nondirectory file)))
           (condition-case nil
@@ -3881,9 +3881,9 @@ If you want to restore the dictionary from your drive, try
             (error
              (when (buffer-live-p buf)
                (kill-buffer buf))
-             (skk-error "`%s'$B$rFI$_9~$a$^$;$s(B" "Cannot load `%s'." file)))
+             (skk-error "`%s'を読み込めません" "Cannot load `%s'." file)))
           (unless nomsg
-            (skk-message "SKK $B<-=q(B %s $B$r%P%C%U%!$KFI$_9~$s$G$$$^$9(B...$B40N;!*(B"
+            (skk-message "SKK 辞書 %s をバッファに読み込んでいます...完了！"
                          "Inserting contents of %s ...done"
                          (file-name-nondirectory file)))
           (skk-setup-jisyo-buffer)
@@ -3892,9 +3892,9 @@ If you want to restore the dictionary from your drive, try
 
 ;;;###autoload
 (defun skk-search ()
-  "`skk-current-search-prog-list' $B$N3FMWAG!J8!:w%W%m%0%i%`!K$r=g$KI>2A$9$k!#(B
-$B$$$:$l$+$NMWAG$,8uJd$r8+$D$1$?;~E@$G=*N;$9$k!#(B"
-  ;; $B8D?M<-=q$G8uJd$,8+$D$+$l$P$=$l$rJV$9!J(BL $B<-=q$^$G8+$K$$$/Lu$G$O$J$$!K(B
+  "`skk-current-search-prog-list' の各要素（検索プログラム）を順に評価する。
+いずれかの要素が候補を見つけた時点で終了する。"
+  ;; 個人辞書で候補が見つかればそれを返す（L 辞書まで見にいく訳ではない）
   (let (l prog)
     (while (and (null l)
                 skk-current-search-prog-list)
@@ -3902,9 +3902,9 @@ If you want to restore the dictionary from your drive, try
       (setq l (if (and skk-use-numeric-conversion
                        (string-match "[0-9]" skk-henkan-key)
                        (skk-numeric-program-p prog))
-                  ;; -- 12.2.1 $B$+$i$NJQ99(B --
-                  ;; $B?tCMJQ49;~$K!"Hs?tCMJQ49$bF1;~$K8!:w$7$F8uJd$K(B
-                  ;; $B4^$a$k!#(B
+                  ;; -- 12.2.1 からの変更 --
+                  ;; 数値変換時に、非数値変換も同時に検索して候補に
+                  ;; 含める。
                   (skk-nunion (let (skk-use-numeric-conversion)
                                 (eval prog))
                               (eval prog))
@@ -3928,29 +3928,29 @@ If you want to restore the dictionary from your drive, try
                    skk-search-ex-state "")))))
 
 (defun skk-numeric-program-p (program)
-  "$B<-=q8!:w%W%m%0%i%`(B PROGRAM $B$,?tCMJQ49M-8z$+$I$&$+H=Dj$9$k!#(B
-$B$b$7%W%m%0%i%`$,(B `skk-non-numeric-prog-list' $B$K;XDj$5$l$F$$$?$i(B nil $B$rJV$9!#(B
-$B$5$b$J$1$l$P(B non-nil $B$rJV$9!#(B"
+  "辞書検索プログラム PROGRAM が数値変換有効かどうか判定する。
+もしプログラムが `skk-non-numeric-prog-list' に指定されていたら nil を返す。
+さもなければ non-nil を返す。"
   (not (or (memq (car program) skk-non-numeric-prog-list)
            (member program skk-non-numeric-prog-list))))
 
 (defun skk-search-jisyo-file (file limit &optional nomsg)
-  "SKK $B<-=q%U%)!<%^%C%H$N(B FILE $B$G(B `skk-henkan-key' $B$r%-!<$K$7$F8!:w$9$k!#(B
-$B8!:wNN0h$,(B LIMIT $B0J2<$K$J$k$^$G%P%$%J%j%5!<%A$r9T$$!"$=$N8e%j%K%"%5!<%A$r9T$&!#(B
-LIMIT $B$,(B 0 $B$G$"$l$P!"%j%K%"%5!<%A$N$_$r9T$&!#(B
-$B<-=q$,%=!<%H$5$l$F$$$J$$>l9g$O(B LIMIT $B$r(B 0 $B$H$9$kI,MW$,$"$k!#(B
-$B%*%W%7%g%J%k0z?t$N(B NOMSG $B$,(B non-nil $B$G$"$l$P(B `skk-get-jisyo-buffer' $B$N(B
-$B%a%C%;!<%8$r=PNO$7$J$$!#(B
+  "SKK 辞書フォーマットの FILE で `skk-henkan-key' をキーにして検索する。
+検索領域が LIMIT 以下になるまでバイナリサーチを行い、その後リニアサーチを行う。
+LIMIT が 0 であれば、リニアサーチのみを行う。
+辞書がソートされていない場合は LIMIT を 0 とする必要がある。
+オプショナル引数の NOMSG が non-nil であれば `skk-get-jisyo-buffer' の
+メッセージを出力しない。
 
-FILE $B$K$O<-=q%U%!%$%k$@$1$G$J$/!"(B
-  ($B<-=q%U%!%$%k(B . $B%3!<%G%#%s%0%7%9%F%`(B)
-$B$N%Z%"$b<u$1$D$1$k!#%3!<%G%#%s%0%7%9%F%`$O(B `skk-jisyo-code' $B$H(B
-$BF1MM$K;XDj$9$k!#(B"
+FILE には辞書ファイルだけでなく、
+  (辞書ファイル . コーディングシステム)
+のペアも受けつける。コーディングシステムは `skk-jisyo-code' と
+同様に指定する。"
   (skk-search-jisyo-buf (skk-get-jisyo-buffer file nomsg)
                         limit))
 
 (defun skk-search-extra-jisyo-files ()
-  ;; skk-search-prog-list $B$NMWAG$N$R$H$D(B
+  ;; skk-search-prog-list の要素のひとつ
   (setq skk-search-ex-state nil)
   (let (candidates words)
     (dolist (file skk-extra-jisyo-file-list)
@@ -3961,37 +3961,37 @@ FILE $B$K$O<-=q%U%!%$%k$@$1$G$J$/!"(B
     candidates))
 
 (defun skk-search-itaiji ()
-  ;; skk-search-prog-list $B$NMWAG$H$7$F;HMQ$9$k(B
+  ;; skk-search-prog-list の要素として使用する
   (and (= (length skk-henkan-key) 1)
        skk-itaiji-jisyo
        (skk-search-jisyo-file skk-itaiji-jisyo 0 t)))
 
 (defun skk-search-server (file limit &optional nomsg)
-  "$B<-=q%5!<%P$r;HMQ$7$F(B `skk-henkan-key' $B$r%-!<$K$7$F8!:w$9$k!#(B
-$B<-=q%5!<%P$,;HMQ$G$-$J$$$H$-$O!"(BFILE $B$r%P%C%U%!$KFI$_9~$s$G8!:w$9$k!#(B
-LIMIT $B$H(B NOMSG $B$O<-=q%5!<%P$,;HMQ$G$-$J$$$H$-$N$_M-8z!#(B
-$B$3$l$i$N0z?t$K$D$$$F$O(B `skk-search-jisyo-file' $B$r;2>H$N$3$H!#(B"
+  "辞書サーバを使用して `skk-henkan-key' をキーにして検索する。
+辞書サーバが使用できないときは、FILE をバッファに読み込んで検索する。
+LIMIT と NOMSG は辞書サーバが使用できないときのみ有効。
+これらの引数については `skk-search-jisyo-file' を参照のこと。"
   (if (or skk-server-host
           skk-servers-list)
       (skk-search-server-1 file limit)
-    ;; $B<-=q%5!<%P$,MxMQ2DG=$G$J$1$l$P(B file $B$r8!:w$9$k!#(B
-    ;; $B0z?t(B file $B$ODL>o(B `skk-aux-large-jisyo' $B$,;XDj$5$l$k!#(B
+    ;; 辞書サーバが利用可能でなければ file を検索する。
+    ;; 引数 file は通常 `skk-aux-large-jisyo' が指定される。
     (when (and (stringp file)
                (file-readable-p file))
       (skk-search-jisyo-file file limit nomsg))))
 
 (defun skk-okuri-search ()
-  "$B8+=P$78l$rAw$j2>L>$r4^$`$b$N$H$7$F8!:w$9$k!#(B
-$BNc$($P!"(B`skk-auto-okuri-process' $B$,(B non-nil $B$J$i$P(B \"Uresii\" $B$N$h$&$KAw$j2>(B
-$BL>$b4^$a$F%?%$%W$7$F$bAw$j$"$j$N(B \"$B4r$7$$(B\" $B$rC5$7=P$9!#(B"
+  "見出し語を送り仮名を含むものとして検索する。
+例えば、`skk-auto-okuri-process' が non-nil ならば \"Uresii\" のように送り仮
+名も含めてタイプしても送りありの \"嬉しい\" を探し出す。"
   (when skk-auto-okuri-process
     (skk-okuri-search-1)))
 
 (defun skk-search-jisyo-buf (buf limit)
-  "$B%P%C%U%!$r(B BUF $B$K0\F0$7$F!"$=$3$r<-=q$H$7$F8!:w$9$k!#(B"
+  "バッファを BUF に移動して、そこを辞書として検索する。"
   (when (buffer-live-p buf)
-    ;; skk-henkan-key $B$H(B skk-henkan-okurigana $B$O%+%l%s%H%P%C%U%!$N(B
-    ;; $B%m!<%+%kCM$J$N$G!"$"$i$+$8$a<hF@!#(B
+    ;; skk-henkan-key と skk-henkan-okurigana はカレントバッファの
+    ;; ローカル値なので、あらかじめ取得。
     (let ((okurigana (or skk-henkan-okurigana
                          skk-okuri-char))
           (midasi (if skk-use-numeric-conversion
@@ -4008,32 +4008,32 @@ LIMIT $B$H(B NOMSG $B$O<-=q%5!<%P$,;HMQ$G$-$J$$$H$-$N$_M-8z!#(B
                                     okurigana)))))
 
 (defun skk-search-jisyo (okurigana limit &optional delete)
-  "$B%+%l%s%H%P%C%U%!$r<-=q$H$7$F8!:w$9$k!#(B
-$B$3$N4X?t$NLa$jCM$O!"(B`skk-henkan-key' $B$r%-!<$H$7$F(B `skk-compute-henkan-lists' $B$r(B
-$BI>2A$7$?CM$G$"$k!#(B
-DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$r:o=|$9$k!#(B"
+  "カレントバッファを辞書として検索する。
+この関数の戻り値は、`skk-henkan-key' をキーとして `skk-compute-henkan-lists' を
+評価した値である。
+DELETE が non-nil であれば `skk-henkan-key' にマッチするエントリを削除する。"
 
-  ;; (let ((skk-henkan-key "$B$[$+$s(B"))
+  ;; (let ((skk-henkan-key "ほかん"))
   ;;   (with-current-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg)
   ;;     (skk-search-jisyo nil 0)))
-  ;; => (("$BJd4V(B" "$BJd40(B" "$BJ]4I(B") nil nil nil)
+  ;; => (("補間" "補完" "保管") nil nil nil)
 
-  ;; (let ((skk-henkan-key "$B$&$4(Bk"))
+  ;; (let ((skk-henkan-key "うごk"))
   ;;   (with-current-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg)
-  ;;     (skk-search-jisyo "$B$/(B" 0)))
-  ;; => (("$BF0(B") ("[$B$/(B") ("$BF0(B") ("]"))
+  ;;     (skk-search-jisyo "く" 0)))
+  ;; => (("動") ("[く") ("動") ("]"))
 
   (let ((key (concat "\n" skk-henkan-key " /"))
         min max size p)
     (save-match-data
-      ;; skk-okuri-ari-min $B$H(B skk-okuri-ari-max $B$O<-=q%P%C%U%!$N%m!<%+%kCM!#(B
+      ;; skk-okuri-ari-min と skk-okuri-ari-max は辞書バッファのローカル値。
       (if okurigana
           (setq min skk-okuri-ari-min
                 max skk-okuri-ari-max)
         (setq min skk-okuri-nasi-min
               max (point-max)))
       (when (> limit 0)
-        ;; $BFsJ,C5:w(B
+        ;; 二分探索
         (while (> (setq size (- max min)) limit)
           (goto-char (+ min (/ size 2)))
           (beginning-of-line)
@@ -4041,7 +4041,7 @@ DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$
           (if (= p min)
               (setq max min)    ; return
             (let ((p-is-further
-                   ;; $BAw$j$"$j$J$i5U=g$KHf3S$9$k!#(B
+                   ;; 送りありなら逆順に比較する。
                    (if okurigana
                        (skk-string< (buffer-substring-no-properties
                                      p (1- (search-forward  " ")))
@@ -4053,11 +4053,11 @@ DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$
                   (setq max p)
                 (setq min p))))))
       (goto-char min)
-      ;; key $B$,8!:w3+;OCOE@$K$"$C$?>l9g$G$b8!:w2DG=$J$h$&$K0lJ8;zLa$k!#(B
-      ;; key $B$N@hF,ItJ,$K(B "\n" $B$,4^$^$l$F$$$k$3$H$KCm0U!#(B
+      ;; key が検索開始地点にあった場合でも検索可能なように一文字戻る。
+      ;; key の先頭部分に "\n" が含まれていることに注意。
       (unless (bobp)
         (backward-char 1))
-      ;; case-fold-search $B$O!"<-=q%P%C%U%!$G$O>o$K(B nil$B!#(B
+      ;; case-fold-search は、辞書バッファでは常に nil。
       (when (search-forward key max 'noerror)
         (prog1
             (skk-compute-henkan-lists okurigana)
@@ -4069,18 +4069,18 @@ DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$
                              (point)))))))))
 
 (defun skk-select-words-from-list (list buffer midasi okurigana)
-  "`skk-search-jisyo' $B$,JV$7$?8uJd%j%9%H$+$i8=:_MW5a$5$l$F$$$k8uJd$rA*$S$@$9!#(B"
+  "`skk-search-jisyo' が返した候補リストから現在要求されている候補を選びだす。"
   (when list
     (let ((words
            (cond
             ((and okurigana
                   skk-henkan-okuri-strictly)
-             ;; $BAw$j2>L>$,F10l$N8uJd$N$_$rJV$9!#(B
+             ;; 送り仮名が同一の候補のみを返す。
              (nth 2 list))
             ((and okurigana
                   skk-henkan-strict-okuri-precedence)
-             ;; $BAw$j2>L>$,F10l$N8uJd$N$&$7$m$K!"(B
-             ;; $B$=$NB>$N8uJd$r$D$1$F$+$($9!#(B
+             ;; 送り仮名が同一の候補のうしろに、
+             ;; その他の候補をつけてかえす。
              (skk-nunion (nth 2 list)
                          (car list)))
             (t
@@ -4091,51 +4091,51 @@ DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$
 
 ;;;###autoload
 (defun skk-compute-henkan-lists (okurigana)
-  "$B<-=q8uJd72$r#4$D$N%j%9%H$KJ,2r$9$k!#(B
-$B>\$7$/$O!"$3$N4X?t$N%3%a%s%H$r;2>H!#(B"
-  ;; $BAw$j$J$7(B ($BNc$($P!"<-=q%(%s%H%j(B "$B$F$s$5$$(B /$BE>:\(B/$BE7:R(B/$BE7:M(B/" $B$N=hM}(B)
-  ;;   words1 := ("$BE>:\(B" "$BE7:R(B" "$BE7:M(B") == $BA48uJd72(B
+  "辞書候補群を４つのリストに分解する。
+詳しくは、この関数のコメントを参照。"
+  ;; 送りなし (例えば、辞書エントリ "てんさい /転載/天災/天才/" の処理)
+  ;;   words1 := ("転載" "天災" "天才") == 全候補群
   ;;   words2 := nil
   ;;   words3 := nil
   ;;   words4 := nil
   ;;
   ;; (with-temp-buffer
-  ;;   (insert "$B$F$s$5$$(B /$BE>:\(B/$BE7:R(B/$BE7:M(B/")
+  ;;   (insert "てんさい /転載/天災/天才/")
   ;;   (goto-char (point-min))
   ;;   (search-forward " /")
   ;;   (skk-compute-henkan-lists ""))
-  ;; => (("$BE>:\(B" "$BE7:R(B" "$BE7:M(B") nil nil nil)
+  ;; => (("転載" "天災" "天才") nil nil nil)
 
-  ;; $BAw$j$"$j(B ($BNc$($P!"!V5c$/!W$NJQ49$r9T$C$?>l9g$N!"<-=q%(%s%H%j(B
-  ;;           "$B$J(Bk /$BK4(B/$BL5(B/$BLD(B/$B5c(B/[$B$/(B/$BL5(B/$BLD(B/$B5c(B/]/[$B$-(B/$BK4(B/]/" $B$N=hM}(B)
-  ;;   words1 := ("$BK4(B" "$BL5(B" "$BLD(B" "$B5c(B")  == $B4A;zItJ,$NA48uJd72(B
-  ;;   words2 := ("[$B$/(B")               == $BB>$NAw$j2>L>$r;H$&4A;z8uJd72(B ($B$"$l(B
-  ;;                                       $B$P(B) + $B:#2s$NJQ49$NAw$j2>L>ItJ,(B
-  ;;   words3 := ("$BL5(B" "$BLD(B" "$B5c(B")       == $B:#2s$NJQ49$NAw$j2>L>$r;H$&2DG=@-$N(B
-  ;;                                       $B$"$kA44A;z8uJd72(B
-  ;;   words4 := ("]" "[$B$-(B" "$BK4(B" "]")   == $BB>$NAw$j2>L>$r;H$&4A;z8uJd72(B ($B;D(B
-  ;;                                       $B$j!#$"$l$P(B)
+  ;; 送りあり (例えば、「泣く」の変換を行った場合の、辞書エントリ
+  ;;           "なk /亡/無/鳴/泣/[く/無/鳴/泣/]/[き/亡/]/" の処理)
+  ;;   words1 := ("亡" "無" "鳴" "泣")  == 漢字部分の全候補群
+  ;;   words2 := ("[く")               == 他の送り仮名を使う漢字候補群 (あれ
+  ;;                                       ば) + 今回の変換の送り仮名部分
+  ;;   words3 := ("無" "鳴" "泣")       == 今回の変換の送り仮名を使う可能性の
+  ;;                                       ある全漢字候補群
+  ;;   words4 := ("]" "[き" "亡" "]")   == 他の送り仮名を使う漢字候補群 (残
+  ;;                                       り。あれば)
   ;;
   ;; (with-temp-buffer
-  ;;   (insert "$B$J(Bk /$BK4(B/$BL5(B/$BLD(B/$B5c(B/[$B$/(B/$BL5(B/$BLD(B/$B5c(B/]/[$B$-(B/$BK4(B/]/")
+  ;;   (insert "なk /亡/無/鳴/泣/[く/無/鳴/泣/]/[き/亡/]/")
   ;;   (goto-char (point-min))
   ;;   (search-forward " /")
-  ;;   (skk-compute-henkan-lists "$B$/(B"))
-  ;; => (("$BK4(B" "$BL5(B" "$BLD(B" "$B5c(B") ("[$B$/(B") ("$BL5(B" "$BLD(B" "$B5c(B") ("]" "[$B$-(B" "$BK4(B" "]"))
+  ;;   (skk-compute-henkan-lists "く"))
+  ;; => (("亡" "無" "鳴" "泣") ("[く") ("無" "鳴" "泣") ("]" "[き" "亡" "]"))
   ;;
-  ;;   * "[" $B$OD>8e$KB3$/$R$i$,$J$rAw$j2>L>$K;}$D4A;z$N8uJd72$N;O$^$j$rI=$7!"(B
-  ;;     "]" $B$O!"3:Ev$NAw$j2>L>%0%k!<%W$N=*$j$r<($9!#(B
+  ;;   * "[" は直後に続くひらがなを送り仮名に持つ漢字の候補群の始まりを表し、
+  ;;     "]" は、該当の送り仮名グループの終りを示す。
 
-  ;; $B$3$N4X?t$O!"JQ49;~$H!"3NDjD>8e$N<-=q$N%"%C%W%G!<%H;~$N#2EY8F$P$l$k(B
-  ;; ($BJQ49;~$K8!:w$r9T$C$?<-=q$,!"(Bskk-jisyo $B$H$O8B$i$J$$$N$G!"#2EY7W;;$;$6$k(B
-  ;; $B$rF@$J$$(B)$B!#(B
+  ;; この関数は、変換時と、確定直後の辞書のアップデート時の２度呼ばれる
+  ;; (変換時に検索を行った辞書が、skk-jisyo とは限らないので、２度計算せざる
+  ;; を得ない)。
   ;;
-  ;; $BJQ49;~$O!"(B
-  ;; o skk-henkan-okuri-strictly $B$,(B non-nil $B$G$"$l$P!"7W;;7k2L$N(B words3 $B$r!"(B
-  ;; o skk-henkan-okuri-strictly $B$,(B nil $B$G$"$C$F(B
-  ;;   - skk-henkan-strict-okuri-precedence $B$,(B non-nil $B$"$l$P(B (skk-nunion words3 words1) $B$r(B
-  ;;   - skk-henkan-strict-okuri-precedence $B$,(B nil $B$N>l9g$O(B words1 $B$r(B
-  ;; $B<h$j=P$9!#(B
+  ;; 変換時は、
+  ;; o skk-henkan-okuri-strictly が non-nil であれば、計算結果の words3 を、
+  ;; o skk-henkan-okuri-strictly が nil であって
+  ;;   - skk-henkan-strict-okuri-precedence が non-nil あれば (skk-nunion words3 words1) を
+  ;;   - skk-henkan-strict-okuri-precedence が nil の場合は words1 を
+  ;; 取り出す。
   (cond
    ((not okurigana)
     (list (split-string (buffer-substring-no-properties (point) (1- (line-end-position)))
@@ -4185,7 +4185,7 @@ DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$
 
 ;;;###autoload
 (defun skk-remove-duplicates (list)
-  "LIST $B$+$i!"=EJ#$9$kMWAG$r=|30$7$?%j%9%H$rJV$9!#(B"
+  "LIST から、重複する要素を除外したリストを返す。"
   (let (new)
     (dolist (x list)
       (or (member x new)
@@ -4193,51 +4193,51 @@ DELETE $B$,(B non-nil $B$G$"$l$P(B `skk-henkan-key' $B$K%^%C%A$9$k%(%s%H%j$
     (nreverse new)))
 
 (defun skk-search-kakutei-jisyo-file (file limit &optional nomsg)
-  "SKK $B<-=q%U%)!<%^%C%H$N(B FILE $B$+$i8!:w$9$k!#(B
-$B8uJd$r8+$D$1$?>l9g$O!"Bg0hJQ?t(B `skk-kakutei-henkan-flag' $B$K(B non-nil $B$rBeF~$9$k!#(B
-$B0z?t$K$D$$$F$O(B `skk-search-jisyo-file' $B$r;2>H!#(B
+  "SKK 辞書フォーマットの FILE から検索する。
+候補を見つけた場合は、大域変数 `skk-kakutei-henkan-flag' に non-nil を代入する。
+引数については `skk-search-jisyo-file' を参照。
 
-$BMxMQ$9$k>l9g$O(B `skk-search-prog-list' $B$N@hF,$KG[$9$k;v!#(B"
+利用する場合は `skk-search-prog-list' の先頭に配する事。"
   (setq skk-kakutei-henkan-flag (skk-search-jisyo-file file limit nomsg)))
 
 ;;;###autoload
 (defun skk-update-jisyo (word &optional purge)
   (funcall skk-update-jisyo-function word purge)
   (when (and skk-save-jisyo-instantly
-             (or skk-jisyo-updated  ; skk-henkan-in-minibuff $B$G(B setq
+             (or skk-jisyo-updated  ; skk-henkan-in-minibuff で setq
                  purge))
     (skk-save-jisyo 'quiet)
     (setq skk-jisyo-updated nil)))
 
 ;;;###autoload
 (defun skk-update-jisyo-original (word &optional purge)
-  "$B<!$NJQ49;~$K(B WORD $B$,:G=i$N8uJd$K$J$k$h$&$K!"8D?M<-=q$r99?7$9$k!#(B
-PURGE $B$,(B non-nil $B$G(B WORD $B$,6&M-<-=q$K$"$k8uJd$J$i(B `skk-ignore-dic-word'
-$B4X?t$G%/%)!<%H$7$?8uJd$r8D?M<-=q$K:n$j!"<!$NJQ49$+$i=PNO$7$J(B
-$B$$$h$&$K$9$k!#(B
-WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
+  "次の変換時に WORD が最初の候補になるように、個人辞書を更新する。
+PURGE が non-nil で WORD が共有辞書にある候補なら `skk-ignore-dic-word'
+関数でクォートした候補を個人辞書に作り、次の変換から出力しな
+いようにする。
+WORD が共有辞書になければ、個人辞書の辞書エントリから削除する。"
   ;;
-  ;; $B8D?M<-=q$N%(%s%H%j(B
+  ;; 個人辞書のエントリ
   ;;         ;; okuri-ari entries.
-  ;;  $BJQ$G(B   $B$G(Bt /$B=P(B/[$B$F(B/$B=P(B/]/[$B$?(B/$B=P(B/]/
-  ;;  $B49>:(B   $B$D(Bi /$BIU(B/[$B$$(B/$BIU(B/]/
-  ;;  $B=g=g(B   $B$1(Bs /$B>C(B/[$B$9(B/$B>C(B/]/[$B$7(B/$B>C(B/]/[$B$;(B/$B>C(B/]/[$B$5(B/$B>C(B/]/
-  ;;   $B"-(B    $B$+$((Bs /$BJV(B/[$B$7(B/$BJV(B/]/[$B$9(B/$BJV(B/]/[$B$5(B/$BJV(B/]/[$B$;(B/$BJV(B/]/
+  ;;  変で   でt /出/[て/出/]/[た/出/]/
+  ;;  換昇   つi /付/[い/付/]/
+  ;;  順順   けs /消/[す/消/]/[し/消/]/[せ/消/]/[さ/消/]/
+  ;;   ↓    かえs /返/[し/返/]/[す/返/]/[さ/返/]/[せ/返/]/
   ;;         ...
   ;;         ...
-  ;;         $B$J$,(Bs /$BD9(B/$BN.(B/[$B$7(B/$BN.(B/]/[$B$5(B/$BD9(B/]/[$B$=(B/$BN.(B/]/
+  ;;         ながs /長/流/[し/流/]/[さ/長/]/[そ/流/]/
   ;;         ;; okuri-nasi entries.
-  ;;  $BJQ$G(B   $B$8$g$&$?$$(B /$B>uBV(B/
-  ;;  $B49>:(B   $B$=$&$K$e$&(B /$BA^F~(B/
-  ;;  $B=g=g(B   $B$+$J(B /$B2>L>(B/
-  ;;   $B"-(B    ...
+  ;;  変で   じょうたい /状態/
+  ;;  換昇   そうにゅう /挿入/
+  ;;  順順   かな /仮名/
+  ;;   ↓    ...
   ;;         ...
   ;;
-  ;; skk-auto-okuri-process $B$,(B non-nil $B$N$H$-$K!"(Bskk-okuri-search $B$O8+=P$78l$N(B
-  ;; $BD9$$=g$K8uJd$rJV$9I,MW$,$"$k!#(B
-  ;; skk-okuri-search $B$,!"8+IU$1$?8uJd$r8+=P$78l$r%-!<$H$7$F>:=g$K%=!<%H$7$FJV(B
-  ;; $B$9$?$a!"8D?M<-=q$N%=!<%H$OI,MW$G$J$$!#(B
-  ;; $B$h$C$F!":G8e$KJQ49$7$?$b$N$r(B skk-okuri-ari-min $B$N0LCV$KA^F~$9$k!#(B
+  ;; skk-auto-okuri-process が non-nil のときに、skk-okuri-search は見出し語の
+  ;; 長い順に候補を返す必要がある。
+  ;; skk-okuri-search が、見付けた候補を見出し語をキーとして昇順にソートして返
+  ;; すため、個人辞書のソートは必要でない。
+  ;; よって、最後に変換したものを skk-okuri-ari-min の位置に挿入する。
   ;;
   (let* ((jisyo-buffer (skk-get-jisyo-buffer skk-jisyo 'nomsg))
          (cand (car (skk-treat-strip-note-from-word word)))
@@ -4248,8 +4248,8 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
                    skk-henkan-key))
          (henkan-buffer (and skk-update-end-function
                              (current-buffer))))
-    ;; $BF~NOMzNr$r99?7$9$k!#(B
-    ;; $BAw$j$"$jF~NO$O>JN,$7!"Aw$j$J$7F~NO$N$_MzNr$r$H$k!#(B
+    ;; 入力履歴を更新する。
+    ;; 送りあり入力は省略し、送りなし入力のみ履歴をとる。
     (unless skk-henkan-okurigana
       (skk-update-kakutei-history midasi word))
 
@@ -4258,22 +4258,22 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
             buffer-read-only old-words-list okurigana)
         (when (> skk-okuri-index-min -1)
           (setq word (skk-remove-common word)
-                ;; skk-henkan-key $B$O(B skk-remove-common $B$K$h$C$F(B
-                ;; $BJQ99$5$l$F$$$k2DG=@-$,$"$k!#(B
+                ;; skk-henkan-key は skk-remove-common によって
+                ;; 変更されている可能性がある。
                 midasi skk-henkan-key))
         (setq okurigana (or skk-henkan-okurigana
                             skk-okuri-char))
         (with-current-buffer jisyo-buffer
-          ;; $B4{B8%(%s%H%j$r8!:w8e>C5n$9$k!#A^F~$9$Y$-8uJd$,(B words1 $B$K(B 1 $B$D(B
-          ;; $B$7$+$J$/!"(Bword $B$HF1$8J8;z$G$"$C$F$b!"$$$C$?$s>C$7$F$=$N%(%s%H(B
-          ;; $B%j$r(B min $B%]%$%s%H$K0\F0$5$;$J$1$l$P$J$i$J$$!#$3$l$O!"FI$_$NJd(B
-          ;; $B40$r9T$&$H$-$K!"(B min $B%]%$%s%H$+$i8+=P$7$rC5$9$?$a!"?7$7$$8+=P(B
-          ;; $B$7$[$I!"(Bmin $B%]%$%s%H$K6a$$$H$3$m$K$J$1$l$P$J$i$J$$$+$i$G$"$k!#(B
+          ;; 既存エントリを検索後消去する。挿入すべき候補が words1 に 1 つ
+          ;; しかなく、word と同じ文字であっても、いったん消してそのエント
+          ;; リを min ポイントに移動させなければならない。これは、読みの補
+          ;; 完を行うときに、 min ポイントから見出しを探すため、新しい見出
+          ;; しほど、min ポイントに近いところになければならないからである。
           (setq skk-henkan-key midasi
                 old-words-list (skk-search-jisyo okurigana 0 'delete))
           (skk-update-jisyo-1 okurigana word old-words-list purge)
-          ;; $BJ#?t$N(B emacs $B$G(B SKK $B$,5/F0$5$l$F$$$k$H$-$K8D?M<-=q$r@09gE*$K(B
-          ;; $B99?7$9$k$?$a$K3NDj$NF0:n$r5-O?$9$k!#(B
+          ;; 複数の emacs で SKK が起動されているときに個人辞書を整合的に
+          ;; 更新するために確定の動作を記録する。
           (when (and (skk-share-private-jisyo-p)
                      (< skk-jisyo-save-count (length skk-jisyo-update-vector)))
             (aset skk-jisyo-update-vector skk-update-jisyo-count
@@ -4281,57 +4281,57 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
           (dolist (function skk-update-end-function)
             (funcall function henkan-buffer midasi okurigana word purge))
           (setq skk-update-jisyo-count (1+ skk-update-jisyo-count))
-          ;; skk-share-private-jisyo $B$,(B non-nil $B$N$H$-$O(B skk-jisyo-save-count
-          ;; $B$b(B non-nil $B$G$"$k$3$H$rA0Ds$H$9$k(B
+          ;; skk-share-private-jisyo が non-nil のときは skk-jisyo-save-count
+          ;; も non-nil であることを前提とする
           (when (and skk-jisyo-save-count
                      (<= skk-jisyo-save-count skk-update-jisyo-count))
             ;; auto save.
             (skk-save-jisyo 'quiet)))))))
 
 (defun skk-update-jisyo-1 (okurigana word old-words-list purge)
-  "$B8D?M<-=q$K?7$7$$%(%s%H%j$rA^F~$9$k!#(B
-$B4{B8%(%s%H%j$+$i7W;;$7$?(B words[1-4] $B$NCM$H!":#2s$NJQ49$N7k2L(B word $B$H$r(B
-$B7k9g$7$F!"?7$?$J%(%s%H%j$r7W;;$7!"A^F~$9$k!#(B"
-  ;; $BF~NO$H$J$k(B OLD-WORDS-LIST $B$O!"4X?t(B `skk-search-jisyo' $B$,=PNO$7$?$b$N$G$"$k!#(B
+  "個人辞書に新しいエントリを挿入する。
+既存エントリから計算した words[1-4] の値と、今回の変換の結果 word とを
+結合して、新たなエントリを計算し、挿入する。"
+  ;; 入力となる OLD-WORDS-LIST は、関数 `skk-search-jisyo' が出力したものである。
 
   (let ((words1 (car   old-words-list))
         (words2 (nth 1 old-words-list))
         (words3 (nth 2 old-words-list))
         (words4 (nth 3 old-words-list)))
     (cond ((not purge)
-           ;; words1 $B$r99?7(B
+           ;; words1 を更新
            (if skk-jisyo-fix-order
                (if (consp words1)
-                   ;; $B?75,$N;~$O!"B>$NF12;8l$N8e$KDI2C(B
+                   ;; 新規の時は、他の同音語の後に追加
                    (unless (member word words1)
                      (setcdr (last words1) (cons word nil)))
-                 ;; $B:#2s$NFI$_$N8l!"$=$N$b$N$,?75,(B
+                 ;; 今回の読みの語、そのものが新規
                  (setq words1 (cons word nil)))
-             ;; words1 $B$N@hF,$N8uJd$r(B word $B$K$9$k!#(B
+             ;; words1 の先頭の候補を word にする。
              (setq words1 (cons word (delete word words1)))))
 
-          ;; $BAw$j$J$7!"$b$7$/$O(B skk-henkan-okuri-strictly $B$H(B
-          ;; skk-henkan-strict-okuri-precedence $B$,(B nil $B$N>l9g!#(B
+          ;; 送りなし、もしくは skk-henkan-okuri-strictly と
+          ;; skk-henkan-strict-okuri-precedence が nil の場合。
           (t
-           ;; words1 $B$r(B purge$B!#6&MQ<-=q$K$"$k8uJd$@$C$?$i!"(B
-           ;; skk-ignore-dic-word $B$G%/%)!<%H$7$F<!$NJQ49$+$i=PNO(B
-           ;; $B$7$J$$$h$&$K$9$k!#6&MQ<-=q$K$J$$J8;zNs$O(B word $B$r>C$9!#(B
+           ;; words1 を purge。共用辞書にある候補だったら、
+           ;; skk-ignore-dic-word でクォートして次の変換から出力
+           ;; しないようにする。共用辞書にない文字列は word を消す。
            (setq words1 (if (skk-public-jisyo-has-word-p okurigana word)
                             (skk-compose-ignore-word words1 word)
                           (delete word words1)))))
 
-    (when words1 ;; words1 $B$,(B null $B$G$"$l$P!"$b$&2?$b$9$k$3$H$O$J$$!#(B
+    (when words1 ;; words1 が null であれば、もう何もすることはない。
       (goto-char (if okurigana
                      skk-okuri-ari-min
                    skk-okuri-nasi-min))
       (insert "\n" skk-henkan-key " /")
-      ;; words1 -- $BA48uJd72(B ($BAw$j$J$7$N>l9g(B) $B!"$^$?$O(B
-      ;;           $BA48uJd72$N4A;zItJ,(B ($BAw$j$"$j$N>l9g(B)
+      ;; words1 -- 全候補群 (送りなしの場合) 、または
+      ;;           全候補群の漢字部分 (送りありの場合)
       (insert (skk-update-jisyo-2 words1) "/")
 
       (when okurigana
-        ;; words2 $B0J9_$N8uJd72$r=hM}$9$k$N$O!"Aw$j$"$j$N>l9g$N$_!#(B
-        ;; $B@h$KA^F~$9$Y$-8uJd72$r7W;;!"D4@0$9$k!#(B
+        ;; words2 以降の候補群を処理するのは、送りありの場合のみ。
+        ;; 先に挿入すべき候補群を計算、調整する。
         (cond (words3
                (cond ((not purge)
                       (if skk-jisyo-fix-order
@@ -4341,57 +4341,57 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
                      (t
                       (setq words3 (delete word words3))
                       (when (null words3)
-                        ;; words3 $B$H$7$FA^F~$9$k$b$N$,A4$/$J$1$l$P!"(B"/[$B$/(B/]/" $B$N$h(B
-                        ;; $B$&$JAw$j2>L>$N$_$N8uJd$r:n$i$J$$$h$&$K$9$k(B ($BI,MW$G(B
-                        ;; $B$"$l$P!"(Bwords2 $B$N:G8eJ}$H(B) words4 $B$N@hF,$N(B "]" $B$r:o=|!#(B
+                        ;; words3 として挿入するものが全くなければ、"/[く/]/" のよ
+                        ;; うな送り仮名のみの候補を作らないようにする (必要で
+                        ;; あれば、words2 の最後方と) words4 の先頭の "]" を削除。
                         (let* ((len (length words2))
                                (last2 (cl-case len
                                         (0 nil)
                                         (1 (list nil (car words2)))
                                         (t (nthcdr (- (length words2) 2)
                                                    words2)))))
-                          ;; words2 $B$N:G8eJ}$O>o$K(B "[$BAw$j2>L>(B" $B$H$O8B$i$J$$!#(B
+                          ;; words2 の最後方は常に "[送り仮名" とは限らない。
                           (when (and last2
                                      (string= (nth 1 last2) (concat "[" okurigana)))
                             (cl-case len
                               (1 (setq words2 nil))
                               (t (setcdr last2 nil))))
-                          ;; words4 $B$N@hF,$O>o$K(B "]"$B!#(B
+                          ;; words4 の先頭は常に "]"。
                           (setq words4 (cdr words4)))))))
               (t
-               ;; words3 $B$,(B null $B$G$"$l$P(B
+               ;; words3 が null であれば
                (unless (or skk-process-okuri-early
                            purge)
-                 ;; skk-process-okuri-early $B$,(B non-nil $B$J$iAw$j2>L>$,J,$i$J$$$N$G(B
-                 ;; $B2?$b$7$J$$!#(B-- $B:#2s;HMQ$7$?Aw$j2>L>$,$o$+$i$J$$$^$^JQ49$7$F$$(B
-                 ;; $B$k$N$G!"A4$F$N8uJd$,(B words2 $B$KF~$C$F$$$k(B -- words3, words4 $B$O(B
-                 ;; null$B!#(B
-                 ;; words3 $B$H$7$FA^F~$9$k$b$N$,A4$/$J$1$l$P!"2?$b$7$J$$(B -- words3
-                 ;; $B$,(B purge $BA0$+$i(B null $B$J$i!"(Bwords2 $B$NKvHx$O(B "[" $B$G$J$$$7!"(B
-                 ;; words4 $B$O(B null $B$@$+$i(B words[234] $B$NA`:n$OITMW!#(B
+                 ;; skk-process-okuri-early が non-nil なら送り仮名が分らないので
+                 ;; 何もしない。-- 今回使用した送り仮名がわからないまま変換してい
+                 ;; るので、全ての候補が words2 に入っている -- words3, words4 は
+                 ;; null。
+                 ;; words3 として挿入するものが全くなければ、何もしない -- words3
+                 ;; が purge 前から null なら、words2 の末尾は "[" でないし、
+                 ;; words4 は null だから words[234] の操作は不要。
                  (setq words2 (nconc words2
                                      (list (concat "[" okurigana)))
                        words3 (list word)
-                       ;; purge $BA0$+$i(B words3 $B$,(B null $B$@$C$?$N$@$+$i(B
-                       ;; words4 $B$b(B null$B!#(B
+                       ;; purge 前から words3 が null だったのだから
+                       ;; words4 も null。
                        words4 (list "]"))))))
       (when words2
-        ;; words2 -- $B:#2s;HMQ$7$J$+$C$?Aw$j2>L>$r;H$&4A;z$N8uJd72(B
+        ;; words2 -- 今回使用しなかった送り仮名を使う漢字の候補群
         ;;         + "["
-        ;;         + $B:#2s;HMQ$7$?Aw$j2>L>(B ($BAw$j2>L>$N$_!#$=$NAw$j(B
-        ;;           $B2>L>$r;HMQ$9$k4A;z$N8uJd72$O!"(Bwords3 $B$K4^$^$l$k(B)
+        ;;         + 今回使用した送り仮名 (送り仮名のみ。その送り
+        ;;           仮名を使用する漢字の候補群は、words3 に含まれる)
         (insert (skk-update-jisyo-2 words2) "/")
 
-        ;; words2 $B$,(B null $B$J$i(B words3 $B$b(B null$B!#(B
+        ;; words2 が null なら words3 も null。
         (when words3
-          ;; words3 -- $B:#2s;HMQ$7$?Aw$j2>L>$r;H$&A44A;z8uJd(B
+          ;; words3 -- 今回使用した送り仮名を使う全漢字候補
           (insert (skk-update-jisyo-2 words3) "/"))
 
-        ;; purge $B$G(B words3 $B$,(B null $B$K$J$C$?>l9g$O(B words4 $B$,;D$C$F$$$k(B
-        ;; $B$H$-$,$"$k!#(B
+        ;; purge で words3 が null になった場合は words4 が残っている
+        ;; ときがある。
         (when words4
-          ;; words4 -- "]" + $BB>$NAw$j2>L>$r;H$&A44A;z8uJd(B
-          ;; (words2 $B$N;D$j(B)$B!#(B
+          ;; words4 -- "]" + 他の送り仮名を使う全漢字候補
+          ;; (words2 の残り)。
           (insert (skk-update-jisyo-2 words4) "/"))))))
 
 (defun skk-update-jisyo-2 (words)
@@ -4401,9 +4401,9 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
 
 ;;;###autoload
 (defun skk-quote-char (word)
-  "WORD $B$r<-=q%(%s%H%j$H$7$F@5$7$$7A$K@07A$9$k!#(B
-$B<-=q7A<0$N@)8B$+$i!"<-=q%(%s%H%jFb$K4^$a$F$O$J$i$J$$J8;z$,(B WORD $B$NCf$K$"$l$P!"(B
-$BI>2A$7$?$H$-$K$=$NJ8;z$H$J$k$h$&$J(B Lisp $B%3!<%I$rJV$9!#(B"
+  "WORD を辞書エントリとして正しい形に整形する。
+辞書形式の制限から、辞書エントリ内に含めてはならない文字が WORD の中にあれば、
+評価したときにその文字となるような Lisp コードを返す。"
   (save-match-data
     (cond ((and word
                 (string-match "[/\n\r\"]" word)
@@ -4418,10 +4418,10 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
 
 ;;;###autoload
 (defun skk-quote-semicolon (word)
-  "WORD $B$r<-=q%(%s%H%j$H$7$F@5$7$$7A$K@07A$9$k!#(B
-`skk-quote-char' $B$H;w$F$$$k$,!"Cp<a$H4X78$J$$%;%_%3%m%s(B (;) $B$r=hM}$9$kE@$,(B
-$B0[$J$k!#(B"
-  ;; `save-match-data' $B$OMW$i$J$$!#(B
+  "WORD を辞書エントリとして正しい形に整形する。
+`skk-quote-char' と似ているが、註釈と関係ないセミコロン (;) を処理する点が
+異なる。"
+  ;; `save-match-data' は要らない。
   (cond ((string-match ";" word)
          (format "(concat \"%s\")"
                  (skk-quote-char-1 word skk-quote-char-alist)))
@@ -4429,15 +4429,15 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
          word)))
 
 (defun skk-public-jisyo-has-word-p (okurigana word)
-  "$B6&M-<-=q$,(B  WORD $B$r;}$C$F$$$k$+$I$&$+D4$Y$k!#(B
-$B6&M-<-=q$,(B MIDASHI $B5Z$S$=$l$KBP1~$9$k(B $B8uJd(B WORD $B$r;}$C$F$$$l$P!"(B non-nil $B$rJV(B
-$B$9!#8D?M<-=q$N%P%C%U%!$G<B9T$5$l$k!#(B"
+  "共有辞書が  WORD を持っているかどうか調べる。
+共有辞書が MIDASHI 及びそれに対応する 候補 WORD を持っていれば、 non-nil を返
+す。個人辞書のバッファで実行される。"
   (let (fn
         skk-henkan-okuri-strictly
         skk-henkan-strict-okuri-precedence)
     (when okurigana
       (setq skk-henkan-okurigana okurigana))
-    ;; skkserv $B$r;H$&@_Dj$K$J$C$F$$$?$i!"(Bskk-server.el $B$r%m!<%I$9$k!#(B
+    ;; skkserv を使う設定になっていたら、skk-server.el をロードする。
     (when (or skk-servers-list
               skk-server-host
               (getenv "SKKSERVER"))
@@ -4448,14 +4448,14 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
          (member word (eval fn)))))
 
 (defun skk-public-jisyo-to-be-searched-original ()
-  "`skk-search-prog-list' $B$NCf$+$i!"0lHVBg$-$J6&M-<-=q$r;H$&%W%m%0%i%`$rJV$9!#(B"
+  "`skk-search-prog-list' の中から、一番大きな共有辞書を使うプログラムを返す。"
   (let (fn)
     (when (and (featurep 'skk-server)
                (or skk-servers-list
                    skk-server-host))
       (setq fn (assq 'skk-search-server skk-search-prog-list)))
-    ;; skk-search-server $B$+$i;O$^$k%j%9%H$,$J$1$l$P!"$H$K$+$/Bg$-$$<-=q$r0z?t(B
-    ;; $B$K$7$F$$$k(B skk-search-jisyo-file $B%W%m%0%i%`$rC5$9!#(B
+    ;; skk-search-server から始まるリストがなければ、とにかく大きい辞書を引数
+    ;; にしている skk-search-jisyo-file プログラムを探す。
     (when (and (not fn)
                (or skk-aux-large-jisyo
                    skk-large-jisyo))
@@ -4470,13 +4470,13 @@ WORD $B$,6&M-<-=q$K$J$1$l$P!"8D?M<-=q$N<-=q%(%s%H%j$+$i:o=|$9$k!#(B"
     fn))
 
 (defun skk-compose-ignore-word (words &optional add)
-  "$BL5;k$9$Y$-8uJd$r$^$H$a$k!#(B
-WORDS $B$NCf$K(B `skk-ignore-dic-word' $B4X?t$G%/%)!<%H$7$?8uJd$,$"$l$P!"0l$D$N8uJd(B
-$B$K$^$H$a$k!#(B
-$B%*%W%7%g%J%k0z?t$N(B ADD $B$,;XDj$5$l$F$$$?$i!"(BADD $B$r4^$a$?(B `skk-ignore-dic-word'
-$B8uJd72$r:n$k!#(B
-$B?7$7$$(B `skk-ignore-dic-word' $B8uJd$r(B car $B$K!"$=$l0J30$N8uJd$r(B cdr $B$K$7$?%;%k(B
-\($B%j%9%H(B)$B$rJV$9!#(B"
+  "無視すべき候補をまとめる。
+WORDS の中に `skk-ignore-dic-word' 関数でクォートした候補があれば、一つの候補
+にまとめる。
+オプショナル引数の ADD が指定されていたら、ADD を含めた `skk-ignore-dic-word'
+候補群を作る。
+新しい `skk-ignore-dic-word' 候補を car に、それ以外の候補を cdr にしたセル
+\(リスト)を返す。"
   (let (l arg e)
     (when add
       (setq words (delete add words)))
@@ -4495,7 +4495,7 @@ WORDS $B$NCf$K(B `skk-ignore-dic-word' $B4X?t$G%/%)!<%H$7$?8uJd$,$"$l$P!"0l$D
                 words (delq e words))))
       (setq arg (cond
                  ((not add)
-                  ;; $BKvHx$N(B " \"" $B$r@Z$jMn$H$9!#(B
+                  ;; 末尾の " \"" を切り落とす。
                   (substring arg 0 -2))
                  (arg
                   (concat arg
@@ -4510,8 +4510,8 @@ WORDS $B$NCf$K(B `skk-ignore-dic-word' $B4X?t$G%/%)!<%H$7$?8uJd$,$"$l$P!"0l$D
             words))))
 
 (defun skk-compose-ignore-word-sub-quote-char (str)
-  "`skk-compose-ignore-word' $B$N2<0L%k!<%A%s!#(B
-SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
+  "`skk-compose-ignore-word' の下位ルーチン。
+SKK 辞書の候補として正しい形に整形する。"
   (cond
    ((string-match "[/\n\r\";]" str)
     (let ((alist (if (string-match ";" str)
@@ -4526,19 +4526,19 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
     (skk-search-katakana (eq skk-search-katakana 'jisx0201-kana))))
 
 (defun skk-search-katakana (&optional jisx0201-kana)
-  "$B8+=P$78l$r%+%?%+%J$K$7$F!"%j%9%H$K$7$FJV$9!#(B
-$B$3$l$O(B `skk-search-prog-list' $B$KDI2C$5$l$k$Y$-5!G=$G!"JQ49%-!<$rC1=c$K%+(B
-$B%?%+%J$KJQ49$7$?$b$N$r8uJd$H$7$FJV$9!#(B
-$B0lHLE*$J(B FEP $B$OC1=c$K%+%?%+%J$KJQ49$7$?$b$N$,8uJd$K8=$l$k$b$N$,B?$$$,!"(B
-$B$=$N$h$&$J5sF0$,9%$_$N>l9g$K$O$3$N4X?t$rMQ$$$k$H$h$$!#(B"
+  "見出し語をカタカナにして、リストにして返す。
+これは `skk-search-prog-list' に追加されるべき機能で、変換キーを単純にカ
+タカナに変換したものを候補として返す。
+一般的な FEP は単純にカタカナに変換したものが候補に現れるものが多いが、
+そのような挙動が好みの場合にはこの関数を用いるとよい。"
   (unless (or skk-henkan-okurigana
-              (string-match ">$" skk-henkan-key) ; $B@\F,<-(B
-              (string-match "^>" skk-henkan-key)) ; $B@\Hx<-(B
+              (string-match ">$" skk-henkan-key) ; 接頭辞
+              (string-match "^>" skk-henkan-key)) ; 接尾辞
     (let ((key skk-henkan-key)
           char words)
       (with-temp-buffer
         (insert key)
-        ;; $B@\F,<-!&@\Hx<-$NF~NO$@$C$?$i(B ">" $B$r>C$7$F$*$/!#(B
+        ;; 接頭辞・接尾辞の入力だったら ">" を消しておく。
         (goto-char (1- (point)))    ;
         (when (looking-at ">")      ;(looking-back ">")
           (delete-char 1))
@@ -4547,8 +4547,8 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
           (delete-char 1))
         ;;
         (while (and (not (eobp))
-                    ;; "$B!<(B" $B$G$OJ8;z<o$,H=JL$G$-$J$$$N$G(B point $B$r?J$a$k!#(B
-                    (or (looking-at "$B!<(B")
+                    ;; "ー" では文字種が判別できないので point を進める。
+                    (or (looking-at "ー")
                         (eq 'unknown (setq char (skk-what-char-type)))))
           (forward-char 1))
         (when (eq char 'hiragana)
@@ -4556,26 +4556,26 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
           (setq words (list (buffer-string))))
         (when (and jisx0201-kana
                    (or (eq char 'hiragana)
-                       (string-match "$B!<(B" key)))
+                       (string-match "ー" key)))
           (skk-katakana-to-jisx0201-region (point-min) (point-max))
           (setq words (nconc words (list (buffer-string))))))
       words)))
 
 (defun skk-search-hankaku-katakana ()
-  "$B8+=P$78l$rH>3Q%+%J$K$7$F!"%j%9%H$K$7$FJV$9!#(B"
+  "見出し語を半角カナにして、リストにして返す。"
   (cdr (skk-search-katakana t)))
 
 (defun skk-search-romaji (&optional jisx0208)
-  "$BJQ49%-!<$r%m!<%^;z$KJQ49$7$?8uJd$rJV$9!#(B"
+  "変換キーをローマ字に変換した候補を返す。"
   (cond ((executable-find "kakasi")
          (unless (or skk-henkan-okurigana
-                     (string-match ">$" skk-henkan-key) ; $B@\F,<-(B
-                     (string-match "^>" skk-henkan-key)) ; $B@\Hx<-(B
+                     (string-match ">$" skk-henkan-key) ; 接頭辞
+                     (string-match "^>" skk-henkan-key)) ; 接尾辞
            (let ((key skk-henkan-key)
                  words chars)
              (with-temp-buffer
                (insert key)
-               ;; $B@\F,<-!&@\Hx<-$NF~NO$@$C$?$i(B ">" $B$r>C$7$F$*$/!#(B
+               ;; 接頭辞・接尾辞の入力だったら ">" を消しておく。
                (goto-char (1- (point)))
                (when (looking-at ">")
                  (delete-char 1))
@@ -4598,12 +4598,12 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
          (list skk-insert-keysequence))))
 
 (defun skk-search-jisx0208-romaji ()
-  "$B8+=P$78l$rA43Q%m!<%^;z$KJQ49$7$F!"%j%9%H$K$7$FJV$9!#(B"
+  "見出し語を全角ローマ字に変換して、リストにして返す。"
   (cdr (skk-search-romaji t)))
 
 (defun skk-search-upcase (&optional initial)
-  "$BJQ49%-!<$N(B ascii $B>.J8;z$rBgJ8;z$KJQ49$7$?8uJd$rJV$9!#(B
-$B$3$N4X?t$O(B `skk-abbrev-mode' $B@lMQ!#(B"
+  "変換キーの ascii 小文字を大文字に変換した候補を返す。
+この関数は `skk-abbrev-mode' 専用。"
   (if skk-abbrev-mode
       (list (if initial
                 (upcase-initials skk-henkan-key)
@@ -4611,14 +4611,14 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
     nil))
 
 (defun skk-search-identity (&rest args)
-  "$BJQ49%-!<$r$=$N$^$^8uJd$H$7$FJV$9!#(B
-$B$3$N4X?t$OAw$j$J$7JQ49@lMQ!#(B"
+  "変換キーをそのまま候補として返す。
+この関数は送りなし変換専用。"
   (if skk-henkan-okurigana
       nil
     (list (identity skk-henkan-key))))
 
 (defun skk-search-function-usage ()
-  "Emacs Lisp $B4X?t$N(B usage $B$rJV$9!#(B"
+  "Emacs Lisp 関数の usage を返す。"
   (unless skk-henkan-okurigana
     (let* ((symbol (intern (format "%s" skk-henkan-key)))
            def doc usage arglist result)
@@ -4654,19 +4654,19 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 
 ;;;###autoload
 (defun skk-search-progs (key &optional prog-list remove-note)
-  ;; prog-list $B$,>JN,$5$l$?;~$O(B skk-search-prog-list $B$NA4$F$,BP>](B
-  ;; $B$b$70z?t$r$5$i$KDI2C$9$k$h$&$J;v$,$"$l$P(B
-  ;;   okuri-nasi   $BAw$jM-$j$N%A%'%C%/$r%Q%9(B
-  ;;   allow-duplicate  skk-nunion $B$G$J$/(B nconc $B$r;H$&(B
-  ;; $B$"$?$j$+(B
+  ;; prog-list が省略された時は skk-search-prog-list の全てが対象
+  ;; もし引数をさらに追加するような事があれば
+  ;;   okuri-nasi   送り有りのチェックをパス
+  ;;   allow-duplicate  skk-nunion でなく nconc を使う
+  ;; あたりか
   (save-match-data
     (let ((skk-henkan-key key)
           skk-henkan-okurigana
           skk-okuri-char
           skk-auto-okuri-process
           words)
-      ;; $B:.$<=q$-$J?M$C$FAw$jM-$jJQ49$9$k$N$+$J(B  \cj $B$N$[$&$,$$$$(B?
-      (when (string-match "[$B$!(B-$B$s(B][a-z]$" key)
+      ;; 混ぜ書きな人って送り有り変換するのかな  \cj のほうがいい?
+      (when (string-match "[ぁ-ん][a-z]$" key)
         (setq skk-henkan-okurigana ""
               skk-okuri-char (substring key (1- (length key)))))
       (ignore-errors
@@ -4684,9 +4684,9 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
     (skk-search-sagyo-henkaku nil (eq skk-search-sagyo-henkaku 'anything))))
 
 (defun skk-search-sagyo-henkaku (&optional okuri-list anything)
-  "$B8+=P$78l$r%59TJQ3J3hMQ$NF0;l$H$_$J$7$F!"Aw$j$"$j8uJd$r8!:w$9$k!#(B"
+  "見出し語をサ行変格活用の動詞とみなして、送りあり候補を検索する。"
   (unless okuri-list
-    (setq okuri-list '("$B$5(B" "$B$7(B" "$B$9(B" "$B$;(B")))
+    (setq okuri-list '("さ" "し" "す" "せ")))
   (when (and skk-henkan-okurigana
              (or (member skk-henkan-okurigana okuri-list)
                  anything))
@@ -4695,8 +4695,8 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
                                  (1- (length skk-henkan-key))))))
 
 (defun skk-search-ja-dic-maybe (&optional check)
-  ;; `skk-search-prog-list' $B$N0lMWAG$H$7$F:nMQ$9$k$[$+!"(B
-  ;; skk-mode $B$KF~$k$?$S(B check $B$GI>2A$5$l$k!#(B
+  ;; `skk-search-prog-list' の一要素として作用するほか、
+  ;; skk-mode に入るたび check で評価される。
   (unless (or (and (stringp skk-large-jisyo)
                    (file-readable-p skk-large-jisyo))
               (and (stringp skk-aux-large-jisyo)
@@ -4706,7 +4706,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
               skk-server-host
               skk-inhibit-ja-dic-search)
     (if check
-        (skk-message "$B<-=q$H$7$F(B leim/ja-dic $B$r;H$$$^$9(B"
+        (skk-message "辞書として leim/ja-dic を使います"
                      "Use leim/ja-dic as dictionary")
       (skk-search-ja-dic))))
 
@@ -4731,36 +4731,36 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
       list)))
 
 (defun skk-katakana-region (start end &optional vcontract)
-  "$BNN0h$N$R$i$,$J$r%+%?%+%J$KJQ49$9$k!#(B
-$B%*%W%7%g%J%k0z?t$N(B VCONTRACT $B$,(B non-nil $B$G$"$l$P!"(B\"$B$&!+(B\" $B$r(B \"$B%t(B\" $B$KJQ49$9(B
-$B$k!#(B
-$B0z?t$N(B START $B$H(B END $B$O?t;z$G$b%^!<%+!<$G$bNI$$!#(B"
+  "領域のひらがなをカタカナに変換する。
+オプショナル引数の VCONTRACT が non-nil であれば、\"う゛\" を \"ヴ\" に変換す
+る。
+引数の START と END は数字でもマーカーでも良い。"
   (interactive "*r\nP")
   (when vcontract
-    (skk-search-and-replace start end "$B$&!+(B"
+    (skk-search-and-replace start end "う゛"
                             (lambda (matched)
-                              nil "$B%t(B")))
-  (skk-search-and-replace start end "[$B$!(B-$B$s(B]+"
+                              nil "ヴ")))
+  (skk-search-and-replace start end "[ぁ-ん]+"
                           (lambda (matched)
                             (skk-hiragana-to-katakana matched))))
 
 (defun skk-hiragana-region (start end &optional vexpand)
-  "$BNN0h$N%+%?%+%J$r$R$i$,$J$KJQ49$9$k!#(B
-$B%*%W%7%g%J%k0z?t$N(B VEXPAND $B$,(B non-nil $B$G$"$l$P!"(B\"$B%t(B\" $B$r(B \"$B$&!+(B\" $B$KJQ49$9$k!#(B
-$B0z?t$N(B START $B$H(B END $B$O?t;z$G$b%^!<%+!<$G$bNI$$!#(B
-\"$B%u(B\" $B$H(B \"$B%v(B\" $B$OJQ99$5$l$J$$!#$3$N(B 2 $B$D$NJ8;z$OBP1~$9$k$R$i$,$J$,$J$$$N$G!"(B
-$B%+%?%+%J$H$7$F$O07$o$l$J$$!#(B"
+  "領域のカタカナをひらがなに変換する。
+オプショナル引数の VEXPAND が non-nil であれば、\"ヴ\" を \"う゛\" に変換する。
+引数の START と END は数字でもマーカーでも良い。
+\"ヵ\" と \"ヶ\" は変更されない。この 2 つの文字は対応するひらがながないので、
+カタカナとしては扱われない。"
   (interactive "*r\nP")
   (when vexpand
-    (skk-search-and-replace start end "$B%t(B"
+    (skk-search-and-replace start end "ヴ"
                             (lambda (matched)
-                              nil "$B$&!+(B")))
-  (skk-search-and-replace start end "[$B%!(B-$B%s(B]+"
+                              nil "う゛")))
+  (skk-search-and-replace start end "[ァ-ン]+"
                           (lambda (matched)
                             (skk-katakana-to-hiragana matched))))
 
 (defun skk-jisx0208-latin-region (start end)
-  "$BNN0h$N(B ascii $BJ8;z$rBP1~$9$kA43Q1QJ8;z$KJQ49$9$k!#(B"
+  "領域の ascii 文字を対応する全角英文字に変換する。"
   (interactive "*r")
   (skk-search-and-replace start end "[ -~]"
                           (lambda (matched)
@@ -4768,7 +4768,7 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
                                   (string-to-char matched)))))
 
 (defun skk-latin-region (start end)
-  "$BNN0h$NA43Q1QJ8;z$rBP1~$9$k(B ascii $BJ8;z$KJQ49$9$k!#(B"
+  "領域の全角英文字を対応する ascii 文字に変換する。"
   (interactive "*r")
   (skk-search-and-replace start end "\\cj"
                           (lambda (matched)
@@ -4808,14 +4808,14 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 
 ;;;###autoload
 (defun skk-henkan-skk-region-by-func (func &optional arg)
-  "`skk-henkan-start-point' $B$H(B `skk-henkan-end-point' $B$N4V$NJ8;zNs$rJQ49$9$k!#(B
-$BJQ492DG=$+$I$&$+$N%A%'%C%/$r$7$?8e$K(B ARG $B$r0z?t$H$7$F(B FUNC $B$rE,MQ$7!"(B
-`skk-henkan-start-point' $B$H(B `skk-henkan-end-point' $B$N4V$NJ8;zNs$rJQ49$9$k!#(B"
+  "`skk-henkan-start-point' と `skk-henkan-end-point' の間の文字列を変換する。
+変換可能かどうかのチェックをした後に ARG を引数として FUNC を適用し、
+`skk-henkan-start-point' と `skk-henkan-end-point' の間の文字列を変換する。"
   (skk-with-point-move
    (cl-case skk-henkan-mode
-     (active                ;$B"'%b!<%I(B
+     (active                ;▼モード
       nil)
-     (on                ;$B"&%b!<%I(B
+     (on                ;▽モード
       (skk-set-marker skk-henkan-end-point (point))
       (when (and (> skk-kakutei-history-limit 0)
                  (< skk-henkan-start-point (point))
@@ -4825,20 +4825,20 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
         (skk-update-kakutei-history
          (buffer-substring-no-properties
           skk-henkan-start-point (point))))
-      ;; $BJQ492DG=$+$I$&$+$N:G=*%A%'%C%/(B
+      ;; 変換可能かどうかの最終チェック
       (when (skk-get-prefix skk-current-rule-tree)
-        (skk-error "$BF~NOESCf$N2>L>%W%l%U%#%C%/%9$,$"$j$^$9(B"
+        (skk-error "入力途中の仮名プレフィックスがあります"
                    "There remains a kana prefix"))
 
       (when (< (point) skk-henkan-start-point)
-        (skk-error "$B%+!<%=%k$,JQ493+;OCOE@$h$jA0$K$"$j$^$9(B"
+        (skk-error "カーソルが変換開始地点より前にあります"
                    "Henkan end point must be after henkan start point"))
 
       (when (and (not skk-allow-spaces-newlines-and-tabs)
                  (skk-save-point
                   (beginning-of-line)
                   (> (point) skk-henkan-start-point)))
-        (skk-error "$BJQ49%-!<$K2~9T$,4^$^$l$F$$$^$9(B"
+        (skk-error "変換キーに改行が含まれています"
                    "Henkan key may not contain a line feed"))
       ;;
       (apply func skk-henkan-start-point skk-henkan-end-point
@@ -4849,32 +4849,32 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 
 ;;;###autoload
 (defun skk-hiragana-to-katakana (hiragana)
-  (let ((diff (- ?$B%"(B ?$B$"(B)))
+  (let ((diff (- ?ア ?あ)))
     (mapconcat (lambda (e)
-                 (if (and (<= ?$B$!(B e) (>= ?$B$s(B e))
+                 (if (and (<= ?ぁ e) (>= ?ん e))
                      (char-to-string (+ e diff))
                    (char-to-string e)))
                (string-to-int-list hiragana) "")))
 
 ;;;###autoload
 (defun skk-katakana-to-hiragana (katakana)
-  (let ((diff (- ?$B%"(B ?$B$"(B)))
+  (let ((diff (- ?ア ?あ)))
     (mapconcat (lambda (e)
-                 (if (and (<= ?$B%!(B e) (>= ?$B%s(B e))
+                 (if (and (<= ?ァ e) (>= ?ン e))
                      (char-to-string (- e diff))
                    (char-to-string e)))
                (string-to-int-list katakana) "")))
 
 ;;;###autoload
 (defun skk-henkan-face-on (&optional face)
-  "SKK $B$N(B face $BB0@-$r(B ON $B$K$9$k!#(B
-`skk-use-face' $B$,(B non-nil $B$N>l9g!"(B`skk-henkan-start-point' $B$H(B
-`skk-henkan-end-point' $B$N4V$N(B face $BB0@-$r(B `skk-henkan-face' $B$NCM$KJQ99$9$k!#(B"
-  ;; SKK 9.4 $B$h$j(B Text Properties $B$r;HMQ$9$k$N$r;_$a$F!"(BOverlays $B$r;HMQ$9$k$h(B
-  ;; $B$&$K$7$?(B (egg.el, canna.el, wnn-egg.el $B$r;29M$K$7$?(B)$B!#(B
-  ;; Overlays $B$O!"%F%-%9%H$N0lIt$G$O$J$$$N$G!"%P%C%U%!$+$iJ8;z$r@Z$j=P$7$F$b%3(B
-  ;; $B%T!<$NBP>]$K$J$i$J$$$7!"%"%s%I%%;~$bL5;k$5$l$k$N$G!"JQ49$5$l$?8uJd$NI=<((B
-  ;; $B$r0l;~E*$KJQ99$9$k$K$O(B Text Properties $B$h$j$b9%ET9g$G$"$k!#(B
+  "SKK の face 属性を ON にする。
+`skk-use-face' が non-nil の場合、`skk-henkan-start-point' と
+`skk-henkan-end-point' の間の face 属性を `skk-henkan-face' の値に変更する。"
+  ;; SKK 9.4 より Text Properties を使用するのを止めて、Overlays を使用するよ
+  ;; うにした (egg.el, canna.el, wnn-egg.el を参考にした)。
+  ;; Overlays は、テキストの一部ではないので、バッファから文字を切り出してもコ
+  ;; ピーの対象にならないし、アンドゥ時も無視されるので、変換された候補の表示
+  ;; を一時的に変更するには Text Properties よりも好都合である。
   (unless face
     (setq face skk-henkan-face))
   (when (and face
@@ -4887,19 +4887,19 @@ SKK $B<-=q$N8uJd$H$7$F@5$7$$7A$K@07A$9$k!#(B"
 
 ;;;###autoload
 (defun skk-henkan-face-off ()
-  "SKK $B$N(B face $BB0@-$r(B OFF $B$K$9$k!#(B
-`skk-henkan-start-point' $B$H(B `skk-henkan-end-point' $B$N4V$NI=<($rJQ99$7$F$$$k(B
-`skk-henkan-overlay' $B$r>C$9!#(B"
+  "SKK の face 属性を OFF にする。
+`skk-henkan-start-point' と `skk-henkan-end-point' の間の表示を変更している
+`skk-henkan-overlay' を消す。"
   (when skk-henkan-face
     (skk-detach-extent skk-henkan-overlay)))
 
 (defun skk-make-face (face)
-  "$B?7$7$$(B FACE $B$r:n@.$9$k!#(B
-FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj$9$k!#(B"
-  ;; hilit-lookup-face-create $B$N%5%V%;%C%H!#(Btutorial $B$G?'IU$1$r9T$&>l9g$G$b(B
-  ;; hilit19 $B$K0MB8$;$:$H$j$"$($:(B face $B$r<+A0$G:n$k$3$H$,$G$-$k$h$&$K!"$H$$$&(B
-  ;; $BL\E*$G:n$C$?$b$N$G!"4JC1$J?'IU$1$7$+$G$-$J$$!#$"$^$j8-$/$O$J$$!#J#;($J(B
-  ;; face $B$r:n$j$?$$?M$O(B hilit-lookup-face-create $BEy$r;H$C$F2<$5$$!#(B
+  "新しい FACE を作成する。
+FACE は「前景色」又は「前景色 + スラッシュ + 背景色」の形式で指定する。"
+  ;; hilit-lookup-face-create のサブセット。tutorial で色付けを行う場合でも
+  ;; hilit19 に依存せずとりあえず face を自前で作ることができるように、という
+  ;; 目的で作ったもので、簡単な色付けしかできない。あまり賢くはない。複雑な
+  ;; face を作りたい人は hilit-lookup-face-create 等を使って下さい。
   (unless (car (memq face (face-list)))
     (save-match-data
       (let* ((list (split-string (symbol-name face) "/"))
@@ -4910,15 +4910,15 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
           (set-face-background face bg)))))
   face)
 
-;; skk-auto.el, skk-rdbms.el $B$NN>J}$G;H$&$N$G!"(Bskk-auto.el $B$h$j0\F0$7$?!#(B
+;; skk-auto.el, skk-rdbms.el の両方で使うので、skk-auto.el より移動した。
 (defun skk-remove-common (word)
-  "WORD $B$NAw$j2>L>0J30$NItJ,$rJV$9!#(B
-`skk-henkan-key' $B$H(B WORD $B$N4V$K6&DL$NAw$j2>L>$r<h$j=|$-!"Aw$j2>L>0J30$NItJ,(B
-$B$NJ8;zNs$rJV$9!#(B`skk-henkan-key' $B$H(B `skk-henkan-okurigana' $B$NCM$r%;%C%H$9$k!#(B
-$BNc$($P!"(BWORD == $B;}$C$F$-$?(B $B$G$"$l$P!"(B`skk-henkan-key' := $B$b(Bt ,
-`skk-henkan-okurigana' := $B$C$F(B , WORD := $B;}(B $B$N$h$&$KJ,2r$7!"(BWORD $B$rJV$9!#(B
-`skk-auto-okuri-process' $B$NCM$,(B non-nil $B$G$"$k$H$-$K$3$N4X?t$r;HMQ$9$k!#(B
-$BJQ49$,9T$o$l$?%P%C%U%!$G%3!<%k$5$l$k(B ($B<-=q%P%C%U%!$G$O$J$$(B)$B!#(B"
+  "WORD の送り仮名以外の部分を返す。
+`skk-henkan-key' と WORD の間に共通の送り仮名を取り除き、送り仮名以外の部分
+の文字列を返す。`skk-henkan-key' と `skk-henkan-okurigana' の値をセットする。
+例えば、WORD == 持ってきた であれば、`skk-henkan-key' := もt ,
+`skk-henkan-okurigana' := って , WORD := 持 のように分解し、WORD を返す。
+`skk-auto-okuri-process' の値が non-nil であるときにこの関数を使用する。
+変換が行われたバッファでコールされる (辞書バッファではない)。"
   (when (and (not (skk-numeric-p))
              (not skk-abbrev-mode)
              (or skk-henkan-in-minibuff-flag
@@ -4947,17 +4947,17 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
               word-tail (substring word (1- word-len)
                                    word-len))
         (when (and (string= midasi-tail word-tail)
-                   (or (and (skk-string<= "$B$!(B" midasi-tail)
-                            (skk-string<= midasi-tail "$B$s(B"))
-                       (member midasi-tail '("$B!"(B" "$B!#(B" "$B!$(B" "$B!%(B"))))
-          ;; $B8+=P$78l$HC18l$H$NKvHx$,F10l$N$+$JJ8;z$N>l9g!#(B
-          ;; $BAw$j$J$7$rAw$j$"$j$X(B
+                   (or (and (skk-string<= "ぁ" midasi-tail)
+                            (skk-string<= midasi-tail "ん"))
+                       (member midasi-tail '("、" "。" "，" "．"))))
+          ;; 見出し語と単語との末尾が同一のかな文字の場合。
+          ;; 送りなしを送りありへ
           (setq pos (1- word-len)
                 new-word new-skk-henkan-key)
           (while (and cont (> pos 0))
             (setq char (substring word (1- pos) pos))
-            (if (and (skk-string<= "$B0!(B" char)
-                     (skk-string<= char "$Bt$(B"))
+            (if (and (skk-string<= "亜" char)
+                     (skk-string<= char "瑤"))
                 ;; char is the right-most Kanji
                 (setq cont nil)
               (setq pos (1- pos))))
@@ -4967,10 +4967,10 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
                          (substring word pos word-len))
             (setq okuri-first (substring word pos (1+ pos)))
             (setq skk-henkan-okurigana
-                  (if (and (string= okuri-first "$B$C(B")
+                  (if (and (string= okuri-first "っ")
                            (<= (+ pos 2) word-len))
                       ;; in this case okuriga consits of two
-                      ;; characters, e.g., $B!V;D$C$?!W(B
+                      ;; characters, e.g., 「残った」
                       (substring word pos (+ pos 2))
                     okuri-first))
             (setq new-word (substring word 0 pos)
@@ -4984,12 +4984,12 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
                ((not skk-henkan-in-minibuff-flag)
                 (setq word new-word
                       skk-henkan-key new-skk-henkan-key))
-               ;; $B<-=qEPO?%b!<%I$GEPO?$5$l$?>l9g!#(B
+               ;; 辞書登録モードで登録された場合。
                ;; ask if register as okuri-ari word.
                ((y-or-n-p
                  (format
                   (if skk-japanese-message-and-error
-                      "%s /%s/ $B$rAw$j$"$j8uJd$H$7$FEPO?$7$^$9$+!)(B "
+                      "%s /%s/ を送りあり候補として登録しますか？ "
                     "Shall I register this as okuri-ari word: %s /%s/ ? ")
                   new-skk-henkan-key new-word))
                 (setq word new-word
@@ -4999,18 +4999,18 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
                 (setq skk-henkan-okurigana nil
                       skk-okuri-char nil)
                 (message "")))))))))
-  ;; $BJ,2r$7$?(B word ($BAw$j2>L>ItJ,$r=|$$$?$b$N(B) $B$rJV$9!#(B
+  ;; 分解した word (送り仮名部分を除いたもの) を返す。
   word)
 
 (defun skk-okurigana-prefix (okurigana)
   (let ((headchar (substring okurigana 0 1)))
-    (cond ((string= headchar "$B$s(B")
+    (cond ((string= headchar "ん")
            "n")
-          ((not (and (skk-string<= "$B$!(B" headchar)
-                     (skk-string<= headchar "$B$s(B")))
+          ((not (and (skk-string<= "ぁ" headchar)
+                     (skk-string<= headchar "ん")))
            nil)
-          ((and (string= headchar "$B$C(B")
-                (not (string= okurigana "$B$C(B")))
+          ((and (string= headchar "っ")
+                (not (string= okurigana "っ")))
            (aref skk-kana-rom-vector
                  ;; assume the character is hiragana of JIS X 0208.
                  (- (skk-char-octet
@@ -5024,8 +5024,8 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
                     33))))))
 
 (defun skk-update-kakutei-history (midasi &optional word)
-  "$BJQ?t(B `skk-kakutei-history' $B$r99?7$9$k!#(B
-$B$3$NMzNr$O(B skk-comp.el $B$K$*$$$FMxMQ$5$l$k!#(B"
+  "変数 `skk-kakutei-history' を更新する。
+この履歴は skk-comp.el において利用される。"
   (cond
    ((<= skk-kakutei-history-limit 0)
     (setq skk-kakutei-history nil))
@@ -5077,12 +5077,12 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
 
 ;;;###autoload
 (defun skk-preload ()
-  "Emacs $B5/F0;~$K$"$i$+$8$a(B SKK $B$r8F$V$3$H$G(B SKK $B$N1~Ez$rB.$/$9$k!#(B
-$B@hFI$_$NBP>]$K$J$k$N$O0J2<!#(B
-1. skk.el $B$H4XO"$9$k$$$/$D$+$N%U%!%$%k(B ($B=i2s5/F0;~$NCY1d$r4KOB(B)
-2. $B6&M-<-=q72(B ($B=iJQ49;~$NCY1d$r4KOB(B)
-$BJQ?t(B `skk-preload' $B$,(B non-nil $B$N$H$-(B `after-init-hook' $B$+$i8F$P$l$k!#(B
-$B$=$N$?$a(B Emacs $B$N5/F0;~4V$,D9$/$J$kE@$K$OCm0U$rMW$9$k!#(B"
+  "Emacs 起動時にあらかじめ SKK を呼ぶことで SKK の応答を速くする。
+先読みの対象になるのは以下。
+1. skk.el と関連するいくつかのファイル (初回起動時の遅延を緩和)
+2. 共有辞書群 (初変換時の遅延を緩和)
+変数 `skk-preload' が non-nil のとき `after-init-hook' から呼ばれる。
+そのため Emacs の起動時間が長くなる点には注意を要する。"
   (with-temp-buffer
     (skk-mode 1))
   (dolist (item skk-search-prog-list)
@@ -5115,10 +5115,10 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
     (skk-get-jisyo-buffer jisyo 'nomsg)))
 
 (defun skk-toggle-isearch-mode (&optional arg)
-  "skk-isearch $B$rMxMQ$9$k$+$I$&$+$r%H%0%k$GJQ99$9$k!#(B
-$BJQ?t(B `skk-isearch-mode-enable' $B$NCM$r(B nil/t $B%H%0%k$GJQ99$9$k!#(B
-$BJQ?t(B `migemo-isearch-enable-p' $B$,(B bound $B$5$l$F$$$l$P!"(B
-`skk-isearch-mode-enable' $B$NCM$H5U$NCM$r%;%C%H$9$k!#(B"
+  "skk-isearch を利用するかどうかをトグルで変更する。
+変数 `skk-isearch-mode-enable' の値を nil/t トグルで変更する。
+変数 `migemo-isearch-enable-p' が bound されていれば、
+`skk-isearch-mode-enable' の値と逆の値をセットする。"
   (interactive)
   (setq skk-isearch-mode-enable
         (cond ((null arg)
@@ -5134,17 +5134,17 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
                                  "disabled")))
 
 (defun skk-henkan-inactivate ()
-  "$B"'%b!<%I$r%-%c%s%;%k$7$F"&%b!<%I$KLa$k!#J8;zNs$O0];}$9$k!#(B"
+  "▼モードをキャンセルして▽モードに戻る。文字列は維持する。"
   (setq skk-henkan-count 0)
   (if (and skk-delete-okuri-when-quit skk-henkan-okurigana)
       (let ((count (length skk-henkan-okurigana)))
         (skk-previous-candidate nil)
-        ;; $B$3$3$G$O(B delete-backward-char $B$KBhFs0z?t$rEO$5$J$$J}$,%Y%?!<!)(B
+        ;; ここでは delete-backward-char に第二引数を渡さない方がベター？
         (delete-char (- 0 count)))
     (skk-previous-candidate nil)))
 
 (defun skk-henkan-off-by-quit ()
-  "$B"&%b!<%I$r%-%c%s%;%k$7$F"#%b!<%I$KLa$k!#J8;zNs$OGK4~$9$k!#(B"
+  "▽モードをキャンセルして■モードに戻る。文字列は破棄する。"
   (if (memq 'skk-comp-do (list last-command this-command))
       (skk-with-point-move
        (delete-region skk-henkan-start-point (point))
@@ -5161,14 +5161,14 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
 
 ;;; cover to original functions.
 (skk-defadvice keyboard-quit (around skk-ad activate preactivate)
-  "$B"'%b!<%I$G$"$l$P!"8uJd$NI=<($r$d$a$F"&%b!<%I$KLa$9(B ($B8+=P$78l$O;D$9(B)$B!#(B
-$B"&%b!<%I$G$"$l$P!"8+=P$78l$r:o=|$9$k!#(B
-$B>e5-$N$I$A$i$N%b!<%I$G$b$J$1$l$P(B `keyboard-quit' $B$HF1$8F0:n$r$9$k!#(B"
+  "▼モードであれば、候補の表示をやめて▽モードに戻す (見出し語は残す)。
+▽モードであれば、見出し語を削除する。
+上記のどちらのモードでもなければ `keyboard-quit' と同じ動作をする。"
 
-  ;; Emacs 27 $B$^$G$O(B $BHs(B interactive $B$G$"$C$?$,!"(B
-  ;; Emacs 28 $B$+$i(B WARNING: Adding advice to subr keyboard-quit
-  ;;   without mirroring its interactive spec $B$H$J$C$?$?$a(B interactive $B$H$7$?!#(B
-  ;; SRC/lisp/emacs-lisp/advoce.el $B$N(B @@ Advising interactive subrs: $B$,;29M$K$J$k!#(B
+  ;; Emacs 27 までは 非 interactive であったが、
+  ;; Emacs 28 から WARNING: Adding advice to subr keyboard-quit
+  ;;   without mirroring its interactive spec となったため interactive とした。
+  ;; SRC/lisp/emacs-lisp/advoce.el の @@ Advising interactive subrs: が参考になる。
   (interactive)
 
   (if (not skk-mode)
@@ -5184,7 +5184,7 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
         ad-do-it)))))
 
 (skk-defadvice abort-minibuffers (around skk-ad activate preactivate)
-  "$BF1>e(B"
+  "同上"
   (interactive)
 
   (if (not skk-mode)
@@ -5200,9 +5200,9 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
         ad-do-it)))))
 
 (skk-defadvice abort-recursive-edit (around skk-ad activate preactivate)
-  "$B"'%b!<%I$G$"$l$P!"8uJd$NI=<($r$d$a$F"&%b!<%I$KLa$9(B ($B8+=P$78l$O;D$9(B)$B!#(B
-$B"&%b!<%I$G$"$l$P!"8+=P$78l$r:o=|$9$k!#(B
-$B>e5-$N$I$A$i$N%b!<%I$G$b$J$1$l$P(B `abort-recursive-edit' $B$HF1$8F0:n$r$9$k!#(B"
+  "▼モードであれば、候補の表示をやめて▽モードに戻す (見出し語は残す)。
+▽モードであれば、見出し語を削除する。
+上記のどちらのモードでもなければ `abort-recursive-edit' と同じ動作をする。"
   ;; subr command but no arg.
   (skk-remove-minibuffer-setup-hook
    'skk-j-mode-on 'skk-setup-minibuffer 'skk-add-skk-pre-command)
@@ -5219,26 +5219,26 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
         ad-do-it)))))
 
 (defadvice newline (around skk-ad activate)
-  "`skk-egg-like-newline' $B$,(B non-nil $B$G$"$l$P!"3NDj$N$_9T$$!"2~9T$7$J$$!#(B"
+  "`skk-egg-like-newline' が non-nil であれば、確定のみ行い、改行しない。"
   (if (not (or skk-j-mode
                skk-jisx0201-mode
                skk-abbrev-mode))
       ad-do-it
     (let (;;(arg (ad-get-arg 0))
-          ;; `skk-kakutei' $B$r<B9T$9$k$H(B `skk-henkan-mode' $B$NCM$,(B
-          ;; $BL5>r7o$K(B nil $B$K$J$k$N$G!"J]B8$7$F$*$/I,MW$,$"$k!#(B
+          ;; `skk-kakutei' を実行すると `skk-henkan-mode' の値が
+          ;; 無条件に nil になるので、保存しておく必要がある。
           (no-newline (and skk-egg-like-newline
                            skk-henkan-mode))
           (auto-fill-function (if (called-interactively-p 'interactive)
                                   auto-fill-function
                                 nil)))
-      ;; fill $B$5$l$F$b(B nil $B$,5"$C$F$/$k(B :-<
+      ;; fill されても nil が帰ってくる :-<
       ;;(if (skk-kakutei)
       ;;    (setq arg (1- arg)))
       ;;(if skk-mode
       ;;    (let ((opos (point)))
-      ;;      ;; skk-kakutei (skk-do-auto-fill) $B$K$h$C$F9T$,@^$jJV$5$l$?$i(B
-      ;;      ;; arg $B$r(B 1 $B$D8:$i$9!#(B
+      ;;      ;; skk-kakutei (skk-do-auto-fill) によって行が折り返されたら
+      ;;      ;; arg を 1 つ減らす。
       ;;      (skk-kakutei)
       ;;      (if (and (not (= opos (point))) (integerp arg))
       ;;          (ad-set-arg 0 (1- arg)))))
@@ -5249,7 +5249,7 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
         ad-do-it))))
 
 (defadvice newline-and-indent (around skk-ad activate)
-  "`skk-egg-like-newline' $B$,(B non-nil $B$G$"$l$P!"3NDj$N$_9T$$!"2~9T$7$J$$!#(B"
+  "`skk-egg-like-newline' が non-nil であれば、確定のみ行い、改行しない。"
   (if (not (or skk-j-mode
                skk-jisx0201-mode
                skk-abbrev-mode))
@@ -5267,7 +5267,7 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
 
 (skk-defadvice exit-minibuffer (around skk-ad activate)
   ;; subr command but no arg.
-  "`skk-egg-like-newline' $B$,(B non-nil $B$G$"$l$P!"3NDj$N$_9T$$!"2~9T$7$J$$!#(B"
+  "`skk-egg-like-newline' が non-nil であれば、確定のみ行い、改行しない。"
   (skk-remove-minibuffer-setup-hook
    'skk-j-mode-on 'skk-setup-minibuffer 'skk-add-skk-pre-command)
   (if (not (or skk-j-mode
@@ -5282,13 +5282,13 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
         ad-do-it))))
 
 (defadvice picture-mode-exit (before skk-ad activate)
-  "SKK $B$N%P%C%U%!%m!<%+%kJQ?t$rL58z$K$7!"(B`picture-mode-exit' $B$r%3!<%k$9$k!#(B
-`picture-mode' $B$+$i=P$?$H$-$K$=$N%P%C%U%!$G(B SKK $B$r@5>o$KF0$+$9$?$a$N=hM}!#(B"
+  "SKK のバッファローカル変数を無効にし、`picture-mode-exit' をコールする。
+`picture-mode' から出たときにそのバッファで SKK を正常に動かすための処理。"
   (when skk-mode
     (skk-kill-local-variables)))
 
 (defadvice undo (before skk-ad activate)
-  "SKK $B%b!<%I$,(B on $B$J$i(B `skk-self-insert-non-undo-count' $B$r=i4|2=$9$k!#(B"
+  "SKK モードが on なら `skk-self-insert-non-undo-count' を初期化する。"
   (when skk-mode
     (setq skk-self-insert-non-undo-count 0)))
 
@@ -5302,19 +5302,19 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
 
 (defadvice backward-kill-sentence (before skk-ad activate)
   ;; C-x DEL
-  ;; $B$I$N$h$&$JF0:n$r$9$k$Y$-$+L$7hDj(B
+  ;; どのような動作をするべきか未決定
   (when skk-mode
     (skk-kakutei)))
 
 (defmacro skk-wrap-newline-command (cmd)
-  "[return]$B%-!<$K3d$jEv$F$i$l$F$$$k$G$"$m$&%3%^%s%I(B (CMD) $B$r%i%C%W$7$F!"(B
-skk $B$NF0:n$H@09g$5$;$k!#(B
- [return]$B%-!<$K%3%^%s%I$r3d$jEv$F$F$$$k%a%8%c!<%b!<%I$G(B skk $B$r;H$&$H!"(Bskk $B$,(B
-`skk-kakutei' $B$r8F$S=P$95!2q$,$J$$$?$a$KJQ49$r3NDj$G$-$:(B `$B"'(B' $B$,%P%C%U%!$K(B
-$B;D$C$F$7$^$&$H$$$&LdBj$,$"$k!#(B
+  "[return]キーに割り当てられているであろうコマンド (CMD) をラップして、
+skk の動作と整合させる。
+ [return]キーにコマンドを割り当てているメジャーモードで skk を使うと、skk が
+`skk-kakutei' を呼び出す機会がないために変換を確定できず `▼' がバッファに
+残ってしまうという問題がある。
 
-$BK\%^%/%m$rMQ$$$k$H!"JQ49$r3NDj$7$F$+$i(B (`skk-kakutei' $B$r<B9T$7$F$+$i(B) CMD $BK\(B
-$BBN$r<B9T$9$k$h$&$K(B CMD $B$r%i%C%W$9$k!#(B"
+本マクロを用いると、変換を確定してから (`skk-kakutei' を実行してから) CMD 本
+体を実行するように CMD をラップする。"
   `(defadvice ,cmd (around skk-ad activate compile)
      (cond (skk-henkan-mode
             (skk-kakutei)
@@ -5346,7 +5346,7 @@ skk $B$NF0:n$H@09g$5$;$k!#(B
           t)
 
 (add-hook 'kill-buffer-hook
-          ;; SKK $B$N"'%b!<%I$@$C$?$i!"3NDj$7$F$+$i%P%C%U%!$r%-%k$9$k!#(B
+          ;; SKK の▼モードだったら、確定してからバッファをキルする。
           (lambda ()
             (when (and skk-mode
                        skk-henkan-mode)

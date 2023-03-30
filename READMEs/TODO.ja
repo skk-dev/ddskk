@@ -338,7 +338,7 @@ skk-dcomp-multiple-activate を t と設定し、実際に dcomp 候補を複数
 きない (Carbon Emacs では X の場合のように Emacs のフォント設定ができ
 た)。
 
-
+
 Local variables:
 coding: utf-8
 mode: outline

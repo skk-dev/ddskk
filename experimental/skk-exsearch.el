@@ -1,4 +1,4 @@
-;;; skk-exsearch.el --- $B30It8!:w%W%m%0%i%`6&MQ(B interface -*- coding: iso-2022-jp -*-
+;;; skk-exsearch.el --- 外部検索プログラム共用 interface -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2000 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 

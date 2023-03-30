@@ -23,80 +23,80 @@
 
 ;;; Commentary:
 
-;; $B$3$N%W%m%0%i%`$O(B skk $B$NF0:n!"?6Iq$$$K4X$7$F(B2$B$D$N5!G=$rDs6!$7$^$9!#(B
+;; このプログラムは skk の動作、振舞いに関して2つの機能を提供します。
 
-;; (1) $BJT=8$NJ8L.$K1~$8$F<+F0E*$K(B skk $B$N%b!<%I$r(B latin $B$K@Z$jBX$($^$9!#(B
-;;   $BL@$i$+$K(B skk $B$K$h$kF|K\8lF~NO$,I,MW$J$$8D=j$G!"(Bskk $B$r%*%s$K$7$?$^$^(B
-;;   $B%-!<A`:n$7$?$?$a$K(B emacs $B$+$i%(%i!<$NJs9p$r<u$1$?$j!"$o$6$o$6(B
-;;   skk $B$r%*%U$K$7$F%F%-%9%H$r=$@5$9$k$N$OIT2w$G$9!#$3$l$rM^@)$9$k$3$H$,(B
-;;   $B$3$N5!G=$NL\E*$G$9!#(B
+;; (1) 編集の文脈に応じて自動的に skk のモードを latin に切り替えます。
+;;   明らかに skk による日本語入力が必要ない個所で、skk をオンにしたまま
+;;   キー操作したために emacs からエラーの報告を受けたり、わざわざ
+;;   skk をオフにしてテキストを修正するのは不快です。これを抑制することが
+;;   この機能の目的です。
 
-;; $BJ8L.$NH=Dj$O(B emacs lisp $B$K$h$C$F5-=R$G$-$^$9!#$3$N%W%m%0%i%`$K$O!"<!$N(B
-;; 3$B$D$NJ8L.$KBP$9$kH=Dj4X?t$,4^$^$l$F$$$^$9!#(B
+;; 文脈の判定は emacs lisp によって記述できます。このプログラムには、次の
+;; 3つの文脈に対する判定関数が含まれています。
 
-;; (1)-A. read-only $B$+$I$&$+(B
+;; (1)-A. read-only かどうか
 ;; --------------------
-;;    read-only $B%P%C%U%!$G$O!"F|K\8lF~NO$NI,MW$O$J$$$7!"$G$-$J$$$N$G!"F|(B
-;;    $BK\8lF~NO$r%*%U$K$7$^$9!#$^$?(B read-only $B$NNN0h$G$bF1MM$KF|K\8lF~NO$r(B
-;;    off $B$K$7$^$9!#%(%i!<$NJs9p$r<u$1$k$+$o$j$K(Bskk$B$K$h$C$F%7%c%I%&$5$l(B
-;;    $B$?85$N%-!<$K3dEv$F$i$l$?%3%^%s%I$r<B9T$G$-$^$9!#(B
+;;    read-only バッファでは、日本語入力の必要はないし、できないので、日
+;;    本語入力をオフにします。また read-only の領域でも同様に日本語入力を
+;;    off にします。エラーの報告を受けるかわりにskkによってシャドウされ
+;;    た元のキーに割当てられたコマンドを実行できます。
 
-;; (1)-B. $B%W%m%0%i%`%3!<%ICf$G$N%3%a%s%H$dJ8;zNs$NFbB&$K$$$k$+(B
+;; (1)-B. プログラムコード中でのコメントや文字列の内側にいるか
 ;; -------------------------------------------------------
-;;    $B$"$k%W%m%0%i%_%s%08@8l$G%W%m%0%i%`$r=q$$$F$$$k$H$-!"F|K\8lF~NO$NI,(B
-;;    $BMW$,$"$k$N$O0lHL$K!"$=$N%W%m%0%i%_%s%08@8l$NJ8;zNsCf$+%3%a%s%HCf$K(B
-;;    $B8B$i$l$^$9!#J8;zNs!"%3%a%s%H$N!V30!W$rJT=8$9$k$H$-$O!"B?$/$N>l9gF|(B
-;;    $BK\8lF~NO$OI,MW$"$j$^$;$s!#(B
-;;    $B$?$H$($P(B emacs lisp $B$G$O!"(B
+;;    あるプログラミング言語でプログラムを書いているとき、日本語入力の必
+;;    要があるのは一般に、そのプログラミング言語の文字列中かコメント中に
+;;    限られます。文字列、コメントの「外」を編集するときは、多くの場合日
+;;    本語入力は必要ありません。
+;;    たとえば emacs lisp では、
 
-;;    "$B!A(B" $B$d(B ;; $B!A(B
+;;    "～" や ;; ～
 
-;;    $B$H$$$C$?8D=j$G$@$1F|K\8lF~NO$,I,MW$H$J$j$^$9!#(B
+;;    といった個所でだけ日本語入力が必要となります。
 ;;
-;;    $B8=:_$NJ8;zNs$H%3%a%s%H$N!V30!W$GJT=83+;O$HF1;~$K(B
-;;    (skk $B$,%*%s$G$"$l$P(B) skk $B$NF~NO%b!<%I$r(B latin $B$K@Z$jBX$($^$9!#(B
-;;    $B!V30!W$G$NJT=8$r3+;O$9$k$K$"$?$C$F!"F|K\8lF~NO$,(B on $B$K$J$C$F$$$?$?(B
-;;    $B$a$KH/@8$9$kF~NO8m$j$H$=$N=$@5A`:n$r2sHr$9$k$3$H$,$G$-$^$9!#(B
+;;    現在の文字列とコメントの「外」で編集開始と同時に
+;;    (skk がオンであれば) skk の入力モードを latin に切り替えます。
+;;    「外」での編集を開始するにあたって、日本語入力が on になっていたた
+;;    めに発生する入力誤りとその修正操作を回避することができます。
 ;;
-;; (1)-C. $B%-!<%^%C%W$,EPO?$5$l$F$$$k$+$I$&$+$rH=Dj(B
+;; (1)-C. キーマップが登録されているかどうかを判定
 ;; -------------------------------------------
-;;    $B%]%$%s%H2<$K(B `keymap' $B$"$k$$$O(B `local-map' $B$NB0@-$r;}$DJ8;z$"$k$$$O(B
-;;    $B%*!<%P%l%$$,$"$k$+$I$&$+$rD4$Y$^$9!#%-!<%^%C%W$,@_Dj$5$l$F$$$k>l9g!"(B
-;;    $B$5$i$K(B skk $B$GJl2;$NF~NO$K;H$&(B ?a, ?i, ?u, ?e, ?o$B$N%-!<$,%-!<%^%C%W(B
-;;    $BCf$KDj5A$5$l$F$$$k$+D4$Y$^$9!#Dj5A$5$l$F$$$k>l9g!"%-!<%^%C%WCf$N%-!<(B
-;;    $B$K3dEv$F$i$l$?5!G=$r<B9T$G$-$k$h$&F|K\8lF~NO$r%*%U$K$7$^$9!#(B
+;;    ポイント下に `keymap' あるいは `local-map' の属性を持つ文字あるいは
+;;    オーバレイがあるかどうかを調べます。キーマップが設定されている場合、
+;;    さらに skk で母音の入力に使う ?a, ?i, ?u, ?e, ?oのキーがキーマップ
+;;    中に定義されているか調べます。定義されている場合、キーマップ中のキー
+;;    に割当てられた機能を実行できるよう日本語入力をオフにします。
 
-;; skk $B$r%*%U$K$9$kJ8L.$r%f!<%6<+?H$,Dj5A$9$k$K$O!"(B
+;; skk をオフにする文脈をユーザ自身が定義するには、
 ;; `context-skk-context-check-hook'
-;; $BJQ?t$r;H$$$^$9!#(Bskk $B$NJ8;zF~NO4X?t(B `skk-insert' $B$N<B9TD>A0$K0z?tL5$7$G(B
-;; $B8F$S=P$5$l!V(Bskk $B$r%*%U$K$9$kJ8L.$K$"$k$H$-(B non-nil $B$rJV$94X?t!W$rDj5A(B
-;; $B$7$F!"$3$NJQ?t$K(B `add-hook' $B$7$F2<$5$$!#(B
+;; 変数を使います。skk の文字入力関数 `skk-insert' の実行直前に引数無しで
+;; 呼び出され「skk をオフにする文脈にあるとき non-nil を返す関数」を定義
+;; して、この変数に `add-hook' して下さい。
 
-;; (2) $BJT=8$NJ8L.$K1~$8$F(B skk $B$N@_Dj$rJQ99$7$^$9!#(B
-;;   skk $B$NJ8;zF~NO4X?t(B `skk-insert' $B$N$^$o$j$K(B `let' $B$rG[CV$7$F!"J8;zF~(B
-;;   $BNOCf$K0l;~E*$KJQ?t$NB+G{$rJQ99$7$F!"J8;zF~NO$N$?$S$K(B skk $B$N@_Dj$rJQ(B
-;;   $B99$G$-$^$9!#$3$N%W%m%0%i%`$K$O!"(Bskk $B$K$h$k%F%-%9%H$NF~NO@h$N%P%C%U%!(B
-;;   $B$r%9%-%c%s$7!"(B($B6gFIE@$N<oN`$rI=$9(B) `skk-kutouten-type' $B$rJQ99$9$k4X(B
-;;   $B?t$,4^$^$l$F$$$^$9!#(B
+;; (2) 編集の文脈に応じて skk の設定を変更します。
+;;   skk の文字入力関数 `skk-insert' のまわりに `let' を配置して、文字入
+;;   力中に一時的に変数の束縛を変更して、文字入力のたびに skk の設定を変
+;;   更できます。このプログラムには、skk によるテキストの入力先のバッファ
+;;   をスキャンし、(句読点の種類を表す) `skk-kutouten-type' を変更する関
+;;   数が含まれています。
 
-;; $BFH<+$KJQ?t$r@_Dj$7$?$$>l9g!"4X?t$r=q$/I,MW$,$"$j$^$9!#(B
-;; `context-skk-customize-functions' $B$N%I%-%e%a%s%H$K=>$$!"4X?t$r=q$-!"(B
+;; 独自に変数を設定したい場合、関数を書く必要があります。
+;; `context-skk-customize-functions' のドキュメントに従い、関数を書き、
 
 ;;  (add-to-list 'context-skk-customize-functions
 ;;           'your-on-the-fly-customize-func)
 
-;; $B$H$7$FEPO?$7$^$9!#(BM-x context-skk-dump-customize $B$K$h$k8=:_$N%]%$%s%H(B
-;; $B$KBP$7$F!"(Bcontext-skk $B$K$h$C$F0l<!E*$KB+G{$5$l$kJQ?t$H$=$NCM$NAH$r3NG'(B
-;; $B$G$-$^$9!#%G%P%C%0$K3hMQ$7$F2<$5$$!#(B
+;; として登録します。M-x context-skk-dump-customize による現在のポイント
+;; に対して、context-skk によって一次的に束縛される変数とその値の組を確認
+;; できます。デバッグに活用して下さい。
 
-;; $B>e=R$7$?(B2$B$D$N5!G=$O(B context-skk-mode $B$H$$$&%^%$%J!<%b!<%I$H$7$F<BAu$7(B
-;; $B$F$"$j$^$9!#(B
+;; 上述した2つの機能は context-skk-mode というマイナーモードとして実装し
+;; てあります。
 ;; M-x context-skk-mode
-;; $B$G(B $B%*%s(B/$B%*%U$r$G$-$^$9!#%b!<%I%i%$%s$K(B ";$B"&(B" $B$,I=<($5$l$F$$$k>l9g!"$3(B
-;; $B$N%^%$%J!<%b!<%I$,(B on $B$K$J$C$F$$$k$3$H$r0UL#$7$^$9!#(B
+;; で オン/オフをできます。モードラインに ";▽" が表示されている場合、こ
+;; のマイナーモードが on になっていることを意味します。
 
-;; - $B%$%s%9%H!<%k(B -
-;; ~/.emacs.d/init.el $B$K0J2<$r5-=R$7$^$9!#(B
+;; - インストール -
+;; ~/.emacs.d/init.el に以下を記述します。
 
 ;;  (add-hook 'skk-load-hook
 ;;     (lambda ()
@@ -123,8 +123,8 @@
   '(context-skk-out-of-string-or-comment-in-programming-mode-p
     context-skk-on-keymap-defined-area-p
     context-skk-in-read-only-p)
-  "*$BF|K\8lF~NO$r<+F0E*$K(B off $B$K$7$?$$!V%3%s%F%-%9%H!W$K$$$l$P(B t $B$rJV$9(B
-$B4X?t$rEPO?$9$k!#(B"
+  "*日本語入力を自動的に off にしたい「コンテキスト」にいれば t を返す
+関数を登録する。"
   :type 'hook
   :group 'context-skk)
 
@@ -135,14 +135,14 @@
 ;;;###autoload
 (defcustom context-skk-customize-functions
   '(context-skk-customize-kutouten)
-  "*skk $B$K$h$kF~NO3+;OD>A0$K!"F~NO$r%+%9%?%^%$%:$9$k4X?t$rEPO?$9$k!#(B
-$B4X?t$O0J2<$N7A<0$N%G!<%?$rMWAG$H$9$k%j%9%H$rJV$9$b$N$H$9$k(B:
+  "*skk による入力開始直前に、入力をカスタマイズする関数を登録する。
+関数は以下の形式のデータを要素とするリストを返すものとする:
 
   \(VARIABLE VALUE\)
 
-`skk-insert' $B$r0O$`(B `let' $B$K$h$C$F(B VARIABLE $B$O(B VALUE $B$KB+G{$5$l$k!#(B
-$BFC$K$=$N>l$G%+%9%?%^%$%:$9$Y$-JQ?t$,$J$$>l9g(B `nil' $B$rJV$;$PNI$$!#(B
-$B4X?t$K$O2?$b0z?t$,EO$5$l$J$$!#(B"
+`skk-insert' を囲む `let' によって VARIABLE は VALUE に束縛される。
+特にその場でカスタマイズすべき変数がない場合 `nil' を返せば良い。
+関数には何も引数が渡されない。"
   :type 'hook               ; hook? list of function?
   :group 'context-skk)
 
@@ -157,31 +157,31 @@
              prolog-mode ps-mode postscript-mode ruby-mode scheme-mode sh-mode simula-mode
              ;; sql-mode
              tcl-mode vhdl-mode emacs-lisp-mode)
-  "*context-skk $B$K$F!V%W%m%0%i%_%s%0%b!<%I!W$H8+Pv$9%b!<%I$N%j%9%H(B"
+  "*context-skk にて「プログラミングモード」と見做すモードのリスト"
   :type '(repeat (symbol))
   :group 'context-skk)
 
 ;;;###autoload
 (defcustom context-skk-mode-hook nil
-  "*`context-skk-mode' $B$r@Z$jBX$($k:]$K8F$P$l$k%U%C%/!#(B"
+  "*`context-skk-mode' を切り替える際に呼ばれるフック。"
   :type 'hook
   :group 'context-skk)
 
 ;;;###autoload
 (defcustom context-skk-mode-on-hook nil
-  "*`context-skk-mode' $B$,(B on $B$K$J$k:]$K8F$P$l$k%U%C%/!#(B"
+  "*`context-skk-mode' が on になる際に呼ばれるフック。"
   :type 'hook
   :group 'context-skk)
 
 ;;;###autoload
 (defcustom context-skk-mode-off-hook nil
-  "*`context-skk-mode' $B$,(B off $B$K$J$k:]$K8F$P$l$k%U%C%/!#(B"
+  "*`context-skk-mode' が off になる際に呼ばれるフック。"
   :type 'hook
   :group 'context-skk)
 
 ;;;###autoload
-(defcustom context-skk-mode-off-message "[context-skk] $BF|K\8lF~NO(B off"
-  "*`context-skk-mode' $B$,(B off $B$K$J$C$?$H$-$K%(%3!<%(%j%"$KI=<($9$k%a%C%;!<%8!#(B"
+(defcustom context-skk-mode-off-message "[context-skk] 日本語入力 off"
+  "*`context-skk-mode' が off になったときにエコーエリアに表示するメッセージ。"
   :type 'string
   :group 'context-skk)
 
@@ -189,18 +189,18 @@
 ;; Minor mode definition
 ;;
 ;; Change autoload cookie for XEmacs.
-;;;###autoload (autoload 'context-skk-mode "context-skk" "$BJ8L.$K1~$8$F<+F0E*$K(Bskk$B$NF~NO%b!<%I$r(Blatin$B$K@Z$j49$($k%^%$%J!<%b!<%I!#(B" t)
+;;;###autoload (autoload 'context-skk-mode "context-skk" "文脈に応じて自動的にskkの入力モードをlatinに切り換えるマイナーモード。" t)
 (define-minor-mode context-skk-mode
-  "$BJ8L.$K1~$8$F<+F0E*$K(B skk $B$NF~NO%b!<%I$r(B latin $B$K@Z$j49$($k%^%$%J!<%b!<%I!#(B"
+  "文脈に応じて自動的に skk の入力モードを latin に切り換えるマイナーモード。"
   :init-value t
-  :lighter " ;$B"&(B")
+  :lighter " ;▽")
 
 ;;
 ;; Advices
 ;;
 (defmacro define-context-skk-advice (target)
   `(defadvice ,target (around ,(intern (concat (symbol-name target) "-ctx-switch")) activate)
-     "$BJ8L.$K1~$8$F<+F0E*$K(B skk $B$NF~NO%b!<%I$r(B latin $B$K$9$k!#(B"
+     "文脈に応じて自動的に skk の入力モードを latin にする。"
      (if context-skk-mode
          (if (context-skk-context-check)
              (context-skk-insert)
@@ -215,11 +215,11 @@
 ;; Helper
 ;;
 (defun context-skk-context-check ()
-  "$BF|K\8lF~NO$r<+F0E*$K(B off $B$K$7$?$$!V%3%s%F%-%9%H!W$K$$$l$P(B t $B$rJV$9(B"
+  "日本語入力を自動的に off にしたい「コンテキスト」にいれば t を返す"
   (run-hook-with-args-until-success 'context-skk-context-check-hook))
 
 (defun context-skk-customize ()
-  "$B%+%9%?%^%$%:$7$?$$JQ?t$HCM$NAH$rF@$k!#(B"
+  "カスタマイズしたい変数と値の組を得る。"
   (let (customized-pairs)
     (dolist (func context-skk-customize-functions)
       (setq customized-pairs
@@ -229,19 +229,19 @@
     customized-pairs))
 
 (defun context-skk-dump-customize ()
-  "$B8=:_$N%]%$%s%H$N0LCV$K$*$1$k(B (context-skk-customize) $B$N7k2L$rI=<($9$k!#(B"
+  "現在のポイントの位置における (context-skk-customize) の結果を表示する。"
   (interactive)
   (let ((customized-pairs (context-skk-customize)))
     (with-output-to-temp-buffer "*context-skk customize result*"
       (pp customized-pairs))))
 
 (defun context-skk-insert ()
-  "skk-latin-mode $B$r(B on $B$K$7$?>e(B `this-command-keys' $B$KBP$9$k4X?t$r8F$S=P$7D>$9!#(B"
+  "skk-latin-mode を on にした上 `this-command-keys' に対する関数を呼び出し直す。"
   (message "%s" context-skk-mode-off-message)
   (skk-latin-mode t)
   (let* ((keys (this-command-keys))
-         ;; `this-command-keys' $B$,(B tab $B$rJV$7$?$H$-$J$I(B function-key-map $B$d(B
-         ;; key-translation-map $B$K0MB8$7$F$$$k>l9g$O$=$l$i$N(B keymap $B$r;2>H$9$k(B
+         ;; `this-command-keys' が tab を返したときなど function-key-map や
+         ;; key-translation-map に依存している場合はそれらの keymap を参照する
          (binding (or (key-binding keys)
                       (key-binding (lookup-key function-key-map keys))
                       (key-binding (lookup-key key-translation-map keys)))))
@@ -255,7 +255,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;
-;; $B%j!<%I%*%s%j!<$G$J$$$+!)(B
+;; リードオンリーでないか？
 ;;
 (defun context-skk-in-read-only-p ()
   (or (context-skk-in-read-only-buffer-p)
@@ -274,14 +274,14 @@
     (not (get-char-property (1- (point)) 'rear-nonsticky)))))
 
 ;;
-;; $BDL>oF|K\8lF~NO$rI,MW$H$7$J$$%W%m%0%i%_%s%0$N%b!<%I$K$$$k$+$I$&$+(B
-;; $BJ8;zNs$rJT=8Cf$+$I$&$+(B
-;; $B%3%a%s%H$rJT=8Cf$+$I$&$+(B
+;; 通常日本語入力を必要としないプログラミングのモードにいるかどうか
+;; 文字列を編集中かどうか
+;; コメントを編集中かどうか
 ;;
 (defun context-skk-out-of-string-or-comment-in-programming-mode-p ()
-  "$B%W%m%0%i%_%s%0%b!<%I$K$"$C$FJ8;zNs$"$k$$$O%3%a%s%H$N30$K$$$l$P(B non-nil $B$rJV$9!#(B
-$B%W%m%0%i%_%s%0%b!<%I$K$$$J$$>l9g$O(B nil $B$rJV$9!#(B
-$B%W%m%0%i%_%s%0%b!<%I$K$"$C$FJ8;zNs$"$k$$$O%3%a%s%H$NCf$K$$$k>l9g(B nil $B$rJV$9!#(B"
+  "プログラミングモードにあって文字列あるいはコメントの外にいれば non-nil を返す。
+プログラミングモードにいない場合は nil を返す。
+プログラミングモードにあって文字列あるいはコメントの中にいる場合 nil を返す。"
   (and (context-skk-in-programming-mode-p)
        (not (or (context-skk-in-string-p)
                 (context-skk-in-comment-p)))))
@@ -296,7 +296,7 @@
   (nth 4 (parse-partial-sexp (point-min) (point))))
 
 ;;
-;; $B8=:_$N%]%$%s%H2<$K(B keymap $B$,Dj5A$5$l$F$$$k$+$I$&$+!)(B
+;; 現在のポイント下に keymap が定義されているかどうか？
 ;;
 (defun context-skk-on-keymap-defined-area-p ()
   (or (context-skk-on-vowel-key-reserved-p 'keymap)
@@ -305,7 +305,7 @@
 (defun context-skk-on-vowel-key-reserved-p (map-symbol)
   (let ((map (get-char-property (point) map-symbol)))
     (when map
-      ;; "$B$"$$$&$($*(B" $B$rF~NO$9$k$3$H$rA[Dj$7$F%A%'%C%/$9$k!#(B
+      ;; "あいうえお" を入力することを想定してチェックする。
       (or (lookup-key map "a")
           (lookup-key map "i")
           (lookup-key map "u")
@@ -319,17 +319,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;
-;; $B6gFIE@(B (skk-kutouten-type)
+;; 句読点 (skk-kutouten-type)
 ;;
 ;; Based on a post to skk ml by
 ;; Kenichi Kurihara (kenichi_kurihara at nifty dot com)
 ;; Message-ID: <m2y85qctw6.wl%kurihara@mi.cs.titech.ac.jp>
 ;;
 (defun context-skk-customize-kutouten ()
-  (let ((kuten-jp  (context-skk-customize-regexp-scan "$B!#(B" 'forward 0 nil))
-        (kuten-en  (context-skk-customize-regexp-scan "$B!%(B" 'forward 0 nil))
-        (touten-jp (context-skk-customize-regexp-scan "$B!"(B" 'forward 0 nil))
-        (touten-en (context-skk-customize-regexp-scan "$B!$(B" 'forward 0 nil)))
+  (let ((kuten-jp  (context-skk-customize-regexp-scan "。" 'forward 0 nil))
+        (kuten-en  (context-skk-customize-regexp-scan "．" 'forward 0 nil))
+        (touten-jp (context-skk-customize-regexp-scan "、" 'forward 0 nil))
+        (touten-en (context-skk-customize-regexp-scan "，" 'forward 0 nil)))
     (if (or (eq kuten-jp kuten-en)
             (eq touten-jp touten-en))
         nil ;; Nothing to customize

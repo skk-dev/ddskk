@@ -80,7 +80,7 @@
 ;; Please specify prefix for ``NICOLA-DDSKK'' [optional]
 (setq NICOLA-DDSKK_PREFIX "nicola-ddskk")
 
-
+
 
 ;;; @ optional settings
 ;;;

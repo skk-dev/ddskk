@@ -22,7 +22,7 @@ o vip と skk の両方を使うユーザは、さらに、以下を追加する
 
 o vip, skk の両方に関係するコードはすべて、vip.el に吸収したので、skk
   での個人設定は何もしなくてよい。
-
+
 Local variables:
 coding: utf-8
 mode: text

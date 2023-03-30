@@ -1,4 +1,4 @@
-;;; skk-pre-henkan.el --- SKK $B8+=P$78l$NBe$o$j$K8uJd$rI=<((B -*- coding: iso-2022-jp -*-
+;;; skk-pre-henkan.el --- SKK 見出し語の代わりに候補を表示 -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2017 Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
@@ -47,9 +47,9 @@
 (defvar skk-pre-henkan-candidates nil)
 
 (defun skk-pre-henkan ()
-  "$B%j%9%H(B `skk-completion-prog-list' $B$NMWAG$H$7$F;HMQ(B."
-  ;; `skk-pre-henkan-candidates' $B$N(B car $B$rJV$9!#(B`skk-pre-henkan-candidates' $B$O=L$`!#(B
-  ;; `skk-comp-first' $B$,(B t $B$J$i!"?7$?$J(B `skk-pre-henkan-candidates' $B$r:n$k!#(B
+  "リスト `skk-completion-prog-list' の要素として使用."
+  ;; `skk-pre-henkan-candidates' の car を返す。`skk-pre-henkan-candidates' は縮む。
+  ;; `skk-comp-first' が t なら、新たな `skk-pre-henkan-candidates' を作る。
   (unless (string= skk-comp-key "")
     (when skk-comp-first
       (setq skk-pre-henkan-candidates (skk-pre-henkan-make-candidates)))
@@ -58,9 +58,9 @@
       (setq skk-pre-henkan-candidates (cdr skk-pre-henkan-candidates)))))
 
 (defun skk-pre-henkan-make-candidates ()
-  "`skk-comp-key' $B$r%-!<!J@hF,0lCW!K$H$7$F!"8uJd$N%j%9%H$rJV$9(B."
+  "`skk-comp-key' をキー（先頭一致）として、候補のリストを返す."
   (let ((list-jisyo '(skk-jisyo skk-large-jisyo))
-        ;; skk-comp-key $B$O(B buffer-local $B$J$N$G(B with-current-buffer() $BFb$G$O(B nil $B$K$J$k!#(B
+        ;; skk-comp-key は buffer-local なので with-current-buffer() 内では nil になる。
         (key (format "^%s.* /" (car (split-string skk-comp-key "*" t))))
         (i 0)
         candidates)

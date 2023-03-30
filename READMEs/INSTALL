@@ -134,7 +134,7 @@ PDF manual are available.
 If you are looking for example elisp codes for customization, see files
 etc/dot.emacs and etc/dot.skk, which are included in this distribution.  
 
-
+
 Local variables:
 coding: utf-8
 mode: outline

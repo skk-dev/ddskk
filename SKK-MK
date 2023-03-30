@@ -99,8 +99,8 @@ This version of SKK requires MULE features"))
 
 (setq install-prefix
   (cond	((eq system-type 'windows-nt)
-	 ;; Meadow $B$H(B NTEmacs $B$O<+8J407k7?!#$3$l$i$KBP$7$F(B APEL $B$,I8=`$G(B
-	 ;; $B@_Dj$9$k(B install-prefix $B$OIT<+A3$J$N$G!"$3$3$G=$@5$9$k!#(B
+	 ;; Meadow と NTEmacs は自己完結型。これらに対して APEL が標準で
+	 ;; 設定する install-prefix は不自然なので、ここで修正する。
 	 (setq EMACS_SELF_CONTAINED t)
 	 (if (string-match "libexec" exec-directory)
 	     (expand-file-name "share/emacs"
@@ -108,16 +108,16 @@ This version of SKK requires MULE features"))
 	   (expand-file-name ".." exec-directory)))
 
 	((eq system-type 'darwin)
-	 ;; Mac OS X (Carbon emacs, Cocoa Emacs $B$^$?$O(B OS $BIUB0$N(B Emacs)
-	 ;; $B$G(B DDSKK $B$r(B build $B$9$k>l9g$O<+8J407k7?$+$I$&$+$rA*$Y$k!#(B
-	 ;; $B%f!<%6$,<+8J407k7?$r;H$C$F$$$k$+$I$&$+D4$Y$k!#(B
+	 ;; Mac OS X (Carbon emacs, Cocoa Emacs または OS 付属の Emacs)
+	 ;; で DDSKK を build する場合は自己完結型かどうかを選べる。
+	 ;; ユーザが自己完結型を使っているかどうか調べる。
 	 (let ((dir (expand-file-name ".." data-directory)))
 	   (if (string-match "/.+\\.app/Contents/Resources/?$" dir)
-	       ;; $B<+8J407k7?(B
+	       ;; 自己完結型
 	       (progn
 		 (setq EMACS_SELF_CONTAINED t)
 		 dir)
-	     ;; UNIX $BE*4D6-$HF1MM(B
+	     ;; UNIX 的環境と同様
 	     (expand-file-name "../../../.." data-directory))))
 	(t
 	 (expand-file-name "../../../.." data-directory))))
@@ -129,13 +129,13 @@ This version of SKK requires MULE features"))
 
 (setq load-path (cons (expand-file-name ".") load-path))
 
-;; $BJQ?t(B install-prefix $B$O(B install.el $B$GDj5A$5$l$F$*$j!"(B
-;; $B$=$NCM$O(B UNIX $BE*4D6-$G$O(B "/usr/local" $B$N$h$&$JCM$H$J$k!#(B
-;; $BHs(B UNIX $BE*4D6-$N$?$a$K>e5-$N(B setq $B$G(B install-prefix $B$r:F@_Dj$7$F$$$k!#(B
-;; $BHs(B UNIX $BE*4D6-$G$ODL>o<+8J407k7?(B (self-contained) $B$N%U%!%$%kG[CV$r(B
-;; $B$H$k!#$3$N>l9g!"FCDj$N%G%#%l%/%H%j2<$K(B etc, info, lisp, site-lisp
-;; $B$J$I$N%G%#%l%/%H%j$,A4$F4^$^$l$F$$$k!#(B
-;; ($B<B$O(B Emacs 18 $B$^$G$O(B UNIX $B4D6-$G$b<+8J407k7?$G$"$C$?!#(B)
+;; 変数 install-prefix は install.el で定義されており、
+;; その値は UNIX 的環境では "/usr/local" のような値となる。
+;; 非 UNIX 的環境のために上記の setq で install-prefix を再設定している。
+;; 非 UNIX 的環境では通常自己完結型 (self-contained) のファイル配置を
+;; とる。この場合、特定のディレクトリ下に etc, info, lisp, site-lisp
+;; などのディレクトリが全て含まれている。
+;; (実は Emacs 18 までは UNIX 環境でも自己完結型であった。)
 (unless PREFIX
   (setq PREFIX install-prefix))
 
@@ -205,7 +205,7 @@ This version of SKK requires MULE features"))
 (defvar SKK_DEFAULT_JISYO nil)
 
 (defvar SKK_MODULES
-  ;; $B$3$s$J$b$s%3%^%s%I%i%$%s$G;XDj$9$k?M$$$J$$$h$M!)(B
+  ;; こんなもんコマンドラインで指定する人いないよね？
   (let ((list '(ccc
                 cdb
 		context-skk
@@ -287,13 +287,13 @@ This version of SKK requires MULE features"))
     ;;
     list))
 
-;; $B>C$5$J$/$H$b%$%s%9%H!<%k>e$OLdBj$,$J$$$,!"(Bwhat-where $B$K$F%$%s%9%H!<%k$5$l$J(B
-;; $B$$%W%m%0%i%`$,I=<($5$l$k$N$rKI$0$?$a!"%H%C%W%G%#%l%/%H%j$K$J$$%W%m%0%i%`$O(B
-;; $B>C$7$F$*$/!#(B
+;; 消さなくともインストール上は問題がないが、what-where にてインストールされな
+;; いプログラムが表示されるのを防ぐため、トップディレクトリにないプログラムは
+;; 消しておく。
 (let ((modules SKK_MODULES))
   (while modules
     (unless (or
-	     ;; skk-autoloads.el $B$O<+F0@8@.$5$l$k$N$G$^$@B8:_$7$J$$!#(B
+	     ;; skk-autoloads.el は自動生成されるのでまだ存在しない。
 	     (memq (car modules) '(skk-autoloads))
 	     (file-exists-p (concat (symbol-name (car modules))
 				    ".el")))
@@ -375,7 +375,7 @@ This version of SKK requires MULE features"))
 
 ;;; [FUNCTIONS]
 (defun SKK-MK-make-setup-file (spec)
-  ;; SPEC $B$O8rBe%j%9%H!#(B
+  ;; SPEC は交代リスト。
   (with-temp-buffer
     (save-excursion
       (insert-file-contents "skk-setup.el.in")
@@ -606,8 +606,8 @@ This version of SKK requires MULE features"))
       (install-info info-file dir-file nil nil nil)
       (setq SKK_INFO_DIR_FILE dir-file))))
 
-;;; 2014-12-31, skk.texi $B$r(B utf-8 $B$H$7$?$3$H$KH<$$!"ITMW$H$J$C$?$,!"(B
-;;; $B>-MhE*$K(B pre-format $B$rMW$9$k$3$H$,9M$($i$l$k$?$a!"OHAH$_$O;D$9!#(B
+;;; 2014-12-31, skk.texi を utf-8 としたことに伴い、不要となったが、
+;;; 将来的に pre-format を要することが考えられるため、枠組みは残す。
 (defun SKK-MK-texinfo-pre-format ()
   ;; http://mail.ring.gr.jp/skk/201112/msg00023.html
   ;; (unless (and (featurep 'emacs)
@@ -765,7 +765,7 @@ SKK dictionaries:
       (kill-buffer buf))))
 
 ;;; DDSKK Interactive Installer (Jan 2011)
-;;;   Lookup $B$N(B install.el $B$r;29M$K$5$;$F$$$?$@$-$^$7$?!#(B
+;;;   Lookup の install.el を参考にさせていただきました。
 
 (defun install-check-directory (directory)
   (and (not (file-exists-p directory))
@@ -794,15 +794,15 @@ SKK dictionaries:
   (switch-to-buffer (generate-new-buffer "*DDSKK Installer*"))
   (insert (version))
   (insert "\n===================\n")
-  (insert "DDSKK $B%$%s%9%H!<%i(B\n")
+  (insert "DDSKK インストーラ\n")
   (insert "===================\n\n")
   (insert "DDSKK "
 	  VERSION-STRING
-	  " $B$N%$%s%9%H!<%k$r;O$a$^$9!#(B\n")
-  (insert "C-g $B$r%?%$%W$9$k$H!"$$$D$G$bCfCG$G$-$^$9!#(B\n\n")
+	  " のインストールを始めます。\n")
+  (insert "C-g をタイプすると、いつでも中断できます。\n\n")
 
-  (insert "$B$3$N%?%$%_%s%0$G<-=q%U%!%$%k$r%@%&%s%m!<%I$9$k$3$H$b$G$-$^$9!#(B:\n")
-  (when (yes-or-no-p "$B%@%&%s%m!<%I$7$^$9$+!)(B ")
+  (insert "このタイミングで辞書ファイルをダウンロードすることもできます。:\n")
+  (when (yes-or-no-p "ダウンロードしますか？ ")
     (load-file (expand-file-name "./skk-develop.el"))
     (skk-get (expand-file-name "./dic"))
     (insert (format "
@@ -816,22 +816,22 @@ SKK dictionaries:
 		    (expand-file-name "./dic")
 		    )))
 
-  (insert "DDSKK $B$N%$%s%9%H!<%k@h$rF~NO$7$F$/$@$5$$(B:\n")
+  (insert "DDSKK のインストール先を入力してください:\n")
   (setq SKK_LISPDIR (install-check-directory
 		     (read-file-name "SKK_LISPDIR: " SKK_LISPDIR SKK_LISPDIR)))
   (insert "  => " SKK_LISPDIR "\n\n") (sit-for 0)
 
-  (insert "Info $B%U%!%$%k$rCV$/%G%#%l%/%H%j$rF~NO$7$F$/$@$5$$(B:\n")
+  (insert "Info ファイルを置くディレクトリを入力してください:\n")
   (setq SKK_INFODIR (install-check-directory
 		     (read-file-name "SKK_INFODIR: " SKK_INFODIR SKK_INFODIR)))
   (insert "  => " SKK_INFODIR "\n\n") (sit-for 0)
 
-  (insert "$B%A%e!<%H%j%"%k!&%U%!%$%k$rCV$/%G%#%l%/%H%j$rF~NO$7$F$/$@$5$$(B:\n")
+  (insert "チュートリアル・ファイルを置くディレクトリを入力してください:\n")
   (setq SKK_DATADIR (install-check-directory
 		     (read-file-name "SKK_DATADIR: " SKK_DATADIR SKK_DATADIR)))
   (insert "  => " SKK_DATADIR "\n\n") (sit-for 0)
 
-  (insert "$B3NG'$7$F$/$@$5$$!#(B\n")
+  (insert "確認してください。\n")
   (insert (format "SKK modules: %s\n  => %s\n\n"
 		  (mapconcat 'symbol-name SKK_MODULES ", ")
 		  SKK_LISPDIR))
@@ -850,28 +850,28 @@ SKK dictionaries:
     (insert (format "SKK dictionaries: %s\n  => %s\n\n"
 		  (mapconcat 'identity exists ", ")
 		  SKK_DATADIR)))
-  (insert "$B3F%G%#%l%/%H%j$rD{@5$9$k$K$O!"$3$N%$%s%9%H!<%i$rCfCG!J(BC-g $B$r%?%$%W!K$7$F:G=i$+$i$d$jD>$7$F$/$@$5$$!J(BSKK-CFG $B$G@_Dj$9$k$3$H$b2DG=$G$9!K!#(B\n")
-  (if (yes-or-no-p "$B%$%s%9%H!<%k$rB39T$7$^$9$+!)(B ")
+  (insert "各ディレクトリを訂正するには、このインストーラを中断（C-g をタイプ）して最初からやり直してください（SKK-CFG で設定することも可能です）。\n")
+  (if (yes-or-no-p "インストールを続行しますか？ ")
       nil
-    (error "$B%$%s%9%H!<%k$rCfCG$7$^$7$?!#(B")))
+    (error "インストールを中断しました。")))
 
 ;; SKK-MK-compile
 (if noninteractive
     nil
   (let (enable-local-eval)
-    (insert "skk-autoloads.el $B$r@8@.Cf(B...") (sit-for 0)
+    (insert "skk-autoloads.el を生成中...") (sit-for 0)
     (SKK-MK-generate-autoloads-el)
     (insert "done\n")
 
-    (insert "skk-autoloads.el $B$rFI$_9~$_Cf(B...") (sit-for 0)
+    (insert "skk-autoloads.el を読み込み中...") (sit-for 0)
     (load (expand-file-name "skk-autoloads.el"))
     (insert "done\n")
 
-    (insert "skk.el $B$rFI$_9~$_Cf(B...") (sit-for 0)
+    (insert "skk.el を読み込み中...") (sit-for 0)
     (require 'skk (expand-file-name "skk.el"))
     (insert "done\n")
 
-    (insert "elisp $B%U%!%$%k$N%3%s%Q%$%kCf(B...") (sit-for 0)
+    (insert "elisp ファイルのコンパイル中...") (sit-for 0)
     (compile-elisp-modules SKK_MODULES
 			   (expand-file-name "."))
     (switch-to-buffer (get-buffer "*DDSKK Installer*"))
@@ -881,7 +881,7 @@ SKK dictionaries:
 ;; SKK-MK-install-elc
 (if noninteractive
     nil
-  (insert "elisp $B%U%!%$%k$N%$%s%9%H!<%kCf(B...") (sit-for 0)
+  (insert "elisp ファイルのインストール中...") (sit-for 0)
   (SKK-MK-install-elc)
   (switch-to-buffer (get-buffer "*DDSKK Installer*"))
   (insert "done\n"))
@@ -889,46 +889,46 @@ SKK dictionaries:
 ;; SKK-MK-install-info
 (if noninteractive
     nil
-  (insert "info $B$N%$%s%9%H!<%kCf(B...") (sit-for 0)
+  (insert "info のインストール中...") (sit-for 0)
   (SKK-MK-install-info)
   (insert "done\n")
 
-  (insert "info/dir $B%N!<%IDI2CCf(B...") (sit-for 0)
+  (insert "info/dir ノード追加中...") (sit-for 0)
   (SKK-MK-install-info-1)
   (insert "done\n"))
 
 ;; Congratulations!
 (if noninteractive
     nil
-  (insert "\n\nCongratulations!\nDDSKK $B$N%$%s%9%H!<%k$,40N;$7$^$7$?!#(B
+  (insert "\n\nCongratulations!\nDDSKK のインストールが完了しました。
 
-load-path $B$N@_Dj(B
+load-path の設定
 ----------------
-$B<!$N$H$*$j(B $BJQ?t(B load-path $B$r@_Dj$7$F$/$@$5$$!#4{$K%Q%9$,DL$C$F$$$k$J$i$P(B
-$BITMW$G$9!#(B
+次のとおり 変数 load-path を設定してください。既にパスが通っているならば
+不要です。
   (setq load-path (cons \"" SKK_LISPDIR "\" load-path))
 
-info $B%G%#%l%/%H%j$N@_Dj(B
+info ディレクトリの設定
 -----------------------
-$B<!$N$H$*$j(B $BJQ?t(B Info-default-directory-list $B$r@_Dj$7$F$/$@$5$$!#4{$K%Q%9(B
-$B$,DL$C$F$$$k$J$i$PITMW$G$9!#(B
+次のとおり 変数 Info-default-directory-list を設定してください。既にパス
+が通っているならば不要です。
   (setq Info-default-directory-list
         (cons \"" SKK_INFODIR "\" Info-default-directory-list))
 
-$B%G%#%l%/%H%j%U%!%$%k(B " SKK_INFO_DIR_FILE " $B$X$N%N!<%IDI2C$O40N;$7$F$$$^$9!#(B
+ディレクトリファイル " SKK_INFO_DIR_FILE " へのノード追加は完了しています。
 
-Emacs $B$N@_Dj(B
+Emacs の設定
 ------------
-$B>e5-$N@_DjFbMF$r(B ~/.emacs $B$K5-:\$7$F(B Emacs $B$r:F5/F0$9$l$P(B DDSKK $B$r;HMQ$9(B
-$B$k$3$H$,$G$-$k$O$:$G$9!#(B
-$B$b$7(B DDSKK $B$,5/F0$7$J$$$h$&$G$"$l$P(B ~/.emacs $B$K(B
+上記の設定内容を ~/.emacs に記載して Emacs を再起動すれば DDSKK を使用す
+ることができるはずです。
+もし DDSKK が起動しないようであれば ~/.emacs に
   (require 'skk-autoloads)
-$B$H5-:\$7$F!"$"$i$?$a$F(B Emacs $B$r:F5/F0$7$F$/$@$5$$!#(B
+と記載して、あらためて Emacs を再起動してください。
 
-DDSKK $B$N@_Dj(B
+DDSKK の設定
 ------------
-etc/dot.emacs $B$H(B etc/dot.skk $B$K@_DjNc$,5s$2$i$l$F$$$^$9$N$G;29M$K$7$F$/$@$5$$!#(B
-Info $B$b$*FI$_$/$@$5$$!#(B
+etc/dot.emacs と etc/dot.skk に設定例が挙げられていますので参考にしてください。
+Info もお読みください。
 "))
 
 (if noninteractive

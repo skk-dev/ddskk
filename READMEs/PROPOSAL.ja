@@ -593,7 +593,7 @@ o skk-after-point-move として inline function として実装。フックを 
 
 o skk-mode の中で post-command-hook のローカルフックとして
   skk-after-point-move をフックした。
-
+
 Local variables:
 coding: utf-8
 mode: outline

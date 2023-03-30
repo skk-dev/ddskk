@@ -1,4 +1,4 @@
-;;; skk-annotation.el --- SKK annotation $B4XO"%W%m%0%i%`(B -*- coding: iso-2022-jp -*-
+;;; skk-annotation.el --- SKK annotation 関連プログラム -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2000, 2001 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 ;; Copyright (C) 2000-2010  SKK Development Team
@@ -26,128 +26,128 @@
 
 ;;; Commentary:
 
-;; $B$3$l$O!"(BSKK $B8D?M<-=q$KIU$1$?%"%N%F!<%7%g%s(B ($BCp<a(B) $B$r3hMQ$9$k%W%m%0(B
-;; $B%i%`$G$9!#(B
+;; これは、SKK 個人辞書に付けたアノテーション (註釈) を活用するプログ
+;; ラムです。
 
 ;; <HOW TO USE>
 
 ;;   (setq skk-show-annotation t)
 
-;; $B$H(B ~/.skk $B$K=q$-$^$7$g$&!#<-=q$N8uJd$K(B `;' $B$+$i;O$^$kJ8;zNs$,$"$l$P!"(B
-;; $B$=$N3:Ev$N8uJd$,JQ49$5$l$F%P%C%U%!$K=PNO$5$l$?:]$K(B `;' $B0J9_$r$=$N8u(B
-;; $BJd$N%"%N%F!<%7%g%s$H$7$F%(%3!<%(%j%"$KI=<($7$^$9!#(B
+;; と ~/.skk に書きましょう。辞書の候補に `;' から始まる文字列があれば、
+;; その該当の候補が変換されてバッファに出力された際に `;' 以降をその候
+;; 補のアノテーションとしてエコーエリアに表示します。
 
 ;;   (setq skk-annotation-show-as-message nil)
 
-;; $B$H(B ~/.skk $B$K=q$$$?>l9g$O!"(Bother-window $B$r0l;~E*$K3+$$$F%"%N%F!<%7%g(B
-;; $B%s$rI=<($7$^$9!#(Bother-window $B$O$=$N8uJd$K$D$$$F3NDj$9$k$+!"$=$N8uJd(B
-;; $B$NA*Br$r;_$a$k(B ($B<!$N8uJd$rA*Br$7$?$j!"(Bquit $B$7$?$j(B) $B$9$k$H<+F0E*$KJD(B
-;; $B$8$i$l$^$9!#(B
+;; と ~/.skk に書いた場合は、other-window を一時的に開いてアノテーショ
+;; ンを表示します。other-window はその候補について確定するか、その候補
+;; の選択を止める (次の候補を選択したり、quit したり) すると自動的に閉
+;; じられます。
 
-;; SKK $B$G$O(B 5 $BHVL\$N8uJd0J9_$O8uJd0lMw(B ($B%j%9%H(B) $B$H$7$FI=<($5$l$k$?$a!"%"(B
-;; $B%N%F!<%7%g%s$O8uJd$H0l=o$KE;$a$GI=<($5$l$^$9!#(B
+;; SKK では 5 番目の候補以降は候補一覧 (リスト) として表示されるため、ア
+;; ノテーションは候補と一緒に纏めで表示されます。
 
-;; $B$"$kC18l$K%"%N%F!<%7%g%s$rIU$1$?$$$H$-$O!"3NDj$7$?D>8e$KF1$8%P%C%U%!(B
-;; $B$G(B
+;; ある単語にアノテーションを付けたいときは、確定した直後に同じバッファ
+;; で
 
 ;;   M-x skk-annotation-add
 
-;; $B$H<B9T$7$^$7$g$&!#%"%N%F!<%7%g%s$rJT=8$9$k%P%C%U%!$,3+$$$F!"%+%l%s%H(B
-;; $B%P%C%U%!$K$J$j$^$9$N$G!"$=$3$X%"%N%F!<%7%g%s$rIU$1$^$7$g$&!#(B
-;; 1 $B9T$G$"$kI,MW$O$"$j$^$;$s$,!"J#?t9T$N%"%N%F!<%7%g%s$rIU$1$k$H%(%3!<(B
-;; $B%(%j%"$KI=<($7$?$H$-$KA4BN$,8+$($J$/$J$j$^$9!#(B
-;; $B$^$?!"(B`;' $B$NJ8;z<+BN$OF~$l$kI,MW$O$"$j$^$;$s!#(B
-;; $B:#$^$G$K4{$KIU$1$F$$$?%"%N%F!<%7%g%s$,$"$l$PJT=8%P%C%U%!$,I=<($5$l(B
-;; $B$?$H$-$K$=$N%"%N%F!<%7%g%s$,(B prefix $BE*$K=PNO$5$l$^$9!#4{B8$N%"%N%F!<(B
-;; $B%7%g%s$b4^$a$FJT=8$7$F2<$5$$!#%P%C%U%!$N@hF,9T$r=|$$$FA4$F$N9T$,?7(B
-;; $B$7$$%"%N%F!<%7%g%s$H$7$F>e=q$-$5$l$^$9!#(B
-;; $BJT=8$,=*$o$C$?$i(B C-c C-c $B$7$^$7$g$&!#(B
+;; と実行しましょう。アノテーションを編集するバッファが開いて、カレント
+;; バッファになりますので、そこへアノテーションを付けましょう。
+;; 1 行である必要はありませんが、複数行のアノテーションを付けるとエコー
+;; エリアに表示したときに全体が見えなくなります。
+;; また、`;' の文字自体は入れる必要はありません。
+;; 今までに既に付けていたアノテーションがあれば編集バッファが表示され
+;; たときにそのアノテーションが prefix 的に出力されます。既存のアノテー
+;; ションも含めて編集して下さい。バッファの先頭行を除いて全ての行が新
+;; しいアノテーションとして上書きされます。
+;; 編集が終わったら C-c C-c しましょう。
 
-;; $B>e5-$NF0:n$G%f!<%6$,IU$1$?%"%N%F!<%7%g%s$r!V%f!<%6%"%N%F!<%7%g%s!W(B
-;; $B$H8F$S$^$9!#%f!<%6%"%N%F!<%7%g%s$O!"(B
+;; 上記の動作でユーザが付けたアノテーションを「ユーザアノテーション」
+;; と呼びます。ユーザアノテーションは、
 
-;;   $B!V$-$+$s(B /$B4|4V(B/$B5!4X(B;*$B5!4XEj;q2H(B/$B4p44(B;*$B4p446HL3(B/$B!W(B
+;;   「きかん /期間/機関;*機関投資家/基幹;*基幹業務/」
 
-;; $B$N$h$&$K(B `;' $B$ND>8e$K(B `*' $B$NJ8;z$,<+F0E*$K?6$i$l$^$9!#$3$l$O%f!<%6(B
-;; $B$,FH<+$KIU$1$?%"%N%F!<%7%g%s$G$"$k$3$H$r<($7$^$9(B (`*' $B$NJ8;z$OJQ49(B
-;; $B;~$K$OI=<($5$l$^$;$s(B)$B!#(B
+;; のように `;' の直後に `*' の文字が自動的に振られます。これはユーザ
+;; が独自に付けたアノテーションであることを示します (`*' の文字は変換
+;; 時には表示されません)。
 
-;; $B0lJ}!"6&M-<-=q$K85!9IU$1$i$l$F$$$k%"%N%F!<%7%g%s$r!V%7%9%F%`%"%N%F!<(B
-;; $B%7%g%s!W$H8F$S!"$3$l$O(B `;' $B$ND>8e$K(B `*' $B$NJ8;z$rH<$J$$$^$;$s!#(B
-;; <$BNc(B>
-;;    $B!V$$$<$s(B /$B0JA0(B;previous/$B0MA3(B;still/$B!W(B
+;; 一方、共有辞書に元々付けられているアノテーションを「システムアノテー
+;; ション」と呼び、これは `;' の直後に `*' の文字を伴ないません。
+;; <例>
+;;    「いぜん /以前;previous/依然;still/」
 
-;; $B%f!<%6%"%N%F!<%7%g%s$H%7%9%F%`%"%N%F!<%7%g%s$r6hJL$9$k$3$H$G!"%f!<(B
-;; $B%6%"%N%F!<%7%g%s$@$1$rI=<($7$?$j!"$"$k$$$O$=$N5U$r9T$&$3$H$,2DG=(B
-;; $B$G$9!#(B`skk-annotation-function' $B$KI=<($7$?$$%"%N%F!<%7%g%s$r(B
-;; non-nil $B$HH=Dj$9$k4X?t$r=q$-$^$7$g$&!#$3$s$J46$8$G$9!#(B
+;; ユーザアノテーションとシステムアノテーションを区別することで、ユー
+;; ザアノテーションだけを表示したり、あるいはその逆を行うことが可能
+;; です。`skk-annotation-function' に表示したいアノテーションを
+;; non-nil と判定する関数を書きましょう。こんな感じです。
 
 ;;   (setq skk-annotation-function
 ;;         (lambda (annotation) (eq (aref annotation 0) ?*)))
 
-;; $B>e5-$NNc$G$O!"%"%N%F!<%7%g%s$N@hF,$,(B `*' $B$G;O$^$k!V%f!<%6%"%N%F!<%7%g(B
-;; $B%s!W$N>l9g$K(B t $B$rJV$7$^$9$N$G!"%f!<%6%"%N%F!<%7%g%s$@$1$rI=<($7$^$9!#(B
+;; 上記の例では、アノテーションの先頭が `*' で始まる「ユーザアノテーショ
+;; ン」の場合に t を返しますので、ユーザアノテーションだけを表示します。
 
-;; M-x skk-annotation-add $B$7$?$b$N$N!"7k6I%"%N%F!<%7%g%s$rIU$1$:$KCV$-(B
-;; $B$?$$$H$-$O!"(B
+;; M-x skk-annotation-add したものの、結局アノテーションを付けずに置き
+;; たいときは、
 
 ;;   M-x skk-annotation-kill
 
-;; $B$7$F2<$5$$!#(B
+;; して下さい。
 
-;; $B$^$?!":G8e$K3NDj$7$?8uJd$K$D$$$F$N%"%N%F!<%7%g%s$r<h$j5n$j$?$$$H$-(B
-;; $B$O!"(B
+;; また、最後に確定した候補についてのアノテーションを取り去りたいとき
+;; は、
 
 ;;   M-x skk-annotation-remove
 
-;; $B$7$F2<$5$$!#(B
+;; して下さい。
 
-;; Viper $BBP:v$O$^$@9T$C$F$$$^$;$s!#(B~/.viper $B$K<!$N$h$&$K=q$$$F2<$5$$!#(B
+;; Viper 対策はまだ行っていません。~/.viper に次のように書いて下さい。
 ;; (viper-harness-minor-mode "skk-annotation")
 
 
-;; <lookup.el $B$+$i$N%"%N%F!<%7%g%s(B>
+;; <lookup.el からのアノテーション>
 
-;; $B0J2<$N@_Dj$r(B ~/.skk $B$K$9$k$H4X?t(B skk-lookup-get-content $B$+$i%"%N%F!<(B
-;; $B%7%g%s$,<hF@$5$l$^$9!#(B
+;; 以下の設定を ~/.skk にすると関数 skk-lookup-get-content からアノテー
+;; ションが取得されます。
 
 ;;   (setq skk-annotation-lookup-lookup t)
 
 
-;; <Apple OS X $B!V<-=q!W%5!<%S%9$+$i$N%"%N%F!<%7%g%s(B>
+;; <Apple OS X 「辞書」サービスからのアノテーション>
 
-;; Mac $B$N<-=q%"%W%j(B (Dictionary.app) $B$G$OI8=`$G9q8l<-E5$J$IMxMQ$G$-$^$9!#(B
-;; $B$3$N$&$AM%@h=g0L$N9b$$<-=q$+$i%"%N%F!<%7%g%s$r<hF@$9$k5!G=$,MxMQ$G$-$^(B
-;; $B$9!#8=>u$G$O<-=q$N8!:w=g$O(B Dictionary.app $B$N4D6-@_Dj$G@_Dj$9$kI,MW$,$"(B
-;; $B$j$^$9!#(B
+;; Mac の辞書アプリ (Dictionary.app) では標準で国語辞典など利用できます。
+;; このうち優先順位の高い辞書からアノテーションを取得する機能が利用できま
+;; す。現状では辞書の検索順は Dictionary.app の環境設定で設定する必要があ
+;; ります。
 
-;; $B$3$N5!G=$rMxMQ$9$k>l9g$O0J2<$N@_Dj$r(B ~/.skk $B$K5-=R$7$F$/$@$5$$!#(B
+;; この機能を利用する場合は以下の設定を ~/.skk に記述してください。
 
 ;;   (setq skk-annotation-lookup-DictionaryServices t)
 
-;; $B$3$N5!G=$O(B Carbon Emacs 22 $B$^$?$O(B Cocoa Emacs 23 $B0J9_$G%F%9%H$5$l$F$$$^(B
-;; $B$9!#$?$@$7(B Carbon Emacs 22 $B$G$OJQ49A`:n$,B.$9$.$k>l9g$K<-=q%5!<%S%9$+$i<u$1(B
-;; $B$H$C$?J8;zNs$N%G%3!<%I$K<:GT$9$k$3$H$,$"$k$h$&$G$9!#(B
+;; この機能は Carbon Emacs 22 または Cocoa Emacs 23 以降でテストされていま
+;; す。ただし Carbon Emacs 22 では変換操作が速すぎる場合に辞書サービスから受け
+;; とった文字列のデコードに失敗することがあるようです。
 
 
-;; <Wikipedia $B%"%N%F!<%7%g%s(B>
+;; <Wikipedia アノテーション>
 
-;; $B"'%b!<%I$K$F(B C-i $B$r%?%$%W$9$k$H!"I=<(Cf$N8uJd$r(B Wikipedia/Wiktionary
-;; $B$N9`L\$+$iC5$7!$8+$D$+$C$?>l9g$O!"FbMF$NH4?h$r%"%N%F!<%7%g%s$H$7$FI=<((B
-;; $B$7$^$9!#$3$N5!G=$O(B Emacs 22 $B0J>e$G%F%9%H$5$l$F$$$^$9!#(B
+;; ▼モードにて C-i をタイプすると、表示中の候補を Wikipedia/Wiktionary
+;; の項目から探し，見つかった場合は、内容の抜粋をアノテーションとして表示
+;; します。この機能は Emacs 22 以上でテストされています。
 
 
-;; <$B5l$$(B SKK $B$+$i$N0\9T(B>
+;; <旧い SKK からの移行>
 
-;; $B$3$N9`$O%"%N%F!<%7%g%s5!G=$,$J$$5l$$(B SKK (DDSKK 11.2 $B0JA0$^$?$O(B SKK
-;; 10.62 $B0JA0(B) $B$+$i:G?7$N$b$N$K0\9T$9$k>l9g$NCm0U;v9`$G$9!#(B
+;; この項はアノテーション機能がない旧い SKK (DDSKK 11.2 以前または SKK
+;; 10.62 以前) から最新のものに移行する場合の注意事項です。
 
-;; $B%"%N%F!<%7%g%s$O%;%Q%l!<%?$H$7$F(B `;' $B$r;HMQ$7$F$$$k$?$a!"(B`;' $B$NJ8;z(B
-;; $B$r4^$s$@8uJd$O!"(Beval $B$9$k$H(B `;' $B$K$J$k(B Lisp $B<0$H$7$F(B quote $B$7<-=q8u(B
-;; $BJd$K<}$a$kI,MW$,$"$j$^$9!#(B
+;; アノテーションはセパレータとして `;' を使用しているため、`;' の文字
+;; を含んだ候補は、eval すると `;' になる Lisp 式として quote し辞書候
+;; 補に収める必要があります。
 
-;; $B$^$@%"%N%F!<%7%g%s5!G=$r0lEY$b;HMQ$7$F$$$J$$8D?M<-=q$K$D$$$F$O!"0J2<(B
-;; $B$N(B S $B<0$rI>2A$7$?8e!"(B
+;; まだアノテーション機能を一度も使用していない個人辞書については、以下
+;; の S 式を評価した後、
 
 ;;   (defun skk-annotation-update-jisyo-format ()
 ;;     (interactive)
@@ -177,16 +177,16 @@
 ;;         (append candidate nil) "")
 ;;        "\")")))))
 
-;; $B8D?M<-=q$rFI$_$3$_!"<-=q$rFI$_9~$s$@%P%C%U%!$G(B
+;; 個人辞書を読みこみ、辞書を読み込んだバッファで
 
 ;;   M-x skk-annotation-update-jisyo-format
 
-;; $B$9$k$3$H$G$3$N:n6H$r9T$&$3$H$,$G$-$^$9!#(B
+;; することでこの作業を行うことができます。
 
-;; $BC"$7!"4{$K%"%N%F!<%7%g%s$,IU$1$i$l$F$$$k>l9g$O!"$3$N%"%N%F!<%7%g%s(B
-;; $B<+BN$b8uJd$H6hJL$G$-$:$K(B quote $B$5$l$F$7$^$$$^$9$N$G!"$4Cm0U2<$5$$(B
-;; ($B:#$N$H$3$m<j:n6H$G(B quote $B$5$l$J$$$h$&$KB`Hr$9$k$J$I$7$+J}K!$O$"$j(B
-;; $B$^$;$s(B)$B!#(B
+;; 但し、既にアノテーションが付けられている場合は、このアノテーション
+;; 自体も候補と区別できずに quote されてしまいますので、ご注意下さい
+;; (今のところ手作業で quote されないように退避するなどしか方法はあり
+;; ません)。
 
 ;;; Code:
 
@@ -256,7 +256,7 @@
     (erase-buffer)))
 
 (defun skk-annotation-insert (annotation)
-  "`skk-annotation-buffer' $B$K(B ANNOTATION $B$rA^F~$9$k(B"
+  "`skk-annotation-buffer' に ANNOTATION を挿入する"
   (with-current-buffer (get-buffer-create skk-annotation-buffer)
     (skk-annotation-erase-buffer)
     (setq buffer-read-only nil)
@@ -285,10 +285,10 @@
         (t
          (keyboard-quit)))))))
 
-;;; $B%"%N%F!<%7%g%sI=<(5!G=(B
+;;; アノテーション表示機能
 ;;;###autoload
 (defun skk-annotation-find-and-show (pair)
-  "$B3F<o%j%=!<%9$+$i%"%N%F!<%7%g%s$r<hF@$7I=<($9$k!#(B"
+  "各種リソースからアノテーションを取得し表示する。"
   (skkannot-check-lookup)
   (skkannot-clear-msg)
   ;;
@@ -305,22 +305,22 @@
                    skk-annotation-lookup-DictionaryServices
                    (and skk-annotation-lookup-dict
                         (skkannot-dict-exec-find))))
-      ;; Mac $B$N!V<-=q!W$"$k$$$O(B dict ($B30It%W%m%0%i%`(B) $B$N@_Dj$,$"$l$P(B
-      ;; SKK $B<-=q$N%"%N%F!<%7%g%s$h$jM%@h$5$;$k(B
+      ;; Mac の「辞書」あるいは dict (外部プログラム) の設定があれば
+      ;; SKK 辞書のアノテーションより優先させる
       (setq note nil)
       (when skk-annotation-lookup-lookup
         (setq note (skk-lookup-get-content word)))
       (when (and (null note)
                  (eq system-type 'darwin)
                  skk-annotation-lookup-DictionaryServices)
-        (catch '$B<-=q(B
+        (catch '辞書
           (setq note (skk-annotation-lookup-DictionaryServices word))))
       (when (and (null note)
                  skk-annotation-lookup-dict
                  (skkannot-dict-exec-find))
         (catch 'dict
           (setq note (skk-annotation-lookup-dict word))
-          ;; $BM>M5$,$"$l$P<!8uJd$N0UL#$r@hFI$_(B
+          ;; 余裕があれば次候補の意味を先読み
           (dotimes (i (min (length skk-henkan-list) 4))
             (add-to-list 'list (nth i skk-henkan-list) t))
           (when list
@@ -331,8 +331,8 @@
       (unless note
         (setq note (cdr-safe pair))))
     (when (and word (not note))
-      ;; Wikipedia $B$J$I$=$NB>$N%j%=!<%9$+$i$N%-%c%C%7%e$,$"$l$P(B
-      ;; $B$=$l$rI=<($9$k!#(B
+      ;; Wikipedia などその他のリソースからのキャッシュがあれば
+      ;; それを表示する。
       (unless skkannot-cached-srcs
         (while srcs
           (unless (memq (car srcs) '(lookup.el))
@@ -364,8 +364,8 @@
       (setq annotation (skk-eval-string annotation))
       (unless (string= annotation "")
         (setq inhibit-wait (skk-annotation-show-2 annotation)))
-      ;; $BCm<a$NI=<($O$3$3$^$G$@$,!"$3$3$G%f!<%6$,Cm<a$NFbMF$r%3%T!<$7$?$j(B
-      ;; $B$7$FMxMQ$G$-$k$h$&$K$9$k!#(B
+      ;; 注釈の表示はここまでだが、ここでユーザが注釈の内容をコピーしたり
+      ;; して利用できるようにする。
       (unless inhibit-wait
         (skk-annotation-wait-for-input annotation notes word sources)))))
 
@@ -415,7 +415,7 @@
             (signal 'quit nil))
           (skk-unread-event event)))
     (quit
-     ;; skk-previous-candidate $B$X(B
+     ;; skk-previous-candidate へ
      (skk-reset-henkan-count 0))))
 
 (defun skk-annotation-show-as-message (annotation)
@@ -423,7 +423,7 @@
 
 ;;;###autoload
 (defun skk-annotation-display-p (test)
-  ;; TEST $B$O(B 'list $BKt$O(B 'minibuf
+  ;; TEST は 'list 又は 'minibuf
   (skkannot-clear-msg)
   ;;
   (cond ((null skk-show-annotation)
@@ -460,7 +460,7 @@
          ;; non-nil -> (not list)  i.e. turn off
          (setq skk-show-annotation '(not list)))))
 
-;;; $B%"%N%F!<%7%g%sA`:n5!G=(B
+;;; アノテーション操作機能
 (defun skk-annotation-setup ()
   (let ((skk-henkan-key (skk-get-last-henkan-datum 'henkan-key))
         (skk-okuri-char (skk-get-last-henkan-datum 'okuri-char))
@@ -470,20 +470,20 @@
       (setq skk-henkan-key
             (read-from-minibuffer "Midasi: "))
       (when (string= skk-henkan-key "")
-        (skk-error "$B%"%N%F!<%7%g%s$9$kC18l$,$"$j$^$;$s(B"
+        (skk-error "アノテーションする単語がありません"
                    "No word to be annotated"))
       (when (string-match "\\cj\\([a-z]+\\)$"
                           skk-henkan-key)
         (setq skk-okuri-char (match-string 1 skk-henkan-key)
-              ;; $BAw$j$"$jJQ49$r;XDj$9$k$H(B
-              ;; skk-henkan-okurigana $B$N;XDj$K:$$k!#(B
+              ;; 送りあり変換を指定すると
+              ;; skk-henkan-okurigana の指定に困る。
               skk-henkan-okurigana ""))
       (setq cand
             (prog1
                 (skk-henkan-in-minibuff)
               (setq skk-kakutei-flag nil))))
-    ;; $B$3$N;~E@$G$O(B skk-num-list $B$O4{$K(B nil
-    ;; $B%_%K%P%C%U%!$+$iBP>]$r;XDj$7$?>l9g$K$O(B consp $B$K$J$i$J$$(B
+    ;; この時点では skk-num-list は既に nil
+    ;; ミニバッファから対象を指定した場合には consp にならない
     (when (consp cand)
       (setq cand (car cand)))
     (setq word (car (skk-treat-strip-note-from-word cand)))
@@ -496,15 +496,15 @@
           (list skk-henkan-key
                 skk-okuri-char
                 cand))
-    ;; $B0U?^$rM}2r$7$F$J$$$,!"(Bskk-kakutei-initialize $B$N$[$&$,E,@Z$J5$$b(B
+    ;; 意図を理解してないが、skk-kakutei-initialize のほうが適切な気も
     (skk-kakutei)))
 
 ;;;###autoload
 (defun skk-annotation-add (&optional no-previous-annotation)
-  "$B:G8e$K3NDj$7$?8l$K(B annotation $B$rIU$1$k!#(B
-$B4{$K(B annotation $B$,IU$1$i$l$F$$$l$P!"$=$l$rJT=8%P%C%U%!$K=PNO$9$k!#(B
-NO-PREVIOUS-ANNOTATION $B$r;XDj(B (\\[Universal-Argument] \\[skk-annotation-add])
-$B$9$k$H!"4{$KIU$1$i$l$F$$$k(B annotation $B$rJT=8%P%C%U%!$K=PNO$7$J$$!#(B"
+  "最後に確定した語に annotation を付ける。
+既に annotation が付けられていれば、それを編集バッファに出力する。
+NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-add])
+すると、既に付けられている annotation を編集バッファに出力しない。"
   (interactive "P")
   (save-match-data
     (skk-kakutei)
@@ -550,21 +550,21 @@ NO-PREVIOUS-ANNOTATION $B$r;XDj(B (\\[Universal-Argument] \\[skk-annotation-ad
                           ", ")))))
 
 (defun skk-annotation-save-and-quit (&optional quiet)
-  "$B:G8e$K3NDj$7$?8l$K(B annotation $B$rIU$1$F(B annotation $B%P%C%U%!$rJD$8$k!#(B"
+  "最後に確定した語に annotation を付けて annotation バッファを閉じる。"
   ;; called in the annotation buffer.
   (interactive "P")
   (let (annotation)
     (save-match-data
       (with-current-buffer (get-buffer-create skk-annotation-buffer)
         (goto-char (point-min))
-        (when (looking-at ";; Add a note to word") ; $BCfESH>C<(B
+        (when (looking-at ";; Add a note to word") ; 中途半端
           (forward-line 1)
           (beginning-of-line))
         (setq annotation (buffer-substring-no-properties
                           (point) (point-max)))
-        (when (string-match "^[\t\n $B!!(B]+" annotation)
+        (when (string-match "^[\t\n 　]+" annotation)
           (setq annotation (substring annotation (match-end 0))))
-        (when (string-match "[\t\n $B!!(B]+$" annotation)
+        (when (string-match "[\t\n 　]+$" annotation)
           (setq annotation (substring annotation 0 (match-beginning 0))))
         (when (string= annotation "")
           (setq annotation nil))
@@ -577,14 +577,14 @@ NO-PREVIOUS-ANNOTATION $B$r;XDj(B (\\[Universal-Argument] \\[skk-annotation-ad
              (delete-region (match-beginning 0) (match-end 0)))
            (goto-char end)
            (insert ";*" annotation)))
-      ;; $B:o=|$7$?;~(B
+      ;; 削除した時
       (let ((old-annotation
              (cdr (skk-treat-strip-note-from-word
                    (nth 2 skk-annotation-target-data)))))
         (when (and old-annotation
                    (yes-or-no-p
                     (format (if skk-japanese-message-and-error
-                                "$B4{B8$N%"%N%F!<%7%g%s(B `%s' $B$r:o=|$7$^$9$+!)(B "
+                                "既存のアノテーション `%s' を削除しますか？ "
                               "Delete old annotation `%s' ? ")
                             (skk-annotation-get old-annotation))))
           (skk-annotation-last-word-1
@@ -601,7 +601,7 @@ NO-PREVIOUS-ANNOTATION $B$r;XDj(B (\\[Universal-Argument] \\[skk-annotation-ad
         (message "%s" "Added annotation")))))
 
 (defun skk-annotation-kill ()
-  "annotation $B$rIU$1$:$K(B annotation $B%P%C%U%!$r(B kill $B$9$k!#(B"
+  "annotation を付けずに annotation バッファを kill する。"
   ;; called in the annotation buffer.
   (interactive)
   (skk-annotation-erase-buffer)
@@ -611,14 +611,14 @@ NO-PREVIOUS-ANNOTATION $B$r;XDj(B (\\[Universal-Argument] \\[skk-annotation-ad
 
 ;;;###autoload
 (defun skk-annotation-remove ()
-  "$B:G8e$K3NDj$7$?8l$+$i(B annotation $B$r<h$j5n$k!#(B"
+  "最後に確定した語から annotation を取り去る。"
   (interactive)
   (save-match-data
     (skk-kakutei)
     (skk-annotation-setup)
     (when (yes-or-no-p
            (format (if skk-japanese-message-and-error
-                       "%s $B$K$D$$$F$N%"%N%F!<%7%g%s$r:o=|$7$^$9$+!)(B "
+                       "%s についてのアノテーションを削除しますか？ "
                      "Really delete annotation for %s? ")
                    (nth 2 skk-annotation-target-data)))
       (skk-annotation-last-word-1
@@ -675,7 +675,7 @@ NO-PREVIOUS-ANNOTATION $B$r;XDj(B (\\[Universal-Argument] \\[skk-annotation-ad
 
 ;;;###autoload
 (defun skk-annotation-quote (&optional quiet)
-  "$B:G8e$K3NDj$7$?8l$K4^$^$l$k(B `;' $B$r8uJd$N0lIt$H$7$F(B quote $B$9$k!#(B"
+  "最後に確定した語に含まれる `;' を候補の一部として quote する。"
   (interactive "P")
   (skk-kakutei)
   (skk-annotation-setup)
@@ -690,18 +690,18 @@ NO-PREVIOUS-ANNOTATION $B$r;XDj(B (\\[Universal-Argument] \\[skk-annotation-ad
          (unless quiet
            (message "%s" "Quoted")))))))
 
-;;; $B%"%N%F!<%7%g%s(B UI $B3HD%5!G=(B
+;;; アノテーション UI 拡張機能
 (defun skk-annotation-wait-for-input (annotation notes &optional word sources)
-  "$B%"%N%F!<%7%g%sI=<(;~$K%-!<F~NO$rJaB*$9$k!#(B
-$B%-!<F~NO$NFbMF$K$h$C$F%"%N%F!<%7%g%s$N%3%T!<!">pJs8;(B URL $B$N%V%i%&%:!"$^$?$O(B
-$BJL$N>pJs8;$+$i$N0UL#<hF@$r9T$&!#(B"
+  "アノテーション表示時にキー入力を捕捉する。
+キー入力の内容によってアノテーションのコピー、情報源 URL のブラウズ、または
+別の情報源からの意味取得を行う。"
   (let* ((copy-command (key-binding skk-annotation-copy-key))
 ;;;  (browse-command (key-binding skk-annotation-browse-key))
-         ;; * skk-kakutei-key $B$,(B $BI8=`(B C-j $B$G$"$l$P!"(Bbrowse-command $B$O(B C-o $B$N(B open-line() $B$H$J$k!#(B
-         ;; * skk-kakutei-key $B$,(B skk-annotation-browse-key $B$H>WFM$9$k(B C-o $B$G$"$l$P!"(B
-         ;;   browse-command $B$O(B skk-insert() $B$H$J$k!#(B SPC $B$b(B skk-insert() $B$G$"$k$?$a!"(B
-         ;;   $B7k2L$H$7$F(B SPC $B$NBG80$G(B browse-command $B$H$J$C$F$7$^$&!#(B
-         ;; * skk-kakutei-key $B$,(B skk-insert() $B$J$N$O(B skk-compile-rule-list() $B;2>H$N$3$H!#(B
+         ;; * skk-kakutei-key が 標準 C-j であれば、browse-command は C-o の open-line() となる。
+         ;; * skk-kakutei-key が skk-annotation-browse-key と衝突する C-o であれば、
+         ;;   browse-command は skk-insert() となる。 SPC も skk-insert() であるため、
+         ;;   結果として SPC の打鍵で browse-command となってしまう。
+         ;; * skk-kakutei-key が skk-insert() なのは skk-compile-rule-list() 参照のこと。
          (it (key-binding skk-annotation-browse-key))     ; Fix #58
          (browse-command (if (eq 'skk-insert it) nil it)) ; Fix #58
          (list (list copy-command browse-command))
@@ -735,7 +735,7 @@ NO-PREVIOUS-ANNOTATION $B$r;XDj(B (\\[Universal-Argument] \\[skk-annotation-ad
              (setq list (delq copy-command list))
              (unless (equal annotation "")
                (kill-new (substring-no-properties annotation))
-               (skk-message "$B8=:_$NCm<a$r%3%T!<$7$^$7$?(B"
+               (skk-message "現在の注釈をコピーしました"
                             "Copying the current note...done")
                (setq event nil
                      digit nil
@@ -764,10 +764,10 @@ NO-PREVIOUS-ANNOTATION $B$r;XDj(B (\\[Universal-Argument] \\[skk-annotation-ad
                                (apply (car url) (cdr url)))
                               (t
                                (browse-url url))))
-                      (skk-message "$BCm<a$N%=!<%9$r%V%i%&%:$7$F$$$^$9(B..."
+                      (skk-message "注釈のソースをブラウズしています..."
                                    "Browsing originals for the current notes..."))
                      (t
-                      (skk-message "$BCm<a$N%=!<%9$,8+$D$+$j$^$;$s(B"
+                      (skk-message "注釈のソースが見つかりません"
                                    "No originals found for the current notes")))
                (setq event nil
                      digit nil
@@ -837,23 +837,23 @@ NO-PREVIOUS-ANNOTATION $B$r;XDj(B (\\[Universal-Argument] \\[skk-annotation-ad
                                           'skk-verbose-kbd-face)
                               s2 " "))))
         (setq skk-annotation-wikipedia-message
-              (concat (propertize "{$B$I$l$r;2>H(B?}" 'face
+              (concat (propertize "{どれを参照?}" 'face
                                   'skk-verbose-intention-face)
                       new))))
     ;;
     (unless skk-annotation-message
       (let ((key-copy (or (key-description skk-annotation-copy-key)
-                          "$BL$Dj5A(B"))
+                          "未定義"))
             (key-wiki (or (key-description skk-annotation-wikipedia-key)
-                          "$BL$Dj5A(B"))
+                          "未定義"))
             (key-browse (or (key-description skk-annotation-browse-key)
-                            "$BL$Dj5A(B"))
+                            "未定義"))
             list new)
         (when (equal key-wiki "TAB")
           (setq key-wiki "C-i"))
         (setq list
               (split-string
-               (format "[%s]$B%3%T!<(B  [%s]$B%V%i%&%:(B  [%s]$B%G%U%)%k%H$N%=!<%9$r;2>H(B"
+               (format "[%s]コピー  [%s]ブラウズ  [%s]デフォルトのソースを参照"
                        key-copy key-browse key-wiki) "  "))
         (dolist (x list)
           (let* ((y (split-string x "]"))
@@ -864,7 +864,7 @@ NO-PREVIOUS-ANNOTATION $B$r;XDj(B (\\[Universal-Argument] \\[skk-annotation-ad
                                           'skk-verbose-kbd-face)
                               s2 " "))))
         (setq skk-annotation-message
-              (concat (propertize "{$B%"%N%F!<%7%g%s(B}" 'face
+              (concat (propertize "{アノテーション}" 'face
                                   'skk-verbose-intention-face)
                       new))))
     ;;
@@ -890,20 +890,20 @@ NO-PREVIOUS-ANNOTATION $B$r;XDj(B (\\[Universal-Argument] \\[skk-annotation-ad
       (quit
        (when (eq skk-henkan-mode 'active)
          (skk-reset-henkan-count 0)))))
-  ;; $B>o$K(B t $B$rJV$9(B
+  ;; 常に t を返す
   t)
 
 ;;;###autoload
 (defun skk-annotation-lookup-region-or-at-point (&optional prefix-arg
                                                            start end)
-  "$BA*BrNN0h$^$?$O%]%$%s%H0LCV$NC18l$r<-=q$GD4$Y$k!#(B
-$B<-=q$H$7$F$O(B lookup.el$B!"(BApple OS X $B$N<-=q%5!<%S%9!"(BWikipedia/Wikitionary $B$J$I$,(B
-$BMxMQ$5$l$k!#(B
+  "選択領域またはポイント位置の単語を辞書で調べる。
+辞書としては lookup.el、Apple OS X の辞書サービス、Wikipedia/Wikitionary などが
+利用される。
 
-$BNN0h$,A*Br$5$l$F$$$J$1$l$PC18l$N;O$a$H=*$o$j$r?dB,$7$FD4$Y$k!#(B
+領域が選択されていなければ単語の始めと終わりを推測して調べる。
 
-$BD4$Y$?7k2L$r(B `skk-annotation-show-as-message' $B$,(B Non-nil $B$G$"$l$P%(%3!<%(%j%"(B
-$B$K!"(Bnil $B$G$"$l$PJL(B window $B$KI=<($9$k!#(B"
+調べた結果を `skk-annotation-show-as-message' が Non-nil であればエコーエリア
+に、nil であれば別 window に表示する。"
   (interactive (cons (prefix-numeric-value current-prefix-arg)
                      (cond
                       ((use-region-p)
@@ -918,8 +918,8 @@ NO-PREVIOUS-ANNOTATION $B$r;XDj(B (\\[Universal-Argument] \\[skk-annotation-ad
   (skkannot-clear-msg)
   ;;
   (let ((word (if (and (= start 1) (= end 1))
-                  ;; region $B$,(B active $B$G$J$$$H$-$O!$%]%$%s%H$K$"$k(B
-                  ;; $BC18l$r?dB,$9$k(B
+                  ;; region が active でないときは，ポイントにある
+                  ;; 単語を推測する
                   (thing-at-point 'word)
                 (buffer-substring-no-properties start end)))
         (sources
@@ -936,12 +936,12 @@ NO-PREVIOUS-ANNOTATION $B$r;XDj(B (\\[Universal-Argument] \\[skk-annotation-ad
       (skk-annotation-show (or note "") word sources))))
 
 
-;;; Apple OS X $B<-=q%5!<%S%94XO"5!G=(B
+;;; Apple OS X 辞書サービス関連機能
 (defsubst skkannot-DictServ-command (word)
   (format skkannot-DictServ-cmd-format-str word "%" "%"))
 
 (defsubst skkannot-dict-buffer-format (word)
-  "dict $B$NFbMF$r3JG<$9$k%P%C%U%!$N%U%)!<%^%C%H!#(B"
+  "dict の内容を格納するバッファのフォーマット。"
   (format "  *skk dict %s" word))
 
 (defun skkannot-py-send-string (string)
@@ -990,13 +990,13 @@ information etc.  If PROC is non-nil, check the buffer for that process."
 
 ;;;###autoload
 (defun skk-annotation-start-python (&optional wait)
-  "OS X $B$N!V<-=q!W$rMxMQ$9$k$?$a$K(B python $B$r5/F0$9$k!#(B"
+  "OS X の「辞書」を利用するために python を起動する。"
   (require 'python)
   (cond
    ((buffer-live-p skkannot-py-buffer)
     skkannot-py-buffer)
    (t
-    ;; python + readline $B$G(B UTF-8 $B$NF~NO$r$9$k$?$a$K(B LANG $B$N@_Dj$,I,MW!#(B
+    ;; python + readline で UTF-8 の入力をするために LANG の設定が必要。
     (let* ((env (getenv "LANG"))
            orig-py-buffer)
       (unless (eval-when-compile (skkannot-emacs-24_3-or-later))
@@ -1033,13 +1033,13 @@ information etc.  If PROC is non-nil, check the buffer for that process."
                (setq skkannot-remaining-delay
                      (- skkannot-remaining-delay 1.0)))
               (wait
-               (throw '$B<-=q(B nil))
+               (throw '辞書 nil))
               (t
                nil))
         skkannot-py-buffer)))))
 
 (defun skkannot-DictServ-cache (word truncate)
-  "OS X $B$N!V<-=q!W$+$i$3$l$^$G$K<hF@:Q$N%"%N%F!<%7%g%s$rC5$9!#(B"
+  "OS X の「辞書」からこれまでに取得済のアノテーションを探す。"
   (let (success pt)
     (skk-save-point
      (goto-char (point-max))
@@ -1054,7 +1054,7 @@ information etc.  If PROC is non-nil, check the buffer for that process."
        (unless success
          (unless (skkannot-sit-for skk-annotation-loop-interval truncate)
            (unless truncate
-             (throw '$B<-=q(B nil)))
+             (throw '辞書 nil)))
          (setq success (re-search-forward "^>>> " nil t)))
        (cond
         (success
@@ -1074,9 +1074,9 @@ information etc.  If PROC is non-nil, check the buffer for that process."
 
 ;;;###autoload
 (defun skk-annotation-lookup-DictionaryServices (word &optional truncate force)
-  "python $B$r2p$7$F(B DictionaryServices $B$rMxMQ$7%"%N%F!<%7%g%s$r<hF@$9$k!#(B
-$B%*%W%7%g%s0z?t(B TRUNCATE $B$,(B non-nil $B$N>l9g$O8uJd0lMwMQ$KC;$$%"%N%F!<%7%g%s(B
-$B$K9J$j$3$`!#(B"
+  "python を介して DictionaryServices を利用しアノテーションを取得する。
+オプション引数 TRUNCATE が non-nil の場合は候補一覧用に短いアノテーション
+に絞りこむ。"
   (when (or skk-annotation-lookup-DictionaryServices force)
     (skk-annotation-start-python (not truncate))
     (let ((command (skkannot-DictServ-command word))
@@ -1093,7 +1093,7 @@ information etc.  If PROC is non-nil, check the buffer for that process."
                        (- skkannot-remaining-delay loopint)))
                 (t
                  (unless truncate
-                   (throw '$B<-=q(B nil))))
+                   (throw '辞書 nil))))
           (accept-process-output process loopint)
           (goto-char (point-max))
           (setq output (or (skkannot-DictServ-cache word truncate)
@@ -1105,15 +1105,15 @@ information etc.  If PROC is non-nil, check the buffer for that process."
               (set-buffer-multibyte t)
               (insert output)
               (goto-char (point-min))
-              (when (re-search-forward "[;,.$B!"!#!(!C(B]" nil t)
+              (when (re-search-forward "[;,.、。；｜]" nil t)
                 (beginning-of-line)
                 (buffer-substring (point) (match-beginning 0)))))
            (t
             output)))))))
 
-;;; $B30It%W%m%0%i%`$+$i$N%"%N%F!<%7%g%s<hF@5!G=(B
+;;; 外部プログラムからのアノテーション取得機能
 (defun skkannot-start-dict-process (buffer word)
-  "dict $B$N%W%m%;%9$r5/F0$9$k!#(B"
+  "dict のプロセスを起動する。"
   (let ((process-connection-type nil)
         (word (encode-coding-string word skk-annotation-dict-coding-system))
         process)
@@ -1128,7 +1128,7 @@ information etc.  If PROC is non-nil, check the buffer for that process."
 
 ;;;###autoload
 (defun skk-annotation-preread-dict (word &optional nowait)
-  "dict $B$N%W%m%;%9$r5/F0$9$k!#@hFI$_$N$?$a$KMQ$$$k!#(B"
+  "dict のプロセスを起動する。先読みのために用いる。"
   (let ((buffer (get-buffer-create (skkannot-dict-buffer-format word)))
         (text "")
         (loopint 0.01))
@@ -1147,8 +1147,8 @@ information etc.  If PROC is non-nil, check the buffer for that process."
 
 ;;;###autoload
 (defun skk-annotation-lookup-dict (word &optional truncate)
-  "dict $B$N%W%m%;%9$rI,MW$J$i5/F0$7!"7k2L$rD4$Y$k!#(B
-$B0UL#$,<hF@$G$-$?>l9g$K$O7k2L$rJ8;zNs$H$7$FJV$9!#(B"
+  "dict のプロセスを必要なら起動し、結果を調べる。
+意味が取得できた場合には結果を文字列として返す。"
   (let ((buffer (get-buffer-create (skkannot-dict-buffer-format word)))
         (text "")
         (no-user-input t)
@@ -1182,7 +1182,7 @@ information etc.  If PROC is non-nil, check the buffer for that process."
          (truncate
           (goto-char (point-min))
           (cond
-           ((re-search-forward "[$B!"!#(B]" nil t)
+           ((re-search-forward "[、。]" nil t)
             (beginning-of-line)
             (setq text (buffer-substring (point) (match-beginning 0))))
            (t
@@ -1199,16 +1199,16 @@ information etc.  If PROC is non-nil, check the buffer for that process."
     (unless (string= text "")
       text)))
 
-;;; Wiktionary/Wikipedia $B%"%N%F!<%7%g%s(B
+;;; Wiktionary/Wikipedia アノテーション
 ;;;###autoload
 (defun skk-annotation-wikipedia (word &optional sources)
-  "Wiktionary/Wikipedia $B$N(B WORD $B$KAjEv$9$k5-;v$+$i%"%N%F!<%7%g%s$r<hF@$9$k!#(B"
+  "Wiktionary/Wikipedia の WORD に相当する記事からアノテーションを取得する。"
   (let ((sources (or sources skk-annotation-other-sources))
         source
         words
         (string "")
         (note nil))
-    ;; sources $B$K;XDj$5$l$?=gHV$K;2>H$9$k(B
+    ;; sources に指定された順番に参照する
     (if (catch 'skkannot-wikipedia-suspended
           (save-match-data
             (while (and (or (not note) (equal note ""))
@@ -1241,7 +1241,7 @@ information etc.  If PROC is non-nil, check the buffer for that process."
                     (setq words (append words (list (upcase word)))))))
               (while (and (not note) words)
                 (setq note (skk-annotation-wikipedia-1 (car words) source t))
-                (sleep-for 0.01) ; $B$3$l$,$J$$$H;_$^$k$3$H$"$j(B
+                (sleep-for 0.01) ; これがないと止まることあり
                 (setq words (cdr words))
                 (when (equal note "")
                   (setq note nil)))
@@ -1252,11 +1252,11 @@ information etc.  If PROC is non-nil, check the buffer for that process."
                                    string source))
               (setq sources (cdr sources)))
             (unless note
-              (message "%s $B$K9`L\$,$"$j$^$;$s(B" string)))
+              (message "%s に項目がありません" string)))
           nil)
-        ;; $B%@%&%s%m!<%I$,CfCG$5$l$?$H$-(B
+        ;; ダウンロードが中断されたとき
         (progn
-          (message "%s $B$NE>Aw$,CfCG$5$l$^$7$?(B" source)
+          (message "%s の転送が中断されました" source)
           nil)
       ;;
       note)))
@@ -1276,14 +1276,14 @@ information etc.  If PROC is non-nil, check the buffer for that process."
   (html2text-delete-tags p1 p2 (1+ p3) (1+ p4)))
 
 (defun skk-annotation-wikipedia-1 (word source &optional preserve-case)
-  "Wiktionary/Wikipedia $B$N(B WORD $B$KAjEv$9$k5-;v$r<B:]$K%@%&%s%m!<%I$7$FD4$Y$k!#(B
-$B3:Ev%Z!<%8(B (html) $B$r%@%&%s%m!<%I$9$k5!G=$O(B Emacs $B$KIUB0$N(B URL $B%Q%C%1!<%8$K0M(B
-$B$k!#(B"
+  "Wiktionary/Wikipedia の WORD に相当する記事を実際にダウンロードして調べる。
+該当ページ (html) をダウンロードする機能は Emacs に付属の URL パッケージに依
+る。"
   (cond
    ((eq source 'lookup.el)
     (skk-lookup-get-content word nil))
-   ((eq source '$B<-=q(B)
-    (catch '$B<-=q(B
+   ((eq source '辞書)
+    (catch '辞書
       (skk-annotation-lookup-DictionaryServices word nil t)))
    ((eq source 'dict)
     (catch 'dict (skk-annotation-lookup-dict word)))
@@ -1294,7 +1294,7 @@ information etc.  If PROC is non-nil, check the buffer for that process."
     (setq word (skkannot-wikipedia-normalize-word word source preserve-case))
     ;;
     (let ((cache-buffer (format "  *skk %s %s" source word))
-          ;; html2text $B$,@5$7$/07$($J$$(B tag $B$O0J2<$N%j%9%H$K;XDj$9$k(B
+          ;; html2text が正しく扱えない tag は以下のリストに指定する
           (html2text-remove-tag-list
            (append '("a" "span" "table" "tr" "td" "h2" "h3" "h4" "h5" "small"
                      "code")
@@ -1308,7 +1308,7 @@ information etc.  If PROC is non-nil, check the buffer for that process."
       (if (get-buffer cache-buffer)
           (with-current-buffer cache-buffer
             (buffer-string))
-        ;; $B%-%c%C%7%e$,$J$$>l9g(B
+        ;; キャッシュがない場合
         (setq buffer (funcall url-retrieve-func
                               (skkannot-generate-url
                                "http://%s.org/wiki/%s"
@@ -1346,7 +1346,7 @@ information etc.  If PROC is non-nil, check the buffer for that process."
           (goto-char pt))))))
 
 (defun skkannot-wikipedia-format-buffer (source buffer cache-buffer)
-  "html $B$NM>7W$JMWAG$r=|5n$7!"(Bhtml2text $B$N5!G=$rMQ$$$F@07A$9$k!#(B"
+  "html の余計な要素を除去し、html2text の機能を用いて整形する。"
   (let ((html2text-remove-tag-list
          (append '("a" "span" "table" "tr" "td" "h2" "h3" "h4" "h5" "small"
                    "code")
@@ -1363,7 +1363,7 @@ information etc.  If PROC is non-nil, check the buffer for that process."
         (when (get-buffer cache-buffer)
           (kill-buffer cache-buffer))
         (rename-buffer cache-buffer)
-        ;; $BMW$i$J$$ItJ,$r>C$9(B
+        ;; 要らない部分を消す
         (cond
          ;; ja.wiktionary
          ((eq source 'ja.wiktionary)
@@ -1373,7 +1373,7 @@ information etc.  If PROC is non-nil, check the buffer for that process."
 \\(^HTTP/1\\.0 301 Moved Permanently\\|<div class=\"noarticletext\">\
 \\|:Badtitle\\)"
                                    nil t))
-              ;; $B9`L\$,$J$$>l9g(B
+              ;; 項目がない場合
               (erase-buffer)
             (search-forward "<!-- start content -->" nil t)
             (delete-region (point-min) (point))
@@ -1394,7 +1394,7 @@ information etc.  If PROC is non-nil, check the buffer for that process."
             ;;
             (setq point top)
             (goto-char (point-min))
-            ;; ja.wiktionary $B$N=q<0$,(B en.wiktionary $B$[$I@0$C$F$$$J$$$N$G(B
+            ;; ja.wiktionary の書式が en.wiktionary ほど整っていないので
             ;; workaround
             (unless
                 (save-excursion
@@ -1439,10 +1439,10 @@ information etc.  If PROC is non-nil, check the buffer for that process."
             ;;
             (when point
               (delete-region point (point-max)))
-            ;; ($BMQNc$J$I$r=|$/(B -- $B=|$+$J$$$[$&$,$$$$!)(B)
-            ;; ja.wiktionary $B$O(B en.wiktionary $B$HA4$/E}0l$5$l$?=q$-J}$K$O(B
-            ;; $B$J$C$F$$$J$$$N$G!"(Bul $B$r=|$/$H>pJs$,$[$H$s$I;D$i$J$$>l9g$,(B
-            ;; $B$"$k(B
+            ;; (用例などを除く -- 除かないほうがいい？)
+            ;; ja.wiktionary は en.wiktionary と全く統一された書き方には
+            ;; なっていないので、ul を除くと情報がほとんど残らない場合が
+            ;; ある
             (skkannot-wikipedia-remove-nested "<ul>" "</ul>")
             (skkannot-wikipedia-remove-nested "<dl>" "</dl>")
             (skkannot-wikipedia-remove-nested "<table[^<]*>"
@@ -1452,7 +1452,7 @@ information etc.  If PROC is non-nil, check the buffer for that process."
             ;;
             (goto-char (point-min))
             (while (re-search-forward
-                    "<span.*>\\[<a.+>$BJT=8(B</a>\\]</span>"
+                    "<span.*>\\[<a.+>編集</a>\\]</span>"
                     nil t)
               (replace-match ""))))
          ;; en.wiktionary
@@ -1463,7 +1463,7 @@ information etc.  If PROC is non-nil, check the buffer for that process."
 \\(^HTTP/1\\.0 301 Moved Permanently\\|<div class=\"noarticletext\">\
 \\|:Badtitle\\)"
                                    nil t))
-              ;; $B9`L\$,$J$$>l9g(B
+              ;; 項目がない場合
               (erase-buffer)
             (search-forward "<!-- start content -->" nil t)
             (delete-region (point-min) (point))
@@ -1521,7 +1521,7 @@ information etc.  If PROC is non-nil, check the buffer for that process."
             ;;
             (when point
               (delete-region point (point-max)))
-            ;; ($BMQNc$J$I$r=|$/(B -- $B=|$+$J$$$[$&$,$$$$!)(B)
+            ;; (用例などを除く -- 除かないほうがいい？)
             (skkannot-wikipedia-remove-nested "<ul>" "</ul>")
             (skkannot-wikipedia-remove-nested "<dl>" "</dl>")
             (skkannot-wikipedia-remove-nested "<table[^<]*>"
@@ -1530,7 +1530,7 @@ information etc.  If PROC is non-nil, check the buffer for that process."
 <div class=\"\\(infl-table\\|thumb.+\\)\"[^<]*>" "</div>" "<div[^<]*>")
             (skkannot-wikipedia-remove-nested "\
 <span class=\"interProject\">" "</span>")
-            ;; Wikipedia $B$X$N0FFb$r=|$/(B
+            ;; Wikipedia への案内を除く
             (goto-char (point-min))
             (while (re-search-forward "\
 \\(<a href=\"/wiki/Wikipedia\" title=\"Wikipedia\">\\)?\
@@ -1556,13 +1556,13 @@ Wikipedia\\(</a>\\)? has an article on:$" nil t)
 \\(^HTTP/1\\.0 301 Moved Permanently\\|<div class=\"noarticletext\">\
 \\|:Badtitle\\)"
                                    nil t))
-              ;; $B9`L\$,$J$$>l9g(B
+              ;; 項目がない場合
               (erase-buffer)
             (setq aimai
                   (save-excursion
                     (re-search-forward "\
-wgCategories.+\\($B[#Kf$52sHr(B\\|[Dd]isambiguation\\).+$" nil t)))
-            ;; <span> $B$r=|5n$9$k(B
+wgCategories.+\\(曖昧さ回避\\|[Dd]isambiguation\\).+$" nil t)))
+            ;; <span> を除去する
             (setq point nil)
             (goto-char (point-min))
             (while (re-search-forward "\
@@ -1572,26 +1572,26 @@ wgCategories.+\\($B[#Kf$52sHr(B\\|[Dd]isambiguation\\).+$" nil t)))
               (search-forward "</span>" nil t)
               (delete-region point (point))
               (goto-char point))
-            ;; <big> $B$r=|5n$9$k(B
+            ;; <big> を除去する
             (goto-char (point-min))
             (while (re-search-forward "<p><big>.+</big></p>" nil t)
               (replace-match ""))
-            ;; &#160; $B$r=hM}(B
+            ;; &#160; を処理
             (goto-char (point-min))
             (while (re-search-forward "&#160;" nil t)
               (replace-match " "))
-            ;; <br /> $B$r=|5n$9$k(B
+            ;; <br /> を除去する
             (goto-char (point-min))
             (while (re-search-forward "<p>.+\\(<br />\\)$" nil t)
               (replace-match "" nil nil nil 1))
-            ;; xxx > xxx > xxx ... $B$r=|5n$9$k(B
+            ;; xxx > xxx > xxx ... を除去する
             (goto-char (point-min))
             (while (re-search-forward
                     "<p>.+</a> &gt; \\(<a.+>\\|<b>\\).+</p>" nil t)
               (replace-match ""))
-            ;; <script> $B$r=|5n(B
+            ;; <script> を除去
             (skkannot-wikipedia-remove-nested "<script.*>" "</script>")
-            ;; <table> $B$r=|5n(B
+            ;; <table> を除去
             (skkannot-wikipedia-remove-nested "<table.*>" "</table>")
             ;;
             (goto-char (point-min))
@@ -1604,7 +1604,7 @@ wgCategories.+\\($B[#Kf$52sHr(B\\|[Dd]isambiguation\\).+$" nil t)))
                                  (string-match
                                   (cond
                                    ((eq source 'ja.wikipedia)
-                                    "$B!#(B\\|$B!%(B")
+                                    "。\\|．")
                                    (t
                                     "\\."))
                                   (buffer-substring (point)
@@ -1651,7 +1651,7 @@ wgCategories.+\\($B[#Kf$52sHr(B\\|[Dd]isambiguation\\).+$" nil t)))
           (goto-char (point-min))
           (cond
            ((memq source '(ja.wiktionary en.wiktionary))
-            ;; wiktionary $B$N@07A7k2L$O6u9T$@$i$1$K$J$k(B...
+            ;; wiktionary の整形結果は空行だらけになる...
             (goto-char (point-min))
             (while (re-search-forward "\n[\n]+" nil t)
               (replace-match "\n"))
@@ -1675,7 +1675,7 @@ wgCategories.+\\($B[#Kf$52sHr(B\\|[Dd]isambiguation\\).+$" nil t)))
           ;;
           (when aimai
             (insert (if (eq source 'ja.wikipedia)
-                        "\n($B[#Kf$52sHr$N%Z!<%8(B)"
+                        "\n(曖昧さ回避のページ)"
                       "\n(Disambiguation page)")))
           ;;
           (goto-char (point-max))
@@ -1696,7 +1696,7 @@ wgCategories.+\\($B[#Kf$52sHr(B\\|[Dd]isambiguation\\).+$" nil t)))
            nil))))
 
 (defun skkannot-wikipedia-remove-nested (btag etag &optional ibtag)
-  "<dl> <ul> <table> $B$J$I$NF~$l;R9=B$$r=|5n$9$k!#(B"
+  "<dl> <ul> <table> などの入れ子構造を除去する。"
   (unless ibtag
     (setq ibtag btag))
   (let (point pt1 pt2 orig-btag)
@@ -1739,8 +1739,8 @@ wgCategories.+\\($B[#Kf$52sHr(B\\|[Dd]isambiguation\\).+$" nil t)))
   (cond ((or (member "deleted\n" (assq 'error (memq :error (car args))))
              (< (buffer-size) 7)
              (not (skkannot-wikipedia-test-html-tag)))
-         ;; $BIT40A4$J(B retrieval $B$K$*$$$F$b(B STATUS $B$,(B nil $B$H$J$k$3$H$,$"$k$N$G(B
-         ;; $B$3$3$GD4@0$9$k!#(B
+         ;; 不完全な retrieval においても STATUS が nil となることがあるので
+         ;; ここで調整する。
          (kill-buffer (current-buffer))
          (ignore-errors
            (throw 'skkannot-wikipedia-suspended (cadr args))))
@@ -1748,15 +1748,15 @@ wgCategories.+\\($B[#Kf$52sHr(B\\|[Dd]isambiguation\\).+$" nil t)))
          (throw 'skkannot-wikipedia-retrieved (current-buffer)))))
 
 (defun skkannot-wikipedia-test-html-tag ()
-  ;; html $B%G!<%?$,:G8e$N(B </html> $B%?%0$r;}$D$3$H$r3NG'$9$k(B
+  ;; html データが最後の </html> タグを持つことを確認する
   (goto-char (point-min))
   (when (re-search-forward "^Content-Encoding: gzip$" nil t)
-    ;; html $B$,(B gzip $B05=L$GAw$i$l$FMh$?>l9g(B
+    ;; html が gzip 圧縮で送られて来た場合
     (unless (fboundp 'url-handle-content-transfer-encoding)
       ;; Emacs 24.3 or earlier
       (let ((gzip (executable-find "gzip")))
         (unless gzip
-          (error "$B$3$NFbMF$rI=<($9$k$K$O(B %s $B$,I,MW$G$9(B" "gzip"))
+          (error "この内容を表示するには %s が必要です" "gzip"))
         (while (and (not (looking-at "^\n"))
                     (not (eobp)))
           (forward-line 1))
@@ -1775,7 +1775,7 @@ wgCategories.+\\($B[#Kf$52sHr(B\\|[Dd]isambiguation\\).+$" nil t)))
   (condition-case nil
       (require 'url-util)
     (error
-     (error "%s" "$B?7$7$$(B URL $B%Q%C%1!<%8$,I,MW$G$9(B")))
+     (error "%s" "新しい URL パッケージが必要です")))
   (apply #'format format-string
          (mapcar (lambda (element)
                    (if (stringp element)
@@ -1784,7 +1784,7 @@ wgCategories.+\\($B[#Kf$52sHr(B\\|[Dd]isambiguation\\).+$" nil t)))
                  args)))
 
 (defun skkannot-wikipedia-normalize-word (word &optional method preserve-case)
-  ;; $B%9%Z!<%9$O(B %20 $B$G$O$J$/!"%"%s%@!<%9%3%"$KJQ49$9$k(B
+  ;; スペースは %20 ではなく、アンダースコアに変換する
   (replace-regexp-in-string
    " " "_"
    (cond
@@ -1793,11 +1793,11 @@ wgCategories.+\\($B[#Kf$52sHr(B\\|[Dd]isambiguation\\).+$" nil t)))
               (> (length word) 1)
               (skk-ascii-char-p (aref word 0))
               (skk-lower-case-p (aref word 1)))
-         ;; $BFsJ8;z$a$,(B lower case $B$J$i(B downcase
+         ;; 二文字めが lower case なら downcase
          (downcase word)
-       ;; $B0lJ8;z$@$C$?$i85$N(B case
-       ;; $BFsJ8;z$a$,(B upper case $B$J$i85$N(B case
-       ;; $B1Q8l0J30$OL$BP1~(B
+       ;; 一文字だったら元の case
+       ;; 二文字めが upper case なら元の case
+       ;; 英語以外は未対応
        word))
     ((eq method 'upcase-initials)
      (upcase-initials word))
@@ -1807,7 +1807,7 @@ wgCategories.+\\($B[#Kf$52sHr(B\\|[Dd]isambiguation\\).+$" nil t)))
                  (substring word 1))
        word)))))
 
-;;; $B3F<o%"%N%F!<%7%g%s!&%=!<%9$N%-%c%C%7%e4IM}(B
+;;; 各種アノテーション・ソースのキャッシュ管理
 ;;;###autoload
 (defun skkannot-cache (word &optional sources)
   (let ((sources (or sources skk-annotation-other-sources))
@@ -1834,9 +1834,9 @@ wgCategories.+\\($B[#Kf$52sHr(B\\|[Dd]isambiguation\\).+$" nil t)))
                 nil
               (throw 'found
                      (cons string "lookup.el"))))
-           ((eq source '$B<-=q(B)
+           ((eq source '辞書)
             (setq string
-                  (catch '$B<-=q(B
+                  (catch '辞書
                     (skk-annotation-lookup-DictionaryServices word)))
             (if (or (null string)
                     (string= string ""))

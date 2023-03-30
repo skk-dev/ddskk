@@ -1,4 +1,4 @@
-;;; skk-kanagaki-util.el --- SKK $B$N2>L>F~NO%5%]!<%H$N$?$a$NF;6qH"(B -*- coding: iso-2022-jp -*-
+;;; skk-kanagaki-util.el --- SKK の仮名入力サポートのための道具箱 -*- coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2000, 2001, 2002, 2003, 2004
 ;;   Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
@@ -23,8 +23,8 @@
 
 ;;; Commentary:
 
-;; macro$B!"(Binline function $B$O$3$3$KCV$-$^$9!#I,MW$J>l9g$O3F%b%8%e!<%k$NCf$+$i(B
-;; $B$3$N%W%m%0%i%`$r%m!<%I$7$^$9!#(B
+;; macro、inline function はここに置きます。必要な場合は各モジュールの中から
+;; このプログラムをロードします。
 
 ;;; Code:
 
@@ -46,18 +46,18 @@
 ;; Variables.
 
 (defconst skk-kanagaki-dakuten-alist
-  '(("$B$+(B" "$B$,(B") ("$B$-(B" "$B$.(B") ("$B$/(B" "$B$0(B") ("$B$1(B" "$B$2(B") ("$B$3(B" "$B$4(B")
-    ("$B$5(B" "$B$6(B") ("$B$7(B" "$B$8(B") ("$B$9(B" "$B$:(B") ("$B$;(B" "$B$<(B") ("$B$=(B" "$B$>(B")
-    ("$B$?(B" "$B$@(B") ("$B$A(B" "$B$B(B") ("$B$D(B" "$B$E(B") ("$B$F(B" "$B$G(B") ("$B$H(B" "$B$I(B")
-    ("$B$O(B" "$B$P(B" "$B$Q(B") ("$B$R(B" "$B$S(B" "$B$T(B") ("$B$U(B" "$B$V(B" "$B$W(B") ("$B$X(B" "$B$Y(B" "$B$Z(B")
-    ("$B$[(B" "$B$\(B" "$B$](B")
-    ("$B%&(B" "$B%t(B")
-    ("$B%+(B" "$B%,(B") ("$B%-(B" "$B%.(B") ("$B%/(B" "$B%0(B") ("$B%1(B" "$B%2(B") ("$B%3(B" "$B%4(B")
-    ("$B%5(B" "$B%6(B") ("$B%7(B" "$B%8(B") ("$B%9(B" "$B%:(B") ("$B%;(B" "$B%<(B") ("$B%=(B" "$B%>(B")
-    ("$B%?(B" "$B%@(B") ("$B%A(B" "$B%B(B") ("$B%D(B" "$B%E(B") ("$B%F(B" "$B%G(B") ("$B%H(B" "$B%I(B")
-    ("$B%O(B" "$B%P(B" "$B%Q(B") ("$B%R(B" "$B%S(B" "$B%T(B") ("$B%U(B" "$B%V(B" "$B%W(B") ("$B%X(B" "$B%Y(B" "$B%Z(B")
-    ("$B%[(B" "$B%\(B" "$B%](B"))
-  "$BByE@$HH>ByE@$rF~NO$9$k$?$a$N%k!<%k!#(B")
+  '(("か" "が") ("き" "ぎ") ("く" "ぐ") ("け" "げ") ("こ" "ご")
+    ("さ" "ざ") ("し" "じ") ("す" "ず") ("せ" "ぜ") ("そ" "ぞ")
+    ("た" "だ") ("ち" "ぢ") ("つ" "づ") ("て" "で") ("と" "ど")
+    ("は" "ば" "ぱ") ("ひ" "び" "ぴ") ("ふ" "ぶ" "ぷ") ("へ" "べ" "ぺ")
+    ("ほ" "ぼ" "ぽ")
+    ("ウ" "ヴ")
+    ("カ" "ガ") ("キ" "ギ") ("ク" "グ") ("ケ" "ゲ") ("コ" "ゴ")
+    ("サ" "ザ") ("シ" "ジ") ("ス" "ズ") ("セ" "ゼ") ("ソ" "ゾ")
+    ("タ" "ダ") ("チ" "ヂ") ("ツ" "ヅ") ("テ" "デ") ("ト" "ド")
+    ("ハ" "バ" "パ") ("ヒ" "ビ" "ピ") ("フ" "ブ" "プ") ("ヘ" "ベ" "ペ")
+    ("ホ" "ボ" "ポ"))
+  "濁点と半濁点を入力するためのルール。")
 
 ;;;###autoload
 (defmacro skk-kanagaki-help-1 (bufname title list)
@@ -73,11 +73,11 @@
               (cond
                ((and (symbolp (car cons))
                      (symbol-value (car cons)))
-                (format "%s $B!D(B %s\n"
+                (format "%s … %s\n"
                         (key-description (symbol-value (car cons)))
                         (cdr cons)))
                (t
-                (format "%s $B!D(B %s\n" (car cons) (cdr cons)))))
+                (format "%s … %s\n" (car cons) (cdr cons)))))
           ;;
           (delq nil ,list) "")))
        ;;
@@ -101,7 +101,7 @@
 
 ;;;###autoload
 (defun skk-kanagaki-toggle-rom-kana (&optional arg)
-  "$B%m!<%^;zF~NO(B $B"N(B $B2>L>F~NO(B $B$r@Z$jBX$($k!#(B"
+  "ローマ字入力 ⇔ 仮名入力 を切り替える。"
   (interactive)
   ;;
   (when (featurep 'skk-nicola)
@@ -113,12 +113,12 @@
           (cl-case skk-kanagaki-state
             (kana 'rom)
             (rom 'kana)
-            ;; $B$H$j$"$($:!#(B
+            ;; とりあえず。
             (t 'kana))))
   (skk-kanagaki-adjust-rule-tree)
   ;;
   (when (featurep 'skk-nicola)
-    ;; $B%b!<%I9T$NI=<($ND4@a!#(B
+    ;; モード行の表示の調節。
     (cl-case skk-kanagaki-state
       (kana
        (setq skk-hiragana-mode-string skk-nicola-hiragana-mode-string
@@ -139,7 +139,7 @@
 
 ;;;###autoload
 (defun skk-kanagaki-dakuten (&optional arg handakuten)
-  "$BD>A0$NJ8;z$r8+$F2DG=$J$iByE@$rIU2C$7!"$5$b$J$1$l$P(B \"$B!+(B\" $B$rF~NO$9$k!#(B"
+  "直前の文字を見て可能なら濁点を付加し、さもなければ \"゛\" を入力する。"
   (interactive "*p")
   (let ((list skk-kanagaki-dakuten-alist)
         (pt1 (point))
@@ -201,8 +201,8 @@
         (skk-insert-str char2))))
      (t
       (skk-insert-str (if handakuten
-                          "$B!,(B"
-                        "$B!+(B"))))))
+                          "゜"
+                        "゛"))))))
 
 (defadvice isearch-repeat (around skk-kanagaki-workaround activate)
   (cond ((get 'isearch-barrier 'skk-kanagaki)
@@ -214,20 +214,20 @@
 
 ;;;###autoload
 (defun skk-kanagaki-handakuten (&optional arg)
-  "$BD>A0$NJ8;z$r8+$F2DG=$J$iH>ByE@$rIU2C$7!"$5$b$J$1$l$P(B \"$B!,(B\" $B$rF~NO$9$k!#(B"
+  "直前の文字を見て可能なら半濁点を付加し、さもなければ \"゜\" を入力する。"
   (interactive "*p")
   (skk-kanagaki-dakuten arg t))
 
 ;;;###autoload
 (defun skk-kanagaki-bs (arg)
-  ;; OASYS $B$K$*$1$k(B BS $B%-!<$N5!G=$NBe$o$j!#$I$N$h$&$J5sF0$r$5$;$k$Y$-$+$^$@7h$^(B
-  ;; $B$C$F$$$J$$!#8=:_$N$H$3$m(B
+  ;; OASYS における BS キーの機能の代わり。どのような挙動をさせるべきかまだ決ま
+  ;; っていない。現在のところ
   ;;
-  ;; o $B"'%b!<%I$G$O(B `skk-kanagaki-esc' $B$HF1$85sF0(B
-  ;; o $B"&%b!<%I$G$O(B `skk-delete-backward-char' $B$HF1$85sF0(B
-  ;; o $B"#%b!<%I$G$O(B `delete-backward-char' $B$HF1$85sF0(B
+  ;; o ▼モードでは `skk-kanagaki-esc' と同じ挙動
+  ;; o ▽モードでは `skk-delete-backward-char' と同じ挙動
+  ;; o ■モードでは `delete-backward-char' と同じ挙動
   ;;
-  ;; $B$H$$$&$U$&$K9M$($F$$$k!#(B
+  ;; というふうに考えている。
   (interactive "*p")
   ;;
   (cond
@@ -255,15 +255,15 @@
 
 ;;;###autoload
 (defun skk-kanagaki-esc (&optional arg)
-  ;; OASYS $B$K$*$1$k<h$j>C$75!G=$NBe$o$j!#(B $B$H$j$"$($:(B keyboard-quit $B$N>l9g$HF1MM(B
-  ;; $B$NF0:n$r$9$k$h$&$K$K$7$F$*$/!#(BOAK $B&BHG$@$H(B
+  ;; OASYS における取り消し機能の代わり。 とりあえず keyboard-quit の場合と同様
+  ;; の動作をするようににしておく。OAK β版だと
   ;;
-  ;; o 1 $B2sL\$N<h$j>C$7$G!"JQ49A0$N>uBV$KLa$7$?>e$GJQ493+;OE@$K%]%$%s%H$r0\F0(B
-  ;; o 2 $B2sL\$N<h$j>C$7$GJQ49BP>]$NJ8;zNsA4BN$r>C5n(B
+  ;; o 1 回目の取り消しで、変換前の状態に戻した上で変換開始点にポイントを移動
+  ;; o 2 回目の取り消しで変換対象の文字列全体を消去
   ;;
-  ;; $B$9$k$h$&$K$J$C$F$$$k$,!"(BSKK $B$K$*$1$kJQ49BP>]$NJ8;zNs$O(B $B"&(B $B$H%]%$%s%H$N4V$N(B
-  ;; $BJ8;zNs$G$"$j!"%]%$%s%H$r0\F0$9$k$HJQ49BP>]$,JQ$o$C$F$7$^$&!#$=$N$?$a!"%]%$(B
-  ;; $B%s%H$O0\F0$7$J$$$3$H$H$9$k!#(B
+  ;; するようになっているが、SKK における変換対象の文字列は ▽ とポイントの間の
+  ;; 文字列であり、ポイントを移動すると変換対象が変わってしまう。そのため、ポイ
+  ;; ントは移動しないこととする。
   (interactive "*P")
   (cond
    ((skk-in-minibuffer-p)

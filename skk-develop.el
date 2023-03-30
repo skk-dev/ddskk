@@ -84,14 +84,14 @@
         (url-copy-file (format "%s%s" url f) fn)))))
 
 (defun skk-get-generate-gzip-d (dir)
-  "$BB(@J(B gzip -d"
+  "即席 gzip -d"
   (and (not (executable-find "gzip"))
        (eq system-type 'windows-nt)
        (not (file-exists-p (expand-file-name "gzip-d.ps1" dir)))
        (skk-get-generate-gzip-d-1 dir)))
 
 (defun skk-get-generate-gzip-d-1 (dir)
-  "$BMW(B powershell"
+  "要 powershell"
   (with-temp-buffer
     (insert "$infile = $args[0]" 10)
     (insert "$outfile = ( $infile -replace '\.gz$','' )" 10)
@@ -151,7 +151,7 @@
     (skk-get-download jisyo-dir)
     (skk-get-generate-gzip-d jisyo-dir)
     (skk-get-expand-gzip jisyo-dir)
-    (when (fboundp 'tar--extract)   ; GNU Emacs 24.4 $B$+$i(B
+    (when (fboundp 'tar--extract)   ; GNU Emacs 24.4 から
       (skk-get-expand-tar jisyo-dir)))
   (message "skk-get...done")
   nil)

@@ -24,33 +24,33 @@
 
 ;;; Commentary:
 
-;; w3m (http://w3m.sourceforge.net/) ¤òÍøÍÑ¤·¡¢Emacs ¤ÎÃæ¤«¤é Web ¸¡
-;; º÷¥¨¥ó¥¸¥ó¤Ë¤è¤ë¸¡º÷¤ò¤·¡¢¸¡º÷·ë²Ì¤ÎÃæ¤«¤é SKK ¤Î¸õÊä¤È¤·¤Æ¼è¤ê½Ğ
-;; ¤·¤¿¤¤¤â¤Î¤òÀÚ¤ê½Ğ¤·¤ÆÍøÍÑ¤¹¤ë¥×¥í¥°¥é¥à¤Ç¤¹¡£
+;; w3m (http://w3m.sourceforge.net/) ã‚’åˆ©ç”¨ã—ã€Emacs ã®ä¸­ã‹ã‚‰ Web æ¤œ
+;; ç´¢ã‚¨ãƒ³ã‚¸ãƒ³ã«ã‚ˆã‚‹æ¤œç´¢ã‚’ã—ã€æ¤œç´¢çµæœã®ä¸­ã‹ã‚‰ SKK ã®å€™è£œã¨ã—ã¦å–ã‚Šå‡º
+;; ã—ãŸã„ã‚‚ã®ã‚’åˆ‡ã‚Šå‡ºã—ã¦åˆ©ç”¨ã™ã‚‹ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã§ã™ã€‚
 
-;; skk-w3m-use-w3m-backend ¤¬ non-nil ¤Ç¤¢¤ì¤Ğ¡¢w3m ¤ò backend ¥ª¥×
-;; ¥·¥ç¥óÉÕ¤­¤Çµ¯Æ°¤·¤Æ w3m ¤ÈÄ¾ÀÜ¸ò¿®¤·¤Ş¤¹¡£
-;; nil ¤Ç¤¢¤ì¤Ğ emacs-w3m (http://emacs-w3m.namazu.org/) ¤ò·ĞÍ³¤·¤Æ
-;; w3m ¤òÍøÍÑ¤·¤Ş¤¹ (emacs-w3m ¤Ç¤Ï w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ş¤»¤ó)¡£
-;; w3m backend ¤òÍøÍÑ¤¹¤ë¤³¤È¤Ç¡¢¸¡º÷¤ÎÅÙËè¤Ë w3m ¤òµ¯Æ°¤¹¤ëÉ¬Í×¤¬¤Ê¤¯
-;; ¤Ê¤ê¡¢¥×¥í¥»¥¹¤Îµ¯Æ°¡¢½ªÎ»¤ËÈ¼¤Ê¤¦¥ª¡¼¥Ğ¡¼¥Ø¥Ã¥É¤ò¸º¤é¤¹¤³¤È¤¬¤Ç¤­¤Ş
-;; ¤¹¡£
-;; w3m backend ¤Ï³«È¯Ãæ¤Ç¡¢º£¸åÂçÉı¤Ê»ÅÍÍÊÑ¹¹¤¬¹Ô¤Ê¤ï¤ì¤ë²ÄÇ½À­¤â¤¢¤ê
-;; Í½ÃÇ¤òµö¤·¤Ş¤»¤ó¤¬¡¢°ìÊı¤Ç emacs-w3m ¤â³«È¯¤Î¥¹¥Ô¡¼¥É¤¬Áá¤¤¥×¥í¥°¥é
-;; ¥à¤Ç¤¹¡£ÊÑÆ°¤¹¤ëÍ×ÁÇ¤Ï¾¯¤Ê¤¤Êı¤¬¡¢ÍÍ¡¹¤Ê´Ä¶­¤Ë¹ç¤¦²ÄÇ½À­¤¬¾¯¤·¤Ç¤â¾å
-;; ¤¬¤ë¤Î¤Ç¡¢²ÄÇ½¤Ê¸Â¤ê skk-w3m-use-w3m-backend ¤ò non-nil ¤Ç»ÈÍÑ¤¹¤ë¤³
-;; ¤È¤ò¤ª´«¤á¤·¤Ş¤¹¡£
+;; skk-w3m-use-w3m-backend ãŒ non-nil ã§ã‚ã‚Œã°ã€w3m ã‚’ backend ã‚ªãƒ—
+;; ã‚·ãƒ§ãƒ³ä»˜ãã§èµ·å‹•ã—ã¦ w3m ã¨ç›´æ¥äº¤ä¿¡ã—ã¾ã™ã€‚
+;; nil ã§ã‚ã‚Œã° emacs-w3m (http://emacs-w3m.namazu.org/) ã‚’çµŒç”±ã—ã¦
+;; w3m ã‚’åˆ©ç”¨ã—ã¾ã™ (emacs-w3m ã§ã¯ w3m ã‚’ backend ã§å‹•ã‹ã—ã¦ã„ã¾ã›ã‚“)ã€‚
+;; w3m backend ã‚’åˆ©ç”¨ã™ã‚‹ã“ã¨ã§ã€æ¤œç´¢ã®åº¦æ¯ã« w3m ã‚’èµ·å‹•ã™ã‚‹å¿…è¦ãŒãªã
+;; ãªã‚Šã€ãƒ—ãƒ­ã‚»ã‚¹ã®èµ·å‹•ã€çµ‚äº†ã«ä¼´ãªã†ã‚ªãƒ¼ãƒãƒ¼ãƒ˜ãƒƒãƒ‰ã‚’æ¸›ã‚‰ã™ã“ã¨ãŒã§ãã¾
+;; ã™ã€‚
+;; w3m backend ã¯é–‹ç™ºä¸­ã§ã€ä»Šå¾Œå¤§å¹…ãªä»•æ§˜å¤‰æ›´ãŒè¡Œãªã‚ã‚Œã‚‹å¯èƒ½æ€§ã‚‚ã‚ã‚Š
+;; äºˆæ–­ã‚’è¨±ã—ã¾ã›ã‚“ãŒã€ä¸€æ–¹ã§ emacs-w3m ã‚‚é–‹ç™ºã®ã‚¹ãƒ”ãƒ¼ãƒ‰ãŒæ—©ã„ãƒ—ãƒ­ã‚°ãƒ©
+;; ãƒ ã§ã™ã€‚å¤‰å‹•ã™ã‚‹è¦ç´ ã¯å°‘ãªã„æ–¹ãŒã€æ§˜ã€…ãªç’°å¢ƒã«åˆã†å¯èƒ½æ€§ãŒå°‘ã—ã§ã‚‚ä¸Š
+;; ãŒã‚‹ã®ã§ã€å¯èƒ½ãªé™ã‚Š skk-w3m-use-w3m-backend ã‚’ non-nil ã§ä½¿ç”¨ã™ã‚‹ã“
+;; ã¨ã‚’ãŠå‹§ã‚ã—ã¾ã™ã€‚
 
 ;; <HOW TO INSTALL>
-;; ¤³¤Î¥Õ¥¡¥¤¥ë¤ò SKK-MK ¤¬¤¢¤ë¥Ç¥£¥ì¥¯¥È¥ê¤Ë¥³¥Ô¡¼¤· (¥ê¥ó¥¯
-;; ¤¬»È¤¨¤ë¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤Ç¤Ï SKK-MK ¤Î¤¢¤ë¥Ç¥£¥ì¥¯¥È¥ê¤Ç
+;; ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ SKK-MK ãŒã‚ã‚‹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«ã‚³ãƒ”ãƒ¼ã— (ãƒªãƒ³ã‚¯
+;; ãŒä½¿ãˆã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ã‚·ã‚¹ãƒ†ãƒ ã§ã¯ SKK-MK ã®ã‚ã‚‹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã§
 ;;   ln -s ./experimental/skk-w3m.el .
-;; ¤·¤¿Êı¤¬ÎÉ¤¤¤«¤â¤·¤ì¤Ş¤»¤ó)¡¢¸å¤ÏÉáÄÌ¤Ë make install ¤¹¤ë¤À¤±¤Ç¤¹¡£
+;; ã—ãŸæ–¹ãŒè‰¯ã„ã‹ã‚‚ã—ã‚Œã¾ã›ã‚“)ã€å¾Œã¯æ™®é€šã« make install ã™ã‚‹ã ã‘ã§ã™ã€‚
 
 ;; <HOW TO WORK>
-;; skk-search-prog-list ¤Ë (skk-w3m-search "goo-daijirin") ¤Î¤è¤¦¤Ê
-;; Í×ÁÇ¤òÄÉ²Ã¤·¤Ş¤¹¡£ÄÌ¾ï¡¢Â¾¤Î¤É¤Î skk search engine ¤è¤ê¤âºÇ¤âÃÙ¤¤
-;; ¤Î¤Ç¡¢ºÇ¤âºÇ¸å¤¬ÎÉ¤¤¤Ç¤·¤ç¤¦¡£¤³¤ó¤Ê´¶¤¸¤Ë¤Ê¤ê¤Ş¤¹¡£
+;; skk-search-prog-list ã« (skk-w3m-search "goo-daijirin") ã®ã‚ˆã†ãª
+;; è¦ç´ ã‚’è¿½åŠ ã—ã¾ã™ã€‚é€šå¸¸ã€ä»–ã®ã©ã® skk search engine ã‚ˆã‚Šã‚‚æœ€ã‚‚é…ã„
+;; ã®ã§ã€æœ€ã‚‚æœ€å¾ŒãŒè‰¯ã„ã§ã—ã‚‡ã†ã€‚ã“ã‚“ãªæ„Ÿã˜ã«ãªã‚Šã¾ã™ã€‚
 
 ;; (setq skk-search-prog-list
 ;;       '((skk-search-jisyo-file skk-jisyo 0 t)
@@ -58,22 +58,22 @@
 ;;         (skk-w3m-search "goo-daijirin")
 ;;         (skk-w3m-search "goo-exceed-eiwa")))
 
-;; skk-w3m-search ¤Î°ú¿ô¤Ï¸¡º÷¥¨¥ó¥¸¥ó¤Î¼ïÎà¤òÊ¸»úÎó¤Ç»ØÄê¤·¤Ş¤¹¡£
-;; Ã¢¤·¡¢skk-w3m-search-engine-alist ¤ËÂĞ±ş¤¹¤ë¥¨¥ó¥È¥ê¤¬É¬Í×¤Ç¤¹¡£
+;; skk-w3m-search ã®å¼•æ•°ã¯æ¤œç´¢ã‚¨ãƒ³ã‚¸ãƒ³ã®ç¨®é¡ã‚’æ–‡å­—åˆ—ã§æŒ‡å®šã—ã¾ã™ã€‚
+;; ä½†ã—ã€skk-w3m-search-engine-alist ã«å¯¾å¿œã™ã‚‹ã‚¨ãƒ³ãƒˆãƒªãŒå¿…è¦ã§ã™ã€‚
 
-;; skk-w3m.el ¤Ç¤Ï search-engine Ëè¤Ë¸¡º÷·ë²Ì¤ò cache ¤·¤Ş¤¹¡£
-;; (skk-w3m-search "goo-daijirin" t) ¤Î¤è¤¦¤Ë `skk-w3m-search' ¤ÎÂè
-;; Æó°ú¿ô¤Ë non-nil argument ¤ò»ØÄê¤¹¤ë¤È cache ¤ò¹Ô¤Ê¤ï¤º¡¢Ëè²ó w3m
-;; ¤Ë¸¡º÷¤ò¤µ¤»¤Ş¤¹¡£
+;; skk-w3m.el ã§ã¯ search-engine æ¯ã«æ¤œç´¢çµæœã‚’ cache ã—ã¾ã™ã€‚
+;; (skk-w3m-search "goo-daijirin" t) ã®ã‚ˆã†ã« `skk-w3m-search' ã®ç¬¬
+;; äºŒå¼•æ•°ã« non-nil argument ã‚’æŒ‡å®šã™ã‚‹ã¨ cache ã‚’è¡Œãªã‚ãšã€æ¯å› w3m
+;; ã«æ¤œç´¢ã‚’ã•ã›ã¾ã™ã€‚
 
 ;; <TODO>
-;; o ¤È¤ê¤¢¤¨¤º skk-w3m-get-candidates-from-goo-exceed-waei,
+;; o ã¨ã‚Šã‚ãˆãš skk-w3m-get-candidates-from-goo-exceed-waei,
 ;;   skk-w3m-get-candidates-from-goo-exceed-eiwa,
-;;   skk-w3m-get-candidates-from-goo-daily-shingo ¤ò´°À®¤µ¤»¤ë¡£
-;; o ¸¡º÷¥¨¥ó¥¸¥ó¤ÎÁı²Ã¡£
-;; o lookup ¤Ï w3m-search.el ¤ò»È¤Ã¤¿ Web search ¤òÅı¹ç¤·¤Ê¤¤¤Î¤À¤í¤¦
-;;   ¤«...¡£Åı¹ç¤¹¤ì¤Ğ skk-lookup.el ¤Ç°ì¸µ´ÉÍı¤Ç¤­¤ë¡©
-;; o w3m backend ¤Î²şÎÉ¤ËÄÉ½¾¡£
+;;   skk-w3m-get-candidates-from-goo-daily-shingo ã‚’å®Œæˆã•ã›ã‚‹ã€‚
+;; o æ¤œç´¢ã‚¨ãƒ³ã‚¸ãƒ³ã®å¢—åŠ ã€‚
+;; o lookup ã¯ w3m-search.el ã‚’ä½¿ã£ãŸ Web search ã‚’çµ±åˆã—ãªã„ã®ã ã‚ã†
+;;   ã‹...ã€‚çµ±åˆã™ã‚Œã° skk-lookup.el ã§ä¸€å…ƒç®¡ç†ã§ãã‚‹ï¼Ÿ
+;; o w3m backend ã®æ”¹è‰¯ã«è¿½å¾“ã€‚
 
 ;;; Code
 
@@ -121,41 +121,41 @@
      nil ;(not skk-abbrev-mode)
      nil
      skk-w3m-make-query-quote-yahoo))
-  "*¸¡º÷¥¨¥ó¥¸¥óËè¤Î¸¡º÷¥ª¥×¥·¥ç¥ó¤ò»ØÄê¤¹¤ë¥¨¡¼¥ê¥¹¥È¡£
-car ¤Ï¸¡º÷¥¨¥ó¥¸¥ó¤òÉ½¤ï¤¹Ê¸»úÎó¡¢
-1th ¤Ï URL \(¸¡º÷Ê¸»úÎó¤ò %s ¤ÇÉ½¤ï¤¹\),
-2th ¤Ï Web page ¤Î coding-system,
-3th ¤Ï¸õÊäÀÚ¤ê½Ğ¤·¤Ë»ÈÍÑ¤¹¤ë´Ø¿ô¤òÉ½¤ï¤¹¥·¥ó¥Ü¥ë¡£
-4th \(optional\) ¤Ï S ¼°¤ò»ØÄê¤·¡¢É¾²Á¤·¤Æ non-nil ¤Ë¤Ê¤ë¾õÂÖ¤Î¤È¤­¤Ï w3m
-    ¤Ë¸¡º÷½èÍı¤ò¤µ¤»¤Ê¤¤¡£
-5th \(optional\) ¤Ï `skk-henkan-key' ¤ò²Ã¹©¤¹¤ë´Ø¿ô¡£
-6th \(optional\) ¤Ï 1th ¤Î¥Æ¥ó¥×¥ì¡¼¥È¤Ë¹ç¤ï¤»¤¿Ê¸»úÎó¤ò½ĞÎÏ¤¹¤ë´Ø¿ôÌ¾¡£
-    »ØÄê¤µ¤ì¤¿´Ø¿ô¤Ï¡¢¸«½Ğ¤·¸ì\(string\) ¤ò°ú¿ô¤È¤·¤Æ `funcall' ¤µ¤ì¤ë¡£
-    »ØÄê¤¬¤Ê¤¤¾ì¹ç¤Ï¡¢`w3m-search-escape-query-string' ¤¬ `funcall' ¤µ¤ì¤ë¡£")
+  "*æ¤œç´¢ã‚¨ãƒ³ã‚¸ãƒ³æ¯ã®æ¤œç´¢ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’æŒ‡å®šã™ã‚‹ã‚¨ãƒ¼ãƒªã‚¹ãƒˆã€‚
+car ã¯æ¤œç´¢ã‚¨ãƒ³ã‚¸ãƒ³ã‚’è¡¨ã‚ã™æ–‡å­—åˆ—ã€
+1th ã¯ URL \(æ¤œç´¢æ–‡å­—åˆ—ã‚’ %s ã§è¡¨ã‚ã™\),
+2th ã¯ Web page ã® coding-system,
+3th ã¯å€™è£œåˆ‡ã‚Šå‡ºã—ã«ä½¿ç”¨ã™ã‚‹é–¢æ•°ã‚’è¡¨ã‚ã™ã‚·ãƒ³ãƒœãƒ«ã€‚
+4th \(optional\) ã¯ S å¼ã‚’æŒ‡å®šã—ã€è©•ä¾¡ã—ã¦ non-nil ã«ãªã‚‹çŠ¶æ…‹ã®ã¨ãã¯ w3m
+    ã«æ¤œç´¢å‡¦ç†ã‚’ã•ã›ãªã„ã€‚
+5th \(optional\) ã¯ `skk-henkan-key' ã‚’åŠ å·¥ã™ã‚‹é–¢æ•°ã€‚
+6th \(optional\) ã¯ 1th ã®ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã«åˆã‚ã›ãŸæ–‡å­—åˆ—ã‚’å‡ºåŠ›ã™ã‚‹é–¢æ•°åã€‚
+    æŒ‡å®šã•ã‚ŒãŸé–¢æ•°ã¯ã€è¦‹å‡ºã—èª\(string\) ã‚’å¼•æ•°ã¨ã—ã¦ `funcall' ã•ã‚Œã‚‹ã€‚
+    æŒ‡å®šãŒãªã„å ´åˆã¯ã€`w3m-search-escape-query-string' ãŒ `funcall' ã•ã‚Œã‚‹ã€‚")
 
 (defvar skk-w3m-use-w3m-backend t
-  "*Non-nil ¤Ç¤¢¤ì¤Ğ¡¢w3m ¤ò backend ¥ª¥×¥·¥ç¥óÉÕ¤­¤Çµ¯Æ°¤·¤Æ¸¡º÷¤ò¹Ô¤Ê¤¦¡£
-`start-process' ¤¬»È¤¨¤Ê¤¤ Emacs ¤Ç¤ÏÍøÍÑÉÔ²Ä¡£
-nil ¤Ç¤¢¤ì¤Ğ¡¢emacs-w3m ¤ò·ĞÍ³¤·¤Æ w3m ¤òÍøÍÑ¤¹¤ë (¸½ºß¤Î emacs-w3m ¤Ç¤Ï
-w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ê¤¤)¡£")
+  "*Non-nil ã§ã‚ã‚Œã°ã€w3m ã‚’ backend ã‚ªãƒ—ã‚·ãƒ§ãƒ³ä»˜ãã§èµ·å‹•ã—ã¦æ¤œç´¢ã‚’è¡Œãªã†ã€‚
+`start-process' ãŒä½¿ãˆãªã„ Emacs ã§ã¯åˆ©ç”¨ä¸å¯ã€‚
+nil ã§ã‚ã‚Œã°ã€emacs-w3m ã‚’çµŒç”±ã—ã¦ w3m ã‚’åˆ©ç”¨ã™ã‚‹ (ç¾åœ¨ã® emacs-w3m ã§ã¯
+w3m ã‚’ backend ã§å‹•ã‹ã—ã¦ã„ãªã„)ã€‚")
 
 (defvar skk-w3m-command (or (and (boundp 'w3m-command) w3m-command) "w3m")
-  "*w3m ¥³¥Ş¥ó¥ÉÌ¾¡£")
+  "*w3m ã‚³ãƒãƒ³ãƒ‰åã€‚")
 
 (defvar skk-w3m-command-args "-backend"
-  "*w3m ¤Î backend ¥ª¥×¥·¥ç¥ó¡£")
+  "*w3m ã® backend ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã€‚")
 
 (defvar skk-w3m-backend-command-prompt "w3m>"
-  "*w3m backend ¤Î¥³¥Ş¥ó¥É¥×¥í¥ó¥×¥È¡£")
+  "*w3m backend ã®ã‚³ãƒãƒ³ãƒ‰ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆã€‚")
 
 (defvar skk-w3m-default-process-coding-system 'euc-japan
-  "*w3m backend ¥×¥í¥»¥¹¤Î¥Ç¥£¥Õ¥©¥ë¥È¤Î coding-system¡£")
+  "*w3m backend ãƒ—ãƒ­ã‚»ã‚¹ã®ãƒ‡ã‚£ãƒ•ã‚©ãƒ«ãƒˆã® coding-systemã€‚")
 
 (defvar skk-w3m-kill-command "quit"
-  "*w3m backend ¤Î½ªÎ»¥³¥Ş¥ó¥É¡£")
+  "*w3m backend ã®çµ‚äº†ã‚³ãƒãƒ³ãƒ‰ã€‚")
 
 (defvar skk-w3m-no-wait nil
-  "*Non-nil ¤Ç¤¢¤ì¤Ğ¡¢w3m backend ¥×¥í¥»¥¹¤¬²¿¤«½ĞÎÏ¤¹¤ë¤Ş¤ÇÂÔ¤¿¤Ê¤¤¡£")
+  "*Non-nil ã§ã‚ã‚Œã°ã€w3m backend ãƒ—ãƒ­ã‚»ã‚¹ãŒä½•ã‹å‡ºåŠ›ã™ã‚‹ã¾ã§å¾…ãŸãªã„ã€‚")
 
 (defvar skk-w3m-quote-yahoo-currency-symbol-alist
   ;;http://quote.yahoo.com/m5?a=1&s=USD&t=JPY&c=0 ; U.S. Dollar, Japanese Yen
@@ -321,7 +321,7 @@ w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ê¤¤)¡£")
   (let ((process-connection-type t))
     (buffer-disable-undo)
     ;;(insert "\nStarting w3m backend...\n\n")
-    (skk-message "skk ¤Î¤¿¤á¤Ë w3m backend ¤òµ¯Æ°¤·¤Æ¤¤¤Ş¤¹..."
+    (skk-message "skk ã®ãŸã‚ã« w3m backend ã‚’èµ·å‹•ã—ã¦ã„ã¾ã™..."
                  "Starting w3m backend for skk...")
     (condition-case nil
         (progn
@@ -336,14 +336,14 @@ w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ê¤¤)¡£")
             (process-kill-without-query skk-w3m-process)))
           (skk-w3m-set-process-coding-system
            skk-w3m-default-process-coding-system))
-      (file-error (skk-error "¥·¥¹¥Æ¥à¾å¤Ë \"%s\" ¤¬¸«¤Ä¤«¤ê¤Ş¤»¤ó"
+      (file-error (skk-error "ã‚·ã‚¹ãƒ†ãƒ ä¸Šã« \"%s\" ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“"
                              "Sorry, can't find \"%s\" on your system"
                              skk-w3m-command))
       (error (skk-w3m-kill 'nomsg)))
     (if (eq (process-status skk-w3m-process) 'exit)
         (progn
           (skk-w3m-kill 'nomsg)
-          (skk-error "%s ¥×¥í¥»¥¹¤¬°Û¾ï½ªÎ»¤·¤Ş¤·¤¿¡£"
+          (skk-error "%s ãƒ—ãƒ­ã‚»ã‚¹ãŒç•°å¸¸çµ‚äº†ã—ã¾ã—ãŸã€‚"
                      "Process %s exited abnormally with code 1"
                      skk-w3m-process)))
     (while (and (memq (process-status skk-w3m-process) '(run stop))
@@ -351,19 +351,19 @@ w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ê¤¤)¡£")
                 (not (re-search-forward skk-w3m-backend-command-prompt nil t)))
       (accept-process-output skk-w3m-process))
     ;;(or (memq (process-status skk-w3m-process) '(run stop))
-    ;;    (skk-error "w3m backend ¥×¥í¥»¥¹¤ò¥¹¥¿¡¼¥È¤¹¤ë¤³¤È¤¬¤Ç¤­¤Ş¤»¤ó"
+    ;;    (skk-error "w3m backend ãƒ—ãƒ­ã‚»ã‚¹ã‚’ã‚¹ã‚¿ãƒ¼ãƒˆã™ã‚‹ã“ã¨ãŒã§ãã¾ã›ã‚“"
     ;;               "Unable to start w3m backend process"))
     (goto-char (process-mark skk-w3m-process))
-    (skk-message "skk ¤Î¤¿¤á¤Ë w3m backend ¤òµ¯Æ°¤·¤Æ¤¤¤Ş¤¹...´°Î»!"
+    (skk-message "skk ã®ãŸã‚ã« w3m backend ã‚’èµ·å‹•ã—ã¦ã„ã¾ã™...å®Œäº†!"
                  "Starting w3m backend for skk...done")))
 
 (defun skk-w3m-kill (&optional nomsg)
-  "w3m backend ¥×¥í¥»¥¹¤ò»¦¤¹¡£"
+  "w3m backend ãƒ—ãƒ­ã‚»ã‚¹ã‚’æ®ºã™ã€‚"
   (interactive "P")
   (if (not (skk-w3m-process-alive))
-      ;; ËÌÅÍ¿À·ı¤ÎÀ¤³¦¤Ç¤¹¤Ê...¡£
+      ;; åŒ—æ–—ç¥æ‹³ã®ä¸–ç•Œã§ã™ãª...ã€‚
       (or nomsg
-          (skk-message "w3m backend ¥×¥í¥»¥¹¤Ï´û¤Ë»à¤ó¤Ç¤Ş¤¹"
+          (skk-message "w3m backend ãƒ—ãƒ­ã‚»ã‚¹ã¯æ—¢ã«æ­»ã‚“ã§ã¾ã™"
                        "w3m backend process has already died"))
     (with-current-buffer (get-buffer skk-w3m-working-buffer)
       (unwind-protect
@@ -374,7 +374,7 @@ w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ê¤¤)¡£")
                  (delete-process skk-w3m-process))
             ;;(setq skk-w3m-process nil)
             (or nomsg
-                (skk-message "w3m backend ¥×¥í¥»¥¹¤¬»à¤Ë¤Ş¤·¤¿"
+                (skk-message "w3m backend ãƒ—ãƒ­ã‚»ã‚¹ãŒæ­»ã«ã¾ã—ãŸ"
                              "w3m backend process died")))
         (kill-buffer (current-buffer))))))
 
@@ -385,7 +385,7 @@ w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ê¤¤)¡£")
     (let ((pmark (process-mark skk-w3m-process))
           origpoint)
       (accept-process-output)
-      ;; Æ°¤¤¤¿¥İ¥¤¥ó¥È¤òÊİÂ¸¤¹¤ë¤¿¤á save-excursion ¤Ï»È¤ï¤Ê¤¤¡£
+      ;; å‹•ã„ãŸãƒã‚¤ãƒ³ãƒˆã‚’ä¿å­˜ã™ã‚‹ãŸã‚ save-excursion ã¯ä½¿ã‚ãªã„ã€‚
       (goto-char pmark)
       (setq origpoint (point))
       (insert command)
@@ -395,7 +395,7 @@ w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ê¤¤)¡£")
       (goto-char origpoint)
       (while (and (not (re-search-forward
                         skk-w3m-backend-command-prompt pmark t))
-                  ;; quit ¥³¥Ş¥ó¥É¤òÁ÷¤Ã¤¿¤é¥×¥í¥ó¥×¥È¤Ïµ¢¤Ã¤Æ¤³¤Ê¤¤¡£
+                  ;; quit ã‚³ãƒãƒ³ãƒ‰ã‚’é€ã£ãŸã‚‰ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆã¯å¸°ã£ã¦ã“ãªã„ã€‚
                   (not (eq (process-status skk-w3m-process) 'exit)))
         (accept-process-output))
       ;;(skk-w3m-check-errors)
@@ -430,13 +430,13 @@ w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ê¤¤)¡£")
            (if skk-w3m-use-w3m-backend
                nil
              ;;(format
-             ;;"¢£¡Î%s¡Ï¤ÎÂç¼­ÎÓÂèÆóÈÇ¤«¤é¤Î¸¡º÷·ë²Ì¡¡ <b>[0-9]+·ï</b>" key)
+             ;;"â– ï¼»%sï¼½ã®å¤§è¾æ—ç¬¬äºŒç‰ˆã‹ã‚‰ã®æ¤œç´¢çµæœã€€ <b>[0-9]+ä»¶</b>" key)
              "<!-- RESULT_BLOCK -->"))
           (endregexp
            (if skk-w3m-use-w3m-backend
                nil
              ;;(format
-             ;;"¢£¡Î%s¡Ï¤ÎÂç¼­ÎÓÂèÆóÈÇ¤«¤é¤Î¸¡º÷·ë²Ì¡¡ <b>[0-9]+·ï</b>" key)
+             ;;"â– ï¼»%sï¼½ã®å¤§è¾æ—ç¬¬äºŒç‰ˆã‹ã‚‰ã®æ¤œç´¢çµæœã€€ <b>[0-9]+ä»¶</b>" key)
              "<!-- RESULT_BLOCK -->"))
           (start (if skk-w3m-use-w3m-backend (point-min)))
           (end (if skk-w3m-use-w3m-backend (process-mark skk-w3m-process)))
@@ -454,23 +454,23 @@ w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ê¤¤)¡£")
         (goto-char start)
         (setq key (mapconcat 'char-to-string key "-*"))
         (setq key (format "\\(%s\\|%s\\)"
-                          ;; <b>8</b>  <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%AB%A4%F3%A4%AD%A4%E7%A4%A6&amp;ID=a4ab/04290800.txt&amp;sw=2" target="_blank" hseq="35"><img_alt src="/Common/icon01.gif">¿·µ¬¤Ç³«¤¯</img_alt></a>  <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%AB%A4%F3%A4%AD%A4%E7%A4%A6&amp;ID=a4ab/04290800.txt&amp;sw=2" hseq="36">¤«¤ó¤­¤ç¤¦¡Ú´Ï¶¶¡Û</a>
-                          (format "<a href=\".+\">%s *¡Ú\\([^<>¡Ú¡Û]+\\)¡Û</a>" key)
-                          ;; <B>¤·¤³¤¦-¤µ¤¯¤´¡½¤«¤¦¡½¡Ú»î¹Ôºø¸í¡Û</B>
-                          ;; <B>¤¬¤¤¤Ï¤ó¤Ü¤·¤°¤ï¤¤¤Ï¤ó¡½¡Ú³°È¿ÙÅìæ¡Û</B>
-                          ;; <B>¤Ê¤«¤ß  ¡ÚÃæ¿È¡¦ÃæÌ£¡Û  </B>
-                          ;; <B><FONT COLOR="0000FF">¤·¤³¤¦-¤µ¤¯¤´</FONT>  <FONT><SMALL> ¡½¤«¤¦¡½</SMALL></FONT>  ¡Ú»î¹Ôºø¸í¡Û  </B>
-                          ;; <B>¤¨¤¬¤ª¤ñ¤¬¤Û¡Ú¡Ô¾Ğ´é¡Õ¡Û</B>
-                          (format "<B>\\(<FONT COLOR=\"[0-9A-Z]+\">\\)*%s[^¡Ú]*¡Ú\\([^<>¡Ú¡Û]+\\)¡Û *</B>" key)))
+                          ;; <b>8</b>  <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%AB%A4%F3%A4%AD%A4%E7%A4%A6&amp;ID=a4ab/04290800.txt&amp;sw=2" target="_blank" hseq="35"><img_alt src="/Common/icon01.gif">æ–°è¦ã§é–‹ã</img_alt></a>  <a href="/cgi-bin/jp-more_print.cgi?MT=%A4%AB%A4%F3%A4%AD%A4%E7%A4%A6&amp;ID=a4ab/04290800.txt&amp;sw=2" hseq="36">ã‹ã‚“ãã‚‡ã†ã€è‰¦æ©‹ã€‘</a>
+                          (format "<a href=\".+\">%s *ã€\\([^<>ã€ã€‘]+\\)ã€‘</a>" key)
+                          ;; <B>ã—ã“ã†-ã•ãã”â€•ã‹ã†â€•ã€è©¦è¡ŒéŒ¯èª¤ã€‘</B>
+                          ;; <B>ãŒã„ã¯ã‚“ã¼ã—ãã‚ã„ã¯ã‚“â€•ã€å¤–åæ‹‡è¶¾ã€‘</B>
+                          ;; <B>ãªã‹ã¿  ã€ä¸­èº«ãƒ»ä¸­å‘³ã€‘  </B>
+                          ;; <B><FONT COLOR="0000FF">ã—ã“ã†-ã•ãã”</FONT>  <FONT><SMALL> â€•ã‹ã†â€•</SMALL></FONT>  ã€è©¦è¡ŒéŒ¯èª¤ã€‘  </B>
+                          ;; <B>ãˆãŒãŠã‚‘ãŒã»ã€ã€Šç¬‘é¡”ã€‹ã€‘</B>
+                          (format "<B>\\(<FONT COLOR=\"[0-9A-Z]+\">\\)*%s[^ã€]*ã€\\([^<>ã€ã€‘]+\\)ã€‘ *</B>" key)))
         (while (re-search-forward key end t nil)
-          ;; KEY = "\\(<a href=\".+\">¤·-*¤³-*¤¦-*¤µ-*¤¯-*¤´ *¡Ú\\([^<>¡Ú¡Û]+\\)¡Û</a>\\|<B>\\(<FONT COLOR=\"[0-9A-Z]+\">\\)*¤·-*¤³-*¤¦-*¤µ-*¤¯-*¤´[^<¡Ú]*¡Ú\\([^<>¡Ú¡Û]+\\)¡Û *</B>\\)"
+          ;; KEY = "\\(<a href=\".+\">ã—-*ã“-*ã†-*ã•-*ã-*ã” *ã€\\([^<>ã€ã€‘]+\\)ã€‘</a>\\|<B>\\(<FONT COLOR=\"[0-9A-Z]+\">\\)*ã—-*ã“-*ã†-*ã•-*ã-*ã”[^<ã€]*ã€\\([^<>ã€ã€‘]+\\)ã€‘ *</B>\\)"
           (setq temp (skk-w3m-filter-string
-                      ;; ¡Ò²¿»ş¡Ó
-                      ;; ¡Ô¾Ğ´é¡Õ
+                      ;; ã€ˆä½•æ™‚ã€‰
+                      ;; ã€Šç¬‘é¡”ã€‹
                       (or (match-string-no-properties 2)
                           (match-string-no-properties 4))
-                      '("¡Ò" "¡Ó" "¡Ô" "¡Õ")))
-          (dolist (elm (split-string temp "¡¦"))
+                      '("ã€ˆ" "ã€‰" "ã€Š" "ã€‹")))
+          (dolist (elm (split-string temp "ãƒ»"))
             ;; do not add a redundant candidate.
             (unless (member elm v)
               (setq v (cons elm v)))))
@@ -478,39 +478,39 @@ w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ê¤¤)¡£")
 
 (defun skk-w3m-get-candidates-from-goo-exceed-waei (key)
   ;; SORRY, NOT YET.
-  ;;   ;; 15:¢£¡Î¤Í¤Ã¤·¤ó¡Ï¤ÎEXCEEDÏÂ±Ñ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì
+  ;;   ;; 15:â– ï¼»ã­ã£ã—ã‚“ï¼½ã®EXCEEDå’Œè‹±è¾å…¸ã‹ã‚‰ã®æ¤œç´¢çµæœ
   ;;   ;; 16:*
   ;;   ;; 17:
-  ;;   ;; 18:¤Í¤Ã¤·¤ó
-  ;;   ;; 19:[clear] Ç®¿´
-  ;;   ;; 20:[clear] zeal¡¨¡¡ardor¡¨¡¡eagerness¡¨¡¡enthusiasm¡¥¡¡¡Á¤Ê
-  ;;   ;; 21:        eager¡¨¡¡ardent¡¨¡¡keen¡¥¡¡¡Á¤Ë¡¡eagerly¡¨
-  ;;   ;; 22:        earnestly¡¨¡¡intently¡¥
+  ;;   ;; 18:ã­ã£ã—ã‚“
+  ;;   ;; 19:[clear] ç†±å¿ƒ
+  ;;   ;; 20:[clear] zealï¼›ã€€ardorï¼›ã€€eagernessï¼›ã€€enthusiasmï¼ã€€ï½ãª
+  ;;   ;; 21:        eagerï¼›ã€€ardentï¼›ã€€keenï¼ã€€ï½ã«ã€€eagerlyï¼›
+  ;;   ;; 22:        earnestlyï¼›ã€€intentlyï¼
   ;;   ;; 23:
   ;;   ;; 24:*
-  ;;   ;; 25:¢£¡Î¤Í¤Ã¤·¤ó¡Ï¤ÎEXCEEDÏÂ±Ñ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì
+  ;;   ;; 25:â– ï¼»ã­ã£ã—ã‚“ï¼½ã®EXCEEDå’Œè‹±è¾å…¸ã‹ã‚‰ã®æ¤œç´¢çµæœ
   ;;   (let (temp v)
   ;;     (save-match-data
   ;;       (if (not (re-search-forward
-  ;;        (concat "¢£\\¡Î" (regexp-quote key) "\\¡Ï¤ÎEXCEEDÏÂ±Ñ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì")
+  ;;        (concat "â– \\ï¼»" (regexp-quote key) "\\ï¼½ã®EXCEEDå’Œè‹±è¾å…¸ã‹ã‚‰ã®æ¤œç´¢çµæœ")
   ;;        nil t nil))
   ;;      nil
-  ;;    (while (re-search-forward "\\[clear\\] [a-z]+\\.¡¡\\([^ a-zA-Z][^¡¥]+\\)¡¥" nil t nil)
+  ;;    (while (re-search-forward "\\[clear\\] [a-z]+\\.ã€€\\([^ a-zA-Z][^ï¼]+\\)ï¼" nil t nil)
   ;;      (setq temp (match-string-no-properties 1))
   ;;      (setq temp (skk-w3m-filter-string
-  ;;              ;; [[ÊÆÏÃ]]
-  ;;              temp '("\n" "[0-9]+: +" "[¡¡ ]+" "¡Ê[¤¡-¤ó]+¡Ë" "([, a-z]+)"
+  ;;              ;; [[ç±³è©±]]
+  ;;              temp '("\n" "[0-9]+: +" "[ã€€ ]+" "ï¼ˆ[ã-ã‚“]+ï¼‰" "([, a-z]+)"
   ;;                 "\\[\\[[^a-zA-Z]+\\]\\]")))
-  ;;      (while (string-match "\\([^¡¤¡¨]+\\)¡Î\\([^¡¤¡¨]+\\)¡Ï\\([^¡¤¡¨]+\\)*" temp)
+  ;;      (while (string-match "\\([^ï¼Œï¼›]+\\)ï¼»\\([^ï¼Œï¼›]+\\)ï¼½\\([^ï¼Œï¼›]+\\)*" temp)
   ;;        (setq temp (concat (substring temp 0 (match-beginning 0))
   ;;                   (match-string-no-properties 1 temp)
   ;;                   (match-string-no-properties 3 temp)
-  ;;                   "¡¤"
+  ;;                   "ï¼Œ"
   ;;                   (match-string-no-properties 2 temp)
   ;;                   (match-string-no-properties 3 temp)
   ;;                   (substring temp (match-end 0)))))
   ;;
-  ;;      (setq v (nconc v (split-string temp "[¡¤¡¨]"))))
+  ;;      (setq v (nconc v (split-string temp "[ï¼Œï¼›]"))))
   ;;    v))))
   )
 
@@ -523,7 +523,7 @@ w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ê¤¤)¡£")
   ;; <table width="100%" border="0" cellspacing="0" cellpadding="0">
   ;;   <tr>
   ;;     <td>
-  ;;       ¢£¡Î<font color="#993333">collaborate</font>¡Ï¤ÎEXCEED±ÑÏÂ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì
+  ;;       â– ï¼»<font color="#993333">collaborate</font>ï¼½ã®EXCEEDè‹±å’Œè¾å…¸ã‹ã‚‰ã®æ¤œç´¢çµæœ
   ;;     </td>
   ;;   </tr>
   ;;   <tr>
@@ -536,7 +536,7 @@ w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ê¤¤)¡£")
   ;;   <TR ALIGN="LEFT" VALIGN="MIDDLE">
   ;;     <TD>
   ;;       <SPAN CLASS="css4g">
-  ;;         <B>col¡¦lab¡¦o¡¦rate</B>¡¡<A HREF="http://dictionary2.goo.ne.jp/ej/voice/C/01010419.wav"><IMG LOWSRC="/ej/image/voice.gif" WIDTH="23" HEIGHT="12" BORDER="0" ALIGN="absmiddle"></A>
+  ;;         <B>colãƒ»labãƒ»oãƒ»rate</B>ã€€<A HREF="http://dictionary2.goo.ne.jp/ej/voice/C/01010419.wav"><IMG LOWSRC="/ej/image/voice.gif" WIDTH="23" HEIGHT="12" BORDER="0" ALIGN="absmiddle"></A>
   ;;       </SPAN>
   ;;     </TD>
   ;;   </TR>
@@ -556,7 +556,7 @@ w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ê¤¤)¡£")
   ;;     <TD ALIGN="LEFT" VALIGN="TOP"><IMG SRC="/Common/clear.gif" WIDTH="68" HEIGHT="2"></TD>
   ;;     <TD WIDTH="400" ALIGN="LEFT" VALIGN="TOP">
   ;;       <SPAN CLASS="css3g">
-  ;;         <i>vi.</i>¡¡¶¦¤ËÆ¯¤¯¡¨¡¡¶¦Æ±¸¦µæ¤¹¤ë¡¡<i>(with, on, in)¡¨</i>¡¡Å¨Â¦¡ÎÀêÎÎ·³¡Ï¤Ë¶¨ÎÏ¤¹¤ë¡¥
+  ;;         <i>vi.</i>ã€€å…±ã«åƒãï¼›ã€€å…±åŒç ”ç©¶ã™ã‚‹ã€€<i>(with, on, in)ï¼›</i>ã€€æ•µå´ï¼»å é ˜è»ï¼½ã«å”åŠ›ã™ã‚‹ï¼
   ;;       </SPAN>
   ;;     </TD>
   ;;   </TR>
@@ -566,7 +566,7 @@ w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ê¤¤)¡£")
   ;;     <TD ALIGN="LEFT" VALIGN="TOP"><IMG SRC="/Common/clear.gif" WIDTH="48" HEIGHT="2"></TD>
   ;;     <TD WIDTH="420" ALIGN="LEFT" VALIGN="TOP">
   ;;       <SPAN CLASS="css3g">
-  ;;         <FONT COLOR="FF0000">collaboration</FONT>¡¡<A HREF="http://dictionary2.goo.ne.jp/ej/voice/C/02020773.wav"><IMG LOWSRC="/ej/image/voice.gif" WIDTH="23" HEIGHT="12" BORDER="0" ALIGN="absmiddle"></A>
+  ;;         <FONT COLOR="FF0000">collaboration</FONT>ã€€<A HREF="http://dictionary2.goo.ne.jp/ej/voice/C/02020773.wav"><IMG LOWSRC="/ej/image/voice.gif" WIDTH="23" HEIGHT="12" BORDER="0" ALIGN="absmiddle"></A>
   ;;       </SPAN>
   ;;     </TD>
   ;;   </TR>
@@ -576,7 +576,7 @@ w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ê¤¤)¡£")
   ;;     <TD ALIGN="LEFT" VALIGN="TOP"><IMG SRC="/Common/clear.gif" WIDTH="68" HEIGHT="2"></TD>
   ;;     <TD WIDTH="400" ALIGN="LEFT" VALIGN="TOP">
   ;;       <SPAN CLASS="css3g">
-  ;;         <i>n.</i>¡¡<FONT COLOR="FF0000">collaborationism</FONT>¡¡<i>n.</i>¡¡<FONT COLOR="FF0000">collaborationist</FONT>¡¡<i>n.</i>¡¡¡ÊÅ¨Â¦¤Ø¤Î¡Ë¶¨ÎÏ¼Ô¡¥
+  ;;         <i>n.</i>ã€€<FONT COLOR="FF0000">collaborationism</FONT>ã€€<i>n.</i>ã€€<FONT COLOR="FF0000">collaborationist</FONT>ã€€<i>n.</i>ã€€ï¼ˆæ•µå´ã¸ã®ï¼‰å”åŠ›è€…ï¼
   ;;       </SPAN>
   ;;     </TD>
   ;;   </TR>
@@ -606,7 +606,7 @@ w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ê¤¤)¡£")
   ;;     <TD ALIGN="LEFT" VALIGN="TOP"><IMG SRC="/Common/clear.gif" WIDTH="68" HEIGHT="2"></TD>
   ;;     <TD WIDTH="400" ALIGN="LEFT" VALIGN="TOP">
   ;;       <SPAN CLASS="css3g">
-  ;;         <i>a.</i>¡¡¶¦Æ±À©ºî¤Î¡¥
+  ;;         <i>a.</i>ã€€å…±åŒåˆ¶ä½œã®ï¼
   ;;       </SPAN>
   ;;     </TD>
   ;;   </TR>
@@ -616,7 +616,7 @@ w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ê¤¤)¡£")
   ;;     <TD ALIGN="LEFT" VALIGN="TOP"><IMG SRC="/Common/clear.gif" WIDTH="48" HEIGHT="2"></TD>
   ;;     <TD WIDTH="420" ALIGN="LEFT" VALIGN="TOP">
   ;;       <SPAN CLASS="css3g">
-  ;;         <FONT COLOR="FF0000">collaborator</FONT>¡¡<A HREF="http://dictionary2.goo.ne.jp/ej/voice/C/02020774.wav"><IMG LOWSRC="/ej/image/voice.gif" WIDTH="23" HEIGHT="12" BORDER="0" ALIGN="absmiddle"></A>
+  ;;         <FONT COLOR="FF0000">collaborator</FONT>ã€€<A HREF="http://dictionary2.goo.ne.jp/ej/voice/C/02020774.wav"><IMG LOWSRC="/ej/image/voice.gif" WIDTH="23" HEIGHT="12" BORDER="0" ALIGN="absmiddle"></A>
   ;;       </SPAN>
   ;;     </TD>
   ;;   </TR>
@@ -639,7 +639,7 @@ w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ê¤¤)¡£")
   ;;   </tr>
   ;;   <tr>
   ;;     <td>
-  ;;       ¢£¡Î<font color="#993333">collaborate</font>¡Ï¤ÎEXCEED±ÑÏÂ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì
+  ;;       â– ï¼»<font color="#993333">collaborate</font>ï¼½ã®EXCEEDè‹±å’Œè¾å…¸ã‹ã‚‰ã®æ¤œç´¢çµæœ
   ;;     </td>
   ;;   </tr>
   ;; </table>
@@ -647,44 +647,44 @@ w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ê¤¤)¡£")
   ;; </td></tr></table>
   ;; <!-- RESULT_BLOCK -->
   ;;
-  ;; con¡¦tem¡¦po¡¦ra¡¦ry
-  ;; [clear] ¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü
-  ;; [clear] a., n.¡¡Æ±»şÂå¤Î¡Ê¿Í¡¤»¨»ï¡Ë¡¡(with)¡¨¡¡Æ±Ç¯Îğ¤Î¡Ê
-  ;; ¿Í¡Ë¡¨¡¡¸½Âå¤Î¡Ê¿Í¡Ë¡¥
+  ;; conãƒ»temãƒ»poãƒ»raãƒ»ry
+  ;; [clear] â—â—â—â—â—â—â—â—â—â—â—â—â—â—
+  ;; [clear] a., n.ã€€åŒæ™‚ä»£ã®ï¼ˆäººï¼Œé›‘èªŒï¼‰ã€€(with)ï¼›ã€€åŒå¹´é½¢ã®ï¼ˆ
+  ;; äººï¼‰ï¼›ã€€ç¾ä»£ã®ï¼ˆäººï¼‰ï¼
   ;;
   ;; *
-  ;; ¢£¡Îcontemporary¡Ï¤ÎEXCEED±ÑÏÂ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì
+  ;; â– ï¼»contemporaryï¼½ã®EXCEEDè‹±å’Œè¾å…¸ã‹ã‚‰ã®æ¤œç´¢çµæœ
   ;;
-  ;; 14:¢£¡Îcollaborate¡Ï¤ÎEXCEED±ÑÏÂ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì
+  ;; 14:â– ï¼»collaborateï¼½ã®EXCEEDè‹±å’Œè¾å…¸ã‹ã‚‰ã®æ¤œç´¢çµæœ
   ;; 15:*
   ;; 16:
-  ;; 17:col¡¦lab¡¦o¡¦rate
-  ;; 18:[clear] ¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü
-  ;; 19:[clear] vi.¡¡¶¦¤ËÆ¯¤¯¡¨¡¡¶¦Æ±¸¦µæ¤¹¤ë¡¡(with, on, in)¡¨
-  ;; 20:        Å¨Â¦¡ÎÀêÎÎ·³¡Ï¤Ë¶¨ÎÏ¤¹¤ë¡¥
+  ;; 17:colãƒ»labãƒ»oãƒ»rate
+  ;; 18:[clear] â—â—â—â—â—â—â—â—â—â—â—â—
+  ;; 19:[clear] vi.ã€€å…±ã«åƒãï¼›ã€€å…±åŒç ”ç©¶ã™ã‚‹ã€€(with, on, in)ï¼›
+  ;; 20:        æ•µå´ï¼»å é ˜è»ï¼½ã«å”åŠ›ã™ã‚‹ï¼
   ;; 21:[clear] collaboration
-  ;; 22:[clear] n.¡¡collaborationism¡¡n.¡¡collaborationist¡¡n.¡¡¡Ê
-  ;; 23:        Å¨Â¦¤Ø¤Î¡Ë¶¨ÎÏ¼Ô¡¥
+  ;; 22:[clear] n.ã€€collaborationismã€€n.ã€€collaborationistã€€n.ã€€ï¼ˆ
+  ;; 23:        æ•µå´ã¸ã®ï¼‰å”åŠ›è€…ï¼
   ;; 24:[clear] collaborative
-  ;; 25:[clear] ¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü
-  ;; 26:[clear] a.¡¡¶¦Æ±À©ºî¤Î¡¥
+  ;; 25:[clear] â—â—â—â—â—â—â—â—â—â—â—â—â—â—
+  ;; 26:[clear] a.ã€€å…±åŒåˆ¶ä½œã®ï¼
   ;; 27:[clear] collaborator
   ;; 28:[clear] n.
   ;; 29:
   ;; 30:*
-  ;; 31:¢£¡Îcollaborate¡Ï¤ÎEXCEED±ÑÏÂ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì
+  ;; 31:â– ï¼»collaborateï¼½ã®EXCEEDè‹±å’Œè¾å…¸ã‹ã‚‰ã®æ¤œç´¢çµæœ
   ;;
-  ;; ¢£¡Îvery¡Ï¤ÎEXCEED±ÑÏÂ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì¡¡ 2·ï
+  ;; â– ï¼»veryï¼½ã®EXCEEDè‹±å’Œè¾å…¸ã‹ã‚‰ã®æ¤œç´¢çµæœã€€ 2ä»¶
   ;; *
   ;;
-  ;; 1  ¿·µ¬¤Ç³«¤¯  very
+  ;; 1  æ–°è¦ã§é–‹ã  very
   ;;
-  ;; 2  ¿·µ¬¤Ç³«¤¯  Very light
+  ;; 2  æ–°è¦ã§é–‹ã  Very light
   ;;
   ;; *
-  ;; ¢£¡Îvery¡Ï¤ÎEXCEED±ÑÏÂ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì¡¡ 2·ï
+  ;; â– ï¼»veryï¼½ã®EXCEEDè‹±å’Œè¾å…¸ã‹ã‚‰ã®æ¤œç´¢çµæœã€€ 2ä»¶
   ;;
-  ;; ¢£¡Îcontemporary¡Ï¤ÎEXCEED±ÑÏÂ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì
+  ;; â– ï¼»contemporaryï¼½ã®EXCEEDè‹±å’Œè¾å…¸ã‹ã‚‰ã®æ¤œç´¢çµæœ
   ;; *
   ;;   (save-match-data
   ;;     (let (temp v start end)
@@ -694,27 +694,27 @@ w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ê¤¤)¡£")
   ;;    (if (search-forward "<!-- RESULT_BLOCK -->" nil t nil)
   ;;        (setq end (point)))
   ;;    (goto-char start)
-  ;;    (setq key (concat "<a href=\".+\">" (regexp-quote key) " +¡Ú\\([^¡Ú¡Û]+\\)¡Û</a>"))
+  ;;    (setq key (concat "<a href=\".+\">" (regexp-quote key) " +ã€\\([^ã€ã€‘]+\\)ã€‘</a>"))
   ;;    (while (re-search-forward key end t nil)
   ;;      (setq temp (skk-w3m-filter-string
-  ;;              ;; ¡Ò²¿»ş¡Ó
-  ;;              (match-string-no-properties 1) '("¡Ò" "¡Ó")))
-  ;;      (setq v (nconc (split-string temp "¡¦") v)))
+  ;;              ;; ã€ˆä½•æ™‚ã€‰
+  ;;              (match-string-no-properties 1) '("ã€ˆ" "ã€‰")))
+  ;;      (setq v (nconc (split-string temp "ãƒ»") v)))
   ;;    (nreverse v)))))
   ;;   (save-match-data
   ;;     (let (v)
-  ;;       (if (not (re-search-forward "[0-9]+  ¿·µ¬¤Ç³«¤¯" nil t nil))
+  ;;       (if (not (re-search-forward "[0-9]+  æ–°è¦ã§é–‹ã" nil t nil))
   ;;      (if (re-search-forward
-  ;;           (concat "¢£\\¡Î" (regexp-quote key) "\\¡Ï¤ÎEXCEED±ÑÏÂ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì")
+  ;;           (concat "â– \\ï¼»" (regexp-quote key) "\\ï¼½ã®EXCEEDè‹±å’Œè¾å…¸ã‹ã‚‰ã®æ¤œç´¢çµæœ")
   ;;           nil t nil)
   ;;          (setq v (skk-w3m-get-candidates-from-goo-exceed-eiwa-1)))
   ;;    (beginning-of-line)
-  ;;    (while (re-search-forward "[0-9]+  ¿·µ¬¤Ç³«¤¯" nil t nil)
+  ;;    (while (re-search-forward "[0-9]+  æ–°è¦ã§é–‹ã" nil t nil)
   ;;      (backward-char)
   ;;      (w3m-view-this-url)
   ;;      (goto-char (point-min))
   ;;      (if (re-search-forward
-  ;;           (concat "¢£\\¡Î" (regexp-quote key) "\\¡Ï¤ÎEXCEED±ÑÏÂ¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì")
+  ;;           (concat "â– \\ï¼»" (regexp-quote key) "\\ï¼½ã®EXCEEDè‹±å’Œè¾å…¸ã‹ã‚‰ã®æ¤œç´¢çµæœ")
   ;;           nil t nil)
   ;;          (setq v (nconc v (skk-w3m-get-candidates-from-goo-exceed-eiwa-1))))
   ;;      (w3m-view-previous-page)))
@@ -725,78 +725,78 @@ w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ê¤¤)¡£")
 ;;   (save-match-data
 ;;     (let (temp temp1 temp2 temp3 tail v)
 ;;       (while (re-search-forward
-;;        "\\[clear\\] [a-z]+\\.\\(, [a-z]+\\.\\)*¡¡\\([^ a-zA-Z][^¡¥]+\\)¡¥"
+;;        "\\[clear\\] [a-z]+\\.\\(, [a-z]+\\.\\)*ã€€\\([^ a-zA-Z][^ï¼]+\\)ï¼"
 ;;        nil t nil)
 ;;  (setq temp (match-string-no-properties 2))
 ;;  (setq temp (skk-w3m-filter-string
-;;        ;; e.x. `ÆèÀ÷¡Ê¤Ê¤Ä¤»¤ó¡Ë¹©', `(on, in)', `¡Ú·Ğ±Ä¡Û'
-;;          temp '("\n" "[0-9]+: +" "[¡¡ ]+" "¡Ê[¤¡-¤ó]+¡Ë" "([, a-z]+)"
-;;             "¡Ä¤Î" "¡Ú[^¡Ú¡Û]+¡Û" "(¶¯°Õ)")))
+;;        ;; e.x. `æºæŸ“ï¼ˆãªã¤ã›ã‚“ï¼‰å·¥', `(on, in)', `ã€çµŒå–¶ã€‘'
+;;          temp '("\n" "[0-9]+: +" "[ã€€ ]+" "ï¼ˆ[ã-ã‚“]+ï¼‰" "([, a-z]+)"
+;;             "â€¦ã®" "ã€[^ã€ã€‘]+ã€‘" "(å¼·æ„)")))
 ;;  (while (string-match
-;;      ;; ((...)) ¤Ï°ÕÌ£¤òÉ½¤ï¤¹¤è¤¦¤À¡£
-;;      ;; e.x. ¥¤¥ó¥¸¥±¡¼¥¿¡¡((µ¡´ï¤ÎºîÆ°¾õÂÖ¤òÉ½¼¨¤¹¤ëµ¡Ç½))
-;;      ;; ³ç¸ÌÆâ¤ò¤¢¤¨¤Æ¥Õ¥£¥ë¥¿¥ê¥ó¥°¤·¤Ê¤¤¤Ç½ĞÎÏ¤¹¤ë¡£
-;;      "\\([^¡¤¡¨]+\\)\\(¡Î\\|((\\)\\([^¡¤¡¨]+\\)\\(¡Ï\\|))\\)\\([^¡¤¡¨]+\\)*"
+;;      ;; ((...)) ã¯æ„å‘³ã‚’è¡¨ã‚ã™ã‚ˆã†ã ã€‚
+;;      ;; e.x. ã‚¤ãƒ³ã‚¸ã‚±ãƒ¼ã‚¿ã€€((æ©Ÿå™¨ã®ä½œå‹•çŠ¶æ…‹ã‚’è¡¨ç¤ºã™ã‚‹æ©Ÿèƒ½))
+;;      ;; æ‹¬å¼§å†…ã‚’ã‚ãˆã¦ãƒ•ã‚£ãƒ«ã‚¿ãƒªãƒ³ã‚°ã—ãªã„ã§å‡ºåŠ›ã™ã‚‹ã€‚
+;;      "\\([^ï¼Œï¼›]+\\)\\(ï¼»\\|((\\)\\([^ï¼Œï¼›]+\\)\\(ï¼½\\|))\\)\\([^ï¼Œï¼›]+\\)*"
 ;;      temp)
 ;;    (setq temp (concat (substring temp 0 (match-beginning 0))
 ;;               (match-string-no-properties 1 temp)
 ;;               (match-string-no-properties 5 temp)
-;;               "¡¤"
+;;               "ï¼Œ"
 ;;               (match-string-no-properties 3 temp)
 ;;               (match-string-no-properties 5 temp)
 ;;               (substring temp (match-end 0)))))
-;;  ;; ÅöÏÇ¡Ê¤Î¸¶°ø¡Ë ¢ª ÅöÏÇ¡¤ÅöÏÇ¤Î¸¶°ø
-;;  ;; Æ±»şÂå¤Î¡Ê¿Í¡¤»¨»ï¡Ë¢ª  Æ±»şÂå¤Î¡¤Æ±»şÂå¤Î¿Í¡¤Æ±»şÂå¤Î»¨»ï
-;;  (while (string-match "\\([^¡¤¡¨]+\\)¡Ê\\([^¡¨]+\\)¡Ë\\([^¡¤¡¨]+\\)*" temp)
+;;  ;; å½“æƒ‘ï¼ˆã®åŸå› ï¼‰ â†’ å½“æƒ‘ï¼Œå½“æƒ‘ã®åŸå› 
+;;  ;; åŒæ™‚ä»£ã®ï¼ˆäººï¼Œé›‘èªŒï¼‰â†’  åŒæ™‚ä»£ã®ï¼ŒåŒæ™‚ä»£ã®äººï¼ŒåŒæ™‚ä»£ã®é›‘èªŒ
+;;  (while (string-match "\\([^ï¼Œï¼›]+\\)ï¼ˆ\\([^ï¼›]+\\)ï¼‰\\([^ï¼Œï¼›]+\\)*" temp)
 ;;    (setq temp1 (match-string-no-properties 1 temp)
 ;;      temp2 (match-string-no-properties 2 temp)
 ;;      temp3 (match-string-no-properties 3 temp)
 ;;      tail (substring temp (match-end 0)))
 ;;    (setq temp (concat (substring temp 0 (match-beginning 0))
-;;               temp1 "¡¤"
+;;               temp1 "ï¼Œ"
 ;;               (mapconcat 'identity
 ;;                  (mapcar
 ;;                   (function (lambda (e) (concat temp1 e temp3)))
-;;                   (split-string temp2 "¡¤"))
-;;                  "¡¤")
+;;                   (split-string temp2 "ï¼Œ"))
+;;                  "ï¼Œ")
 ;;               tail)))
-;;  ;; ¡ÊÌäÂê¤ò¡ËÊ¶µê¤µ¤»¤ë ¢ª Ê¶µê¤µ¤»¤ë¡¤ÌäÂê¤òÊ¶µê¤µ¤»¤ë
-;;  (while (string-match "¡Ê\\([^¡¨]+\\)¡Ë\\([^¡¤¡¨]+\\)" temp)
+;;  ;; ï¼ˆå•é¡Œã‚’ï¼‰ç´›ç³¾ã•ã›ã‚‹ â†’ ç´›ç³¾ã•ã›ã‚‹ï¼Œå•é¡Œã‚’ç´›ç³¾ã•ã›ã‚‹
+;;  (while (string-match "ï¼ˆ\\([^ï¼›]+\\)ï¼‰\\([^ï¼Œï¼›]+\\)" temp)
 ;;    (setq temp1 (match-string-no-properties 1 temp)
 ;;      temp2 (match-string-no-properties 2 temp)
 ;;      tail (substring temp (match-end 0)))
 ;;    (setq temp (concat (substring temp 0 (match-beginning 0))
-;;               temp2 "¡¤"
+;;               temp2 "ï¼Œ"
 ;;               (mapconcat 'identity
 ;;                  (mapcar
 ;;                   (function (lambda (e) (concat e temp2)))
-;;                   (split-string temp1 "¡¤"))
-;;                  "¡¤")
+;;                   (split-string temp1 "ï¼Œ"))
+;;                  "ï¼Œ")
 ;;               tail)))
-;;  (setq v (nconc v (split-string temp "[¡¤¡¨]")))
+;;  (setq v (nconc v (split-string temp "[ï¼Œï¼›]")))
 ;;  ;; skip to next candidate.
-;;  (or (re-search-forward "\\[clear\\] ¡ü+" nil t nil)
+;;  (or (re-search-forward "\\[clear\\] â—+" nil t nil)
 ;;      (goto-char (point-max))))
 ;;       v)))
 
 (defun skk-w3m-get-candidates-from-goo-daily-shingo (key)
   ;; not yet.
-  ;; 15:¢£¡ÎSPA¡Ï¤Î¥Ç¥¤¥ê¡¼¿·¸ì¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì
+  ;; 15:â– ï¼»SPAï¼½ã®ãƒ‡ã‚¤ãƒªãƒ¼æ–°èªè¾å…¸ã‹ã‚‰ã®æ¤œç´¢çµæœ
   ;; 16:*
   ;; 17:
   ;; 18:SPA
   ;; 19:
-  ;; 20:  ¡Îspeciality store retailer of private label apparel¡Ï
-  ;; 21:  ¼«¼Ò¥Ö¥é¥ó¥É¤Î°áÎÁÉÊ¤òÇä¤ëÄ¾±ÄÅ¹¤Î¤³¤È¡£¤Ş¤¿¡¤¤½¤Î¤è¤¦¤Ê»ö¶È·ÁÂÖ¡£°áÎÁÉÊ¤Î´ë
-  ;; 22:  ²è¡¦³«È¯¤«¤éÀ½Â¤¡¦Î®ÄÌ¡¦ÈÎÇä¤Ë»ê¤ë¤Ş¤Ç¤ò°ì³ç¤·¤Æ¼è¤ê°·¤¤¡¤¸ÜµÒ¤Î¥Ë¡¼¥º¤Ë¸úÎ¨
-  ;; 23:  Åª¤ËÂĞ±ş¤¹¤ë¡£
-  ;; 24:  ¢ª¥×¥é¥¤¥Ù¡¼¥È-¥Ö¥é¥ó¥É
-  ;; 25:  ¡ÌÆÈ¼«¥Ö¥é¥ó¥É°áÎÁ¤ÎÀìÌçÅ¹ÈÎÇä¶È¼Ô¤ÎÎ¬¡£¥¢¥á¥ê¥«¤Î°áÎÁ¾®ÇäÅ¹¤Ë¤è¤ëÂ¤¸ì¤¬µ¯¸»
-  ;; 26:  ¡Í
+  ;; 20:  ï¼»speciality store retailer of private label apparelï¼½
+  ;; 21:  è‡ªç¤¾ãƒ–ãƒ©ãƒ³ãƒ‰ã®è¡£æ–™å“ã‚’å£²ã‚‹ç›´å–¶åº—ã®ã“ã¨ã€‚ã¾ãŸï¼Œãã®ã‚ˆã†ãªäº‹æ¥­å½¢æ…‹ã€‚è¡£æ–™å“ã®ä¼
+  ;; 22:  ç”»ãƒ»é–‹ç™ºã‹ã‚‰è£½é€ ãƒ»æµé€šãƒ»è²©å£²ã«è‡³ã‚‹ã¾ã§ã‚’ä¸€æ‹¬ã—ã¦å–ã‚Šæ‰±ã„ï¼Œé¡§å®¢ã®ãƒ‹ãƒ¼ã‚ºã«åŠ¹ç‡
+  ;; 23:  çš„ã«å¯¾å¿œã™ã‚‹ã€‚
+  ;; 24:  â†’ãƒ—ãƒ©ã‚¤ãƒ™ãƒ¼ãƒˆ-ãƒ–ãƒ©ãƒ³ãƒ‰
+  ;; 25:  ã€”ç‹¬è‡ªãƒ–ãƒ©ãƒ³ãƒ‰è¡£æ–™ã®å°‚é–€åº—è²©å£²æ¥­è€…ã®ç•¥ã€‚ã‚¢ãƒ¡ãƒªã‚«ã®è¡£æ–™å°å£²åº—ã«ã‚ˆã‚‹é€ èªãŒèµ·æº
+  ;; 26:  ã€•
   ;; 27:
   ;; 28:
   ;; 29:*
-  ;; 30:¢£¡ÎSPA¡Ï¤Î¥Ç¥¤¥ê¡¼¿·¸ì¼­Åµ¤«¤é¤Î¸¡º÷·ë²Ì
+  ;; 30:â– ï¼»SPAï¼½ã®ãƒ‡ã‚¤ãƒªãƒ¼æ–°èªè¾å…¸ã‹ã‚‰ã®æ¤œç´¢çµæœ
   )
 
 (defun skk-w3m-get-candidates-from-quote-yahoo (key)
@@ -823,9 +823,9 @@ w3m ¤ò backend ¤ÇÆ°¤«¤·¤Æ¤¤¤Ê¤¤)¡£")
 
 ;;;###autoload
 (defun skk-w3m-query-quote-yahoo
-    ;; $# /(skk-w3m-query-quote-yahoo "USD" "JPY" 'postfix "±ß")/(skk-w3m-query-quote-yahoo "USD" "DEM" 'prefix "DM")/
-    ;; sfr# /(skk-w3m-query-quote-yahoo "CHF" "JPY" 'postfix "±ß")/
-    ;; dm# /(skk-w3m-query-quote-yahoo "DEM" "JPY" 'postfix "±ß")/
+    ;; $# /(skk-w3m-query-quote-yahoo "USD" "JPY" 'postfix "å††")/(skk-w3m-query-quote-yahoo "USD" "DEM" 'prefix "DM")/
+    ;; sfr# /(skk-w3m-query-quote-yahoo "CHF" "JPY" 'postfix "å††")/
+    ;; dm# /(skk-w3m-query-quote-yahoo "DEM" "JPY" 'postfix "å††")/
     (currency-from currency-to &optional position convert-currency-to)
   (let (v)
     (setq skk-w3m-currency-from currency-from

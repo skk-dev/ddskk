@@ -42,7 +42,7 @@
                    (car (cdr (split-string path "ddskk-"))))
          ver)))
 (put 'skk-version 'codename "Neppu") ; See also `READMEs/CODENAME.ja'
-(put 'skk-version 'codename-ja "$BG.n>(B")
+(put 'skk-version 'codename-ja "熱郛")
 
 ;;;###autoload
 (defun skk-version (&optional without-codename)

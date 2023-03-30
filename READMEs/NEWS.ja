@@ -1930,7 +1930,7 @@ works well with SKK by itself.  skk-vip.el is discarded.
 
 ** Experimental package skk-tutcode.el is provided by GUNJI Takao
 <gunji@sils.shoin.ac.jp>.  Now you can imput Japanese by TUT-code with SKK.
-
+
 Local variables:
 coding: utf-8
 mode: outline

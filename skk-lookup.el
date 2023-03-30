@@ -25,87 +25,87 @@
 
 ;;; Commentary:
 
-;; Keisuke Nishida <kxn30@po.cwru.edu> $B$5$s$N:n$i$l$?<-=q8!:w%D!<%k(B
-;; Lookup $B$H(B SKK $B$H$N(B gateway $B$r9T$$!"(BLookup $B$G8!:w$G$-$k<-=q$r;H$C(B
-;; $B$F8uJd$r=PNO$9$k%W%m%0%i%`$G$9!#(B
+;; Keisuke Nishida <kxn30@po.cwru.edu> さんの作られた辞書検索ツール
+;; Lookup と SKK との gateway を行い、Lookup で検索できる辞書を使っ
+;; て候補を出力するプログラムです。
 
 ;; <HOW TO INSTALL>
-;; make $B$r<B9T$9$k:]$K!"(Blookup.el $B$K%Q%9$,DL$C$F$$$F(B require $B$G$-$k(B
-;; $B$H$-$O!"K\%W%m%0%i%`$b<+F0E*$K%$%s%9%H!<%k$5$l$^$9!#(Blookup.el $B$,(B
-;; $B%$%s%9%H!<%k$5$l$F$$$k$N$K(B Emacs $B$,8!=P$7$F$/$l$J$$$H$-$O!"(B
-;; SKK-CFG $B$rJT=8$7$F(B ADDITIONAL_LISPDIR $B$K$=$N%Q%9$r=q$/$HNI(B
-;; $B$$$G$7$g$&!#(B
+;; make を実行する際に、lookup.el にパスが通っていて require できる
+;; ときは、本プログラムも自動的にインストールされます。lookup.el が
+;; インストールされているのに Emacs が検出してくれないときは、
+;; SKK-CFG を編集して ADDITIONAL_LISPDIR にそのパスを書くと良
+;; いでしょう。
 
 ;; <HOW TO USE>
-;; $BEvA3$G$9$,!"(BLookup $B$,%$%s%9%H!<%k$5$l$F$$$F!"$+$D!"BP1~$9$k<-=q$,(B
-;; $B%^%&%s%H$5$l$F$$$J$$$H;H$($^$;$s!#(B
+;; 当然ですが、Lookup がインストールされていて、かつ、対応する辞書が
+;; マウントされていないと使えません。
 
-;; $B<!$N$h$&$K(B skk-search-prog-list $B$K2C$($F;XDj$7;HMQ$7$^$9!#(B
-;; SKK $B$,MQ0U$7$F$$$k8!:w%W%m%0%i%`$NCf$G:G$b=E$$$N$G!"(B
-;; skk-seach-server $B$N8!:w$N8e$K;}$C$F$/$k$N$,%;%*%j!<$G$9!#(B
+;; 次のように skk-search-prog-list に加えて指定し使用します。
+;; SKK が用意している検索プログラムの中で最も重いので、
+;; skk-seach-server の検索の後に持ってくるのがセオリーです。
 
 ;;  (setq skk-search-prog-list
 ;;        '((skk-search-jisyo-file skk-jisyo 0 t)
 ;;          (skk-search-server skk-aux-large-jisyo 10000)
 ;;          (skk-lookup-search)))
 
-;; $B%G%#%U%)%k%H$N@_Dj$G$O!"(Blookup $B$NJQ?t$G$"$k(B `lookup-search-agents'
-;; $B$r%3%T!<$7$F(B ndkks, ndcookie, ndnmz $B$r<h$j5n$j!"(B
-;; `skk-lookup-search-agents' $B$K%;%C%H$7$F$3$l$r8!:w$9$k$h$&$K$7$F$$(B
-;; $B$^$9!#$b$A$m$s(B lookup $B$N8!:w$H$O0[$J$k@_Dj$r(B
-;; `skk-lookup-search-agents' $B$KL@<($9$k$3$H$b2DG=$G$9!#(B
+;; ディフォルトの設定では、lookup の変数である `lookup-search-agents'
+;; をコピーして ndkks, ndcookie, ndnmz を取り去り、
+;; `skk-lookup-search-agents' にセットしてこれを検索するようにしてい
+;; ます。もちろん lookup の検索とは異なる設定を
+;; `skk-lookup-search-agents' に明示することも可能です。
 
-;; `lookup-entry-heading' $B$,JV$9(B heading ($B<-=q8+=P$7!#<-=qKh$K%U%)!<%^(B
-;; $B%C%H$,0[$J$k(B) $B$+$i@55,I=8=$r;H$$!"8uJd$H$7$F=PNO$9$kJ8;zNs$r@Z$j=P$7(B
-;; $B$F$$$^$9!#8=:_BP1~$7$F$$$k<-=q$O2<5-$NDL$j(B (`lookup-dictionary-name'
-;; $B$,JV$9CM$GI85-$7$F$$$^$9(B) $B$G$9$,!"2<5-$K5-:\$N$J$$<-=q$G$b@55,I=8=$r(B
-;; $B;XDj$9$k$3$H$G;HMQ2DG=$G$9!#(B
+;; `lookup-entry-heading' が返す heading (辞書見出し。辞書毎にフォーマ
+;; ットが異なる) から正規表現を使い、候補として出力する文字列を切り出し
+;; ています。現在対応している辞書は下記の通り (`lookup-dictionary-name'
+;; が返す値で標記しています) ですが、下記に記載のない辞書でも正規表現を
+;; 指定することで使用可能です。
 
-;;    "CHIEZO" ;$BCN7CB"(B
-;;    "CHUJITEN" ;$B<-!&E5!&HW(B
+;;    "CHIEZO" ;知恵蔵
+;;    "CHUJITEN" ;辞・典・盤
 ;;    "COLLOC" ;
-;;    "CRCEN" ;$B;0>JF2(B $B%K%e!<%;%s%A%e%j!<1QOB!&?7%/%i%&%sOB1Q<-E5(B
-;;    "GENIUS" ; $B%8!<%K%"%91QOB(B, $B%8!<%K%"%91QOB!&OB1Q<-E5(B
-;;    "GN99EP01" ;Super$BE}9g<-=q(B99 Disk1/$B8=BeMQ8l$N4pACCN<1(B
-;;    "GN99EP02" ;Super$BE}9g<-=q(B99 Disk2/$B8=BeMQ8l$N4pACCN<1(B
-;;    "IWAKOKU" ;$B4dGH9q8l<-E5(B
-;;    "KANJIGEN"; Super$BE}9g<-=q(B99 Disk2/$B4A;z8;(B : EPWING
+;;    "CRCEN" ;三省堂 ニューセンチュリー英和・新クラウン和英辞典
+;;    "GENIUS" ; ジーニアス英和, ジーニアス英和・和英辞典
+;;    "GN99EP01" ;Super統合辞書99 Disk1/現代用語の基礎知識
+;;    "GN99EP02" ;Super統合辞書99 Disk2/現代用語の基礎知識
+;;    "IWAKOKU" ;岩波国語辞典
+;;    "KANJIGEN"; Super統合辞書99 Disk2/漢字源 : EPWING
 ;;    "KANWA";
-;;    "KOJIEN" ; $B9-<-1qBh(B5$BHG(B($B4dGH(B,EPWING)
-;;    "KOKUGO" ;$B;0>JF2(B $BF|K\8l<-E5!J8=Be9q8l!"30Mh8l!K(B
-;;    "KOUJIEN"; $B9-<-1qBh(B4$BHG(B($B4dGH(B,EPWING) $B%^%k%A%a%G%#%"HG(B
-;;    "MYPAEDIA" ;$B!V<-!&E5!&HW!WImB0$N%^%$%Z%G%#%"(B
-;;               ; mypaedia-fpw $B$+$i@8@.$7$?(B PC Success $BHG%^%$%Z%G%#%"(B
-;;                 (FreePWING $B<-=q(B)
-;;    "NEWANC" ; $B%K%e!<%"%s%+!<1QOB(B
+;;    "KOJIEN" ; 広辞苑第5版(岩波,EPWING)
+;;    "KOKUGO" ;三省堂 日本語辞典（現代国語、外来語）
+;;    "KOUJIEN"; 広辞苑第4版(岩波,EPWING) マルチメディア版
+;;    "MYPAEDIA" ;「辞・典・盤」附属のマイペディア
+;;               ; mypaedia-fpw から生成した PC Success 版マイペディア
+;;                 (FreePWING 辞書)
+;;    "NEWANC" ; ニューアンカー英和
 ;;    "PLUS";
-;;    "RIKAGAKU" ;$BM}2=3X<-E5(B
+;;    "RIKAGAKU" ;理化学辞典
 ;;    "WAEI";
 ;;    "ispell";
 ;;    "jedict";
 
-;; $B$4<+J,$G;HMQ$7$F$$$k<-=q$N=PNO$,>e<j$/<h$j9~$a$J$$$H$-$O!"(B
-;; `skk-lookup-pickup-headings' $B$r;HMQ$7$FNc$($P!"(B
+;; ご自分で使用している辞書の出力が上手く取り込めないときは、
+;; `skk-lookup-pickup-headings' を使用して例えば、
 
-;;   (skk-lookup-pickup-headings "$B$3$7$g$&(B" 'exact)
+;;   (skk-lookup-pickup-headings "こしょう" 'exact)
 
-;; $B$J$I$HI>2A$7$F(B ("$B$3$7$g$&(B" $B$NJ8;zNsItJ,$OLdBj$H$J$C$F$$$k8!:wBP>]$H(B
-;; $BF~$lBX$($^$7$g$&(B) `lookup-dictionary-name' $B$H(B
-;; `lookup-entry-heading' $B$,JV$9CM$r;29M$K!"(B`skk-lookup-option-alist'
-;; $B$KI,MW$J%j%9%H$r2C$($^$7$g$&!#?7$?$J%j%9%H$r2C$($i$l$?$i@'Hs(B
-;; skk@ring.gr.jp $B08$F$KCN$;$F2<$5$$!#(Bdefault value $B$K<h$j9~$_$?$$$H;W(B
-;; $B$$$^$9!#$h$m$7$/$*4j$$$$$?$7$^$9!#(B
+;; などと評価して ("こしょう" の文字列部分は問題となっている検索対象と
+;; 入れ替えましょう) `lookup-dictionary-name' と
+;; `lookup-entry-heading' が返す値を参考に、`skk-lookup-option-alist'
+;; に必要なリストを加えましょう。新たなリストを加えられたら是非
+;; skk@ring.gr.jp 宛てに知せて下さい。default value に取り込みたいと思
+;; います。よろしくお願いいたします。
 
-;; kakasi ("KAKASI" $B$rMxMQ$9$kBe$j$K(B skk-kakasi.el $B$r;H$$$^$7$g$&(B),
-;; "ndcookie", "ndnmz" $B$K$OBP1~$7$F$$$^$;$s$7!"BP1~$NI,MW$O$J$$$H9M$((B
-;; $B$F$$$^$9(B ($B%a%j%C%H$,$"$l$P65$($F2<$5$$(B)$B!#(B
+;; kakasi ("KAKASI" を利用する代りに skk-kakasi.el を使いましょう),
+;; "ndcookie", "ndnmz" には対応していませんし、対応の必要はないと考え
+;; ています (メリットがあれば教えて下さい)。
 
-;; $BKvHx$J$,$i!"(BLookup $B$r:n$i$l$?(B Lookup Development Team $B$N3'MM!"(B
-;; Lookup $B$N(B $B86:n<T$G$"$j!"K\%W%m%0%i%`$N3+H/$K$b$$$/$D$+5.=E$J$40U8+$r(B
-;; $B$$$?$@$-$^$7$?(B Keisuke Nishida <kxn30@po.cwru.edu> $B$5$s!"3+H/$N=i4|(B
-;; $B$+$i%G%P%C%0$r<jEA$C$F$$$?$@$$$?!"(BNEMOTO Takashi
-;; <tnemoto@mvi.biglobe.ne.jp> $B$5$s!"(Bsphere <sphere@pop12.odn.ne.jp> $B$5(B
-;; $B$s$K?<$/46<U$$$?$7$^$9!#(B
+;; 末尾ながら、Lookup を作られた Lookup Development Team の皆様、
+;; Lookup の 原作者であり、本プログラムの開発にもいくつか貴重なご意見を
+;; いただきました Keisuke Nishida <kxn30@po.cwru.edu> さん、開発の初期
+;; からデバッグを手伝っていただいた、NEMOTO Takashi
+;; <tnemoto@mvi.biglobe.ne.jp> さん、sphere <sphere@pop12.odn.ne.jp> さ
+;; んに深く感謝いたします。
 
 ;;; Code:
 
@@ -177,7 +177,7 @@
 (defun skk-lookup-search ()
   (unless (or skk-num-list
               skk-num-recompute-key)
-    ;; $B?tCMJQ49$N$H$-$OJQ49%-!<$,(B `#' $B$r4^$`$b$N$J$N$G!"(Blookup $B$G8!:w$7$J$$!#(B
+    ;; 数値変換のときは変換キーが `#' を含むものなので、lookup で検索しない。
     (let ((module (skk-lookup-default-module))
           ;; if `lookup-enable-gaiji' is nil, gaiji tag like
           ;; `<gaiji=za52a>' is put out.
@@ -197,14 +197,14 @@
               okuri-process (cdr v)))
        ;; okuri-ari and (not skk-process-okuri-early)
        (skk-henkan-okurigana
-        ;; $BAw$j2>L>$N$+$J(B prefix $B$r<N$F!"Aw$j2>L>$rB-$7$F(B lookup $B$KEO$9!#(B
+        ;; 送り仮名のかな prefix を捨て、送り仮名を足して lookup に渡す。
         (setq henkan-key (concat (substring henkan-key
                                             0 (1- (length henkan-key)))
                                  skk-henkan-okurigana)
               okuri-process 1))
        ;; okuri-ari and skk-process-okuri-early
        (skk-okuri-char
-        ;; $BAw$j2>L>$N$+$J(B prefix $B$r<N$F$F(B lookup $B$KEO$9!#(B
+        ;; 送り仮名のかな prefix を捨てて lookup に渡す。
         (setq henkan-key (substring henkan-key 0 (1- (length henkan-key)))
               okuri-process 2)))
       (delete skk-henkan-key (skk-lookup-search-1 module henkan-key okuri-process)))))
@@ -253,11 +253,11 @@
 (defun skk-lookup-process-okurigana (string process-type)
   (cond
    ((string= string "")
-    ;; KOUJIEN has a heading like `$B$^!>$-!Z??LZ!&(B(GAIJI)$B!&Kj![(B'
+    ;; KOUJIEN has a heading like `ま‐き【真木・(GAIJI)・槙】'
     ;; As GAIJI cannot be processed by skk-lookup.el, the heading
-    ;; is equal to `$B$^!>$-!Z??LZ!&!&Kj![(B' for skk-lookup.el.
+    ;; is equal to `ま‐き【真木・・槙】' for skk-lookup.el.
     ;; It causes to produce a null string candidate.
-    ;;   (split-string "$B??LZ!&!&Kj(B" "$B!&(B") -> ("$B??LZ(B" "" "$BKj(B")
+    ;;   (split-string "真木・・槙" "・") -> ("真木" "" "槙")
     ;; So return nil if STRING is a null string.
     nil)
    ;; okuri-nasi
@@ -289,8 +289,8 @@
              (substring string 0 (- okuri-length))))))))
 
 (defun skk-lookup-process-heading (name heading okuri-process-type)
-  ;; heading $B$7$+<h$j=P$5$J$$$N$O$b$C$?$$$J$$!)(B  $BB>$K$b>pJs$r<h$j=P$7(B
-  ;; $B$F$*$$$F!"I,MW$K1~$8$F;2>H$9$k$+!)(B
+  ;; heading しか取り出さないのはもったいない？  他にも情報を取り出し
+  ;; ておいて、必要に応じて参照するか？
   (save-match-data
     (cl-do* ((pickup (skk-lookup-get-pickup-regexp name))
              (pickup-regexp (if (consp pickup) (car pickup)))
@@ -299,9 +299,9 @@
              (cleanup-regexp (skk-lookup-get-cleanup-regexp name))
              (candidates-list (if (not pickup) (list heading)))
              candidates-string)
-        ;; `$B$@$7!Z=P$7![!Z=P$7!&!R=P=A!S![!Z!P;3<V!Q![(B' $B$J$I$N$h$&$K(B
-        ;; 1 $B$D$N(B heading $B$KBP$7!"J#?t$N@Z$j=P$7:n6H$,I,MW$K$J$k>l9g(B
-        ;; $B$,$"$k$N$G%k!<%W$G:n6H$9$k!#(B
+        ;; `だし【出し】【出し・〈出汁〉】【｛山車｝】' などのように
+        ;; 1 つの heading に対し、複数の切り出し作業が必要になる場合
+        ;; があるのでループで作業する。
         ((or (string= heading "")
              (and pickup-regexp
                   (not (string-match pickup-regexp heading))))
@@ -314,8 +314,8 @@
               (mapconcat (lambda (num)
                            (match-string-no-properties num heading))
                          match "")
-              ;; XXX MATCH $B$,J#?t$@$C$?$i!"(Bheading $B@Z$j=P$7$O(B
-              ;; $B0lEY$@$1$7$+$G$-$J$$(B...$B!#(B
+              ;; XXX MATCH が複数だったら、heading 切り出しは
+              ;; 一度だけしかできない...。
               heading ""))
        (pickup-regexp
         (setq candidates-string (match-string-no-properties match heading)
@@ -418,7 +418,7 @@
 
 (defun skk-lookup-pickup-headings (pattern method)
   "Search PATTERN by METHOD.
-METHOD $B$OJQ?t(B`lookup-search-methods'$B$r;2>H$N$3$H(B."
+METHOD は変数`lookup-search-methods'を参照のこと."
   (let ((module (skk-lookup-default-module))
         (lookup-gaiji-alternate "")
         ;;lookup-enable-gaiji ;  not to put out gaiji.

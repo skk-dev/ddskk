@@ -24,22 +24,22 @@
 
 ;;; Commentary:
 
-;; M-x skk-make-mazegaki-dic §∑§∆Ω–Œœ§µ§Ï§øº≠ΩÒ (≤ºµ≠§ŒŒ„§«§œ TMP) §Ú
+;; M-x skk-make-mazegaki-dic „Åó„Å¶Âá∫Âäõ„Åï„Çå„ÅüËæûÊõ∏ (‰∏ãË®ò„ÅÆ‰æã„Åß„ÅØ TMP) „Çí
 
 ;;   $ skkdic-expr TMP | skkdic-sort > NEWDICT
 
-;; §»≤√π©§π§Î§»∫Æ§ºΩÒ§≠ SKK º≠ΩÒ (NEWDICT) §¨Ω–ÕËæÂ§¨§Í§ﬁ§π°£
+;; „Å®Âä†Â∑•„Åô„Çã„Å®Ê∑∑„ÅúÊõ∏„Åç SKK ËæûÊõ∏ (NEWDICT) „ÅåÂá∫Êù•‰∏ä„Åå„Çä„Åæ„Åô„ÄÇ
 
 ;; <TODO>
 ;; - search okuri-ari entries, too.
 ;; - fix a know bug below.
 
 ;; <KNOWN BUG>
-;; + §™Õ∑§” /§™Õ∑§”/                                fixed.
-;; + §≠§Í§® /¿⁄§Í≥®/¿⁄≥®/ ¢™ §≠§Í§Í≥® /¿⁄§Í≥®/      §»§Í§¢§®§∫≤æÃæ§Ú¥ﬁ§‡∏ı ‰§œºŒ§∆§Î§≥§»§À§∑§ﬁ§∑§ø°£
-;; + §µ§Ø /∫Ó/∫˝/∫¯/∫˜/∫ˆ/∫ı/∫Ù/∫Û/∫Ú/∫Ò/∫/∫Ô/ø›/ ¢™ §µ /∫Ó/   fixed.
-;; - §œ§Û≤æ§Ø§´§ø§´§  /»æ≥— “≤æÃæ/                  §≥§Í§„§…§¶§∑§Ë§¶§‚§ §§§  (^^;;
-;; - §Ø§µ§Í /∫ø/ ¢™ §Ø∫ø§Í /∫ø/                      (∑±∆…§ﬂ§Œ∞Ï…Ù§Œ ∏ª˙§¨≤ª∆…§ﬂ§Œ ∏ª˙§»∆±∞Ï) ditto...
+;; + „ÅäÈÅä„Å≥ /„ÅäÈÅä„Å≥/                                fixed.
+;; + „Åç„Çä„Åà /Âàá„ÇäÁµµ/ÂàáÁµµ/ ‚Üí „Åç„Çä„ÇäÁµµ /Âàá„ÇäÁµµ/      „Å®„Çä„ÅÇ„Åà„Åö‰ªÆÂêç„ÇíÂê´„ÇÄÂÄôË£ú„ÅØÊç®„Å¶„Çã„Åì„Å®„Å´„Åó„Åæ„Åó„Åü„ÄÇ
+;; + „Åï„Åè /‰Ωú/ÂÜä/ÈåØ/Á¥¢/Á≠ñ/Á™Ñ/Êüµ/Êúî/Êò®/Êêæ/Âíã/Ââä/ÈÖ¢/ ‚Üí „Åï /‰Ωú/   fixed.
+;; - „ÅØ„Çì‰ªÆ„Åè„Åã„Åü„Åã„Å™ /ÂçäËßíÁâá‰ªÆÂêç/                  „Åì„Çä„ÇÉ„Å©„ÅÜ„Åó„Çà„ÅÜ„ÇÇ„Å™„ÅÑ„Å™ (^^;;
+;; - „Åè„Åï„Çä /Èéñ/ ‚Üí „ÅèÈéñ„Çä /Èéñ/                      (Ë®ìË™≠„Åø„ÅÆ‰∏ÄÈÉ®„ÅÆÊñáÂ≠ó„ÅåÈü≥Ë™≠„Åø„ÅÆÊñáÂ≠ó„Å®Âêå‰∏Ä) ditto...
 
 ;;; Code:
 
@@ -47,18 +47,18 @@
 (require 'skk)
 
 (defvar skk-mkmgk-region-limit 10000
-  "*∏°∫˜•Í°º•∏•Á•Û§Œ•µ•§•∫§¨§≥§ŒøÙ§Ë§ÍæÆ§µ§§æÏπÁ§À°¢•–•§• •Í•µ°º•¡§Úªﬂ§·•Í•À•¢•µ°º•¡§À∞‹π‘§π§Î°£
-∏ƒøÕº≠ΩÒ§Ú≤√π©§π§ÎæÏπÁ§œ°¢0 §À¿ﬂƒÍ§π§Î°£")
+  "*Ê§úÁ¥¢„É™„Éº„Ç∏„Éß„É≥„ÅÆ„Çµ„Ç§„Ç∫„Åå„Åì„ÅÆÊï∞„Çà„ÇäÂ∞è„Åï„ÅÑÂ†¥Âêà„Å´„ÄÅ„Éê„Ç§„Éä„É™„Çµ„Éº„ÉÅ„ÇíÊ≠¢„ÇÅ„É™„Éã„Ç¢„Çµ„Éº„ÉÅ„Å´ÁßªË°å„Åô„Çã„ÄÇ
+ÂÄã‰∫∫ËæûÊõ∏„ÇíÂä†Â∑•„Åô„ÇãÂ†¥Âêà„ÅØ„ÄÅ0 „Å´Ë®≠ÂÆö„Åô„Çã„ÄÇ")
 
 ;;;###autoload
 (defun skk-make-mazegaki-dic (dic &optional nomsg)
-  "SKK ∑¡º∞§Œº≠ΩÒ§´§È TUT-Code § §…§«ª»§Ô§Ï§Ï§Î∫Æ§ºΩÒ§≠º≠ΩÒ§Ú∫Ó§Î°£
-Ω–Œœ§µ§Ï§øº≠ΩÒ (≤ºµ≠§ŒŒ„§«§œ TMP) §Ú
+  "SKK ÂΩ¢Âºè„ÅÆËæûÊõ∏„Åã„Çâ TUT-Code „Å™„Å©„Åß‰Ωø„Çè„Çå„Çå„ÇãÊ∑∑„ÅúÊõ∏„ÅçËæûÊõ∏„Çí‰Ωú„Çã„ÄÇ
+Âá∫Âäõ„Åï„Çå„ÅüËæûÊõ∏ (‰∏ãË®ò„ÅÆ‰æã„Åß„ÅØ TMP) „Çí
 
   $ skkdic-expr TMP | skkdic-sort > NEWDICT
 
-§»§∑§∆≤√π©§π§Î…¨Õ◊§¢§Í°£"
-  (interactive "fº≠ΩÒ•’•°•§•Î:\nP ")
+„Å®„Åó„Å¶Âä†Â∑•„Åô„ÇãÂøÖË¶Å„ÅÇ„Çä„ÄÇ"
+  (interactive "fËæûÊõ∏„Éï„Ç°„Ç§„É´:\nP ")
   (let ((cont t)
         (workbuf (get-buffer-create " *skkmkmgk working*"))
         max output ret)
@@ -66,20 +66,20 @@
         (progn
           (while cont
             (setq output (read-file-name
-                          "§…§≥§ÀΩ–Œœ§∑§ﬁ§π§´? "
+                          "„Å©„Åì„Å´Âá∫Âäõ„Åó„Åæ„Åô„Åã? "
                           nil
                           (convert-standard-filename "~/.skk-jisyo.tmp")))
             (if (or (not (file-exists-p output))
                     (yes-or-no-p
-                     (format "%s §ÀæÂΩÒ§≠§∑§∆§Ë§Ì§∑§§§«§π§´? " output)))
+                     (format "%s „Å´‰∏äÊõ∏„Åç„Åó„Å¶„Çà„Çç„Åó„ÅÑ„Åß„Åô„Åã? " output)))
                 (setq cont nil)))
           (with-current-buffer workbuf (erase-buffer))
           (with-temp-buffer
             (let ((coding-system-for-read (cdr (assoc "euc" skk-coding-system-alist))))
               (insert-file-contents (expand-file-name dic))
               (re-search-forward "^;; okuri-nasi entries\\.$")
-              ;; abbrev ∏ı ‰§Ú skip
-              (delete-region (point-min) (progn (re-search-forward "^§¢")
+              ;; abbrev ÂÄôË£ú„Çí skip
+              (delete-region (point-min) (progn (re-search-forward "^„ÅÇ")
                                                 (beginning-of-line)
                                                 (point)))
               (setq ret (skk-make-mazegaki-dic-1 workbuf nomsg))))
@@ -93,16 +93,16 @@
 
 ;;;###autoload
 (defun skk-make-mazegaki-dic-region (min max &optional reference)
-  "SKK ∑¡º∞§Œº≠ΩÒ§´§È TUT-Code § §…§«ª»§Ô§Ï§Ï§Î∫Æ§ºΩÒ§≠º≠ΩÒ§Ú∫Ó§Î°£
-≤√π©§∑§øº≠ΩÒ§Ú∫Ó∂»•–•√•’•°§ÀΩÒ§≠Ω–§∑ `pop-to-buffer' §π§Î°£
-Ω–Œœ§µ§Ï§ø•–•√•’•°§Ú•’•°•§•Î (≤ºµ≠§ŒŒ„§«§œ TMP) §À ›¬∏§∑
+  "SKK ÂΩ¢Âºè„ÅÆËæûÊõ∏„Åã„Çâ TUT-Code „Å™„Å©„Åß‰Ωø„Çè„Çå„Çå„ÇãÊ∑∑„ÅúÊõ∏„ÅçËæûÊõ∏„Çí‰Ωú„Çã„ÄÇ
+Âä†Â∑•„Åó„ÅüËæûÊõ∏„Çí‰ΩúÊ•≠„Éê„ÉÉ„Éï„Ç°„Å´Êõ∏„ÅçÂá∫„Åó `pop-to-buffer' „Åô„Çã„ÄÇ
+Âá∫Âäõ„Åï„Çå„Åü„Éê„ÉÉ„Éï„Ç°„Çí„Éï„Ç°„Ç§„É´ (‰∏ãË®ò„ÅÆ‰æã„Åß„ÅØ TMP) „Å´‰øùÂ≠ò„Åó
 
   $ skkdic-expr TMP | skkdic-sort > NEWDICT
 
-§»§∑§∆≤√π©§π§Î…¨Õ◊§¢§Í°£
-•™•◊•∑•Á• •Î∞˙øÙ§Œ reference §ÚªÿƒÍ§π§Î§»°¢≤√π©§Œ∫›§À∏°∫˜§π§Îº≠ΩÒ§Ú
- Ã§ÀªÿƒÍ§π§Î§≥§»§¨§«§≠§Î°£reference §ŒªÿƒÍ§¨§ §§æÏπÁ§œ°¢•Í°º•∏•Á•Û
-∆‚§«∏°∫˜§«§≠§Î∏Ï§Œ§ﬂ§ÚÕ¯Õ—§∑§∆∏´Ω–§∑∏Ï§Ú≤√π©§π§Î°£"
+„Å®„Åó„Å¶Âä†Â∑•„Åô„ÇãÂøÖË¶Å„ÅÇ„Çä„ÄÇ
+„Ç™„Éó„Ç∑„Éß„Éä„É´ÂºïÊï∞„ÅÆ reference „ÇíÊåáÂÆö„Åô„Çã„Å®„ÄÅÂä†Â∑•„ÅÆÈöõ„Å´Ê§úÁ¥¢„Åô„ÇãËæûÊõ∏„Çí
+Âà•„Å´ÊåáÂÆö„Åô„Çã„Åì„Å®„Åå„Åß„Åç„Çã„ÄÇreference „ÅÆÊåáÂÆö„Åå„Å™„ÅÑÂ†¥Âêà„ÅØ„ÄÅ„É™„Éº„Ç∏„Éß„É≥
+ÂÜÖ„ÅßÊ§úÁ¥¢„Åß„Åç„ÇãË™û„ÅÆ„Åø„ÇíÂà©Áî®„Åó„Å¶Ë¶ãÂá∫„ÅóË™û„ÇíÂä†Â∑•„Åô„Çã„ÄÇ"
   (interactive "r\nP")
   (unwind-protect
       (let ((outbuf (get-buffer-create " *skkmkmgk working*"))
@@ -110,7 +110,7 @@
         (with-current-buffer outbuf (erase-buffer))
         (if reference
             (progn
-              (setq reference (read-file-name "§…§Œº≠ΩÒ§Úª≤æ»§∑§ﬁ§π§´? "
+              (setq reference (read-file-name "„Å©„ÅÆËæûÊõ∏„ÇíÂèÇÁÖß„Åó„Åæ„Åô„Åã? "
                                               nil nil 'mustmatch))
               (with-current-buffer (get-buffer-create " *skkmkmgk working1*")
                 (erase-buffer)
@@ -118,8 +118,8 @@
                   (insert-file-contents (expand-file-name reference))
                   (goto-char (point-min))
                   (re-search-forward "^;; okuri-nasi entries\\.$")
-                  ;; abbrev ∏ı ‰§Ú skip
-                  (delete-region (point-min) (progn (re-search-forward "^§¢")
+                  ;; abbrev ÂÄôË£ú„Çí skip
+                  (delete-region (point-min) (progn (re-search-forward "^„ÅÇ")
                                                     (beginning-of-line)
                                                     (point)))
                   (setq reference (current-buffer))))))
@@ -145,19 +145,19 @@
                    (* (/ (* (point) 100.00) (* max 100.00))
                       100.0)))
       (beginning-of-line)
-      ;; §“§È§¨§ ∏´Ω–§∑ e.x. "§¢§§§´§Ô"
+      ;; „Å≤„Çâ„Åå„Å™Ë¶ãÂá∫„Åó e.x. "„ÅÇ„ÅÑ„Åã„Çè"
       (setq header0 (buffer-substring-no-properties
                      (point) (save-excursion (search-forward " ")
                                              (backward-char 1) (point))))
       (if (= (length header0) 1)
           nil
         (search-forward " /")
-        ;; §“§È§¨§ ∏´Ω–§∑§Ú•≠°º§À§∑§ø∏ı ‰•Í•π•» (2  ∏ª˙∞ æÂ) e.x. "¡Í¿Ó"
+        ;; „Å≤„Çâ„Åå„Å™Ë¶ãÂá∫„Åó„Çí„Ç≠„Éº„Å´„Åó„ÅüÂÄôË£ú„É™„Çπ„Éà (2 ÊñáÂ≠ó‰ª•‰∏ä) e.x. "Áõ∏Â∑ù"
         (setq candidates0 (skk-mkmgk-filter
                            (car (skk-compute-henkan-lists nil))))
         (if (null candidates0)
             nil
-          ;; §“§È§¨§ ∏´Ω–§∑§Ú ¨≤Ú
+          ;; „Å≤„Çâ„Åå„Å™Ë¶ãÂá∫„Åó„ÇíÂàÜËß£
           (setq header-list (string-to-list header0))
           (with-current-buffer reference ; have to restore point after searching
             (let ((max (point-max)) (min (point-min))
@@ -168,7 +168,7 @@
                       n 1)
                 (while (and header1 (> (length header0) (length header1)))
                   (goto-char min)
-                  ;;  ¨≤Ú§∑§ø§“§È§¨§ ∏´Ω–§∑§Ú 1  ∏ª˙§≈§ƒ∏´Ω–§∑§À§∑§∆∫∆∏°∫˜ e.x. "§¢§§"
+                  ;; ÂàÜËß£„Åó„Åü„Å≤„Çâ„Åå„Å™Ë¶ãÂá∫„Åó„Çí 1 ÊñáÂ≠ó„Å•„Å§Ë¶ãÂá∫„Åó„Å´„Åó„Å¶ÂÜçÊ§úÁ¥¢ e.x. "„ÅÇ„ÅÑ"
                   (if (not (setq candidates1 (skk-mkmgk-binary-search
                                               header1 min max skk-mkmgk-region-limit)))
                       nil
@@ -178,9 +178,9 @@
                             ;;(string-match header1 header0 (* skk-kanji-len (1- n)))))
                             (or (setq candidates1 (cdr candidates1))
                                 (setq can0 (cdr can0)))
-                          ;;  ¨≤Ú•≠°º (e.x. §¢§§) §À§Ë§Î∏ı ‰ e.x. "¡Í" §¨
-                          ;; •™•Í•∏• •Î•≠°º (e.x. §¢§§§´§Ô) §Œ∏ı ‰ e.x.
-                          ;; "¡Í¿Ó" §À match §∑§ø§È
+                          ;; ÂàÜËß£„Ç≠„Éº (e.x. „ÅÇ„ÅÑ) „Å´„Çà„ÇãÂÄôË£ú e.x. "Áõ∏" „Åå
+                          ;; „Ç™„É™„Ç∏„Éä„É´„Ç≠„Éº (e.x. „ÅÇ„ÅÑ„Åã„Çè) „ÅÆÂÄôË£ú e.x.
+                          ;; "Áõ∏Â∑ù" „Å´ match „Åó„Åü„Çâ
                           (setq key0 (concat
                                       (substring (car can0)
                                                  0 (match-beginning 0))
@@ -195,28 +195,28 @@
                           (or (string= key0 (car can0))
                               (with-current-buffer outbuf
                                 (goto-char (point-max))
-                                ;; §¢§§¿Ó /¡Í¿Ó/
+                                ;; „ÅÇ„ÅÑÂ∑ù /Áõ∏Â∑ù/
                                 (insert key0 " /" (car can0) "/\n")))
                           (or (string= key1 (car can0))
                               (with-current-buffer outbuf
                                 (goto-char (point-max))
-                                ;; ¡Í§´§Ô /¡Í¿Ó/
+                                ;; Áõ∏„Åã„Çè /Áõ∏Â∑ù/
                                 (insert key1 " /" (car can0) "/\n")))
                           (setq candidates1 nil)))))
                   (if (> (length (mapconcat 'char-to-string header-list1 nil))
                          n)
-                      ;; HEADER1 §Úø≠§–§∑§∆∫∆∏°∫˜
-                      ;; e.x. "§¢" ¢™ "§¢§§" ¢™ "§¢§§§´" ¢™ "§¢§§§´§Ô"
-                      ;;      "§§" ¢™ "§§§´" ¢™ "§§§´§Ô"
-                      ;;      "§´" ¢™ "§´§Ô"
-                      ;;      "§Ô"
+                      ;; HEADER1 „Çí‰º∏„Å∞„Åó„Å¶ÂÜçÊ§úÁ¥¢
+                      ;; e.x. "„ÅÇ" ‚Üí "„ÅÇ„ÅÑ" ‚Üí "„ÅÇ„ÅÑ„Åã" ‚Üí "„ÅÇ„ÅÑ„Åã„Çè"
+                      ;;      "„ÅÑ" ‚Üí "„ÅÑ„Åã" ‚Üí "„ÅÑ„Åã„Çè"
+                      ;;      "„Åã" ‚Üí "„Åã„Çè"
+                      ;;      "„Çè"
                       (setq header1 (concat
                                      header1
                                      (char-to-string (nth n header-list1)))
                             n (1+ n))
                     (setq header1 nil)))
-                ;; º°§Œ char §Ú∆¨§À§∑§ø∏°∫˜≥´ªœ
-                ;; e.x. "§¢" ¢™ "§§" ¢™ "§´" ¢™ "§Ô"
+                ;; Ê¨°„ÅÆ char „ÇíÈ†≠„Å´„Åó„ÅüÊ§úÁ¥¢ÈñãÂßã
+                ;; e.x. "„ÅÇ" ‚Üí "„ÅÑ" ‚Üí "„Åã" ‚Üí "„Çè"
                 (setq header-list1 (cdr header-list1)))))))
       (setq cont (= (forward-line 1) 0)))
     (let ((ret (with-current-buffer outbuf (> (buffer-size) 0))))
@@ -235,8 +235,8 @@
                  (function
                   (lambda (word)
                     (setq word (if (and
-                                    (not (string-match "[§°-§Û•°-•Û]" word))
-                                    ;; ±—∏Ï§Ú skip
+                                    (not (string-match "[„ÅÅ-„Çì„Ç°-„É≥]" word))
+                                    ;; Ëã±Ë™û„Çí skip
                                     (not (string-match "^[a-zA-Z]+$" word)))
                                    (if (string-match ";" word)
                                        (substring word 0 (match-beginning 0))
