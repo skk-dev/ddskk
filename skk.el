@@ -835,11 +835,13 @@ Delete Selection $B%b!<%I$,(B SKK $B$r;H$C$?F|K\8lF~NO$KBP$7$F$b5!G=$9$k$h$&$
     (setq skk-okuri-nasi-min (point-marker))))
 
 (defun skk-setup-melpa-isearch ()
-  (and (string-match "melpa" (skk-version))
+  (and (string-match-p "melpa" (skk-version))
        ;; FIXME
-       (null (car (mapcar #'(lambda (e)
-                              (string-match "skk" (symbol-name e)))
-                          isearch-mode-hook)))
+       (null (delete nil
+                     (mapcar (lambda (e)
+                               (when (symbolp e)
+                                 (string-match-p "skk" (symbol-name e))))
+                             isearch-mode-hook)))
        (skk-message "skk-setup.el $B$r;29M$K$7$F!"(Bisearch-mode-hook $B$r@_Dj$7$F$/$@$5$$!#(B"
                     "Please refer to the source file `skk-setup.el' and setup isearch-mode-hook.") ))
 
