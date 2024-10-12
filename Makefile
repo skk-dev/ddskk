@@ -17,7 +17,6 @@ FLAGS     = --batch --no-init-file --quick --load SKK-MK
 GIT       = git
 GZIP      = gzip -9
 MD5	  = md5
-RM	  = /bin/rm -f
 SNAPBASE  = ddskk-`$(DATE) '+%Y%m%d'`
 TAR	  = gtar
 TEE	  = tee
