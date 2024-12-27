@@ -187,7 +187,7 @@ This function is the same as `facemenu-color-equal'"
                    ccc-buffer-local-cursor-color
                  (ccc-frame-cursor-color))))
     (when (and (stringp color)
-               (x-color-defined-p color)
+               (color-defined-p color)
                (not (ccc-color-equal color (ccc-current-cursor-color))))
       (set-cursor-color color))))
 
@@ -219,7 +219,7 @@ This function is the same as `facemenu-color-equal'"
                  (ccc-frame-foreground-color))))
     (when (and window-system
                (stringp color)
-               (x-color-defined-p color)
+               (color-defined-p color)
                (not (ccc-color-equal color (ccc-current-foreground-color))))
       (set-foreground-color color))))
 
@@ -251,7 +251,7 @@ This function is the same as `facemenu-color-equal'"
                  (ccc-frame-background-color))))
     (when (and window-system
                (stringp color)
-               (x-color-defined-p color)
+               (color-defined-p color)
                (not (ccc-color-equal color (ccc-current-background-color))))
       (set-background-color color))))
 
