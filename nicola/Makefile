@@ -2,8 +2,6 @@
 # Makefile for NICOLA-DDSKK.
 #
 
-RM	= /bin/rm -f
-
 EMACS	= emacs
 FLAGS   = --batch --quick -no-site-file --directory ../ --load NICOLA-DDSKK-MK
 
