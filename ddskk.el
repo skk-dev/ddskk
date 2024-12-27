@@ -7,6 +7,8 @@
 ;; Maintainer: SKK Development Team
 ;; URL: https://github.com/skk-dev/ddskk
 ;; Keywords: japanese, mule, input method
+;; Package-Version: 17.1
+;; Package-Requires: ((ccc "1.43") (cdb "20141201.754"))
 
 ;; This file is part of Daredevil SKK.
 
