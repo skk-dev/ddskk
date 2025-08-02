@@ -67,7 +67,7 @@
   (require 'cl-lib))
 
 ;; Emacs standard library.
-(require 'advice)
+(require 'nadvice)
 (require 'easymenu)
 
 (eval-and-compile
@@ -5162,19 +5162,12 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
     (skk-kakutei)))
 
 ;;; cover to original functions.
-(skk-defadvice keyboard-quit (around skk-ad activate preactivate)
+(define-advice keyboard-quit (:around (oldfun) skk-ad)
   "$B"'%b!<%I$G$"$l$P!"8uJd$NI=<($r$d$a$F"&%b!<%I$KLa$9(B ($B8+=P$78l$O;D$9(B)$B!#(B
 $B"&%b!<%I$G$"$l$P!"8+=P$78l$r:o=|$9$k!#(B
 $B>e5-$N$I$A$i$N%b!<%I$G$b$J$1$l$P(B `keyboard-quit' $B$HF1$8F0:n$r$9$k!#(B"
-
-  ;; Emacs 27 $B$^$G$O(B $BHs(B interactive $B$G$"$C$?$,!"(B
-  ;; Emacs 28 $B$+$i(B WARNING: Adding advice to subr keyboard-quit
-  ;;   without mirroring its interactive spec $B$H$J$C$?$?$a(B interactive $B$H$7$?!#(B
-  ;; SRC/lisp/emacs-lisp/advoce.el $B$N(B @@ Advising interactive subrs: $B$,;29M$K$J$k!#(B
-  (interactive)
-
   (if (not skk-mode)
-      ad-do-it
+      (funcall oldfun)
     (cond
      ((eq skk-henkan-mode 'active)
       (skk-henkan-inactivate))
@@ -5183,14 +5176,12 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
      (t
       (if (skk-get-prefix skk-current-rule-tree)
           (skk-erase-prefix 'clean)
-        ad-do-it)))))
+        (funcall oldfun))))))
 
-(skk-defadvice abort-minibuffers (around skk-ad activate preactivate)
+(define-advice abort-minibuffers (:around (oldfun) skk-ad)
   "$BF1>e(B"
-  (interactive)
-
   (if (not skk-mode)
-      ad-do-it
+      (funcall oldfun)
     (cond
      ((eq skk-henkan-mode 'active)
       (skk-henkan-inactivate))
@@ -5199,9 +5190,9 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
      (t
       (if (skk-get-prefix skk-current-rule-tree)
           (skk-erase-prefix 'clean)
-        ad-do-it)))))
+        (funcall oldfun))))))
 
-(skk-defadvice abort-recursive-edit (around skk-ad activate preactivate)
+(define-advice abort-recursive-edit (:around (oldfun) skk-ad)
   "$B"'%b!<%I$G$"$l$P!"8uJd$NI=<($r$d$a$F"&%b!<%I$KLa$9(B ($B8+=P$78l$O;D$9(B)$B!#(B
 $B"&%b!<%I$G$"$l$P!"8+=P$78l$r:o=|$9$k!#(B
 $B>e5-$N$I$A$i$N%b!<%I$G$b$J$1$l$P(B `abort-recursive-edit' $B$HF1$8F0:n$r$9$k!#(B"
@@ -5209,7 +5200,7 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
   (skk-remove-minibuffer-setup-hook
    'skk-j-mode-on 'skk-setup-minibuffer 'skk-add-skk-pre-command)
   (if (not skk-mode)
-      ad-do-it
+      (funcall oldfun)
     (cond
      ((eq skk-henkan-mode 'active)
       (skk-henkan-inactivate))
@@ -5218,16 +5209,15 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
      (t
       (if (skk-get-prefix skk-current-rule-tree)
           (skk-erase-prefix 'clean)
-        ad-do-it)))))
+        (funcall oldfun))))))
 
-(defadvice newline (around skk-ad activate)
+(define-advice newline (:around (oldfun &optional arg interactive) skk-ad)
   "`skk-egg-like-newline' $B$,(B non-nil $B$G$"$l$P!"3NDj$N$_9T$$!"2~9T$7$J$$!#(B"
   (if (not (or skk-j-mode
                skk-jisx0201-mode
                skk-abbrev-mode))
-      ad-do-it
-    (let (;;(arg (ad-get-arg 0))
-          ;; `skk-kakutei' $B$r<B9T$9$k$H(B `skk-henkan-mode' $B$NCM$,(B
+      (funcall oldfun arg interactive)
+    (let (;; `skk-kakutei' $B$r<B9T$9$k$H(B `skk-henkan-mode' $B$NCM$,(B
           ;; $BL5>r7o$K(B nil $B$K$J$k$N$G!"J]B8$7$F$*$/I,MW$,$"$k!#(B
           (no-newline (and skk-egg-like-newline
                            skk-henkan-mode))
@@ -5243,19 +5233,19 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
       ;;      ;; arg $B$r(B 1 $B$D8:$i$9!#(B
       ;;      (skk-kakutei)
       ;;      (if (and (not (= opos (point))) (integerp arg))
-      ;;          (ad-set-arg 0 (1- arg)))))
+      ;;          (setq arg (1- arg)))))
       (when skk-mode
         (skk-kakutei))
       (undo-boundary)
       (unless no-newline
-        ad-do-it))))
+        (funcall oldfun arg interactive)))))
 
-(defadvice newline-and-indent (around skk-ad activate)
+(define-advice newline-and-indent (:around (oldfun &optional arg) skk-ad)
   "`skk-egg-like-newline' $B$,(B non-nil $B$G$"$l$P!"3NDj$N$_9T$$!"2~9T$7$J$$!#(B"
   (if (not (or skk-j-mode
                skk-jisx0201-mode
                skk-abbrev-mode))
-      ad-do-it
+      (funcall oldfun arg)
     (let ((no-newline (and skk-egg-like-newline
                            skk-henkan-mode))
           (auto-fill-function (if (called-interactively-p 'interactive)
@@ -5265,9 +5255,9 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
         (skk-kakutei))
       (undo-boundary)
       (unless no-newline
-        ad-do-it))))
+        (funcall oldfun arg)))))
 
-(skk-defadvice exit-minibuffer (around skk-ad activate)
+(define-advice exit-minibuffer (:around (oldfun) skk-ad)
   ;; subr command but no arg.
   "`skk-egg-like-newline' $B$,(B non-nil $B$G$"$l$P!"3NDj$N$_9T$$!"2~9T$7$J$$!#(B"
   (skk-remove-minibuffer-setup-hook
@@ -5275,34 +5265,34 @@ FACE $B$O!VA07J?'!WKt$O!VA07J?'(B + $B%9%i%C%7%e(B + $BGX7J?'!W$N7A<0$G;XDj
   (if (not (or skk-j-mode
                skk-jisx0201-mode
                skk-abbrev-mode))
-      ad-do-it
+      (funcall oldfun)
     (let ((no-newline (and skk-egg-like-newline
                            skk-henkan-mode)))
       (when skk-mode
         (skk-kakutei))
       (unless no-newline
-        ad-do-it))))
+        (funcall oldfun)))))
 
-(defadvice picture-mode-exit (before skk-ad activate)
+(define-advice picture-mode-exit (:before (&optional nostrip) skk-ad)
   "SKK $B$N%P%C%U%!%m!<%+%kJQ?t$rL58z$K$7!"(B`picture-mode-exit' $B$r%3!<%k$9$k!#(B
 `picture-mode' $B$+$i=P$?$H$-$K$=$N%P%C%U%!$G(B SKK $B$r@5>o$KF0$+$9$?$a$N=hM}!#(B"
   (when skk-mode
     (skk-kill-local-variables)))
 
-(defadvice undo (before skk-ad activate)
+(define-advice undo (:before (&optional arg) skk-ad)
   "SKK $B%b!<%I$,(B on $B$J$i(B `skk-self-insert-non-undo-count' $B$r=i4|2=$9$k!#(B"
   (when skk-mode
     (setq skk-self-insert-non-undo-count 0)))
 
-(defadvice next-line (before skk-ad activate)
+(define-advice next-line (:before (&optional arg try-vscroll) skk-ad)
   (when (eq skk-henkan-mode 'active)
     (skk-kakutei)))
 
-(defadvice previous-line (before skk-ad activate)
+(define-advice previous-line (:before (&optional arg try-vscroll) skk-ad)
   (when (eq skk-henkan-mode 'active)
     (skk-kakutei)))
 
-(defadvice backward-kill-sentence (before skk-ad activate)
+(define-advice backward-kill-sentence (:before (&optional arg) skk-ad)
   ;; C-x DEL
   ;; $B$I$N$h$&$JF0:n$r$9$k$Y$-$+L$7hDj(B
   (when skk-mode
@@ -5317,13 +5307,13 @@ skk $B$NF0:n$H@09g$5$;$k!#(B
 
 $BK\%^%/%m$rMQ$$$k$H!"JQ49$r3NDj$7$F$+$i(B (`skk-kakutei' $B$r<B9T$7$F$+$i(B) CMD $BK\(B
 $BBN$r<B9T$9$k$h$&$K(B CMD $B$r%i%C%W$9$k!#(B"
-  `(defadvice ,cmd (around skk-ad activate compile)
+  `(define-advice ,cmd (:around (oldfun &rest args) skk-ad)
      (cond (skk-henkan-mode
             (skk-kakutei)
             (unless skk-egg-like-newline
-              ad-do-it))
+              (apply oldfun args)))
            (t
-            ad-do-it))))
+            (apply oldfun args)))))
 
 (skk-wrap-newline-command comint-send-input)
 (skk-wrap-newline-command ielm-return)

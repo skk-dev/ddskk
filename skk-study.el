@@ -445,13 +445,13 @@ TO の既存データは破壊される。"
   (and (> nth -1) (setcdr (nthcdr nth list) nil))
   list)
 
-(defadvice skk-kakutei-initialize (before skk-study-ad activate)
-  (let ((kakutei-word (ad-get-arg 0)))
-    (when kakutei-word
-      (ring-insert
-       skk-study-data-ring (cons skk-henkan-key kakutei-word)))))
+(define-advice skk-kakutei-initialize
+    (:before (&optional kakutei-word) skk-study-ad)
+  (when kakutei-word
+    (ring-insert
+     skk-study-data-ring (cons skk-henkan-key kakutei-word))))
 
-(defadvice skk-undo-kakutei (after skk-study-ad activate)
+(define-advice skk-undo-kakutei (:after () skk-study-ad)
   (let ((last (ring-ref skk-study-data-ring 0))
         (last2 (ring-ref skk-study-data-ring 1))
         target)

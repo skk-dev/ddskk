@@ -372,14 +372,15 @@
 
   ;; tooltip 表示の際のマウスポインタを変更して遊んでみる
   ;; 注) この設定は X Window System 上の GNU Emacs でないと利用できません。
-  (defadvice skk-tooltip-show-at-point (around set-pointer activate)
+  (define-advice skk-tooltip-show-at-point
+      (:around (oldfun text &optional situation) set-pointer)
     (let ((shape x-pointer-shape))
       (require 'avoid)
-      (mouse-avoidance-set-pointer-shape (if (ad-get-arg 1)
+      (mouse-avoidance-set-pointer-shape (if text
 					     x-pointer-pencil
 					   x-pointer-hand1))
       (unwind-protect
-	  ad-do-it
+	  (funcall oldfun text situation)
 	(mouse-avoidance-set-pointer-shape shape))))
   )
 
@@ -744,7 +745,8 @@
 ;; Tips といえるものではないが、`lisp-interaction-mode' において "C-j"
 ;; (`eval-print-last-sexp') を利用する人にとっては、英数モードにおいて
 ;; "C-j" によって かなモードに入る仕様は使いづらい。
-;; (defadvice skk-latin-mode (after no-latin-mode-in-lisp-interaction activate)
+;; (define-advice skk-latin-mode
+;;     (:after (arg) no-latin-mode-in-lisp-interaction)
 ;;   "`lisp-interaction-mode' において英数モードを回避する。"
 ;;   (when (eq major-mode 'lisp-interaction-mode)
 ;;     (skk-mode-off)))
@@ -777,8 +779,8 @@
 ;;; orgtbl-mode
 ;;; http://mail.ring.gr.jp/skk/201807/msg00001.html
 (skk-wrap-newline-command orgtbl-ret)
-(defadvice org-delete-backward-char (around skk-ad activate)
+(define-advice org-delete-backward-char (:around (oldfun N) skk-ad)
   (skk-delete-backward-char N)
-  ad-do-it)
+  (funcall oldfun N))
 
 ;;; dot.skk ends here

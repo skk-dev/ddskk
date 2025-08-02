@@ -64,9 +64,9 @@
 
 ;;; Code:
 
-;; for `ad-find-advice' macro when running uncompiled
-;; (don't unload 'advice before our -unload-function)
-(require 'advice)
+;; for `advice-remove' when running uncompiled
+;; (don't unload 'nadvice before our -unload-function)
+(require 'nadvice)
 
 (require 'checkdoc)
 
@@ -269,7 +269,10 @@ Output a `checkdoc-batch' error about buffer position POS."
 
 ;;-----------------------------------------------------------------------------
 
-(defadvice checkdoc-autofix-ask-replace (around checkdoc-batch)
+(define-advice checkdoc-autofix-ask-replace
+    (:around
+     (oldfun start end question replacewith &optional complex)
+     checkdoc-batch)
   "Temporary hack to capture message and say yes to change."
   (checkdoc-batch-error start (concat question " " replacewith))
   (delete-region start end)
@@ -277,50 +280,70 @@ Output a `checkdoc-batch' error about buffer position POS."
     (goto-char start)
     (insert replacewith)
     (set-buffer-modified-p nil))
-  (setq ad-return-value t))
+  t)
 
-(defadvice checkdoc-y-or-n-p (around checkdoc-batch)
+(define-advice checkdoc-y-or-n-p (:around (oldfun question) checkdoc-batch)
   "Temporary hack to capture message and say yes to change."
-  (checkdoc-batch-error (point)
-                        (ad-get-arg 0)) ;; QUESTION
-  (setq ad-return-value t))
+  (checkdoc-batch-error (point) question)
+  t)
 
-(defadvice checkdoc-recursive-edit (around checkdoc-batch)
+(define-advice checkdoc-recursive-edit (:around (oldfun msg) checkdoc-batch)
   "Temporary hack to capture message and suppress edit."
-  (checkdoc-batch-error (point)
-                        (ad-get-arg 0)) ;; MSG
-  (setq ad-return-value t))
+  (checkdoc-batch-error (point) msg)
+  t)
 
-(defadvice checkdoc-create-error (around checkdoc-batch)
+(define-advice checkdoc-create-error
+    (:around (oldfun text start end &optional unfixable) checkdoc-batch)
   "Temporary hack to capture checkdoc error messages."
   ;; START is nil for a whole-buffer thing like missing ";;; Commentary"
   ;; section
   (checkdoc-batch-error (or start (point-min))
                         text)
-  (setq ad-return-value nil))
+  nil)
 
-(defadvice message (around checkdoc-batch)
+(define-advice message
+    (:around (oldfun format-string &rest args) checkdoc-batch)
   "Temporary hack to capture checkdoc messages."
-  (let ((format (ad-get-arg 0)))
+  (let ((format format-string))
     (if (null format)
-        (setq ad-return-value nil)
-      (let ((str (apply 'format (ad-get-args 0))))
-        (setq ad-return-value str)
+        nil
+      (let ((str (apply 'format (cons format-string args))))
         (unless (string-match "\\(\\`Searching for \\|Done\\|Starting new Ispell\\|Ispell process killed\\)" format)
-          (checkdoc-batch-message "%s\n" str))))))
+          (checkdoc-batch-message "%s\n" str))
+        str))))
 
-(defadvice read-string (around checkdoc-batch)
+(define-advice read-string
+    (:around
+     (oldfun
+      prompt
+      &optional
+      initial-input
+      history
+      default-value
+      inherit-input-method)
+     checkdoc-batch)
   "Temporary hack to just return an empty string."
-  (setq ad-return-value ""))
+  "")
 
-(defadvice completing-read (around checkdoc-batch)
+(define-advice completing-read
+    (:around
+     (oldfun
+      prompt
+      collection
+      &optional
+      predicate
+      require-match
+      initial-input
+      hist
+      def
+      inherit-input-method)
+     checkdoc-batch)
   "Temporary hack to just return first completion candidate."
-  (setq ad-return-value
-        (or (checkdoc-batch-completion-first-candidate
-             (ad-get-arg 1)) ;; COLLECTION or TABLE
-            "")))
+  (or (checkdoc-batch-completion-first-candidate collection)
+      ""))
 
-(defadvice ispell-command-loop (around checkdoc-batch)
+(define-advice ispell-command-loop
+    (:around (oldfun miss guess word start end) checkdoc-batch)
   "Temporary hack to capture spelling error reports."
   (let ((maybe (delq nil (list miss guess))))
     (setq maybe
@@ -348,10 +371,14 @@ List of functions (symbols) with `checkdoc-batch' advice.")
 (defun checkdoc-batch-advice (action)
   "An internal part of checkdoc-batch.el.
 Call ACTION on `checkdoc-batch-advised-functions'.
-ACTION can be symbol `ad-enable-advice' or `ad-disable-advice'."
+ACTION can be symbol `enable-advice' or `disable-advice'."
   (dolist (func checkdoc-batch-advised-functions)
-    (funcall action func 'around 'checkdoc-batch)
-    (ad-activate    func)))
+    (let ((advice (make-symbol (concat (symbol-name func) "@checkdoc-batch"))))
+      (cond
+       ((eq action 'enable-advice)
+        (advice-add func 'around advice))
+       ((eq action 'disable-advice)
+        (advice-remove func advice))))))
 
 ;; this cleans up in emacs22 up, but since the advice is only enabled while
 ;; checkdoc-batch executes it doesn't matter if it's left behind in
@@ -361,10 +388,7 @@ ACTION can be symbol `ad-enable-advice' or `ad-disable-advice'."
   "An internal part of checkdoc-batch.el.
 Remove advice from `checkdoc-batch-advised-functions'.
 This is called by `unload-feature'."
-  (dolist (func checkdoc-batch-advised-functions)
-    (when (ad-find-advice func 'around 'checkdoc-batch)
-      (ad-remove-advice   func 'around 'checkdoc-batch)
-      (ad-activate        func)))
+  (checkdoc-batch-advice 'disable-advice)
   nil) ;; and do normal unload-feature actions too
 
 
@@ -455,9 +479,9 @@ Generate a report for the current temp buffer contents."
      (let ((checkdoc-autofix-flag 'automatic))
        (unwind-protect
            (progn
-             (checkdoc-batch-advice 'ad-enable-advice)
+             (checkdoc-batch-advice 'enable-advice)
              (checkdoc))
-         (checkdoc-batch-advice 'ad-disable-advice))))))
+         (checkdoc-batch-advice 'disable-advice))))))
 
 ;;;###autoload
 (defun checkdoc-batch ()
