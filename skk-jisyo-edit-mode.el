@@ -146,16 +146,18 @@ You must edit your private dictionary at your own risk.  Do you accept it? "))
             `(lambda ()
                (setq skk-update-jisyo-function
                      #',skk-update-jisyo-function)
-               (ad-disable-advice 'skk-henkan-in-minibuff 'before 'notify-no-effect)
-               (ad-disable-advice 'skk-purge-from-jisyo 'around 'notify-no-effect)
-               (ad-activate 'skk-henkan-in-minibuff)
-               (ad-activate 'skk-purge-from-jisyo))
+               (advice-remove #'skk-henkan-in-minibuff
+                              #'skk-henkan-in-minibuff@notify-no-effect)
+               (advice-remove #'skk-purge-from-jisyo
+                              #'skk-purge-from-jisyo@notify-no-effect))
             nil t)
   (setq skk-update-jisyo-function #'ignore)
-  (ad-enable-advice 'skk-henkan-in-minibuff 'before 'notify-no-effect)
-  (ad-enable-advice 'skk-purge-from-jisyo 'around 'notify-no-effect)
-  (ad-activate 'skk-henkan-in-minibuff)
-  (ad-activate 'skk-purge-from-jisyo)
+  (advice-add #'skk-henkan-in-minibuff
+              :before
+              #'skk-henkan-in-minibuff@notify-no-effect)
+  (advice-add #'skk-purge-from-jisyo
+              :around
+              #'skk-purge-from-jisyo@notify-no-effect)
   (local-set-key "\C-c\C-c"
                  (lambda ()
                    (interactive)
@@ -180,19 +182,20 @@ You must edit your private dictionary at your own risk.  Do you accept it? "))
   (skk-message "保存終了: C-c C-c, 編集中止: C-c C-k"
                "Save & Exit: C-c C-c, Abort: C-c C-k"))
 
-(defadvice skk-henkan-in-minibuff (before notify-no-effect disable)
+(defun skk-henkan-in-minibuff@notify-no-effect ()
   (ding)
   (skk-message "個人辞書の編集中です。登録は反映されません。"
                "You are editing private jisyo.  This registration has no effect.")
   (sit-for 1.5))
 
-(defadvice skk-purge-from-jisyo (around notify-no-effect disable)
+(defun skk-purge-from-jisyo@notify-no-effect (oldfun &optional arg)
   (if (eq skk-henkan-mode 'active)
       (progn
         (ding)
         (skk-message "個人辞書の編集中です。削除できません。"
-                     "You are editing private jisyo.  Can't purge."))
-    ad-do-it))
+                     "You are editing private jisyo.  Can't purge.")
+        nil)
+    (funcall oldfun arg)))
 
 (provide 'skk-jisyo-edit)
 

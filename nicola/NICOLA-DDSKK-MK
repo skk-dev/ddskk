@@ -3,7 +3,7 @@
 ;;; Code:
 
 (require 'cl-lib)
-(require 'advice)
+(require 'nadvice)
 
 (defun config-nicola-ddskk ()
   (let (prefix lisp-dir version-specific-lisp-dir)

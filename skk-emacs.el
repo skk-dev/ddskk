@@ -729,7 +729,7 @@ TEXT には `skk-tooltip-face' が適用される。"
 
 ;; advices.
 
-(defadvice tooltip-hide (after ccc-ad activate)
+(define-advice tooltip-hide (:after (&optional _ignored-arg) ccc-ad)
   (ccc-update-buffer-local-frame-params))
 
 

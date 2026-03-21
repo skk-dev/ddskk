@@ -61,11 +61,11 @@
 
 (require 'skk)
 
-(defadvice skk-search (around skk-hint-ad activate)
+(define-advice skk-search (:around (oldfun) skk-hint-ad)
   ;; skk-current-search-prog-list の要素になっているプログラムを評価して、
   ;; skk-henkan-key をキーにして検索を行う。
   (if (null skk-hint-henkan-hint)
-      ad-do-it
+      (funcall oldfun)
     (let (l kouho hint)
       (while (and (null l) skk-current-search-prog-list)
         (setq l (eval (car skk-current-search-prog-list)))
@@ -76,7 +76,7 @@
         (setq kouho (skk-nunion kouho l))
         (setq l (skk-hint-limit kouho hint))
         (setq skk-current-search-prog-list (cdr skk-current-search-prog-list)))
-      (setq ad-return-value l))))
+      l)))
 
 (defun skk-hint-setup-hint ()
   (cond ((eq skk-hint-state 'kana)
@@ -107,7 +107,8 @@
                     "skk-hint-setup-hint")))
   (setq skk-hint-inhibit-kakutei nil))
 
-(defadvice skk-insert (around skk-hint-ad activate)
+(define-advice skk-insert
+    (:around (oldfun &optional arg prog-list-number) skk-hint-ad)
   (cond ((and skk-henkan-mode
               (eq last-command-event skk-hint-start-char)
               (not skk-hint-state))
@@ -152,15 +153,15 @@
           (setq skk-henkan-count -1)
           (setq skk-henkan-list nil)
           (skk-start-henkan arg)))
-        (t ad-do-it)))
+        (t (funcall oldfun arg prog-list-number))))
 
-(defadvice keyboard-quit (before skk-hint-ad activate)
+(define-advice keyboard-quit (:before () skk-hint-ad)
   (setq skk-hint-inhibit-kakutei nil))
 
-(defadvice abort-recursive-edit (before skk-hint-ad activate)
+(define-advice abort-recursive-edit (:before () skk-hint-ad)
   (setq skk-hint-inhibit-kakutei nil))
 
-(defadvice skk-previous-candidate (before skk-hint-ad activate)
+(define-advice skk-previous-candidate (:before (&optional arg) skk-hint-ad)
   (when (and (eq skk-henkan-mode 'active)
              (not (string= skk-henkan-key ""))
              (zerop skk-henkan-count))
@@ -168,18 +169,19 @@
           skk-hint-state nil))
   (setq skk-hint-inhibit-kakutei nil))
 
-(defadvice skk-kakutei (around skk-hint-ad activate)
+(define-advice skk-kakutei (:around (oldfun &optional arg word) skk-hint-ad)
   (unless skk-hint-inhibit-kakutei
-    ad-do-it))
+    (funcall oldfun arg word)))
 
-(defadvice skk-kakutei-initialize (after skk-hint-ad activate)
+(define-advice skk-kakutei-initialize
+    (:after (&optional kakutei-word) skk-hint-ad)
   (setq skk-hint-henkan-hint nil
         skk-hint-start-point nil
         skk-hint-state nil
         skk-hint-inhibit-dcomp nil
         skk-hint-inhibit-kakutei nil))
 
-(defadvice skk-delete-backward-char (before skk-hint-ad activate)
+(define-advice skk-delete-backward-char (:before (arg) skk-hint-ad)
   (when (and (markerp skk-hint-start-point)
              (or (eq (1+ skk-hint-start-point) (point))
                  (eq skk-hint-start-point (point))))

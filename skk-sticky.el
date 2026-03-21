@@ -155,15 +155,16 @@
         (t
          (skk-sticky-set-okuri-mark))))
 
-(defadvice skk-kakutei (after skk-sticky-ad activate)
+(define-advice skk-kakutei (:after (&optional arg word) skk-sticky-ad)
   "`skk-sticky-okuri-flag' をクリアする。"
   (setq skk-sticky-okuri-flag nil))
 
-(defadvice keyboard-quit (after skk-sticky-ad activate)
+(define-advice keyboard-quit (:after () skk-sticky-ad)
   "`skk-sticky-okuri-flag' をクリアする。"
   (setq skk-sticky-okuri-flag nil))
 
-(defadvice skk-insert (before skk-sticky-ad activate)
+(define-advice skk-insert
+    (:before (&optional arg prog-list-number) skk-sticky-ad)
   "`*' の直後であれば入力を大文字に変換する。"
   (when (and skk-sticky-okuri-flag
              (skk-sticky-looking-back-okuri-mark)
@@ -173,7 +174,7 @@
                                    (car pair)
                                  (upcase last-command-event))))))
 
-(defadvice skk-set-henkan-point (before skk-sticky-ad activate)
+(define-advice skk-set-henkan-point (:before (&optional arg) skk-sticky-ad)
   "`point' 直前の `*' を消す。"
   (when (and skk-sticky-okuri-flag
              (skk-sticky-looking-back-okuri-mark))
@@ -185,7 +186,7 @@
 ;; これにより、`skk-undo-kakutei-word-only' が non-nil でも2度打ちの時
 ;; に boundary が入ってしまう副作用があるが、先の問題よりはマシだと考え
 ;; る。
-;;; (defadvice skk-kana-input (around skk-sticky-ad activate)
+;;; (define-advice skk-kana-input (:around (oldfun &optional arg) skk-sticky-ad)
 ;;;   "▽直後の `skk-sticky-key' の入力の際 `cancel-undo-boundary' を呼ばないように。"
 ;;;   (if (and (stringp skk-sticky-key)
 ;;;        (eq (skk-last-command-char) (string-to-char skk-sticky-key))
@@ -193,9 +194,9 @@
 ;;;        (eq (point) (marker-position skk-henkan-start-point)))
 ;;;       (progn
 ;;;     (let ((skk-self-insert-non-undo-count 20))
-;;;       ad-do-it)
+;;;       (funcall oldfun arg))
 ;;;     (setq skk-self-insert-non-undo-count (1+ skk-self-insert-non-undo-count)))
-;;;     ad-do-it))
+;;;     (funcall oldfun arg)))
 
 ;;; 同時打鍵関連
 (defun skk-sticky-double-p (first next)
@@ -207,22 +208,23 @@
          (memq char skk-sticky-key)
          (memq next skk-sticky-key))))
 
-(defadvice skk-insert (around skk-sticky-ad-double activate)
+(define-advice skk-insert
+    (:around (oldfun &optional arg prog-list-number) skk-sticky-ad-double)
   "同時打鍵を検出して処理する。"
   (cond ((not (consp skk-sticky-key))
-         ad-do-it)
+         (funcall oldfun arg prog-list-number))
         ((not (memq last-command-event skk-sticky-key))
-         ad-do-it)
+         (funcall oldfun arg prog-list-number))
         ((sit-for skk-sticky-double-interval t)
          ;; No input in the interval.
-         ad-do-it)
+         (funcall oldfun arg prog-list-number))
         (t
          ;; Some key's pressed.
          (let ((next-event (read-event)))
            (if (skk-sticky-double-p this-command
                                     (aref (skk-event-key next-event) 0))
                (skk-sticky-set-henkan-point)
-             ad-do-it
+             (funcall oldfun arg prog-list-number)
              (skk-unread-event next-event))))))
 
 (provide 'skk-sticky)

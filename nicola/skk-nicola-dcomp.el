@@ -35,12 +35,13 @@
                          (featurep 'skk-nicola))
                 (require 'skk-nicola-dcomp))))
 
-(defadvice skk-nicola-self-insert-lshift-1 (around skk-nicola-dcomp activate)
+(define-advice skk-nicola-self-insert-lshift-1
+    (:around (oldfun arg parg) skk-nicola-dcomp)
   (cond
    ((or (not skk-dcomp-activate)
         skk-hint-inhibit-dcomp
         (eq skk-henkan-mode 'active))
-    ad-do-it)
+    (funcall oldfun arg parg))
    (t
     (let (pos)
       (cond
@@ -57,7 +58,7 @@
               (setq pos (point))
             (ignore-errors
               (delete-region skk-dcomp-start-point skk-dcomp-end-point))))))
-      ad-do-it
+      (funcall oldfun arg parg)
       ;;
       (when (and (eq this-command 'skk-nicola-self-insert-rshift)
                  (eq skk-henkan-mode 'on))

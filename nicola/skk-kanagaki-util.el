@@ -204,13 +204,14 @@
                           "゜"
                         "゛"))))))
 
-(defadvice isearch-repeat (around skk-kanagaki-workaround activate)
+(define-advice isearch-repeat
+    (:around (oldfun direction &optional count) skk-kanagaki-workaround)
   (cond ((get 'isearch-barrier 'skk-kanagaki)
          (goto-char isearch-barrier)
-         ad-do-it
+         (funcall oldfun direction count)
          (put 'isearch-barrier 'skk-kanagaki nil))
         (t
-         ad-do-it)))
+         (funcall oldfun direction count))))
 
 ;;;###autoload
 (defun skk-kanagaki-handakuten (&optional arg)

@@ -198,8 +198,7 @@
                               'lisp-el-font-lock-keywords-2
                             'lisp-font-lock-keywords-2)))))
    ;;
-   (put 'skk-deflocalvar 'doc-string-elt 3)
-   (put 'skk-defadvice 'doc-string-elt 3)))
+   (put 'skk-deflocalvar 'doc-string-elt 3)))
 
 (provide 'skk-develop)
 

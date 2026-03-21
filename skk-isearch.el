@@ -683,7 +683,8 @@ If the current mode is different from previous, remove it first."
 ;; advices.
 ;;
 
-(defadvice isearch-repeat (after skk-isearch-ad activate compile)
+(define-advice isearch-repeat
+    (:after (direction &optional count) skk-isearch-ad)
   "`isearch-message' を適切に設定する。"
   (when skk-isearch-switch
     (unless (string-match (concat "^" (regexp-quote (skk-isearch-mode-string)))
@@ -709,7 +710,7 @@ If the current mode is different from previous, remove it first."
           (isearch-push-state)
           (isearch-update))))))
 
-(defadvice isearch-edit-string (before skk-isearch-ad activate compile)
+(define-advice isearch-edit-string (:before () skk-isearch-ad)
   "`isearch-message' を適切に設定する。"
   (when skk-isearch-switch
     (with-current-buffer (get-buffer-create skk-isearch-working-buffer)
@@ -719,7 +720,7 @@ If the current mode is different from previous, remove it first."
                         isearch-message)
       (setq isearch-message (substring isearch-message (match-end 0))))))
 
-(defadvice isearch-search (before skk-isearch-ad activate compile)
+(define-advice isearch-search (:before () skk-isearch-ad)
   "`isearch-message' を適切に設定する。"
   (when skk-isearch-switch
     (unless (or isearch-nonincremental
@@ -735,13 +736,14 @@ If the current mode is different from previous, remove it first."
 ;;;###autoload
 (defconst skk-isearch-really-early-advice
   (lambda ()
-    (defadvice isearch-message-prefix (around skk-isearch-ad activate)
+    (define-advice isearch-message-prefix
+        (:around (oldfun &optional ellipsis nonincremental) skk-isearch-ad)
       (let ((current-input-method
              (unless (and (boundp 'skk-isearch-switch)
                           skk-isearch-switch)
                current-input-method)))
-        ad-do-it))
-    (defadvice isearch-toggle-input-method (around skk-isearch-ad activate)
+        (funcall oldfun ellipsis nonincremental)))
+    (define-advice isearch-toggle-input-method (:around (oldfun) skk-isearch-ad)
       ;; Needed for calling skk-isearch via isearch-x.
       (cond ((string-match "^japanese-skk"
                            (format "%s" default-input-method))
@@ -750,7 +752,7 @@ If the current mode is different from previous, remove it first."
                (skk-isearch-mode-setup)
                (skk-isearch-skk-mode)))
             ((null default-input-method)
-             ad-do-it
+             (funcall oldfun)
              (when (string-match "^japanese-skk"
                                  (format "%s" default-input-method))
                (let ((skk-isearch-initial-mode-when-skk-mode-disabled
@@ -758,18 +760,18 @@ If the current mode is different from previous, remove it first."
                  (skk-isearch-mode-setup))
                (deactivate-input-method)))
             (t
-             ad-do-it)))))
+             (funcall oldfun))))))
 
 ;;;###autoload
 (define-key isearch-mode-map [(control \\)] 'isearch-toggle-input-method)
-(cond ((and (featurep 'advice)
-            (assq 'skk-isearch-ad
-                  (assq 'around
-                        (ad-get-advice-info 'isearch-toggle-input-method))))
+(cond ((and (featurep 'nadvice)
+            (advice-member-p
+             #'isearch-toggle-input-method
+             #'isearch-toggle-input-method@skk-isearch-ad))
        ;; Already advised.
        nil)
 
-      ((locate-library "advice")
+      ((locate-library "nadvice")
        ;; Advise now.
        (funcall skk-isearch-really-early-advice))
 

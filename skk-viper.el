@@ -44,8 +44,8 @@
 ;;; macros and inline functions.
 (defmacro skk-viper-advice-select (viper vip arg body)
   `(if skk-viper-use-vip-prefix
-       (defadvice ,vip ,arg ,@body)
-     (defadvice ,viper ,arg ,@body)))
+       (define-advice ,vip ,arg ,@body)
+     (define-advice ,viper ,arg ,@body)))
 
 (setq skk-kana-cleanup-command-list
       (cons
@@ -63,30 +63,30 @@
 ;; what should we do if older Viper that doesn't have
 ;; `viper-insert-state-cursor-color'?
 (when (boundp 'viper-insert-state-cursor-color)
-  (defadvice skk-cursor-current-color (around skk-viper-cursor-ad activate)
+  (define-advice skk-cursor-current-color (:around (oldfun) skk-viper-cursor-ad)
     "vi-state 以外で且つ SKK モードのときのみ SKK 由来のカーソル色を返す。"
     (cond
      ((not skk-use-color-cursor)
-      ad-do-it)
+      (funcall oldfun))
      ((or (and (boundp 'viper-current-state)
                (eq viper-current-state 'vi-state))
           (and (boundp 'vip-current-mode)
                (eq vip-current-mode 'vi-mode)))
-      (setq ad-return-value skk-cursor-default-color))
+      skk-cursor-default-color)
      ((not skk-mode)
       (setq viper-insert-state-cursor-color
             skk-viper-saved-cursor-color)
-      (setq ad-return-value
-            (cond
-             ((eq viper-current-state 'insert-state)
-              viper-insert-state-cursor-color)
-             ((eq viper-current-state 'replace-state)
-              viper-replace-overlay-cursor-color)
-             ((eq viper-current-state 'emacs-state)
-              viper-emacs-state-cursor-color))))
+      (cond
+       ((eq viper-current-state 'insert-state)
+        viper-insert-state-cursor-color)
+       ((eq viper-current-state 'replace-state)
+        viper-replace-overlay-cursor-color)
+       ((eq viper-current-state 'emacs-state)
+        viper-emacs-state-cursor-color)))
      (t
-      ad-do-it
-      (setq viper-insert-state-cursor-color ad-return-value))))
+      (let ((return-value (funcall oldfun)))
+        (setq viper-insert-state-cursor-color return-value)
+        return-value))))
 
   (let ((funcs
          ;; cover to VIP/Viper functions.
@@ -103,8 +103,8 @@
              viper-insert-state-post-command-sentinel))))
     (dolist (func funcs)
       (eval
-       `(defadvice ,(intern (symbol-name func))
-            (after skk-viper-cursor-ad activate)
+       `(define-advice ,(intern (symbol-name func))
+            (:after (&rest args) skk-viper-cursor-ad)
           "Set cursor color which represents skk mode."
           (when skk-use-color-cursor
             (skk-cursor-set))))))
@@ -115,24 +115,24 @@
                  skk-toggle-characters)))
     (dolist (func funcs)
       (eval
-       `(defadvice ,(intern (symbol-name func))
-            (after skk-viper-cursor-ad activate)
+       `(define-advice ,(intern (symbol-name func))
+            (:after (&rest) skk-viper-cursor-ad)
           "\
 `viper-insert-state-cursor-color' を SKK の入力モードのカーソル色と合わせる。"
           (when skk-use-color-cursor
             (setq viper-insert-state-cursor-color
                   (skk-cursor-current-color)))))))
 
-  (defadvice skk-mode (after skk-viper-cursor-ad activate)
+  (define-advice skk-mode (:after (&optional arg) skk-viper-cursor-ad)
     "Set cursor color which represents skk mode."
     (when skk-use-color-cursor
       (skk-cursor-set)))
 
-  (defadvice skk-kakutei (after skk-viper-cursor-ad activate)
+  (define-advice skk-kakutei (:after (&optional arg word) skk-viper-cursor-ad)
     (setq viper-insert-state-cursor-color skk-cursor-hiragana-color)))
 
 (when (boundp 'viper-insert-state-cursor-color)
-  (skk-defadvice read-from-minibuffer (before skk-viper-ad activate)
+  (define-advice read-from-minibuffer (:before (&rest args) skk-viper-ad)
     "`minibuffer-setup-hook' に `update-buffer-local-frame-params' をフックする。
 `viper-read-string-with-history' は `minibuffer-setup-hook' を関数ローカル
 にしてしまうので、予め `minibuffer-setup-hook' にかけておいたフックが無効
@@ -144,7 +144,7 @@
 
 ;;; advices.
 ;; vip-4 の同種の関数名は vip-read-string-with-history？
-(defadvice viper-read-string-with-history (after skk-viper-ad activate)
+(define-advice viper-read-string-with-history (:after (&rest args) skk-viper-ad)
   "次回ミニバッファに入ったときに SKK モードにならないようにする。"
   (skk-remove-skk-pre-command)
   (skk-remove-minibuffer-setup-hook 'skk-j-mode-on
@@ -153,35 +153,36 @@
 
 (skk-viper-advice-select
  viper-forward-word-kernel vip-forward-word
- (around skk-ad activate)
+ (:around (oldfun val) skk-ad)
  ("SKK モードがオンで、ポイントの直後の文字が JISX0208/JISX0213 だったら\
  `forward-word' する。"
   (if (and skk-mode
            (or (skk-jisx0208-p (following-char))
                (skk-jisx0213-p (following-char))))
-      (forward-word (ad-get-arg 0))
-    ad-do-it)))
+      (forward-word val)
+    (funcall oldfun val))))
 
 (skk-viper-advice-select
  viper-backward-word-kernel vip-backward-word
- (around skk-ad activate)
+ (:around (oldfun val) skk-ad)
  ("SKK モードがオンで、ポイントの直前の文字が JISX0208/JISX0213 だったら\
  `backward-word' する。"
   (if (and skk-mode (or (skk-jisx0208-p (preceding-char))
                         (skk-jisx0213-p (preceding-char))))
-      (backward-word (ad-get-arg 0))
-    ad-do-it)))
+      (backward-word val)
+    (funcall oldfun val))))
 
 ;; please sync with `skk-delete-backward-char'
 (skk-viper-advice-select
  viper-del-backward-char-in-insert vip-delete-backward-char
- (around skk-ad activate)
+ ;; viper-del-backward-char-in-insertは引数を取らないが、vip-delete-backward-charは引数を取るので&optional argとする。
+ (:around (oldfun &optional arg) skk-ad)
  ("▼モードで `skk-delete-implies-kakutei' なら直前の文字を消して確定する。
 ▼モードで `skk-delete-implies-kakutei' が nil だったら前候補を表示する。
 ▽モードで`▽'よりも前のポイントで実行すると確定する。
 確定入力モードで、かなプレフィックスの入力中ならば、かなプレフィックスを消す。"
   (skk-with-point-move
-   (let ((count (or (prefix-numeric-value (ad-get-arg 0)) 1)))
+   (let ((count (or (prefix-numeric-value arg) 1)))
      (cond
       ((eq skk-henkan-mode 'active)
        (if (and (not skk-delete-implies-kakutei)
@@ -198,7 +199,7 @@
              (progn
                (backward-char count)
                (delete-char count))
-           ad-do-it)
+           (funcall oldfun arg))
          ;; XXX assume skk-prefix has no multibyte chars.
          (if (> (length skk-prefix) count)
              (setq skk-prefix (substring skk-prefix
@@ -225,11 +226,11 @@
        (if (skk-get-prefix skk-current-rule-tree)
            (skk-erase-prefix 'clean)
          (skk-set-marker skk-kana-start-point nil)
-         ad-do-it)))))))
+         (funcall oldfun arg))))))))
 
 (skk-viper-advice-select
  viper-intercept-ESC-key vip-escape-to-emacs
- (before skk-add activate)
+ (:before (&optional arg events) skk-add)
  ("▽モード、▼モードだったら確定する。"
   (when (and skk-mode
              skk-henkan-mode)
@@ -237,13 +238,13 @@
 
 (skk-viper-advice-select
  viper-intercept-ESC-key vip-escape-to-emacs
- (after skk-kana-cleanup-ad activate)
+ (:after (&optional arg events) skk-kana-cleanup-ad)
  ("vi-state 移行の際に確定入力モードで入力されたローマ字プレフィックスを消す。"
   (skk-kana-cleanup t)))
 
 (skk-viper-advice-select
  viper-join-lines vip-join-lines
- (after skk-ad activate)
+ (:after (arg) skk-ad)
  ("スペースの両側の文字セットが JISX0208/JISX0213 だったらスペースを取り除く。"
   (save-match-data
     (let ((char-after (char-after (progn

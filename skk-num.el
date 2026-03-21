@@ -509,7 +509,8 @@ type4 の数値再変換が行われたときは、数値自身を返し、それ以外の数値変換
                  (cdr (assq c skk-num-alist-type2)))))
              str ""))
 
-(defadvice skk-kakutei-initialize (after skk-num-ad activate)
+(define-advice skk-kakutei-initialize
+    (:after (&optional kakutei-word) skk-num-ad)
   (when (skk-numeric-p)
     (skk-num-initialize)))
 

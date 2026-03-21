@@ -454,13 +454,13 @@
 
 ;;; advices.
 ;; main dynamic completion engine.
-(defadvice skk-kana-input (around skk-dcomp-ad activate)
+(define-advice skk-kana-input (:around (oldfun &optional arg) skk-dcomp-ad)
   (cond
    ((or skk-hint-inhibit-dcomp
         (not (and (or skk-dcomp-activate
                       skk-dcomp-multiple-activate)
                   skk-henkan-mode)))
-    ad-do-it)
+    (funcall oldfun arg))
    (t
     (cond
      ((or (eq skk-henkan-mode 'active) ; ▼モード
@@ -479,7 +479,7 @@
       (unless (member (this-command-keys)
                       skk-dcomp-keep-completion-keys)
         (skk-dcomp-delete-completion))))
-    ad-do-it
+    (funcall oldfun arg)
     (when (and skk-j-mode
                (or skk-use-kana-keyboard
                    ;; 送りあり変換が始まったら補完しない
@@ -490,34 +490,35 @@
             (skk-dcomp-multiple-show (skk-dcomp-multiple-get-candidates)))
         (skk-dcomp-do-completion (point)))))))
 
-(defadvice skk-set-henkan-point-subr (around skk-dcomp-ad activate)
+(define-advice skk-set-henkan-point-subr
+    (:around (oldfun &optional arg) skk-dcomp-ad)
   (cond
    ((or skk-dcomp-activate
         skk-dcomp-multiple-activate)
     (let ((henkan-mode skk-henkan-mode))
-      ad-do-it
+      (funcall oldfun arg)
       (unless (or henkan-mode
                   (char-after (point)))
         (skk-dcomp-do-completion (point)))))
    (t
-    ad-do-it)))
+    (funcall oldfun arg))))
 
-(defadvice skk-abbrev-insert (around skk-dcomp-ad activate)
+(define-advice skk-abbrev-insert (:around (oldfun arg) skk-dcomp-ad)
   (cond
    ((or skk-dcomp-activate
         skk-dcomp-multiple-activate)
     (when (skk-dcomp-marked-p)
       (skk-dcomp-face-off)
       (skk-dcomp-delete-completion))
-    ad-do-it
+    (funcall oldfun arg)
     (when skk-use-look
       (setq skk-look-completion-words nil))
     (unless (memq last-command-event '(?*))
       (skk-dcomp-do-completion (point))))
    (t
-    ad-do-it)))
+    (funcall oldfun arg))))
 
-(defadvice skk-abbrev-comma (around skk-dcomp-ad activate)
+(define-advice skk-abbrev-comma (:around (oldfun arg) skk-dcomp-ad)
   (cond
    ((and (or skk-dcomp-activate
              skk-dcomp-multiple-activate)
@@ -525,15 +526,15 @@
     (when (skk-dcomp-marked-p)
       (skk-dcomp-face-off)
       (skk-dcomp-delete-completion))
-    ad-do-it
+    (funcall oldfun arg)
     (when skk-use-look
       (setq skk-look-completion-words nil))
     (unless (memq last-command-event '(?*))
       (skk-dcomp-do-completion (point))))
    (t
-    ad-do-it)))
+    (funcall oldfun arg))))
 
-(defadvice skk-abbrev-period (around skk-dcomp-ad activate)
+(define-advice skk-abbrev-period (:around (oldfun arg) skk-dcomp-ad)
   (cond
    ((and (or skk-dcomp-activate
              skk-dcomp-multiple-activate)
@@ -541,15 +542,16 @@
     (when (skk-dcomp-marked-p)
       (skk-dcomp-face-off)
       (skk-dcomp-delete-completion))
-    ad-do-it
+    (funcall oldfun arg)
     (when skk-use-look
       (setq skk-look-completion-words nil))
     (unless (memq last-command-event '(?*))
       (skk-dcomp-do-completion (point))))
    (t
-    ad-do-it)))
+    (funcall oldfun arg))))
 
-(defadvice skk-comp-previous (after skk-dcomp-ad activate)
+(define-advice skk-comp-previous
+    (:after (&optional set-this-command) skk-dcomp-ad)
   (when (and (skk-dcomp-multiple-activate-p)
              (skk-dcomp-multiple-available-p)
              (or skk-comp-circulate
@@ -562,36 +564,38 @@
                 (t (1- skk-dcomp-multiple-select-index))))
     (skk-dcomp-multiple-show (skk-dcomp-multiple-get-candidates t))))
 
-(defadvice skk-kakutei (around skk-dcomp-ad activate)
+(define-advice skk-kakutei (:around (oldfun &optional arg word) skk-dcomp-ad)
   (skk-dcomp-before-kakutei)
-  ad-do-it
+  (funcall oldfun arg word)
   (skk-dcomp-after-kakutei))
 
-(defadvice keyboard-quit (around skk-dcomp-ad activate)
+(define-advice keyboard-quit (:around (oldfun) skk-dcomp-ad)
   (skk-dcomp-before-kakutei)
-  ad-do-it
+  (funcall oldfun)
   (skk-dcomp-after-delete-backward-char))
 
-(defadvice abort-minibuffers (around skk-dcomp-ad activate)
+(define-advice abort-minibuffers (:around (oldfun) skk-dcomp-ad)
   (skk-dcomp-before-kakutei)
-  ad-do-it
+  (funcall oldfun)
   (skk-dcomp-after-delete-backward-char))
 
-;; (defadvice skk-henkan (before skk-dcomp-ad activate)
-(defadvice skk-start-henkan (before skk-dcomp-ad activate)
+;; (define-advice skk-henkan (:before (&optional prog-list-number) skk-dcomp-ad)
+(define-advice skk-start-henkan
+    (:before (arg &optional prog-list-number) skk-dcomp-ad)
   (skk-dcomp-cleanup-buffer))
 
-(defadvice skk-process-prefix-or-suffix (before skk-dcomp-ad activate)
+(define-advice skk-process-prefix-or-suffix
+    (:before (&optional arg) skk-dcomp-ad)
   (when skk-henkan-mode
     (skk-dcomp-cleanup-buffer)))
 
-(defadvice skk-comp (around skk-dcomp-ad activate)
+(define-advice skk-comp (:around (oldfun first &optional silent) skk-dcomp-ad)
   (cond ((and (or skk-dcomp-activate
                   skk-dcomp-multiple-activate)
               (skk-dcomp-marked-p))
-         (cond ((integerp (ad-get-arg 0))
+         (cond ((integerp first)
                 (skk-dcomp-cleanup-buffer)
-                ad-do-it)
+                (funcall oldfun first silent))
                (t
                 (goto-char skk-dcomp-end-point)
                 (setq this-command 'skk-comp-do)
@@ -608,7 +612,7 @@
                          skk-dcomp-multiple-select-index t))
                   (skk-dcomp-multiple-show (skk-dcomp-multiple-get-candidates t))))))
         (t
-         ad-do-it
+         (funcall oldfun first silent)
          (when (and (skk-dcomp-multiple-activate-p)
                     (skk-dcomp-multiple-available-p))
            (setq skk-dcomp-multiple-select-index
@@ -619,23 +623,26 @@
                                      (not (and current-prefix-arg
                                                (listp current-prefix-arg)))))))))
 
-(defadvice skk-comp-do (before skk-dcomp-ad activate)
+(define-advice skk-comp-do
+    (:filter-args (first &optional silent set-this-command) skk-dcomp-ad)
   (when (and skk-comp-use-prefix
              (not (string= "" skk-prefix))
              (eq last-command-event skk-next-completion-char))
-    (ad-set-arg 0 t)))
+    (setq first t))
+  (list first silent set-this-command))
 
-(defadvice skk-comp-do (after skk-dcomp-ad activate)
+(define-advice skk-comp-do
+    (:after (first &optional silent set-this-command) skk-dcomp-ad)
   (when (and (skk-dcomp-multiple-activate-p)
              (skk-dcomp-multiple-available-p)
-             ;;(not (ad-get-arg 0))
+             ;;(not first)
              (eq last-command-event skk-next-completion-char))
     (skk-kana-cleanup 'force)
     (setq skk-dcomp-multiple-select-index
           (skk-dcomp-multiple-increase-index skk-dcomp-multiple-select-index))
     (skk-dcomp-multiple-show (skk-dcomp-multiple-get-candidates t))))
 
-(defadvice skk-comp-start-henkan (around skk-dcomp-ad activate)
+(define-advice skk-comp-start-henkan (:around (oldfun arg) skk-dcomp-ad)
   (cond ((and (eq skk-henkan-mode 'on)
               (or skk-dcomp-activate
                   skk-dcomp-multiple-activate)
@@ -645,25 +652,26 @@
          (skk-dcomp-face-off)
          (skk-set-marker skk-dcomp-start-point nil)
          (skk-set-marker skk-dcomp-end-point nil)
-         (skk-start-henkan (ad-get-arg 0)))
+         (skk-start-henkan arg))
         (t
-         ad-do-it)))
+         (funcall oldfun arg))))
 
-(defadvice skk-delete-backward-char (after skk-dcomp-ad activate)
+(define-advice skk-delete-backward-char (:after (arg) skk-dcomp-ad)
   (skk-dcomp-after-delete-backward-char))
 
-(defadvice skk-undo (after skk-dcomp-ad activate)
+(define-advice skk-undo (:after (&optional arg) skk-dcomp-ad)
   (skk-dcomp-after-delete-backward-char))
 
-(defadvice viper-del-backward-char-in-insert (after skk-dcomp-ad activate)
+(define-advice viper-del-backward-char-in-insert (:after () skk-dcomp-ad)
   (skk-dcomp-after-delete-backward-char))
 
-(defadvice vip-del-backward-char-in-insert (after skk-dcomp-ad activate)
+(define-advice vip-del-backward-char-in-insert (:after () skk-dcomp-ad)
   (skk-dcomp-after-delete-backward-char))
 
-(defadvice skk-previous-candidate (around skk-dcomp-ad activate)
+(define-advice skk-previous-candidate
+    (:around (oldfun &optional arg) skk-dcomp-ad)
   (let ((active (eq skk-henkan-mode 'active)))
-    ad-do-it
+    (funcall oldfun arg)
     (when active
       (skk-dcomp-after-delete-backward-char))))
 

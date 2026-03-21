@@ -35,13 +35,13 @@
 
 (require 'skk-emacs)
 
-(defadvice skk-isearch-set-initial-mode (before skk-show-mode activate)
+(define-advice skk-isearch-set-initial-mode (:before (mode) skk-show-mode)
   (setq skk-show-mode-show nil))
 
-(defadvice skk-isearch-initialize-working-buffer (before skk-show-mode activate)
+(define-advice skk-isearch-initialize-working-buffer (:before () skk-show-mode)
   (setq skk-show-mode-show nil))
 
-(defadvice skk-cursor-set (after skk-show-mode activate)
+(define-advice skk-cursor-set (:after (&optional color force) skk-show-mode)
   "かなモードやアスキーモードへ切り替わったときに skk-*-mode-string を
 tooltip / inline 表示する."
   (when (and skk-show-mode-invoked

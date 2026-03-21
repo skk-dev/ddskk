@@ -203,29 +203,29 @@
   (skk-cursor-set))
 
 ;; Pieces of advice.
-(defadvice skk-mode (before skk-jisx0201-ad activate)
+(define-advice skk-mode (:before (&optional arg) skk-jisx0201-ad)
   (setq skk-jisx0201-mode nil)
   (kill-local-variable 'skk-rule-tree))
 
-(defadvice skk-kakutei (around skk-jisx0201-ad activate)
+(define-advice skk-kakutei (:around (oldfun &optional arg word) skk-jisx0201-ad)
   (let ((jisx0201 skk-jisx0201-mode))
-    ad-do-it
+    (funcall oldfun arg word)
     (when jisx0201
       (skk-jisx0201-mode-on skk-jisx0201-roman))))
 
-(defadvice skk-latin-mode (before skk-jisx0201-ad activate)
+(define-advice skk-latin-mode (:before (arg) skk-jisx0201-ad)
   (setq skk-jisx0201-mode nil)
   (kill-local-variable 'skk-rule-tree))
 
-(defadvice skk-jisx0208-latin-mode (before skk-jisx0201-ad activate)
+(define-advice skk-jisx0208-latin-mode (:before (arg) skk-jisx0201-ad)
   (setq skk-jisx0201-mode nil)
   (kill-local-variable 'skk-rule-tree))
 
-(defadvice skk-abbrev-mode (before skk-jisx0201-ad activate)
+(define-advice skk-abbrev-mode (:before (arg) skk-jisx0201-ad)
   (setq skk-jisx0201-mode nil)
   (kill-local-variable 'skk-rule-tree))
 
-(defadvice skk-set-okurigana (around skk-jisx0201-ad activate)
+(define-advice skk-set-okurigana (:around (oldfun) skk-jisx0201-ad)
   "半角カナの送り仮名を正しく取得する。"
   (cond
    (skk-jisx0201-mode
@@ -270,16 +270,16 @@
                                (skk-jisx0201-zenkaku okuri))))
         ;;
         (let ((skk-katakana t))
-          ad-do-it))))
+          (funcall oldfun)))))
    (t
-    ad-do-it)))
+    (funcall oldfun))))
 
-(defadvice skk-insert (around skk-jisx0201-ad activate)
+(define-advice skk-insert
+    (:around (oldfun &optional arg prog-list-number) skk-jisx0201-ad)
   "SKK JIS X 0201 モードの文字入力を行う。"
   (cond
    (skk-jisx0201-mode
-    (let ((arg (ad-get-arg 0))
-          (ch last-command-event))
+    (let ((ch last-command-event))
       (cond
        ((or (and (not skk-jisx0201-roman)
                  (memq ch skk-set-henkan-point-key)
@@ -289,7 +289,7 @@
                            skk-current-rule-tree ch))))
             (and skk-henkan-mode
                  (memq ch skk-special-midashi-char-list)))
-        ad-do-it)
+        (funcall oldfun arg prog-list-number))
        ;;
        ((and skk-henkan-mode
              (eq ch skk-start-henkan-char))
@@ -312,18 +312,20 @@
        ;;
        (skk-jisx0201-roman
         (let (skk-set-henkan-point-key)
-          ad-do-it))
+          (funcall oldfun arg prog-list-number)))
        ;;
        (t
-        ad-do-it))))
+        (funcall oldfun arg prog-list-number)))))
    ;;
    (t
-    ad-do-it)))
+    (funcall oldfun arg prog-list-number))))
 
-(defadvice skk-search-sagyo-henkaku (before skk-jisx0201-set-okuri activate)
+(define-advice skk-search-sagyo-henkaku
+    (:filter-args (&optional okuri-list anything) skk-jisx0201-set-okuri)
   "SKK JIS X 0201 モードでは送り仮名を半角カナにする。"
   (when skk-jisx0201-mode
-    (ad-set-arg 0 '("ｻ" "ｼ" "ｽ" "ｾ"))))
+    (setq okuri-list '("ｻ" "ｼ" "ｽ" "ｾ"))
+    (list okuri-list anything)))
 
 ;; functions.
 ;;;###autoload

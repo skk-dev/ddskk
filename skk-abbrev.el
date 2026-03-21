@@ -66,13 +66,12 @@
     (when var
       (list var))))
 
-(defadvice skk-completion-original (around skk-abbrev-ad activate)
-  (let ((first (ad-get-arg 0))
-        c-word)
+(define-advice skk-completion-original (:around (oldfun first) skk-abbrev-ad)
+  (let (c-word)
     (condition-case nil
-        ;; not to search by look in ad-do-it.
+        ;; not to search by look in oldfun.
         (let (skk-use-look)
-          ad-do-it)
+          (funcall oldfun first))
       ;; no word to be completed.
       (error
        (when skk-abbrev-mode

@@ -435,7 +435,7 @@ XFree86 上で使用する場合、 例えばこの値を [henkan]
 
 ;; Pieces of advice.
 
-(defadvice skk-setup-keymap (after skk-kanagaki-keys activate preactivate)
+(define-advice skk-setup-keymap (:after () skk-kanagaki-keys)
   ;; キーバインド。ただしこれは、より適切なキー定義を見つけるまでの暫定的処置。
   ;; ここで言う「より適切なキー定義」とは、入力方式に依存するため、SKK の重要
   ;; なキー定義をファンクションキーに残しておくことは、実用のためよりもむしろ
@@ -469,7 +469,8 @@ XFree86 上で使用する場合、 例えばこの値を [henkan]
       (define-key skk-j-mode-map (symbol-value (car cell)) (cdr cell))))
   (define-key help-map skk-kanagaki-help-key 'skk-kanagaki-help))
 
-(defadvice skk-insert (around skk-kanagaki-workaround activate compile)
+(define-advice skk-insert
+    (:around (oldfun &optional arg prog-list-number) skk-kanagaki-workaround)
   "仮名入力用の work around 。"
   ;;
   (when (and skk-process-okuri-early
@@ -485,31 +486,27 @@ XFree86 上で使用する場合、 例えばこの値を [henkan]
            nil)
           (t
            skk-set-henkan-point-key))))
-    ad-do-it))
+    (funcall oldfun arg prog-list-number)))
 
-(defadvice skk-compute-henkan-lists-sub-adjust-okuri (around
-                                                      skk-kanagaki-adjust-okuri
-                                                      activate compile)
+(define-advice skk-compute-henkan-lists-sub-adjust-okuri
+    (:around (oldfun item &optional okuri-key) skk-kanagaki-adjust-okuri)
   (cond
    (skk-use-kana-keyboard
     ;; 仮名入力用の特殊処理
-    (let ((item (ad-get-arg 0))
-          (okuri-key (ad-get-arg 1)))
-      (setq ad-return-value
-            (cond
-             ((or (and (eq skk-kanagaki-state 'kana)
-                       ;; okuri-key が "っ" で item が "って" などだった場合。
-                       (string-match (concat "^" (regexp-quote okuri-key))
-                                     item))
-                  (and (eq skk-kanagaki-state 'rom)
-                       ;; okuri-key が "って" で item が "っ" などだった場合。
-                       (string-match (concat "^" (regexp-quote item))
-                                     okuri-key)))
-              okuri-key)
-             (t
-              item)))))
+    (cond
+     ((or (and (eq skk-kanagaki-state 'kana)
+               ;; okuri-key が "っ" で item が "って" などだった場合。
+               (string-match (concat "^" (regexp-quote okuri-key))
+                             item))
+          (and (eq skk-kanagaki-state 'rom)
+               ;; okuri-key が "って" で item が "っ" などだった場合。
+               (string-match (concat "^" (regexp-quote item))
+                             okuri-key)))
+      okuri-key)
+     (t
+      item)))
    (t
-    ad-do-it)))
+    (funcall oldfun item okuri-key))))
 
 (provide 'skk-kanagaki)
 
