@@ -753,17 +753,6 @@ Return the modified ALIST."
   (when (overlayp object)
     (delete-overlay object)))
 
-(defun skk-time-difference (a b)
-  ;; from type-break.el.  Welcome!
-  ;; Compute the difference, in seconds, between a and b, two structures
-  ;; similar to those returned by `current-time'.
-  ;; Use addition rather than logand since that is more robust; the low 16
-  ;; bits of the seconds might have been incremented, making it more than 16
-  ;; bits wide.
-  (+ (ash (- (car b) (car a)) 16)
-     (- (nth 1 b) (nth 1 a))))
-
-
 (provide 'skk-macs)
 
 ;; Local Variables:
