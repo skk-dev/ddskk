@@ -4130,7 +4130,7 @@ DDSKK 14.2 から追加された「ja-dic.el 検索機能」 (:el:defun:`skk-sea
             ((eq system-type 'pcux) "/usr/bin/rcmd")
             (t "rsh")))
 
-.. el:defvar:: skk-server-version
+.. el:defun:: skk-server-version
 
    辞書サーバから得たバージョン文字列とホスト名文字列を表示する。
 
