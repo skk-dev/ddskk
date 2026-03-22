@@ -28,7 +28,7 @@ jobs:
           - snapshot
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup Emacs
         uses: purcell/setup-emacs@master
