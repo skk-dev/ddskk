@@ -4,7 +4,7 @@
 # URL: https://github.com/skk-dev/ddskk
 
 
-VERSION = 17.1
+VERSION = 17.2
 
 BZIP2     = bzip2 -9
 CD	  = cd

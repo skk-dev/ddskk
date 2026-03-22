@@ -298,20 +298,6 @@ GNU Emacs 24.3 のユーザは DDSKK 15 以上をお使いください。
 DDSKK 17.2 以降は GNU Emacs 24 はサポート対象外です。
 これら GNU Emacs のユーザは DDSKK 17.1 をお使いください。
 
-@url{http://mail.ring.gr.jp/skk/201211/msg00000.html}
-
-@url{http://mail.ring.gr.jp/skk/201212/msg00000.html}
-
-辞書のダウンロード機能である @kbd{M-x skk-get} と @command{make get} について、
-tar 展開は非対応です。
-
-@item GNU Emacs 24.4
-
-@itemize @bullet
-@item coding tag を明示していないファイルは utf-8 と取り扱われます@footnote{@code{2013-06-11 international/mule-conf.el (file-coding-system-alist)}}。DDSKK 15.2 で対策済みです。
-@item NTEmacs は 24.3 と比べてディレクトリ構成が異なります@footnote{Emacs News: Changes in Emacs 24.4 on Non-Free Operating Systems}。DDSKK 15.2 で対策済みです。
-@end itemize
-
 @item GNU Emacs 25.1
 
 DDSKK 15.2 以降をお使いください（DDSKK 16 を推奨します）。
