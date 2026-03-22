@@ -178,7 +178,7 @@
   "`point' 直前の `*' を消す。"
   (when (and skk-sticky-okuri-flag
              (skk-sticky-looking-back-okuri-mark))
-    (delete-backward-char 1)))
+    (delete-char -1)))
 
 ;; `skk-kana-input' は通常 `cancel-undo-boundary' を呼ぶが、
 ;; `skk-sticky-key' の2度打ちの際に本来あるべき boundary (C-k の後など)
