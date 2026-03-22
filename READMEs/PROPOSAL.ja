@@ -36,6 +36,11 @@
 
 * Emacs のバージョン
 
+** Daredevil SKK 17.2 が動作する Emacs のバージョンは?
+
+GNU Emacs 24 のサポートを終了しました。GNU Emacs 24 をお使いの方は
+DDSKK 17.1 を利用してください。
+
 ** Daredevil SKK 17.1 が動作する Emacs のバージョンは?
 
 XEmacs のサポートを終了しました。XEmacs をお使いの方は

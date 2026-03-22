@@ -27,7 +27,7 @@ author = u'foo'
 # The short X.Y version
 version = u''
 # The full version, including alpha/beta/rc tags
-release = u'17.1'
+release = u'17.2'
 
 
 # -- General configuration ---------------------------------------------------

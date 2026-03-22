@@ -1,4 +1,10 @@
-* 17.2 (????-??-??)
+* 17.2 (2026-??-??)
+
+** GNU Emacs 24 のサポートを終了しました
+
+GNU Emacs 24 をお使いの方は DDSKK 17.1 を利用してください。
+
+defadvice(advice) から define-advice(nadvice) へ変更
 
 ** インジケータのカスタマイズ
 
