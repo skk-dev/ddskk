@@ -4856,7 +4856,7 @@ SKK 辞書の候補として正しい形に整形する。"
                  (if (and (<= ?ぁ e) (>= ?ん e))
                      (char-to-string (+ e diff))
                    (char-to-string e)))
-               (string-to-int-list hiragana) "")))
+               (string-to-list hiragana) "")))
 
 ;;;###autoload
 (defun skk-katakana-to-hiragana (katakana)
@@ -4865,7 +4865,7 @@ SKK 辞書の候補として正しい形に整形する。"
                  (if (and (<= ?ァ e) (>= ?ン e))
                      (char-to-string (- e diff))
                    (char-to-string e)))
-               (string-to-int-list katakana) "")))
+               (string-to-list katakana) "")))
 
 ;;;###autoload
 (defun skk-henkan-face-on (&optional face)
