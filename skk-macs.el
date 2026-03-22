@@ -139,9 +139,6 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
 
 ;;; functions.
 
-(defmacro string-to-int-list (string)
-  `(mapcar #'identity ,string))
-
 (defun event-to-character (event)
   "Return the character approximation to the given event object.
 If the event isn't a keypress, this returns nil."
