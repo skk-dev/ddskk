@@ -34,7 +34,7 @@
 @c  URL: https://github.com/skk-dev/ddskk
 @c  Keywords: japanese
 @c
-@set SKK-VERSION 17.1
+@set SKK-VERSION 17.2
 @set UPDATED Date: 2020/08/15
 
 @dircategory Emacs
@@ -256,7 +256,6 @@ DDSKK @value{SKK-VERSION} が動作すると思われる Emacsen のバージョ
 おりです。
 
 @itemize @bullet
-@item GNU Emacs 24.3 以降
 @item GNU Emacs 25.1 以降 (推奨)
 @item GNU Emacs 26.1 以降 (推奨)
 @end itemize
@@ -293,6 +292,11 @@ DDSKK 17.1 以降は GNU Emacs 24.1 と 24.2 はサポート対象外です。
 
 GNU Emacs 24.3 と DDSKK 14 の組み合わせで isearch 使用時の不具合が発見されています。
 GNU Emacs 24.3 のユーザは DDSKK 15 以上をお使いください。
+
+@item GNU Emacs 24.4, 24.5
+
+DDSKK 17.2 以降は GNU Emacs 24 はサポート対象外です。
+これら GNU Emacs のユーザは DDSKK 17.1 をお使いください。
 
 @url{http://mail.ring.gr.jp/skk/201211/msg00000.html}
 

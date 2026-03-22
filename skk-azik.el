@@ -585,23 +585,22 @@
   (add-to-list 'skk-rom-kana-rule-list rule))
 
 ;; for jisx0201
-(eval-after-load "skk-jisx0201"
-  '(progn
-     (dolist (str skk-azik-unnecessary-base-rule-list)
-       (setq skk-jisx0201-base-rule-list
-             (skk-del-alist str skk-jisx0201-base-rule-list)))
+(with-eval-after-load "skk-jisx0201"
+  (dolist (str skk-azik-unnecessary-base-rule-list)
+    (setq skk-jisx0201-base-rule-list
+          (skk-del-alist str skk-jisx0201-base-rule-list)))
 
-     (dolist (rule (append skk-azik-keyboard-specific-additional-rom-kana-rule-list
-                           skk-azik-additional-rom-kana-rule-list))
-       (add-to-list 'skk-jisx0201-rule-list
-                    (if (listp (nth 2 rule))
-                        (list (nth 0 rule) (nth 1 rule)
-                              (japanese-hankaku (car (nth 2 rule))))
-                      rule)))
+  (dolist (rule (append skk-azik-keyboard-specific-additional-rom-kana-rule-list
+                        skk-azik-additional-rom-kana-rule-list))
+    (add-to-list 'skk-jisx0201-rule-list
+                 (if (listp (nth 2 rule))
+                     (list (nth 0 rule) (nth 1 rule)
+                           (japanese-hankaku (car (nth 2 rule))))
+                   rule)))
 
-     (setq skk-jisx0201-base-rule-tree
-           (skk-compile-rule-list skk-jisx0201-base-rule-list
-                                  skk-jisx0201-rule-list))))
+  (setq skk-jisx0201-base-rule-tree
+        (skk-compile-rule-list skk-jisx0201-base-rule-list
+                               skk-jisx0201-rule-list)))
 
 (run-hooks 'skk-azik-load-hook)
 

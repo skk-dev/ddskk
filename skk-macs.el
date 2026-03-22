@@ -137,15 +137,6 @@ MARKER が nil だったら、新規マーカーを作って代入する。"
        (delete-overlay o))
      (setq ,list nil)))
 
-(defmacro skk-help-make-usage (symbol arglist)
-  (cond ((fboundp 'help--make-usage)
-         ;; GNU Emacs 25.1 から
-         `(help--make-usage ,symbol ,arglist))
-
-        (t
-         ;; GNU Emacs 24.1 まで
-         `(help-make-usage ,symbol ,arglist))))
-
 ;;; functions.
 
 (defmacro string-to-int-list (string)
@@ -761,17 +752,6 @@ Return the modified ALIST."
 (defun skk-detach-extent (object)
   (when (overlayp object)
     (delete-overlay object)))
-
-(defun skk-time-difference (a b)
-  ;; from type-break.el.  Welcome!
-  ;; Compute the difference, in seconds, between a and b, two structures
-  ;; similar to those returned by `current-time'.
-  ;; Use addition rather than logand since that is more robust; the low 16
-  ;; bits of the seconds might have been incremented, making it more than 16
-  ;; bits wide.
-  (+ (ash (- (car b) (car a)) 16)
-     (- (nth 1 b) (nth 1 a))))
-
 
 (provide 'skk-macs)
 

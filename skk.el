@@ -4633,7 +4633,7 @@ SKK 辞書の候補として正しい形に整形する。"
                (setq result (car usage)))
 
               ((listp arglist)
-               (setq result (format "%S" (skk-help-make-usage symbol arglist))))
+               (setq result (format "%S" (help--make-usage symbol arglist))))
 
               ((stringp arglist)
                (setq result arglist))

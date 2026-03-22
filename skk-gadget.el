@@ -324,7 +324,7 @@ interactive に起動する他、\"clock /(skk-clock)/\" などのエントリを S
            (when kakutei-when-quit
              (setq skk-kakutei-flag t))
            (message "経過時間: %s 秒"
-                    (skk-time-difference start end))))))))
+                    (truncate (float-time (time-subtract end start))))))))))
 
 ;;;###autoload
 (defun skk-ad-to-gengo (gengo-index &optional divider tail not-gannen)
