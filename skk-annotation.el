@@ -957,25 +957,15 @@ NO-PREVIOUS-ANNOTATION を指定 (\\[Universal-Argument] \\[skk-annotation-ad
       ;; as to make sure we terminate the multiline instruction.
       (comint-send-string proc "\n"))))
 
-(eval-and-compile
-  (defsubst skkannot-emacs-24_3-or-later ()
-    (or (> emacs-major-version 24)
-        (and (= emacs-major-version 24)
-             (>= emacs-minor-version 3)))))
-
 (defun skkannot-py-check-comint-prompt (&optional proc)
   "Return non-nil if and only if there's a normal prompt in the inferior buffer.
 If there isn't, it's probably not appropriate to send input to return Eldoc
 information etc.  If PROC is non-nil, check the buffer for that process."
-  (cond
-   ((eval-when-compile (skkannot-emacs-24_3-or-later))
-    (with-current-buffer (process-buffer (or proc (python-shell-internal-get-or-create-process)))
-      (save-excursion
-        (save-match-data
-          (re-search-backward (concat python-shell-prompt-regexp " *\\=")
-                              nil t)))))
-   (t
-    (python-check-comint-prompt))))
+  (with-current-buffer (process-buffer (or proc (python-shell-internal-get-or-create-process)))
+    (save-excursion
+      (save-match-data
+        (re-search-backward (concat python-shell-prompt-regexp " *\\=")
+                            nil t)))))
 
 (defun skkannot-py-send-command (command)
   "Like `skkannot-py-send-string' but resets `compilation-shell-minor-mode'."
@@ -999,17 +989,12 @@ information etc.  If PROC is non-nil, check the buffer for that process."
     ;; python + readline で UTF-8 の入力をするために LANG の設定が必要。
     (let* ((env (getenv "LANG"))
            orig-py-buffer)
-      (unless (eval-when-compile (skkannot-emacs-24_3-or-later))
-        ;; Emacs 24.2 or earlier
-        (setq orig-py-buffer (default-value 'python-buffer)))
       (unless (equal env "Ja_JP.UTF-8")
         (setenv "LANG" "ja_JP.UTF-8"))
       (save-window-excursion
         (run-python skk-annotation-python-program t t))
-      (when (eval-when-compile (skkannot-emacs-24_3-or-later))
-        ;; Emacs 24.3 or later
-        (setq python-buffer (get-buffer (format "*%s*" (python-shell-get-process-name t)))
-              orig-py-buffer (default-value 'python-buffer)))
+      (setq python-buffer (get-buffer (format "*%s*" (python-shell-get-process-name t)))
+            orig-py-buffer (default-value 'python-buffer))
       (setenv "LANG" env)
       (with-current-buffer python-buffer
         (rename-buffer "  *skk python")
