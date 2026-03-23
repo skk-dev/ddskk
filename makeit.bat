@@ -76,10 +76,6 @@ rem ---     2-5. c:\Meadow\elispmk.bat
 rem ---     2-6. d:\Meadow\elispmk.bat
 
 rem --- 変数設定の例 (Example of variable definition)
-rem --- c:\usr\emacs にインストールされている Emacs 24.4 を使用
-rem --- している場合の設定例. (An example of variable definition. In
-rem --- this example, Emacs 24.4 installed in c:\usr\emacs directory
-rem --- is used.)
 rem ---   set PREFIX=
 rem ---   set EMACS=c:\usr\bin\emacs.exe
 rem ---   set EXEC_PREFIX=
@@ -87,9 +83,6 @@ rem ---   set LISPDIR=
 rem ---   set VERSION_SPECIFIC_LISPDIR=
 rem ---   set DEFAULT_MAKE_ARG=elc
 rem --- 安全のためデフォルトの値はすべて空文字列になっています。
-rem --- Emacs 24.4 以降はそれまでの Emacs とディレクトリ構造が変更になっています。
-rem --- インストーラーはインストール先のディレクトリ構造を自動的に検知しますので、
-rem --- 特に必要の無い場合は上記の例の EMACS のみを変更して下さい。
 rem --- (To take a
 rem --- safe side, default values are all set to null strings. Please
 rem --- specify these variables accordingly for your system.)
