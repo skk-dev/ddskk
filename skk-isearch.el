@@ -350,9 +350,6 @@ Optional argument PREFIX is appended if given."
       (push 'toggle-input-method commands))
     (skk-isearch-find-keys-define map commands 'skk-isearch-skk-mode))
 
-  (if (fboundp 'isearch-other-control-char)         ;2013-10-08 Remove functions
-      (define-key map [?\C-x t] 'isearch-other-control-char)) ; GNU Emacs 24.4 から廃止
-
   (define-key map [?\C-0] 'skk-isearch-start-henkan)
   (define-key map [?\C-1] 'skk-isearch-start-henkan)
   (define-key map [?\C-2] 'skk-isearch-start-henkan)
@@ -674,9 +671,7 @@ If the current mode is different from previous, remove it first."
            (skk-isearch-wrapper-1))
 
           (t
-           (skk-unread-event event)
-           (if (fboundp 'isearch-other-control-char) ; 2013-10-08 Remove functions.
-               (isearch-other-control-char))))))     ; GNU Emacs 24.4 から廃止
+           (skk-unread-event event)))))
 
 
 ;;
@@ -780,8 +775,6 @@ If the current mode is different from previous, remove it first."
        (add-hook 'before-init-hook skk-isearch-really-early-advice)))
 
 (put 'digit-argument 'isearch-command t)
-(if (fboundp 'isearch-other-control-char)         ; 2013-10-08 Remove functions
-    (put 'isearch-other-control-char 'isearch-command t)) ; GNU Emacs 24.4 から廃止
 (put 'skk-isearch-delete-char 'isearch-command t)
 (put 'skk-isearch-exit 'isearch-command t)
 (put 'skk-isearch-keyboard-quit 'isearch-command t)

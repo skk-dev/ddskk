@@ -87,15 +87,17 @@ Return buffer object."
   (let* ((path (expand-file-name archive))
          (buffer (file-name-nondirectory path)))
 
-    ;; バッファ名にtarの拡張子がある場合、バッファのコーディングが適切
-    ;; に設定されない。この結果、以下の2つのskk-getでダウンロードした
+    ;; バッファ名に tar の拡張子がある場合、バッファのコーディングが適切
+    ;; に設定されない。この結果、skk-get でダウンロードした
     ;; 以下の2つのファイルが展開されない。
-    ;; 対処として、拡張子を``tar''→``archive''に変更する。
+    ;; 対処として、拡張子を ``tar'' → ``archive'' に変更する。
     ;; - SKK-JISYO.edict.tar
     ;; - zipcode.tar
 
     ;; 参考
-    ;; バッファのコーディングの自動設定は、以下のルートで否決。
+    ;;   拡張子が .tar のままだと、Emacs 内部の set-auto-coding ルーチンにおいて
+    ;;   コーディング系の自動判別が機能しない（以下の処理ルートで抑制されるため）。
+    ;;   これを回避するため、一時的に拡張子を .archive へ置換している。
     ;; (tar--extract desc)
     ;;   (funcall set-auto-coding-function name (- end start))
     ;;     (set-auto-coding filename size)
@@ -111,9 +113,8 @@ Return buffer object."
     (set-buffer (get-buffer-create buffer))
     (set-buffer-multibyte nil)
     (insert-file-contents-literally path)
-    (when (fboundp 'zlib-decompress-region)
-      (zlib-decompress-region (point-min)    ; GNU Emacs 24 以降であれば
-                              (point-max)))) ; 直接 tar.gz いける (事前の gzip -d 不要)
+    (zlib-decompress-region (point-min)
+                            (point-max)))
   (current-buffer))
 
 ;;;###autoload
