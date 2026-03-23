@@ -83,50 +83,6 @@
       (unless (file-exists-p fn)
         (url-copy-file (format "%s%s" url f) fn)))))
 
-(defun skk-get-generate-gzip-d (dir)
-  "即席 gzip -d"
-  (and (not (executable-find "gzip"))
-       (eq system-type 'windows-nt)
-       (not (file-exists-p (expand-file-name "gzip-d.ps1" dir)))
-       (skk-get-generate-gzip-d-1 dir)))
-
-(defun skk-get-generate-gzip-d-1 (dir)
-  "要 powershell"
-  (with-temp-buffer
-    (insert "$infile = $args[0]" 10)
-    (insert "$outfile = ( $infile -replace '\.gz$','' )" 10)
-    (insert "$input = New-Object System.IO.FileStream $inFile, ( [IO.FileMode]::Open ), ( [IO.FileAccess]::Read ), ( [IO.FileShare]::Read )" 10)
-    (insert "$gzipStream = New-Object System.IO.Compression.GzipStream $input, ( [IO.Compression.CompressionMode]::Decompress )" 10)
-    (insert "$output = New-Object System.IO.FileStream $outFile, ( [IO.FileMode]::Create ), ( [IO.FileAccess]::Write ), ( [IO.FileShare]::None )" 10)
-    (insert "$buffer = New-Object byte[](1024)" 10)
-    (insert "while( $true ) {" 10)
-    (insert "  $read = $gzipstream.Read( $buffer, 0, 1024 )" 10)
-    (insert "  if ( $read -le 0 ) {break}" 10)
-    (insert "  $output.Write( $buffer, 0, $read )" 10)
-    (insert "}" 10)
-    (insert "$input.Close()" 10)
-    (insert "$gzipStream.Close()" 10)
-    (insert "$output.Close()" 10)
-    (write-region (point-min) (point-max)
-                  (expand-file-name "gzip-d.ps1" dir))))
-
-(defun skk-get-expand-gzip (dir)
-  "DIR."
-  (let* ((ps (convert-standard-filename (expand-file-name "gzip-d.ps1" dir)))
-         (cmd (cond ((executable-find "gzip")
-                     "gzip -d")
-                    ((file-exists-p ps)
-                     (message "skk-get: Use powershell version of the simple gzip.")
-                     (format "powershell.exe -executionpolicy remotesigned -file %s" (shell-quote-argument ps)))
-                    (t
-                     (error "skk-get: gzip command could not be found. Aborts.")))))
-    (dolist (f (directory-files dir t ".gz"))
-      (let ((fn (convert-standard-filename f)))
-        (message "skk-get: expand %s..." fn)
-        (shell-command (format "%s %s" cmd (shell-quote-argument fn)))
-        (when (file-exists-p fn)
-          (delete-file fn))))))
-
 (defun skk-get-expand-tar (dir)
   "DIR."
   ;; (let (fn)
@@ -149,10 +105,7 @@
   (let ((jisyo-dir (expand-file-name dir)))
     (skk-get-mkdir jisyo-dir)
     (skk-get-download jisyo-dir)
-    (skk-get-generate-gzip-d jisyo-dir)
-    (skk-get-expand-gzip jisyo-dir)
-    (when (fboundp 'tar--extract)   ; GNU Emacs 24.4 から
-      (skk-get-expand-tar jisyo-dir)))
+    (skk-get-expand-tar jisyo-dir))
   (message "skk-get...done")
   nil)
 
@@ -161,12 +114,7 @@
  'before-init-hook
  (lambda ()
    (eval-after-load "font-lock"
-     ;; `lisp-font-lock-keywords-2' is an alias for `lisp-el-font-lock-keywords-2'.
-     ;; `lisp-font-lock-keywords-2' is obsolete since 24.4;
-     ;;                             use `lisp-el-font-lock-keywords-2' instead.
-     '(set (if (boundp 'lisp-el-font-lock-keywords-2)
-               'lisp-el-font-lock-keywords-2
-             'lisp-font-lock-keywords-2)
+     '(set 'lisp-el-font-lock-keywords-2
            (nconc
             (list (list (concat "(\\(\\(skk-\\)?def\\("
                                 ;; Function type declarations.
@@ -194,9 +142,7 @@
             (list (list "(\\(skk-error\\)\\>"
                         '(1 font-lock-warning-face)))
 
-            (symbol-value (if (boundp 'lisp-el-font-lock-keywords-2)
-                              'lisp-el-font-lock-keywords-2
-                            'lisp-font-lock-keywords-2)))))
+            (symbol-value 'lisp-el-font-lock-keywords-2))))
    ;;
    (put 'skk-deflocalvar 'doc-string-elt 3)))
 
