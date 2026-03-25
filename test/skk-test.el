@@ -1,6 +1,12 @@
 (require 'ert)
 
 (require 'skk)
+(require 'skk-auto)
+(require 'skk-cdb)
+(require 'skk-comp)
+(require 'skk-cus)
+(require 'skk-tankan)
+(require 'skk-version)
 (require 'test-utils)
 
 (ert-deftest skk-compute-henkan-lists/test1 ()
