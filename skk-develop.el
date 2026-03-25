@@ -27,107 +27,119 @@
 ;;; Code:
 
 (require 'skk)
+(require 'cl-lib)
 
 (eval-when-compile
   (require 'url)
   (defvar skk-exserv-list))
 
 (defvar skk-dict-collection
-  '(("SKK-JISYO.L.gz"          . euc-jp-unix)
-    ("SKK-JISYO.JIS2.gz"       . euc-jp-unix)
-    ("SKK-JISYO.JIS2004.gz"    . euc-jisx0213-unix)
-    ("SKK-JISYO.JIS3_4.gz"     . euc-jisx0213-unix)
-    ("SKK-JISYO.assoc.gz"      . euc-jp-unix)
-    ("SKK-JISYO.edict.tar.gz"  . archive)
-    ("SKK-JISYO.fullname.gz"   . euc-jisx0213-unix)
-    ("SKK-JISYO.geo.gz"        . euc-jp-unix)
-    ("SKK-JISYO.itaiji.gz"     . euc-jp-unix)
-    ("SKK-JISYO.jinmei.gz"     . euc-jp-unix)
-    ("SKK-JISYO.law.gz"        . euc-jp-unix)
-    ("SKK-JISYO.lisp.gz"       . euc-jp-unix)
-    ("SKK-JISYO.mazegaki.gz"   . euc-jp-unix)
-    ("SKK-JISYO.okinawa.gz"    . euc-jp-unix)
-    ("SKK-JISYO.propernoun.gz" . euc-jp-unix)
-    ("SKK-JISYO.pubdic+.gz"    . euc-jp-unix)
-    ("SKK-JISYO.station.gz"    . euc-jp-unix)
-    ("zipcode.tar.gz"          . archive))
-  "SKK 辞書のリスト。
-値が 'archive なら tar で展開。
-それ以外のシンボルなら、その文字コードで単一ファイルを展開。")
+  '((:file "SKK-JISYO.assoc.gz"      :coding euc-jp-unix)
+    (:file "SKK-JISYO.fullname.gz"   :coding euc-jisx0213-unix)
+    (:file "SKK-JISYO.geo.gz"        :coding euc-jp-unix)
+    (:file "SKK-JISYO.itaiji.gz"     :coding euc-jp-unix)
+    (:file "SKK-JISYO.jinmei.gz"     :coding euc-jp-unix)
+    (:file "SKK-JISYO.JIS2.gz"       :coding euc-jp-unix)
+    (:file "SKK-JISYO.JIS2004.gz"    :coding euc-jisx0213-unix)
+    (:file "SKK-JISYO.JIS3_4.gz"     :coding euc-jisx0213-unix)
+    (:file "SKK-JISYO.L.gz"          :coding euc-jp-unix)
+    (:file "SKK-JISYO.law.gz"        :coding euc-jp-unix)
+    (:file "SKK-JISYO.lisp.gz"       :coding euc-jp-unix)
+    (:file "SKK-JISYO.mazegaki.gz"   :coding euc-jp-unix)
+    (:file "SKK-JISYO.okinawa.gz"    :coding euc-jp-unix)
+    (:file "SKK-JISYO.propernoun.gz" :coding euc-jp-unix)
+    (:file "SKK-JISYO.pubdic+.gz"    :coding euc-jp-unix)
+    (:file "SKK-JISYO.station.gz"    :coding euc-jp-unix)
+    (:file "SKK-JISYO.edict.tar.gz"  :type archive :targets ("SKK-JISYO.edict"))
+    (:file "zipcode.tar.gz"          :type archive :targets ("SKK-JISYO.office.zipcode" "SKK-JISYO.zipcode")))
+  "SKK 辞書のコレクション定義。
+:file    - ダウンロードするファイル名
+:coding  - 単一 .gz ファイルの場合のエンコーディング
+:type    - 'archive の場合は tar 展開を指定
+:targets - tar 展開するファイルのリスト")
 
-;; TODO:
-;;   SKK-JISYO.office.zipcode . euc-jisx0213-unix
-;;   SKK-JISYO.zipcode        . euc-jisx0213-unix
+(defalias 'skk-get--remove-suffix
+  (if (fboundp 'string-remove-suffix)   ; Emacs 27.1 で導入
+      #'string-remove-suffix
+    (lambda (suffix string)
+      (if (string-suffix-p suffix string)
+          (substring string 0 (- (length string) (length suffix)))
+        string))))
 
-(defun skk-get-delete-files (dir)
-  "DIR 内の辞書ファイル（アーカイブ、単一ファイル、ディレクトリ）を一掃する。"
-  (pcase-dolist (`(,f . ,_conf) skk-dict-collection)
-    (let ((targets (list f                                       ; 元の .gz / .tar.gz
-                         (replace-regexp-in-string "\\.tar\\.gz\\'" "" f) ; 展開後(tar)
-                         (replace-regexp-in-string "\\.gz\\'" "" f))))    ; 展開後(gz)
+(defun skk-get--strip-extension (filename)
+  (let ((name (file-name-nondirectory filename)))
+    (skk-get--remove-suffix ".tar" (skk-get--remove-suffix ".gz" name))))
 
-      ;; SKK-JISYO.edict.tar.gz に付随する特殊なドキュメントも対象に加える
-      (when (string= f "SKK-JISYO.edict.tar.gz")
-        (push "edict_doc.txt" targets))
+(defun skk-get--get-targets (entry)
+  "辞書のコレクション定義のエントリー ENTRY から、ファイル名のリストを返す。
+:targets プロパティがあればそれを使用し、なければ :file から推測する。"
+  (or (plist-get entry :targets)
+      (let ((file (plist-get entry :file)))
+        (list (skk-get--strip-extension file)))))
 
-      (dolist (file targets)
-        (let ((path (expand-file-name file dir)))
-          (when (file-exists-p path)
-            (if (file-directory-p path)
-                (delete-directory path t)
-              (delete-file path))))))))
+(defun skk-unpack-archive (file-path dest-dir entry)
+  "アーカイブ内のパス構造（./zipcode/ 等）を無視して、dest-dir に展開する。"
+  (let ((targets          (plist-get entry :targets))
+        (abs-file-path    (expand-file-name file-path))
+        (archive-contents (process-lines "tar" "-tf" (expand-file-name file-path))))
+    (dolist (target targets)
+      (let ((real-path (cl-find target archive-contents
+                                :test (lambda (tgt path) (string-suffix-p tgt path))))
+            (out-path (expand-file-name (file-name-nondirectory target) dest-dir)))
+        (if (not real-path)
+            (message "Skipping: %s not found in archive." target)
+          (message "Extracting %s as %s..." real-path out-path)
+          (with-temp-file out-path
+            (set-buffer-multibyte nil)
+            (let ((exit-code (call-process "tar" nil t nil "-xOf" abs-file-path real-path)))
+              (if (= exit-code 0)
+                  (message "Successfully extracted: %s" out-path)
+                (delete-file out-path)
+                (message "Failed to extract %s" real-path)))))))))
 
-(defun skk-get-mkdir (dir)
-  "DIR."
-  (if (file-exists-p dir)
-      (skk-get-delete-files dir)
-    (make-directory dir t)))
+(defun skk-unpack-gz (file-path dest-dir coding)
+  "FILE-PATH (.gz) を解凍し、DEST-DIR 内に CODING で保存する。"
+  (let* ((file-name (file-name-nondirectory file-path))
+         (out-name  (skk-get--strip-extension file-name))
+         (out-path  (expand-file-name out-name dest-dir))
+         (auto-compression-mode t))
+    (with-temp-buffer
+      (insert-file-contents file-path)
+      (let ((coding-system-for-write coding))
+        (write-region (point-min) (point-max) out-path))
+      (message "Unpacked %s -> %s (%s)" file-name out-name coding))))
 
 (defun skk-get-download (dir)
-  "SKK辞書をダウンロードし、`skk-dict-collection' に基づき展開・保存する。"
+  "SKK辞書をダウンロードし、展開・保存する。
+既存のファイルがある場合は上書きされる。"
+  (unless (file-directory-p dir)
+    (make-directory dir t))
   (let ((base-url "https://skk-dev.github.io/dict/"))
-    ;; (ファイル名 . 設定) を直接分解してループ
-    (pcase-dolist (`(,f . ,conf) skk-dict-collection)
-      (let* ((dest-name (if (eq conf 'archive)
-                            (replace-regexp-in-string "\\.tar\\.gz\\'" "" f)
-                          (replace-regexp-in-string "\\.gz\\'" "" f)))
-             (dest-path (expand-file-name dest-name dir))
-             (url (concat base-url f))
-             (tmp-gz (expand-file-name f dir))) ; 一時保存用パス
+    (dolist (entry skk-dict-collection)
+      (let* ((file     (plist-get entry :file))
+             (url      (concat base-url file))
+             (tmp-path (expand-file-name file dir))
+             (type     (plist-get entry :type))
+             (coding   (plist-get entry :coding))
+             (check-target (expand-file-name (car (skk-get--get-targets entry)) dir)))
 
-        (unless (file-exists-p dest-path)
-          (message "Downloading %s..." f)
-          ;; unwind-protect でエラー時も一時ファイルを確実に消去
-          (unwind-protect
+        (unless (file-exists-p check-target)
+          (message "Downloading %s..." file)
+          (condition-case err
               (progn
-                (url-copy-file url tmp-gz t)
-                (skk-unpack-entry tmp-gz dir conf))
-            (when (file-exists-p tmp-gz)
-              (delete-file tmp-gz))))))))
-
-(defun skk-unpack-entry (file-path dest-dir config)
-  "CONFIG に基づき 'archive か文字コードかを判定して展開する。"
-  (let ((default-directory dest-dir)
-        (file-name (file-name-nondirectory file-path)))
-    (pcase config
-      ('archive
-       (if (executable-find "tar")      ; Windows 10 以降では標準
-           (call-process "tar" nil nil nil "-xf" file-path)
-         (error "tar コマンドが見つかりません: %s" file-name)))
-
-      (coding
-       (let ((out-file (expand-file-name (replace-regexp-in-string "\\.gz\\'" "" file-name)
-                                         dest-dir))
-             (coding-system-for-write coding))
-         (with-temp-file out-file
-           (insert-file-contents file-path)))))))
+                (url-copy-file url tmp-path t)
+                (if (eq type 'archive)
+                    (skk-unpack-archive tmp-path dir entry)
+                  (skk-unpack-gz tmp-path dir coding))
+                (when (file-exists-p tmp-path)
+                  (delete-file tmp-path)))
+            (error (message "Failed to process %s: %s" file (error-message-string err)))))))))
 
 ;;;###autoload
 (defun skk-get (dir)
   "DIR."
   (interactive (list (read-directory-name "skk-get directory: " (expand-file-name skk-get-jisyo-directory))))
   (let ((jisyo-dir (expand-file-name dir)))
-    (skk-get-mkdir jisyo-dir)
     (skk-get-download jisyo-dir))
   (message "skk-get...done")
   nil)
