@@ -1,4 +1,4 @@
-;;; skk-jisx0213.el --- SKK 用 JISX0213 文字コード関連プログラム -*- coding: iso-2022-jp -*-
+;;; skk-jisx0213.el --- SKK 用 JISX0213 文字コード関連プログラム -*- lexical-binding: t; coding: iso-2022-jp -*-
 
 ;; Copyright (C) 2000 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
@@ -28,20 +28,37 @@
 ;;; Code:
 
 (require 'skk)
+(require 'cl-lib)
+
+(defconst skk-jisx0213-target-charsets
+  ;; 実行時に存在する文字集合のリスト
+  (cl-remove-if-not #'charsetp
+                    '(japanese-jisx0213-a      ;2000年版 第1面追加分
+                      japanese-jisx0213-2      ;2000年版 第2面（面全部が追加分）
+                      japanese-jisx0213.2004-1 ;2004年版 改定・追加分
+                      japanese-jisx0213-b      ;補助漢字との重複考慮分
+                      )))
+
+(defconst skk-jisx0213--filter-regexp
+  (rx-to-string `(any ,@skk-jisx0213-target-charsets)))
+
+(defsubst skk-jisx0213--match-p (candidate)
+  "CANDIDATE が JIS X 0213 文字を含んでいれば非 nil を返す。"
+  (string-match-p skk-jisx0213--filter-regexp
+                  (if (consp candidate)
+                      (cdr candidate)
+                    candidate)))
 
 ;;;###autoload
 (defun skk-jisx0213-henkan-list-filter ()
-  ;; remove candidate that contains jisx0213 characters from
-  ;; SKK-HENKAN-LIST.
-  (let ((henkan-list (nthcdr skk-henkan-count skk-henkan-list))
-        e charset)
-    (while (setq e (car henkan-list))
-      (setq charset (find-charset-string (if (consp e) (cdr e) e)))
-      (if (or (memq 'japanese-jisx0213-1 charset)
-              (memq 'japanese-jisx0213-2 charset))
-          (setq skk-henkan-list (delq e skk-henkan-list)
-                henkan-list (delq e henkan-list))
-        (setq henkan-list (cdr henkan-list))))))
+  "JIS X 0213 文字を含む候補を `skk-henkan-list' から削除する。
+現在選択中のインデックス（`skk-henkan-count'）以降の候補が対象。"
+  (let ((unprocessed (nthcdr skk-henkan-count skk-henkan-list)))
+    (when unprocessed
+      (let ((filtered (cl-delete-if #'skk-jisx0213--match-p unprocessed)))
+        (if (zerop skk-henkan-count)
+            (setq skk-henkan-list filtered)
+          (setcdr (nthcdr (1- skk-henkan-count) skk-henkan-list) filtered))))))
 
 (provide 'skk-jisx0213)
 
