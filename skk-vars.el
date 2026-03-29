@@ -236,32 +236,42 @@ CODING が non-nil であれば、個人辞書に適用される CODING を返す
 ;;; skk-vars.el related.
 (defcustom skk-background-mode
   ;; from font-lock-make-faces of font-lock.el  Welcome!
+
+  ;; 非nil なら、それを最優先
   (or frame-background-mode
+
       (cond ((and window-system (x-display-color-p))
+             ;; A) GUI環境かつカラー表示が可能
              (let ((bg-resource (x-get-resource ".backgroundMode"
                                                 "BackgroundMode"))
                    (params (frame-parameters)))
                (cond (bg-resource
+                      ;; A-1) X リソースが存在すれは、確定
                       (intern (downcase bg-resource)))
 
                      ((and (eq system-type 'windows-nt)
                            (not (fboundp 'x-color-values)))
+                      ;; A-2) Windows かつ color-values が未定義なら
                       (if (string-match "light"
                                         (cdr (assq 'background-color params)))
                           'light
                         'dark))
 
                      ((not (null (cdr (assq 'background-mode params))))
-                      ;; Emacs20.x (Meadow)
+                      ;; A-3) Emacs20.x (Meadow)
                       (cdr (assq 'background-mode params)))
 
+                     ;; A-4) 動的判定
                      ((< (apply '+ (x-color-values
                                     (cdr (assq 'background-color params))))
                          (/ (apply '+ (x-color-values "white")) 3))
                       'dark)
 
+                     ;; A-5 最終的に上記以外
                      (t
                       'light))))
+
+            ;; B) TTY環境など
             (t
              nil)))
   "*SKK の標準のフェイス色を決めるための背景色に関する情報。
