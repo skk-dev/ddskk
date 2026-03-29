@@ -1,3 +1,7 @@
+2026-03-29  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+	* Version 17.2 Mena Released.
+	* Makefile, skk-version.el: Bump SKK version to 17.2.
+
 2020-09-06  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk.el (skk-henkan-show-candidates-buffer, skk-show-num-type-info): Remove code for window management.
